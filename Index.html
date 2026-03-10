@@ -1,59 +1,675 @@
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<title>Dar Al-Kalimah Card</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar Al-Kalimah - Kalicards</title>
+    <style>
+        :root {
+            --burgundy: #5D1828;
+            --gold: #C8A462;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0; /* Beige clair élégant */
+            --shadow: 0 20px 50px rgba(93, 24, 40, 0.08);
+            --shadow-hover: 0 25px 60px rgba(93, 24, 40, 0.12);
+        }
 
-body{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-background:#f5f5f5;
-font-family:Arial;
-}
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
 
-.card{
-width:700px;
-height:420px;
-background:white;
-border-radius:20px;
-border:2px solid #C8A462;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-}
+        body {
+            background-color: var(--bg-beige);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+            overflow-x: hidden;
+            color: var(--burgundy);
+        }
 
-.letter{
-font-size:200px;
-color:#5D1828;
-}
+        /* Typography */
+        .ar-text {
+            font-family: "Amiri", "Traditional Arabic", "Sakkal Majalla", "Arabic Typesetting", serif;
+            line-height: 1.2;
+        }
 
-</style>
+        .serif-text {
+            font-family: "Georgia", "Times New Roman", serif;
+        }
+
+        .burgundy { color: var(--burgundy); }
+        .gold { color: var(--gold); }
+
+        /* --- VIEWS --- */
+        .view {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- HOME SCREEN --- */
+        .home-container {
+            text-align: center;
+            background: var(--white);
+            padding: 60px 40px;
+            border-radius: 24px;
+            border: 1px solid var(--gold);
+            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold), var(--shadow);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .home-brand-ar {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .home-brand-la {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .home-divider {
+            width: 60px;
+            height: 2px;
+            background-color: var(--gold);
+            margin: 30px auto;
+        }
+
+        .app-title {
+            font-size: 2.2rem;
+            font-family: "Georgia", serif;
+            font-style: italic;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .home-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .home-subtitle.es {
+            opacity: 0.8;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .btn-start {
+            background-color: var(--burgundy);
+            color: var(--white);
+            border: 2px solid var(--burgundy);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-start:hover {
+            background-color: var(--white);
+            color: var(--burgundy);
+        }
+
+        /* --- CARD VIEW HEADER --- */
+        .card-view-header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--burgundy);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--gold);
+        }
+
+        /* --- FLASHCARD --- */
+        .scene {
+            width: 100%;
+            max-width: 800px;
+            height: 550px;
+            perspective: 2000px;
+            cursor: pointer;
+        }
+
+        .card-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            background-color: var(--white);
+            border-radius: 24px;
+            border: 1px solid var(--gold);
+            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold), var(--shadow);
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px;
+            overflow: hidden;
+        }
+
+        .face.back {
+            transform: rotateY(180deg);
+        }
+
+        /* Card Header */
+        .header {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-ar {
+            font-size: 2.4rem;
+            color: var(--burgundy);
+            font-weight: bold;
+            letter-spacing: 0px;
+            margin-bottom: 2px;
+        }
+
+        .header-la {
+            font-size: 1.05rem;
+            color: var(--burgundy);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .divider-main {
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 18px 0;
+            opacity: 0.8;
+        }
+
+        /* Front Face Layout */
+        .front-center {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px; /* Ajusté pour laisser place au bouton audio */
+        }
+
+        .main-letter {
+            font-size: 18rem; 
+            color: var(--burgundy);
+            font-weight: normal;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .letter-body {
+            line-height: 0.6; 
+            margin-bottom: 0;
+        }
+
+        .custom-dot {
+            width: 0.08em; 
+            height: 0.08em;
+            background-color: var(--burgundy);
+            border-radius: 50%;
+            margin-top: 0.04em;
+        }
+
+        /* Audio Button */
+        .btn-audio {
+            margin-top: 30px;
+            background: var(--bg-beige);
+            border: 1px solid var(--gold);
+            color: var(--burgundy);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
+            transition: all 0.3s ease;
+            position: absolute;
+            bottom: 120px;
+        }
+
+        .btn-audio:hover {
+            transform: scale(1.1);
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        /* Front Bottom */
+        .front-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 80px;
+            padding-bottom: 10px;
+        }
+
+        .lang-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+
+        .lang-text {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .lang-prefix {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .lang-word {
+            color: var(--burgundy);
+            font-weight: 500;
+        }
+
+        .divider-small {
+            width: 55px; 
+            height: 1px;
+            background-color: var(--gold);
+            opacity: 0.6;
+            transform: scaleY(0.5); 
+        }
+
+        /* Back Face Layout */
+        .reading-instruction {
+            text-align: center;
+            font-size: 1.05rem;
+            color: var(--burgundy);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .pedagogical-grid {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .conn-form {
+            font-size: 3.8rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .conn-circle {
+            display: inline-block;
+            font-size: 0.85em; 
+            transform: translateY(0.12em); 
+        }
+        
+        .conn-circle.right { margin-left: -0.1em; z-index: 1; }
+        .conn-circle.left { margin-right: -0.1em; z-index: 1; }
+
+        .divider-col {
+            width: 60px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 20px 0;
+            opacity: 0.6;
+        }
+
+        .ar-word {
+            font-size: 3.8rem;
+            font-weight: bold;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .bottom-wrap {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .phonetics {
+            display: flex;
+            gap: 15px;
+            font-size: 1.05rem;
+            white-space: nowrap;
+            margin-bottom: 20px;
+        }
+
+        .col-title {
+            color: var(--burgundy);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.9;
+        }
+
+        /* Toast Alert */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--burgundy);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: bottom 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1000;
+            text-align: center;
+            border: 1px solid var(--gold);
+        }
+
+        .toast.show {
+            bottom: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .scene { height: 600px; }
+            .face { padding: 30px 20px; }
+            .front-center { padding-bottom: 100px; }
+            .btn-audio { bottom: 110px; }
+            .front-bottom { gap: 40px; }
+            .pedagogical-grid { gap: 10px; padding: 0; }
+            .ar-word { font-size: 3rem; height: 60px; margin-bottom: 15px; }
+            .conn-form { font-size: 3rem; height: 60px; }
+            .divider-col { margin: 15px 0; }
+            .phonetics { flex-direction: column; gap: 5px; font-size: 0.95rem; margin-bottom: 15px; }
+            .header-ar, .home-brand-ar { font-size: 2.2rem; }
+            .main-letter { font-size: 15rem; }
+            .home-container { padding: 40px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .scene { height: 650px; }
+            .front-center { padding-bottom: 80px; }
+            .btn-audio { bottom: 100px; width: 45px; height: 45px; font-size: 1.2rem; }
+            .main-letter { font-size: 12rem; }
+            .front-bottom { gap: 20px; }
+            .lang-block { min-width: 100px; }
+            .ar-word { font-size: 2.4rem; height: 50px; margin-bottom: 10px; }
+            .conn-form { font-size: 2.4rem; height: 50px; }
+            .col-title { font-size: 0.75rem; letter-spacing: 1px; }
+            .header-la, .home-brand-la { font-size: 0.9rem; letter-spacing: 2px; }
+            .app-title { font-size: 1.8rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
+    <div id="home-view" class="view">
+        <div class="home-container">
+            <div class="home-brand-ar ar-text">دار الكلمة</div>
+            <div class="home-brand-la serif-text">Dar Al-Kalimah</div>
+            
+            <div class="home-divider"></div>
+            
+            <div class="app-title">Kalicards</div>
+            
+            <div class="home-subtitle">Écoute, observe et découvre les lettres arabes.</div>
+            <div class="home-subtitle es">Escucha, observa y descubre las letras árabes.</div>
+            
+            <button class="btn-start" onclick="showFlashcard()">Commencer / Empezar</button>
+        </div>
+    </div>
 
-<div class="letter" id="letter">
-ب
-</div>
+    <div id="card-view" class="view hidden">
+        <div class="card-view-header">
+            <button class="btn-back" onclick="showHome()">
+                <span>&larr;</span> Retour / Volver
+            </button>
+        </div>
 
-</div>
+        <div class="scene">
+            <div class="card-container" id="flashcard">
+                
+                <div class="face front">
+                    <div class="header">
+                        <div class="header-ar ar-text" dir="rtl">دار الكلمة</div>
+                        <div class="header-la serif-text">Dar Al-Kalimah</div>
+                        <div class="divider-main"></div>
+                    </div>
+                    
+                    <div class="front-center">
+                        <div class="main-letter ar-text" dir="rtl">
+                            <div class="letter-body">ٮ</div>
+                            <div class="custom-dot"></div>
+                        </div>
+                        <button class="btn-audio" onclick="playAudio(event)" title="Écouter / Escuchar">🎙️</button>
+                    </div>
+                    
+                    <div class="front-bottom">
+                        <div class="lang-block">
+                            <div class="lang-text">
+                                <span class="lang-prefix">Fr :</span> 
+                                <span class="lang-word">Baa</span>
+                            </div>
+                            <div class="divider-small"></div>
+                        </div>
+                        <div class="lang-block">
+                            <div class="lang-text">
+                                <span class="lang-prefix">Es :</span> 
+                                <span class="lang-word">Baa</span>
+                            </div>
+                            <div class="divider-small"></div>
+                        </div>
+                    </div>
+                </div>
 
-<script>
+                <div class="face back">
+                    <div class="header">
+                        <div class="header-ar ar-text" dir="rtl">دار الكلمة</div>
+                        <div class="header-la serif-text">Dar Al-Kalimah</div>
+                        <div class="divider-main"></div>
+                    </div>
 
-const params = new URLSearchParams(window.location.search);
-const letter = params.get("letter");
+                    <div class="reading-instruction">
+                        &larr; Lecture arabe / Lectura árabe
+                        <div class="divider-main" style="margin: 15px 0 0 0;"></div>
+                    </div>
 
-if(letter){
-document.getElementById("letter").innerText = letter;
-}
+                    <div class="pedagogical-grid">
+                        
+                        <div class="col">
+                            <div class="conn-form ar-text" dir="rtl">
+                                <span class="gold conn-circle right">◌</span><span class="burgundy">&zwj;ـب</span>
+                            </div>
+                            <div class="divider-col"></div>
+                            <div class="ar-word ar-text" dir="rtl">
+                                <span class="burgundy">كِتَا</span><span class="gold">ب</span>
+                            </div>
+                            <div class="bottom-wrap">
+                                <div class="phonetics">
+                                    <div><span class="lang-prefix">Fr :</span> <span class="lang-word">Kitaab</span></div>
+                                    <div><span class="lang-prefix">Es :</span> <span class="lang-word">Kitaab</span></div>
+                                </div>
+                                <div class="col-title">Fin / Final</div>
+                            </div>
+                        </div>
 
-</script>
+                        <div class="col">
+                            <div class="conn-form ar-text" dir="rtl">
+                                <span class="gold conn-circle right">◌</span><span class="burgundy">&zwj;ـبـ&zwj;</span><span class="gold conn-circle left">◌</span>
+                            </div>
+                            <div class="divider-col"></div>
+                            <div class="ar-word ar-text" dir="rtl">
+                                <span class="burgundy">كَ&zwj;</span><span class="gold">&zwj;بِ&zwj;</span><span class="burgundy">&zwj;ير</span>
+                            </div>
+                            <div class="bottom-wrap">
+                                <div class="phonetics">
+                                    <div><span class="lang-prefix">Fr :</span> <span class="lang-word">Kabiir</span></div>
+                                    <div><span class="lang-prefix">Es :</span> <span class="lang-word">Kabiir</span></div>
+                                </div>
+                                <div class="col-title">Milieu / Medio</div>
+                            </div>
+                        </div>
 
+                        <div class="col">
+                            <div class="conn-form ar-text" dir="rtl">
+                                <span class="burgundy">بـ&zwj;</span><span class="gold conn-circle left">◌</span>
+                            </div>
+                            <div class="divider-col"></div>
+                            <div class="ar-word ar-text" dir="rtl">
+                                <span class="gold">بَ&zwj;</span><span class="burgundy">&zwj;اب</span>
+                            </div>
+                            <div class="bottom-wrap">
+                                <div class="phonetics">
+                                    <div><span class="lang-prefix">Fr :</span> <span class="lang-word">Baab</span></div>
+                                    <div><span class="lang-prefix">Es :</span> <span class="lang-word">Baab</span></div>
+                                </div>
+                                <div class="col-title">Début / Inicio</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        Audio non disponible pour le moment.<br>
+        <span style="font-size: 0.85em; opacity: 0.9;">Audio no disponible por el momento.</span>
+    </div>
+
+    <script>
+        // Data structure ready for future audio files
+        const cardData = {
+            audio: "" // Leave empty for now
+        };
+
+        // DOM Elements
+        const homeView = document.getElementById('home-view');
+        const cardView = document.getElementById('card-view');
+        const flashcard = document.getElementById('flashcard');
+        const toast = document.getElementById('toast');
+        let toastTimeout;
+
+        // Navigation Functions
+        function showFlashcard() {
+            homeView.classList.add('hidden');
+            cardView.classList.remove('hidden');
+            // Ensure card starts on front face
+            flashcard.classList.remove('flipped');
+        }
+
+        function showHome() {
+            cardView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+        }
+
+        // Card Flip Interaction
+        flashcard.addEventListener('click', () => {
+            flashcard.classList.toggle('flipped');
+        });
+
+        // Audio Button Interaction
+        function playAudio(event) {
+            // Prevent the card from flipping when clicking the audio button
+            event.stopPropagation();
+            
+            if (cardData.audio && cardData.audio !== "") {
+                // Future logic to play audio
+                // const audio = new Audio(cardData.audio);
+                // audio.play();
+            } else {
+                showToast();
+            }
+        }
+
+        // Toast Notification Function
+        function showToast() {
+            clearTimeout(toastTimeout);
+            toast.classList.add('show');
+            
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        }
+    </script>
 </body>
 </html>
