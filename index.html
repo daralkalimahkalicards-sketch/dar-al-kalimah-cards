@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
@@ -284,11 +283,13 @@
       box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
       transition: all 0.3s ease;
       position: absolute;
-      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -8px;
     }
 
     .btn-audio:hover {
-      transform: scale(1.08);
+      transform: translateX(-50%) scale(1.08);
       background: var(--gold);
       color: var(--white);
     }
@@ -375,6 +376,15 @@
       color: var(--burgundy);
       gap: 2px;
       unicode-bidi: plaintext;
+      position: relative;
+      padding-inline: 18px;
+    }
+
+    .conn-dot {
+      color: var(--gold);
+      font-size: 0.9rem;
+      line-height: 1;
+      vertical-align: middle;
     }
 
     .divider-col {
@@ -458,7 +468,7 @@
       .face { padding: 30px 20px; }
       .front-center { padding-bottom: 110px; }
       .main-letter { font-size: 13rem; }
-      .btn-audio { bottom: 35px; }
+      .btn-audio { bottom: -6px; }
       .pedagogical-grid { gap: 10px; padding: 0; }
       .ar-word { font-size: 2.7rem; height: 65px; margin-bottom: 14px; }
       .conn-form { font-size: 2.45rem; height: 58px; }
@@ -473,7 +483,12 @@
     @media (max-width: 480px) {
       .scene { height: 730px; }
       .main-letter { font-size: 10rem; }
-      .btn-audio { width: 45px; height: 45px; font-size: 1.2rem; }
+      .btn-audio {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+        bottom: -4px;
+      }
       .ar-word { font-size: 2.1rem; height: 54px; }
       .conn-form { font-size: 1.95rem; height: 50px; }
       .col-title { font-size: 0.75rem; letter-spacing: 1px; }
@@ -487,7 +502,6 @@
 </head>
 <body>
 
-  <!-- HOME -->
   <div id="home-view" class="view">
     <div class="home-container">
       <div class="home-brand-ar ar-text">دار الكلمة</div>
@@ -500,7 +514,6 @@
     </div>
   </div>
 
-  <!-- CARD -->
   <div id="card-view" class="view hidden">
     <div class="card-view-header">
       <button class="btn-back" onclick="showHome()">
@@ -517,7 +530,6 @@
     <div class="scene">
       <div class="card-container" id="flashcard">
 
-        <!-- FRONT -->
         <div class="face front">
           <div class="header">
             <div class="header-ar ar-text" dir="rtl">دار الكلمة</div>
@@ -549,7 +561,6 @@
           </div>
         </div>
 
-        <!-- BACK -->
         <div class="face back">
           <div class="header">
             <div class="header-ar ar-text" dir="rtl">دار الكلمة</div>
@@ -564,7 +575,6 @@
 
           <div class="pedagogical-grid">
 
-            <!-- FINAL -->
             <div class="col">
               <div class="conn-form ar-text" id="final-form"></div>
               <div class="divider-col"></div>
@@ -578,7 +588,6 @@
               </div>
             </div>
 
-            <!-- MIDDLE -->
             <div class="col">
               <div class="conn-form ar-text" id="middle-form"></div>
               <div class="divider-col"></div>
@@ -592,7 +601,6 @@
               </div>
             </div>
 
-            <!-- INITIAL -->
             <div class="col">
               <div class="conn-form ar-text" id="initial-form"></div>
               <div class="divider-col"></div>
@@ -619,6 +627,8 @@
   </div>
 
   <script>
+    const goldDot = '<span class="conn-dot">◌</span>';
+
     const cards = [
       {
         letter: "أ",
@@ -629,11 +639,11 @@
         initialWord: "أسد",
         initialFr: "Asad",
         initialEs: "Asad",
-        middleForm: "ـأ",
+        middleForm: goldDot + "ـأ",
         middleWord: "كأس",
         middleFr: "Ka's",
         middleEs: "Ka's",
-        finalForm: "ـأ",
+        finalForm: goldDot + "ـأ",
         finalWord: "ملجأ",
         finalFr: "Malja'",
         finalEs: "Malya'"
@@ -643,15 +653,15 @@
         fr: "Baa",
         es: "Baa",
         audio: "",
-        initialForm: "بـ",
+        initialForm: "بـ" + goldDot,
         initialWord: "باب",
         initialFr: "Baab",
         initialEs: "Baab",
-        middleForm: "ـبـ",
+        middleForm: goldDot + "ـبـ" + goldDot,
         middleWord: "كبير",
         middleFr: "Kabiir",
         middleEs: "Kabiir",
-        finalForm: "ـب",
+        finalForm: goldDot + "ـب",
         finalWord: "كتاب",
         finalFr: "Kitaab",
         finalEs: "Kitaab"
@@ -661,15 +671,15 @@
         fr: "Taa",
         es: "Taa",
         audio: "",
-        initialForm: "تـ",
+        initialForm: "تـ" + goldDot,
         initialWord: "تمر",
         initialFr: "Tamr",
         initialEs: "Tamr",
-        middleForm: "ـتـ",
+        middleForm: goldDot + "ـتـ" + goldDot,
         middleWord: "كتاب",
         middleFr: "Kitaab",
         middleEs: "Kitaab",
-        finalForm: "ـت",
+        finalForm: goldDot + "ـت",
         finalWord: "بيت",
         finalFr: "Bayt",
         finalEs: "Bayt"
@@ -679,15 +689,15 @@
         fr: "Thaa",
         es: "Zaa",
         audio: "",
-        initialForm: "ثـ",
+        initialForm: "ثـ" + goldDot,
         initialWord: "ثوب",
         initialFr: "Thawb",
         initialEs: "Zawb",
-        middleForm: "ـثـ",
+        middleForm: goldDot + "ـثـ" + goldDot,
         middleWord: "مثل",
         middleFr: "Mithl",
         middleEs: "Mizl",
-        finalForm: "ـث",
+        finalForm: goldDot + "ـث",
         finalWord: "بحث",
         finalFr: "Bahth",
         finalEs: "Bahz"
@@ -697,15 +707,15 @@
         fr: "Jim",
         es: "Yim",
         audio: "",
-        initialForm: "جـ",
+        initialForm: "جـ" + goldDot,
         initialWord: "جمل",
         initialFr: "Jamal",
         initialEs: "Yamal",
-        middleForm: "ـجـ",
+        middleForm: goldDot + "ـجـ" + goldDot,
         middleWord: "رجل",
         middleFr: "Rajul",
         middleEs: "Rayul",
-        finalForm: "ـج",
+        finalForm: goldDot + "ـج",
         finalWord: "برج",
         finalFr: "Burj",
         finalEs: "Bury"
@@ -715,15 +725,15 @@
         fr: "Haa",
         es: "Ha",
         audio: "",
-        initialForm: "حـ",
+        initialForm: "حـ" + goldDot,
         initialWord: "حبل",
         initialFr: "Habl",
         initialEs: "Habl",
-        middleForm: "ـحـ",
+        middleForm: goldDot + "ـحـ" + goldDot,
         middleWord: "بحر",
         middleFr: "Bahr",
         middleEs: "Bahr",
-        finalForm: "ـح",
+        finalForm: goldDot + "ـح",
         finalWord: "مفتاح",
         finalFr: "Miftaah",
         finalEs: "Miftaah"
@@ -733,15 +743,15 @@
         fr: "Khaa",
         es: "Ja",
         audio: "",
-        initialForm: "خـ",
+        initialForm: "خـ" + goldDot,
         initialWord: "خبز",
         initialFr: "Khubz",
         initialEs: "Jubz",
-        middleForm: "ـخـ",
+        middleForm: goldDot + "ـخـ" + goldDot,
         middleWord: "نخل",
         middleFr: "Nakhl",
         middleEs: "Najl",
-        finalForm: "ـخ",
+        finalForm: goldDot + "ـخ",
         finalWord: "مطبخ",
         finalFr: "Matbakh",
         finalEs: "Matbaj"
@@ -755,11 +765,11 @@
         initialWord: "دب",
         initialFr: "Dubb",
         initialEs: "Dubb",
-        middleForm: "ـد",
+        middleForm: goldDot + "ـد",
         middleWord: "مدرسة",
         middleFr: "Madrasa",
         middleEs: "Madrasa",
-        finalForm: "ـد",
+        finalForm: goldDot + "ـد",
         finalWord: "ولد",
         finalFr: "Walad",
         finalEs: "Walad"
@@ -773,11 +783,11 @@
         initialWord: "ذهب",
         initialFr: "Dhahab",
         initialEs: "Dhahab",
-        middleForm: "ـذ",
+        middleForm: goldDot + "ـذ",
         middleWord: "هذا",
         middleFr: "Haadha",
         middleEs: "Haadha",
-        finalForm: "ـذ",
+        finalForm: goldDot + "ـذ",
         finalWord: "لذيذ",
         finalFr: "Ladhiidh",
         finalEs: "Ladhiidh"
@@ -791,11 +801,11 @@
         initialWord: "رجل",
         initialFr: "Rajul",
         initialEs: "Rayul",
-        middleForm: "ـر",
+        middleForm: goldDot + "ـر",
         middleWord: "وردة",
         middleFr: "Warda",
         middleEs: "Warda",
-        finalForm: "ـر",
+        finalForm: goldDot + "ـر",
         finalWord: "قمر",
         finalFr: "Qamar",
         finalEs: "Qamar"
@@ -809,11 +819,11 @@
         initialWord: "زيت",
         initialFr: "Zayt",
         initialEs: "Zayt",
-        middleForm: "ـز",
+        middleForm: goldDot + "ـز",
         middleWord: "موزة",
         middleFr: "Mawza",
         middleEs: "Mawza",
-        finalForm: "ـز",
+        finalForm: goldDot + "ـز",
         finalWord: "خبز",
         finalFr: "Khubz",
         finalEs: "Jubz"
@@ -823,15 +833,15 @@
         fr: "Siin",
         es: "Siin",
         audio: "",
-        initialForm: "سـ",
+        initialForm: "سـ" + goldDot,
         initialWord: "سمك",
         initialFr: "Samak",
         initialEs: "Samak",
-        middleForm: "ـسـ",
+        middleForm: goldDot + "ـسـ" + goldDot,
         middleWord: "مسجد",
         middleFr: "Masjid",
         middleEs: "Masyid",
-        finalForm: "ـس",
+        finalForm: goldDot + "ـس",
         finalWord: "درس",
         finalFr: "Dars",
         finalEs: "Dars"
@@ -841,15 +851,15 @@
         fr: "Shiin",
         es: "Shiin",
         audio: "",
-        initialForm: "شـ",
+        initialForm: "شـ" + goldDot,
         initialWord: "شمس",
         initialFr: "Shams",
         initialEs: "Shams",
-        middleForm: "ـشـ",
+        middleForm: goldDot + "ـشـ" + goldDot,
         middleWord: "مشمش",
         middleFr: "Mishmish",
         middleEs: "Mishmish",
-        finalForm: "ـش",
+        finalForm: goldDot + "ـش",
         finalWord: "عرش",
         finalFr: "Arsh",
         finalEs: "Arsh"
@@ -859,15 +869,15 @@
         fr: "Saad",
         es: "Sad",
         audio: "",
-        initialForm: "صـ",
+        initialForm: "صـ" + goldDot,
         initialWord: "صبر",
         initialFr: "Sabr",
         initialEs: "Sabr",
-        middleForm: "ـصـ",
+        middleForm: goldDot + "ـصـ" + goldDot,
         middleWord: "بصير",
         middleFr: "Basiir",
         middleEs: "Basiir",
-        finalForm: "ـص",
+        finalForm: goldDot + "ـص",
         finalWord: "نص",
         finalFr: "Nass",
         finalEs: "Nass"
@@ -877,15 +887,15 @@
         fr: "Daad",
         es: "Dad",
         audio: "",
-        initialForm: "ضـ",
+        initialForm: "ضـ" + goldDot,
         initialWord: "ضوء",
         initialFr: "Daw'",
         initialEs: "Daw'",
-        middleForm: "ـضـ",
+        middleForm: goldDot + "ـضـ" + goldDot,
         middleWord: "مريض",
         middleFr: "Mariid",
         middleEs: "Mariid",
-        finalForm: "ـض",
+        finalForm: goldDot + "ـض",
         finalWord: "أرض",
         finalFr: "Ard",
         finalEs: "Ard"
@@ -895,15 +905,15 @@
         fr: "Taa",
         es: "Ta",
         audio: "",
-        initialForm: "طـ",
+        initialForm: "طـ" + goldDot,
         initialWord: "طين",
         initialFr: "Tiin",
         initialEs: "Tiin",
-        middleForm: "ـطـ",
+        middleForm: goldDot + "ـطـ" + goldDot,
         middleWord: "مطر",
         middleFr: "Matar",
         middleEs: "Matar",
-        finalForm: "ـط",
+        finalForm: goldDot + "ـط",
         finalWord: "قط",
         finalFr: "Qitt",
         finalEs: "Qitt"
@@ -913,15 +923,15 @@
         fr: "Zaa",
         es: "Za",
         audio: "",
-        initialForm: "ظـ",
+        initialForm: "ظـ" + goldDot,
         initialWord: "ظل",
         initialFr: "Zill",
         initialEs: "Zill",
-        middleForm: "ـظـ",
+        middleForm: goldDot + "ـظـ" + goldDot,
         middleWord: "عظيم",
         middleFr: "Aziim",
         middleEs: "Aziim",
-        finalForm: "ـظ",
+        finalForm: goldDot + "ـظ",
         finalWord: "حظ",
         finalFr: "Hazz",
         finalEs: "Hazz"
@@ -931,15 +941,15 @@
         fr: "Ayn",
         es: "Ayn",
         audio: "",
-        initialForm: "عـ",
+        initialForm: "عـ" + goldDot,
         initialWord: "عين",
         initialFr: "Ayn",
         initialEs: "Ayn",
-        middleForm: "ـعـ",
+        middleForm: goldDot + "ـعـ" + goldDot,
         middleWord: "ملعب",
         middleFr: "Mal'ab",
         middleEs: "Mal'ab",
-        finalForm: "ـع",
+        finalForm: goldDot + "ـع",
         finalWord: "جمع",
         finalFr: "Jam'",
         finalEs: "Yam'"
@@ -949,15 +959,15 @@
         fr: "Ghayn",
         es: "Ghain",
         audio: "",
-        initialForm: "غـ",
+        initialForm: "غـ" + goldDot,
         initialWord: "غيم",
         initialFr: "Ghaym",
         initialEs: "Ghaim",
-        middleForm: "ـغـ",
+        middleForm: goldDot + "ـغـ" + goldDot,
         middleWord: "مغرب",
         middleFr: "Maghrib",
         middleEs: "Maghrib",
-        finalForm: "ـغ",
+        finalForm: goldDot + "ـغ",
         finalWord: "صبغ",
         finalFr: "Sibgh",
         finalEs: "Sibgh"
@@ -967,15 +977,15 @@
         fr: "Faa",
         es: "Faa",
         audio: "",
-        initialForm: "فـ",
+        initialForm: "فـ" + goldDot,
         initialWord: "فيل",
         initialFr: "Fiil",
         initialEs: "Fiil",
-        middleForm: "ـفـ",
+        middleForm: goldDot + "ـفـ" + goldDot,
         middleWord: "مفتاح",
         middleFr: "Miftaah",
         middleEs: "Miftah",
-        finalForm: "ـف",
+        finalForm: goldDot + "ـف",
         finalWord: "صيف",
         finalFr: "Sayf",
         finalEs: "Saif"
@@ -985,15 +995,15 @@
         fr: "Qaaf",
         es: "Qaf",
         audio: "",
-        initialForm: "قـ",
+        initialForm: "قـ" + goldDot,
         initialWord: "قمر",
         initialFr: "Qamar",
         initialEs: "Qamar",
-        middleForm: "ـقـ",
+        middleForm: goldDot + "ـقـ" + goldDot,
         middleWord: "بقرة",
         middleFr: "Baqara",
         middleEs: "Baqara",
-        finalForm: "ـق",
+        finalForm: goldDot + "ـق",
         finalWord: "سوق",
         finalFr: "Suuq",
         finalEs: "Suq"
@@ -1003,15 +1013,15 @@
         fr: "Kaaf",
         es: "Kaf",
         audio: "",
-        initialForm: "كـ",
+        initialForm: "كـ" + goldDot,
         initialWord: "كأس",
         initialFr: "Ka's",
         initialEs: "Ka's",
-        middleForm: "ـكـ",
+        middleForm: goldDot + "ـكـ" + goldDot,
         middleWord: "كتاب",
         middleFr: "Kitaab",
         middleEs: "Kitab",
-        finalForm: "ـك",
+        finalForm: goldDot + "ـك",
         finalWord: "سمك",
         finalFr: "Samak",
         finalEs: "Samak"
@@ -1021,15 +1031,15 @@
         fr: "Laam",
         es: "Lam",
         audio: "",
-        initialForm: "لـ",
+        initialForm: "لـ" + goldDot,
         initialWord: "لبن",
         initialFr: "Laban",
         initialEs: "Laban",
-        middleForm: "ـلـ",
+        middleForm: goldDot + "ـلـ" + goldDot,
         middleWord: "قلم",
         middleFr: "Qalam",
         middleEs: "Qalam",
-        finalForm: "ـل",
+        finalForm: goldDot + "ـل",
         finalWord: "جبل",
         finalFr: "Jabal",
         finalEs: "Yabal"
@@ -1039,15 +1049,15 @@
         fr: "Miim",
         es: "Mim",
         audio: "",
-        initialForm: "مـ",
+        initialForm: "مـ" + goldDot,
         initialWord: "ماء",
         initialFr: "Ma'",
         initialEs: "Ma'",
-        middleForm: "ـمـ",
+        middleForm: goldDot + "ـمـ" + goldDot,
         middleWord: "سمك",
         middleFr: "Samak",
         middleEs: "Samak",
-        finalForm: "ـم",
+        finalForm: goldDot + "ـم",
         finalWord: "قلم",
         finalFr: "Qalam",
         finalEs: "Qalam"
@@ -1057,15 +1067,15 @@
         fr: "Nuun",
         es: "Nun",
         audio: "",
-        initialForm: "نـ",
+        initialForm: "نـ" + goldDot,
         initialWord: "نجم",
         initialFr: "Najm",
         initialEs: "Naym",
-        middleForm: "ـنـ",
+        middleForm: goldDot + "ـنـ" + goldDot,
         middleWord: "عنب",
         middleFr: "Inab",
         middleEs: "Inab",
-        finalForm: "ـن",
+        finalForm: goldDot + "ـن",
         finalWord: "عين",
         finalFr: "Ayn",
         finalEs: "Ayn"
@@ -1075,15 +1085,15 @@
         fr: "Haa",
         es: "Ha",
         audio: "",
-        initialForm: "هـ",
+        initialForm: "هـ" + goldDot,
         initialWord: "هلال",
         initialFr: "Hilaal",
         initialEs: "Hilal",
-        middleForm: "ـهـ",
+        middleForm: goldDot + "ـهـ" + goldDot,
         middleWord: "نهر",
         middleFr: "Nahr",
         middleEs: "Nahr",
-        finalForm: "ـه",
+        finalForm: goldDot + "ـه",
         finalWord: "وجه",
         finalFr: "Wajh",
         finalEs: "Wayh"
@@ -1097,11 +1107,11 @@
         initialWord: "ورد",
         initialFr: "Ward",
         initialEs: "Ward",
-        middleForm: "ـو",
+        middleForm: goldDot + "ـو",
         middleWord: "قوس",
         middleFr: "Qaws",
         middleEs: "Qaws",
-        finalForm: "ـو",
+        finalForm: goldDot + "ـو",
         finalWord: "ضوء",
         finalFr: "Daw'",
         finalEs: "Daw'"
@@ -1111,15 +1121,15 @@
         fr: "Yaa",
         es: "Ya",
         audio: "",
-        initialForm: "يـ",
+        initialForm: "يـ" + goldDot,
         initialWord: "يد",
         initialFr: "Yad",
         initialEs: "Yad",
-        middleForm: "ـيـ",
+        middleForm: goldDot + "ـيـ" + goldDot,
         middleWord: "بيت",
         middleFr: "Bayt",
         middleEs: "Bait",
-        finalForm: "ـي",
+        finalForm: goldDot + "ـي",
         finalWord: "كرسي",
         finalFr: "Kursii",
         finalEs: "Kursi"
@@ -1163,17 +1173,17 @@
       document.getElementById("front-fr").textContent = card.fr;
       document.getElementById("front-es").textContent = card.es;
 
-      document.getElementById("initial-form").textContent = card.initialForm;
+      document.getElementById("initial-form").innerHTML = card.initialForm;
       document.getElementById("initial-word").textContent = card.initialWord;
       document.getElementById("initial-fr").textContent = card.initialFr;
       document.getElementById("initial-es").textContent = card.initialEs;
 
-      document.getElementById("middle-form").textContent = card.middleForm;
+      document.getElementById("middle-form").innerHTML = card.middleForm;
       document.getElementById("middle-word").textContent = card.middleWord;
       document.getElementById("middle-fr").textContent = card.middleFr;
       document.getElementById("middle-es").textContent = card.middleEs;
 
-      document.getElementById("final-form").textContent = card.finalForm;
+      document.getElementById("final-form").innerHTML = card.finalForm;
       document.getElementById("final-word").textContent = card.finalWord;
       document.getElementById("final-fr").textContent = card.finalFr;
       document.getElementById("final-es").textContent = card.finalEs;
