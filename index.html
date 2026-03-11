@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,6 +35,8 @@
 
     .ar{
       font-family:"Amiri","Traditional Arabic","Sakkal Majalla","Arabic Typesetting",serif;
+      direction:rtl;
+      unicode-bidi:isolate;
     }
 
     .screen{
@@ -48,7 +49,7 @@
     .intro-card,
     .face{
       width:100%;
-      max-width:980px;
+      max-width:1020px;
       background:var(--white);
       border:1px solid var(--gold);
       border-radius:24px;
@@ -75,6 +76,7 @@
       letter-spacing:4px;
       text-transform:uppercase;
       font-size:1.05rem;
+      font-family:"Georgia","Times New Roman",serif;
     }
 
     .divider{
@@ -129,7 +131,7 @@
 
     .app-wrap{
       width:100%;
-      max-width:980px;
+      max-width:1020px;
     }
 
     .topbar{
@@ -169,7 +171,7 @@
 
     .scene{
       width:100%;
-      height:650px;
+      height:680px;
       perspective:1800px;
     }
 
@@ -241,7 +243,6 @@
     .main-letter{
       font-size:14rem;
       line-height:1;
-      direction:rtl;
       text-align:center;
     }
 
@@ -268,26 +269,31 @@
     }
 
     .front-bottom{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-      align-items:start;
-      text-align:center;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:28px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      padding-bottom:4px;
     }
 
     .phon-card{
+      min-width:250px;
       display:flex;
       flex-direction:column;
       align-items:center;
       gap:8px;
+      text-align:center;
     }
 
     .phon-line{
       font-size:.98rem;
       line-height:1.4;
+      white-space:nowrap;
     }
 
-    .phon-label{
+    .label{
       color:var(--gold);
       font-weight:700;
     }
@@ -307,43 +313,53 @@
       margin-bottom:12px;
     }
 
-    .grid{
-      flex:1;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
+    .back-scroll{
       width:100%;
-      text-align:center;
-      align-items:start;
+      overflow-x:auto;
+      overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:6px;
+    }
+
+    .back-row{
+      display:flex;
+      flex-wrap:nowrap;
+      gap:18px;
+      min-width:max-content;
+      justify-content:flex-start;
+      align-items:stretch;
     }
 
     .col{
+      flex:0 0 280px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:flex-start;
-      min-width:0;
+      text-align:center;
+      min-width:280px;
     }
 
     .conn-form{
-      min-height:54px;
+      min-height:58px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:2.5rem;
-      direction:ltr;
-      unicode-bidi:bidi-override;
+      font-size:2.7rem;
       line-height:1;
       white-space:nowrap;
+      direction:ltr;
+      unicode-bidi:bidi-override;
+      color:var(--burgundy);
     }
 
     .conn-circle{
       color:var(--gold);
-      font-size:.78em;
-      margin:0 -.05em;
+      font-size:.76em;
       line-height:1;
       position:relative;
-      top:-0.02em;
+      top:-.02em;
+      margin:0 -.04em;
     }
 
     .col-divider{
@@ -355,13 +371,12 @@
     }
 
     .word-ar{
-      min-height:68px;
+      min-height:72px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:2.7rem;
+      font-size:2.8rem;
       font-weight:700;
-      direction:rtl;
       text-align:center;
       line-height:1.2;
     }
@@ -375,6 +390,7 @@
       line-height:1.35;
       margin-bottom:14px;
       text-align:center;
+      white-space:nowrap;
     }
 
     .pos-label{
@@ -407,53 +423,13 @@
 
     @media (max-width: 900px){
       .scene{height:720px;}
-      .grid{
-        grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:12px;
-      }
-      .word-ar{
-        font-size:2.2rem;
-        min-height:56px;
-      }
-      .conn-form{
-        font-size:2rem;
-        min-height:46px;
-      }
-      .word-phon{
-        font-size:.8rem;
-      }
-      .pos-label{
-        font-size:.72rem;
-      }
-    }
-
-    @media (max-width: 768px){
-      .face{padding:28px 18px;}
-      .main-letter{font-size:10rem;}
+      .main-letter{font-size:11rem;}
       .front-center{padding-bottom:96px;}
-      .front-bottom{
-        grid-template-columns:1fr 1fr;
-        gap:14px;
-      }
-      .grid{
-        grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:8px;
-      }
-      .word-ar{
-        font-size:1.8rem;
-        min-height:44px;
-      }
-      .conn-form{
-        font-size:1.65rem;
-        min-height:38px;
-      }
-      .word-phon{
-        font-size:.72rem;
-      }
-      .pos-label{
-        font-size:.64rem;
-        letter-spacing:.4px;
-      }
+      .col{flex-basis:240px; min-width:240px;}
+      .conn-form{font-size:2.15rem; min-height:46px;}
+      .word-ar{font-size:2.1rem; min-height:56px;}
+      .word-phon{font-size:.8rem;}
+      .pos-label{font-size:.72rem;}
     }
 
     @media (max-width: 480px){
@@ -463,24 +439,14 @@
       .title{font-size:1.7rem;}
       .main-letter{font-size:8rem;}
       .audio-btn{width:44px;height:44px;font-size:1.15rem;}
-      .grid{
-        grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:6px;
-      }
-      .word-ar{
-        font-size:1.55rem;
-        min-height:38px;
-      }
-      .conn-form{
-        font-size:1.45rem;
-        min-height:34px;
-      }
-      .word-phon{
-        font-size:.66rem;
-      }
-      .pos-label{
-        font-size:.58rem;
-      }
+      .front-bottom{gap:14px;}
+      .phon-card{min-width:180px;}
+      .phon-line{font-size:.82rem;}
+      .col{flex-basis:210px; min-width:210px;}
+      .conn-form{font-size:1.8rem; min-height:38px;}
+      .word-ar{font-size:1.7rem; min-height:42px;}
+      .word-phon{font-size:.68rem;}
+      .pos-label{font-size:.6rem;}
     }
   </style>
 </head>
@@ -529,7 +495,7 @@
             <div class="front-bottom">
               <div class="phon-card">
                 <div class="phon-line">
-                  <span class="phon-label">Phonétique FR :</span>
+                  <span class="label">Phonétique FR :</span>
                   <span id="frontPhonFr">Alif hamza</span>
                 </div>
                 <div class="small-divider"></div>
@@ -537,7 +503,7 @@
 
               <div class="phon-card">
                 <div class="phon-line">
-                  <span class="phon-label">Fonética ES :</span>
+                  <span class="label">Fonética ES :</span>
                   <span id="frontPhonEs">Alif hamza</span>
                 </div>
                 <div class="small-divider"></div>
@@ -555,38 +521,40 @@
 
             <div class="reading-title">Lecture arabe / Lectura árabe</div>
 
-            <div class="grid">
-              <div class="col">
-                <div class="conn-form ar" id="initialForm"></div>
-                <div class="col-divider"></div>
-                <div class="word-ar ar" id="initialWord"></div>
-                <div class="word-phon">
-                  <div><span class="phon-label">Phonétique FR :</span><span id="initialFr"></span></div>
-                  <div><span class="phon-label">Fonética ES :</span><span id="initialEs"></span></div>
+            <div class="back-scroll">
+              <div class="back-row">
+                <div class="col">
+                  <div class="conn-form" id="initialForm"></div>
+                  <div class="col-divider"></div>
+                  <div class="word-ar ar" id="initialWord"></div>
+                  <div class="word-phon">
+                    <div><span class="label">Phonétique FR :</span><span id="initialFr"></span></div>
+                    <div><span class="label">Fonética ES :</span><span id="initialEs"></span></div>
+                  </div>
+                  <div class="pos-label">Début / Inicio</div>
                 </div>
-                <div class="pos-label">Début / Inicio</div>
-              </div>
 
-              <div class="col">
-                <div class="conn-form ar" id="middleForm"></div>
-                <div class="col-divider"></div>
-                <div class="word-ar ar" id="middleWord"></div>
-                <div class="word-phon">
-                  <div><span class="phon-label">Phonétique FR :</span><span id="middleFr"></span></div>
-                  <div><span class="phon-label">Fonética ES :</span><span id="middleEs"></span></div>
+                <div class="col">
+                  <div class="conn-form" id="middleForm"></div>
+                  <div class="col-divider"></div>
+                  <div class="word-ar ar" id="middleWord"></div>
+                  <div class="word-phon">
+                    <div><span class="label">Phonétique FR :</span><span id="middleFr"></span></div>
+                    <div><span class="label">Fonética ES :</span><span id="middleEs"></span></div>
+                  </div>
+                  <div class="pos-label">Milieu / Medio</div>
                 </div>
-                <div class="pos-label">Milieu / Medio</div>
-              </div>
 
-              <div class="col">
-                <div class="conn-form ar" id="finalForm"></div>
-                <div class="col-divider"></div>
-                <div class="word-ar ar" id="finalWord"></div>
-                <div class="word-phon">
-                  <div><span class="phon-label">Phonétique FR :</span><span id="finalFr"></span></div>
-                  <div><span class="phon-label">Fonética ES :</span><span id="finalEs"></span></div>
+                <div class="col">
+                  <div class="conn-form" id="finalForm"></div>
+                  <div class="col-divider"></div>
+                  <div class="word-ar ar" id="finalWord"></div>
+                  <div class="word-phon">
+                    <div><span class="label">Phonétique FR :</span><span id="finalFr"></span></div>
+                    <div><span class="label">Fonética ES :</span><span id="finalEs"></span></div>
+                  </div>
+                  <div class="pos-label">Fin / Final</div>
                 </div>
-                <div class="pos-label">Fin / Final</div>
               </div>
             </div>
           </div>
@@ -602,511 +570,177 @@
   </div>
 
   <script>
+    const FORM_MAP = {
+      "أ": { iso:"ﺃ", fin:"ﺄ", init:null, med:null, leftJoin:false },
+      "ب": { iso:"ﺏ", fin:"ﺐ", init:"ﺑ", med:"ﺒ", leftJoin:true },
+      "ت": { iso:"ﺕ", fin:"ﺖ", init:"ﺗ", med:"ﺘ", leftJoin:true },
+      "ث": { iso:"ﺙ", fin:"ﺚ", init:"ﺛ", med:"ﺜ", leftJoin:true },
+      "ج": { iso:"ﺝ", fin:"ﺞ", init:"ﺟ", med:"ﺠ", leftJoin:true },
+      "ح": { iso:"ﺡ", fin:"ﺢ", init:"ﺣ", med:"ﺤ", leftJoin:true },
+      "خ": { iso:"ﺥ", fin:"ﺦ", init:"ﺧ", med:"ﺨ", leftJoin:true },
+      "د": { iso:"ﺩ", fin:"ﺪ", init:null, med:null, leftJoin:false },
+      "ذ": { iso:"ﺫ", fin:"ﺬ", init:null, med:null, leftJoin:false },
+      "ر": { iso:"ﺭ", fin:"ﺮ", init:null, med:null, leftJoin:false },
+      "ز": { iso:"ﺯ", fin:"ﺰ", init:null, med:null, leftJoin:false },
+      "س": { iso:"ﺱ", fin:"ﺲ", init:"ﺳ", med:"ﺴ", leftJoin:true },
+      "ش": { iso:"ﺵ", fin:"ﺶ", init:"ﺷ", med:"ﺸ", leftJoin:true },
+      "ص": { iso:"ﺹ", fin:"ﺺ", init:"ﺻ", med:"ﺼ", leftJoin:true },
+      "ض": { iso:"ﺽ", fin:"ﺾ", init:"ﺿ", med:"ﻀ", leftJoin:true },
+      "ط": { iso:"ﻁ", fin:"ﻂ", init:"ﻃ", med:"ﻄ", leftJoin:true },
+      "ظ": { iso:"ﻅ", fin:"ﻆ", init:"ﻇ", med:"ﻈ", leftJoin:true },
+      "ع": { iso:"ﻉ", fin:"ﻊ", init:"ﻋ", med:"ﻌ", leftJoin:true },
+      "غ": { iso:"ﻍ", fin:"ﻎ", init:"ﻏ", med:"ﻐ", leftJoin:true },
+      "ف": { iso:"ﻑ", fin:"ﻒ", init:"ﻓ", med:"ﻔ", leftJoin:true },
+      "ق": { iso:"ﻕ", fin:"ﻖ", init:"ﻗ", med:"ﻘ", leftJoin:true },
+      "ك": { iso:"ﻙ", fin:"ﻚ", init:"ﻛ", med:"ﻜ", leftJoin:true },
+      "ل": { iso:"ﻝ", fin:"ﻞ", init:"ﻟ", med:"ﻠ", leftJoin:true },
+      "م": { iso:"ﻡ", fin:"ﻢ", init:"ﻣ", med:"ﻤ", leftJoin:true },
+      "ن": { iso:"ﻥ", fin:"ﻦ", init:"ﻧ", med:"ﻨ", leftJoin:true },
+      "ه": { iso:"ﻩ", fin:"ﻪ", init:"ﻫ", med:"ﻬ", leftJoin:true },
+      "و": { iso:"ﻭ", fin:"ﻮ", init:null, med:null, leftJoin:false },
+      "ي": { iso:"ﻱ", fin:"ﻲ", init:"ﻳ", med:"ﻴ", leftJoin:true }
+    };
+
     const cards = [
-      {
-        letter:"أ",
-        phonFr:"Alif hamza",
-        phonEs:"Alif hamza",
-        audio:"",
-        initialForm:"◌أ",
-        initialWord:"أسد",
-        initialFr:"Asad",
-        initialEs:"Asad",
-        middleForm:"◌أ◌",
-        middleWord:"كأس",
-        middleFr:"Ka's",
-        middleEs:"Ka's",
-        finalForm:"أ",
-        finalWord:"ملجأ",
-        finalFr:"Malja'",
-        finalEs:"Malya'"
-      },
-      {
-        letter:"ب",
-        phonFr:"Baa",
-        phonEs:"Baa",
-        audio:"",
-        initialForm:"◌ب",
-        initialWord:"باب",
-        initialFr:"Baab",
-        initialEs:"Baab",
-        middleForm:"◌ب◌",
-        middleWord:"كبير",
-        middleFr:"Kabiir",
-        middleEs:"Kabiir",
-        finalForm:"ب◌",
-        finalWord:"كتاب",
-        finalFr:"Kitaab",
-        finalEs:"Kitaab"
-      },
-      {
-        letter:"ت",
-        phonFr:"Taa",
-        phonEs:"Taa",
-        audio:"",
-        initialForm:"◌ت",
-        initialWord:"تمر",
-        initialFr:"Tamr",
-        initialEs:"Tamr",
-        middleForm:"◌ت◌",
-        middleWord:"كتاب",
-        middleFr:"Kitaab",
-        middleEs:"Kitaab",
-        finalForm:"ت◌",
-        finalWord:"بيت",
-        finalFr:"Bayt",
-        finalEs:"Bayt"
-      },
-      {
-        letter:"ث",
-        phonFr:"Thaa",
-        phonEs:"Zaa",
-        audio:"",
-        initialForm:"◌ث",
-        initialWord:"ثوب",
-        initialFr:"Thawb",
-        initialEs:"Zawb",
-        middleForm:"◌ث◌",
-        middleWord:"مثل",
-        middleFr:"Mithl",
-        middleEs:"Mizl",
-        finalForm:"ث◌",
-        finalWord:"بحث",
-        finalFr:"Bahth",
-        finalEs:"Bahz"
-      },
-      {
-        letter:"ج",
-        phonFr:"Jim",
-        phonEs:"Yim",
-        audio:"",
-        initialForm:"◌ج",
-        initialWord:"جمل",
-        initialFr:"Jamal",
-        initialEs:"Yamal",
-        middleForm:"◌ج◌",
-        middleWord:"رجل",
-        middleFr:"Rajul",
-        middleEs:"Rayul",
-        finalForm:"ج◌",
-        finalWord:"فرج",
-        finalFr:"Faraj",
-        finalEs:"Faray"
-      },
-      {
-        letter:"ح",
-        phonFr:"Haa",
-        phonEs:"Ha",
-        audio:"",
-        initialForm:"◌ح",
-        initialWord:"حبل",
-        initialFr:"Habl",
-        initialEs:"Habl",
-        middleForm:"◌ح◌",
-        middleWord:"بحر",
-        middleFr:"Bahr",
-        middleEs:"Bahr",
-        finalForm:"ح◌",
-        finalWord:"مفتاح",
-        finalFr:"Miftaah",
-        finalEs:"Miftaah"
-      },
-      {
-        letter:"خ",
-        phonFr:"Khaa",
-        phonEs:"Ja",
-        audio:"",
-        initialForm:"◌خ",
-        initialWord:"خبز",
-        initialFr:"Khubz",
-        initialEs:"Jubz",
-        middleForm:"◌خ◌",
-        middleWord:"نخل",
-        middleFr:"Nakhl",
-        middleEs:"Najl",
-        finalForm:"خ◌",
-        finalWord:"مطبخ",
-        finalFr:"Matbakh",
-        finalEs:"Matbaj"
-      },
-      {
-        letter:"د",
-        phonFr:"Daal",
-        phonEs:"Dal",
-        audio:"",
-        initialForm:"◌د",
-        initialWord:"دب",
-        initialFr:"Dubb",
-        initialEs:"Dubb",
-        middleForm:"◌د◌",
-        middleWord:"مدرسة",
-        middleFr:"Madrasa",
-        middleEs:"Madrasa",
-        finalForm:"د",
-        finalWord:"ولد",
-        finalFr:"Walad",
-        finalEs:"Walad"
-      },
-      {
-        letter:"ذ",
-        phonFr:"Dhaal",
-        phonEs:"Dhal",
-        audio:"",
-        initialForm:"◌ذ",
-        initialWord:"ذهب",
-        initialFr:"Dhahab",
-        initialEs:"Dhahab",
-        middleForm:"◌ذ◌",
-        middleWord:"هذا",
-        middleFr:"Haadha",
-        middleEs:"Haadha",
-        finalForm:"ذ",
-        finalWord:"لذيذ",
-        finalFr:"Ladhiidh",
-        finalEs:"Ladhiidh"
-      },
-      {
-        letter:"ر",
-        phonFr:"Raa",
-        phonEs:"Raa",
-        audio:"",
-        initialForm:"◌ر",
-        initialWord:"رجل",
-        initialFr:"Rajul",
-        initialEs:"Rayul",
-        middleForm:"◌ر◌",
-        middleWord:"وردة",
-        middleFr:"Warda",
-        middleEs:"Warda",
-        finalForm:"ر",
-        finalWord:"قمر",
-        finalFr:"Qamar",
-        finalEs:"Qamar"
-      },
-      {
-        letter:"ز",
-        phonFr:"Zaay",
-        phonEs:"Zaay",
-        audio:"",
-        initialForm:"◌ز",
-        initialWord:"زيت",
-        initialFr:"Zayt",
-        initialEs:"Zayt",
-        middleForm:"◌ز◌",
-        middleWord:"موزة",
-        middleFr:"Mawza",
-        middleEs:"Mawza",
-        finalForm:"ز",
-        finalWord:"خبز",
-        finalFr:"Khubz",
-        finalEs:"Jubz"
-      },
-      {
-        letter:"س",
-        phonFr:"Siin",
-        phonEs:"Siin",
-        audio:"",
-        initialForm:"◌س",
-        initialWord:"سمك",
-        initialFr:"Samak",
-        initialEs:"Samak",
-        middleForm:"◌س◌",
-        middleWord:"مسجد",
-        middleFr:"Masjid",
-        middleEs:"Masyid",
-        finalForm:"س◌",
-        finalWord:"درس",
-        finalFr:"Dars",
-        finalEs:"Dars"
-      },
-      {
-        letter:"ش",
-        phonFr:"Shiin",
-        phonEs:"Shiin",
-        audio:"",
-        initialForm:"◌ش",
-        initialWord:"شمس",
-        initialFr:"Shams",
-        initialEs:"Shams",
-        middleForm:"◌ش◌",
-        middleWord:"مشمش",
-        middleFr:"Mishmish",
-        middleEs:"Mishmish",
-        finalForm:"ش◌",
-        finalWord:"عرش",
-        finalFr:"Arsh",
-        finalEs:"Arsh"
-      },
-      {
-        letter:"ص",
-        phonFr:"Saad",
-        phonEs:"Sad",
-        audio:"",
-        initialForm:"◌ص",
-        initialWord:"صبر",
-        initialFr:"Sabr",
-        initialEs:"Sabr",
-        middleForm:"◌ص◌",
-        middleWord:"بصير",
-        middleFr:"Basiir",
-        middleEs:"Basiir",
-        finalForm:"ص◌",
-        finalWord:"نص",
-        finalFr:"Nass",
-        finalEs:"Nass"
-      },
-      {
-        letter:"ض",
-        phonFr:"Daad",
-        phonEs:"Dad",
-        audio:"",
-        initialForm:"◌ض",
-        initialWord:"ضوء",
-        initialFr:"Daw'",
-        initialEs:"Daw'",
-        middleForm:"◌ض◌",
-        middleWord:"مريض",
-        middleFr:"Mariid",
-        middleEs:"Mariid",
-        finalForm:"ض◌",
-        finalWord:"أرض",
-        finalFr:"Ard",
-        finalEs:"Ard"
-      },
-      {
-        letter:"ط",
-        phonFr:"Taa",
-        phonEs:"Ta",
-        audio:"",
-        initialForm:"◌ط",
-        initialWord:"طين",
-        initialFr:"Tiin",
-        initialEs:"Tiin",
-        middleForm:"◌ط◌",
-        middleWord:"مطر",
-        middleFr:"Matar",
-        middleEs:"Matar",
-        finalForm:"ط◌",
-        finalWord:"قط",
-        finalFr:"Qitt",
-        finalEs:"Qitt"
-      },
-      {
-        letter:"ظ",
-        phonFr:"Zaa",
-        phonEs:"Za",
-        audio:"",
-        initialForm:"◌ظ",
-        initialWord:"ظل",
-        initialFr:"Zill",
-        initialEs:"Zill",
-        middleForm:"◌ظ◌",
-        middleWord:"عظيم",
-        middleFr:"Aziim",
-        middleEs:"Aziim",
-        finalForm:"ظ◌",
-        finalWord:"حظ",
-        finalFr:"Hazz",
-        finalEs:"Hazz"
-      },
-      {
-        letter:"ع",
-        phonFr:"Ayn",
-        phonEs:"Ayn",
-        audio:"",
-        initialForm:"◌ع",
-        initialWord:"عين",
-        initialFr:"Ayn",
-        initialEs:"Ayn",
-        middleForm:"◌ع◌",
-        middleWord:"ملعب",
-        middleFr:"Mal'ab",
-        middleEs:"Mal'ab",
-        finalForm:"ع◌",
-        finalWord:"جمع",
-        finalFr:"Jam'",
-        finalEs:"Yam'"
-      },
-      {
-        letter:"غ",
-        phonFr:"Ghayn",
-        phonEs:"Ghain",
-        audio:"",
-        initialForm:"◌غ",
-        initialWord:"غيم",
-        initialFr:"Ghaym",
-        initialEs:"Ghaim",
-        middleForm:"◌غ◌",
-        middleWord:"مغرب",
-        middleFr:"Maghrib",
-        middleEs:"Maghrib",
-        finalForm:"غ◌",
-        finalWord:"صبغ",
-        finalFr:"Sibgh",
-        finalEs:"Sibgh"
-      },
-      {
-        letter:"ف",
-        phonFr:"Faa",
-        phonEs:"Faa",
-        audio:"",
-        initialForm:"◌ف",
-        initialWord:"فيل",
-        initialFr:"Fiil",
-        initialEs:"Fiil",
-        middleForm:"◌ف◌",
-        middleWord:"مفتاح",
-        middleFr:"Miftaah",
-        middleEs:"Miftah",
-        finalForm:"ف◌",
-        finalWord:"صيف",
-        finalFr:"Sayf",
-        finalEs:"Saif"
-      },
-      {
-        letter:"ق",
-        phonFr:"Qaaf",
-        phonEs:"Qaf",
-        audio:"",
-        initialForm:"◌ق",
-        initialWord:"قمر",
-        initialFr:"Qamar",
-        initialEs:"Qamar",
-        middleForm:"◌ق◌",
-        middleWord:"بقرة",
-        middleFr:"Baqara",
-        middleEs:"Baqara",
-        finalForm:"ق◌",
-        finalWord:"سوق",
-        finalFr:"Suuq",
-        finalEs:"Suq"
-      },
-      {
-        letter:"ك",
-        phonFr:"Kaaf",
-        phonEs:"Kaf",
-        audio:"",
-        initialForm:"◌ك",
-        initialWord:"كأس",
-        initialFr:"Ka's",
-        initialEs:"Ka's",
-        middleForm:"◌ك◌",
-        middleWord:"كتاب",
-        middleFr:"Kitab",
-        middleEs:"Kitab",
-        finalForm:"ك◌",
-        finalWord:"سمك",
-        finalFr:"Samak",
-        finalEs:"Samak"
-      },
-      {
-        letter:"ل",
-        phonFr:"Laam",
-        phonEs:"Lam",
-        audio:"",
-        initialForm:"◌ل",
-        initialWord:"لبن",
-        initialFr:"Laban",
-        initialEs:"Laban",
-        middleForm:"◌ل◌",
-        middleWord:"قلم",
-        middleFr:"Qalam",
-        middleEs:"Qalam",
-        finalForm:"ل◌",
-        finalWord:"جبل",
-        finalFr:"Jabal",
-        finalEs:"Yabal"
-      },
-      {
-        letter:"م",
-        phonFr:"Miim",
-        phonEs:"Mim",
-        audio:"",
-        initialForm:"◌م",
-        initialWord:"ماء",
-        initialFr:"Ma'",
-        initialEs:"Ma'",
-        middleForm:"◌م◌",
-        middleWord:"سمك",
-        middleFr:"Samak",
-        middleEs:"Samak",
-        finalForm:"م◌",
-        finalWord:"قلم",
-        finalFr:"Qalam",
-        finalEs:"Qalam"
-      },
-      {
-        letter:"ن",
-        phonFr:"Nuun",
-        phonEs:"Nun",
-        audio:"",
-        initialForm:"◌ن",
-        initialWord:"نجم",
-        initialFr:"Najm",
-        initialEs:"Naym",
-        middleForm:"◌ن◌",
-        middleWord:"عنب",
-        middleFr:"Inab",
-        middleEs:"Inab",
-        finalForm:"ن◌",
-        finalWord:"عين",
-        finalFr:"Ayn",
-        finalEs:"Ayn"
-      },
-      {
-        letter:"ه",
-        phonFr:"Haa",
-        phonEs:"Ha",
-        audio:"",
-        initialForm:"◌ه",
-        initialWord:"هلال",
-        initialFr:"Hilaal",
-        initialEs:"Hilal",
-        middleForm:"◌ه◌",
-        middleWord:"نهر",
-        middleFr:"Nahr",
-        middleEs:"Nahr",
-        finalForm:"ه◌",
-        finalWord:"وجه",
-        finalFr:"Wajh",
-        finalEs:"Wayh"
-      },
-      {
-        letter:"و",
-        phonFr:"Waaw",
-        phonEs:"Waw",
-        audio:"",
-        initialForm:"◌و",
-        initialWord:"ورد",
-        initialFr:"Ward",
-        initialEs:"Ward",
-        middleForm:"◌و◌",
-        middleWord:"قوس",
-        middleFr:"Qaws",
-        middleEs:"Qaws",
-        finalForm:"و",
-        finalWord:"ضوء",
-        finalFr:"Daw'",
-        finalEs:"Daw'"
-      },
-      {
-        letter:"ي",
-        phonFr:"Yaa",
-        phonEs:"Ya",
-        audio:"",
-        initialForm:"◌ي",
-        initialWord:"يد",
-        initialFr:"Yad",
-        initialEs:"Yad",
-        middleForm:"◌ي◌",
-        middleWord:"بيت",
-        middleFr:"Bayt",
-        middleEs:"Bait",
-        finalForm:"ي◌",
-        finalWord:"كرسي",
-        finalFr:"Kursii",
-        finalEs:"Kursi"
-      }
+      { letter:"أ", phonFr:"Alif hamza", phonEs:"Alif hamza", audio:"",
+        initialWord:"أسد", initialFr:"Asad", initialEs:"Asad",
+        middleWord:"كأس", middleFr:"Ka's", middleEs:"Ka's",
+        finalWord:"ملجأ", finalFr:"Malja'", finalEs:"Malya'" },
+
+      { letter:"ب", phonFr:"Baa", phonEs:"Baa", audio:"",
+        initialWord:"باب", initialFr:"Baab", initialEs:"Baab",
+        middleWord:"كبير", middleFr:"Kabiir", middleEs:"Kabiir",
+        finalWord:"كتاب", finalFr:"Kitaab", finalEs:"Kitaab" },
+
+      { letter:"ت", phonFr:"Taa", phonEs:"Taa", audio:"",
+        initialWord:"تمر", initialFr:"Tamr", initialEs:"Tamr",
+        middleWord:"كتاب", middleFr:"Kitaab", middleEs:"Kitaab",
+        finalWord:"بيت", finalFr:"Bayt", finalEs:"Bayt" },
+
+      { letter:"ث", phonFr:"Thaa", phonEs:"Zaa", audio:"",
+        initialWord:"ثوب", initialFr:"Thawb", initialEs:"Zawb",
+        middleWord:"مثل", middleFr:"Mithl", middleEs:"Mizl",
+        finalWord:"بحث", finalFr:"Bahth", finalEs:"Bahz" },
+
+      { letter:"ج", phonFr:"Jim", phonEs:"Yim", audio:"",
+        initialWord:"جمل", initialFr:"Jamal", initialEs:"Yamal",
+        middleWord:"رجل", middleFr:"Rajul", middleEs:"Rayul",
+        finalWord:"برج", finalFr:"Burj", finalEs:"Bury" },
+
+      { letter:"ح", phonFr:"Haa", phonEs:"Ha", audio:"",
+        initialWord:"حبل", initialFr:"Habl", initialEs:"Habl",
+        middleWord:"بحر", middleFr:"Bahr", middleEs:"Bahr",
+        finalWord:"مفتاح", finalFr:"Miftaah", finalEs:"Miftaah" },
+
+      { letter:"خ", phonFr:"Khaa", phonEs:"Ja", audio:"",
+        initialWord:"خبز", initialFr:"Khubz", initialEs:"Jubz",
+        middleWord:"نخل", middleFr:"Nakhl", middleEs:"Najl",
+        finalWord:"مطبخ", finalFr:"Matbakh", finalEs:"Matbaj" },
+
+      { letter:"د", phonFr:"Daal", phonEs:"Dal", audio:"",
+        initialWord:"دب", initialFr:"Dubb", initialEs:"Dubb",
+        middleWord:"مدرسة", middleFr:"Madrasa", middleEs:"Madrasa",
+        finalWord:"ولد", finalFr:"Walad", finalEs:"Walad" },
+
+      { letter:"ذ", phonFr:"Dhaal", phonEs:"Dhal", audio:"",
+        initialWord:"ذهب", initialFr:"Dhahab", initialEs:"Dhahab",
+        middleWord:"هذا", middleFr:"Haadha", middleEs:"Haadha",
+        finalWord:"لذيذ", finalFr:"Ladhiidh", finalEs:"Ladhiidh" },
+
+      { letter:"ر", phonFr:"Raa", phonEs:"Raa", audio:"",
+        initialWord:"رجل", initialFr:"Rajul", initialEs:"Rayul",
+        middleWord:"وردة", middleFr:"Warda", middleEs:"Warda",
+        finalWord:"قمر", finalFr:"Qamar", finalEs:"Qamar" },
+
+      { letter:"ز", phonFr:"Zaay", phonEs:"Zaay", audio:"",
+        initialWord:"زيت", initialFr:"Zayt", initialEs:"Zayt",
+        middleWord:"موزة", middleFr:"Mawza", middleEs:"Mawza",
+        finalWord:"خبز", finalFr:"Khubz", finalEs:"Jubz" },
+
+      { letter:"س", phonFr:"Siin", phonEs:"Siin", audio:"",
+        initialWord:"سمك", initialFr:"Samak", initialEs:"Samak",
+        middleWord:"مسجد", middleFr:"Masjid", middleEs:"Masyid",
+        finalWord:"درس", finalFr:"Dars", finalEs:"Dars" },
+
+      { letter:"ش", phonFr:"Shiin", phonEs:"Shiin", audio:"",
+        initialWord:"شمس", initialFr:"Shams", initialEs:"Shams",
+        middleWord:"مشمش", middleFr:"Mishmish", middleEs:"Mishmish",
+        finalWord:"عرش", finalFr:"Arsh", finalEs:"Arsh" },
+
+      { letter:"ص", phonFr:"Saad", phonEs:"Sad", audio:"",
+        initialWord:"صبر", initialFr:"Sabr", initialEs:"Sabr",
+        middleWord:"بصير", middleFr:"Basiir", middleEs:"Basiir",
+        finalWord:"نص", finalFr:"Nass", finalEs:"Nass" },
+
+      { letter:"ض", phonFr:"Daad", phonEs:"Dad", audio:"",
+        initialWord:"ضوء", initialFr:"Daw'", initialEs:"Daw'",
+        middleWord:"مريض", middleFr:"Mariid", middleEs:"Mariid",
+        finalWord:"أرض", finalFr:"Ard", finalEs:"Ard" },
+
+      { letter:"ط", phonFr:"Taa", phonEs:"Ta", audio:"",
+        initialWord:"طين", initialFr:"Tiin", initialEs:"Tiin",
+        middleWord:"مطر", middleFr:"Matar", middleEs:"Matar",
+        finalWord:"قط", finalFr:"Qitt", finalEs:"Qitt" },
+
+      { letter:"ظ", phonFr:"Zaa", phonEs:"Za", audio:"",
+        initialWord:"ظل", initialFr:"Zill", initialEs:"Zill",
+        middleWord:"عظيم", middleFr:"Aziim", middleEs:"Aziim",
+        finalWord:"حظ", finalFr:"Hazz", finalEs:"Hazz" },
+
+      { letter:"ع", phonFr:"Ayn", phonEs:"Ayn", audio:"",
+        initialWord:"عين", initialFr:"Ayn", initialEs:"Ayn",
+        middleWord:"ملعب", middleFr:"Mal'ab", middleEs:"Mal'ab",
+        finalWord:"جمع", finalFr:"Jam'", finalEs:"Yam'" },
+
+      { letter:"غ", phonFr:"Ghayn", phonEs:"Ghain", audio:"",
+        initialWord:"غيم", initialFr:"Ghaym", initialEs:"Ghaim",
+        middleWord:"مغرب", middleFr:"Maghrib", middleEs:"Maghrib",
+        finalWord:"صبغ", finalFr:"Sibgh", finalEs:"Sibgh" },
+
+      { letter:"ف", phonFr:"Faa", phonEs:"Faa", audio:"",
+        initialWord:"فيل", initialFr:"Fiil", initialEs:"Fiil",
+        middleWord:"مفتاح", middleFr:"Miftaah", middleEs:"Miftah",
+        finalWord:"صيف", finalFr:"Sayf", finalEs:"Saif" },
+
+      { letter:"ق", phonFr:"Qaaf", phonEs:"Qaf", audio:"",
+        initialWord:"قمر", initialFr:"Qamar", initialEs:"Qamar",
+        middleWord:"بقرة", middleFr:"Baqara", middleEs:"Baqara",
+        finalWord:"سوق", finalFr:"Suuq", finalEs:"Suq" },
+
+      { letter:"ك", phonFr:"Kaaf", phonEs:"Kaf", audio:"",
+        initialWord:"كأس", initialFr:"Ka's", initialEs:"Ka's",
+        middleWord:"كتاب", middleFr:"Kitaab", middleEs:"Kitaab",
+        finalWord:"سمك", finalFr:"Samak", finalEs:"Samak" },
+
+      { letter:"ل", phonFr:"Laam", phonEs:"Lam", audio:"",
+        initialWord:"لبن", initialFr:"Laban", initialEs:"Laban",
+        middleWord:"قلم", middleFr:"Qalam", middleEs:"Qalam",
+        finalWord:"جبل", finalFr:"Jabal", finalEs:"Yabal" },
+
+      { letter:"م", phonFr:"Miim", phonEs:"Mim", audio:"",
+        initialWord:"ماء", initialFr:"Ma'", initialEs:"Ma'",
+        middleWord:"سمك", middleFr:"Samak", middleEs:"Samak",
+        finalWord:"قلم", finalFr:"Qalam", finalEs:"Qalam" },
+
+      { letter:"ن", phonFr:"Nuun", phonEs:"Nun", audio:"",
+        initialWord:"نجم", initialFr:"Najm", initialEs:"Naym",
+        middleWord:"عنب", middleFr:"Inab", middleEs:"Inab",
+        finalWord:"عين", finalFr:"Ayn", finalEs:"Ayn" },
+
+      { letter:"ه", phonFr:"Haa", phonEs:"Ha", audio:"",
+        initialWord:"هلال", initialFr:"Hilaal", initialEs:"Hilal",
+        middleWord:"نهر", middleFr:"Nahr", middleEs:"Nahr",
+        finalWord:"وجه", finalFr:"Wajh", finalEs:"Wayh" },
+
+      { letter:"و", phonFr:"Waaw", phonEs:"Waw", audio:"",
+        initialWord:"ورد", initialFr:"Ward", initialEs:"Ward",
+        middleWord:"قوس", middleFr:"Qaws", middleEs:"Qaws",
+        finalWord:"ضوء", finalFr:"Daw'", finalEs:"Daw'" },
+
+      { letter:"ي", phonFr:"Yaa", phonEs:"Ya", audio:"",
+        initialWord:"يد", initialFr:"Yad", initialEs:"Yad",
+        middleWord:"بيت", middleFr:"Bayt", middleEs:"Bait",
+        finalWord:"كرسي", finalFr:"Kursii", finalEs:"Kursi" }
     ];
 
     let currentIndex = 0;
@@ -1118,8 +752,28 @@
     const flashcard = document.getElementById("flashcard");
     const toast = document.getElementById("toast");
 
-    function stylizeConnection(text){
-      return text.replaceAll("◌", '<span class="conn-circle">◌</span>');
+    function renderConn(letter, position){
+      const form = FORM_MAP[letter];
+      const circle = '<span class="conn-circle">◌</span>';
+
+      if (!form) return letter;
+
+      if (position === "initial"){
+        if (form.init) return circle + '<span class="ar">' + form.init + '</span>';
+        return '<span class="ar">' + form.iso + '</span>';
+      }
+
+      if (position === "middle"){
+        if (form.med) return circle + '<span class="ar">' + form.med + '</span>' + circle;
+        return circle + '<span class="ar">' + form.fin + '</span>' + circle;
+      }
+
+      if (position === "final"){
+        if (form.leftJoin) return '<span class="ar">' + form.fin + '</span>' + circle;
+        return circle + '<span class="ar">' + form.fin + '</span>';
+      }
+
+      return '<span class="ar">' + form.iso + '</span>';
     }
 
     function renderCard(){
@@ -1129,17 +783,17 @@
       document.getElementById("frontPhonFr").textContent = card.phonFr;
       document.getElementById("frontPhonEs").textContent = card.phonEs;
 
-      document.getElementById("initialForm").innerHTML = stylizeConnection(card.initialForm);
+      document.getElementById("initialForm").innerHTML = renderConn(card.letter, "initial");
       document.getElementById("initialWord").textContent = card.initialWord;
       document.getElementById("initialFr").textContent = card.initialFr;
       document.getElementById("initialEs").textContent = card.initialEs;
 
-      document.getElementById("middleForm").innerHTML = stylizeConnection(card.middleForm);
+      document.getElementById("middleForm").innerHTML = renderConn(card.letter, "middle");
       document.getElementById("middleWord").textContent = card.middleWord;
       document.getElementById("middleFr").textContent = card.middleFr;
       document.getElementById("middleEs").textContent = card.middleEs;
 
-      document.getElementById("finalForm").innerHTML = stylizeConnection(card.finalForm);
+      document.getElementById("finalForm").innerHTML = renderConn(card.letter, "final");
       document.getElementById("finalWord").textContent = card.finalWord;
       document.getElementById("finalFr").textContent = card.finalFr;
       document.getElementById("finalEs").textContent = card.finalEs;
