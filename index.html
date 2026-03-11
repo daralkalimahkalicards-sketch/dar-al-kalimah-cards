@@ -5,520 +5,501 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dar Al-Kalimah - Kalicards</title>
   <style>
-    :root{
-      --burgundy:#5D1828;
-      --gold:#C8A462;
-      --white:#FFFFFF;
-      --bg-beige:#FAF6F0;
-      --shadow:0 20px 50px rgba(93,24,40,0.08);
+    :root {
+      --burgundy: #5D1828;
+      --gold: #C8A462;
+      --white: #FFFFFF;
+      --bg-beige: #FAF6F0;
+      --shadow: 0 20px 50px rgba(93, 24, 40, 0.08);
     }
 
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      -webkit-tap-highlight-color:transparent;
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
     }
 
-    body{
-      background:var(--bg-beige);
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:20px;
-      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      color:var(--burgundy);
-      overflow-x:hidden;
+    body {
+      background-color: var(--bg-beige);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 20px;
+      overflow-x: hidden;
+      color: var(--burgundy);
     }
 
-    .ar-text{
-      font-family:"Amiri","Traditional Arabic","Sakkal Majalla","Arabic Typesetting",serif;
-      direction:rtl;
-      unicode-bidi:isolate;
-      line-height:1.2;
+    .ar-text {
+      font-family: "Amiri", "Traditional Arabic", "Sakkal Majalla", "Arabic Typesetting", serif;
+      line-height: 1.2;
+      direction: rtl;
+      unicode-bidi: isolate;
     }
 
-    .serif-text{
-      font-family:"Georgia","Times New Roman",serif;
+    .serif-text {
+      font-family: "Georgia", "Times New Roman", serif;
     }
 
-    .hidden{
-      display:none !important;
+    .gold { color: var(--gold); }
+    .burgundy { color: var(--burgundy); }
+
+    .view {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    .view{
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
+    .hidden {
+      display: none !important;
     }
 
     /* HOME */
-    .home-container{
-      text-align:center;
-      background:var(--white);
-      padding:60px 40px;
-      border-radius:24px;
-      border:1px solid var(--gold);
-      box-shadow:
-        inset 0 0 0 5px var(--white),
-        inset 0 0 0 6px var(--gold),
-        var(--shadow);
-      max-width:620px;
-      width:100%;
+    .home-container {
+      text-align: center;
+      background: var(--white);
+      padding: 60px 40px;
+      border-radius: 24px;
+      border: 1px solid var(--gold);
+      box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold), var(--shadow);
+      max-width: 620px;
+      width: 100%;
     }
 
-    .home-brand-ar{
-      font-size:3.5rem;
-      font-weight:700;
-      margin-bottom:5px;
+    .home-brand-ar {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
-    .home-brand-la{
-      font-size:1.2rem;
-      letter-spacing:4px;
-      text-transform:uppercase;
+    .home-brand-la {
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
     }
 
-    .home-divider{
-      width:60px;
-      height:2px;
-      background:var(--gold);
-      margin:30px auto;
+    .home-divider {
+      width: 60px;
+      height: 2px;
+      background-color: var(--gold);
+      margin: 30px auto;
     }
 
-    .app-title{
-      font-size:2.2rem;
-      font-style:italic;
-      color:var(--gold);
-      margin-bottom:25px;
+    .app-title {
+      font-size: 2.2rem;
+      font-family: "Georgia", serif;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 25px;
     }
 
-    .home-subtitle{
-      font-size:1.1rem;
-      line-height:1.6;
-      margin-bottom:10px;
-      font-weight:400;
+    .home-subtitle {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      font-weight: 400;
     }
 
-    .home-subtitle.es{
-      opacity:0.8;
-      font-size:1rem;
-      margin-bottom:40px;
+    .home-subtitle.es {
+      opacity: 0.8;
+      font-size: 1rem;
+      margin-bottom: 40px;
     }
 
-    .btn-start{
-      background:var(--burgundy);
-      color:var(--white);
-      border:2px solid var(--burgundy);
-      padding:15px 40px;
-      font-size:1.1rem;
-      border-radius:50px;
-      cursor:pointer;
-      transition:all .3s ease;
-      font-family:inherit;
-      font-weight:600;
-      letter-spacing:1px;
-      text-transform:uppercase;
+    .btn-start {
+      background-color: var(--burgundy);
+      color: var(--white);
+      border: 2px solid var(--burgundy);
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    .btn-start:hover{
-      background:var(--white);
-      color:var(--burgundy);
+    .btn-start:hover {
+      background-color: var(--white);
+      color: var(--burgundy);
     }
 
-    /* HEADER APP */
-    .card-view-header{
-      width:100%;
-      max-width:980px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      margin-bottom:20px;
-      flex-wrap:wrap;
+    /* CARD HEADER */
+    .card-view-header {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     .btn-back,
-    .btn-nav{
-      background:none;
-      border:none;
-      color:var(--burgundy);
-      font-size:1.05rem;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-weight:600;
-      padding:10px;
-      transition:color .3s ease;
+    .btn-nav {
+      background: none;
+      border: none;
+      color: var(--burgundy);
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      padding: 10px;
+      transition: color 0.3s ease;
     }
 
     .btn-back:hover,
-    .btn-nav:hover{
-      color:var(--gold);
+    .btn-nav:hover {
+      color: var(--gold);
     }
 
-    .nav-group{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .letter-counter{
-      font-size:.95rem;
-      opacity:.8;
-      min-width:95px;
-      text-align:center;
+    .letter-counter {
+      font-size: 0.95rem;
+      color: var(--burgundy);
+      opacity: 0.8;
+      min-width: 95px;
+      text-align: center;
     }
 
-    /* CARD */
-    .scene{
-      width:100%;
-      max-width:980px;
-      height:640px;
-      perspective:2000px;
-      cursor:pointer;
+    /* FLASHCARD */
+    .scene {
+      width: 100%;
+      max-width: 860px;
+      height: 600px;
+      perspective: 2000px;
+      cursor: pointer;
     }
 
-    .card-container{
-      width:100%;
-      height:100%;
-      position:relative;
-      transition:transform .9s cubic-bezier(.25,.8,.25,1);
-      transform-style:preserve-3d;
+    .card-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transform-style: preserve-3d;
     }
 
-    .card-container.flipped{
-      transform:rotateY(180deg);
+    .card-container.flipped {
+      transform: rotateY(180deg);
     }
 
-    .face{
-      position:absolute;
-      width:100%;
-      height:100%;
-      -webkit-backface-visibility:hidden;
-      backface-visibility:hidden;
-      background:var(--white);
-      border-radius:24px;
-      border:1px solid var(--gold);
-      box-shadow:
-        inset 0 0 0 5px var(--white),
-        inset 0 0 0 6px var(--gold),
-        var(--shadow);
-      display:flex;
-      flex-direction:column;
-      padding:40px 42px;
-      overflow:hidden;
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background-color: var(--white);
+      border-radius: 24px;
+      border: 1px solid var(--gold);
+      box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold), var(--shadow);
+      display: flex;
+      flex-direction: column;
+      padding: 40px 50px;
+      overflow: hidden;
     }
 
-    .face.back{
-      transform:rotateY(180deg);
+    .face.back {
+      transform: rotateY(180deg);
     }
 
-    .header{
-      text-align:center;
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
+    .header {
+      text-align: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .header-ar{
-      font-size:2.4rem;
-      font-weight:700;
-      margin-bottom:2px;
+    .header-ar {
+      font-size: 2.4rem;
+      color: var(--burgundy);
+      font-weight: bold;
+      margin-bottom: 2px;
     }
 
-    .header-la{
-      font-size:1.05rem;
-      letter-spacing:3px;
-      text-transform:uppercase;
+    .header-la {
+      font-size: 1.05rem;
+      color: var(--burgundy);
+      letter-spacing: 3px;
+      text-transform: uppercase;
     }
 
-    .divider-main{
-      width:50px;
-      height:1px;
-      background:var(--gold);
-      margin:18px 0;
-      opacity:.8;
+    .divider-main {
+      width: 50px;
+      height: 1px;
+      background-color: var(--gold);
+      margin: 18px 0;
+      opacity: 0.8;
     }
 
     /* FRONT */
-    .front-center{
-      flex-grow:1;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      padding-bottom:95px;
-      position:relative;
+    .front-center {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 95px;
+      position: relative;
     }
 
-    .main-letter{
-      font-size:16rem;
-      color:var(--burgundy);
-      font-weight:400;
-      text-align:center;
-      line-height:1;
+    .main-letter {
+      font-size: 16rem;
+      color: var(--burgundy);
+      font-weight: normal;
+      text-align: center;
+      line-height: 1;
+      direction: rtl;
     }
 
-    .btn-audio{
-      margin-top:28px;
-      background:var(--bg-beige);
-      border:1px solid var(--gold);
-      color:var(--burgundy);
-      width:52px;
-      height:52px;
-      border-radius:50%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      font-size:1.45rem;
-      cursor:pointer;
-      box-shadow:0 4px 15px rgba(200,164,98,.2);
-      transition:all .3s ease;
-      position:absolute;
-      bottom:40px;
+    .btn-audio {
+      margin-top: 28px;
+      background: var(--bg-beige);
+      border: 1px solid var(--gold);
+      color: var(--burgundy);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.45rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
+      transition: all 0.3s ease;
+      position: absolute;
+      bottom: 40px;
     }
 
-    .btn-audio:hover{
-      transform:scale(1.08);
-      background:var(--gold);
-      color:var(--white);
+    .btn-audio:hover {
+      transform: scale(1.08);
+      background: var(--gold);
+      color: var(--white);
     }
 
-    .front-bottom{
-      display:flex;
-      justify-content:center;
-      align-items:flex-end;
-      gap:40px;
-      padding-bottom:10px;
-      flex-wrap:wrap;
+    .front-bottom {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 40px;
+      padding-bottom: 10px;
+      flex-wrap: wrap;
     }
 
-    .lang-block{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      min-width:220px;
+    .lang-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 220px;
     }
 
-    .lang-text{
-      font-size:1rem;
-      margin-bottom:8px;
-      text-align:center;
-      line-height:1.4;
-      white-space:nowrap;
+    .lang-text {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      text-align: center;
+      line-height: 1.4;
     }
 
-    .lang-label{
-      color:var(--gold);
-      font-weight:700;
-      display:inline-block;
-      margin-right:6px;
+    .lang-label {
+      color: var(--gold);
+      font-weight: 700;
+      display: inline-block;
+      margin-right: 6px;
     }
 
-    .lang-word{
-      color:var(--burgundy);
-      font-weight:500;
+    .lang-word {
+      color: var(--burgundy);
+      font-weight: 500;
     }
 
-    .divider-small{
-      width:80px;
-      height:1px;
-      background:var(--gold);
-      opacity:.6;
-      transform:scaleY(.5);
+    .divider-small {
+      width: 80px;
+      height: 1px;
+      background-color: var(--gold);
+      opacity: 0.6;
+      transform: scaleY(0.5);
     }
 
     /* BACK */
-    .reading-instruction{
-      text-align:center;
-      font-size:1.05rem;
-      color:var(--burgundy);
-      font-weight:500;
-      letter-spacing:.5px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      margin-bottom:20px;
+    .reading-instruction {
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--burgundy);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
     }
 
-    .back-scroll{
-      width:100%;
-      overflow-x:auto;
-      overflow-y:hidden;
-      -webkit-overflow-scrolling:touch;
-      padding-bottom:8px;
+    .pedagogical-grid {
+      flex-grow: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      width: 100%;
+      padding: 0 10px;
     }
 
-    .pedagogical-row{
-      display:flex;
-      flex-direction:row-reverse;
-      align-items:stretch;
-      gap:16px;
-      min-width:max-content;
-      width:max-content;
-      margin:0 auto;
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
     }
 
-    .col{
-      width:255px;
-      min-width:255px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      height:100%;
-      text-align:center;
+    .conn-form {
+      font-size: 3.1rem;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      direction: rtl;
+      color: var(--burgundy);
+      gap: 2px;
+      unicode-bidi: plaintext;
     }
 
-    .conn-form{
-      font-size:3.1rem;
-      height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--burgundy);
-      direction:ltr;
-      unicode-bidi:bidi-override;
-      white-space:nowrap;
-      letter-spacing:0;
+    .divider-col {
+      width: 60px;
+      height: 1px;
+      background-color: var(--gold);
+      margin: 16px 0;
+      opacity: 0.6;
     }
 
-    .conn-circle{
-      color:var(--gold);
-      font-size:.88em;
-      line-height:1;
-      display:inline-block;
-      transform:translateY(-.03em);
+    .ar-word {
+      font-size: 3.2rem;
+      font-weight: bold;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      direction: rtl;
+      text-align: center;
+      unicode-bidi: plaintext;
     }
 
-    .divider-col{
-      width:60px;
-      height:1px;
-      background:var(--gold);
-      margin:16px 0;
-      opacity:.6;
+    .bottom-wrap {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
 
-    .ar-word{
-      font-size:3.2rem;
-      font-weight:700;
-      height:80px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:18px;
-      text-align:center;
+    .phonetics {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      text-align: center;
+      line-height: 1.35;
     }
 
-    .bottom-wrap{
-      margin-top:auto;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      width:100%;
+    .phon-label {
+      color: var(--gold);
+      font-weight: 700;
+      margin-right: 5px;
     }
 
-    .phonetics{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      font-size:.95rem;
-      margin-bottom:18px;
-      text-align:center;
-      line-height:1.35;
-      white-space:nowrap;
+    .col-title {
+      color: var(--burgundy);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      opacity: 0.9;
+      text-align: center;
     }
 
-    .phon-label{
-      color:var(--gold);
-      font-weight:700;
-      margin-right:5px;
+    .toast {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--burgundy);
+      color: var(--white);
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: bottom 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1000;
+      text-align: center;
+      border: 1px solid var(--gold);
     }
 
-    .col-title{
-      color:var(--burgundy);
-      font-weight:600;
-      font-size:.95rem;
-      text-transform:uppercase;
-      letter-spacing:1.5px;
-      opacity:.9;
-      text-align:center;
+    .toast.show {
+      bottom: 40px;
     }
 
-    .toast{
-      position:fixed;
-      bottom:-100px;
-      left:50%;
-      transform:translateX(-50%);
-      background:var(--burgundy);
-      color:var(--white);
-      padding:15px 30px;
-      border-radius:50px;
-      font-size:.95rem;
-      box-shadow:0 10px 30px rgba(0,0,0,.2);
-      transition:bottom .4s cubic-bezier(.25,.8,.25,1);
-      z-index:1000;
-      text-align:center;
-      border:1px solid var(--gold);
+    @media (max-width: 768px) {
+      .scene { height: 690px; }
+      .face { padding: 30px 20px; }
+      .front-center { padding-bottom: 110px; }
+      .main-letter { font-size: 13rem; }
+      .btn-audio { bottom: 35px; }
+      .pedagogical-grid { gap: 10px; padding: 0; }
+      .ar-word { font-size: 2.7rem; height: 65px; margin-bottom: 14px; }
+      .conn-form { font-size: 2.45rem; height: 58px; }
+      .divider-col { margin: 14px 0; }
+      .phonetics { font-size: 0.9rem; }
+      .header-ar, .home-brand-ar { font-size: 2.2rem; }
+      .home-container { padding: 40px 20px; }
+      .front-bottom { gap: 20px; }
+      .lang-block { min-width: 160px; }
     }
 
-    .toast.show{
-      bottom:40px;
-    }
-
-    @media (max-width: 768px){
-      .scene{ height:700px; }
-      .face{ padding:30px 20px; }
-      .front-center{ padding-bottom:110px; }
-      .main-letter{ font-size:13rem; }
-      .btn-audio{ bottom:35px; }
-      .header-ar,.home-brand-ar{ font-size:2.2rem; }
-      .home-container{ padding:40px 20px; }
-      .front-bottom{ gap:20px; }
-      .lang-block{ min-width:160px; }
-      .col{ width:215px; min-width:215px; }
-      .ar-word{ font-size:2.5rem; height:62px; }
-      .conn-form{ font-size:2.25rem; height:58px; }
-      .phonetics{ font-size:.88rem; }
-    }
-
-    @media (max-width: 480px){
-      .scene{ height:740px; }
-      .main-letter{ font-size:10rem; }
-      .btn-audio{ width:45px; height:45px; font-size:1.2rem; }
-      .header-la,.home-brand-la{ font-size:.9rem; letter-spacing:2px; }
-      .app-title{ font-size:1.8rem; }
-      .card-view-header{ justify-content:center; }
-      .front-bottom{ flex-direction:column; gap:10px; }
-      .lang-block{ min-width:auto; }
-      .col{ width:185px; min-width:185px; }
-      .ar-word{ font-size:2rem; height:52px; }
-      .conn-form{ font-size:1.85rem; height:50px; }
-      .col-title{ font-size:.75rem; letter-spacing:1px; }
-      .phonetics{ font-size:.72rem; }
+    @media (max-width: 480px) {
+      .scene { height: 730px; }
+      .main-letter { font-size: 10rem; }
+      .btn-audio { width: 45px; height: 45px; font-size: 1.2rem; }
+      .ar-word { font-size: 2.1rem; height: 54px; }
+      .conn-form { font-size: 1.95rem; height: 50px; }
+      .col-title { font-size: 0.75rem; letter-spacing: 1px; }
+      .header-la, .home-brand-la { font-size: 0.9rem; letter-spacing: 2px; }
+      .app-title { font-size: 1.8rem; }
+      .card-view-header { justify-content: center; }
+      .front-bottom { flex-direction: column; gap: 10px; }
+      .lang-block { min-width: auto; }
     }
   </style>
 </head>
 <body>
 
+  <!-- HOME -->
   <div id="home-view" class="view">
     <div class="home-container">
       <div class="home-brand-ar ar-text">دار الكلمة</div>
       <div class="home-brand-la serif-text">Dar Al-Kalimah</div>
       <div class="home-divider"></div>
-      <div class="app-title serif-text">Kalicards</div>
+      <div class="app-title">Kalicards</div>
       <div class="home-subtitle">Écoute, observe et découvre les lettres arabes.</div>
       <div class="home-subtitle es">Escucha, observa y descubre las letras árabes.</div>
       <button class="btn-start" onclick="showFlashcard()">Commencer / Empezar</button>
     </div>
   </div>
 
+  <!-- CARD -->
   <div id="card-view" class="view hidden">
     <div class="card-view-header">
       <button class="btn-back" onclick="showHome()">
@@ -538,7 +519,7 @@
         <!-- FRONT -->
         <div class="face front">
           <div class="header">
-            <div class="header-ar ar-text">دار الكلمة</div>
+            <div class="header-ar ar-text" dir="rtl">دار الكلمة</div>
             <div class="header-la serif-text">Dar Al-Kalimah</div>
             <div class="divider-main"></div>
           </div>
@@ -570,62 +551,60 @@
         <!-- BACK -->
         <div class="face back">
           <div class="header">
-            <div class="header-ar ar-text">دار الكلمة</div>
+            <div class="header-ar ar-text" dir="rtl">دار الكلمة</div>
             <div class="header-la serif-text">Dar Al-Kalimah</div>
             <div class="divider-main"></div>
           </div>
 
           <div class="reading-instruction">
-            Lecture arabe / Lectura árabe
-            <div class="divider-main" style="margin:15px 0 0 0;"></div>
+            &larr; Lecture arabe / Lectura árabe
+            <div class="divider-main" style="margin: 15px 0 0 0;"></div>
           </div>
 
-          <div class="back-scroll">
-            <div class="pedagogical-row">
+          <div class="pedagogical-grid">
 
-              <!-- INITIAL = right -->
-              <div class="col">
-                <div class="conn-form ar-text" id="initial-form"></div>
-                <div class="divider-col"></div>
-                <div class="ar-word ar-text" id="initial-word">أسد</div>
-                <div class="bottom-wrap">
-                  <div class="phonetics">
-                    <div><span class="phon-label">Phonétique FR :</span><span id="initial-fr">Asad</span></div>
-                    <div><span class="phon-label">Fonética ES :</span><span id="initial-es">Asad</span></div>
-                  </div>
-                  <div class="col-title">Début / Inicio</div>
+            <!-- FINAL -->
+            <div class="col">
+              <div class="conn-form ar-text" id="final-form"></div>
+              <div class="divider-col"></div>
+              <div class="ar-word ar-text" id="final-word">ملجأ</div>
+              <div class="bottom-wrap">
+                <div class="phonetics">
+                  <div><span class="phon-label">Phonétique FR :</span><span id="final-fr">Malja'</span></div>
+                  <div><span class="phon-label">Fonética ES :</span><span id="final-es">Malya'</span></div>
                 </div>
+                <div class="col-title">Fin / Final</div>
               </div>
-
-              <!-- MIDDLE = center -->
-              <div class="col">
-                <div class="conn-form ar-text" id="middle-form"></div>
-                <div class="divider-col"></div>
-                <div class="ar-word ar-text" id="middle-word">كأس</div>
-                <div class="bottom-wrap">
-                  <div class="phonetics">
-                    <div><span class="phon-label">Phonétique FR :</span><span id="middle-fr">Ka's</span></div>
-                    <div><span class="phon-label">Fonética ES :</span><span id="middle-es">Ka's</span></div>
-                  </div>
-                  <div class="col-title">Milieu / Medio</div>
-                </div>
-              </div>
-
-              <!-- FINAL = left -->
-              <div class="col">
-                <div class="conn-form ar-text" id="final-form"></div>
-                <div class="divider-col"></div>
-                <div class="ar-word ar-text" id="final-word">ملجأ</div>
-                <div class="bottom-wrap">
-                  <div class="phonetics">
-                    <div><span class="phon-label">Phonétique FR :</span><span id="final-fr">Malja'</span></div>
-                    <div><span class="phon-label">Fonética ES :</span><span id="final-es">Malya'</span></div>
-                  </div>
-                  <div class="col-title">Fin / Final</div>
-                </div>
-              </div>
-
             </div>
+
+            <!-- MIDDLE -->
+            <div class="col">
+              <div class="conn-form ar-text" id="middle-form"></div>
+              <div class="divider-col"></div>
+              <div class="ar-word ar-text" id="middle-word">كأس</div>
+              <div class="bottom-wrap">
+                <div class="phonetics">
+                  <div><span class="phon-label">Phonétique FR :</span><span id="middle-fr">Ka's</span></div>
+                  <div><span class="phon-label">Fonética ES :</span><span id="middle-es">Ka's</span></div>
+                </div>
+                <div class="col-title">Milieu / Medio</div>
+              </div>
+            </div>
+
+            <!-- INITIAL -->
+            <div class="col">
+              <div class="conn-form ar-text" id="initial-form"></div>
+              <div class="divider-col"></div>
+              <div class="ar-word ar-text" id="initial-word">أسد</div>
+              <div class="bottom-wrap">
+                <div class="phonetics">
+                  <div><span class="phon-label">Phonétique FR :</span><span id="initial-fr">Asad</span></div>
+                  <div><span class="phon-label">Fonética ES :</span><span id="initial-es">Asad</span></div>
+                </div>
+                <div class="col-title">Début / Inicio</div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -635,514 +614,514 @@
 
   <div id="toast" class="toast">
     Audio non disponible pour le moment.<br>
-    <span style="font-size:.85em; opacity:.9;">Audio no disponible por el momento.</span>
+    <span style="font-size:0.85em; opacity:0.9;">Audio no disponible por el momento.</span>
   </div>
 
   <script>
     const cards = [
       {
-        letter:"أ",
-        fr:"Alif hamza",
-        es:"Alif hamza",
-        audio:"",
-        initialForm:"أ",
-        initialWord:"أسد",
-        initialFr:"Asad",
-        initialEs:"Asad",
-        middleForm:"ـأ",
-        middleWord:"كأس",
-        middleFr:"Ka's",
-        middleEs:"Ka's",
-        finalForm:"ـأ",
-        finalWord:"ملجأ",
-        finalFr:"Malja'",
-        finalEs:"Malya'"
+        letter: "أ",
+        fr: "Alif hamza",
+        es: "Alif hamza",
+        audio: "",
+        initialForm: "أ",
+        initialWord: "أسد",
+        initialFr: "Asad",
+        initialEs: "Asad",
+        middleForm: "ـأ",
+        middleWord: "كأس",
+        middleFr: "Ka's",
+        middleEs: "Ka's",
+        finalForm: "ـأ",
+        finalWord: "ملجأ",
+        finalFr: "Malja'",
+        finalEs: "Malya'"
       },
       {
-        letter:"ب",
-        fr:"Baa",
-        es:"Baa",
-        audio:"",
-        initialForm:"بـ",
-        initialWord:"باب",
-        initialFr:"Baab",
-        initialEs:"Baab",
-        middleForm:"ـبـ",
-        middleWord:"كبير",
-        middleFr:"Kabiir",
-        middleEs:"Kabiir",
-        finalForm:"ـب",
-        finalWord:"كتاب",
-        finalFr:"Kitaab",
-        finalEs:"Kitaab"
+        letter: "ب",
+        fr: "Baa",
+        es: "Baa",
+        audio: "",
+        initialForm: "بـ",
+        initialWord: "باب",
+        initialFr: "Baab",
+        initialEs: "Baab",
+        middleForm: "ـبـ",
+        middleWord: "كبير",
+        middleFr: "Kabiir",
+        middleEs: "Kabiir",
+        finalForm: "ـب",
+        finalWord: "كتاب",
+        finalFr: "Kitaab",
+        finalEs: "Kitaab"
       },
       {
-        letter:"ت",
-        fr:"Taa",
-        es:"Taa",
-        audio:"",
-        initialForm:"تـ",
-        initialWord:"تمر",
-        initialFr:"Tamr",
-        initialEs:"Tamr",
-        middleForm:"ـتـ",
-        middleWord:"كتاب",
-        middleFr:"Kitaab",
-        middleEs:"Kitaab",
-        finalForm:"ـت",
-        finalWord:"بيت",
-        finalFr:"Bayt",
-        finalEs:"Bayt"
+        letter: "ت",
+        fr: "Taa",
+        es: "Taa",
+        audio: "",
+        initialForm: "تـ",
+        initialWord: "تمر",
+        initialFr: "Tamr",
+        initialEs: "Tamr",
+        middleForm: "ـتـ",
+        middleWord: "كتاب",
+        middleFr: "Kitaab",
+        middleEs: "Kitaab",
+        finalForm: "ـت",
+        finalWord: "بيت",
+        finalFr: "Bayt",
+        finalEs: "Bayt"
       },
       {
-        letter:"ث",
-        fr:"Thaa",
-        es:"Zaa",
-        audio:"",
-        initialForm:"ثـ",
-        initialWord:"ثوب",
-        initialFr:"Thawb",
-        initialEs:"Zawb",
-        middleForm:"ـثـ",
-        middleWord:"مثل",
-        middleFr:"Mithl",
-        middleEs:"Mizl",
-        finalForm:"ـث",
-        finalWord:"بحث",
-        finalFr:"Bahth",
-        finalEs:"Bahz"
+        letter: "ث",
+        fr: "Thaa",
+        es: "Zaa",
+        audio: "",
+        initialForm: "ثـ",
+        initialWord: "ثوب",
+        initialFr: "Thawb",
+        initialEs: "Zawb",
+        middleForm: "ـثـ",
+        middleWord: "مثل",
+        middleFr: "Mithl",
+        middleEs: "Mizl",
+        finalForm: "ـث",
+        finalWord: "بحث",
+        finalFr: "Bahth",
+        finalEs: "Bahz"
       },
       {
-        letter:"ج",
-        fr:"Jim",
-        es:"Yim",
-        audio:"",
-        initialForm:"جـ",
-        initialWord:"جمل",
-        initialFr:"Jamal",
-        initialEs:"Yamal",
-        middleForm:"ـجـ",
-        middleWord:"رجل",
-        middleFr:"Rajul",
-        middleEs:"Rayul",
-        finalForm:"ـج",
-        finalWord:"برج",
-        finalFr:"Burj",
-        finalEs:"Bury"
+        letter: "ج",
+        fr: "Jim",
+        es: "Yim",
+        audio: "",
+        initialForm: "جـ",
+        initialWord: "جمل",
+        initialFr: "Jamal",
+        initialEs: "Yamal",
+        middleForm: "ـجـ",
+        middleWord: "رجل",
+        middleFr: "Rajul",
+        middleEs: "Rayul",
+        finalForm: "ـج",
+        finalWord: "برج",
+        finalFr: "Burj",
+        finalEs: "Bury"
       },
       {
-        letter:"ح",
-        fr:"Haa",
-        es:"Ha",
-        audio:"",
-        initialForm:"حـ",
-        initialWord:"حبل",
-        initialFr:"Habl",
-        initialEs:"Habl",
-        middleForm:"ـحـ",
-        middleWord:"بحر",
-        middleFr:"Bahr",
-        middleEs:"Bahr",
-        finalForm:"ـح",
-        finalWord:"مفتاح",
-        finalFr:"Miftaah",
-        finalEs:"Miftaah"
+        letter: "ح",
+        fr: "Haa",
+        es: "Ha",
+        audio: "",
+        initialForm: "حـ",
+        initialWord: "حبل",
+        initialFr: "Habl",
+        initialEs: "Habl",
+        middleForm: "ـحـ",
+        middleWord: "بحر",
+        middleFr: "Bahr",
+        middleEs: "Bahr",
+        finalForm: "ـح",
+        finalWord: "مفتاح",
+        finalFr: "Miftaah",
+        finalEs: "Miftaah"
       },
       {
-        letter:"خ",
-        fr:"Khaa",
-        es:"Ja",
-        audio:"",
-        initialForm:"خـ",
-        initialWord:"خبز",
-        initialFr:"Khubz",
-        initialEs:"Jubz",
-        middleForm:"ـخـ",
-        middleWord:"نخل",
-        middleFr:"Nakhl",
-        middleEs:"Najl",
-        finalForm:"ـخ",
-        finalWord:"مطبخ",
-        finalFr:"Matbakh",
-        finalEs:"Matbaj"
+        letter: "خ",
+        fr: "Khaa",
+        es: "Ja",
+        audio: "",
+        initialForm: "خـ",
+        initialWord: "خبز",
+        initialFr: "Khubz",
+        initialEs: "Jubz",
+        middleForm: "ـخـ",
+        middleWord: "نخل",
+        middleFr: "Nakhl",
+        middleEs: "Najl",
+        finalForm: "ـخ",
+        finalWord: "مطبخ",
+        finalFr: "Matbakh",
+        finalEs: "Matbaj"
       },
       {
-        letter:"د",
-        fr:"Daal",
-        es:"Daal",
-        audio:"",
-        initialForm:"د",
-        initialWord:"دب",
-        initialFr:"Dubb",
-        initialEs:"Dubb",
-        middleForm:"ـد",
-        middleWord:"مدرسة",
-        middleFr:"Madrasa",
-        middleEs:"Madrasa",
-        finalForm:"ـد",
-        finalWord:"ولد",
-        finalFr:"Walad",
-        finalEs:"Walad"
+        letter: "د",
+        fr: "Daal",
+        es: "Daal",
+        audio: "",
+        initialForm: "د",
+        initialWord: "دب",
+        initialFr: "Dubb",
+        initialEs: "Dubb",
+        middleForm: "ـد",
+        middleWord: "مدرسة",
+        middleFr: "Madrasa",
+        middleEs: "Madrasa",
+        finalForm: "ـد",
+        finalWord: "ولد",
+        finalFr: "Walad",
+        finalEs: "Walad"
       },
       {
-        letter:"ذ",
-        fr:"Dhaal",
-        es:"Dhal",
-        audio:"",
-        initialForm:"ذ",
-        initialWord:"ذهب",
-        initialFr:"Dhahab",
-        initialEs:"Dhahab",
-        middleForm:"ـذ",
-        middleWord:"هذا",
-        middleFr:"Haadha",
-        middleEs:"Haadha",
-        finalForm:"ـذ",
-        finalWord:"لذيذ",
-        finalFr:"Ladhiidh",
-        finalEs:"Ladhiidh"
+        letter: "ذ",
+        fr: "Dhaal",
+        es: "Dhal",
+        audio: "",
+        initialForm: "ذ",
+        initialWord: "ذهب",
+        initialFr: "Dhahab",
+        initialEs: "Dhahab",
+        middleForm: "ـذ",
+        middleWord: "هذا",
+        middleFr: "Haadha",
+        middleEs: "Haadha",
+        finalForm: "ـذ",
+        finalWord: "لذيذ",
+        finalFr: "Ladhiidh",
+        finalEs: "Ladhiidh"
       },
       {
-        letter:"ر",
-        fr:"Raa",
-        es:"Raa",
-        audio:"",
-        initialForm:"ر",
-        initialWord:"رجل",
-        initialFr:"Rajul",
-        initialEs:"Rayul",
-        middleForm:"ـر",
-        middleWord:"وردة",
-        middleFr:"Warda",
-        middleEs:"Warda",
-        finalForm:"ـر",
-        finalWord:"قمر",
-        finalFr:"Qamar",
-        finalEs:"Qamar"
+        letter: "ر",
+        fr: "Raa",
+        es: "Raa",
+        audio: "",
+        initialForm: "ر",
+        initialWord: "رجل",
+        initialFr: "Rajul",
+        initialEs: "Rayul",
+        middleForm: "ـر",
+        middleWord: "وردة",
+        middleFr: "Warda",
+        middleEs: "Warda",
+        finalForm: "ـر",
+        finalWord: "قمر",
+        finalFr: "Qamar",
+        finalEs: "Qamar"
       },
       {
-        letter:"ز",
-        fr:"Zaay",
-        es:"Zaay",
-        audio:"",
-        initialForm:"ز",
-        initialWord:"زيت",
-        initialFr:"Zayt",
-        initialEs:"Zayt",
-        middleForm:"ـز",
-        middleWord:"موزة",
-        middleFr:"Mawza",
-        middleEs:"Mawza",
-        finalForm:"ـز",
-        finalWord:"خبز",
-        finalFr:"Khubz",
-        finalEs:"Jubz"
+        letter: "ز",
+        fr: "Zaay",
+        es: "Zaay",
+        audio: "",
+        initialForm: "ز",
+        initialWord: "زيت",
+        initialFr: "Zayt",
+        initialEs: "Zayt",
+        middleForm: "ـز",
+        middleWord: "موزة",
+        middleFr: "Mawza",
+        middleEs: "Mawza",
+        finalForm: "ـز",
+        finalWord: "خبز",
+        finalFr: "Khubz",
+        finalEs: "Jubz"
       },
       {
-        letter:"س",
-        fr:"Siin",
-        es:"Siin",
-        audio:"",
-        initialForm:"سـ",
-        initialWord:"سمك",
-        initialFr:"Samak",
-        initialEs:"Samak",
-        middleForm:"ـسـ",
-        middleWord:"مسجد",
-        middleFr:"Masjid",
-        middleEs:"Masyid",
-        finalForm:"ـس",
-        finalWord:"درس",
-        finalFr:"Dars",
-        finalEs:"Dars"
+        letter: "س",
+        fr: "Siin",
+        es: "Siin",
+        audio: "",
+        initialForm: "سـ",
+        initialWord: "سمك",
+        initialFr: "Samak",
+        initialEs: "Samak",
+        middleForm: "ـسـ",
+        middleWord: "مسجد",
+        middleFr: "Masjid",
+        middleEs: "Masyid",
+        finalForm: "ـس",
+        finalWord: "درس",
+        finalFr: "Dars",
+        finalEs: "Dars"
       },
       {
-        letter:"ش",
-        fr:"Shiin",
-        es:"Shiin",
-        audio:"",
-        initialForm:"شـ",
-        initialWord:"شمس",
-        initialFr:"Shams",
-        initialEs:"Shams",
-        middleForm:"ـشـ",
-        middleWord:"مشمش",
-        middleFr:"Mishmish",
-        middleEs:"Mishmish",
-        finalForm:"ـش",
-        finalWord:"عرش",
-        finalFr:"Arsh",
-        finalEs:"Arsh"
+        letter: "ش",
+        fr: "Shiin",
+        es: "Shiin",
+        audio: "",
+        initialForm: "شـ",
+        initialWord: "شمس",
+        initialFr: "Shams",
+        initialEs: "Shams",
+        middleForm: "ـشـ",
+        middleWord: "مشمش",
+        middleFr: "Mishmish",
+        middleEs: "Mishmish",
+        finalForm: "ـش",
+        finalWord: "عرش",
+        finalFr: "Arsh",
+        finalEs: "Arsh"
       },
       {
-        letter:"ص",
-        fr:"Saad",
-        es:"Sad",
-        audio:"",
-        initialForm:"صـ",
-        initialWord:"صبر",
-        initialFr:"Sabr",
-        initialEs:"Sabr",
-        middleForm:"ـصـ",
-        middleWord:"بصير",
-        middleFr:"Basiir",
-        middleEs:"Basiir",
-        finalForm:"ـص",
-        finalWord:"نص",
-        finalFr:"Nass",
-        finalEs:"Nass"
+        letter: "ص",
+        fr: "Saad",
+        es: "Sad",
+        audio: "",
+        initialForm: "صـ",
+        initialWord: "صبر",
+        initialFr: "Sabr",
+        initialEs: "Sabr",
+        middleForm: "ـصـ",
+        middleWord: "بصير",
+        middleFr: "Basiir",
+        middleEs: "Basiir",
+        finalForm: "ـص",
+        finalWord: "نص",
+        finalFr: "Nass",
+        finalEs: "Nass"
       },
       {
-        letter:"ض",
-        fr:"Daad",
-        es:"Dad",
-        audio:"",
-        initialForm:"ضـ",
-        initialWord:"ضوء",
-        initialFr:"Daw'",
-        initialEs:"Daw'",
-        middleForm:"ـضـ",
-        middleWord:"مريض",
-        middleFr:"Mariid",
-        middleEs:"Mariid",
-        finalForm:"ـض",
-        finalWord:"أرض",
-        finalFr:"Ard",
-        finalEs:"Ard"
+        letter: "ض",
+        fr: "Daad",
+        es: "Dad",
+        audio: "",
+        initialForm: "ضـ",
+        initialWord: "ضوء",
+        initialFr: "Daw'",
+        initialEs: "Daw'",
+        middleForm: "ـضـ",
+        middleWord: "مريض",
+        middleFr: "Mariid",
+        middleEs: "Mariid",
+        finalForm: "ـض",
+        finalWord: "أرض",
+        finalFr: "Ard",
+        finalEs: "Ard"
       },
       {
-        letter:"ط",
-        fr:"Taa",
-        es:"Ta",
-        audio:"",
-        initialForm:"طـ",
-        initialWord:"طين",
-        initialFr:"Tiin",
-        initialEs:"Tiin",
-        middleForm:"ـطـ",
-        middleWord:"مطر",
-        middleFr:"Matar",
-        middleEs:"Matar",
-        finalForm:"ـط",
-        finalWord:"قط",
-        finalFr:"Qitt",
-        finalEs:"Qitt"
+        letter: "ط",
+        fr: "Taa",
+        es: "Ta",
+        audio: "",
+        initialForm: "طـ",
+        initialWord: "طين",
+        initialFr: "Tiin",
+        initialEs: "Tiin",
+        middleForm: "ـطـ",
+        middleWord: "مطر",
+        middleFr: "Matar",
+        middleEs: "Matar",
+        finalForm: "ـط",
+        finalWord: "قط",
+        finalFr: "Qitt",
+        finalEs: "Qitt"
       },
       {
-        letter:"ظ",
-        fr:"Zaa",
-        es:"Za",
-        audio:"",
-        initialForm:"ظـ",
-        initialWord:"ظل",
-        initialFr:"Zill",
-        initialEs:"Zill",
-        middleForm:"ـظـ",
-        middleWord:"عظيم",
-        middleFr:"Aziim",
-        middleEs:"Aziim",
-        finalForm:"ـظ",
-        finalWord:"حظ",
-        finalFr:"Hazz",
-        finalEs:"Hazz"
+        letter: "ظ",
+        fr: "Zaa",
+        es: "Za",
+        audio: "",
+        initialForm: "ظـ",
+        initialWord: "ظل",
+        initialFr: "Zill",
+        initialEs: "Zill",
+        middleForm: "ـظـ",
+        middleWord: "عظيم",
+        middleFr: "Aziim",
+        middleEs: "Aziim",
+        finalForm: "ـظ",
+        finalWord: "حظ",
+        finalFr: "Hazz",
+        finalEs: "Hazz"
       },
       {
-        letter:"ع",
-        fr:"Ayn",
-        es:"Ayn",
-        audio:"",
-        initialForm:"عـ",
-        initialWord:"عين",
-        initialFr:"Ayn",
-        initialEs:"Ayn",
-        middleForm:"ـعـ",
-        middleWord:"ملعب",
-        middleFr:"Mal'ab",
-        middleEs:"Mal'ab",
-        finalForm:"ـع",
-        finalWord:"جمع",
-        finalFr:"Jam'",
-        finalEs:"Yam'"
+        letter: "ع",
+        fr: "Ayn",
+        es: "Ayn",
+        audio: "",
+        initialForm: "عـ",
+        initialWord: "عين",
+        initialFr: "Ayn",
+        initialEs: "Ayn",
+        middleForm: "ـعـ",
+        middleWord: "ملعب",
+        middleFr: "Mal'ab",
+        middleEs: "Mal'ab",
+        finalForm: "ـع",
+        finalWord: "جمع",
+        finalFr: "Jam'",
+        finalEs: "Yam'"
       },
       {
-        letter:"غ",
-        fr:"Ghayn",
-        es:"Ghain",
-        audio:"",
-        initialForm:"غـ",
-        initialWord:"غيم",
-        initialFr:"Ghaym",
-        initialEs:"Ghaim",
-        middleForm:"ـغـ",
-        middleWord:"مغرب",
-        middleFr:"Maghrib",
-        middleEs:"Maghrib",
-        finalForm:"ـغ",
-        finalWord:"صبغ",
-        finalFr:"Sibgh",
-        finalEs:"Sibgh"
+        letter: "غ",
+        fr: "Ghayn",
+        es: "Ghain",
+        audio: "",
+        initialForm: "غـ",
+        initialWord: "غيم",
+        initialFr: "Ghaym",
+        initialEs: "Ghaim",
+        middleForm: "ـغـ",
+        middleWord: "مغرب",
+        middleFr: "Maghrib",
+        middleEs: "Maghrib",
+        finalForm: "ـغ",
+        finalWord: "صبغ",
+        finalFr: "Sibgh",
+        finalEs: "Sibgh"
       },
       {
-        letter:"ف",
-        fr:"Faa",
-        es:"Faa",
-        audio:"",
-        initialForm:"فـ",
-        initialWord:"فيل",
-        initialFr:"Fiil",
-        initialEs:"Fiil",
-        middleForm:"ـفـ",
-        middleWord:"مفتاح",
-        middleFr:"Miftaah",
-        middleEs:"Miftah",
-        finalForm:"ـف",
-        finalWord:"صيف",
-        finalFr:"Sayf",
-        finalEs:"Saif"
+        letter: "ف",
+        fr: "Faa",
+        es: "Faa",
+        audio: "",
+        initialForm: "فـ",
+        initialWord: "فيل",
+        initialFr: "Fiil",
+        initialEs: "Fiil",
+        middleForm: "ـفـ",
+        middleWord: "مفتاح",
+        middleFr: "Miftaah",
+        middleEs: "Miftah",
+        finalForm: "ـف",
+        finalWord: "صيف",
+        finalFr: "Sayf",
+        finalEs: "Saif"
       },
       {
-        letter:"ق",
-        fr:"Qaaf",
-        es:"Qaf",
-        audio:"",
-        initialForm:"قـ",
-        initialWord:"قمر",
-        initialFr:"Qamar",
-        initialEs:"Qamar",
-        middleForm:"ـقـ",
-        middleWord:"بقرة",
-        middleFr:"Baqara",
-        middleEs:"Baqara",
-        finalForm:"ـق",
-        finalWord:"سوق",
-        finalFr:"Suuq",
-        finalEs:"Suq"
+        letter: "ق",
+        fr: "Qaaf",
+        es: "Qaf",
+        audio: "",
+        initialForm: "قـ",
+        initialWord: "قمر",
+        initialFr: "Qamar",
+        initialEs: "Qamar",
+        middleForm: "ـقـ",
+        middleWord: "بقرة",
+        middleFr: "Baqara",
+        middleEs: "Baqara",
+        finalForm: "ـق",
+        finalWord: "سوق",
+        finalFr: "Suuq",
+        finalEs: "Suq"
       },
       {
-        letter:"ك",
-        fr:"Kaaf",
-        es:"Kaf",
-        audio:"",
-        initialForm:"كـ",
-        initialWord:"كأس",
-        initialFr:"Ka's",
-        initialEs:"Ka's",
-        middleForm:"ـكـ",
-        middleWord:"كتاب",
-        middleFr:"Kitaab",
-        middleEs:"Kitab",
-        finalForm:"ـك",
-        finalWord:"سمك",
-        finalFr:"Samak",
-        finalEs:"Samak"
+        letter: "ك",
+        fr: "Kaaf",
+        es: "Kaf",
+        audio: "",
+        initialForm: "كـ",
+        initialWord: "كأس",
+        initialFr: "Ka's",
+        initialEs: "Ka's",
+        middleForm: "ـكـ",
+        middleWord: "كتاب",
+        middleFr: "Kitaab",
+        middleEs: "Kitab",
+        finalForm: "ـك",
+        finalWord: "سمك",
+        finalFr: "Samak",
+        finalEs: "Samak"
       },
       {
-        letter:"ل",
-        fr:"Laam",
-        es:"Lam",
-        audio:"",
-        initialForm:"لـ",
-        initialWord:"لبن",
-        initialFr:"Laban",
-        initialEs:"Laban",
-        middleForm:"ـلـ",
-        middleWord:"قلم",
-        middleFr:"Qalam",
-        middleEs:"Qalam",
-        finalForm:"ـل",
-        finalWord:"جبل",
-        finalFr:"Jabal",
-        finalEs:"Yabal"
+        letter: "ل",
+        fr: "Laam",
+        es: "Lam",
+        audio: "",
+        initialForm: "لـ",
+        initialWord: "لبن",
+        initialFr: "Laban",
+        initialEs: "Laban",
+        middleForm: "ـلـ",
+        middleWord: "قلم",
+        middleFr: "Qalam",
+        middleEs: "Qalam",
+        finalForm: "ـل",
+        finalWord: "جبل",
+        finalFr: "Jabal",
+        finalEs: "Yabal"
       },
       {
-        letter:"م",
-        fr:"Miim",
-        es:"Mim",
-        audio:"",
-        initialForm:"مـ",
-        initialWord:"ماء",
-        initialFr:"Ma'",
-        initialEs:"Ma'",
-        middleForm:"ـمـ",
-        middleWord:"سمك",
-        middleFr:"Samak",
-        middleEs:"Samak",
-        finalForm:"ـم",
-        finalWord:"قلم",
-        finalFr:"Qalam",
-        finalEs:"Qalam"
+        letter: "م",
+        fr: "Miim",
+        es: "Mim",
+        audio: "",
+        initialForm: "مـ",
+        initialWord: "ماء",
+        initialFr: "Ma'",
+        initialEs: "Ma'",
+        middleForm: "ـمـ",
+        middleWord: "سمك",
+        middleFr: "Samak",
+        middleEs: "Samak",
+        finalForm: "ـم",
+        finalWord: "قلم",
+        finalFr: "Qalam",
+        finalEs: "Qalam"
       },
       {
-        letter:"ن",
-        fr:"Nuun",
-        es:"Nun",
-        audio:"",
-        initialForm:"نـ",
-        initialWord:"نجم",
-        initialFr:"Najm",
-        initialEs:"Naym",
-        middleForm:"ـنـ",
-        middleWord:"عنب",
-        middleFr:"Inab",
-        middleEs:"Inab",
-        finalForm:"ـن",
-        finalWord:"عين",
-        finalFr:"Ayn",
-        finalEs:"Ayn"
+        letter: "ن",
+        fr: "Nuun",
+        es: "Nun",
+        audio: "",
+        initialForm: "نـ",
+        initialWord: "نجم",
+        initialFr: "Najm",
+        initialEs: "Naym",
+        middleForm: "ـنـ",
+        middleWord: "عنب",
+        middleFr: "Inab",
+        middleEs: "Inab",
+        finalForm: "ـن",
+        finalWord: "عين",
+        finalFr: "Ayn",
+        finalEs: "Ayn"
       },
       {
-        letter:"ه",
-        fr:"Haa",
-        es:"Ha",
-        audio:"",
-        initialForm:"هـ",
-        initialWord:"هلال",
-        initialFr:"Hilaal",
-        initialEs:"Hilal",
-        middleForm:"ـهـ",
-        middleWord:"نهر",
-        middleFr:"Nahr",
-        middleEs:"Nahr",
-        finalForm:"ـه",
-        finalWord:"وجه",
-        finalFr:"Wajh",
-        finalEs:"Wayh"
+        letter: "ه",
+        fr: "Haa",
+        es: "Ha",
+        audio: "",
+        initialForm: "هـ",
+        initialWord: "هلال",
+        initialFr: "Hilaal",
+        initialEs: "Hilal",
+        middleForm: "ـهـ",
+        middleWord: "نهر",
+        middleFr: "Nahr",
+        middleEs: "Nahr",
+        finalForm: "ـه",
+        finalWord: "وجه",
+        finalFr: "Wajh",
+        finalEs: "Wayh"
       },
       {
-        letter:"و",
-        fr:"Waaw",
-        es:"Waw",
-        audio:"",
-        initialForm:"و",
-        initialWord:"ورد",
-        initialFr:"Ward",
-        initialEs:"Ward",
-        middleForm:"ـو",
-        middleWord:"قوس",
-        middleFr:"Qaws",
-        middleEs:"Qaws",
-        finalForm:"ـو",
-        finalWord:"ضوء",
-        finalFr:"Daw'",
-        finalEs:"Daw'"
+        letter: "و",
+        fr: "Waaw",
+        es: "Waw",
+        audio: "",
+        initialForm: "و",
+        initialWord: "ورد",
+        initialFr: "Ward",
+        initialEs: "Ward",
+        middleForm: "ـو",
+        middleWord: "قوس",
+        middleFr: "Qaws",
+        middleEs: "Qaws",
+        finalForm: "ـو",
+        finalWord: "ضوء",
+        finalFr: "Daw'",
+        finalEs: "Daw'"
       },
       {
-        letter:"ي",
-        fr:"Yaa",
-        es:"Ya",
-        audio:"",
-        initialForm:"يـ",
-        initialWord:"يد",
-        initialFr:"Yad",
-        initialEs:"Yad",
-        middleForm:"ـيـ",
-        middleWord:"بيت",
-        middleFr:"Bayt",
-        middleEs:"Bait",
-        finalForm:"ـي",
-        finalWord:"كرسي",
-        finalFr:"Kursii",
-        finalEs:"Kursi"
+        letter: "ي",
+        fr: "Yaa",
+        es: "Ya",
+        audio: "",
+        initialForm: "يـ",
+        initialWord: "يد",
+        initialFr: "Yad",
+        initialEs: "Yad",
+        middleForm: "ـيـ",
+        middleWord: "بيت",
+        middleFr: "Bayt",
+        middleEs: "Bait",
+        finalForm: "ـي",
+        finalWord: "كرسي",
+        finalFr: "Kursii",
+        finalEs: "Kursi"
       }
     ];
 
