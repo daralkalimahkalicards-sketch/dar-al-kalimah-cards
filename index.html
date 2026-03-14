@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalima - Accueil Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           VARIABLES LUXE "DAR AL-KALIMA"
+           ========================================= */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #888888;
+            --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px 20px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        .ar-text { font-family: "Amiri", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        /* =========================================
+           HEADER (TITRE PRINCIPAL)
+           ========================================= */
+        .header-container {
+            width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
+        }
+        
+        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--burgundy); margin-bottom: 5px; line-height: 1.1; }
+        .app-title { font-size: 1.4rem; color: var(--gold); letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
+        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px;}
+        
+        .subtitle { font-size: 1.1rem; color: var(--text-dark); font-weight: 500; margin-bottom: 5px; }
+        .subtitle-es { font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+
+        /* =========================================
+           GRILLE DE NAVIGATION 2X2
+           ========================================= */
+        .nav-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); 
+            gap: 30px; width: 100%; max-width: 850px; 
+        }
+
+        /* =========================================
+           CARTES D'ÉTUDE (STYLE CAPTURE D'ÉCRAN)
+           ========================================= */
+        .nav-card {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 40px 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease; 
+            text-decoration: none; color: inherit;
+        }
+        .nav-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+
+        /* L'icône dans son cercle fin */
+        .icon-wrapper {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: transparent; border: 1.5px solid var(--gold);
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 25px; transition: all 0.3s ease;
+        }
+        .nav-card:hover .icon-wrapper { background: var(--bg-beige); transform: scale(1.05); }
+        .visual-main { font-size: 2rem; color: var(--gold); }
+
+        /* Typographie Arabe */
+        .word-ar-title { font-size: 2.8rem; font-weight: 700; color: var(--burgundy); line-height: 1.2; margin-bottom: 25px; }
+        
+        /* Typographie Française (Majuscules élégantes) & Espagnole */
+        .lang-fr { font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 1px;}
+        .lang-es { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 30px; }
+        
+        /* Bouton Premium arrondi */
+        .btn-open {
+            margin-top: auto; background: var(--burgundy); color: var(--white); 
+            padding: 14px 0; width: 85%; border-radius: 50px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s ease;
+        }
+        .nav-card:hover .btn-open { background: var(--burgundy-dark); }
+
+        /* =========================================
+           CARTE DE RÉSERVE (BIENTÔT)
+           ========================================= */
+        .reserve-card { 
+            border: 2px dashed rgba(200, 164, 98, 0.4); background: transparent; box-shadow: none; cursor: default;
+        }
+        .reserve-card:hover { transform: none; box-shadow: none; border-color: rgba(200, 164, 98, 0.4); }
+        .reserve-card .icon-wrapper { border-color: var(--gold-light); }
+        .reserve-card .visual-main { color: var(--gold-light); }
+        .reserve-card .word-ar-title { color: var(--text-muted); }
+        
+        .btn-locked { background: #E5E7EB; color: #999; cursor: not-allowed; }
+        .reserve-card:hover .btn-locked { background: #E5E7EB; }
+        .reserve-card:hover .icon-wrapper { transform: none; background: transparent; }
+
+        /* =========================================
+           RESPONSIVE MOBILE
+           ========================================= */
+        @media (max-width: 768px) {
+            .nav-grid { grid-template-columns: 1fr; gap: 20px; }
+            .brand-ar { font-size: 3rem; }
+            .nav-card { padding: 35px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="brand-ar ar-text">دار الكلمة</div>
+        <div class="app-title serif-text">Dar Al-Kalima</div>
+        <div class="divider"></div>
+        <p class="subtitle">Choisissez votre espace d’étude.</p>
+        <p class="subtitle-es">Elige tu espacio de estudio.</p>
+    </div>
+    
+    <div class="nav-grid">
+
+        <a href="modules.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-layer-group visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">الوحدات</div>
+            <div class="lang-fr">Modules</div>
+            <div class="lang-es">Módulos</div>
+            <button class="btn-open">Ouvrir / Abrir</button>
+        </a>
+
+        <a href="bank.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-book-bookmark visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">بنك الكلمات</div>
+            <div class="lang-fr">Banque des Mots</div>
+            <div class="lang-es">Banco de palabras</div>
+            <button class="btn-open">Ouvrir / Abrir</button>
+        </a>
+
+        <a href="ardoise.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-laptop visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">السبورة</div>
+            <div class="lang-fr">L'Ardoise</div>
+            <div class="lang-es">La pizarra</div>
+            <button class="btn-open">Ouvrir / Abrir</button>
+        </a>
+
+        <div class="nav-card reserve-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-folder visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">قريباً</div>
+            <div class="lang-fr" style="color: var(--text-muted);">Règles et Ressources</div>
+            <div class="lang-es">Reglas y Recursos</div>
+            <button class="btn-open btn-locked">Bientôt / Pronto</button>
+        </div>
+
+    </div>
+
+</body>
+</html>
