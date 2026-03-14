@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalima - Lexique Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           VARIABLES PREMIUM "DAR AL-KALIMA"
+           ========================================= */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --gold-faded: rgba(200, 164, 98, 0.15);
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #7F8C8D;
+            --border-soft: #E5E7EB;
+            --success: #27AE60;
+            --error: #C0392B;
+            --shadow-elegant: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: linear-gradient(135deg, var(--white) 0%, var(--bg-beige) 100%);
+            font-family: 'Montserrat', sans-serif;
+            padding: 30px 15px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        .hidden { display: none !important; }
+        .ar-text { font-family: "Amiri", "Noto Naskh Arabic", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+
+        /* =========================================
+           VUE 1 : HEADER ET LEXIQUE
+           ========================================= */
+        .header-container {
+            background: var(--white);
+            padding: 40px 30px; border-radius: 12px;
+            border: 1px solid var(--gold);
+            box-shadow: var(--shadow-elegant);
+            width: 100%; max-width: 900px; margin-bottom: 30px;
+            position: relative; text-align: center;
+        }
+
+        .btn-back-home {
+            position: absolute; top: 25px; left: 25px;
+            background: transparent; border: none; color: var(--burgundy);
+            font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px;
+            transition: opacity 0.2s ease;
+        }
+        .btn-back-home:hover { opacity: 0.7; }
+
+        .brand-ar { font-size: 3rem; font-weight: 700; color: var(--burgundy); margin-bottom: 5px; line-height: 1.2; }
+        .app-title { font-size: 1.1rem; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; font-weight: 600;}
+        .divider { width: 50px; height: 1px; background-color: var(--gold); margin: 25px auto; }
+        
+        .header-desc { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; margin-bottom: 25px; line-height: 1.6; }
+
+        .search-bar { position: relative; max-width: 600px; margin: 0 auto; }
+        .search-bar input {
+            width: 100%; padding: 18px 25px; font-size: 1rem; font-family: 'Montserrat', sans-serif;
+            border: 1px solid var(--gold-light); border-radius: 50px; background: var(--bg-beige);
+            color: var(--burgundy); outline: none; transition: all 0.3s ease;
+            text-align: right; direction: rtl; font-weight: 500;
+        }
+        .search-bar input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-faded); background: var(--white); }
+        .search-bar i { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.1rem; }
+
+        /* GRILLE DU LEXIQUE */
+        .vocab-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; width: 100%; max-width: 900px; 
+        }
+        .word-card {
+            background: var(--white); border: 1px solid var(--gold-light); border-radius: 12px; padding: 25px 20px;
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow-elegant); cursor: pointer; transition: all 0.3s ease;
+        }
+        .word-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-deep); border-color: var(--gold); }
+
+        .visual-placeholder { font-size: 1.8rem; color: var(--gold); margin-bottom: 15px; }
+        .letter-display-grid { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: 3.5rem; color: var(--burgundy); line-height: 1; margin-bottom: 15px; }
+        .word-ar-small { font-size: 2rem; font-weight: 700; color: var(--burgundy); line-height: 1.4; margin-bottom: 15px; font-family: "Noto Naskh Arabic", serif;}
+        
+        .card-bottom { width: 100%; border-top: 1px solid var(--border-soft); padding-top: 15px; text-align: center; }
+        .lang-fr { color: var(--text-dark); font-weight: 500; font-size: 0.9rem; margin-bottom: 4px; }
+        .lang-es { color: var(--text-muted); font-size: 0.8rem; font-style: italic; }
+
+        /* =========================================
+           VUE 2 : ESPACE D'ÉTUDE PREMIUM
+           ========================================= */
+        .study-container {
+            background: var(--white); border: 1px solid var(--gold); border-radius: 12px;
+            width: 100%; max-width: 650px; margin: 0 auto; box-shadow: var(--shadow-deep);
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        .study-header {
+            background: var(--bg-beige); border-bottom: 1px solid var(--gold-light); padding: 20px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .study-header-title { font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--burgundy); }
+        .btn-close-study { background: transparent; border: none; color: var(--burgundy); font-size: 1.1rem; cursor: pointer; font-weight: bold; transition: opacity 0.2s; }
+        .btn-close-study:hover { opacity: 0.7; }
+
+        .study-body { padding: 40px 30px; display: flex; flex-direction: column; align-items: center; }
+
+        /* VISUEL (ICÔNE OU BADGE LETTRE) */
+        .visual-main { margin-bottom: 15px; color: var(--gold); font-size: 2.5rem; }
+        .letter-visual { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
+        .letter-visual-badge { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--burgundy); border: 1px solid var(--gold-light); padding: 4px 12px; border-radius: 50px; background: var(--bg-beige); }
+
+        /* MOT ARABE - AUCUN SPAN, HARAKAT PROTÉGÉS */
+        .giant-word-ar {
+            font-family: "Noto Naskh Arabic", "Amiri", serif; 
+            font-size: 5.5rem; font-weight: 500; color: var(--burgundy);
+            line-height: 1.8; /* Espace nécessaire pour les harakat */
+            text-align: center; direction: rtl; margin-bottom: 15px;
+        }
+        
+        /* TRADUCTIONS */
+        .translations-box { text-align: center; margin-bottom: 35px; }
+        .translations-box .fr-text { font-size: 1.1rem; font-weight: 500; color: var(--text-dark); margin-bottom: 5px; }
+        .translations-box .es-text { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+
+        /* OUTILS INTERACTIFS (AUDIO/MICRO) CENTRÉS */
+        .interactive-tools { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; width: 100%; }
+        
+        .tool-btn {
+            flex: 1; max-width: 220px; display: flex; flex-direction: column; align-items: center; gap: 8px; 
+            background: var(--white); border: 1px solid var(--gold-light); color: var(--burgundy); 
+            padding: 15px 10px; border-radius: 8px; font-family: 'Montserrat', sans-serif; 
+            font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
+        }
+        .tool-btn i { font-size: 1.4rem; color: var(--gold); transition: color 0.3s; }
+        .tool-btn:hover { border-color: var(--gold); box-shadow: var(--shadow-elegant); }
+        .tool-btn:hover i { color: var(--burgundy); }
+        
+        .tool-btn.active-mic { border-color: var(--burgundy); background: var(--bg-beige); }
+        .tool-btn.active-mic i { color: var(--burgundy); animation: pulse-mic 1.5s infinite; }
+
+        @keyframes pulse-mic { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        /* RÉSULTAT VOCAL */
+        .voice-feedback-area { width: 100%; text-align: center; margin-bottom: 35px; min-height: 60px; padding: 15px; background: var(--bg-beige); border-radius: 8px; border: 1px dashed var(--gold-light); }
+        .voice-result { font-family: "Noto Naskh Arabic", serif; font-size: 1.8rem; color: var(--burgundy); direction: rtl; margin-bottom: 5px; font-weight: bold;}
+        .feedback-msg { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; }
+        .feedback-msg.ok { color: var(--success); }
+        .feedback-msg.no { color: var(--error); }
+        .feedback-msg.neutral { color: var(--text-muted); font-weight: 400; }
+
+        /* ARDOISE D'ÉCRITURE */
+        .slate-wrapper { width: 100%; }
+        .writing-section-title { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;}
+        .btn-clear-canvas { background: none; border: none; color: var(--burgundy); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;}
+        .btn-clear-canvas:hover { opacity: 0.7; }
+        
+        .slate-container {
+            width: 100%; height: 220px; border: 1px solid var(--gold-light); border-radius: 8px;
+            background-color: var(--white); position: relative; overflow: hidden;
+        }
+        canvas.slate-canvas {
+            width: 100%; height: 100%; cursor: crosshair; touch-action: none;
+            background-image: repeating-linear-gradient(transparent, transparent 48px, var(--bg-beige) 49px, var(--bg-beige) 50px);
+        }
+
+        /* NAVIGATION BAS */
+        .study-footer {
+            border-top: 1px solid var(--gold-light); padding: 20px 30px; background: var(--bg-beige);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+        }
+        .btn-footer {
+            background: var(--white); border: 1px solid var(--gold); color: var(--burgundy); 
+            padding: 12px 25px; border-radius: 6px; font-family: 'Montserrat', sans-serif; 
+            font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+            text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-footer:hover { background: var(--gold-faded); }
+        .btn-next { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); }
+        .btn-next:hover { background: var(--burgundy-dark); }
+
+        /* TOAST */
+        .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background-color: var(--burgundy); color: var(--white); padding: 12px 25px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; transition: bottom 0.4s ease; z-index: 1000; text-align: center; border: 1px solid var(--gold); }
+        .toast.show { bottom: 30px; }
+
+        @media (max-width: 600px) {
+            .study-body { padding: 30px 20px; }
+            .giant-word-ar { font-size: 4rem; }
+            .interactive-tools { flex-direction: column; gap: 10px; align-items: stretch; }
+            .tool-btn { max-width: 100%; flex-direction: row; justify-content: center; padding: 12px; }
+            .study-footer { flex-direction: column; }
+            .btn-footer { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lexique-view" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <div class="header-container">
+            <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-left"></i> Menu / Menú</a>
+            <div class="brand-ar ar-text">دار الكلمة</div>
+            <div class="app-title serif-text">Dar Al-Kalima</div>
+            <div class="divider"></div>
+            <p class="header-desc">
+                Sélectionnez une carte pour ouvrir l'espace d'étude.<br>
+                <span style="font-size: 0.85rem; opacity: 0.8;">Selecciona una carta para abrir el espacio de estudio.</span>
+            </p>
+            
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Rechercher / Buscar..." onkeyup="filterWords()" />
+            </div>
+        </div>
+        
+        <div class="vocab-grid" id="vocab-grid"></div>
+    </div>
+
+    <div id="dictation-view" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        
+        <button class="btn-footer" onclick="backToLexique()" style="margin-bottom: 20px; align-self: center;">
+            <i class="fa-solid fa-arrow-left"></i> Retour / Volver
+        </button>
+
+        <div class="study-container">
+            <div class="study-header">
+                <span class="study-header-title serif-text">Espace d'Étude / Espacio de Estudio</span>
+                <button class="btn-close-study" onclick="backToLexique()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="study-body">
+                
+                <div id="word-visual"></div>
+
+                <div id="quiz-word" class="giant-word-ar"></div>
+
+                <div class="translations-box">
+                    <div class="fr-text" id="word-fr"></div>
+                    <div class="es-text" id="word-es"></div>
+                </div>
+
+                <div class="interactive-tools">
+                    <button class="tool-btn" onclick="playWordAudio()">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>Écouter / Escuchar</span>
+                    </button>
+                    <button class="tool-btn" id="btn-mic" onclick="startVoiceRecognition()">
+                        <i class="fa-solid fa-microphone"></i>
+                        <span>Prononcer / Pronunciar</span>
+                    </button>
+                </div>
+
+                <div class="voice-feedback-area">
+                    <div id="voice-result" class="voice-result"></div>
+                    <div id="voice-feedback" class="feedback-msg neutral">Cliquez sur Prononcer pour valider votre accent.<br><span style="font-weight: normal; font-size: 0.8rem;">Haz clic en Pronunciar para validar tu acento.</span></div>
+                </div>
+
+                <div class="slate-wrapper">
+                    <div class="writing-section-title">
+                        <span>Carnet d'écriture / Cuaderno de escritura</span>
+                        <button class="btn-clear-canvas" onclick="clearSlate()"><i class="fa-solid fa-eraser"></i> Effacer / Borrar</button>
+                    </div>
+                    <div class="slate-container">
+                        <canvas id="slate-canvas" class="slate-canvas"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="study-footer">
+                <button class="btn-footer" onclick="restartWord()"><i class="fa-solid fa-rotate-right"></i> Rejouer / Repetir</button>
+                <button class="btn-footer btn-next" onclick="nextWord()">Suivant / Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Audio introuvable / Audio no encontrado.</div>
+
+    <script>
+        // =========================================
+        // BASE DE DONNÉES INTACTE (100 ENTRÉES)
+        // Les champs HTML ont été supprimés/ignorés en JS.
+        // =========================================
+        const wordsDatabase = [
+            // LETTRES
+            { id: 1, type: "letter", arabe: "أ", fr: "Lettre Alif", es: "Letra Alif", audio: "audio/01-alif.mp3" },
+            { id: 2, type: "letter", arabe: "ب", fr: "Lettre Baa", es: "Letra Baa", audio: "audio/02-baa.mp3" },
+            { id: 3, type: "letter", arabe: "ت", fr: "Lettre Taa", es: "Letra Taa", audio: "audio/03-taa.mp3" },
+            { id: 4, type: "letter", arabe: "ث", fr: "Lettre Thaa", es: "Letra Thaa", audio: "audio/04-thaa.mp3" },
+            { id: 5, type: "letter", arabe: "ج", fr: "Lettre Jiim", es: "Letra Jiim", audio: "audio/05-jim.mp3" },
+            { id: 6, type: "letter", arabe: "ح", fr: "Lettre Haa", es: "Letra Haa", audio: "audio/06-haa.mp3" },
+            { id: 7, type: "letter", arabe: "خ", fr: "Lettre Khaa", es: "Letra Khaa", audio: "audio/07-khaa.mp3" },
+            { id: 8, type: "letter", arabe: "د", fr: "Lettre Daal", es: "Letra Daal", audio: "audio/08-daal.mp3" },
+            { id: 9, type: "letter", arabe: "ذ", fr: "Lettre Dhaal", es: "Letra Dhaal", audio: "audio/09-dhaal.mp3" },
+            { id: 10, type: "letter", arabe: "ر", fr: "Lettre Raa", es: "Letra Raa", audio: "audio/10-raa.mp3" },
+            { id: 11, type: "letter", arabe: "ز", fr: "Lettre Zaay", es: "Letra Zaay", audio: "audio/11-zaay.mp3" },
+            { id: 12, type: "letter", arabe: "س", fr: "Lettre Siin", es: "Letra Siin", audio: "audio/12-siin.mp3" },
+            { id: 13, type: "letter", arabe: "ش", fr: "Lettre Shiin", es: "Letra Shiin", audio: "audio/13-shiin.mp3" },
+            { id: 14, type: "letter", arabe: "ص", fr: "Lettre Saad", es: "Letra Saad", audio: "audio/14-saad.mp3" },
+            { id: 15, type: "letter", arabe: "ض", fr: "Lettre Daad", es: "Letra Daad", audio: "audio/15-daad.mp3" },
+            { id: 16, type: "letter", arabe: "ط", fr: "Lettre Taa", es: "Letra Taa", audio: "audio/16-taaa.mp3" },
+            { id: 17, type: "letter", arabe: "ظ", fr: "Lettre Zaa", es: "Letra Zaa", audio: "audio/17-zaa.mp3" },
+            { id: 18, type: "letter", arabe: "ع", fr: "Lettre Ayn", es: "Letra Ayn", audio: "audio/18-ayn.mp3" },
+            { id: 19, type: "letter", arabe: "غ", fr: "Lettre Ghayn", es: "Letra Ghayn", audio: "audio/19-ghayn.mp3" },
+            { id: 20, type: "letter", arabe: "ف", fr: "Lettre Faa", es: "Letra Faa", audio: "audio/20-faa.mp3" },
+            { id: 21, type: "letter", arabe: "ق", fr: "Lettre Qaaf", es: "Letra Qaaf", audio: "audio/21-qaaf.mp3" },
+            { id: 22, type: "letter", arabe: "ك", fr: "Lettre Kaaf", es: "Letra Kaaf", audio: "audio/22-kaaf.mp3" },
+            { id: 23, type: "letter", arabe: "ل", fr: "Lettre Laam", es: "Letra Laam", audio: "audio/23-laam.mp3" },
+            { id: 24, type: "letter", arabe: "م", fr: "Lettre Miim", es: "Letra Miim", audio: "audio/24-miim.mp3" },
+            { id: 25, type: "letter", arabe: "ن", fr: "Lettre Nuun", es: "Letra Nuun", audio: "audio/25-nuun.mp3" },
+            { id: 26, type: "letter", arabe: "ه", fr: "Lettre Haa", es: "Letra Haa", audio: "audio/26-haaa.mp3" },
+            { id: 27, type: "letter", arabe: "و", fr: "Lettre Waaw", es: "Letra Waaw", audio: "audio/27-waaw.mp3" },
+            { id: 28, type: "letter", arabe: "ي", fr: "Lettre Yaa", es: "Letra Yaa", audio: "audio/28-yaa.mp3" },
+
+            // MOTS (Module 1) - Icônes élégantes
+            { id: 29, type: "word", arabe: "أَسَد", icon: "fa-solid fa-paw", fr: "Lion", es: "León", audio: "audio-mots/asad.mp3" },
+            { id: 30, type: "word", arabe: "كَأْس", icon: "fa-solid fa-glass-water", fr: "Verre", es: "Vaso", audio: "audio-mots/kas.mp3" },
+            { id: 31, type: "word", arabe: "مَلْجَأ", icon: "fa-solid fa-house-chimney", fr: "Refuge", es: "Refugio", audio: "audio-mots/malja.mp3" },
+            { id: 32, type: "word", arabe: "بَاب", icon: "fa-solid fa-door-closed", fr: "Porte", es: "Puerta", audio: "audio-mots/bab.mp3" },
+            { id: 33, type: "word", arabe: "كَبِير", icon: "fa-solid fa-arrow-up-right-dots", fr: "Grand", es: "Grande", audio: "audio-mots/kabir.mp3" },
+            { id: 34, type: "word", arabe: "كِتَاب", icon: "fa-solid fa-book", fr: "Livre", es: "Libro", audio: "audio-mots/kitab.mp3" },
+            { id: 35, type: "word", arabe: "تَمْر", icon: "fa-solid fa-seedling", fr: "Datte", es: "Dátil", audio: "audio-mots/tamr.mp3" },
+            { id: 36, type: "word", arabe: "بَيْت", icon: "fa-solid fa-house", fr: "Maison", es: "Casa", audio: "audio-mots/bayt.mp3" },
+            { id: 37, type: "word", arabe: "ثَوْب", icon: "fa-solid fa-shirt", fr: "Vêtement", es: "Ropa", audio: "audio-mots/thawb.mp3" },
+            { id: 38, type: "word", arabe: "مَثَل", icon: "fa-solid fa-lightbulb", fr: "Exemple", es: "Ejemplo", audio: "audio-mots/mathal.mp3" },
+            { id: 39, type: "word", arabe: "بَحَث", icon: "fa-solid fa-magnifying-glass", fr: "Recherche", es: "Búsqueda", audio: "audio-mots/bahath.mp3" },
+            { id: 40, type: "word", arabe: "جَمَل", icon: "fa-solid fa-sun", fr: "Chameau", es: "Camello", audio: "audio-mots/jamal.mp3" },
+            { id: 41, type: "word", arabe: "رَجُل", icon: "fa-solid fa-user", fr: "Homme", es: "Hombre", audio: "audio-mots/rajul.mp3" },
+            { id: 42, type: "word", arabe: "بُرْج", icon: "fa-solid fa-chess-rook", fr: "Tour", es: "Torre", audio: "audio-mots/burj.mp3" },
+            { id: 43, type: "word", arabe: "حَبْل", icon: "fa-solid fa-link", fr: "Corde", es: "Cuerda", audio: "audio-mots/habl.mp3" },
+            { id: 44, type: "word", arabe: "بَحْر", icon: "fa-solid fa-water", fr: "Mer", es: "Mar", audio: "audio-mots/bahr.mp3" },
+            { id: 45, type: "word", arabe: "مِفْتَاح", icon: "fa-solid fa-key", fr: "Clé", es: "Llave", audio: "audio-mots/miftah.mp3" },
+            { id: 46, type: "word", arabe: "خُبْز", icon: "fa-solid fa-bread-slice", fr: "Pain", es: "Pan", audio: "audio-mots/khubz.mp3" },
+            { id: 47, type: "word", arabe: "نَخْل", icon: "fa-solid fa-tree", fr: "Palmier", es: "Palmera", audio: "audio-mots/nakhl.mp3" },
+            { id: 48, type: "word", arabe: "مَطْبَخ", icon: "fa-solid fa-kitchen-set", fr: "Cuisine", es: "Cocina", audio: "audio-mots/matbakh.mp3" },
+            { id: 49, type: "word", arabe: "دُب", icon: "fa-solid fa-paw", fr: "Ours", es: "Oso", audio: "audio-mots/dub.mp3" },
+            { id: 50, type: "word", arabe: "مَدْرَسَة", icon: "fa-solid fa-school", fr: "École", es: "Escuela", audio: "audio-mots/madrasa.mp3" },
+            { id: 51, type: "word", arabe: "وَلَد", icon: "fa-solid fa-child", fr: "Garçon", es: "Niño", audio: "audio-mots/walad.mp3" },
+            { id: 52, type: "word", arabe: "ذَهَب", icon: "fa-solid fa-coins", fr: "Or", es: "Oro", audio: "audio-mots/dhahab.mp3" },
+            { id: 53, type: "word", arabe: "هَذَا", icon: "fa-solid fa-hand-point-left", fr: "Ceci", es: "Esto", audio: "audio-mots/hadha.mp3" },
+            { id: 54, type: "word", arabe: "لَذِيذ", icon: "fa-solid fa-utensils", fr: "Délicieux", es: "Delicioso", audio: "audio-mots/ladhidh.mp3" },
+            { id: 55, type: "word", arabe: "وَرْدَة", icon: "fa-solid fa-leaf", fr: "Une rose", es: "Una rosa", audio: "audio-mots/warda.mp3" },
+            { id: 56, type: "word", arabe: "قَمَر", icon: "fa-solid fa-moon", fr: "Lune", es: "Luna", audio: "audio-mots/qamar.mp3" },
+            { id: 57, type: "word", arabe: "زَيْت", icon: "fa-solid fa-bottle-droplet", fr: "Huile", es: "Aceite", audio: "audio-mots/zayt.mp3" },
+            { id: 58, type: "word", arabe: "مَوْزَة", icon: "fa-solid fa-lemon", fr: "Une banane", es: "Un plátano", audio: "audio-mots/mawza.mp3" },
+            { id: 59, type: "word", arabe: "سَمَك", icon: "fa-solid fa-fish", fr: "Poisson", es: "Pescado", audio: "audio-mots/samak.mp3" },
+            { id: 60, type: "word", arabe: "مَسْجِد", icon: "fa-solid fa-mosque", fr: "Mosquée", es: "Mezquita", audio: "audio-mots/masjid.mp3" },
+            { id: 61, type: "word", arabe: "دَرْس", icon: "fa-solid fa-book-open", fr: "Leçon", es: "Lección", audio: "audio-mots/dars.mp3" },
+            { id: 62, type: "word", arabe: "شَمْس", icon: "fa-solid fa-sun", fr: "Soleil", es: "Sol", audio: "audio-mots/shams.mp3" },
+            { id: 63, type: "word", arabe: "مِشْمِش", icon: "fa-solid fa-apple-whole", fr: "Abricot", es: "Albaricoque", audio: "audio-mots/mishmish.mp3" },
+            { id: 64, type: "word", arabe: "عَرْش", icon: "fa-solid fa-chair", fr: "Trône", es: "Trono", audio: "audio-mots/arsh.mp3" },
+            { id: 65, type: "word", arabe: "صَبْر", icon: "fa-solid fa-hourglass-half", fr: "Patience", es: "Paciencia", audio: "audio-mots/sabr.mp3" },
+            { id: 66, type: "word", arabe: "بَصِير", icon: "fa-solid fa-eye", fr: "Clairvoyant", es: "Vidente", audio: "audio-mots/basir.mp3" },
+            { id: 67, type: "word", arabe: "نَص", icon: "fa-solid fa-file-lines", fr: "Texte", es: "Texto", audio: "audio-mots/nass.mp3" },
+            { id: 68, type: "word", arabe: "ضَوْء", icon: "fa-solid fa-lightbulb", fr: "Lumière", es: "Luz", audio: "audio-mots/daw.mp3" },
+            { id: 69, type: "word", arabe: "مَرِيض", icon: "fa-solid fa-bed-pulse", fr: "Malade", es: "Enfermo", audio: "audio-mots/marid.mp3" },
+            { id: 70, type: "word", arabe: "أَرْض", icon: "fa-solid fa-globe", fr: "Terre", es: "Tierra", audio: "audio-mots/ard.mp3" },
+            { id: 71, type: "word", arabe: "طِين", icon: "fa-solid fa-jar", fr: "Argile", es: "Arcilla", audio: "audio-mots/tin.mp3" },
+            { id: 72, type: "word", arabe: "مَطَر", icon: "fa-solid fa-cloud-rain", fr: "Pluie", es: "Lluvia", audio: "audio-mots/matar.mp3" },
+            { id: 73, type: "word", arabe: "قِط", icon: "fa-solid fa-cat", fr: "Chat", es: "Gato", audio: "audio-mots/qitt.mp3" },
+            { id: 74, type: "word", arabe: "ظِل", icon: "fa-solid fa-cloud", fr: "Ombre", es: "Sombra", audio: "audio-mots/zill.mp3" },
+            { id: 75, type: "word", arabe: "عَظِيم", icon: "fa-solid fa-mountain", fr: "Immense", es: "Grandioso", audio: "audio-mots/azim.mp3" },
+            { id: 76, type: "word", arabe: "حَظ", icon: "fa-solid fa-clover", fr: "Chance", es: "Suerte", audio: "audio-mots/haz.mp3" },
+            { id: 77, type: "word", arabe: "عَيْن", icon: "fa-solid fa-eye", fr: "Œil", es: "Ojo", audio: "audio-mots/ayn.mp3" },
+            { id: 78, type: "word", arabe: "مَلْعَب", icon: "fa-solid fa-futbol", fr: "Stade", es: "Estadio", audio: "audio-mots/malab.mp3" },
+            { id: 79, type: "word", arabe: "جَمْع", icon: "fa-solid fa-users", fr: "Groupe", es: "Grupo", audio: "audio-mots/jam.mp3" },
+            { id: 80, type: "word", arabe: "غَيْم", icon: "fa-solid fa-cloud", fr: "Nuage", es: "Nube", audio: "audio-mots/ghaym.mp3" },
+            { id: 81, type: "word", arabe: "مَغْرِب", icon: "fa-solid fa-map-location-dot", fr: "Maroc", es: "Marruecos", audio: "audio-mots/maghrib.mp3" },
+            { id: 82, type: "word", arabe: "صِبْغ", icon: "fa-solid fa-palette", fr: "Teinture", es: "Tinte", audio: "audio-mots/sibgh.mp3" },
+            { id: 83, type: "word", arabe: "فِيل", icon: "fa-solid fa-paw", fr: "Éléphant", es: "Elefante", audio: "audio-mots/fil.mp3" },
+            { id: 84, type: "word", arabe: "صَيْف", icon: "fa-solid fa-umbrella-beach", fr: "Été", es: "Verano", audio: "audio-mots/sayf.mp3" },
+            { id: 85, type: "word", arabe: "بَقَرَة", icon: "fa-solid fa-cow", fr: "Vache", es: "Vaca", audio: "audio-mots/baqara.mp3" },
+            { id: 86, type: "word", arabe: "سُوق", icon: "fa-solid fa-shop", fr: "Marché", es: "Mercado", audio: "audio-mots/suq.mp3" },
+            { id: 87, type: "word", arabe: "مَكْتَبَة", icon: "fa-solid fa-book", fr: "Bibliothèque", es: "Biblioteca", audio: "audio-mots/maktaba.mp3" },
+            { id: 88, type: "word", arabe: "لَبَن", icon: "fa-solid fa-glass-water", fr: "Lait", es: "Leche", audio: "audio-mots/laban.mp3" },
+            { id: 89, type: "word", arabe: "قَلَم", icon: "fa-solid fa-pen", fr: "Stylo", es: "Bolígrafo", audio: "audio-mots/qalam.mp3" },
+            { id: 90, type: "word", arabe: "جَبَل", icon: "fa-solid fa-mountain", fr: "Montagne", es: "Montaña", audio: "audio-mots/jabal.mp3" },
+            { id: 91, type: "word", arabe: "مَاء", icon: "fa-solid fa-droplet", fr: "Eau", es: "Agua", audio: "audio-mots/ma.mp3" },
+            { id: 92, type: "word", arabe: "نَجْم", icon: "fa-solid fa-star", fr: "Étoile", es: "Estrella", audio: "audio-mots/najm.mp3" },
+            { id: 93, type: "word", arabe: "عِنَب", icon: "fa-solid fa-leaf", fr: "Raisin", es: "Uvas", audio: "audio-mots/inab.mp3" },
+            { id: 94, type: "word", arabe: "هِلَال", icon: "fa-solid fa-moon", fr: "Lune", es: "Media luna", audio: "audio-mots/hilal.mp3" },
+            { id: 95, type: "word", arabe: "نَهْر", icon: "fa-solid fa-water", fr: "Rivière", es: "Río", audio: "audio-mots/nahr.mp3" },
+            { id: 96, type: "word", arabe: "وَجْه", icon: "fa-solid fa-face-smile", fr: "Visage", es: "Rostro", audio: "audio-mots/wajh.mp3" },
+            { id: 97, type: "word", arabe: "وَرْد", icon: "fa-solid fa-spa", fr: "Roses", es: "Rosas", audio: "audio-mots/ward.mp3" },
+            { id: 98, type: "word", arabe: "قَوْس", icon: "fa-solid fa-bullseye", fr: "Arc", es: "Arco", audio: "audio-mots/qaws.mp3" },
+            { id: 99, type: "word", arabe: "يَد", icon: "fa-solid fa-hand", fr: "Main", es: "Mano", audio: "audio-mots/yad.mp3" },
+            { id: 100, type: "word", arabe: "كُرْسِي", icon: "fa-solid fa-chair", fr: "Chaise", es: "Silla", audio: "audio-mots/kursi.mp3" }
+        ];
+
+        // =========================================
+        // SCRIPT PRINCIPAL (LOGIQUE INTACTE)
+        // =========================================
+        let currentWordIndex = 0; let currentAudio = null; let recognition = null;
+
+        const lexiqueView = document.getElementById("lexique-view");
+        const dictationView = document.getElementById("dictation-view");
+        const grid = document.getElementById("vocab-grid");
+        const wordVisual = document.getElementById("word-visual");
+        const giantWordText = document.getElementById("quiz-word");
+        const wordFrText = document.getElementById("word-fr");
+        const wordEsText = document.getElementById("word-es");
+        const voiceResult = document.getElementById("voice-result");
+        const voiceFeedback = document.getElementById("voice-feedback");
+        const btnMic = document.getElementById("btn-mic");
+
+        function renderWords(wordsToRender) {
+            grid.innerHTML = "";
+            wordsToRender.forEach(word => {
+                const card = document.createElement("div"); card.className = "word-card";
+                
+                let cardTopHtml = '';
+                if (word.type === "letter") {
+                    cardTopHtml = `<div class="letter-display-grid">${word.arabe}</div>`;
+                } else {
+                    cardTopHtml = `
+                        <i class="${word.icon} visual-placeholder"></i>
+                        <div class="word-ar-small ar-text">${word.arabe}</div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                        ${cardTopHtml}
+                    </div>
+                    <div class="card-bottom">
+                        <div class="lang-fr">${word.fr}</div>
+                        <div class="lang-es">${word.es}</div>
+                    </div>
+                `;
+                card.onclick = () => openDictation(word);
+                grid.appendChild(card);
+            });
+        }
+
+        function filterWords() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const filtered = wordsDatabase.filter(w => w.fr.toLowerCase().includes(query) || w.es.toLowerCase().includes(query) || w.arabe.includes(query));
+            renderWords(filtered);
+        }
+
+        function openDictation(word) {
+            currentWordIndex = wordsDatabase.findIndex(w => w.id === word.id);
+            lexiqueView.classList.add("hidden");
+            dictationView.classList.remove("hidden");
+            loadWord();
+            setTimeout(resizeCanvas, 100);
+        }
+
+        function backToLexique() {
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            if (recognition) { recognition.stop(); }
+            btnMic.classList.remove("active-mic");
+            dictationView.classList.add("hidden");
+            lexiqueView.classList.remove("hidden");
+        }
+
+        function loadWord() {
+            const word = wordsDatabase[currentWordIndex];
+            
+            // GESTION DU VISUEL (Lettre ou Icône)
+            if (word.type === "letter") {
+                wordVisual.innerHTML = `
+                    <div class="letter-visual">
+                        <span class="letter-visual-badge">Lettre / Letra</span>
+                    </div>`;
+            } else {
+                wordVisual.innerHTML = `<i class="${word.icon} visual-main"></i>`;
+            }
+
+            // GESTION DU TEXTE ARABE BRUT (SANS SPAN = HARAKAT PARFAITS)
+            giantWordText.textContent = word.arabe;
+            
+            wordFrText.textContent = word.fr;
+            wordEsText.textContent = word.es;
+            clearSlate(); clearVoiceResult();
+            
+            setTimeout(playWordAudio, 400);
+        }
+
+        function playWordAudio() {
+            const audioPath = wordsDatabase[currentWordIndex].audio;
+            if (!audioPath) { showToast("Audio en cours d'enregistrement... / Audio en proceso de grabación..."); return; }
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            currentAudio = new Audio(audioPath); currentAudio.play().catch(e=>console.log(e));
+        }
+
+        function restartWord() { playWordAudio(); }
+        function nextWord() {
+            currentWordIndex = (currentWordIndex + 1) % wordsDatabase.length;
+            loadWord();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg; toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
+        }
+
+        // =========================================
+        // RECONNAISSANCE VOCALE NORMALISÉE
+        // =========================================
+        function clearVoiceResult() { 
+            voiceResult.textContent = ""; 
+            voiceFeedback.innerHTML = "Cliquez sur Prononcer pour valider votre accent.<br><span style='font-weight: normal; font-size: 0.8rem;'>Haz clic en Pronunciar para validar tu acento.</span>"; 
+            voiceFeedback.className = "feedback-msg neutral";
+            if (recognition) recognition.stop();
+            btnMic.classList.remove("active-mic");
+        }
+        
+        function normalizeArabic(text) { 
+            return text.replace(/[ًٌٍَُِّْ]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/\s+/g, "").trim(); 
+        }
+
+        function startVoiceRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) { showToast("Microphone non supporté / Micrófono no soportado."); return; }
+            
+            clearVoiceResult();
+            btnMic.classList.add("active-mic");
+            voiceFeedback.textContent = "Écoute en cours... / Escuchando...";
+            
+            recognition = new SpeechRecognition(); 
+            recognition.lang = "ar-SA"; recognition.interimResults = false; recognition.maxAlternatives = 1;
+            
+            recognition.onresult = function(event) {
+                const spoken = event.results[0][0].transcript; 
+                voiceResult.textContent = spoken;
+                const expected = wordsDatabase[currentWordIndex].arabe;
+                
+                if (normalizeArabic(spoken) === normalizeArabic(expected)) { 
+                    voiceFeedback.textContent = "Excellente prononciation ! / ¡Excelente pronunciación!"; voiceFeedback.className = "feedback-msg ok"; 
+                } else { 
+                    voiceFeedback.textContent = `Correction / Corrección : ${expected}`; voiceFeedback.className = "feedback-msg no"; 
+                }
+            };
+            recognition.onerror = function() { voiceFeedback.textContent = "Erreur du microphone. / Error del micrófono."; voiceFeedback.className = "feedback-msg no"; btnMic.classList.remove("active-mic"); };
+            recognition.onend = function() { btnMic.classList.remove("active-mic"); };
+            recognition.start();
+        }
+
+        // =========================================
+        // ARDOISE (FIX SCROLL MOBILE)
+        // =========================================
+        const canvas = document.getElementById("slate-canvas");
+        const ctx = canvas.getContext("2d");
+        let isDrawing = false; let lastX = 0; let lastY = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+            ctx.lineWidth = 6; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#5D1828";
+        }
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function startPosition(e) { isDrawing = true; const pos = getPos(e); lastX = pos.x; lastY = pos.y; }
+        function endPosition() { isDrawing = false; ctx.beginPath(); }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); // LE SECRET POUR EMPÊCHER LE SCROLL TACTILE
+            const pos = getPos(e);
+            ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke();
+            lastX = pos.x; lastY = pos.y;
+        }
+
+        function clearSlate() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        canvas.addEventListener("mousedown", startPosition); canvas.addEventListener("mouseup", endPosition);
+        canvas.addEventListener("mousemove", draw); canvas.addEventListener("mouseout", endPosition);
+        
+        // Options {passive: false} requises pour e.preventDefault() sur mobile
+        canvas.addEventListener("touchstart", startPosition, { passive: false }); 
+        canvas.addEventListener("touchend", endPosition);
+        canvas.addEventListener("touchmove", draw, { passive: false });
+        
+        window.addEventListener("resize", resizeCanvas);
+
+        // INITIALISATION
+        renderWords(wordsDatabase);
+
+    </script>
+</body>
+</html>
