@@ -94,7 +94,7 @@
            ========================================= */
         .menu-container {
             text-align: center;
-            background: var(--burgundy); /* Intervention : Fond bordeaux */
+            background: var(--burgundy); 
             padding: 40px 30px;
             border-radius: 24px;
             box-shadow: var(--shadow-deep);
@@ -175,9 +175,9 @@
             font-weight: bold;
             text-align: center;
             text-shadow: 0 4px 10px rgba(93, 24, 40, 0.05);
-            direction: rtl; /* Maintient l'ordre de droite à gauche */
-            unicode-bidi: isolate; /* Empêche les balises span de casser la calligraphie */
-            white-space: nowrap; /* Empêche le mot de se casser sur 2 lignes */
+            direction: rtl; 
+            unicode-bidi: isolate; 
+            white-space: nowrap; 
         }
 
         .btn-audio.mini-audio {
@@ -328,13 +328,11 @@
             </div>
 
             <div class="word-display-box">
-                <div class="big-word ar-text" id="quiz-word">
-                    </div>
+                <div class="big-word ar-text" id="quiz-word"></div>
                 <button class="btn-audio mini-audio" onclick="playWordAudio()" title="Écouter le mot">🎙️</button>
             </div>
 
-            <div class="options-grid" id="options-grid" dir="rtl">
-                </div>
+            <div class="options-grid" id="options-grid" dir="rtl"></div>
         </div>
     </div>
 
@@ -378,7 +376,7 @@
     <script>
         const alphabetOnly = ["أ","ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","ه","و","ي"];
 
-        // Correction des liens audios pour Github
+        // BASE DE DONNÉES RESTAURÉE ET CORRIGÉE (Audio avec dossier audio/)
         const wordsData = [
             { letter: "أ", audio: "audio/01-alif.mp3", words: [
                 '<span class="gold">أَ</span><span class="burgundy">سَد</span>',
