@@ -39,18 +39,21 @@
         .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
 
         /* =========================================
-           HEADER (TITRE PRINCIPAL)
+           HEADER (TITRE PRINCIPAL) - STYLE PREMIUM
            ========================================= */
         .header-container {
+            background: var(--burgundy); /* FOND BORDEAUX */
+            padding: 40px 30px; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
             width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
         }
         
-        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--burgundy); margin-bottom: 5px; line-height: 1.1; }
-        .app-title { font-size: 1.4rem; color: var(--gold); letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
-        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px;}
+        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .app-title { font-size: 1.4rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
+        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5;}
         
-        .subtitle { font-size: 1.1rem; color: var(--text-dark); font-weight: 500; margin-bottom: 5px; }
-        .subtitle-es { font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+        .subtitle { font-size: 1.1rem; color: var(--gold); font-weight: 500; margin-bottom: 5px; }
+        .subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
 
         /* =========================================
            GRILLE DE NAVIGATION 2X2
@@ -118,6 +121,7 @@
            ========================================= */
         @media (max-width: 768px) {
             .nav-grid { grid-template-columns: 1fr; gap: 20px; }
+            .header-container { padding: 30px 20px; }
             .brand-ar { font-size: 3rem; }
             .nav-card { padding: 35px 20px; }
         }
