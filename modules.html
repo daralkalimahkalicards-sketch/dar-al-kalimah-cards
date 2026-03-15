@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -14,6 +15,7 @@
             --white: #FFFFFF;
             --bg-beige: #FAF6F0;
             --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.25);
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         body {
@@ -25,10 +27,15 @@
         }
         .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
         .serif-text { font-family: "Cinzel", "Georgia", serif; }
+        
+        /* =========================================
+           MENU CONTAINER (STYLE PREMIUM BORDEAUX)
+           ========================================= */
         .menu-container {
-            text-align: center; background: linear-gradient(145deg, var(--white), #fdfdfd);
-            padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold);
-            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+            text-align: center; 
+            background: var(--burgundy); /* Fond bordeaux */
+            padding: 50px 40px; border-radius: 24px;
+            box-shadow: var(--shadow-deep);
             max-width: 600px; width: 100%;
             animation: floatIn 0.5s ease-out forwards;
         }
@@ -36,25 +43,36 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--burgundy); margin-bottom: 5px; }
-        .app-title { font-size: 1.6rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 25px;}
-        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; }
+        
+        .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
+        .app-title { font-size: 1.6rem; color: #d09470; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;}
+        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5;}
+        
         .subtitle-group { margin-bottom: 35px; }
-        .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; }
-        .subtitle.es { font-size: 0.95rem; opacity: 0.8; }
+        .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
+        .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+        
         .btn-group { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        
+        /* BOUTONS DORÉS SUR FOND BORDEAUX */
         .btn-main {
-            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
-            color: var(--white); border: 2px solid var(--burgundy);
+            background: transparent;
+            color: var(--gold); border: 2px solid var(--gold);
             padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             font-family: 'Montserrat', sans-serif; font-weight: 600;
             letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); text-decoration: none;
+            text-decoration: none;
             width: 100%; max-width: 350px; display: block;
         }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:hover { 
+            background-color: rgba(200, 164, 98, 0.1); /* Effet lumineux doré au survol */
+            transform: translateY(-3px); 
+            border-color: var(--gold-light); 
+            color: var(--gold-light);
+        }
         .btn-main:active { transform: translateY(1px); }
+        
         @media (max-width: 480px) {
             .brand-ar { font-size: 3rem; }
             .app-title { font-size: 1.3rem; }
