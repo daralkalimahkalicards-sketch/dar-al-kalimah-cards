@@ -649,347 +649,175 @@
     const cRight = '<span class="gold conn-circle right">◌</span>';
     const cLeft = '<span class="gold conn-circle left">◌</span>';
 
-    // IMPORTANT: Pour que les audios fonctionnent correctement
-    // assure-toi que les fichiers (ex: 01-alif.mp3) sont dans un dossier "audio"
-    // et change "01-alif.mp3" par "audio/01-alif.mp3" ci-dessous si nécessaire,
-    // comme on l'a fait pour le Lexique Premium.
-    
+    // CORRECTION FINALE ET UNIVERSELLE DES FICHIERS AUDIOS
     const cards = [
       {
         letter: "أ", fr: "Alif hamza", es: "Alif hamza", audio: "audio/01-alif.mp3",
-        initialForm: '<span class="burgundy">أ</span>',
-        initialWord: '<span class="gold">أَ</span><span class="burgundy">سَد</span>',
-        initialFr: "Asad", initialEs: "Asad",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـأ</span>',
-        middleWord: '<span class="burgundy">كَ&zwj;</span><span class="gold">&zwj;أْ</span><span class="burgundy">س</span>',
-        middleFr: "Ka's", middleEs: "Ka's",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـأ</span>',
-        finalWord: '<span class="burgundy">مَلْجَ&zwj;</span><span class="gold">&zwj;أ</span>',
-        finalFr: "Malja'", finalEs: "Malya'"
+        initialForm: '<span class="burgundy">أ</span>', initialWord: '<span class="gold">أَ</span><span class="burgundy">سَد</span>', initialFr: "Asad", initialEs: "Asad",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـأ</span>', middleWord: '<span class="burgundy">كَ&zwj;</span><span class="gold">&zwj;أْ</span><span class="burgundy">س</span>', middleFr: "Ka's", middleEs: "Ka's",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـأ</span>', finalWord: '<span class="burgundy">مَلْجَ&zwj;</span><span class="gold">&zwj;أ</span>', finalFr: "Malja'", finalEs: "Malya'"
       },
       {
         letter: "ب", fr: "Baa", es: "Baa", audio: "audio/02-baa.mp3",
-        initialForm: '<span class="burgundy">بـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">بَ&zwj;</span><span class="burgundy">&zwj;اب</span>',
-        initialFr: "Baab", initialEs: "Baab",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـبـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">كَ&zwj;</span><span class="gold">&zwj;بِ&zwj;</span><span class="burgundy">&zwj;ير</span>',
-        middleFr: "Kabiir", middleEs: "Kabiir",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـب</span>',
-        finalWord: '<span class="burgundy">كِتَا</span><span class="gold">ب</span>',
-        finalFr: "Kitaab", finalEs: "Kitaab"
+        initialForm: '<span class="burgundy">بـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">بَ&zwj;</span><span class="burgundy">&zwj;اب</span>', initialFr: "Baab", initialEs: "Baab",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـبـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">كَ&zwj;</span><span class="gold">&zwj;بِ&zwj;</span><span class="burgundy">&zwj;ير</span>', middleFr: "Kabiir", middleEs: "Kabiir",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـب</span>', finalWord: '<span class="burgundy">كِتَا</span><span class="gold">ب</span>', finalFr: "Kitaab", finalEs: "Kitaab"
       },
       {
         letter: "ت", fr: "Taa", es: "Taa", audio: "audio/03-taa.mp3",
-        initialForm: '<span class="burgundy">تـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">تَ&zwj;</span><span class="burgundy">&zwj;مْر</span>',
-        initialFr: "Tamr", initialEs: "Tamr",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـتـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">كِ&zwj;</span><span class="gold">&zwj;تَ&zwj;</span><span class="burgundy">&zwj;اب</span>',
-        middleFr: "Kitaab", middleEs: "Kitaab",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـت</span>',
-        finalWord: '<span class="burgundy">بَيْ&zwj;</span><span class="gold">&zwj;ت</span>',
-        finalFr: "Bayt", finalEs: "Bayt"
+        initialForm: '<span class="burgundy">تـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">تَ&zwj;</span><span class="burgundy">&zwj;مْر</span>', initialFr: "Tamr", initialEs: "Tamr",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـتـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">كِ&zwj;</span><span class="gold">&zwj;تَ&zwj;</span><span class="burgundy">&zwj;اب</span>', middleFr: "Kitaab", middleEs: "Kitaab",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـت</span>', finalWord: '<span class="burgundy">بَيْ&zwj;</span><span class="gold">&zwj;ت</span>', finalFr: "Bayt", finalEs: "Bayt"
       },
       {
         letter: "ث", fr: "Thaa", es: "Zaa", audio: "audio/04-thaa.mp3",
-        initialForm: '<span class="burgundy">ثـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">ثَ&zwj;</span><span class="burgundy">&zwj;وْب</span>',
-        initialFr: "Thawb", initialEs: "Zawb",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـثـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;ثَ&zwj;</span><span class="burgundy">&zwj;ل</span>',
-        middleFr: "Mithl", middleEs: "Mizl",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـث</span>',
-        finalWord: '<span class="burgundy">بَحَ&zwj;</span><span class="gold">&zwj;ث</span>',
-        finalFr: "Bahth", finalEs: "Bahz"
+        initialForm: '<span class="burgundy">ثـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">ثَ&zwj;</span><span class="burgundy">&zwj;وْب</span>', initialFr: "Thawb", initialEs: "Zawb",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـثـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;ثَ&zwj;</span><span class="burgundy">&zwj;ل</span>', middleFr: "Mithl", middleEs: "Mizl",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـث</span>', finalWord: '<span class="burgundy">بَحَ&zwj;</span><span class="gold">&zwj;ث</span>', finalFr: "Bahth", finalEs: "Bahz"
       },
       {
         letter: "ج", fr: "Jim", es: "Yim", audio: "audio/05-jim.mp3",
-        initialForm: '<span class="burgundy">جـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">جَ&zwj;</span><span class="burgundy">&zwj;مَل</span>',
-        initialFr: "Jamal", initialEs: "Yamal",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـجـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">رَ</span><span class="gold">جُ&zwj;</span><span class="burgundy">&zwj;ل</span>',
-        middleFr: "Rajul", middleEs: "Rayul",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـج</span>',
-        finalWord: '<span class="burgundy">بُرْ</span><span class="gold">ج</span>',
-        finalFr: "Burj", finalEs: "Bury"
+        initialForm: '<span class="burgundy">جـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">جَ&zwj;</span><span class="burgundy">&zwj;مَل</span>', initialFr: "Jamal", initialEs: "Yamal",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـجـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">رَ</span><span class="gold">جُ&zwj;</span><span class="burgundy">&zwj;ل</span>', middleFr: "Rajul", middleEs: "Rayul",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـج</span>', finalWord: '<span class="burgundy">بُرْ</span><span class="gold">ج</span>', finalFr: "Burj", finalEs: "Bury"
       },
       {
         letter: "ح", fr: "Haa", es: "Ha", audio: "audio/06-haa.mp3",
-        initialForm: '<span class="burgundy">حـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">حَ&zwj;</span><span class="burgundy">&zwj;بْل</span>',
-        initialFr: "Habl", initialEs: "Habl",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـحـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;حْ&zwj;</span><span class="burgundy">&zwj;ر</span>',
-        middleFr: "Bahr", middleEs: "Bahr",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـح</span>',
-        finalWord: '<span class="burgundy">مِفْتَا</span><span class="gold">ح</span>',
-        finalFr: "Miftaah", finalEs: "Miftaah"
+        initialForm: '<span class="burgundy">حـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">حَ&zwj;</span><span class="burgundy">&zwj;بْل</span>', initialFr: "Habl", initialEs: "Habl",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـحـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;حْ&zwj;</span><span class="burgundy">&zwj;ر</span>', middleFr: "Bahr", middleEs: "Bahr",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـح</span>', finalWord: '<span class="burgundy">مِفْتَا</span><span class="gold">ح</span>', finalFr: "Miftaah", finalEs: "Miftaah"
       },
       {
         letter: "خ", fr: "Khaa", es: "Ja", audio: "audio/07-khaa.mp3",
-        initialForm: '<span class="burgundy">خـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">خُ&zwj;</span><span class="burgundy">&zwj;بْز</span>',
-        initialFr: "Khubz", initialEs: "Jubz",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـخـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">نَ&zwj;</span><span class="gold">&zwj;خْ&zwj;</span><span class="burgundy">&zwj;ل</span>',
-        middleFr: "Nakhl", middleEs: "Najl",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـخ</span>',
-        finalWord: '<span class="burgundy">مَطْبَ&zwj;</span><span class="gold">&zwj;خ</span>',
-        finalFr: "Matbakh", finalEs: "Matbaj"
+        initialForm: '<span class="burgundy">خـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">خُ&zwj;</span><span class="burgundy">&zwj;بْز</span>', initialFr: "Khubz", initialEs: "Jubz",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـخـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">نَ&zwj;</span><span class="gold">&zwj;خْ&zwj;</span><span class="burgundy">&zwj;ل</span>', middleFr: "Nakhl", middleEs: "Najl",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـخ</span>', finalWord: '<span class="burgundy">مَطْبَ&zwj;</span><span class="gold">&zwj;خ</span>', finalFr: "Matbakh", finalEs: "Matbaj"
       },
       {
-        letter: "د", fr: "Daal", es: "Daal", audio: "audio/08-daal.mp3",
-        initialForm: '<span class="burgundy">د</span>',
-        initialWord: '<span class="gold">دُ</span><span class="burgundy">ب</span>',
-        initialFr: "Dubb", initialEs: "Dubb",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـد</span>',
-        middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;دْ</span><span class="burgundy">رَسَة</span>',
-        middleFr: "Madrasa", middleEs: "Madrasa",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـد</span>',
-        finalWord: '<span class="burgundy">وَلَ&zwj;</span><span class="gold">&zwj;د</span>',
-        finalFr: "Walad", finalEs: "Walad"
+        letter: "د", fr: "Daal", es: "Daal", audio: "audio/08-dal.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">د</span>', initialWord: '<span class="gold">دُ</span><span class="burgundy">ب</span>', initialFr: "Dubb", initialEs: "Dubb",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـد</span>', middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;دْ</span><span class="burgundy">رَسَة</span>', middleFr: "Madrasa", middleEs: "Madrasa",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـد</span>', finalWord: '<span class="burgundy">وَلَ&zwj;</span><span class="gold">&zwj;د</span>', finalFr: "Walad", finalEs: "Walad"
       },
       {
-        letter: "ذ", fr: "Dhaal", es: "Dhal", audio: "audio/09-dhaal.mp3",
-        initialForm: '<span class="burgundy">ذ</span>',
-        initialWord: '<span class="gold">ذَ</span><span class="burgundy">هَب</span>',
-        initialFr: "Dhahab", initialEs: "Dhahab",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـذ</span>',
-        middleWord: '<span class="burgundy">هَ&zwj;</span><span class="gold">&zwj;ذَ</span><span class="burgundy">ا</span>',
-        middleFr: "Haadha", middleEs: "Haadha",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـذ</span>',
-        finalWord: '<span class="burgundy">لَذِي&zwj;</span><span class="gold">&zwj;ذ</span>',
-        finalFr: "Ladhiidh", finalEs: "Ladhiidh"
+        letter: "ذ", fr: "Dhaal", es: "Dhal", audio: "audio/09-dhal.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">ذ</span>', initialWord: '<span class="gold">ذَ</span><span class="burgundy">هَب</span>', initialFr: "Dhahab", initialEs: "Dhahab",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـذ</span>', middleWord: '<span class="burgundy">هَ&zwj;</span><span class="gold">&zwj;ذَ</span><span class="burgundy">ا</span>', middleFr: "Haadha", middleEs: "Haadha",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـذ</span>', finalWord: '<span class="burgundy">لَذِي&zwj;</span><span class="gold">&zwj;ذ</span>', finalFr: "Ladhiidh", finalEs: "Ladhiidh"
       },
       {
-        letter: "ر", fr: "Raa", es: "Raa", audio: "audio/10-raa.mp3",
-        initialForm: '<span class="burgundy">ر</span>',
-        initialWord: '<span class="gold">رَ</span><span class="burgundy">جُل</span>',
-        initialFr: "Rajul", initialEs: "Rayul",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـر</span>',
-        middleWord: '<span class="burgundy">وَ</span><span class="gold">رْ</span><span class="burgundy">دَة</span>',
-        middleFr: "Warda", middleEs: "Warda",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـر</span>',
-        finalWord: '<span class="burgundy">قَمَ&zwj;</span><span class="gold">&zwj;ر</span>',
-        finalFr: "Qamar", finalEs: "Qamar"
+        letter: "ر", fr: "Raa", es: "Raa", audio: "audio/10-ra.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">ر</span>', initialWord: '<span class="gold">رَ</span><span class="burgundy">جُل</span>', initialFr: "Rajul", initialEs: "Rayul",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـر</span>', middleWord: '<span class="burgundy">وَ</span><span class="gold">رْ</span><span class="burgundy">دَة</span>', middleFr: "Warda", middleEs: "Warda",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـر</span>', finalWord: '<span class="burgundy">قَمَ&zwj;</span><span class="gold">&zwj;ر</span>', finalFr: "Qamar", finalEs: "Qamar"
       },
       {
-        letter: "ز", fr: "Zaay", es: "Zaay", audio: "audio/11-zaay.mp3",
-        initialForm: '<span class="burgundy">ز</span>',
-        initialWord: '<span class="gold">زَ</span><span class="burgundy">يْت</span>',
-        initialFr: "Zayt", initialEs: "Zayt",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـز</span>',
-        middleWord: '<span class="burgundy">مَوْ</span><span class="gold">زَ</span><span class="burgundy">ة</span>',
-        middleFr: "Mawza", middleEs: "Mawza",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـز</span>',
-        finalWord: '<span class="burgundy">خُبْ&zwj;</span><span class="gold">&zwj;ز</span>',
-        finalFr: "Khubz", finalEs: "Jubz"
+        letter: "ز", fr: "Zaay", es: "Zaay", audio: "audio/11-zay.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">ز</span>', initialWord: '<span class="gold">زَ</span><span class="burgundy">يْت</span>', initialFr: "Zayt", initialEs: "Zayt",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـز</span>', middleWord: '<span class="burgundy">مَوْ</span><span class="gold">زَ</span><span class="burgundy">ة</span>', middleFr: "Mawza", middleEs: "Mawza",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـز</span>', finalWord: '<span class="burgundy">خُبْ&zwj;</span><span class="gold">&zwj;ز</span>', finalFr: "Khubz", finalEs: "Jubz"
       },
       {
         letter: "س", fr: "Siin", es: "Siin", audio: "audio/12-siin.mp3",
-        initialForm: '<span class="burgundy">سـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">سَ&zwj;</span><span class="burgundy">&zwj;مَك</span>',
-        initialFr: "Samak", initialEs: "Samak",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـسـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;سْ&zwj;</span><span class="burgundy">&zwj;جِد</span>',
-        middleFr: "Masjid", middleEs: "Masyid",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـس</span>',
-        finalWord: '<span class="burgundy">دَرْ</span><span class="gold">س</span>',
-        finalFr: "Dars", finalEs: "Dars"
+        initialForm: '<span class="burgundy">سـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">سَ&zwj;</span><span class="burgundy">&zwj;مَك</span>', initialFr: "Samak", initialEs: "Samak",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـسـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;سْ&zwj;</span><span class="burgundy">&zwj;جِد</span>', middleFr: "Masjid", middleEs: "Masyid",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـس</span>', finalWord: '<span class="burgundy">دَرْ</span><span class="gold">س</span>', finalFr: "Dars", finalEs: "Dars"
       },
       {
         letter: "ش", fr: "Shiin", es: "Shiin", audio: "audio/13-shiin.mp3",
-        initialForm: '<span class="burgundy">شـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">شَ&zwj;</span><span class="burgundy">&zwj;مْس</span>',
-        initialFr: "Shams", initialEs: "Shams",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـشـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مِ&zwj;</span><span class="gold">&zwj;شْ&zwj;</span><span class="burgundy">&zwj;مِش</span>',
-        middleFr: "Mishmish", middleEs: "Mishmish",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـش</span>',
-        finalWord: '<span class="burgundy">عَرْ</span><span class="gold">ش</span>',
-        finalFr: "Arsh", finalEs: "Arsh"
+        initialForm: '<span class="burgundy">شـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">شَ&zwj;</span><span class="burgundy">&zwj;مْس</span>', initialFr: "Shams", initialEs: "Shams",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـشـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مِ&zwj;</span><span class="gold">&zwj;شْ&zwj;</span><span class="burgundy">&zwj;مِش</span>', middleFr: "Mishmish", middleEs: "Mishmish",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـش</span>', finalWord: '<span class="burgundy">عَرْ</span><span class="gold">ش</span>', finalFr: "Arsh", finalEs: "Arsh"
       },
       {
         letter: "ص", fr: "Saad", es: "Sad", audio: "audio/14-saad.mp3",
-        initialForm: '<span class="burgundy">صـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">صَ&zwj;</span><span class="burgundy">&zwj;بْر</span>',
-        initialFr: "Sabr", initialEs: "Sabr",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـصـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;صِ&zwj;</span><span class="burgundy">&zwj;ير</span>',
-        middleFr: "Basiir", middleEs: "Basiir",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـص</span>',
-        finalWord: '<span class="burgundy">نَ&zwj;</span><span class="gold">&zwj;ص</span>',
-        finalFr: "Nass", finalEs: "Nass"
+        initialForm: '<span class="burgundy">صـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">صَ&zwj;</span><span class="burgundy">&zwj;بْر</span>', initialFr: "Sabr", initialEs: "Sabr",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـصـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;صِ&zwj;</span><span class="burgundy">&zwj;ير</span>', middleFr: "Basiir", middleEs: "Basiir",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـص</span>', finalWord: '<span class="burgundy">نَ&zwj;</span><span class="gold">&zwj;ص</span>', finalFr: "Nass", finalEs: "Nass"
       },
       {
         letter: "ض", fr: "Daad", es: "Dad", audio: "audio/15-daad.mp3",
-        initialForm: '<span class="burgundy">ضـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">ضَ&zwj;</span><span class="burgundy">&zwj;وْء</span>',
-        initialFr: "Daw'", initialEs: "Daw'",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـضـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مَرِي&zwj;</span><span class="gold">&zwj;ض</span>',
-        middleFr: "Mariid", middleEs: "Mariid",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـض</span>',
-        finalWord: '<span class="burgundy">أَرْ</span><span class="gold">ض</span>',
-        finalFr: "Ard", finalEs: "Ard"
+        initialForm: '<span class="burgundy">ضـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">ضَ&zwj;</span><span class="burgundy">&zwj;وْء</span>', initialFr: "Daw'", initialEs: "Daw'",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـضـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مَرِي&zwj;</span><span class="gold">&zwj;ض</span>', middleFr: "Mariid", middleEs: "Mariid",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـض</span>', finalWord: '<span class="burgundy">أَرْ</span><span class="gold">ض</span>', finalFr: "Ard", finalEs: "Ard"
       },
       {
-        letter: "ط", fr: "Taa", es: "Ta", audio: "audio/16-taaa.mp3",
-        initialForm: '<span class="burgundy">طـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">طِ&zwj;</span><span class="burgundy">&zwj;ين</span>',
-        initialFr: "Tiin", initialEs: "Tiin",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـطـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;طَ&zwj;</span><span class="burgundy">&zwj;ر</span>',
-        middleFr: "Matar", middleEs: "Matar",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـط</span>',
-        finalWord: '<span class="burgundy">قِ&zwj;</span><span class="gold">&zwj;ط</span>',
-        finalFr: "Qitt", finalEs: "Qitt"
+        letter: "ط", fr: "Taa", es: "Ta", audio: "audio/16-ta.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">طـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">طِ&zwj;</span><span class="burgundy">&zwj;ين</span>', initialFr: "Tiin", initialEs: "Tiin",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـطـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;طَ&zwj;</span><span class="burgundy">&zwj;ر</span>', middleFr: "Matar", middleEs: "Matar",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـط</span>', finalWord: '<span class="burgundy">قِ&zwj;</span><span class="gold">&zwj;ط</span>', finalFr: "Qitt", finalEs: "Qitt"
       },
       {
-        letter: "ظ", fr: "Zaa", es: "Za", audio: "audio/17-zaa.mp3",
-        initialForm: '<span class="burgundy">ظـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">ظِ&zwj;</span><span class="burgundy">&zwj;ل</span>',
-        initialFr: "Zill", initialEs: "Zill",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـظـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">عَ&zwj;</span><span class="gold">&zwj;ظِ&zwj;</span><span class="burgundy">&zwj;يم</span>',
-        middleFr: "Aziim", middleEs: "Aziim",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـظ</span>',
-        finalWord: '<span class="burgundy">حَ&zwj;</span><span class="gold">&zwj;ظ</span>',
-        finalFr: "Hazz", finalEs: "Hazz"
+        letter: "ظ", fr: "Zaa", es: "Za", audio: "audio/17-za.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">ظـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">ظِ&zwj;</span><span class="burgundy">&zwj;ل</span>', initialFr: "Zill", initialEs: "Zill",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـظـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">عَ&zwj;</span><span class="gold">&zwj;ظِ&zwj;</span><span class="burgundy">&zwj;يم</span>', middleFr: "Aziim", middleEs: "Aziim",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـظ</span>', finalWord: '<span class="burgundy">حَ&zwj;</span><span class="gold">&zwj;ظ</span>', finalFr: "Hazz", finalEs: "Hazz"
       },
       {
         letter: "ع", fr: "Ayn", es: "Ayn", audio: "audio/18-ayn.mp3",
-        initialForm: '<span class="burgundy">عـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">عَ&zwj;</span><span class="burgundy">&zwj;يْن</span>',
-        initialFr: "Ayn", initialEs: "Ayn",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـعـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مَلْ&zwj;</span><span class="gold">&zwj;عَ&zwj;</span><span class="burgundy">&zwj;ب</span>',
-        middleFr: "Mal'ab", middleEs: "Mal'ab",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـع</span>',
-        finalWord: '<span class="burgundy">جَمْ&zwj;</span><span class="gold">&zwj;ع</span>',
-        finalFr: "Jam'", finalEs: "Yam'"
+        initialForm: '<span class="burgundy">عـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">عَ&zwj;</span><span class="burgundy">&zwj;يْن</span>', initialFr: "Ayn", initialEs: "Ayn",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـعـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مَلْ&zwj;</span><span class="gold">&zwj;عَ&zwj;</span><span class="burgundy">&zwj;ب</span>', middleFr: "Mal'ab", middleEs: "Mal'ab",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـع</span>', finalWord: '<span class="burgundy">جَمْ&zwj;</span><span class="gold">&zwj;ع</span>', finalFr: "Jam'", finalEs: "Yam'"
       },
       {
         letter: "غ", fr: "Ghayn", es: "Ghain", audio: "audio/19-ghayn.mp3",
-        initialForm: '<span class="burgundy">غـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">غَ&zwj;</span><span class="burgundy">&zwj;يْم</span>',
-        initialFr: "Ghaym", initialEs: "Ghaim",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـغـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;غْ&zwj;</span><span class="burgundy">&zwj;رِب</span>',
-        middleFr: "Maghrib", middleEs: "Maghrib",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـغ</span>',
-        finalWord: '<span class="burgundy">صِبْ&zwj;</span><span class="gold">&zwj;غ</span>',
-        finalFr: "Sibgh", finalEs: "Sibgh"
+        initialForm: '<span class="burgundy">غـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">غَ&zwj;</span><span class="burgundy">&zwj;يْم</span>', initialFr: "Ghaym", initialEs: "Ghaim",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـغـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مَ&zwj;</span><span class="gold">&zwj;غْ&zwj;</span><span class="burgundy">&zwj;رِب</span>', middleFr: "Maghrib", middleEs: "Maghrib",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـغ</span>', finalWord: '<span class="burgundy">صِبْ&zwj;</span><span class="gold">&zwj;غ</span>', finalFr: "Sibgh", finalEs: "Sibgh"
       },
       {
-        letter: "ف", fr: "Faa", es: "Faa", audio: "audio/20-faa.mp3",
-        initialForm: '<span class="burgundy">فـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">فِ&zwj;</span><span class="burgundy">&zwj;يل</span>',
-        initialFr: "Fiil", initialEs: "Fiil",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـفـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">مِ&zwj;</span><span class="gold">&zwj;فْ&zwj;</span><span class="burgundy">&zwj;تَاح</span>',
-        middleFr: "Miftaah", middleEs: "Miftah",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـف</span>',
-        finalWord: '<span class="burgundy">صَيْ&zwj;</span><span class="gold">&zwj;ف</span>',
-        finalFr: "Sayf", finalEs: "Saif"
+        letter: "ف", fr: "Faa", es: "Faa", audio: "audio/20-fa.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">فـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">فِ&zwj;</span><span class="burgundy">&zwj;يل</span>', initialFr: "Fiil", initialEs: "Fiil",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـفـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">مِ&zwj;</span><span class="gold">&zwj;فْ&zwj;</span><span class="burgundy">&zwj;تَاح</span>', middleFr: "Miftaah", middleEs: "Miftah",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـف</span>', finalWord: '<span class="burgundy">صَيْ&zwj;</span><span class="gold">&zwj;ف</span>', finalFr: "Sayf", finalEs: "Saif"
       },
       {
-        letter: "ق", fr: "Qaaf", es: "Qaf", audio: "audio/21-qaaf.mp3",
-        initialForm: '<span class="burgundy">قـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">قَ&zwj;</span><span class="burgundy">&zwj;مَر</span>',
-        initialFr: "Qamar", initialEs: "Qamar",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـقـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;قَ&zwj;</span><span class="burgundy">&zwj;رَة</span>',
-        middleFr: "Baqara", middleEs: "Baqara",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـق</span>',
-        finalWord: '<span class="burgundy">سُو</span><span class="gold">ق</span>',
-        finalFr: "Suuq", finalEs: "Suq"
+        letter: "ق", fr: "Qaaf", es: "Qaf", audio: "audio/21-qaf.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">قـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">قَ&zwj;</span><span class="burgundy">&zwj;مَر</span>', initialFr: "Qamar", initialEs: "Qamar",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـقـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;قَ&zwj;</span><span class="burgundy">&zwj;رَة</span>', middleFr: "Baqara", middleEs: "Baqara",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـق</span>', finalWord: '<span class="burgundy">سُو</span><span class="gold">ق</span>', finalFr: "Suuq", finalEs: "Suq"
       },
       {
-        letter: "ك", fr: "Kaaf", es: "Kaf", audio: "audio/22-kaaf.mp3",
-        initialForm: '<span class="burgundy">كـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">كَ&zwj;</span><span class="burgundy">&zwj;أْس</span>',
-        initialFr: "Ka's", initialEs: "Ka's",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـكـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="gold">كِ&zwj;</span><span class="burgundy">&zwj;تَاب</span>',
-        middleFr: "Kitaab", middleEs: "Kitab",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـك</span>',
-        finalWord: '<span class="burgundy">سَمَ&zwj;</span><span class="gold">&zwj;ك</span>',
-        finalFr: "Samak", finalEs: "Samak"
+        letter: "ك", fr: "Kaaf", es: "Kaf", audio: "audio/22-kaf.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">كـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">كَ&zwj;</span><span class="burgundy">&zwj;أْس</span>', initialFr: "Ka's", initialEs: "Ka's",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـكـ&zwj;</span>' + cLeft, middleWord: '<span class="gold">كِ&zwj;</span><span class="burgundy">&zwj;تَاب</span>', middleFr: "Kitaab", middleEs: "Kitab",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـك</span>', finalWord: '<span class="burgundy">سَمَ&zwj;</span><span class="gold">&zwj;ك</span>', finalFr: "Samak", finalEs: "Samak"
       },
       {
-        letter: "ل", fr: "Laam", es: "Lam", audio: "audio/23-laam.mp3",
-        initialForm: '<span class="burgundy">لـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">لَ&zwj;</span><span class="burgundy">&zwj;بَن</span>',
-        initialFr: "Laban", initialEs: "Laban",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـلـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">قَ&zwj;</span><span class="gold">&zwj;لَ&zwj;</span><span class="burgundy">&zwj;م</span>',
-        middleFr: "Qalam", middleEs: "Qalam",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـل</span>',
-        finalWord: '<span class="burgundy">جَبَ&zwj;</span><span class="gold">&zwj;ل</span>',
-        finalFr: "Jabal", finalEs: "Yabal"
+        letter: "ل", fr: "Laam", es: "Lam", audio: "audio/23-lam.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">لـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">لَ&zwj;</span><span class="burgundy">&zwj;بَن</span>', initialFr: "Laban", initialEs: "Laban",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـلـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">قَ&zwj;</span><span class="gold">&zwj;لَ&zwj;</span><span class="burgundy">&zwj;م</span>', middleFr: "Qalam", middleEs: "Qalam",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـل</span>', finalWord: '<span class="burgundy">جَبَ&zwj;</span><span class="gold">&zwj;ل</span>', finalFr: "Jabal", finalEs: "Yabal"
       },
       {
-        letter: "م", fr: "Miim", es: "Mim", audio: "audio/24-miim.mp3",
-        initialForm: '<span class="burgundy">مـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">مَ&zwj;</span><span class="burgundy">&zwj;اء</span>',
-        initialFr: "Ma'", initialEs: "Ma'",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـمـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">سَ&zwj;</span><span class="gold">&zwj;مَ&zwj;</span><span class="burgundy">&zwj;ك</span>',
-        middleFr: "Samak", middleEs: "Samak",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـم</span>',
-        finalWord: '<span class="burgundy">قَلَ&zwj;</span><span class="gold">&zwj;م</span>',
-        finalFr: "Qalam", finalEs: "Qalam"
+        letter: "م", fr: "Miim", es: "Mim", audio: "audio/24-mim.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">مـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">مَ&zwj;</span><span class="burgundy">&zwj;اء</span>', initialFr: "Ma'", initialEs: "Ma'",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـمـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">سَ&zwj;</span><span class="gold">&zwj;مَ&zwj;</span><span class="burgundy">&zwj;ك</span>', middleFr: "Samak", middleEs: "Samak",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـم</span>', finalWord: '<span class="burgundy">قَلَ&zwj;</span><span class="gold">&zwj;م</span>', finalFr: "Qalam", finalEs: "Qalam"
       },
       {
-        letter: "ن", fr: "Nuun", es: "Nun", audio: "audio/25-nuun.mp3",
-        initialForm: '<span class="burgundy">نـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">نَ&zwj;</span><span class="burgundy">&zwj;جْم</span>',
-        initialFr: "Najm", initialEs: "Naym",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـنـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">عِ&zwj;</span><span class="gold">&zwj;نَ&zwj;</span><span class="burgundy">&zwj;ب</span>',
-        middleFr: "Inab", middleEs: "Inab",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـن</span>',
-        finalWord: '<span class="burgundy">عَيْ&zwj;</span><span class="gold">&zwj;ن</span>',
-        finalFr: "Ayn", finalEs: "Ayn"
+        letter: "ن", fr: "Nuun", es: "Nun", audio: "audio/25-nun.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">نـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">نَ&zwj;</span><span class="burgundy">&zwj;جْم</span>', initialFr: "Najm", initialEs: "Naym",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـنـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">عِ&zwj;</span><span class="gold">&zwj;نَ&zwj;</span><span class="burgundy">&zwj;ب</span>', middleFr: "Inab", middleEs: "Inab",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـن</span>', finalWord: '<span class="burgundy">عَيْ&zwj;</span><span class="gold">&zwj;ن</span>', finalFr: "Ayn", finalEs: "Ayn"
       },
       {
-        letter: "ه", fr: "Haa", es: "Ha", audio: "audio/26-haaa.mp3",
-        initialForm: '<span class="burgundy">هـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">هِ&zwj;</span><span class="burgundy">&zwj;لَال</span>',
-        initialFr: "Hilaal", initialEs: "Hilal",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـهـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">نَ&zwj;</span><span class="gold">&zwj;هْ&zwj;</span><span class="burgundy">&zwj;ر</span>',
-        middleFr: "Nahr", middleEs: "Nahr",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـه</span>',
-        finalWord: '<span class="burgundy">وَجْ&zwj;</span><span class="gold">&zwj;ه</span>',
-        finalFr: "Wajh", finalEs: "Wayh"
+        letter: "ه", fr: "Haa", es: "Ha", audio: "audio/26-ha.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">هـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">هِ&zwj;</span><span class="burgundy">&zwj;لَال</span>', initialFr: "Hilaal", initialEs: "Hilal",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـهـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">نَ&zwj;</span><span class="gold">&zwj;هْ&zwj;</span><span class="burgundy">&zwj;ر</span>', middleFr: "Nahr", middleEs: "Nahr",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـه</span>', finalWord: '<span class="burgundy">وَجْ&zwj;</span><span class="gold">&zwj;ه</span>', finalFr: "Wajh", finalEs: "Wayh"
       },
       {
-        letter: "و", fr: "Waaw", es: "Waw", audio: "audio/27-waaw.mp3",
-        initialForm: '<span class="burgundy">و</span>',
-        initialWord: '<span class="gold">وَ</span><span class="burgundy">رْد</span>',
-        initialFr: "Ward", initialEs: "Ward",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـو</span>',
-        middleWord: '<span class="burgundy">قَ&zwj;</span><span class="gold">&zwj;وْ</span><span class="burgundy">س</span>',
-        middleFr: "Qaws", middleEs: "Qaws",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـو</span>',
-        finalWord: '<span class="burgundy">ضَ&zwj;</span><span class="gold">&zwj;وْ</span><span class="burgundy">ء</span>',
-        finalFr: "Daw'", finalEs: "Daw'"
+        letter: "و", fr: "Waaw", es: "Waw", audio: "audio/27-waw.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">و</span>', initialWord: '<span class="gold">وَ</span><span class="burgundy">رْد</span>', initialFr: "Ward", initialEs: "Ward",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـو</span>', middleWord: '<span class="burgundy">قَ&zwj;</span><span class="gold">&zwj;وْ</span><span class="burgundy">س</span>', middleFr: "Qaws", middleEs: "Qaws",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـو</span>', finalWord: '<span class="burgundy">ضَ&zwj;</span><span class="gold">&zwj;وْ</span><span class="burgundy">ء</span>', finalFr: "Daw'", finalEs: "Daw'"
       },
       {
-        letter: "ي", fr: "Yaa", es: "Ya", audio: "audio/28-yaa.mp3",
-        initialForm: '<span class="burgundy">يـ&zwj;</span>' + cLeft,
-        initialWord: '<span class="gold">يَ&zwj;</span><span class="burgundy">&zwj;د</span>',
-        initialFr: "Yad", initialEs: "Yad",
-        middleForm: cRight + '<span class="burgundy">&zwj;ـيـ&zwj;</span>' + cLeft,
-        middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;يْ&zwj;</span><span class="burgundy">&zwj;ت</span>',
-        middleFr: "Bayt", middleEs: "Bait",
-        finalForm: cRight + '<span class="burgundy">&zwj;ـي</span>',
-        finalWord: '<span class="burgundy">كُرْسِ&zwj;</span><span class="gold">&zwj;ي</span>',
-        finalFr: "Kursii", finalEs: "Kursi"
+        letter: "ي", fr: "Yaa", es: "Ya", audio: "audio/28-ya.mp3", // CORRIGÉ
+        initialForm: '<span class="burgundy">يـ&zwj;</span>' + cLeft, initialWord: '<span class="gold">يَ&zwj;</span><span class="burgundy">&zwj;د</span>', initialFr: "Yad", initialEs: "Yad",
+        middleForm: cRight + '<span class="burgundy">&zwj;ـيـ&zwj;</span>' + cLeft, middleWord: '<span class="burgundy">بَ&zwj;</span><span class="gold">&zwj;يْ&zwj;</span><span class="burgundy">&zwj;ت</span>', middleFr: "Bayt", middleEs: "Bait",
+        finalForm: cRight + '<span class="burgundy">&zwj;ـي</span>', finalWord: '<span class="burgundy">كُرْسِ&zwj;</span><span class="gold">&zwj;ي</span>', finalFr: "Kursii", finalEs: "Kursi"
       }
     ];
 
@@ -1062,6 +890,7 @@
       renderCard();
     }
 
+    // FONCTION AUDIO BLINDÉE POUR ANDROID ET iPHONE
     function playAudio(event) {
       event.stopPropagation();
       const card = cards[currentIndex];
@@ -1071,9 +900,20 @@
         return;
       }
 
-      stopAudio();
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
       currentAudio = new Audio(card.audio);
-      currentAudio.play().catch(() => showToast());
+      let playPromise = currentAudio.play();
+      
+      if (playPromise !== undefined) {
+          playPromise.catch(error => {
+              console.error("Audio error:", error);
+              showToast();
+          });
+      }
     }
 
     function showToast() {
