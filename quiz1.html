@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -294,7 +293,7 @@
     </div>
 
     <script>
-        // Correction de tous les liens pour pointer vers le dossier audio/
+        // LE BIJOU 1 : LA MATRICE AUDIO UNIVERSELLE
         const alphabetData = [
             { letter: "أ", audio: "audio/01-alif.mp3" },
             { letter: "ب", audio: "audio/02-baa.mp3" },
@@ -303,10 +302,10 @@
             { letter: "ج", audio: "audio/05-jim.mp3" },
             { letter: "ح", audio: "audio/06-haa.mp3" },
             { letter: "خ", audio: "audio/07-khaa.mp3" },
-            { letter: "د", audio: "audio/08-daal.mp3" },
-            { letter: "ذ", audio: "audio/09-dhaal.mp3" },
+            { letter: "د", audio: "audio/08-dal.mp3" },
+            { letter: "ذ", audio: "audio/09-dhal.mp3" },
             { letter: "ر", audio: "audio/10-raa.mp3" },
-            { letter: "ز", audio: "audio/11-zaay.mp3" },
+            { letter: "ز", audio: "audio/11-zay.mp3" },
             { letter: "س", audio: "audio/12-siin.mp3" },
             { letter: "ش", audio: "audio/13-shiin.mp3" },
             { letter: "ص", audio: "audio/14-saad.mp3" },
@@ -451,7 +450,14 @@
             }
 
             currentAudio = new Audio(audioPath);
-            currentAudio.play().catch(() => showToast());
+            let playPromise = currentAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("Audio error:", error);
+                    showToast();
+                });
+            }
         }
 
         function showToast() {
@@ -476,9 +482,14 @@
 
             triggerConfetti();
 
-            // Intervention délicate : Lecture de l'audio "Mabruk" pour le certificat
-            const mabrukAudio = new Audio("audio/mabruk.mp3");
-            mabrukAudio.play().catch(e => console.log("Erreur lecture mabruk:", e));
+            // LE BIJOU AUDIO : MABRUK À LA RACINE
+            const mabrukAudio = new Audio("mabruk.mp3");
+            let playPromise = mabrukAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("Audio error:", error);
+                });
+            }
         }
 
         function triggerConfetti() {
