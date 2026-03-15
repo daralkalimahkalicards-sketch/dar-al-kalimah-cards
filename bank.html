@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="rtl">
 <head>
@@ -298,8 +299,7 @@
 
     <script>
         // =========================================
-        // LE BIJOU 1 : MATRICE AUDIO UNIVERSELLE (LETTRES)
-        // ET CORRECTIONS CHIRURGICALES (MOTS: khubz.mp3, zayt.mp3)
+        // LE BIJOU CORRIGÉ : DAL, DHAL, ZAY, KHOBZ, ZAYT (Tout est exact !)
         // =========================================
         const wordsDatabase = [
             // LETTRES
@@ -310,10 +310,10 @@
             { id: 5, type: "letter", arabe: "ج", fr: "Lettre Jiim", es: "Letra Jiim", audio: "audio/05-jim.mp3" },
             { id: 6, type: "letter", arabe: "ح", fr: "Lettre Haa", es: "Letra Haa", audio: "audio/06-haa.mp3" },
             { id: 7, type: "letter", arabe: "خ", fr: "Lettre Khaa", es: "Letra Khaa", audio: "audio/07-khaa.mp3" },
-            { id: 8, type: "letter", arabe: "د", fr: "Lettre Daal", es: "Letra Daal", audio: "audio/08-daal.mp3" },
-            { id: 9, type: "letter", arabe: "ذ", fr: "Lettre Dhaal", es: "Letra Dhaal", audio: "audio/09-dhaal.mp3" },
+            { id: 8, type: "letter", arabe: "د", fr: "Lettre Daal", es: "Letra Daal", audio: "audio/08-dal.mp3" }, // CORRIGÉ (1 A)
+            { id: 9, type: "letter", arabe: "ذ", fr: "Lettre Dhaal", es: "Letra Dhaal", audio: "audio/09-dhal.mp3" }, // CORRIGÉ (1 A)
             { id: 10, type: "letter", arabe: "ر", fr: "Lettre Raa", es: "Letra Raa", audio: "audio/10-raa.mp3" },
-            { id: 11, type: "letter", arabe: "ز", fr: "Lettre Zaay", es: "Letra Zaay", audio: "audio/11-zaay.mp3" },
+            { id: 11, type: "letter", arabe: "ز", fr: "Lettre Zaay", es: "Letra Zaay", audio: "audio/11-zay.mp3" }, // CORRIGÉ (1 A)
             { id: 12, type: "letter", arabe: "س", fr: "Lettre Siin", es: "Letra Siin", audio: "audio/12-siin.mp3" },
             { id: 13, type: "letter", arabe: "ش", fr: "Lettre Shiin", es: "Letra Shiin", audio: "audio/13-shiin.mp3" },
             { id: 14, type: "letter", arabe: "ص", fr: "Lettre Saad", es: "Letra Saad", audio: "audio/14-saad.mp3" },
@@ -350,12 +350,7 @@
             { id: 43, type: "word", arabe: "حَبْل", icon: "fa-solid fa-link", fr: "Corde", es: "Cuerda", audio: "audio/habl.mp3" },
             { id: 44, type: "word", arabe: "بَحْر", icon: "fa-solid fa-water", fr: "Mer", es: "Mar", audio: "audio/bahr.mp3" },
             { id: 45, type: "word", arabe: "مِفْتَاح", icon: "fa-solid fa-key", fr: "Clé", es: "Llave", audio: "audio/miftah.mp3" },
-            
-            // --- CORRECTIONS CHIRURGICALES (khubz.mp3, zayt.mp3) ---
-            { id: 46, type: "word", arabe: "خُبْز", icon: "fa-solid fa-bread-slice", fr: "Pain", es: "Pan", audio: "audio/khubz.mp3" },
-            { id: 57, type: "word", arabe: "زَيْت", icon: "fa-solid fa-bottle-droplet", fr: "Huile", es: "Aceite", audio: "audio/zayt.mp3" },
-            // ---------------------------------------------
-            
+            { id: 46, type: "word", arabe: "خُبْز", icon: "fa-solid fa-bread-slice", fr: "Pain", es: "Pan", audio: "audio/khobz.mp3" }, // CORRIGÉ
             { id: 47, type: "word", arabe: "نَخْل", icon: "fa-solid fa-tree", fr: "Palmier", es: "Palmera", audio: "audio/nakhl.mp3" },
             { id: 48, type: "word", arabe: "مَطْبَخ", icon: "fa-solid fa-kitchen-set", fr: "Cuisine", es: "Cocina", audio: "audio/matbakh.mp3" },
             { id: 49, type: "word", arabe: "دُب", icon: "fa-solid fa-paw", fr: "Ours", es: "Oso", audio: "audio/dub.mp3" },
@@ -366,6 +361,7 @@
             { id: 54, type: "word", arabe: "لَذِيذ", icon: "fa-solid fa-utensils", fr: "Délicieux", es: "Delicioso", audio: "audio/ladhidh.mp3" },
             { id: 55, type: "word", arabe: "وَرْدَة", icon: "fa-solid fa-leaf", fr: "Une rose", es: "Una rosa", audio: "audio/warda.mp3" },
             { id: 56, type: "word", arabe: "قَمَر", icon: "fa-solid fa-moon", fr: "Lune", es: "Luna", audio: "audio/qamar.mp3" },
+            { id: 57, type: "word", arabe: "زَيْت", icon: "fa-solid fa-bottle-droplet", fr: "Huile", es: "Aceite", audio: "audio/zayt.mp3" }, // FONCTIONNE DÉJÀ
             { id: 58, type: "word", arabe: "مَوْزَة", icon: "fa-solid fa-lemon", fr: "Une banane", es: "Un plátano", audio: "audio/mawza.mp3" },
             { id: 59, type: "word", arabe: "سَمَك", icon: "fa-solid fa-fish", fr: "Poisson", es: "Pescado", audio: "audio/samak.mp3" },
             { id: 60, type: "word", arabe: "مَسْجِد", icon: "fa-solid fa-mosque", fr: "Mosquée", es: "Mezquita", audio: "audio/masjid.mp3" },
