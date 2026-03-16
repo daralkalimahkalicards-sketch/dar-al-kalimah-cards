@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalima - Agenda Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           LE COFFRE-FORT : VARIABLES PREMIUM
+           ========================================= */
+        :root {
+            --burgundy: #5D1828; --burgundy-dark: #3a0f19;
+            --gold: #C8A462; --gold-light: #dfc28b;
+            --white: #FFFFFF; --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50; --text-muted: #7F8C8D;
+            --shadow-elegant: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: linear-gradient(135deg, var(--white) 0%, var(--bg-beige) 100%);
+            font-family: 'Montserrat', sans-serif;
+            padding: 30px 15px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            transition: background 0.5s ease;
+        }
+
+        .ar-text { font-family: "Noto Naskh Arabic", "Amiri", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+
+        /* =========================================
+           HEADER (LE VRAI DESIGN)
+           ========================================= */
+        .header-container {
+            background: var(--burgundy); padding: 30px 20px; border-radius: 16px;
+            box-shadow: var(--shadow-deep); width: 100%; max-width: 1100px; margin-bottom: 30px;
+            text-align: center; position: relative;
+        }
+        .btn-back-home {
+            position: absolute; top: 20px; right: 20px;
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+        .brand-ar { font-size: 2.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.2; }
+        .brand-fr-es { font-size: 1.1rem; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 8px; }
+        .app-title { font-size: 1rem; color: #d09470; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px;}
+        .trilingual-title { display: flex; justify-content: center; gap: 15px; color: var(--white); font-size: 0.9rem; flex-wrap: wrap; border-top: 1px solid rgba(200,164,98,0.3); padding-top: 15px;}
+
+        /* BOUTON MODE CONCENTRATION */
+        .focus-toggle-wrap { display: flex; justify-content: center; margin-bottom: 20px; width: 100%; max-width: 1100px;}
+        .btn-focus {
+            background: var(--white); border: 1px solid var(--gold); color: var(--burgundy);
+            padding: 12px 30px; border-radius: 50px; font-size: 0.95rem; font-weight: 700;
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+            box-shadow: var(--shadow-elegant);
+        }
+        .btn-focus:hover { background: var(--bg-beige); transform: translateY(-2px); }
+        .btn-focus.active { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); }
+        .btn-focus span { font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-right: 5px;}
+
+        /* =========================================
+           LAYOUT PLANNER
+           ========================================= */
+        .planner-layout {
+            width: 100%; max-width: 1100px;
+            display: grid; grid-template-columns: 350px 1fr; gap: 30px;
+            transition: all 0.5s ease;
+        }
+
+        .module-section {
+            background: var(--white); border: 1px solid var(--gold-light); border-radius: 16px;
+            padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow-elegant);
+        }
+
+        .section-title { font-size: 1.3rem; font-weight: 700; color: var(--burgundy); margin-bottom: 20px; text-align: center; border-bottom: 2px dashed var(--bg-beige); padding-bottom: 15px;}
+        .section-title-es { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; display: block; margin-top: 5px; font-style: italic; font-family: 'Montserrat', sans-serif;}
+
+        /* =========================================
+           COLONNE GAUCHE (WIDGETS)
+           ========================================= */
+        .sidebar { display: flex; flex-direction: column; }
+
+        /* Utilisateur & Date */
+        .profile-input {
+            width: 100%; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif;
+            border: 2px solid var(--gold-light); border-radius: 12px; color: var(--burgundy);
+            background: var(--bg-beige); margin-bottom: 15px; font-weight: 600; text-align: center;
+            transition: 0.3s; outline: none;
+        }
+        .profile-input:focus { border-color: var(--burgundy); background: var(--white);}
+        .date-display { font-size: 1.1rem; font-weight: 600; color: var(--burgundy); text-align: center; margin-top: 15px; border-top: 1px solid var(--bg-beige); padding-top: 15px;}
+
+        /* Chronomètre */
+        .timer-display { font-size: 4rem; font-weight: 300; color: var(--burgundy); text-align: center; margin: 10px 0 20px 0; font-variant-numeric: tabular-nums; line-height: 1;}
+        .timer-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;}
+        .btn-timer {
+            background: var(--bg-beige); border: 1px solid var(--gold-light); color: var(--burgundy);
+            width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.3s; font-size: 1.2rem;
+        }
+        .btn-timer:hover { background: var(--gold); color: var(--white); border-color: var(--gold); transform: scale(1.05);}
+        .btn-end-session {
+            width: 100%; background: var(--burgundy); color: var(--white); border: none;
+            padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; letter-spacing: 1px; font-family: 'Montserrat', sans-serif;
+        }
+        .btn-end-session:hover { background: var(--burgundy-dark); box-shadow: 0 4px 10px rgba(93,24,40,0.3);}
+
+        /* Statistiques */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .stat-box { background: var(--bg-beige); border: 1px solid var(--gold-light); border-radius: 12px; padding: 15px 10px; text-align: center; }
+        .stat-box.full { grid-column: span 2; background: var(--burgundy); border-color: var(--burgundy); color: var(--white);}
+        .stat-box-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
+        .stat-box.full .stat-box-title { color: var(--gold-light); }
+        .stat-box-val { font-size: 1.4rem; font-weight: bold; color: var(--burgundy); margin-top: 5px; direction: ltr;}
+        .stat-box.full .stat-box-val { color: var(--white); font-size: 2rem; }
+
+        /* Rappel */
+        .reminder-input {
+            width: 100%; padding: 15px; font-size: 1.2rem; font-family: 'Montserrat', sans-serif;
+            border: 2px solid var(--gold-light); border-radius: 12px; color: var(--burgundy);
+            text-align: center; margin-bottom: 15px; background: var(--bg-beige); outline: none;
+        }
+        .btn-reminder { width: 100%; background: var(--white); border: 2px solid var(--gold); color: var(--burgundy); padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; font-family: 'Montserrat', sans-serif;}
+        .btn-reminder:hover { background: var(--gold); color: var(--white); }
+
+        /* =========================================
+           COLONNE DROITE (NOTES)
+           ========================================= */
+        .notes-wrapper { display: flex; flex-direction: column; height: 100%; }
+        .notes-area {
+            width: 100%; flex-grow: 1; min-height: 700px; 
+            padding: 35px 20px 20px 20px; 
+            font-size: 1.2rem; 
+            line-height: 40px; /* HAUTEUR DE LIGNE FIXE ET EXACTE */
+            font-family: 'Montserrat', sans-serif; color: var(--text-dark);
+            background-color: transparent; border: none; resize: none; outline: none;
+            
+            /* Lignes dessinées tous les 40px exactement */
+            background-image: repeating-linear-gradient(
+                transparent, 
+                transparent 39px, 
+                rgba(200, 164, 98, 0.3) 39px, 
+                rgba(200, 164, 98, 0.3) 40px
+            );
+            background-attachment: local; 
+            direction: rtl; /* Ecriture de droite à gauche possible, modifiable par le navigateur */
+        }
+        .notes-area::placeholder { color: #bdc3c7; font-style: italic; }
+
+        /* =========================================
+           NOTIFICATIONS
+           ========================================= */
+        .toast {
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            background: var(--burgundy); color: var(--white); padding: 15px 35px; border-radius: 50px;
+            font-size: 1rem; font-weight: 600; box-shadow: var(--shadow-deep); border: 1px solid var(--gold);
+            transition: bottom 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 1000; text-align: center;
+        }
+        .toast.show { bottom: 40px; }
+        .toast-mabrouk { font-size: 1.8rem; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 3px; color: var(--gold);}
+
+        /* =========================================
+           MODE CONCENTRATION (FOCUS)
+           ========================================= */
+        body.focus-mode .hide-in-focus { opacity: 0; pointer-events: none; position: absolute; visibility: hidden; display: none; }
+        body.focus-mode .planner-layout { grid-template-columns: 1fr; max-width: 900px; }
+        body.focus-mode .timer-widget { margin: 0 auto; width: 100%; max-width: 400px; border-color: var(--gold); box-shadow: var(--shadow-deep);}
+        
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .planner-layout { grid-template-columns: 1fr; }
+            .header-container { flex-direction: column; text-align: center; justify-content: center; }
+            .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 20px; }
+            .notes-area { min-height: 500px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-right"></i> القائمة / Menu</a>
+        <div class="brand-section">
+            <div class="brand-ar ar-text">المفكرة</div>
+            <div class="brand-fr-es serif-text">L'Agenda | La Agenda</div>
+            <div class="app-title serif-text">Dar Al-Kalima</div>
+        </div>
+        <div class="trilingual-title">
+            <span>تنظيم ووقت</span> | <span>Organisation & Temps</span> | <span>Organización & Tiempo</span>
+        </div>
+    </div>
+
+    <div class="focus-toggle-wrap">
+        <button id="btn-focus" class="btn-focus" onclick="toggleFocusMode()">
+            <i class="fa-solid fa-expand"></i> وضعية التركيز <span>(Mode concentration / Modo concentración)</span>
+        </button>
+    </div>
+
+    <div class="planner-layout">
+        
+        <div class="sidebar">
+            
+            <div class="module-section hide-in-focus">
+                <div class="section-title ar-text">
+                    المستخدم <br>
+                    <span class="section-title-es">Utilisateur / Usuario</span>
+                </div>
+                
+                <input type="text" id="user-name" class="profile-input" placeholder="Prénom / Nombre" onblur="switchUser()" title="Changez de prénom pour changer d'espace">
+
+                <div id="date-display" class="date-display">--/--/----</div>
+            </div>
+
+            <div class="module-section timer-widget">
+                <div class="section-title ar-text">
+                    المؤقت <br>
+                    <span class="section-title-es">Chronomètre / Cronómetro</span>
+                </div>
+                <div id="timer-display" class="timer-display">00:00</div>
+                <div class="timer-controls" dir="ltr">
+                    <button class="btn-timer" onclick="startTimer()" title="Start"><i class="fa-solid fa-play"></i></button>
+                    <button class="btn-timer" onclick="pauseTimer()" title="Pause"><i class="fa-solid fa-pause"></i></button>
+                    <button class="btn-timer" onclick="resetTimer()" title="Reset"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+                <button class="btn-end-session" onclick="endSession()">
+                    إنهاء الجلسة <br> <span style="font-size:0.75rem; color:var(--gold-light); font-weight:400;">Terminer la session / Terminar sesión</span>
+                </button>
+            </div>
+
+            <div class="module-section hide-in-focus">
+                <div class="section-title ar-text">
+                    تقرير النشاط <br>
+                    <span class="section-title-es">Compte Rendu / Informe de actividad</span>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box full">
+                        <div class="stat-box-title">اليوم (Aujourd'hui / Hoy)</div>
+                        <div id="stat-today" class="stat-box-val">0 min</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-box-title">الأسبوع <br><span style="text-transform:none;font-style:italic;font-size:0.65rem;">(Semaine / Semana)</span></div>
+                        <div id="stat-week" class="stat-box-val">0 min</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-box-title">الشهر <br><span style="text-transform:none;font-style:italic;font-size:0.65rem;">(Mois / Mes)</span></div>
+                        <div id="stat-month" class="stat-box-val">0 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section hide-in-focus">
+                <div class="section-title ar-text">
+                    تذكير <br>
+                    <span class="section-title-es">Rappel / Recordatorio</span>
+                </div>
+                <input type="time" id="reminder-time" class="reminder-input">
+                <button class="btn-reminder" onclick="setReminder()">
+                    تفعيل التذكير <br>
+                    <span style="font-size:0.75rem; font-weight:400; text-transform:none; color:var(--text-muted); margin-top:3px; display:block;">Activer le rappel / Activar recordatorio</span>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="module-section notes-wrapper">
+            <div class="section-title ar-text">
+                ملاحظات ويوميات <br>
+                <span class="section-title-es">Notes & Journal / Notas & Diario</span>
+            </div>
+            <textarea id="notes-area" class="notes-area" placeholder="اكتب ملاحظاتك هنا...&#10;Écrivez vos notes ici...&#10;Escriba sus notas aquí..." oninput="autoSaveNotes()"></textarea>
+        </div>
+
+    </div>
+
+    <div id="toast" class="toast">
+        <div id="toast-msg"></div>
+    </div>
+
+    <script>
+        // =========================================
+        // LOGIQUE D'APPLICATION
+        // =========================================
+
+        function getCurrentUser() {
+            let name = document.getElementById('user-name').value.trim();
+            if(!name) name = "Utilisateur_Defaut";
+            return name;
+        }
+
+        function switchUser() {
+            const user = getCurrentUser();
+            localStorage.setItem('dak_last_user', user);
+            loadNotes();
+            renderStats();
+            
+            if(user !== "Utilisateur_Defaut") {
+                showToast(`Espace de travail de : <b>${user}</b><br><span class="es-subtitle" style="color:white;">Espacio de trabajo de ${user}</span>`);
+            }
+        }
+
+        function autoSaveNotes() {
+            const user = getCurrentUser();
+            const notes = document.getElementById('notes-area').value;
+            localStorage.setItem(`dak_notes_${user}`, notes);
+        }
+
+        function loadNotes() {
+            const user = getCurrentUser();
+            const savedNotes = localStorage.getItem(`dak_notes_${user}`);
+            document.getElementById('notes-area').value = savedNotes ? savedNotes : "";
+        }
+
+        function updateDate() {
+            const optionsFr = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            const optionsEs = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            
+            const today = new Date();
+            const dateFr = today.toLocaleDateString('fr-FR', optionsFr);
+            const dateEs = today.toLocaleDateString('es-ES', optionsEs);
+            
+            document.getElementById('date-display').innerHTML = `
+                <div style="text-transform: capitalize; margin-bottom:5px;">${dateFr}</div>
+                <div class="es-subtitle" style="text-transform: capitalize;">${dateEs}</div>
+            `;
+        }
+
+        // --- CHRONOMÈTRE ---
+        let timerInterval = null;
+        let elapsedSeconds = 0;
+        let isRunning = false;
+
+        function updateTimerDisplay() {
+            const m = Math.floor(elapsedSeconds / 60).toString().padStart(2, '0');
+            const s = (elapsedSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer-display').innerText = `${m}:${s}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerInterval = setInterval(() => {
+                elapsedSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            elapsedSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        // --- STATISTIQUES ---
+        function endSession() {
+            if(elapsedSeconds === 0) return;
+            pauseTimer();
+            
+            const minutesWorked = Math.ceil(elapsedSeconds / 60);
+            saveSessionStats(minutesWorked);
+            
+            showToast(`<div class="toast-mabrouk">Mabrouk</div><div style="font-size:0.9rem; margin-top:5px; font-weight:normal;">Session terminée / Sesión terminada (+${minutesWorked} min)</div>`);
+            
+            elapsedSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        function saveSessionStats(minutes) {
+            const user = getCurrentUser();
+            const todayStr = new Date().toLocaleDateString('fr-FR'); 
+            let history = JSON.parse(localStorage.getItem(`dak_sessions_${user}`)) || {};
+            
+            if(history[todayStr]) {
+                history[todayStr] += minutes;
+            } else {
+                history[todayStr] = minutes;
+            }
+            
+            localStorage.setItem(`dak_sessions_${user}`, JSON.stringify(history));
+            renderStats();
+        }
+
+        function renderStats() {
+            const user = getCurrentUser();
+            const history = JSON.parse(localStorage.getItem(`dak_sessions_${user}`)) || {};
+            
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            const todayStr = now.toLocaleDateString('fr-FR');
+            
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(now.getDate() - 7);
+
+            let totalToday = history[todayStr] || 0;
+            let totalWeek = 0;
+            let totalMonth = 0;
+
+            for (let dateStr in history) {
+                const parts = dateStr.split('/');
+                if (parts.length === 3) {
+                    const sessionDate = new Date(parts[2], parts[1] - 1, parts[0]);
+                    const minutes = history[dateStr];
+
+                    if (sessionDate >= sevenDaysAgo && sessionDate <= now) {
+                        totalWeek += minutes;
+                    }
+                    if (sessionDate.getFullYear() === currentYear && sessionDate.getMonth() === currentMonth) {
+                        totalMonth += minutes;
+                    }
+                }
+            }
+
+            document.getElementById('stat-today').innerText = `${totalToday} min`;
+            document.getElementById('stat-week').innerText = `${totalWeek} min`;
+            document.getElementById('stat-month').innerText = `${totalMonth} min`;
+        }
+
+        // --- RAPPEL ---
+        let reminderInterval = null;
+        let reminderTime = null;
+
+        function setReminder() {
+            const timeInput = document.getElementById('reminder-time').value;
+            if(!timeInput) return;
+            
+            reminderTime = timeInput;
+            showToast(`Rappel activé pour ${timeInput} <br><span class="es-subtitle" style="color:white;">Recordatorio activado</span>`);
+            
+            if(reminderInterval) clearInterval(reminderInterval);
+            
+            reminderInterval = setInterval(() => {
+                const now = new Date();
+                const currentH = now.getHours().toString().padStart(2, '0');
+                const currentM = now.getMinutes().toString().padStart(2, '0');
+                const currentTimeStr = `${currentH}:${currentM}`;
+                
+                if(currentTimeStr === reminderTime && now.getSeconds() === 0) {
+                    showToast(`<i class="fa-solid fa-bell" style="font-size:1.5rem; color:var(--gold); margin-bottom:10px;"></i><br>C'est l'heure ! / ¡Es la hora!`);
+                    if(navigator.vibrate) navigator.vibrate([200, 100, 200]);
+                }
+            }, 1000);
+        }
+
+        // --- MODE CONCENTRATION ---
+        function toggleFocusMode() {
+            const body = document.body;
+            const btn = document.getElementById('btn-focus');
+            
+            body.classList.toggle('focus-mode');
+            
+            if(body.classList.contains('focus-mode')) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        }
+
+        // --- TOAST ---
+        let toastTimeout;
+        function showToast(htmlMessage) {
+            clearTimeout(toastTimeout);
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerHTML = htmlMessage;
+            toast.classList.add('show');
+            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
+        // --- INIT ---
+        window.onload = () => {
+            updateDate();
+            
+            const lastUser = localStorage.getItem('dak_last_user');
+            if(lastUser && lastUser !== "Utilisateur_Defaut") {
+                document.getElementById('user-name').value = lastUser;
+            }
+            
+            switchUser(); 
+            setInterval(updateDate, 60000); 
+        };
+
+    </script>
+</body>
+</html>
