@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalicards - Quiz Grand Plateau</title>
+    <title>Kalicards - Quiz 3 (La Lettre Cachée)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -11,7 +12,7 @@
     
     <style>
         /* =========================================
-           VARIABLES & GLOBALS
+           STYLES GLOBAUX & COULEURS
            ========================================= */
         :root {
             --burgundy: #5D1828;
@@ -28,38 +29,24 @@
             --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.25);
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg-beige);
             background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
             font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 15px;
-            overflow-x: hidden;
-            color: var(--burgundy);
+            padding: 20px; overflow-x: hidden; color: var(--burgundy);
         }
 
-        .ar-text { font-family: "Amiri", serif; line-height: 1.2; }
+        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
         .serif-text { font-family: "Cinzel", "Georgia", serif; }
 
         .view {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            animation: floatIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            width: 100%; display: flex; flex-direction: column; align-items: center;
+            justify-content: center; animation: floatIn 0.5s ease-out forwards;
         }
-
         .hidden { display: none !important; }
 
         @keyframes floatIn {
@@ -68,208 +55,147 @@
         }
 
         /* =========================================
-           BOUTONS & CONTENEURS GÉNÉRAUX
+           BOUTONS GÉNÉRAUX
            ========================================= */
         .btn-main, .btn-secondary {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
             color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 40px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
+            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             font-family: 'Montserrat', sans-serif; font-weight: 600;
             letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); display: inline-block;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block;
         }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active { transform: translateY(1px); box-shadow: 0 5px 15px rgba(93, 24, 40, 0.2); }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:active { transform: translateY(1px); }
 
         .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
 
         /* =========================================
-           ACCUEIL (PREMIUM BORDEAUX)
+           ACCUEIL QUIZ (PREMIUM BORDEAUX)
            ========================================= */
         .menu-container {
-            text-align: center;
-            background: var(--burgundy); /* Intervention : Fond Bordeaux */
-            padding: 40px 30px;
-            border-radius: 24px;
+            text-align: center; 
+            background: var(--burgundy);
+            padding: 50px 40px; border-radius: 24px;
             box-shadow: var(--shadow-deep);
-            width: 100%;
-            max-width: 800px;
+            max-width: 600px; width: 100%;
         }
 
-        .menu-container .brand-ar { font-size: 3.8rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
-        .menu-container .app-title { font-size: 1.6rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
-        .menu-container .divider { width: 60px; height: 3px; background-color: var(--gold); margin: 20px auto; border-radius: 3px; opacity: 0.5; }
+        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
+        .menu-container .app-title { font-size: 1.4rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
         
         .menu-container .subtitle-group { margin-bottom: 30px; }
         .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
         .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
 
-        .menu-container .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; width: 100%; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;}
+        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
         .menu-container .input-group input {
-            width: 100%; max-width: 380px; padding: 16px; font-size: 1.15rem;
+            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
             font-family: 'Montserrat', sans-serif; text-align: center;
             border: 2px solid var(--gold); border-radius: 12px;
             background-color: var(--white); color: var(--burgundy); outline: none;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: border-color 0.3s ease;
         }
-        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); transform: translateY(-2px); }
+        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
 
-        .menu-container .btn-main {
-            background: transparent; color: var(--gold); border: 2px solid var(--gold); box-shadow: none;
-        }
-        .menu-container .btn-main:hover {
-            background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);
-        }
+        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none;}
+        .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);}
 
         /* =========================================
-           PLATEAU DE JEU (RESTE CLAIR)
+           ÉCRAN DE JEU (RESTE CLAIR)
            ========================================= */
-        .board-container {
-            text-align: center;
-            background: linear-gradient(145deg, var(--white), #fdfdfd);
-            padding: 40px 30px;
-            border-radius: 24px;
-            border: 1px solid var(--gold);
+        .quiz-container {
+            text-align: center; background: var(--white);
+            padding: 40px 30px; border-radius: 24px; border: 1px solid var(--gold);
             box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
-            width: 100%;
-            max-width: 800px;
+            max-width: 700px; width: 100%;
         }
+        .quiz-header { width: 100%; max-width: 700px; margin-bottom: 20px; }
+        .progress-info { text-align: right; margin-bottom: 8px; }
+        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
+        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
 
-        .quiz-header {
-            width: 100%; max-width: 800px; margin-bottom: 20px;
-            display: flex; flex-direction: column; align-items: center;
-        }
+        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; color: var(--burgundy); }
+        .instruction-text small { opacity: 0.8; font-weight: 500; }
 
-        .progress-container { width: 100%; max-width: 450px; margin-bottom: 15px; }
-        .progress-info { text-align: center; margin-bottom: 10px; }
-        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1.1rem; letter-spacing: 2px; }
-        .progress-bar-container { width: 100%; height: 10px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-        .audio-section {
-            display: flex; justify-content: center; align-items: center; gap: 20px;
-            margin-bottom: 25px; background: var(--bg-beige); padding: 15px 25px;
-            border-radius: 100px; border: 1px solid var(--gold-light);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
-        }
-
-        .instruction-text { font-weight: 600; font-size: 1.1rem; text-align: left; line-height: 1.4; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.7; font-weight: 500; font-size: 0.85rem; display: block; }
-
+        .audio-section { margin-bottom: 20px; display: flex; justify-content: center; }
         .btn-audio.big-audio {
-            width: 70px; height: 70px; font-size: 2.2rem;
-            background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 3px solid var(--gold);
+            width: 65px; height: 65px; font-size: 2rem;
+            background: linear-gradient(135deg, var(--bg-beige), #fff); border: 3px solid var(--gold);
             color: var(--burgundy); border-radius: 50%; cursor: pointer;
-            box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(200, 164, 98, 0.3); transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
         }
-        .btn-audio.big-audio:hover { transform: scale(1.1) rotate(-5deg); background: var(--gold); color: var(--white); box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); }
-        .btn-audio.big-audio:active { transform: scale(0.95); }
+        .btn-audio.big-audio:hover { transform: scale(1.1); background: var(--gold); box-shadow: 0 10px 25px rgba(200, 164, 98, 0.5); }
 
-        /* Grille de 28 lettres avec écriture de droite à gauche */
-        .board-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            width: 100%;
+        /* LA ZONE DU MOT MYSTÈRE */
+        .word-display-box {
+            background: var(--bg-beige); border: 2px dashed var(--gold); border-radius: 16px;
+            padding: 30px 20px; margin-bottom: 35px; display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.02); min-height: 120px;
         }
-
-        .board-card {
-            background: var(--white); border: 2px solid var(--gold-light); border-radius: 14px;
-            aspect-ratio: 1; display: flex; justify-content: center; align-items: center;
-            font-size: 2.6rem; color: var(--burgundy); cursor: pointer;
-            box-shadow: 0 5px 15px rgba(93, 24, 40, 0.05); transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-            user-select: none;
-            /* Animation d'apparition en cascade (le JS s'occupe du délai) */
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        .mystery-word {
+            font-size: 5rem; font-weight: bold; color: var(--burgundy);
+            letter-spacing: 5px; word-spacing: 10px; line-height: 1;
+        }
+        .mystery-gap {
+            display: inline-block; width: 60px; height: 5px; background-color: var(--gold);
+            margin: 0 10px; vertical-align: middle; position: relative; top: -15px;
         }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
+        /* GRILLE DE CHOIX */
+        .options-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: 100%; }
+        .option-card {
+            background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px;
+            aspect-ratio: 1.1; display: flex; justify-content: center; align-items: center;
+            font-size: 3.5rem; color: var(--burgundy); cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
         }
+        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+        .option-card:active { transform: scale(0.95); }
 
-        .board-card:hover { transform: translateY(-4px) scale(1.05); border-color: var(--gold); box-shadow: 0 10px 20px rgba(200, 164, 98, 0.25); z-index: 10; }
-        .board-card:active { transform: scale(0.92); }
-
-        .board-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); z-index: 2; transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
-        .board-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; opacity: 0.5; transform: scale(0.95); }
-
-        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
+        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
+        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
         /* =========================================
            CERTIFICAT
            ========================================= */
         .diploma-paper {
             background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold);
-            padding: 40px; border-radius: 20px; text-align: center; max-width: 550px; width: 100%;
-            box-shadow: 0 20px 50px rgba(93, 24, 40, 0.1); position: relative; margin-bottom: 30px;
+            padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
         }
-        .cert-ar { font-size: 5rem; color: var(--gold); line-height: 1; margin-bottom: 5px; text-shadow: 0 4px 10px rgba(200, 164, 98, 0.2); }
-        .cert-title { color: var(--burgundy); font-size: 2.2rem; margin-bottom: 25px; }
-        .cert-messages { margin-bottom: 30px; }
-        .cert-msg { font-weight: 600; color: #444; font-size: 1.05rem; }
-        .cert-msg.es { font-size: 0.95rem; color: #777; margin-top: 5px; }
-        
-        .cert-name { 
-            font-size: 3rem; color: var(--burgundy); border-bottom: 2px solid var(--gold-light); 
-            padding-bottom: 10px; margin-bottom: 30px; word-break: break-word; 
-        }
-        
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 16px; padding: 20px; display: inline-block; margin-bottom: 25px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
-        .score-label { display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
+        .cert-messages { margin-bottom: 25px; }
+        .cert-msg { font-weight: 600; color: #444; }
+        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
+        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
+        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
         .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; font-style: italic; }
-        .cert-icon { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-size: 3rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
+        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
         /* =========================================
-           TOAST NOTIFICATION
+           RESPONSIVE & IMPRESSION
            ========================================= */
-        .toast {
-            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            background-color: rgba(93, 24, 40, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            color: var(--white); padding: 16px 35px; border-radius: 50px; font-size: 0.95rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25); transition: bottom 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            z-index: 1000; text-align: center; border: 1px solid rgba(200, 164, 98, 0.3); font-weight: 500;
+        @media (max-width: 768px) {
+            .options-grid { grid-template-columns: repeat(2, 1fr); }
+            .mystery-word { font-size: 4rem; }
+            .mystery-gap { width: 40px; }
         }
-        .toast.show { bottom: 40px; }
-        .toast-es { font-size: 0.85em; opacity: 0.8; font-weight: normal; display: block; margin-top: 4px; }
-
-        /* =========================================
-           RESPONSIVE
-           ========================================= */
-        @media (min-width: 768px) {
-            .board-grid { grid-template-columns: repeat(7, 1fr); gap: 15px; } /* 7 colonnes x 4 lignes sur grand écran */
-            .board-card { font-size: 3.5rem; }
-            .board-container { padding: 50px; }
-        }
-
         @media (max-width: 480px) {
-            .menu-container { padding: 40px 20px; }
-            .menu-container .brand-ar { font-size: 3.2rem; }
-            .menu-container .app-title { font-size: 1.3rem; }
-            .board-container { padding: 25px 15px; }
-            .board-grid { gap: 10px; }
-            .board-card { font-size: 2.2rem; border-radius: 10px; }
-            .audio-section { flex-direction: column; text-align: center; gap: 10px; padding: 15px; border-radius: 20px; }
-            .instruction-text { text-align: center; }
-            .cert-ar { font-size: 4rem; }
-            .cert-title { font-size: 1.6rem; }
-            .cert-name { font-size: 2.4rem; }
-            .cert-actions { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
-            .btn-main, .btn-secondary { width: 100%; text-align: center; }
-        }
-
-        @media print {
-            body * { visibility: hidden; }
-            #view-certificate, #view-certificate * { visibility: visible; }
-            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; padding: 0; }
-            .no-print { display: none !important; }
-            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; margin: 0; }
+            .menu-container .brand-ar { font-size: 3rem; }
+            .mystery-word { font-size: 3.5rem; }
+            .option-card { font-size: 3rem; }
         }
     </style>
 </head>
@@ -277,13 +203,13 @@
 
     <div id="view-welcome" class="view">
         <div class="menu-container">
-            <div class="brand-ar ar-text">اختبار الحروف</div>
-            <div class="app-title serif-text">Kalicards – Grand Quiz</div>
+            <div class="brand-ar ar-text">الكلمة الناقصة</div>
+            <div class="app-title serif-text">Kalicards – Quiz 3</div>
             <div class="divider"></div>
             
             <div class="subtitle-group">
-                <p class="subtitle fr">Trouve les 28 lettres sur le grand plateau.</p>
-                <p class="subtitle es">Encuentra las 28 letras en el gran tablero.</p>
+                <p class="subtitle fr">Trouve la lettre qui manque dans le mot.</p>
+                <p class="subtitle es">Encuentra la letra que falta en la palabra.</p>
             </div>
             
             <div class="input-group">
@@ -291,56 +217,54 @@
                 <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
             
-            <button class="btn-main" onclick="startQuiz()">Commencer le jeu</button>
+            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
         </div>
     </div>
 
     <div id="view-quiz" class="view hidden">
-        
         <div class="quiz-header">
-            <div class="progress-container">
-                <div class="progress-info">
-                    <span id="progress-text" class="progress-text">1 / 28</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="progress-fill" class="progress-bar-fill"></div>
-                </div>
+            <div class="progress-info">
+                <span id="progress-text" class="progress-text">1 / 10</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progress-fill" class="progress-bar-fill"></div>
             </div>
         </div>
 
-        <div class="board-container">
-            <div class="audio-section">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
-                <div class="instruction-text">
-                    Écoute et trouve la lettre !<br>
-                    <small>¡Escucha y encuentra la letra!</small>
-                </div>
+        <div class="quiz-container">
+            <div class="instruction-text">
+                Écoute le mot et trouve la lettre manquante !<br>
+                <small>¡Escucha la palabra y encuentra la letra que falta!</small>
             </div>
 
-            <div class="board-grid" id="board-grid" dir="rtl"></div>
+            <div class="audio-section">
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter le mot">🎙️</button>
+            </div>
+
+            <div class="word-display-box ar-text">
+                <div id="mystery-word-display" class="mystery-word"></div>
+            </div>
+
+            <div class="options-grid" id="options-grid" dir="rtl">
+            </div>
         </div>
     </div>
 
     <div id="view-certificate" class="view hidden">
-        
-        <div class="input-group no-print" style="margin-bottom: 20px; width: 100%; max-width: 380px;">
-            <input type="text" id="cert-name-input" placeholder="Modifier le prénom avant impression..." oninput="updateCertName(this.value)">
-        </div>
-
         <div class="diploma-paper">
             <div class="cert-ar ar-text">مبروك</div>
             <h2 class="cert-title serif-text">Certificat de réussite</h2>
             
             <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.</p>
-                <p class="cert-msg es">Felicidades, has completado el Gran Quiz del Alfabeto.</p>
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz de la lettre manquante.</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz de la letra faltante.</p>
             </div>
             
-            <div id="cert-name" class="cert-name serif-text">Participant</div>
+            <div id="cert-name" class="cert-name ar-text">Participant</div>
             
             <div class="cert-score-box">
                 <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">28 / 28</div>
+                <div id="cert-score" class="score-value">10 / 10</div>
             </div>
             
             <div id="cert-date" class="cert-date"></div>
@@ -348,178 +272,133 @@
         </div>
         
         <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer le certificat</button>
-            <button class="btn-main" onclick="restartQuiz()">Rejouer ↺</button>
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
         </div>
     </div>
 
-    <div id="toast" class="toast">
-        Audio non disponible pour le moment.<br>
-        <span class="toast-es">Audio no disponible por el momento.</span>
-    </div>
-
     <script>
-        // LE BIJOU 1 : LA MATRICE AUDIO UNIVERSELLE
-        const alphabetData = [
-            { id: 0, letter: "أ", audio: "audio/01-alif.mp3" },
-            { id: 1, letter: "ب", audio: "audio/02-baa.mp3" },
-            { id: 2, letter: "ت", audio: "audio/03-taa.mp3" },
-            { id: 3, letter: "ث", audio: "audio/04-thaa.mp3" },
-            { id: 4, letter: "ج", audio: "audio/05-jim.mp3" },
-            { id: 5, letter: "ح", audio: "audio/06-haa.mp3" },
-            { id: 6, letter: "خ", audio: "audio/07-khaa.mp3" },
-            { id: 7, letter: "د", audio: "audio/08-dal.mp3" },
-            { id: 8, letter: "ذ", audio: "audio/09-dhal.mp3" },
-            { id: 9, letter: "ر", audio: "audio/10-raa.mp3" },
-            { id: 10, letter: "ز", audio: "audio/11-zay.mp3" },
-            { id: 11, letter: "س", audio: "audio/12-siin.mp3" },
-            { id: 12, letter: "ش", audio: "audio/13-shiin.mp3" },
-            { id: 13, letter: "ص", audio: "audio/14-saad.mp3" },
-            { id: 14, letter: "ض", audio: "audio/15-daad.mp3" },
-            { id: 15, letter: "ط", audio: "audio/16-taaa.mp3" },
-            { id: 16, letter: "ظ", audio: "audio/17-zaa.mp3" },
-            { id: 17, letter: "ع", audio: "audio/18-ayn.mp3" },
-            { id: 18, letter: "غ", audio: "audio/19-ghayn.mp3" },
-            { id: 19, letter: "ف", audio: "audio/20-faa.mp3" },
-            { id: 20, letter: "ق", audio: "audio/21-qaaf.mp3" },
-            { id: 21, letter: "ك", audio: "audio/22-kaaf.mp3" },
-            { id: 22, letter: "ل", audio: "audio/23-laam.mp3" },
-            { id: 23, letter: "م", audio: "audio/24-miim.mp3" },
-            { id: 24, letter: "ن", audio: "audio/25-nuun.mp3" },
-            { id: 25, letter: "ه", audio: "audio/26-haaa.mp3" },
-            { id: 26, letter: "و", audio: "audio/27-waaw.mp3" },
-            { id: 27, letter: "ي", audio: "audio/28-yaa.mp3" }
+        // LA BANQUE DE MOTS DU QUIZ 3 (La Lettre Cachée)
+        // wordWithGap: ce qu'on affiche (le trou est représenté par un espace et un tiret de style)
+        // correctLetter: la lettre qui manque (sous sa forme isolée pour le choix)
+        // fullWord: juste pour référence interne si besoin
+        const wordBank = [
+            { wordWithGap: "مـ<span class='mystery-gap'></span>ـجـد", correctLetter: "س", distractors: ["ش", "ص", "ض"], audio: "audio/masjid.mp3" },
+            { wordWithGap: "<span class='mystery-gap'></span>ـتـاب", correctLetter: "ك", distractors: ["ق", "ت", "ط"], audio: "audio/kitab.mp3" },
+            { wordWithGap: "قـمـ<span class='mystery-gap'></span>", correctLetter: "ر", distractors: ["ز", "د", "ل"], audio: "audio/qamar.mp3" },
+            { wordWithGap: "<span class='mystery-gap'></span>ـمـس", correctLetter: "ش", distractors: ["س", "ص", "ث"], audio: "audio/shams.mp3" },
+            { wordWithGap: "وَلَـ<span class='mystery-gap'></span>", correctLetter: "د", distractors: ["ذ", "ر", "ز"], audio: "audio/walad.mp3" },
+            { wordWithGap: "بـ<span class='mystery-gap'></span>ـر", correctLetter: "ح", distractors: ["خ", "ج", "ع"], audio: "audio/bahr.mp3" },
+            { wordWithGap: "طـيـ<span class='mystery-gap'></span>", correctLetter: "ن", distractors: ["م", "ب", "ل"], audio: "audio/tiin.mp3" },
+            { wordWithGap: "مَـ<span class='mystery-gap'></span>ـرْسَة", correctLetter: "د", distractors: ["ذ", "ر", "ز"], audio: "audio/madrasa.mp3" },
+            { wordWithGap: "<span class='mystery-gap'></span>ـيْـت", correctLetter: "ب", distractors: ["ت", "ث", "ن"], audio: "audio/bayt.mp3" },
+            { wordWithGap: "عِـ<span class='mystery-gap'></span>ـب", correctLetter: "ن", distractors: ["م", "ب", "ت"], audio: "audio/inab.mp3" }
         ];
 
         let playerName = "";
-        let targetQueue = []; 
-        let currentTargetIndex = 0;
+        let questions = []; 
+        let currentQuestionIndex = 0;
         let score = 0;
-        let currentAudio = null;
-        let toastTimeout = null;
-        let isBoardLocked = false;
+        let currentAudio = new Audio();
+        let isAnswerProcessing = false;
 
         const viewWelcome = document.getElementById('view-welcome');
         const viewQuiz = document.getElementById('view-quiz');
         const viewCertificate = document.getElementById('view-certificate');
-        const boardGrid = document.getElementById('board-grid');
+        const nameInput = document.getElementById('player-name');
 
         function startQuiz() {
-            playerName = document.getElementById('player-name').value.trim();
+            playerName = nameInput.value.trim();
             if (playerName === "") playerName = "Participant";
 
             score = 0;
-            currentTargetIndex = 0;
-            isBoardLocked = false;
+            currentQuestionIndex = 0;
+            isAnswerProcessing = false;
 
-            targetQueue = [...alphabetData].sort(() => Math.random() - 0.5);
-
-            renderBoard();
+            // On prend 10 mots au hasard dans la banque (ou tous s'il y en a 10)
+            questions = [...wordBank].sort(() => Math.random() - 0.5).slice(0, 10);
 
             viewWelcome.classList.add('hidden');
             viewQuiz.classList.remove('hidden');
 
-            loadNextTarget();
+            loadQuestion();
         }
 
-        function renderBoard() {
-            boardGrid.innerHTML = "";
-            alphabetData.forEach((item, index) => {
+        function loadQuestion() {
+            isAnswerProcessing = false;
+            const currentQ = questions[currentQuestionIndex];
+            
+            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+
+            // Afficher le mot à trou
+            document.getElementById('mystery-word-display').innerHTML = currentQ.wordWithGap;
+
+            // Préparer les options (1 correcte + 3 mauvaises) mélangées
+            let options = [currentQ.correctLetter, ...currentQ.distractors];
+            options = options.sort(() => Math.random() - 0.5);
+
+            const optionsGrid = document.getElementById('options-grid');
+            optionsGrid.innerHTML = "";
+
+            options.forEach(letter => {
                 const btn = document.createElement('div');
-                btn.className = 'board-card ar-text';
-                btn.innerText = item.letter;
-                btn.dataset.id = item.id;
-                
-                btn.style.animationDelay = `${index * 0.03}s`;
-                
-                btn.onclick = () => handleCardClick(btn, item);
-                boardGrid.appendChild(btn);
+                btn.className = 'option-card ar-text';
+                btn.innerText = letter;
+                btn.onclick = () => handleAnswer(letter, btn, currentQ.correctLetter, currentQ.wordWithGap);
+                optionsGrid.appendChild(btn);
             });
         }
 
-        function loadNextTarget() {
-            isBoardLocked = false;
-            
-            document.getElementById('progress-text').innerText = `${currentTargetIndex + 1} / 28`;
-            const progressPercent = (currentTargetIndex / 28) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+        function handleAnswer(selectedLetter, cardElement, targetLetter, originalWordHtml) {
+            if (isAnswerProcessing) return;
+            isAnswerProcessing = true;
 
-            resetBoardColors();
+            const allCards = document.getElementById('options-grid').children;
 
-            setTimeout(() => { playCurrentQuestionAudio(); }, 500);
-        }
-
-        function handleCardClick(btnElement, clickedItem) {
-            if (isBoardLocked) return;
-            isBoardLocked = true;
-
-            const targetItem = targetQueue[currentTargetIndex];
-
-            if (clickedItem.id === targetItem.id) {
+            if (selectedLetter === targetLetter) {
                 score++;
-                btnElement.classList.add('correct');
+                cardElement.classList.add('correct');
+                
+                // On remplit le trou avec la lettre correcte pour l'effet visuel !
+                const filledWord = originalWordHtml.replace("<span class='mystery-gap'></span>", `<span style="color:var(--gold);">${targetLetter}</span>`);
+                document.getElementById('mystery-word-display').innerHTML = filledWord;
+
             } else {
-                btnElement.classList.add('wrong');
+                cardElement.classList.add('wrong');
                 if (navigator.vibrate) navigator.vibrate(200);
                 
-                const allCards = boardGrid.children;
                 for (let i = 0; i < allCards.length; i++) {
-                    if (parseInt(allCards[i].dataset.id) === targetItem.id) {
+                    if (allCards[i].innerText === targetLetter) {
                         allCards[i].classList.add('correct');
                     }
                 }
             }
 
             setTimeout(() => {
-                currentTargetIndex++;
-                if (currentTargetIndex < 28) {
-                    loadNextTarget();
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
                 } else {
                     finishQuiz();
                 }
-            }, 1200);
+            }, 1500); // Un peu plus long (1.5s) pour laisser le temps de voir le mot complet
         }
 
-        function resetBoardColors() {
-            const allCards = boardGrid.children;
-            for (let i = 0; i < allCards.length; i++) {
-                allCards[i].classList.remove('correct', 'wrong');
-            }
-        }
-
+        // LECTURE AUDIO UNIQUEMENT SUR CLIC (Fix Téléphone)
         function playCurrentQuestionAudio() {
-            const audioPath = targetQueue[currentTargetIndex].audio;
+            const audioPath = questions[currentQuestionIndex].audio;
+            if (!audioPath || audioPath === "") return;
+
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio.src = audioPath;
             
-            if (!audioPath || audioPath === "") {
-                showToast();
-                return;
-            }
-
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
-
-            currentAudio = new Audio(audioPath);
             let playPromise = currentAudio.play();
-            
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Audio error:", error);
-                    showToast();
-                });
+                playPromise.catch(error => { console.log("Audio bloqué :", error); });
             }
-        }
-
-        function showToast() {
-            clearTimeout(toastTimeout);
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 2500);
-        }
-
-        function updateCertName(val) {
-            document.getElementById('cert-name').innerText = val.trim() || "Participant";
         }
 
         function finishQuiz() {
@@ -528,11 +407,8 @@
 
             document.getElementById('progress-fill').style.width = `100%`;
 
-            const finalName = playerName !== "Participant" ? playerName : "";
-            document.getElementById('cert-name-input').value = finalName;
             document.getElementById('cert-name').innerText = playerName;
-
-            document.getElementById('cert-score').innerText = `${score} / 28`;
+            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
             
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
             const dateStr = new Date().toLocaleDateString('fr-FR', options);
@@ -540,23 +416,20 @@
 
             triggerConfetti();
 
-            // LE BIJOU AUDIO : MABRUK À LA RACINE
             const mabrukAudio = new Audio("mabruk.mp3");
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Audio error:", error);
-                });
+                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
             }
         }
 
         function triggerConfetti() {
-            const duration = 4000;
+            const duration = 3000;
             const end = Date.now() + duration;
 
             (function frame() {
-                confetti({ particleCount: 6, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#C8A462', '#5D1828', '#dfc28b'] });
-                confetti({ particleCount: 6, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#C8A462', '#5D1828', '#dfc28b'] });
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
                 if (Date.now() < end) requestAnimationFrame(frame);
             }());
         }
