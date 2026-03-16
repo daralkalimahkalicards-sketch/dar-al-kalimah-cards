@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -253,11 +252,11 @@
             </div>
 
             <div class="audio-section">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio(true)" title="Écouter">🎙️</button>
             </div>
 
             <div class="options-grid" id="options-grid">
-                </div>
+            </div>
         </div>
     </div>
 
@@ -294,7 +293,7 @@
     </div>
 
     <script>
-        // LE BIJOU 1 : LA MATRICE AUDIO UNIVERSELLE
+        // LA MATRICE AUDIO UNIVERSELLE
         const alphabetData = [
             { letter: "أ", audio: "audio/01-alif.mp3" },
             { letter: "ب", audio: "audio/02-baa.mp3" },
@@ -326,7 +325,6 @@
             { letter: "ي", audio: "audio/28-yaa.mp3" }
         ];
 
-        // Variables du jeu
         let playerName = "";
         let questions = []; 
         let currentQuestionIndex = 0;
@@ -335,7 +333,6 @@
         let toastTimeout = null;
         let isAnswerProcessing = false;
 
-        // Éléments HTML
         const viewWelcome = document.getElementById('view-welcome');
         const viewQuiz = document.getElementById('view-quiz');
         const viewCertificate = document.getElementById('view-certificate');
@@ -395,7 +392,8 @@
                 optionsGrid.appendChild(btn);
             });
 
-            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
+            // LE PARAMÈTRE false ICI INDIQUE QUE C'EST AUTOMATIQUE (Système)
+            setTimeout(() => { playCurrentQuestionAudio(false); }, 400);
         }
 
         function handleAnswer(selectedLetter, cardElement, targetLetter) {
@@ -428,12 +426,13 @@
             }, 1200);
         }
 
-        function playCurrentQuestionAudio() {
+        // LE FILTRE ANTI-ERREUR TÉLÉPHONE
+        function playCurrentQuestionAudio(isManualClick = false) {
             const currentQ = questions[currentQuestionIndex];
             const audioPath = currentQ.targetAudio;
             
             if (!audioPath || audioPath === "") {
-                showToast();
+                if(isManualClick) showToast();
                 return;
             }
 
@@ -445,8 +444,11 @@
             
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    // LE TOAST A ÉTÉ SUPPRIMÉ ICI POUR ÉVITER LES BUGS SUR TÉLÉPHONE.
-                    console.log("Lecture automatique bloquée par le téléphone, attente du clic utilisateur.", error);
+                    console.log("Lecture audio bloquée :", error);
+                    // N'AFFICHE L'ERREUR ROUGE QUE SI LE JOUEUR A CLIQUÉ SUR LE BOUTON
+                    if (isManualClick) {
+                        showToast();
+                    }
                 });
             }
         }
@@ -477,7 +479,7 @@
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.error("Audio error:", error);
+                    console.log("Mabrouk audio error:", error);
                 });
             }
         }
