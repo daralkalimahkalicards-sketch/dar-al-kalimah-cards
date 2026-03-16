@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalima - Ardoise Intelligente Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           LE COFFRE-FORT : VARIABLES PREMIUM
+           ========================================= */
+        :root {
+            --burgundy: #5D1828; --burgundy-dark: #3a0f19;
+            --gold: #C8A462; --gold-light: #dfc28b;
+            --white: #FFFFFF; --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50; --text-muted: #7F8C8D;
+            --pos-noun: #5D1828; /* Nom = Bordeaux */
+            --pos-verb: #C8A462; /* Verbe = Or */
+            --pos-particle: #2C3E50; /* Particule = Bleu Nuit */
+            --shadow-elegant: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: linear-gradient(135deg, var(--white) 0%, var(--bg-beige) 100%);
+            font-family: 'Montserrat', sans-serif;
+            padding: 30px 15px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        .ar-text { font-family: "Noto Naskh Arabic", "Amiri", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+
+        /* HEADER */
+        .header-container {
+            background: var(--burgundy); padding: 30px 20px; border-radius: 16px;
+            box-shadow: var(--shadow-deep); width: 100%; max-width: 1000px; margin-bottom: 30px;
+            text-align: center; position: relative;
+        }
+        .btn-back-home {
+            position: absolute; top: 20px; right: 20px;
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+        .brand-ar { font-size: 2.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.2; }
+        .brand-fr-es { font-size: 1.1rem; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 8px; }
+        .app-title { font-size: 1rem; color: #d09470; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px;}
+        .trilingual-title { display: flex; justify-content: center; gap: 15px; color: var(--white); font-size: 0.9rem; flex-wrap: wrap; border-top: 1px solid rgba(200,164,98,0.3); padding-top: 15px;}
+
+        /* SECTION MODULE */
+        .module-section {
+            background: var(--white); border: 1px solid var(--gold-light); border-radius: 16px;
+            width: 100%; max-width: 1000px; padding: 30px; margin-bottom: 30px; box-shadow: var(--shadow-elegant);
+        }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: var(--burgundy); margin-bottom: 25px; text-align: center; border-bottom: 2px dashed var(--bg-beige); padding-bottom: 15px;}
+        .section-title-es { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; display: block; margin-top: 5px; font-style: italic;}
+
+        /* ANALYSE GRAMMATICALE (SIMPLIFIÉE) */
+        .analysis-input-group { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .analysis-input {
+            flex: 1; min-width: 250px; padding: 15px; font-size: 1.4rem;
+            border: 2px solid var(--gold-light); border-radius: 12px; background: var(--bg-beige);
+            color: var(--burgundy); outline: none; transition: 0.3s; font-family: "Noto Naskh Arabic", serif; text-align: right;
+        }
+        .analysis-input:focus { border-color: var(--gold); background: var(--white); }
+        .btn-analyze {
+            background: var(--burgundy); color: var(--white); border: none;
+            padding: 15px 30px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer;
+            font-family: 'Montserrat', sans-serif; transition: 0.3s; min-width: 150px;
+        }
+        .btn-analyze:hover { background: var(--burgundy-dark); }
+
+        .analysis-result { display: none; background: var(--bg-beige); border: 1px solid var(--gold); border-radius: 12px; padding: 25px; margin-top: 20px; }
+        .sentence-type { text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--burgundy); margin-bottom: 25px; background: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--gold-light); box-shadow: 0 4px 10px rgba(0,0,0,0.03);}
+        .sentence-type small { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 5px; }
+        
+        .tags-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; direction: rtl; }
+        .word-tag {
+            background: var(--white); border: 2px solid var(--gold-light); border-radius: 12px;
+            padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-width: 140px; position: relative;
+        }
+        .word-tag .word { font-size: 2rem; font-weight: bold; color: var(--burgundy); margin-bottom: 15px; display: block; font-family: "Noto Naskh Arabic", serif;}
+        
+        .word-tag .pos { font-size: 1.1rem; font-weight: 700; padding: 8px 15px; border-radius: 8px; display: inline-block; color: white; letter-spacing: 1px; font-family: "Noto Naskh Arabic", serif; margin-bottom: 10px;}
+        .word-tag .pos-tr { font-size: 0.85rem; color: var(--text-muted); display: block; font-weight: 600; line-height: 1.4;}
+
+        .pos-noun { background-color: var(--pos-noun); }
+        .pos-verb { background-color: var(--pos-verb); color: var(--burgundy-dark) !important;}
+        .pos-particle { background-color: var(--pos-particle); }
+
+        /* MODE TOGGLE */
+        .mode-toggle { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .mode-btn {
+            background: var(--bg-beige); border: 2px solid var(--gold-light); color: var(--burgundy);
+            padding: 10px 25px; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .mode-btn.active { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); }
+
+        /* SELECTEUR BANK */
+        .bank-selector-wrap { display: none; margin-bottom: 25px; text-align: center; }
+        .bank-select {
+            width: 100%; max-width: 400px; padding: 15px; font-size: 1.2rem; font-family: "Noto Naskh Arabic", serif;
+            border: 2px solid var(--gold); border-radius: 12px; background: var(--white); color: var(--burgundy);
+            cursor: pointer; outline: none;
+        }
+
+        /* SELECTEUR DE LETTRES */
+        .letters-selector { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .letter-btn {
+            background: var(--bg-beige); border: 1px solid var(--gold-light); color: var(--burgundy);
+            width: 50px; height: 50px; border-radius: 10px; font-size: 1.6rem; font-weight: bold; cursor: pointer;
+            transition: 0.2s; font-family: "Noto Naskh Arabic", serif;
+        }
+        .letter-btn:hover, .letter-btn.active { background: var(--gold); color: var(--white); border-color: var(--gold); transform: translateY(-2px);}
+
+        /* GUIDE D'ÉCRITURE & POSITIONS */
+        .stroke-guide-wrapper { display: none; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+        .stroke-guide { display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--bg-beige); padding: 30px; border-radius: 16px; border: 1px dashed var(--gold); flex-wrap: wrap;}
+        .stroke-guide-letter { font-size: 6rem; color: var(--burgundy); font-family: "Noto Naskh Arabic", serif; line-height: 1; border-left: 2px solid var(--gold-light); padding-left: 40px; transition: transform 0.3s;}
+        .stroke-guide-steps { text-align: right; flex: 1; min-width: 250px;}
+        .stroke-step { margin-bottom: 12px; }
+        .step-ar { font-weight: bold; color: var(--burgundy); font-size: 1.15rem; }
+        .step-fr-es { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 3px;}
+
+        /* CARTES DE POSITIONS */
+        .forms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .form-card { background: var(--white); border: 1px solid var(--gold-light); border-radius: 12px; padding: 15px 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03);}
+        .form-card .ar-form { font-size: 2.5rem; font-family: "Noto Naskh Arabic", serif; color: var(--burgundy); line-height: 1; margin-bottom: 10px; }
+        .form-card .la-form { font-size: 0.8rem; font-weight: 600; color: var(--gold); text-transform: uppercase; }
+        .form-card .la-form small { display: block; color: var(--text-muted); font-style: italic; font-weight: normal; text-transform: none;}
+
+        /* L'ARDOISE ET SON FILIGRANE (WATERMARK) */
+        .slate-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;}
+        .slate-title { font-size: 1.1rem; font-weight: 700; color: var(--burgundy); }
+        .slate-title span { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; font-style: italic; margin-top: 3px;}
+        
+        .slate-controls { display: flex; gap: 10px; }
+        .btn-slate {
+            background: var(--white); border: 1px solid var(--gold); color: var(--burgundy);
+            padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .btn-slate:hover { background: var(--bg-beige); }
+
+        .slate-container {
+            width: 100%; height: 350px; border: 2px solid var(--gold); border-radius: 12px;
+            background-color: var(--white); position: relative; overflow: hidden; box-shadow: inset 0 4px 15px rgba(0,0,0,0.05);
+            background-image: repeating-linear-gradient(transparent, transparent 48px, var(--bg-beige) 49px, var(--bg-beige) 50px);
+        }
+        
+        .slate-watermark {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: "Noto Naskh Arabic", serif; color: var(--gold); opacity: 0.15;
+            font-size: 12rem; z-index: 1; pointer-events: none; user-select: none;
+            transition: transform 0.3s;
+        }
+
+        /* FLÈCHES ANIMÉES DÉTACHÉES */
+        .arrow-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none;
+        }
+        .anim-arrow-horizontal {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 250px; height: 50px; opacity: 0.8;
+        }
+        .anim-arrow-vertical {
+            position: absolute; top: 50%; right: 40px; transform: translateY(-50%);
+            width: 50px; height: 200px; opacity: 0.8;
+        }
+        .anim-arrow path {
+            fill: none; stroke: var(--burgundy); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 400; stroke-dashoffset: 400;
+            animation: drawArrow 2s ease-in-out infinite;
+        }
+        .anim-arrow polygon {
+            fill: var(--burgundy); opacity: 0;
+            animation: fadeArrowHead 2s ease-in-out infinite;
+        }
+        @keyframes drawArrow { 40%, 100% { stroke-dashoffset: 0; } }
+        @keyframes fadeArrowHead { 35% { opacity: 0; } 40%, 100% { opacity: 1; } }
+
+        canvas.slate-canvas {
+            width: 100%; height: 100%; cursor: crosshair; touch-action: none;
+            position: relative; z-index: 3; background: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .forms-grid { grid-template-columns: repeat(2, 1fr); }
+            .stroke-guide { flex-direction: column; text-align: center; }
+            .stroke-guide-letter { border-left: none; border-bottom: 2px solid var(--gold-light); padding-left: 0; padding-bottom: 20px; width: 100%;}
+            .stroke-guide-steps { text-align: center; }
+            .analysis-input-group { flex-direction: column; }
+            .btn-analyze { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-right"></i> القائمة / Menu</a>
+        <div class="brand-ar ar-text">اللوح الذكي</div>
+        <div class="brand-fr-es serif-text">L'Ardoise Intelligente | La Pizarra Inteligente</div>
+        <div class="app-title serif-text">Dar Al-Kalima</div>
+        <div class="trilingual-title">
+            <span>تحليل وكتابة</span> | <span>Analyse & Écriture</span> | <span>Análisis & Escritura</span>
+        </div>
+    </div>
+
+    <div class="module-section">
+        <div class="section-title">
+            تحليل الجملة <br>
+            <span class="section-title-es">Analyse de la phrase / Análisis de la frase</span>
+        </div>
+        
+        <div class="analysis-input-group">
+            <input type="text" id="sentence-input" class="analysis-input" placeholder="اكتب جملة هنا... (Ex: يشرب الولد الحليب)">
+            <button class="btn-analyze" onclick="analyzeSentence()">تحليل / Analyser</button>
+        </div>
+
+        <div id="analysis-result" class="analysis-result">
+            <div id="sentence-type" class="sentence-type"></div>
+            <div id="tags-container" class="tags-container"></div>
+        </div>
+    </div>
+
+    <div class="module-section">
+        <div class="section-title">
+            ترتيب الخطوط والتدريب <br>
+            <span class="section-title-es">Ordre des traits & Entraînement / Orden de los trazos & Práctica</span>
+        </div>
+
+        <div class="mode-toggle">
+            <button id="btn-mode-letters" class="mode-btn active" onclick="setMode('letters')">الحروف (Lettres)</button>
+            <button id="btn-mode-bank" class="mode-btn" onclick="setMode('bank')">الكلمات (Mots du Lexique)</button>
+        </div>
+
+        <div class="letters-selector" id="letters-selector" dir="rtl"></div>
+
+        <div class="bank-selector-wrap" id="bank-selector-wrap">
+            <select class="bank-select" id="bank-select" onchange="showBankWord(this.value)">
+                <option value="">-- اختر كلمة / Choisir un mot --</option>
+            </select>
+        </div>
+
+        <div id="stroke-guide-wrapper" class="stroke-guide-wrapper">
+            <div class="stroke-guide">
+                <div id="guide-letter" class="stroke-guide-letter">ب</div>
+                <div id="guide-steps" class="stroke-guide-steps"></div>
+            </div>
+            
+            <div class="forms-grid" id="forms-grid"></div>
+        </div>
+
+        <div class="slate-header">
+            <div class="slate-title ar-text">
+                اكتب هنا <span>Écrire ici / Escribir aquí</span>
+            </div>
+            <div class="slate-controls">
+                <button class="btn-slate" onclick="clearSlate()"><i class="fa-solid fa-eraser"></i> مسح / Effacer</button>
+            </div>
+        </div>
+        <div class="slate-container">
+            <div id="slate-watermark" class="slate-watermark"></div>
+            <div id="arrow-overlay" class="arrow-overlay"></div>
+            <canvas id="slate-canvas" class="slate-canvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // 1. MOTEUR D'ANALYSE GRAMMATICALE (INTELLIGENT POUR ماضي مضارع أمر)
+        // =========================================
+        
+        function isVerb(word) {
+            const pastVerbs = ["كتب", "ذهب", "أكل", "شرب", "قرأ", "لعب", "نام", "جلس", "قام", "قال", "كان", "درس", "فهم", "حفظ", "عمل", "رسم", "فتح", "نجح", "صام"];
+            const imperativeShort = ["كل", "خذ", "قل", "قم", "نم", "قف", "دع", "صل", "بع", "ضع", "رد", "عد"];
+            
+            if(imperativeShort.includes(word)) return true;
+            if(pastVerbs.some(root => word.startsWith(root))) return true;
+            if (!word.startsWith("ال") && (word.startsWith("ي") || word.startsWith("ت") || word.startsWith("ن"))) {
+                if (word.length >= 3) return true;
+            }
+            if (word.startsWith("ا") && word.length >= 4 && !word.startsWith("ال")) {
+                 return true;
+            }
+            return false;
+        }
+
+        const commonParticles = ["في", "من", "إلى", "على", "عن", "ب", "ل", "ك", "و", "أو", "ثم", "هل", "لم", "لن", "أن", "كي", "حتى", "يا"];
+
+        function analyzeSentence() {
+            const input = document.getElementById('sentence-input').value.trim();
+            if (!input) return;
+
+            const resultBox = document.getElementById('analysis-result');
+            const typeBox = document.getElementById('sentence-type');
+            const tagsContainer = document.getElementById('tags-container');
+            
+            resultBox.style.display = 'block';
+            tagsContainer.innerHTML = '';
+
+            const words = input.split(/\s+/);
+            if(words.length === 0) return;
+
+            const firstWordClean = words[0].replace(/[ًٌٍَُِّْ.,!؟]/g, "");
+
+            if (isVerb(firstWordClean)) {
+                typeBox.innerHTML = `جملة فعلية <small>Phrase verbale / Frase verbal</small>`;
+            } else {
+                typeBox.innerHTML = `جملة اسمية <small>Phrase nominale / Frase nominal</small>`;
+            }
+
+            words.forEach((w) => {
+                let cleanWord = w.replace(/[ًٌٍَُِّْ.,!؟]/g, ""); 
+                let posClass = "pos-noun";
+                let posAr = "اسم"; let posFr = "Nom"; let posEs = "Sustantivo";
+
+                if (commonParticles.includes(cleanWord) || (cleanWord.length === 1 && !isVerb(firstWordClean))) {
+                    posClass = "pos-particle"; posAr = "حرف"; posFr = "Particule"; posEs = "Partícula";
+                } 
+                else if (isVerb(cleanWord)) {
+                    posClass = "pos-verb"; posAr = "فعل"; posFr = "Verbe"; posEs = "Verbo";
+                }
+
+                const tagHtml = `
+                    <div class="word-tag" style="border-top: 5px solid var(--${posClass});">
+                        <span class="word">${w}</span>
+                        <span class="pos ${posClass} ar-text">${posAr}</span>
+                        <span class="pos-tr">${posFr}<br>${posEs}</span>
+                    </div>
+                `;
+                tagsContainer.insertAdjacentHTML('beforeend', tagHtml);
+            });
+        }
+
+        // =========================================
+        // 2. DICTIONNAIRES : TRAITS, FLÈCHES, POSITIONS & BANK
+        // =========================================
+        
+        const strokeData = {
+            "ا": { ar: "١. ⬇️ خط عمودي من الأعلى للأسفل", fr: "1. ⬇️ Ligne verticale de haut en bas", es: "1. ⬇️ Línea vertical de arriba a abajo" },
+            "ب": { ar: "١. ⬇️⬅️ خط مقوس<br>٢. ⏺️ نقطة في الأسفل", fr: "1. ⬇️⬅️ Courbe de droite à gauche<br>2. ⏺️ Un point en dessous", es: "1. ⬇️⬅️ Curva de derecha a izquierda<br>2. ⏺️ Un punto debajo" },
+            "ت": { ar: "١. ⬇️⬅️ خط مقوس<br>٢. ⏺️⏺️ نقطتان في الأعلى", fr: "1. ⬇️⬅️ Courbe de droite à gauche<br>2. ⏺️⏺️ Deux points au-dessus", es: "1. ⬇️⬅️ Curva de derecha a izquierda<br>2. ⏺️⏺️ Dos puntos arriba" },
+            "ث": { ar: "١. ⬇️⬅️ خط مقوس<br>٢. ⏺️⏺️⏺️ ثلاثة نقاط", fr: "1. ⬇️⬅️ Courbe de droite à gauche<br>2. ⏺️⏺️⏺️ Trois points au-dessus", es: "1. ⬇️⬅️ Curva de derecha a izquierda<br>2. ⏺️⏺️⏺️ Tres puntos arriba" },
+            "ج": { ar: "١. ➡️ خط أفقي<br>٢. ↩️ نصف دائرة للأسفل<br>٣. ⏺️ نقطة", fr: "1. ➡️ Ligne horizontale<br>2. ↩️ Demi-cercle vers le bas<br>3. ⏺️ Point au milieu", es: "1. ➡️ Línea horizontal<br>2. ↩️ Semicírculo<br>3. ⏺️ Punto en el medio" },
+            "ح": { ar: "١. ➡️ خط أفقي<br>٢. ↩️ نصف دائرة للأسفل", fr: "1. ➡️ Ligne horizontale<br>2. ↩️ Demi-cercle vers le bas", es: "1. ➡️ Línea horizontal<br>2. ↩️ Semicírculo" },
+            "خ": { ar: "١. ➡️ خط أفقي<br>٢. ↩️ نصف دائرة للأسفل<br>٣. ⏺️ نقطة في الأعلى", fr: "1. ➡️ Ligne horizontale<br>2. ↩️ Demi-cercle<br>3. ⏺️ Point au-dessus", es: "1. ➡️ Línea horizontal<br>2. ↩️ Semicírculo<br>3. ⏺️ Punto arriba" },
+            "د": { ar: "١. ↙️↘️ زاوية مفتوحة لليسار", fr: "1. ↙️↘️ Angle ouvert vers la gauche", es: "1. ↙️↘️ Ángulo abierto a la izquierda" },
+            "ذ": { ar: "١. ↙️↘️ زاوية مفتوحة<br>٢. ⏺️ نقطة", fr: "1. ↙️↘️ Angle ouvert vers la gauche<br>2. ⏺️ Point au-dessus", es: "1. ↙️↘️ Ángulo abierto a la izquierda<br>2. ⏺️ Punto arriba" },
+            "ر": { ar: "١. ⤵️ خط مقوس ينزل تحت السطر", fr: "1. ⤵️ Courbe plongeant sous la ligne", es: "1. ⤵️ Curva que desciende bajo la línea" },
+            "ز": { ar: "١. ⤵️ خط مقوس<br>٢. ⏺️ نقطة", fr: "1. ⤵️ Courbe plongeant sous la ligne<br>2. ⏺️ Point au-dessus", es: "1. ⤵️ Curva bajo la línea<br>2. ⏺️ Punto arriba" },
+            "س": { ar: "١. ⤵️⤵️ سنتان صغيرتان<br>٢. ↪️ نصف دائرة تحت السطر", fr: "1. ⤵️⤵️ Deux petites dents<br>2. ↪️ Grand demi-cercle sous la ligne", es: "1. ⤵️⤵️ Dos dientes pequeños<br>2. ↪️ Gran semicírculo" },
+            "ش": { ar: "١. ⤵️⤵️ سنتان<br>٢. ↪️ نصف دائرة<br>٣. ⏺️⏺️⏺️ ثلاثة نقاط", fr: "1. ⤵️⤵️ Deux petites dents<br>2. ↪️ Grand demi-cercle<br>3. ⏺️⏺️⏺️ Trois points", es: "1. ⤵️⤵️ Dos dientes pequeños<br>2. ↪️ Gran semicírculo<br>3. ⏺️⏺️⏺️ Tres puntos" },
+            "ص": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ↪️ نصف دائرة", fr: "1. ↖️➡️ Boucle ovale fermée<br>2. ↪️ Grand demi-cercle sous la ligne", es: "1. ↖️➡️ Bucle ovalado<br>2. ↪️ Gran semicírculo" },
+            "ض": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ↪️ نصف دائرة<br>٣. ⏺️ نقطة", fr: "1. ↖️➡️ Boucle ovale<br>2. ↪️ Grand demi-cercle<br>3. ⏺️ Un point", es: "1. ↖️➡️ Bucle ovalado<br>2. ↪️ Gran semicírculo<br>3. ⏺️ Un punto" },
+            "ط": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ⬇️ خط عمودي", fr: "1. ↖️➡️ Boucle ovale fermée<br>2. ⬇️ Ligne verticale", es: "1. ↖️➡️ Bucle ovalado<br>2. ⬇️ Línea vertical" },
+            "ظ": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ⬇️ خط عمودي<br>٣. ⏺️ نقطة", fr: "1. ↖️➡️ Boucle ovale<br>2. ⬇️ Ligne verticale<br>3. ⏺️ Un point", es: "1. ↖️➡️ Bucle ovalado<br>2. ⬇️ Línea vertical<br>3. ⏺️ Un punto" },
+            "ع": { ar: "١. ↩️ نصف دائرة صغيرة<br>٢. ↩️ نصف دائرة كبيرة", fr: "1. ↩️ Petit demi-cercle en haut<br>2. ↩️ Grand demi-cercle sous la ligne", es: "1. ↩️ Pequeño semicírculo<br>2. ↩️ Gran semicírculo" },
+            "غ": { ar: "١. ↩️ نصف دائرة صغيرة<br>٢. ↩️ نصف دائرة كبيرة<br>٣. ⏺️ نقطة", fr: "1. ↩️ Petit demi-cercle<br>2. ↩️ Grand demi-cercle<br>3. ⏺️ Un point", es: "1. ↩️ Pequeño semicírculo<br>2. ↩️ Gran semicírculo<br>3. ⏺️ Un punto" },
+            "ف": { ar: "١. ↻ دائرة صغيرة<br>٢. ⬇️⬅️ خط أفقي مقوس<br>٣. ⏺️ نقطة", fr: "1. ↻ Petit cercle<br>2. ⬇️⬅️ Courbe horizontale<br>3. ⏺️ Un point", es: "1. ↻ Pequeño círculo<br>2. ⬇️⬅️ Curva horizontal<br>3. ⏺️ Un punto" },
+            "ق": { ar: "١. ↻ دائرة صغيرة<br>٢. ↪️ نصف دائرة<br>٣. ⏺️⏺️ نقطتان", fr: "1. ↻ Petit cercle<br>2. ↪️ Demi-cercle sous la ligne<br>3. ⏺️⏺️ Deux points", es: "1. ↻ Pequeño círculo<br>2. ↪️ Semicírculo<br>3. ⏺️⏺️ Dos puntos" },
+            "ك": { ar: "١. ⬇️⬅️ خط عمودي ثم أفقي<br>٢. ✍️ همزة صغيرة", fr: "1. ⬇️⬅️ Ligne verticale puis horizontale<br>2. ✍️ Petite Hamza au milieu", es: "1. ⬇️⬅️ Línea vertical y horizontal<br>2. ✍️ Pequeña Hamza" },
+            "ل": { ar: "١. ⬇️↪️ خط عمودي يشكل نصف دائرة", fr: "1. ⬇️↪️ Ligne verticale formant un demi-cercle", es: "1. ⬇️↪️ Línea vertical que forma semicírculo" },
+            "م": { ar: "١. ↻ دائرة صغيرة<br>٢. ⬇️ خط ينزل للأسفل", fr: "1. ↻ Petit cercle<br>2. ⬇️ Ligne descendant sous la ligne", es: "1. ↻ Pequeño círculo<br>2. ⬇️ Línea que desciende" },
+            "ن": { ar: "١. ↪️ نصف دائرة تحت السطر<br>٢. ⏺️ نقطة في الوسط", fr: "1. ↪️ Demi-cercle sous la ligne<br>2. ⏺️ Point au milieu", es: "1. ↪️ Semicírculo<br>2. ⏺️ Punto en el medio" },
+            "ه": { ar: "١. ↻ دائرة داخلها دائرة صغيرة", fr: "1. ↻ Boucle avec une petite boucle à l'intérieur", es: "1. ↻ Bucle con pequeño bucle en su interior" },
+            "و": { ar: "١. ↻ دائرة صغيرة<br>٢. ⤵️ خط مقوس ينزل للأسفل", fr: "1. ↻ Boucle<br>2. ⤵️ Courbe plongeante", es: "1. ↻ Bucle<br>2. ⤵️ Curva descendente" },
+            "ي": { ar: "١. ↪️ شكل مقوس ينزل تحت السطر<br>٢. ⏺️⏺️ نقطتان", fr: "1. ↪️ Forme de 'S' courbé sous la ligne<br>2. ⏺️⏺️ Deux points", es: "1. ↪️ Forma de 'S' curva<br>2. ⏺️⏺️ Dos puntos" }
+        };
+
+        const letterForms = {
+            "ا": ["ا", "ا", "ـا", "ـا"], "ب": ["ب", "بـ", "ـبـ", "ـب"],
+            "ت": ["ت", "تـ", "ـتـ", "ـت"], "ث": ["ث", "ثـ", "ـثـ", "ـث"],
+            "ج": ["ج", "جـ", "ـجـ", "ـج"], "ح": ["ح", "حـ", "ـحـ", "ـح"],
+            "خ": ["خ", "خـ", "ـخـ", "ـخ"], "د": ["د", "د", "ـد", "ـد"],
+            "ذ": ["ذ", "ذ", "ـذ", "ـذ"], "ر": ["ر", "ر", "ـر", "ـر"],
+            "ز": ["ز", "ز", "ـز", "ـز"], "س": ["س", "سـ", "ـسـ", "ـس"],
+            "ش": ["ش", "شـ", "ـشـ", "ـش"], "ص": ["ص", "صـ", "ـصـ", "ـص"],
+            "ض": ["ض", "ضـ", "ـضـ", "ـض"], "ط": ["ط", "طـ", "ـطـ", "ـط"],
+            "ظ": ["ظ", "ظـ", "ـظـ", "ـظ"], "ع": ["ع", "عـ", "ـعـ", "ـع"],
+            "غ": ["غ", "غـ", "ـغـ", "ـغ"], "ف": ["ف", "فـ", "ـفـ", "ـف"],
+            "ق": ["ق", "قـ", "ـقـ", "ـق"], "ك": ["ك", "كـ", "ـكـ", "ـك"],
+            "ل": ["ل", "لـ", "ـلـ", "ـل"], "م": ["م", "مـ", "ـمـ", "ـم"],
+            "ن": ["ن", "نـ", "ـنـ", "ـن"], "ه": ["ه", "هـ", "ـهـ", "ـه"],
+            "و": ["و", "و", "ـو", "ـو"], "ي": ["ي", "يـ", "ـيـ", "ـي"]
+        };
+
+        const bankWords = [
+            "أَسَد", "كَأْس", "مَلْجَأ", "بَاب", "كَبِير", "كِتَاب", "تَمْر", "بَيْت", "ثَوْب", "مَثَل", "بَحَث", "جَمَل", "رَجُل", "بُرْج", "حَبْل", 
+            "بَحْر", "مِفْتَاح", "خُبْز", "نَخْل", "مَطْبَخ", "دُب", "مَدْرَسَة", "وَلَد", "ذَهَب", "هَذَا", "لَذِيذ", "وَرْدَة", "قَمَر", "زَيْت", "مَوْزَة", 
+            "سَمَك", "مَسْجِد", "دَرْس", "شَمْس", "مِشْمِش", "عَرْش", "صَبْر", "بَصِير", "نَص", "ضَوْء", "مَرِيض", "أَرْض", "طِين", "مَطَر", "قِط", 
+            "ظِل", "عَظِيم", "حَظ", "عَيْن", "مَلْعَب", "جَمْع", "غَيْم", "مَغْرِب", "صِبْغ", "فِيل", "صَيْف", "بَقَرَة", "سُوق", "مَكْتَبَة", "لَبَن", 
+            "قَلَم", "جَبَل", "مَاء", "نَجْم", "عِنَب", "هِلَال", "نَهْر", "وَجْه", "وَرْد", "قَوْس", "يَد", "كُرْسِي"
+        ];
+
+        // =========================================
+        // 3. LOGIQUE UI (MODES, FILIGRANE, FLÈCHES DÉTACHÉES ET AJUSTEMENT ي)
+        // =========================================
+
+        const watermark = document.getElementById('slate-watermark');
+        const arrowOverlay = document.getElementById('arrow-overlay');
+
+        function initData() {
+            const lettersContainer = document.getElementById('letters-selector');
+            Object.keys(strokeData).forEach(letter => {
+                let btn = document.createElement('button');
+                btn.className = 'letter-btn';
+                btn.innerText = letter;
+                btn.onclick = () => showStrokeGuide(letter, btn);
+                lettersContainer.appendChild(btn);
+            });
+
+            const bankSelect = document.getElementById('bank-select');
+            bankWords.forEach(word => {
+                let opt = document.createElement('option');
+                opt.value = word; opt.innerText = word;
+                bankSelect.appendChild(opt);
+            });
+        }
+
+        function setMode(mode) {
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-mode-' + mode).classList.add('active');
+
+            if(mode === 'letters') {
+                document.getElementById('letters-selector').style.display = 'flex';
+                document.getElementById('bank-selector-wrap').style.display = 'none';
+                document.getElementById('stroke-guide-wrapper').style.display = 'flex';
+                const firstBtn = document.querySelector('.letter-btn');
+                if(firstBtn) showStrokeGuide("ا", firstBtn);
+            } else {
+                document.getElementById('letters-selector').style.display = 'none';
+                document.getElementById('stroke-guide-wrapper').style.display = 'none';
+                document.getElementById('bank-selector-wrap').style.display = 'block';
+                watermark.innerText = "";
+                watermark.style.transform = "translateY(0)"; // Réinitialiser le transform
+                arrowOverlay.innerHTML = "";
+                clearSlate();
+            }
+        }
+
+        function getArrowSvg(letter) {
+            const vertical = ["ا", "ط", "ظ", "ك", "ل"];
+            if (vertical.includes(letter)) {
+                return `<svg class="anim-arrow anim-arrow-vertical" viewBox="0 0 50 200">
+                            <path d="M 25 20 L 25 170" />
+                            <polygon points="15,160 35,160 25,185" />
+                        </svg>`;
+            } else {
+                return `<svg class="anim-arrow anim-arrow-horizontal" viewBox="0 0 250 50">
+                            <path d="M 230 25 L 30 25" />
+                            <polygon points="45,10 45,40 20,25" />
+                        </svg>`;
+            }
+        }
+        
+        function getWordArrowSvg() {
+            return `<svg class="anim-arrow anim-arrow-horizontal" viewBox="0 0 250 50">
+                        <path d="M 230 25 L 30 25" />
+                        <polygon points="45,10 45,40 20,25" />
+                    </svg>`;
+        }
+
+        function showStrokeGuide(letter, btnElement) {
+            document.querySelectorAll('.letter-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            document.getElementById('stroke-guide-wrapper').style.display = 'flex';
+            
+            const guideLetter = document.getElementById('guide-letter');
+            guideLetter.innerText = letter;
+            
+            const data = strokeData[letter];
+            document.getElementById('guide-steps').innerHTML = `
+                <div class="stroke-step">
+                    <div class="step-ar ar-text">${data.ar}</div>
+                    <div class="step-fr-es">${data.fr}<br>${data.es}</div>
+                </div>
+            `;
+            
+            const forms = letterForms[letter];
+            document.getElementById('forms-grid').innerHTML = `
+                <div class="form-card"><div class="ar-form">${forms[0]}</div><div class="la-form">Libre<small>Aislado</small></div></div>
+                <div class="form-card"><div class="ar-form">${forms[1]}</div><div class="la-form">Début<small>Inicio</small></div></div>
+                <div class="form-card"><div class="ar-form">${forms[2]}</div><div class="la-form">Milieu<small>Medio</small></div></div>
+                <div class="form-card"><div class="ar-form">${forms[3]}</div><div class="la-form">Fin<small>Fin</small></div></div>
+            `;
+            
+            watermark.style.fontSize = "16rem";
+            watermark.innerText = letter;
+            
+            // Soulever le "ي" pour l'ajustement visuel
+            if (letter === "ي") {
+                guideLetter.style.transform = "translateY(-15px)";
+                watermark.style.transform = "translateY(-40px)";
+            } else {
+                guideLetter.style.transform = "translateY(0)";
+                watermark.style.transform = "translateY(0)";
+            }
+
+            arrowOverlay.innerHTML = getArrowSvg(letter);
+            clearSlate();
+        }
+
+        function showBankWord(word) {
+            if(!word) { watermark.innerText = ""; arrowOverlay.innerHTML = ""; return; }
+            watermark.style.fontSize = "8rem";
+            watermark.innerText = word;
+            watermark.style.transform = "translateY(0)"; // Réinitialiser l'ajustement
+            arrowOverlay.innerHTML = getWordArrowSvg();
+            clearSlate();
+        }
+
+        // =========================================
+        // 4. L'ARDOISE INTACTE (FIX SCROLL MOBILE)
+        // =========================================
+        const canvas = document.getElementById("slate-canvas");
+        const ctx = canvas.getContext("2d");
+        let isDrawing = false; let lastX = 0; let lastY = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+            ctx.lineWidth = 6; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#5D1828";
+        }
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function startPosition(e) { isDrawing = true; const pos = getPos(e); lastX = pos.x; lastY = pos.y; }
+        function endPosition() { isDrawing = false; ctx.beginPath(); }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); 
+            const pos = getPos(e);
+            ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke();
+            lastX = pos.x; lastY = pos.y;
+        }
+
+        function clearSlate() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        canvas.addEventListener("mousedown", startPosition); canvas.addEventListener("mouseup", endPosition);
+        canvas.addEventListener("mousemove", draw); canvas.addEventListener("mouseout", endPosition);
+        
+        canvas.addEventListener("touchstart", startPosition, { passive: false }); 
+        canvas.addEventListener("touchend", endPosition);
+        canvas.addEventListener("touchmove", draw, { passive: false });
+        
+        window.addEventListener("resize", resizeCanvas);
+
+        window.onload = () => {
+            initData();
+            resizeCanvas();
+            setTimeout(() => setMode('letters'), 100);
+        };
+
+    </script>
+</body>
+</html>
