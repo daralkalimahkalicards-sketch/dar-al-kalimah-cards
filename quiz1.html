@@ -289,8 +289,8 @@
     </div>
 
     <div id="toast" class="toast">
-        Audio non disponible pour le moment.<br>
-        <span class="toast-es">Audio no disponible por el momento.</span>
+        Audio introuvable (Vérifiez le fichier).<br>
+        <span class="toast-es">Audio no encontrado.</span>
     </div>
 
     <script>
@@ -331,7 +331,7 @@
         let questions = []; 
         let currentQuestionIndex = 0;
         let score = 0;
-        let currentAudio = new Audio(); // FIX 1 : On crée un SEUL objet Audio pour tout le jeu
+        let currentAudio = new Audio();
         let toastTimeout = null;
         let isAnswerProcessing = false;
 
@@ -359,15 +359,12 @@
 
         function generateQuestions() {
             questions = [];
-            // Mélanger les lettres cibles
             let shuffledData = [...alphabetData].sort(() => Math.random() - 0.5);
 
             shuffledData.forEach(targetObj => {
-                // Trouver 3 autres lettres au hasard (distracteurs)
                 let distractors = alphabetData.filter(item => item.letter !== targetObj.letter);
                 distractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
                 
-                // Créer le choix de 4 réponses et le mélanger
                 let options = [targetObj.letter, distractors[0].letter, distractors[1].letter, distractors[2].letter];
                 options = options.sort(() => Math.random() - 0.5);
                 
@@ -383,12 +380,10 @@
             isAnswerProcessing = false;
             const currentQ = questions[currentQuestionIndex];
             
-            // Mise à jour de la barre de progression
             document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
             const progressPercent = (currentQuestionIndex / questions.length) * 100;
             document.getElementById('progress-fill').style.width = `${progressPercent}%`;
 
-            // Afficher les options
             const optionsGrid = document.getElementById('options-grid');
             optionsGrid.innerHTML = "";
 
@@ -400,7 +395,6 @@
                 optionsGrid.appendChild(btn);
             });
 
-            // Jouer le son avec un petit délai
             setTimeout(() => { playCurrentQuestionAudio(); }, 400);
         }
 
@@ -417,7 +411,6 @@
                 cardElement.classList.add('wrong');
                 if (navigator.vibrate) navigator.vibrate(200);
                 
-                // Montrer la bonne réponse
                 for (let i = 0; i < allCards.length; i++) {
                     if (allCards[i].innerText === targetLetter) {
                         allCards[i].classList.add('correct');
@@ -425,7 +418,6 @@
                 }
             }
 
-            // Passer à la question suivante après 1.2s
             setTimeout(() => {
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) {
@@ -445,22 +437,16 @@
                 return;
             }
 
-            // On arrête l'audio en cours s'il y en a un
             currentAudio.pause();
             currentAudio.currentTime = 0;
-
-            // FIX 2 : On change juste la source du même objet audio
             currentAudio.src = audioPath;
+            
             let playPromise = currentAudio.play();
             
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.error("Audio error:", error);
-                    // FIX 3 : Si c'est le navigateur mobile qui bloque (NotAllowedError), 
-                    // on NE MONTRE PAS le message d'erreur. L'utilisateur cliquera sur le bouton.
-                    if (error.name !== 'NotAllowedError') {
-                        showToast();
-                    }
+                    // LE TOAST A ÉTÉ SUPPRIMÉ ICI POUR ÉVITER LES BUGS SUR TÉLÉPHONE.
+                    console.log("Lecture automatique bloquée par le téléphone, attente du clic utilisateur.", error);
                 });
             }
         }
@@ -487,7 +473,6 @@
 
             triggerConfetti();
 
-            // LE BIJOU AUDIO : MABRUK À LA RACINE
             const mabrukAudio = new Audio("mabruk.mp3");
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
