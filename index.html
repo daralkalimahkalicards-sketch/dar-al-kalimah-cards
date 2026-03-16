@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="rtl">
 <head>
@@ -6,7 +7,6 @@
     <title>Dar Al-Kalima - Accueil Premium</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -42,7 +42,7 @@
            HEADER (TITRE PRINCIPAL) - STYLE PREMIUM
            ========================================= */
         .header-container {
-            background: var(--burgundy); /* FOND BORDEAUX */
+            background: var(--burgundy); 
             padding: 40px 30px; border-radius: 12px;
             box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
             width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
@@ -56,15 +56,16 @@
         .subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
 
         /* =========================================
-           GRILLE DE NAVIGATION 2X2
+           GRILLE DE NAVIGATION 2 COLONNES
            ========================================= */
         .nav-grid { 
             display: grid; grid-template-columns: repeat(2, 1fr); 
             gap: 30px; width: 100%; max-width: 850px; 
+            margin-bottom: 40px;
         }
 
         /* =========================================
-           CARTES D'ÉTUDE (STYLE CAPTURE D'ÉCRAN)
+           CARTES D'ÉTUDE
            ========================================= */
         .nav-card {
             background: var(--white);
@@ -75,7 +76,6 @@
         }
         .nav-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
 
-        /* L'icône dans son cercle fin */
         .icon-wrapper {
             width: 70px; height: 70px; border-radius: 50%;
             background: transparent; border: 1.5px solid var(--gold);
@@ -85,14 +85,12 @@
         .nav-card:hover .icon-wrapper { background: var(--bg-beige); transform: scale(1.05); }
         .visual-main { font-size: 2rem; color: var(--gold); }
 
-        /* Typographie Arabe */
+        /* Typographie */
         .word-ar-title { font-size: 2.8rem; font-weight: 700; color: var(--burgundy); line-height: 1.2; margin-bottom: 25px; }
+        .lang-fr { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 1px;}
+        .lang-es { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 30px; }
         
-        /* Typographie Française (Majuscules élégantes) & Espagnole */
-        .lang-fr { font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 1px;}
-        .lang-es { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 30px; }
-        
-        /* Bouton Premium arrondi */
+        /* Bouton */
         .btn-open {
             margin-top: auto; background: var(--burgundy); color: var(--white); 
             padding: 14px 0; width: 85%; border-radius: 50px;
@@ -149,7 +147,7 @@
             <button class="btn-open">Ouvrir / Abrir</button>
         </a>
 
-        <a href="bank.html" class="nav-card">
+        <a href="banque.html" class="nav-card">
             <div class="icon-wrapper">
                 <i class="fa-solid fa-book-bookmark visual-main"></i>
             </div>
@@ -159,13 +157,33 @@
             <button class="btn-open">Ouvrir / Abrir</button>
         </a>
 
-        <a href="ardoise.html" class="nav-card">
+        <a href="ardoise_intelligente.html" class="nav-card">
             <div class="icon-wrapper">
-                <i class="fa-solid fa-laptop visual-main"></i>
+                <i class="fa-solid fa-wand-magic-sparkles visual-main"></i>
             </div>
-            <div class="word-ar-title ar-text">السبورة</div>
-            <div class="lang-fr">L'Ardoise</div>
-            <div class="lang-es">La pizarra</div>
+            <div class="word-ar-title ar-text">اللوح الذكي</div>
+            <div class="lang-fr">Ardoise Intelligente</div>
+            <div class="lang-es">Pizarra Inteligente</div>
+            <button class="btn-open">Ouvrir / Abrir</button>
+        </a>
+
+        <a href="ardoise_libre.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-pen-nib visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">اللوح الحر</div>
+            <div class="lang-fr">Ardoise Libre</div>
+            <div class="lang-es">Pizarra Libre</div>
+            <button class="btn-open">Ouvrir / Abrir</button>
+        </a>
+
+        <a href="agenda.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-calendar-days visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">المفكرة</div>
+            <div class="lang-fr">L'Agenda</div>
+            <div class="lang-es">La Agenda</div>
             <button class="btn-open">Ouvrir / Abrir</button>
         </a>
 
@@ -174,8 +192,8 @@
                 <i class="fa-solid fa-folder visual-main"></i>
             </div>
             <div class="word-ar-title ar-text">قريباً</div>
-            <div class="lang-fr" style="color: var(--text-muted);">Règles et Ressources</div>
-            <div class="lang-es">Reglas y Recursos</div>
+            <div class="lang-fr" style="color: var(--text-muted);">À venir</div>
+            <div class="lang-es">Próximamente</div>
             <button class="btn-open btn-locked">Bientôt / Pronto</button>
         </div>
 
