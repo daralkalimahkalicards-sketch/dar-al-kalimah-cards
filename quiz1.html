@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -75,7 +76,7 @@
            ========================================= */
         .menu-container {
             text-align: center; 
-            background: var(--burgundy); /* Intervention : Fond Bordeaux */
+            background: var(--burgundy);
             padding: 50px 40px; border-radius: 24px;
             box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
             max-width: 600px; width: 100%;
@@ -330,7 +331,7 @@
         let questions = []; 
         let currentQuestionIndex = 0;
         let score = 0;
-        let currentAudio = null;
+        let currentAudio = new Audio(); // FIX 1 : On crée un SEUL objet Audio pour tout le jeu
         let toastTimeout = null;
         let isAnswerProcessing = false;
 
@@ -444,18 +445,22 @@
                 return;
             }
 
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
+            // On arrête l'audio en cours s'il y en a un
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
 
-            currentAudio = new Audio(audioPath);
+            // FIX 2 : On change juste la source du même objet audio
+            currentAudio.src = audioPath;
             let playPromise = currentAudio.play();
             
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
                     console.error("Audio error:", error);
-                    showToast();
+                    // FIX 3 : Si c'est le navigateur mobile qui bloque (NotAllowedError), 
+                    // on NE MONTRE PAS le message d'erreur. L'utilisateur cliquera sur le bouton.
+                    if (error.name !== 'NotAllowedError') {
+                        showToast();
+                    }
                 });
             }
         }
