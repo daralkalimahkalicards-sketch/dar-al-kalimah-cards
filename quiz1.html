@@ -173,19 +173,6 @@
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
         /* =========================================
-           ALERTE AUDIO (TOAST)
-           ========================================= */
-        .toast {
-            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            background-color: rgba(93, 24, 40, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            color: var(--white); padding: 16px 35px; border-radius: 50px; font-size: 0.95rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25); transition: bottom 0.5s ease;
-            z-index: 1000; text-align: center; border: 1px solid rgba(200, 164, 98, 0.3); font-weight: 500;
-        }
-        .toast.show { bottom: 40px; }
-        .toast-es { font-size: 0.85em; opacity: 0.8; font-weight: normal; display: block; margin-top: 4px; }
-
-        /* =========================================
            RESPONSIVE & IMPRESSION
            ========================================= */
         @media (max-width: 768px) {
@@ -252,7 +239,7 @@
             </div>
 
             <div class="audio-section">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio(true)" title="Écouter">🎙️</button>
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
             </div>
 
             <div class="options-grid" id="options-grid">
@@ -285,11 +272,6 @@
             <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
         </div>
-    </div>
-
-    <div id="toast" class="toast">
-        Audio introuvable (Vérifiez le fichier).<br>
-        <span class="toast-es">Audio no encontrado.</span>
     </div>
 
     <script>
@@ -330,7 +312,6 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let currentAudio = new Audio();
-        let toastTimeout = null;
         let isAnswerProcessing = false;
 
         const viewWelcome = document.getElementById('view-welcome');
@@ -392,8 +373,7 @@
                 optionsGrid.appendChild(btn);
             });
 
-            // LE PARAMÈTRE false ICI INDIQUE QUE C'EST AUTOMATIQUE (Système)
-            setTimeout(() => { playCurrentQuestionAudio(false); }, 400);
+            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
         }
 
         function handleAnswer(selectedLetter, cardElement, targetLetter) {
@@ -426,15 +406,11 @@
             }, 1200);
         }
 
-        // LE FILTRE ANTI-ERREUR TÉLÉPHONE
-        function playCurrentQuestionAudio(isManualClick = false) {
+        function playCurrentQuestionAudio() {
             const currentQ = questions[currentQuestionIndex];
             const audioPath = currentQ.targetAudio;
             
-            if (!audioPath || audioPath === "") {
-                if(isManualClick) showToast();
-                return;
-            }
+            if (!audioPath || audioPath === "") return;
 
             currentAudio.pause();
             currentAudio.currentTime = 0;
@@ -444,20 +420,10 @@
             
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.log("Lecture audio bloquée :", error);
-                    // N'AFFICHE L'ERREUR ROUGE QUE SI LE JOUEUR A CLIQUÉ SUR LE BOUTON
-                    if (isManualClick) {
-                        showToast();
-                    }
+                    // Totalement silencieux. Aucune erreur ne sera affichée.
+                    console.log("Lecture auto bloquée par le navigateur :", error);
                 });
             }
-        }
-
-        function showToast() {
-            clearTimeout(toastTimeout);
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 2500);
         }
 
         function finishQuiz() {
@@ -479,7 +445,7 @@
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.log("Mabrouk audio error:", error);
+                    console.log("Mabrouk audio bloqué :", error);
                 });
             }
         }
