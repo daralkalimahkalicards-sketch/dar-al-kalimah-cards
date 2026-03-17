@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -55,20 +56,25 @@
         /* =========================================
            BOÎTES & BOUTONS GÉNÉRAUX
            ========================================= */
-        .btn-main, .btn-secondary {
+        .btn-main, .btn-secondary, .btn-link {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
             color: var(--white); border: 2px solid var(--burgundy);
             padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             font-family: 'Montserrat', sans-serif; font-weight: 600;
             letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
         }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active { transform: translateY(1px); }
+        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:active, .btn-link:active { transform: translateY(1px); }
 
         .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
+
+        .btn-back-menu {
+            display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s;
+        }
+        .btn-back-menu:hover { color: var(--white); }
 
         /* =========================================
            ACCUEIL QUIZ (PREMIUM BORDEAUX)
@@ -189,7 +195,7 @@
             .cert-title { font-size: 1.5rem; }
             .cert-name { font-size: 2.5rem; }
             .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
-            .btn-main, .btn-secondary { width: 100%; text-align: center; }
+            .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; }
         }
         @media print {
             body * { visibility: hidden; }
@@ -219,6 +225,8 @@
             </div>
             
             <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
+            
+            <a href="module1.html" class="btn-back-menu">← Retour au menu du module</a>
         </div>
     </div>
 
@@ -271,6 +279,7 @@
         <div class="cert-actions no-print">
             <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
+            <a href="module1.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
@@ -420,7 +429,6 @@
             
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    // Totalement silencieux. Aucune erreur ne sera affichée.
                     console.log("Lecture auto bloquée par le navigateur :", error);
                 });
             }
