@@ -1,43 +1,154 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalicards - Module 2</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dar Al-Kalima - Les Voyelles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --burgundy: #5D1828; --gold: #C8A462; --gold-light: #dfc28b; --white: #FFFFFF; --bg-beige: #FAF6F0; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body { background-color: var(--bg-beige); display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Montserrat', sans-serif; padding: 20px; }
-        .menu-container { background: var(--burgundy); padding: 50px 40px; border-radius: 16px; box-shadow: 0 15px 35px rgba(93, 24, 40, 0.15); text-align: center; width: 100%; max-width: 450px; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .brand-ar { font-family: "Amiri", serif; font-size: 3.8rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
-        .app-title { font-family: "Cinzel", serif; font-size: 1.2rem; color: var(--gold-light); letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin-bottom: 20px; }
-        .divider { width: 40px; height: 1px; background-color: var(--gold); margin: 0 auto 30px auto; opacity: 0.6; }
-        .instruction-fr { font-size: 1.05rem; font-weight: 500; color: var(--white); margin-bottom: 5px; }
-        .instruction-es { font-size: 0.9rem; color: var(--gold-light); font-style: italic; margin-bottom: 35px; }
-        .btn-nav { display: block; width: 100%; max-width: 320px; margin: 0 auto 15px auto; padding: 16px; background: transparent; border: 1.5px solid var(--gold); color: var(--gold); border-radius: 50px; text-decoration: none; font-size: 1rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease; }
-        .btn-nav:hover { background-color: rgba(200, 164, 98, 0.1); transform: translateY(-2px); }
-        .btn-back { display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.85rem; font-style: italic; transition: color 0.3s; }
-        .btn-back:hover { color: var(--white); }
-        @media (max-width: 480px) { .menu-container { padding: 40px 25px; } .brand-ar { font-size: 3.2rem; } .app-title { font-size: 1.1rem; } .btn-nav { font-size: 0.95rem; padding: 14px; } }
+        :root {
+            --burgundy: #5D1828;
+            --gold: #C8A462;
+            --bg-beige: #FAF6F0;
+            --white: #FFFFFF;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        
+        /* HEADER PREMIUM */
+        .header-container {
+            background: var(--burgundy);
+            padding: 30px; border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.2);
+            width: 100%; max-width: 900px;
+            text-align: center; position: relative; margin-bottom: 40px;
+        }
+        .btn-back {
+            position: absolute; top: 20px; left: 20px;
+            color: var(--gold); text-decoration: none; font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .btn-back:hover { transform: scale(1.2); }
+        .brand-ar { font-family: "Amiri", serif; font-size: 3rem; color: var(--gold); margin-bottom: 5px; }
+        .app-title { font-family: "Cinzel", serif; color: #d09470; letter-spacing: 3px; font-size: 1.1rem; }
+
+        /* GRILLE DES LETTRES */
+        .voyelles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px; width: 100%; max-width: 1000px;
+        }
+        .letter-card {
+            background: var(--white);
+            border: 1px solid var(--gold);
+            border-radius: 20px; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .main-char {
+            font-family: "Amiri", serif; font-size: 3.5rem;
+            color: var(--burgundy); margin-bottom: 15px;
+        }
+        .voyelles-row {
+            display: flex; justify-content: center; gap: 25px;
+            width: 100%; border-top: 1px solid #eee; padding-top: 15px;
+        }
+        .v-box {
+            text-align: center; cursor: pointer; transition: all 0.2s;
+            padding: 10px; border-radius: 10px;
+        }
+        .v-box:hover { background: var(--bg-beige); transform: translateY(-3px); }
+        .v-char { font-family: "Amiri", serif; font-size: 2.5rem; color: var(--gold); }
+        .v-label { font-size: 0.75rem; color: #888; font-weight: 600; text-transform: uppercase; margin-top: 5px; }
+
+        @media (max-width: 480px) {
+            .voyelles-grid { grid-template-columns: 1fr; }
+            .brand-ar { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="menu-container">
-        <div class="brand-ar">دار الكلمة</div>
-        <div class="app-title">KALICARDS – MODULE 2</div>
-        <div class="divider"></div>
-        
-        <div class="instruction-fr">Sélectionnez une activité</div>
-        <div class="instruction-es">Selecciona una actividad</div>
-        
-        <a href="lecon2.html" class="btn-nav">LA LEÇON</a>
-        <a href="quiz2-1.html" class="btn-nav">QUIZ 1</a>
-        <a href="quiz2-2.html" class="btn-nav">QUIZ 2</a>
-        <a href="quiz2-3.html" class="btn-nav">QUIZ 3</a>
-        
-        <a href="modules.html" class="btn-back">← Retour aux modules</a>
+
+    <div class="header-container">
+        <a href="module2.html" class="btn-back"><i class="fa-solid fa-circle-left"></i></a>
+        <div class="brand-ar">الحركات</div>
+        <div class="app-title">Les Voyelles / Las Vocales</div>
     </div>
+
+    <div class="voyelles-grid" id="lesson-container">
+        </div>
+
+    <script>
+        // On définit les 28 lettres et leurs formes avec voyelles
+        const letters = [
+            { char: "أ", f: "أَ", d: "أُ", k: "إِ", name: "Alif" },
+            { char: "ب", f: "بَ", d: "بُ", k: "بِ", name: "Baa" },
+            { char: "ت", f: "تَ", d: "تُ", k: "تِ", name: "Taa" },
+            { char: "ث", f: "ثَ", d: "ثُ", k: "ثِ", name: "Thaa" },
+            { char: "ج", f: "جَ", d: "جُ", k: "جِ", name: "Jim" },
+            { char: "ح", f: "حَ", d: "حُ", k: "حِ", name: "Haa" },
+            { char: "خ", f: "خَ", d: "خُ", k: "خِ", name: "Khaa" },
+            { char: "د", f: "دَ", d: "دُ", k: "دِ", name: "Daal" },
+            { char: "ذ", f: "ذَ", d: "ذُ", k: "ذِ", name: "Dhaal" },
+            { char: "ر", f: "رَ", d: "رُ", k: "رِ", name: "Raa" },
+            { char: "ز", f: "زَ", d: "زُ", k: "زِ", name: "Zaay" },
+            { char: "س", f: "سَ", d: "سُ", k: "سِ", name: "Siin" },
+            { char: "ش", f: "شَ", d: "شُ", k: "شِ", name: "Shiin" },
+            { char: "ص", f: "صَ", d: "صُ", k: "صِ", name: "Saad" },
+            { char: "ض", f: "ضَ", d: "ضُ", k: "ضِ", name: "Daad" },
+            { char: "ط", f: "طَ", d: "طُ", k: "طِ", name: "Taa" },
+            { char: "ظ", f: "ظَ", d: "ظُ", k: "ظِ", name: "Zaa" },
+            { char: "ع", f: "عَ", d: "عُ", k: "عِ", name: "Ayn" },
+            { char: "غ", f: "غَ", d: "غُ", k: "غِ", name: "Ghayn" },
+            { char: "ف", f: "فَ", d: "فُ", k: "فِ", name: "Faa" },
+            { char: "ق", f: "قَ", d: "قُ", k: "قِ", name: "Qaaf" },
+            { char: "ك", f: "كَ", d: "كُ", k: "كِ", name: "Kaaf" },
+            { char: "ل", f: "لَ", d: "لُ", k: "لِ", name: "Laam" },
+            { char: "م", f: "مَ", d: "مُ", k: "مِ", name: "Miim" },
+            { char: "ن", f: "نَ", d: "نُ", k: "نِ", name: "Nuun" },
+            { char: "ه", f: "هَ", d: "هُ", k: "هِ", name: "Haa" },
+            { char: "و", f: "وَ", d: "وُ", k: "وِ", name: "Waaw" },
+            { char: "ي", f: "يَ", d: "يُ", k: "يِ", name: "Yaa" }
+        ];
+
+        const container = document.getElementById('lesson-container');
+
+        letters.forEach((l, index) => {
+            const num = (index + 1).toString().padStart(2, '0');
+            const card = document.createElement('div');
+            card.className = 'letter-card';
+            card.innerHTML = `
+                <div class="main-char">${l.char}</div>
+                <div class="voyelles-row">
+                    <div class="v-box" onclick="playVoyelle('${num}', 'fatha')">
+                        <div class="v-char">${l.f}</div>
+                        <div class="v-label">A</div>
+                    </div>
+                    <div class="v-box" onclick="playVoyelle('${num}', 'damma')">
+                        <div class="v-char">${l.d}</div>
+                        <div class="v-label">OU</div>
+                    </div>
+                    <div class="v-box" onclick="playVoyelle('${num}', 'kasra')">
+                        <div class="v-char">${l.k}</div>
+                        <div class="v-label">I</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        function playVoyelle(letterNum, type) {
+            // Cherche par exemple : audio/01-fatha.mp3
+            const audio = new Audio(`audio/${letterNum}-${type}.mp3`);
+            audio.play().catch(err => console.log("Audio non trouvé : " + type));
+        }
+    </script>
 </body>
 </html>
