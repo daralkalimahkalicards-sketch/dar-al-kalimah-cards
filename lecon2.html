@@ -4,150 +4,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalima - Les Voyelles</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dar Al-Kalima - Leçon 2 (Al-Harakat)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* =========================================
+           VARIABLES LUXE "DAR AL-KALIMA"
+           ========================================= */
         :root {
             --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
             --gold: #C8A462;
-            --bg-beige: #FAF6F0;
+            --gold-light: #dfc28b;
             --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            
+            /* COULEURS PÉDAGOGIQUES */
+            --color-fatha: #E53935; /* Rouge */
+            --color-damma: #1E88E5; /* Bleu */
+            --color-kasra: #43A047; /* Vert */
+            --color-sukoun: #C8A462; /* Doré */
+            
+            --shadow-soft: 0 4px 20px rgba(93, 24, 40, 0.06);
+            --shadow-card: 0 10px 30px rgba(93, 24, 40, 0.1);
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
         body {
             background-color: var(--bg-beige);
             font-family: 'Montserrat', sans-serif;
-            margin: 0; padding: 20px;
-            display: flex; flex-direction: column; align-items: center;
+            color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; 
+            min-height: 100vh; padding: 25px 15px;
         }
-        
-        /* HEADER PREMIUM */
+
+        .ar-text { font-family: "Amiri", serif; line-height: 1.4; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        /* =========================================
+           HEADER BILINGUE
+           ========================================= */
         .header-container {
             background: var(--burgundy);
-            padding: 30px; border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.2);
             width: 100%; max-width: 900px;
-            text-align: center; position: relative; margin-bottom: 40px;
+            padding: 40px 20px; border-radius: 20px;
+            box-shadow: var(--shadow-card);
+            text-align: center; margin-bottom: 35px;
+            position: relative; /* Pour positionner la maison */
         }
-        .btn-back {
-            position: absolute; top: 20px; left: 20px;
-            color: var(--gold); text-decoration: none; font-size: 1.5rem;
-            transition: transform 0.3s;
-        }
-        .btn-back:hover { transform: scale(1.2); }
-        .brand-ar { font-family: "Amiri", serif; font-size: 3rem; color: var(--gold); margin-bottom: 5px; }
-        .app-title { font-family: "Cinzel", serif; color: #d09470; letter-spacing: 3px; font-size: 1.1rem; }
+        
+        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--gold); margin-bottom: 10px; line-height: 1; }
+        .app-title { font-size: 1.15rem; color: var(--gold-light); letter-spacing: 4px; text-transform: uppercase; font-weight: 500; margin-bottom: 15px;}
+        
+        .subtitle-bilingual { color: var(--white); font-size: 0.95rem; margin-bottom: 25px; opacity: 0.9; }
+        .subtitle-bilingual span.es { color: var(--gold-light); font-style: italic; margin-left: 5px;}
 
-        /* GRILLE DES LETTRES */
-        .voyelles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px; width: 100%; max-width: 1000px;
+        .divider { width: 80px; height: 2px; background-color: var(--gold); margin: 0 auto 25px auto; border-radius: 2px; opacity: 0.6;}
+        
+        /* LA MAISON DE RETOUR AU MENU */
+        .home-icon {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: var(--gold-light);
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
+        .home-icon:hover {
+            color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        /* =========================================
+           NAVIGATION DES GROUPES
+           ========================================= */
+        .groups-nav {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            width: 100%; max-width: 900px; margin-bottom: 40px;
+        }
+        
+        .group-btn {
+            background: var(--white); border: 1px solid rgba(200, 164, 98, 0.3); color: var(--burgundy);
+            padding: 12px 15px; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-soft);
+            font-family: 'Montserrat', sans-serif; flex: 1 1 calc(25% - 10px); min-width: 160px;
+            text-align: center;
+        }
+        .group-btn:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 15px rgba(200, 164, 98, 0.15); }
+        .group-btn.active { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); box-shadow: 0 6px 15px rgba(93, 24, 40, 0.2); }
+
+        /* =========================================
+           CARTES DE LETTRES
+           ========================================= */
+        .cards-container {
+            width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 50px;
+            margin-bottom: 50px;
+        }
+
         .letter-card {
-            background: var(--white);
-            border: 1px solid var(--gold);
-            border-radius: 20px; padding: 20px;
-            display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: var(--white); border: 1px solid rgba(200, 164, 98, 0.2); border-radius: 24px;
+            padding: 40px; box-shadow: var(--shadow-card);
+            animation: fadeIn 0.5s ease-out;
         }
-        .main-char {
-            font-family: "Amiri", serif; font-size: 3.5rem;
-            color: var(--burgundy); margin-bottom: 15px;
-        }
-        .voyelles-row {
-            display: flex; justify-content: center; gap: 25px;
-            width: 100%; border-top: 1px solid #eee; padding-top: 15px;
-        }
-        .v-box {
-            text-align: center; cursor: pointer; transition: all 0.2s;
-            padding: 10px; border-radius: 10px;
-        }
-        .v-box:hover { background: var(--bg-beige); transform: translateY(-3px); }
-        .v-char { font-family: "Amiri", serif; font-size: 2.5rem; color: var(--gold); }
-        .v-label { font-size: 0.75rem; color: #888; font-weight: 600; text-transform: uppercase; margin-top: 5px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* EN-TÊTE : CENTRAGE ET MICRO À DROITE */
+        .letter-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            margin-bottom: 30px;
+            min-height: 80px;
+        }
+        
+        .header-left { display: flex; justify-content: flex-start; }
+        .header-center { display: flex; justify-content: center; }
+        /* On force le conteneur de droite à afficher son élément (le micro) tout à gauche de sa zone */
+        .header-right { display: flex; justify-content: flex-start; padding-left: 20px;}
+        
+        .btn-audio-main {
+            background: var(--bg-beige); border: 2px solid var(--gold-light); color: var(--burgundy); 
+            width: 60px; height: 60px; border-radius: 50%; font-size: 1.8rem;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+        }
+        .btn-audio-main:hover { transform: scale(1.1); border-color: var(--gold); background: var(--white); }
+
+        .main-letter { 
+            font-size: 6.5rem; color: var(--burgundy); font-weight: bold; line-height: 1; 
+            text-shadow: 0 4px 10px rgba(93, 24, 40, 0.05); margin-top: -10px;
+        }
+        
+        .card-divider {
+            border: none; border-top: 2px dotted var(--gold-light); opacity: 0.6;
+            margin: 0 0 35px 0; width: 100%;
+        }
+
+        /* =========================================
+           LE TABLEAU (RTL protégé)
+           ========================================= */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .harakat-grid {
+            display: grid; 
+            grid-template-columns: 140px repeat(4, minmax(70px, 1fr));
+            gap: 15px; align-items: stretch; text-align: center;
+        }
+        
+        .grid-header { padding-bottom: 15px; }
+        .grid-header span.ar-title { font-size: 1.3rem; font-weight: 700; color: var(--burgundy); display: block; margin-bottom: 5px;}
+        .grid-header span.fr { font-size: 0.9rem; font-weight: 600; color: var(--text-dark); display: block; margin-bottom: 2px;}
+        .grid-header span.es { font-size: 0.8rem; color: #888; font-weight: 400; display: block; font-style: italic;}
+        
+        /* ÉTIQUETTES : COULEURS PÉDAGOGIQUES */
+        .row-label-container {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            padding: 15px 10px; border-radius: 16px; border: 1px solid;
+        }
+        .row-label { font-size: 1.3rem; font-weight: 700; line-height: 1;}
+        .row-label-es { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        
+        /* Thèmes des étiquettes */
+        .theme-fatha { background: rgba(229, 57, 53, 0.08); border-color: rgba(229, 57, 53, 0.3); }
+        .theme-fatha .row-label, .theme-fatha .row-label-es { color: var(--color-fatha); }
+        
+        .theme-damma { background: rgba(30, 136, 229, 0.08); border-color: rgba(30, 136, 229, 0.3); }
+        .theme-damma .row-label, .theme-damma .row-label-es { color: var(--color-damma); }
+        
+        .theme-kasra { background: rgba(67, 160, 71, 0.08); border-color: rgba(67, 160, 71, 0.3); }
+        .theme-kasra .row-label, .theme-kasra .row-label-es { color: var(--color-kasra); }
+        
+        .theme-sukoun { background: rgba(200, 164, 98, 0.08); border-color: rgba(200, 164, 98, 0.4); }
+        .theme-sukoun .row-label, .theme-sukoun .row-label-es { color: var(--color-sukoun); }
+
+        .btn-audio-small {
+            background: var(--bg-beige); border: 1px solid rgba(200, 164, 98, 0.4); color: var(--burgundy);
+            width: 35px; height: 35px; border-radius: 50%; font-size: 1.1rem; margin-top: 5px;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .btn-audio-small:hover { transform: scale(1.1); background: var(--white); }
+
+        /* CARRÉS DES LETTRES : BORDURES PÉDAGOGIQUES */
+        .shape-box {
+            font-size: 3rem; color: var(--burgundy); padding: 20px 5px;
+            background: var(--white); border-radius: 16px; border: 1px solid; 
+            transition: all 0.2s ease; display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,1), 0 4px 10px rgba(0,0,0,0.02);
+            cursor: pointer;
+        }
+
+        /* Thèmes des cases des lettres */
+        .box-fatha { border-color: rgba(229, 57, 53, 0.3); }
+        .box-fatha:hover { border-color: var(--color-fatha); background: rgba(229, 57, 53, 0.05); color: var(--color-fatha); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(229, 57, 53, 0.15); }
+        
+        .box-damma { border-color: rgba(30, 136, 229, 0.3); }
+        .box-damma:hover { border-color: var(--color-damma); background: rgba(30, 136, 229, 0.05); color: var(--color-damma); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(30, 136, 229, 0.15); }
+        
+        .box-kasra { border-color: rgba(67, 160, 71, 0.3); }
+        .box-kasra:hover { border-color: var(--color-kasra); background: rgba(67, 160, 71, 0.05); color: var(--color-kasra); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(67, 160, 71, 0.15); }
+        
+        .box-sukoun { border-color: rgba(200, 164, 98, 0.4); }
+        .box-sukoun:hover { border-color: var(--color-sukoun); background: rgba(200, 164, 98, 0.05); color: var(--color-sukoun); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+
+        /* =========================================
+           RESPONSIVE MOBILE
+           ========================================= */
+        @media (max-width: 768px) {
+            .harakat-grid { grid-template-columns: 110px repeat(4, 1fr); gap: 10px; }
+            .shape-box { font-size: 2.5rem; padding: 15px 5px; }
+            .group-btn { flex: 1 1 calc(50% - 10px); }
+            .main-letter { font-size: 5rem; }
+            .letter-card { padding: 30px 20px; }
+        }
         @media (max-width: 480px) {
-            .voyelles-grid { grid-template-columns: 1fr; }
-            .brand-ar { font-size: 2.2rem; }
+            .header-container { padding: 35px 15px; border-radius: 0 0 20px 20px;}
+            .brand-ar { font-size: 3rem; }
+            .app-title { font-size: 1rem; letter-spacing: 2px;}
+            .home-icon { top: 15px; right: 15px; } /* Ajustement mobile de la maison */
+            
+            .harakat-grid { grid-template-columns: 90px repeat(4, minmax(60px, 1fr)); gap: 6px;}
+            .shape-box { font-size: 2rem; padding: 12px 2px; border-radius: 10px;}
+            .grid-header span.ar-title { font-size: 1rem; }
+            .grid-header span.fr { font-size: 0.75rem; }
+            .grid-header span.es { font-size: 0.65rem; }
+            .row-label-container { padding: 10px 2px; border-radius: 10px;}
+            .row-label { font-size: 0.95rem; }
+            .row-label-es { font-size: 0.65rem; letter-spacing: 0;}
+            .btn-audio-small { width: 28px; height: 28px; font-size: 0.9rem; margin-top: 2px;}
+            
+            .main-letter { font-size: 4.5rem; margin-top: -5px;}
+            .btn-audio-main { width: 45px; height: 45px; font-size: 1.2rem; }
+            .letter-card { padding: 25px 12px; border-radius: 16px;}
+            .cards-container { gap: 30px; }
+            .header-right { padding-left: 0;} /* Ajustement micro sur mobile */
         }
     </style>
 </head>
 <body>
 
     <div class="header-container">
-        <a href="module2.html" class="btn-back"><i class="fa-solid fa-circle-left"></i></a>
-        <div class="brand-ar">الحركات</div>
-        <div class="app-title">Les Voyelles / Las Vocales</div>
+        <a href="module2.html" class="home-icon" title="Retour au menu"><i class="fa-solid fa-house"></i></a>
+        
+        <div class="brand-ar ar-text" dir="rtl">الوحدة الثانية : الحركات</div>
+        <div class="app-title serif-text">MODULE 2 : AL-HARAKAT</div>
+        <div class="subtitle-bilingual">
+            Les Voyelles <span class="es">/ Las Vocales</span>
+        </div>
+        <div class="divider"></div>
     </div>
 
-    <div class="voyelles-grid" id="lesson-container">
-        </div>
+    <div class="groups-nav" id="groups-nav"></div>
+
+    <div class="cards-container" id="cards-container"></div>
 
     <script>
-        // On définit les 28 lettres et leurs formes avec voyelles
-        const letters = [
-            { char: "أ", f: "أَ", d: "أُ", k: "إِ", name: "Alif" },
-            { char: "ب", f: "بَ", d: "بُ", k: "بِ", name: "Baa" },
-            { char: "ت", f: "تَ", d: "تُ", k: "تِ", name: "Taa" },
-            { char: "ث", f: "ثَ", d: "ثُ", k: "ثِ", name: "Thaa" },
-            { char: "ج", f: "جَ", d: "جُ", k: "جِ", name: "Jim" },
-            { char: "ح", f: "حَ", d: "حُ", k: "حِ", name: "Haa" },
-            { char: "خ", f: "خَ", d: "خُ", k: "خِ", name: "Khaa" },
-            { char: "د", f: "دَ", d: "دُ", k: "دِ", name: "Daal" },
-            { char: "ذ", f: "ذَ", d: "ذُ", k: "ذِ", name: "Dhaal" },
-            { char: "ر", f: "رَ", d: "رُ", k: "رِ", name: "Raa" },
-            { char: "ز", f: "زَ", d: "زُ", k: "زِ", name: "Zaay" },
-            { char: "س", f: "سَ", d: "سُ", k: "سِ", name: "Siin" },
-            { char: "ش", f: "شَ", d: "شُ", k: "شِ", name: "Shiin" },
-            { char: "ص", f: "صَ", d: "صُ", k: "صِ", name: "Saad" },
-            { char: "ض", f: "ضَ", d: "ضُ", k: "ضِ", name: "Daad" },
-            { char: "ط", f: "طَ", d: "طُ", k: "طِ", name: "Taa" },
-            { char: "ظ", f: "ظَ", d: "ظُ", k: "ظِ", name: "Zaa" },
-            { char: "ع", f: "عَ", d: "عُ", k: "عِ", name: "Ayn" },
-            { char: "غ", f: "غَ", d: "غُ", k: "غِ", name: "Ghayn" },
-            { char: "ف", f: "فَ", d: "فُ", k: "فِ", name: "Faa" },
-            { char: "ق", f: "قَ", d: "قُ", k: "قِ", name: "Qaaf" },
-            { char: "ك", f: "كَ", d: "كُ", k: "كِ", name: "Kaaf" },
-            { char: "ل", f: "لَ", d: "لُ", k: "لِ", name: "Laam" },
-            { char: "م", f: "مَ", d: "مُ", k: "مِ", name: "Miim" },
-            { char: "ن", f: "نَ", d: "نُ", k: "نِ", name: "Nuun" },
-            { char: "ه", f: "هَ", d: "هُ", k: "هِ", name: "Haa" },
-            { char: "و", f: "وَ", d: "وُ", k: "وِ", name: "Waaw" },
-            { char: "ي", f: "يَ", d: "يُ", k: "يِ", name: "Yaa" }
+        const alphabetData = [
+            // GROUPE 1
+            { letter: "أ", group: 1, audioMain: "audio/letters/alif.mp3", audioFatha: "audio/harakat/alif-fatha.mp3", audioDamma: "audio/harakat/alif-damma.mp3", audioKasra: "audio/harakat/alif-kasra.mp3", audioSukoun: "audio/harakat/alif-sukoun.mp3", fatha: ["أَ", "أَ", "أَ", "أَ"], damma: ["أُ", "أُ", "أُ", "أُ"], kasra: ["إِ", "إِ", "إِ", "إِ"], sukoun: ["أْ", "أْ", "أْ", "أْ"] },
+            { letter: "ب", group: 1, audioMain: "audio/letters/baa.mp3", audioFatha: "audio/harakat/baa-fatha.mp3", audioDamma: "audio/harakat/baa-damma.mp3", audioKasra: "audio/harakat/baa-kasra.mp3", audioSukoun: "audio/harakat/baa-sukoun.mp3", fatha: ["بَ", "بَـ", "ـبَـ", "ـبَ"], damma: ["بُ", "بُـ", "ـبُـ", "ـبُ"], kasra: ["بِ", "بِـ", "ـبِـ", "ـبِ"], sukoun: ["بْ", "بْـ", "ـبْـ", "ـبْ"] },
+            { letter: "ت", group: 1, audioMain: "audio/letters/taa.mp3", audioFatha: "audio/harakat/taa-fatha.mp3", audioDamma: "audio/harakat/taa-damma.mp3", audioKasra: "audio/harakat/taa-kasra.mp3", audioSukoun: "audio/harakat/taa-sukoun.mp3", fatha: ["تَ", "تَـ", "ـتَـ", "ـتَ"], damma: ["تُ", "تُـ", "ـتُـ", "ـتُ"], kasra: ["تِ", "تِـ", "ـتِـ", "ـتِ"], sukoun: ["تْ", "تْـ", "ـتْـ", "ـتْ"] },
+            { letter: "ث", group: 1, audioMain: "audio/letters/thaa.mp3", audioFatha: "audio/harakat/thaa-fatha.mp3", audioDamma: "audio/harakat/thaa-damma.mp3", audioKasra: "audio/harakat/thaa-kasra.mp3", audioSukoun: "audio/harakat/thaa-sukoun.mp3", fatha: ["ثَ", "ثَـ", "ـثَـ", "ـثَ"], damma: ["ثُ", "ثُـ", "ـثُـ", "ـثُ"], kasra: ["ثِ", "ثِـ", "ـثِـ", "ـثِ"], sukoun: ["ثْ", "ثْـ", "ـثْـ", "ـثْ"] },
+            
+            // GROUPE 2
+            { letter: "ج", group: 2, audioMain: "audio/letters/jim.mp3", audioFatha: "audio/harakat/jim-fatha.mp3", audioDamma: "audio/harakat/jim-damma.mp3", audioKasra: "audio/harakat/jim-kasra.mp3", audioSukoun: "audio/harakat/jim-sukoun.mp3", fatha: ["جَ", "جَـ", "ـجَـ", "ـجَ"], damma: ["جُ", "جُـ", "ـجُـ", "ـجُ"], kasra: ["جِ", "جِـ", "ـجِـ", "ـجِ"], sukoun: ["جْ", "جْـ", "ـجْـ", "ـجْ"] },
+            { letter: "ح", group: 2, audioMain: "audio/letters/haa.mp3", audioFatha: "audio/harakat/haa-fatha.mp3", audioDamma: "audio/harakat/haa-damma.mp3", audioKasra: "audio/harakat/haa-kasra.mp3", audioSukoun: "audio/harakat/haa-sukoun.mp3", fatha: ["حَ", "حَـ", "ـحَـ", "ـحَ"], damma: ["حُ", "حُـ", "ـحُـ", "ـحُ"], kasra: ["حِ", "حِـ", "ـحِـ", "ـحِ"], sukoun: ["حْ", "حْـ", "ـحْـ", "ـحْ"] },
+            { letter: "خ", group: 2, audioMain: "audio/letters/khaa.mp3", audioFatha: "audio/harakat/khaa-fatha.mp3", audioDamma: "audio/harakat/khaa-damma.mp3", audioKasra: "audio/harakat/khaa-kasra.mp3", audioSukoun: "audio/harakat/khaa-sukoun.mp3", fatha: ["خَ", "خَـ", "ـخَـ", "ـخَ"], damma: ["خُ", "خُـ", "ـخُـ", "ـخُ"], kasra: ["خِ", "خِـ", "ـخِـ", "ـخِ"], sukoun: ["خْ", "خْـ", "ـخْـ", "ـخْ"] },
+            
+            // GROUPE 3 (Non-connecting)
+            { letter: "د", group: 3, audioMain: "audio/letters/dal.mp3", audioFatha: "audio/harakat/dal-fatha.mp3", audioDamma: "audio/harakat/dal-damma.mp3", audioKasra: "audio/harakat/dal-kasra.mp3", audioSukoun: "audio/harakat/dal-sukoun.mp3", fatha: ["دَ", "دَ", "دَ", "دَ"], damma: ["دُ", "دُ", "دُ", "دُ"], kasra: ["دِ", "دِ", "دِ", "دِ"], sukoun: ["دْ", "دْ", "دْ", "دْ"] },
+            { letter: "ذ", group: 3, audioMain: "audio/letters/dhal.mp3", audioFatha: "audio/harakat/dhal-fatha.mp3", audioDamma: "audio/harakat/dhal-damma.mp3", audioKasra: "audio/harakat/dhal-kasra.mp3", audioSukoun: "audio/harakat/dhal-sukoun.mp3", fatha: ["ذَ", "ذَ", "ذَ", "ذَ"], damma: ["ذُ", "ذُ", "ذُ", "ذُ"], kasra: ["ذِ", "ذِ", "ذِ", "ذِ"], sukoun: ["ذْ", "ذْ", "ذْ", "ذْ"] },
+            { letter: "ر", group: 3, audioMain: "audio/letters/raa.mp3", audioFatha: "audio/harakat/raa-fatha.mp3", audioDamma: "audio/harakat/raa-damma.mp3", audioKasra: "audio/harakat/raa-kasra.mp3", audioSukoun: "audio/harakat/raa-sukoun.mp3", fatha: ["رَ", "رَ", "رَ", "رَ"], damma: ["رُ", "رُ", "رُ", "رُ"], kasra: ["رِ", "رِ", "رِ", "رِ"], sukoun: ["رْ", "رْ", "رْ", "رْ"] },
+            { letter: "ز", group: 3, audioMain: "audio/letters/zay.mp3", audioFatha: "audio/harakat/zay-fatha.mp3", audioDamma: "audio/harakat/zay-damma.mp3", audioKasra: "audio/harakat/zay-kasra.mp3", audioSukoun: "audio/harakat/zay-sukoun.mp3", fatha: ["زَ", "زَ", "زَ", "زَ"], damma: ["زُ", "زُ", "زُ", "زُ"], kasra: ["زِ", "زِ", "زِ", "زِ"], sukoun: ["زْ", "زْ", "زْ", "زْ"] },
+
+            // GROUPE 4
+            { letter: "س", group: 4, audioMain: "audio/letters/siin.mp3", audioFatha: "audio/harakat/siin-fatha.mp3", audioDamma: "audio/harakat/siin-damma.mp3", audioKasra: "audio/harakat/siin-kasra.mp3", audioSukoun: "audio/harakat/siin-sukoun.mp3", fatha: ["سَ", "سَـ", "ـسَـ", "ـسَ"], damma: ["سُ", "سُـ", "ـسُـ", "ـسُ"], kasra: ["سِ", "سِـ", "ـسِـ", "ـسِ"], sukoun: ["سْ", "سْـ", "ـسْـ", "ـسْ"] },
+            { letter: "ش", group: 4, audioMain: "audio/letters/shiin.mp3", audioFatha: "audio/harakat/shiin-fatha.mp3", audioDamma: "audio/harakat/shiin-damma.mp3", audioKasra: "audio/harakat/shiin-kasra.mp3", audioSukoun: "audio/harakat/shiin-sukoun.mp3", fatha: ["شَ", "شَـ", "ـشَـ", "ـشَ"], damma: ["شُ", "شُـ", "ـشُـ", "ـشُ"], kasra: ["شِ", "شِـ", "ـشِـ", "ـشِ"], sukoun: ["شْ", "شْـ", "ـشْـ", "ـشْ"] },
+            { letter: "ص", group: 4, audioMain: "audio/letters/saad.mp3", audioFatha: "audio/harakat/saad-fatha.mp3", audioDamma: "audio/harakat/saad-damma.mp3", audioKasra: "audio/harakat/saad-kasra.mp3", audioSukoun: "audio/harakat/saad-sukoun.mp3", fatha: ["صَ", "صَـ", "ـصَـ", "ـصَ"], damma: ["صُ", "صُـ", "ـصُـ", "ـصُ"], kasra: ["صِ", "صِـ", "ـصِـ", "ـصِ"], sukoun: ["صْ", "صْـ", "ـصْـ", "ـصْ"] },
+            { letter: "ض", group: 4, audioMain: "audio/letters/daad.mp3", audioFatha: "audio/harakat/daad-fatha.mp3", audioDamma: "audio/harakat/daad-damma.mp3", audioKasra: "audio/harakat/daad-kasra.mp3", audioSukoun: "audio/harakat/daad-sukoun.mp3", fatha: ["ضَ", "ضَـ", "ـضَـ", "ـضَ"], damma: ["ضُ", "ضُـ", "ـضُـ", "ـضُ"], kasra: ["ضِ", "ضِـ", "ـضِـ", "ـضِ"], sukoun: ["ضْ", "ضْـ", "ـضْـ", "ـضْ"] },
+            { letter: "ط", group: 4, audioMain: "audio/letters/taaa.mp3", audioFatha: "audio/harakat/taaa-fatha.mp3", audioDamma: "audio/harakat/taaa-damma.mp3", audioKasra: "audio/harakat/taaa-kasra.mp3", audioSukoun: "audio/harakat/taaa-sukoun.mp3", fatha: ["طَ", "طَـ", "ـطَـ", "ـطَ"], damma: ["طُ", "طُـ", "ـطُـ", "ـطُ"], kasra: ["طِ", "طِـ", "ـطِـ", "ـطِ"], sukoun: ["طْ", "طْـ", "ـطْـ", "ـطْ"] },
+            { letter: "ظ", group: 4, audioMain: "audio/letters/zaa.mp3", audioFatha: "audio/harakat/zaa-fatha.mp3", audioDamma: "audio/harakat/zaa-damma.mp3", audioKasra: "audio/harakat/zaa-kasra.mp3", audioSukoun: "audio/harakat/zaa-sukoun.mp3", fatha: ["ظَ", "ظَـ", "ـظَـ", "ـظَ"], damma: ["ظُ", "ظُـ", "ـظُـ", "ـظُ"], kasra: ["ظِ", "ظِـ", "ـظِـ", "ـظِ"], sukoun: ["ظْ", "ظْـ", "ـظْـ", "ـظْ"] },
+
+            // GROUPE 5
+            { letter: "ع", group: 5, audioMain: "audio/letters/ayn.mp3", audioFatha: "audio/harakat/ayn-fatha.mp3", audioDamma: "audio/harakat/ayn-damma.mp3", audioKasra: "audio/harakat/ayn-kasra.mp3", audioSukoun: "audio/harakat/ayn-sukoun.mp3", fatha: ["عَ", "عَـ", "ـعَـ", "ـعَ"], damma: ["عُ", "عُـ", "ـعُـ", "ـعُ"], kasra: ["عِ", "عِـ", "ـعِـ", "ـعِ"], sukoun: ["عْ", "عْـ", "ـعْـ", "ـعْ"] },
+            { letter: "غ", group: 5, audioMain: "audio/letters/ghayn.mp3", audioFatha: "audio/harakat/ghayn-fatha.mp3", audioDamma: "audio/harakat/ghayn-damma.mp3", audioKasra: "audio/harakat/ghayn-kasra.mp3", audioSukoun: "audio/harakat/ghayn-sukoun.mp3", fatha: ["غَ", "غَـ", "ـغَـ", "ـغَ"], damma: ["غُ", "غُـ", "ـغُـ", "ـغُ"], kasra: ["غِ", "غِـ", "ـغِـ", "ـغِ"], sukoun: ["غْ", "غْـ", "ـغْـ", "ـغْ"] },
+
+            // GROUPE 6
+            { letter: "ف", group: 6, audioMain: "audio/letters/faa.mp3", audioFatha: "audio/harakat/faa-fatha.mp3", audioDamma: "audio/harakat/faa-damma.mp3", audioKasra: "audio/harakat/faa-kasra.mp3", audioSukoun: "audio/harakat/faa-sukoun.mp3", fatha: ["فَ", "فَـ", "ـفَـ", "ـفَ"], damma: ["فُ", "فُـ", "ـفُـ", "ـفُ"], kasra: ["فِ", "فِـ", "ـفِـ", "ـفِ"], sukoun: ["فْ", "فْـ", "ـفْـ", "ـفْ"] },
+            { letter: "ق", group: 6, audioMain: "audio/letters/qaaf.mp3", audioFatha: "audio/harakat/qaaf-fatha.mp3", audioDamma: "audio/harakat/qaaf-damma.mp3", audioKasra: "audio/harakat/qaaf-kasra.mp3", audioSukoun: "audio/harakat/qaaf-sukoun.mp3", fatha: ["قَ", "قَـ", "ـقَـ", "ـقَ"], damma: ["قُ", "قُـ", "ـقُـ", "ـقُ"], kasra: ["قِ", "قِـ", "ـقِـ", "ـقِ"], sukoun: ["قْ", "قْـ", "ـقْـ", "ـقْ"] },
+            { letter: "ك", group: 6, audioMain: "audio/letters/kaaf.mp3", audioFatha: "audio/harakat/kaaf-fatha.mp3", audioDamma: "audio/harakat/kaaf-damma.mp3", audioKasra: "audio/harakat/kaaf-kasra.mp3", audioSukoun: "audio/harakat/kaaf-sukoun.mp3", fatha: ["كَ", "كَـ", "ـكَـ", "ـكَ"], damma: ["كُ", "كُـ", "ـكُـ", "ـكُ"], kasra: ["كِ", "كِـ", "ـكِـ", "ـكِ"], sukoun: ["كْ", "كْـ", "ـكْـ", "ـكْ"] },
+            { letter: "ل", group: 6, audioMain: "audio/letters/laam.mp3", audioFatha: "audio/harakat/laam-fatha.mp3", audioDamma: "audio/harakat/laam-damma.mp3", audioKasra: "audio/harakat/laam-kasra.mp3", audioSukoun: "audio/harakat/laam-sukoun.mp3", fatha: ["لَ", "لَـ", "ـلَـ", "ـلَ"], damma: ["لُ", "لُـ", "ـلُـ", "ـلُ"], kasra: ["لِ", "لِـ", "ـلِـ", "ـلِ"], sukoun: ["لْ", "لْـ", "ـلْـ", "ـلْ"] },
+
+            // GROUPE 7
+            { letter: "م", group: 7, audioMain: "audio/letters/miim.mp3", audioFatha: "audio/harakat/miim-fatha.mp3", audioDamma: "audio/harakat/miim-damma.mp3", audioKasra: "audio/harakat/miim-kasra.mp3", audioSukoun: "audio/harakat/miim-sukoun.mp3", fatha: ["مَ", "مَـ", "ـمَـ", "ـمَ"], damma: ["مُ", "مُـ", "ـمُـ", "ـمُ"], kasra: ["مِ", "مِـ", "ـمِـ", "ـمِ"], sukoun: ["مْ", "مْـ", "ـمْـ", "ـمْ"] },
+            { letter: "ن", group: 7, audioMain: "audio/letters/nuun.mp3", audioFatha: "audio/harakat/nuun-fatha.mp3", audioDamma: "audio/harakat/nuun-damma.mp3", audioKasra: "audio/harakat/nuun-kasra.mp3", audioSukoun: "audio/harakat/nuun-sukoun.mp3", fatha: ["نَ", "نَـ", "ـنَـ", "ـنَ"], damma: ["نُ", "نُـ", "ـنُـ", "ـنُ"], kasra: ["نِ", "نِـ", "ـنِـ", "ـنِ"], sukoun: ["نْ", "نْـ", "ـنْـ", "ـنْ"] },
+
+            // GROUPE 8
+            { letter: "ه", group: 8, audioMain: "audio/letters/haaa.mp3", audioFatha: "audio/harakat/haaa-fatha.mp3", audioDamma: "audio/harakat/haaa-damma.mp3", audioKasra: "audio/harakat/haaa-kasra.mp3", audioSukoun: "audio/harakat/haaa-sukoun.mp3", fatha: ["هَ", "هَـ", "ـهَـ", "ـهَ"], damma: ["هُ", "هُـ", "ـهُـ", "ـهُ"], kasra: ["هِ", "هِـ", "ـهِـ", "ـهِ"], sukoun: ["هْ", "هْـ", "ـهْـ", "ـهْ"] },
+            { letter: "و", group: 8, audioMain: "audio/letters/waaw.mp3", audioFatha: "audio/harakat/waaw-fatha.mp3", audioDamma: "audio/harakat/waaw-damma.mp3", audioKasra: "audio/harakat/waaw-kasra.mp3", audioSukoun: "audio/harakat/waaw-sukoun.mp3", fatha: ["وَ", "وَ", "وَ", "وَ"], damma: ["وُ", "وُ", "وُ", "وُ"], kasra: ["وِ", "وِ", "وِ", "وِ"], sukoun: ["وْ", "وْ", "وْ", "وْ"] },
+            { letter: "ي", group: 8, audioMain: "audio/letters/yaa.mp3", audioFatha: "audio/harakat/yaa-fatha.mp3", audioDamma: "audio/harakat/yaa-damma.mp3", audioKasra: "audio/harakat/yaa-kasra.mp3", audioSukoun: "audio/harakat/yaa-sukoun.mp3", fatha: ["يَ", "يَـ", "ـيَـ", "ـيَ"], damma: ["يُ", "يُـ", "ـيُـ", "ـيُ"], kasra: ["يِ", "يِـ", "ـيِـ", "ـيِ"], sukoun: ["يْ", "يْـ", "ـيْـ", "ـيْ"] }
         ];
 
-        const container = document.getElementById('lesson-container');
+        let currentAudio = new Audio();
 
-        letters.forEach((l, index) => {
-            const num = (index + 1).toString().padStart(2, '0');
-            const card = document.createElement('div');
-            card.className = 'letter-card';
-            card.innerHTML = `
-                <div class="main-char">${l.char}</div>
-                <div class="voyelles-row">
-                    <div class="v-box" onclick="playVoyelle('${num}', 'fatha')">
-                        <div class="v-char">${l.f}</div>
-                        <div class="v-label">A</div>
-                    </div>
-                    <div class="v-box" onclick="playVoyelle('${num}', 'damma')">
-                        <div class="v-char">${l.d}</div>
-                        <div class="v-label">OU</div>
-                    </div>
-                    <div class="v-box" onclick="playVoyelle('${num}', 'kasra')">
-                        <div class="v-char">${l.k}</div>
-                        <div class="v-label">I</div>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
+        document.addEventListener('DOMContentLoaded', () => {
+            generateGroupButtons();
+            showGroup(1);
         });
 
-        function playVoyelle(letterNum, type) {
-            // Cherche par exemple : audio/01-fatha.mp3
-            const audio = new Audio(`audio/${letterNum}-${type}.mp3`);
-            audio.play().catch(err => console.log("Audio non trouvé : " + type));
+        function generateGroupButtons() {
+            const nav = document.getElementById('groups-nav');
+            for (let i = 1; i <= 8; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'group-btn';
+                if (i === 1) btn.classList.add('active');
+                btn.innerText = `Groupe ${i} / Grupo ${i}`;
+                btn.onclick = () => {
+                    document.querySelectorAll('.group-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    showGroup(i);
+                };
+                nav.appendChild(btn);
+            }
+        }
+
+        function showGroup(groupId) {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = "";
+
+            const groupLetters = alphabetData.filter(item => item.group === groupId);
+
+            groupLetters.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'letter-card';
+
+                card.innerHTML = `
+                    <div class="letter-header">
+                        <div class="header-left"></div>
+                        <div class="header-center">
+                            <div class="main-letter ar-text" dir="rtl">${item.letter}</div>
+                        </div>
+                        <div class="header-right">
+                            <button class="btn-audio-main" onclick="playAudio('${item.audioMain}')" title="Écouter la lettre">
+                                🎙️
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <hr class="card-divider">
+                    
+                    <div class="table-responsive">
+                        <div class="harakat-grid ar-text" dir="rtl">
+                            <div></div>
+                            <div class="grid-header"><span class="ar-title">منفصل</span><span class="fr">Isolé</span><span class="es">Aislado</span></div>
+                            <div class="grid-header"><span class="ar-title">أول</span><span class="fr">Début</span><span class="es">Inicio</span></div>
+                            <div class="grid-header"><span class="ar-title">وسط</span><span class="fr">Milieu</span><span class="es">Medio</span></div>
+                            <div class="grid-header"><span class="ar-title">آخر</span><span class="fr">Fin</span><span class="es">Final</span></div>
+
+                            <div class="row-label-container theme-fatha">
+                                <span class="row-label ar-text" dir="rtl">فَتْحَة</span>
+                                <span class="row-label-es">Fatha</span>
+                                <button class="btn-audio-small" onclick="playAudio('${item.audioFatha}')">🔊</button>
+                            </div>
+                            <div class="shape-box box-fatha" dir="rtl">${item.fatha[0]}</div>
+                            <div class="shape-box box-fatha" dir="rtl">${item.fatha[1]}</div>
+                            <div class="shape-box box-fatha" dir="rtl">${item.fatha[2]}</div>
+                            <div class="shape-box box-fatha" dir="rtl">${item.fatha[3]}</div>
+
+                            <div class="row-label-container theme-damma">
+                                <span class="row-label ar-text" dir="rtl">ضَمَّة</span>
+                                <span class="row-label-es">Damma</span>
+                                <button class="btn-audio-small" onclick="playAudio('${item.audioDamma}')">🔊</button>
+                            </div>
+                            <div class="shape-box box-damma" dir="rtl">${item.damma[0]}</div>
+                            <div class="shape-box box-damma" dir="rtl">${item.damma[1]}</div>
+                            <div class="shape-box box-damma" dir="rtl">${item.damma[2]}</div>
+                            <div class="shape-box box-damma" dir="rtl">${item.damma[3]}</div>
+
+                            <div class="row-label-container theme-kasra">
+                                <span class="row-label ar-text" dir="rtl">كَسْرَة</span>
+                                <span class="row-label-es">Kasra</span>
+                                <button class="btn-audio-small" onclick="playAudio('${item.audioKasra}')">🔊</button>
+                            </div>
+                            <div class="shape-box box-kasra" dir="rtl">${item.kasra[0]}</div>
+                            <div class="shape-box box-kasra" dir="rtl">${item.kasra[1]}</div>
+                            <div class="shape-box box-kasra" dir="rtl">${item.kasra[2]}</div>
+                            <div class="shape-box box-kasra" dir="rtl">${item.kasra[3]}</div>
+
+                            <div class="row-label-container theme-sukoun">
+                                <span class="row-label ar-text" dir="rtl">سُكُون</span>
+                                <span class="row-label-es">Sukoun</span>
+                                <button class="btn-audio-small" onclick="playAudio('${item.audioSukoun}')">🔊</button>
+                            </div>
+                            <div class="shape-box box-sukoun" dir="rtl">${item.sukoun[0]}</div>
+                            <div class="shape-box box-sukoun" dir="rtl">${item.sukoun[1]}</div>
+                            <div class="shape-box box-sukoun" dir="rtl">${item.sukoun[2]}</div>
+                            <div class="shape-box box-sukoun" dir="rtl">${item.sukoun[3]}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function playAudio(audioPath) {
+            if (!audioPath || audioPath === "") return;
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio.src = audioPath;
+            
+            let playPromise = currentAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => { console.log("Audio non trouvé :", error); });
+            }
         }
     </script>
 </body>
