@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - Quiz 3 (3 et 4 lettres)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        /* =========================================
+           STYLES GLOBAUX & COULEURS
+           ========================================= */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --success-green: #e8f5e9;
+            --success-border: #4CAF50;
+            --error-red: #ffebee;
+            --error-border: #f44336;
+            --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', system-ui, sans-serif;
+            padding: 20px; overflow-x: hidden; color: var(--burgundy);
+        }
+
+        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+
+        .view {
+            width: 100%; display: flex; flex-direction: column; align-items: center;
+            justify-content: center; animation: floatIn 0.5s ease-out forwards;
+        }
+        .hidden { display: none !important; }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BOUTONS GÉNÉRAUX */
+        .btn-main, .btn-secondary, .btn-link {
+            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+            color: var(--white); border: 2px solid var(--burgundy);
+            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Montserrat', sans-serif; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
+        }
+        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:active, .btn-link:active { transform: translateY(1px); }
+
+        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
+        .btn-secondary:hover { background: var(--gold); color: var(--white); }
+
+        .btn-back-menu {
+            display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s;
+        }
+        .btn-back-menu:hover { color: var(--white); }
+
+        /* ÉCRAN D'ACCUEIL */
+        .menu-container {
+            text-align: center; 
+            background: var(--burgundy);
+            padding: 50px 40px; border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            max-width: 600px; width: 100%;
+        }
+
+        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px;}
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
+        
+        .menu-container .subtitle-group { margin-bottom: 30px; }
+        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
+        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+
+        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .input-group input {
+            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            border: 2px solid var(--gold); border-radius: 12px;
+            background-color: var(--white); color: var(--burgundy); outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
+
+        .menu-container .btn-main {
+            background: transparent; color: var(--gold); border: 2px solid var(--gold);
+            width: 100%; max-width: 350px; box-shadow: none;
+        }
+        .menu-container .btn-main:hover {
+            background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);
+        }
+
+        /* ÉCRAN DE JEU */
+        .quiz-container {
+            text-align: center; background: var(--white);
+            padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold);
+            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+            max-width: 600px; width: 100%;
+        }
+        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
+        .progress-info { text-align: right; margin-bottom: 8px; }
+        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
+        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
+
+        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
+        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
+
+        /* ZONE CENTRALE : MICRO UNIQUEMENT */
+        .question-focus {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: var(--bg-beige); border-radius: 16px; padding: 35px; margin-bottom: 30px;
+            border: 2px dashed var(--gold-light);
+        }
+        .btn-audio.big-audio {
+            width: 90px; height: 90px; font-size: 3rem;
+            background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 2px solid var(--gold);
+            color: var(--burgundy); border-radius: 50%; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3); transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
+        .btn-audio.big-audio:active { transform: scale(0.95); }
+
+        /* GRILLE DE 4 BOUTONS (ARABE) */
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+        
+        .option-card {
+            background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px;
+            aspect-ratio: 2; /* Un peu plus large pour les mots de 4 lettres */
+            display: flex; justify-content: center; align-items: center;
+            font-size: 3.5rem; color: var(--burgundy); cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
+            font-weight: bold; padding: 10px;
+        }
+        
+        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+        .option-card:active { transform: scale(0.95); }
+
+        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
+        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
+        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+        /* CERTIFICAT */
+        .diploma-paper {
+            background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold);
+            padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
+        }
+        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
+        .cert-messages { margin-bottom: 25px; }
+        .cert-msg { font-weight: 600; color: #444; }
+        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
+        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
+        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
+        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
+        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
+        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .menu-container, .quiz-container { padding: 40px 20px; }
+            .option-card { font-size: 3rem; }
+            .diploma-paper { padding: 30px 20px; }
+        }
+        @media (max-width: 480px) {
+            .menu-container .brand-ar { font-size: 3rem; }
+            .menu-container .app-title { font-size: 1.1rem; }
+            .btn-audio.big-audio { width: 75px; height: 75px; font-size: 2.2rem; }
+            .option-card { font-size: 2.6rem; aspect-ratio: auto; padding: 25px 5px; }
+            .cert-ar { font-size: 3.5rem; }
+            .cert-title { font-size: 1.5rem; }
+            .cert-name { font-size: 2.5rem; }
+            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
+            .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; }
+        }
+        @media print {
+            body * { visibility: hidden; }
+            #view-certificate, #view-certificate * { visibility: visible; }
+            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
+            .no-print { display: none !important; }
+            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="view-welcome" class="view">
+        <div class="menu-container">
+            <div class="brand-ar ar-text">كلمات متقدمة</div>
+            <div class="app-title serif-text">Kalicards – Module 2</div>
+            <div class="app-subtitle">QUIZ 3 : Mots de 3 et 4 lettres</div>
+            <div class="divider"></div>
+            
+            <div class="subtitle-group">
+                <p class="subtitle fr">Écoute l'audio et trouve le bon mot en arabe.</p>
+                <p class="subtitle es">Escucha el audio y encuentra la palabra correcta en árabe.</p>
+            </div>
+            
+            <div class="input-group">
+                <label for="player-name">Nom du participant / Nombre del participante</label>
+                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
+            </div>
+            
+            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
+            
+            <a href="menu-module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
+        </div>
+    </div>
+
+    <div id="view-quiz" class="view hidden">
+        <div class="quiz-header">
+            <div class="progress-info">
+                <span id="progress-text" class="progress-text">1 / 50</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <div class="instruction-text">
+                Écoute et trouve le mot arabe !<br>
+                <small>¡Escucha y encuentra la palabra árabe!</small>
+            </div>
+
+            <div class="question-focus">
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
+            </div>
+
+            <div class="options-grid" id="options-grid">
+                </div>
+        </div>
+    </div>
+
+    <div id="view-certificate" class="view hidden">
+        <div class="diploma-paper">
+            <div class="cert-ar ar-text">مبروك</div>
+            <h2 class="cert-title serif-text">Certificat de réussite</h2>
+            
+            <div class="cert-messages">
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 3 du module 2 (Mots de 3/4 lettres).</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz 3 del módulo 2 (Palabras de 3/4 letras).</p>
+            </div>
+            
+            <div id="cert-name" class="cert-name ar-text">Participant</div>
+            
+            <div class="cert-score-box">
+                <span class="score-label">Score Final</span>
+                <div id="cert-score" class="score-value">50 / 50</div>
+            </div>
+            
+            <div id="cert-date" class="cert-date"></div>
+            <div class="cert-icon">📖</div>
+        </div>
+        
+        <div class="cert-actions no-print">
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
+            <a href="menu-module2.html" class="btn-link">Menu Principal</a>
+        </div>
+    </div>
+
+    <script>
+        // BANQUE DE 50 MOTS : 25 mots de 3 lettres + 25 mots de 4 lettres
+        // Parfaitement équilibré entre Fatha, Damma, Kasra, Sukoun
+        const wordData = [
+            // --- 25 MOTS DE 3 LETTRES ---
+            { arabic: "كَتَبَ", audio: "audio/module2/kataba.mp3" },
+            { arabic: "دَخَلَ", audio: "audio/module2/dakhala.mp3" },
+            { arabic: "جَلَسَ", audio: "audio/module2/jalasa.mp3" },
+            { arabic: "شَرِبَ", audio: "audio/module2/shariba.mp3" },
+            { arabic: "سَمِعَ", audio: "audio/module2/samia.mp3" },
+            { arabic: "لَعِبَ", audio: "audio/module2/laiba.mp3" },
+            { arabic: "حَسُنَ", audio: "audio/module2/hasuna.mp3" },
+            { arabic: "كَبُرَ", audio: "audio/module2/kabura.mp3" },
+            { arabic: "صَغُرَ", audio: "audio/module2/saghura.mp3" },
+            { arabic: "عَمِلَ", audio: "audio/module2/amila.mp3" },
+            { arabic: "بَيْتْ", audio: "audio/module2/bayt.mp3" },
+            { arabic: "كَلْبْ", audio: "audio/module2/kalb.mp3" },
+            { arabic: "بِنْتْ", audio: "audio/module2/bint.mp3" },
+            { arabic: "قَلْبْ", audio: "audio/module2/qalb.mp3" },
+            { arabic: "عَيْنْ", audio: "audio/module2/ayn.mp3" },
+            { arabic: "أُذُنْ", audio: "audio/module2/udhun.mp3" },
+            { arabic: "رِجْلْ", audio: "audio/module2/rijl.mp3" },
+            { arabic: "نَهْرْ", audio: "audio/module2/nahr.mp3" },
+            { arabic: "بَحْرْ", audio: "audio/module2/bahr.mp3" },
+            { arabic: "شَمْسْ", audio: "audio/module2/shams.mp3" },
+            { arabic: "نَجْمْ", audio: "audio/module2/najm.mp3" },
+            { arabic: "أَسَدْ", audio: "audio/module2/asad.mp3" },
+            { arabic: "دُبّْ", audio: "audio/module2/dubb.mp3" },
+            { arabic: "قِرْدْ", audio: "audio/module2/qird.mp3" },
+            { arabic: "ذِئْبْ", audio: "audio/module2/dhib.mp3" },
+
+            // --- 25 MOTS DE 4 LETTRES ---
+            { arabic: "مَسْجِدْ", audio: "audio/module2/masjid.mp3" },
+            { arabic: "مَكْتَبْ", audio: "audio/module2/maktab.mp3" },
+            { arabic: "مُسْلِمْ", audio: "audio/module2/muslim.mp3" },
+            { arabic: "دَفْتَرْ", audio: "audio/module2/daftar.mp3" },
+            { arabic: "مَلْعَبْ", audio: "audio/module2/malab.mp3" },
+            { arabic: "بُلْبُلْ", audio: "audio/module2/bulbul.mp3" },
+            { arabic: "هُدْهُدْ", audio: "audio/module2/hudhud.mp3" },
+            { arabic: "فُلْفُلْ", audio: "audio/module2/fulful.mp3" },
+            { arabic: "مُؤْمِنْ", audio: "audio/module2/mumin.mp3" },
+            { arabic: "مَجْلِسْ", audio: "audio/module2/majlis.mp3" },
+            { arabic: "مَطْبَخْ", audio: "audio/module2/matbakh.mp3" },
+            { arabic: "ثَعْلَبْ", audio: "audio/module2/thalab.mp3" },
+            { arabic: "عَقْرَبْ", audio: "audio/module2/aqrab.mp3" },
+            { arabic: "كَوْكَبْ", audio: "audio/module2/kawkab.mp3" },
+            { arabic: "مَسْبَحْ", audio: "audio/module2/masbah.mp3" },
+            { arabic: "خَرْدَلْ", audio: "audio/module2/khardal.mp3" },
+            { arabic: "خَنْجَرْ", audio: "audio/module2/khanjar.mp3" },
+            { arabic: "فُنْدُقْ", audio: "audio/module2/funduq.mp3" },
+            { arabic: "صُنْدُقْ", audio: "audio/module2/sunduq.mp3" },
+            { arabic: "مُنْذِرْ", audio: "audio/module2/mundhir.mp3" },
+            { arabic: "مُرْسِلْ", audio: "audio/module2/mursil.mp3" },
+            { arabic: "مَسْكَنْ", audio: "audio/module2/maskan.mp3" },
+            { arabic: "مَخْرَجْ", audio: "audio/module2/makhraj.mp3" },
+            { arabic: "مَدْخَلْ", audio: "audio/module2/madkhal.mp3" },
+            { arabic: "مَلْبَسْ", audio: "audio/module2/malbas.mp3" }
+        ];
+
+        let playerName = "";
+        let questions = []; 
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let currentAudio = new Audio();
+        let isAnswerProcessing = false;
+
+        const viewWelcome = document.getElementById('view-welcome');
+        const viewQuiz = document.getElementById('view-quiz');
+        const viewCertificate = document.getElementById('view-certificate');
+        const nameInput = document.getElementById('player-name');
+
+        function startQuiz() {
+            playerName = nameInput.value.trim();
+            if (playerName === "") playerName = "Participant";
+
+            score = 0;
+            currentQuestionIndex = 0;
+            isAnswerProcessing = false;
+
+            generateQuestions();
+
+            viewWelcome.classList.add('hidden');
+            viewQuiz.classList.remove('hidden');
+
+            loadQuestion();
+        }
+
+        // GÉNÉRER LES QUESTIONS
+        function generateQuestions() {
+            questions = [];
+            // Mélanger les 50 mots
+            let shuffledData = [...wordData].sort(() => Math.random() - 0.5);
+
+            shuffledData.forEach(targetObj => {
+                // Trouver 3 distracteurs différents
+                let distractors = wordData.filter(item => item.arabic !== targetObj.arabic);
+                distractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
+                
+                let options = [targetObj.arabic, distractors[0].arabic, distractors[1].arabic, distractors[2].arabic];
+                options = options.sort(() => Math.random() - 0.5); 
+                
+                questions.push({
+                    targetArabic: targetObj.arabic,
+                    targetAudio: targetObj.audio,
+                    options: options
+                });
+            });
+        }
+
+        function loadQuestion() {
+            isAnswerProcessing = false;
+            const currentQ = questions[currentQuestionIndex];
+            
+            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+
+            const optionsGrid = document.getElementById('options-grid');
+            optionsGrid.innerHTML = "";
+
+            currentQ.options.forEach(arabicWord => {
+                const btn = document.createElement('div');
+                btn.className = 'option-card ar-text';
+                btn.innerText = arabicWord;
+                btn.onclick = () => handleAnswer(arabicWord, btn, currentQ.targetArabic);
+                optionsGrid.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedArabic, cardElement, targetArabic) {
+            if (isAnswerProcessing) return;
+            isAnswerProcessing = true;
+
+            const allCards = document.getElementById('options-grid').children;
+
+            if (selectedArabic === targetArabic) {
+                score++;
+                cardElement.classList.add('correct');
+            } else {
+                cardElement.classList.add('wrong');
+                if (navigator.vibrate) navigator.vibrate(200);
+                
+                for (let i = 0; i < allCards.length; i++) {
+                    if (allCards[i].innerText === targetArabic) {
+                        allCards[i].classList.add('correct');
+                    }
+                }
+            }
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    finishQuiz();
+                }
+            }, 1200);
+        }
+
+        function playCurrentQuestionAudio() {
+            const currentQ = questions[currentQuestionIndex];
+            const audioPath = currentQ.targetAudio;
+            
+            if (!audioPath || audioPath === "") return;
+
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio.src = audioPath;
+            
+            let playPromise = currentAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Lecture audio impossible ou bloquée :", error);
+                });
+            }
+        }
+
+        function finishQuiz() {
+            viewQuiz.classList.add('hidden');
+            viewCertificate.classList.remove('hidden');
+
+            document.getElementById('progress-fill').style.width = `100%`;
+
+            document.getElementById('cert-name').innerText = playerName;
+            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
+            
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const dateStr = new Date().toLocaleDateString('fr-FR', options);
+            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
+
+            triggerConfetti();
+
+            const mabrukAudio = new Audio("audio/mabruk.mp3");
+            let playPromise = mabrukAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Mabrouk audio bloqué :", error);
+                });
+            }
+        }
+
+        function triggerConfetti() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        function restartQuiz() {
+            viewCertificate.classList.add('hidden');
+            viewWelcome.classList.remove('hidden');
+            nameInput.value = ""; 
+        }
+    </script>
+</body>
+</html>
