@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - Leçon 3 (Al-Modoud) - Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           VARIABLES LUXE "DAR AL-KALIMAH"
+           ========================================= */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            
+            /* COULEURS PÉDAGOGIQUES */
+            --color-alif: #E53935; /* Rouge */
+            --color-waw: #1E88E5;  /* Bleu */
+            --color-yaa: #43A047;  /* Vert */
+            
+            --shadow-soft: 0 8px 25px rgba(93, 24, 40, 0.06);
+            --shadow-card: 0 15px 40px rgba(93, 24, 40, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; 
+            min-height: 100vh; padding: 20px 15px;
+            overflow-x: hidden;
+        }
+
+        /* CORRECTION DES HARAKATES */
+        .ar-text { 
+            font-family: "Amiri", serif; 
+            line-height: normal; 
+            letter-spacing: 0px;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: "mark" 1, "mkmk" 1;
+            direction: rtl; 
+        }
+        
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        /* =========================================
+           HEADER GLOBAL
+           ========================================= */
+        .app-header {
+            width: 100%; max-width: 1000px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; padding: 0 10px;
+        }
+        
+        .progress-counter {
+            background: var(--burgundy); color: var(--white);
+            padding: 8px 20px; border-radius: 30px; font-weight: 600; font-size: 1.05rem;
+            box-shadow: var(--shadow-soft); border: 1px solid var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .btn-home {
+            color: var(--gold); font-size: 1.8rem; text-decoration: none;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.3s ease; background: transparent; border: none;
+        }
+        .btn-home:hover { transform: scale(1.1); color: var(--gold-light); }
+
+        /* =========================================
+           CONTENEUR DE LA CARTE UNIQUE 3D
+           ========================================= */
+        .card-container {
+            width: 100%; max-width: 950px; margin-bottom: 30px;
+            perspective: 2000px;
+        }
+
+        .card-flip {
+            position: relative; width: 100%; 
+            min-height: 720px; 
+            transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .card-flip.is-flipped { transform: rotateY(180deg); }
+        
+        .card-face {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
+            background: var(--white); border-radius: 24px; box-shadow: var(--shadow-card);
+            border: 1px solid rgba(200, 164, 98, 0.4);
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* =========================================
+           BRANDING COMMUN
+           ========================================= */
+        .card-branding {
+            text-align: center; padding: 25px 20px 5px 20px; width: 100%;
+            flex: 0 0 auto;
+        }
+        .brand-ar-top {
+            color: var(--gold); font-size: 2.2rem; font-weight: bold; line-height: normal; margin-bottom: 5px;
+        }
+        .brand-fr {
+            color: var(--burgundy); font-size: 1rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+        }
+        .cb-line {
+            width: 40px; height: 1px; background: var(--gold); margin: 12px auto 0; opacity: 0.5;
+        }
+
+        .flip-hint {
+            position: absolute; top: 20px; right: 20px; font-size: 1.2rem; color: var(--gold-light);
+            animation: pulseHint 2s infinite; opacity: 0.6; z-index: 10;
+        }
+        @keyframes pulseHint { 0%, 100% { transform: scale(1); opacity: 0.5;} 50% { transform: scale(1.1); opacity: 1;} }
+
+        /* =========================================
+           ÉLÉMENTS PARTAGÉS (Recto & Verso)
+           ========================================= */
+        .gold-text { color: var(--gold) !important; font-weight: 700; }
+        .burgundy-text { color: var(--burgundy) !important; }
+        .gold-madd { color: var(--gold) !important; }
+
+        .col-title-ar {
+            font-size: 1.3rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; text-align: center;
+        }
+        .col-t-fr { font-size: 0.8rem; font-weight: 600; color: #a99478; text-transform: uppercase; letter-spacing: 0.5px;}
+        .col-t-es { font-size: 0.75rem; color: #a99478; font-style: italic; }
+
+        .col-ph-fr, .col-ph-es {
+            font-size: 0.85rem; white-space: nowrap;
+        }
+
+        .btn-audio-micro {
+            background: var(--white); border: 1px solid var(--gold-light); color: var(--burgundy);
+            width: 32px; height: 32px; border-radius: 50%; font-size: 0.9rem;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin: 0;
+        }
+        .btn-audio-micro:hover { transform: scale(1.1); background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+        /* =========================================
+           STYLES SPÉCIFIQUES : FACE RECTO
+           ========================================= */
+        .card-front {
+            z-index: 2; transform: rotateY(0deg); background: var(--white);
+        }
+
+        .card-front .front-center-wrapper {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex-grow: 1; padding: 10px 20px;
+        }
+
+        .card-front .main-letter {
+            font-size: 8rem; color: var(--burgundy); font-weight: bold;
+            text-shadow: 0 5px 15px rgba(93, 24, 40, 0.08); margin-bottom: 0px; line-height: 1.2;
+        }
+
+        .card-front .main-audio-row {
+            display: flex; flex-direction: row; align-items: center; justify-content: center;
+            gap: 20px; margin-top: 0px; z-index: 2;
+        }
+
+        .card-front .main-ph-fr, .card-front .main-ph-es { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        .card-front .main-ph-es { font-size: 0.95rem; font-style: italic; font-weight: 500; text-transform: none;}
+
+        .card-front .btn-audio-main {
+            background: var(--white); border: 1px solid var(--gold); color: var(--burgundy);
+            width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(200, 164, 98, 0.15); margin: 0;
+        }
+        .card-front .btn-audio-main:hover { transform: scale(1.1); background: var(--gold); color: var(--white); }
+
+        .card-front .recto-modoud-container {
+            display: flex; flex-direction: row; justify-content: center; align-items: stretch;
+            width: 100%; border-top: 1px solid rgba(200, 164, 98, 0.2); padding: 25px 15px 35px 15px; direction: rtl; 
+        }
+
+        .card-front .modoud-col {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            padding: 20px 10px; border-radius: 16px; border: 1px solid rgba(200, 164, 98, 0.2);
+            transition: all 0.3s ease; position: relative; margin: 0 8px; background: var(--white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        
+        .card-front .modoud-col.active[data-type="alif"] { border-color: var(--color-alif); background-color: rgba(229,57,53,0.02); box-shadow: 0 6px 20px rgba(229,57,53,0.08); transform: translateY(-3px);}
+        .card-front .modoud-col.active[data-type="waw"]  { border-color: var(--color-waw); background-color: rgba(30,136,229,0.02); box-shadow: 0 6px 20px rgba(30,136,229,0.08); transform: translateY(-3px);}
+        .card-front .modoud-col.active[data-type="yaa"]  { border-color: var(--color-yaa); background-color: rgba(67,160,71,0.02); box-shadow: 0 6px 20px rgba(67,160,71,0.08); transform: translateY(-3px);}
+
+        .card-front .col-title-trans { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; }
+        .card-front .col-madd-form { font-size: 3.5rem; color: var(--burgundy); font-weight: bold; margin-bottom: 15px; line-height: 1; }
+        .card-front .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: auto; border-top: 1px dashed rgba(200, 164, 98, 0.3); padding-top: 15px; }
+
+        /* =========================================
+           STYLES SPÉCIFIQUES : FACE VERSO
+           ========================================= */
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card-back .verso-modoud-container {
+            display: flex; flex-direction: row; justify-content: center; align-items: stretch;
+            width: 100%; padding: 10px 20px 30px 20px; flex-grow: 1; direction: rtl; 
+        }
+
+        .card-back .verso-col {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            background: var(--white); border-radius: 16px; padding: 20px 10px; margin: 0 8px;
+            border: 1px solid rgba(200, 164, 98, 0.3); transition: all 0.3s ease; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); position: relative; overflow: hidden;
+        }
+
+        /* EFFET ACTIVE SUR LE VERSO */
+        .card-back .verso-col.active[data-type="alif"] { border-color: var(--color-alif); background-color: rgba(229,57,53,0.02); box-shadow: 0 6px 20px rgba(229,57,53,0.08); transform: translateY(-3px);}
+        .card-back .verso-col.active[data-type="waw"]  { border-color: var(--color-waw); background-color: rgba(30,136,229,0.02); box-shadow: 0 6px 20px rgba(30,136,229,0.08); transform: translateY(-3px);}
+        .card-back .verso-col.active[data-type="yaa"]  { border-color: var(--color-yaa); background-color: rgba(67,160,71,0.02); box-shadow: 0 6px 20px rgba(67,160,71,0.08); transform: translateY(-3px);}
+
+
+        .card-back .col-alif { border-top: 5px solid var(--color-alif); }
+        .card-back .col-waw  { border-top: 5px solid var(--color-waw);  }
+        .card-back .col-yaa  { border-top: 5px solid var(--color-yaa);  }
+
+        .card-back .vc-header { width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+        .card-back .col-title-trans { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
+        .card-back .col-madd-form { font-size: 3.2rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; line-height: normal; }
+        
+        .card-back .verso-madd-form { margin-top: 30px; margin-bottom: 25px; }
+        .card-back .verso-separator { width: 40px; height: 1px; background-color: var(--gold-light); opacity: 0.5; margin: 0 auto 20px auto; }
+
+        .card-back .col-example { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: auto; border-top: none; padding: 5px 0;}
+        .card-back .ex-word { font-size: 3rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; text-align: center; line-height: normal; }
+        
+        .card-back .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: auto; border-top: none; padding-top: 5px; }
+
+        /* =========================================
+           CONTRÔLES DE NAVIGATION
+           ========================================= */
+        .nav-controls {
+            display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 950px; gap: 20px;
+        }
+        .btn-nav {
+            background: var(--white); border: 2px solid var(--gold); color: var(--burgundy);
+            padding: 15px 30px; border-radius: 50px; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-soft); flex: 1; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-nav:hover { background: var(--gold); color: var(--white); transform: translateY(-3px); }
+        .btn-nav:disabled { opacity: 0.5; pointer-events: none; border-color: #ddd; background: #f5f5f5; color: #aaa; box-shadow: none; }
+
+        /* =========================================
+           RESPONSIVE MOBILE
+           ========================================= */
+        @media (max-width: 768px) {
+            .card-flip { min-height: auto; }
+            .card-face { position: relative; height: auto; display: none; }
+            .card-flip:not(.is-flipped) .card-front { display: flex; }
+            .card-flip.is-flipped .card-back { display: flex; transform: rotateY(0); }
+            
+            .card-front .main-letter { font-size: 5.5rem; margin-bottom: 5px; }
+            
+            .recto-modoud-container, .verso-modoud-container { flex-direction: row; padding: 10px 5px 25px 5px; gap: 2px; }
+            .modoud-col, .verso-col { padding: 15px 5px; margin: 0 4px; }
+            
+            .col-title-ar { font-size: 1.1rem; margin-bottom: 5px; }
+            .col-t-fr, .col-t-es { font-size: 0.65rem; }
+            .btn-audio-micro { width: 28px; height: 28px; font-size: 0.85rem; }
+            
+            /* Responsive Recto */
+            .card-front .col-title-trans { margin-bottom: 15px; }
+            .card-front .col-madd-form { font-size: 2.5rem; margin-bottom: 10px; }
+            .card-front .col-footer-row { flex-direction: column; gap: 6px; padding-top: 10px;}
+            
+            /* Responsive Verso */
+            .card-back .col-title-trans { margin-bottom: 10px; }
+            .card-back .col-madd-form { font-size: 2.5rem; margin-bottom: 10px; }
+            .card-back .verso-madd-form { margin-top: 15px; margin-bottom: 15px; }
+            .card-back .verso-separator { margin-bottom: 15px; }
+            .card-back .col-footer-row { flex-direction: column; gap: 6px; padding-top: 10px;}
+            .card-back .col-example { padding: 0; }
+            .card-back .ex-word { font-size: 2.2rem; margin-bottom: 5px; }
+        }
+        
+        @media (max-width: 480px) {
+            .app-header { margin-bottom: 15px; }
+            .btn-home { width: 40px; height: 40px; font-size: 1.1rem; }
+            .brand-ar-top { font-size: 1.8rem; margin-bottom: 0;}
+            .brand-fr { font-size: 0.85rem; letter-spacing: 3px; }
+            
+            .col-title-ar { font-size: 0.9rem; }
+            .col-t-fr, .col-t-es { font-size: 0.6rem; }
+            .btn-nav { padding: 12px; font-size: 0.9rem; }
+            
+            /* Responsive Recto */
+            .card-front .main-letter { font-size: 4.8rem; margin-bottom: 5px;}
+            .card-front .main-audio-row { gap: 12px; margin-bottom: 0px; }
+            .card-front .main-ph-fr, .card-front .main-ph-es { font-size: 0.9rem; }
+            .card-front .btn-audio-main { width: 35px; height: 35px; font-size: 0.9rem; }
+            .card-front .col-title-trans { margin-bottom: 10px; }
+            .card-front .col-madd-form { font-size: 2rem; margin-bottom: 5px; }
+            
+            /* Responsive Verso */
+            .card-back .col-title-trans { margin-bottom: 5px; }
+            .card-back .col-madd-form { font-size: 2rem; margin-bottom: 5px; }
+            .card-back .verso-madd-form { margin-top: 10px; margin-bottom: 10px; }
+            .card-back .verso-separator { margin-bottom: 10px; width: 30px; }
+            .card-back .ex-word { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <div class="progress-counter"><span id="current-index">1</span> / 28</div>
+        <a href="modules.html" class="btn-home" title="Retour au menu"><i class="fa-solid fa-house"></i></a>
+    </div>
+
+    <div class="card-container">
+        <div class="card-flip" id="flashcard" onclick="toggleFlip(event)">
+            
+            <div class="card-face card-front">
+                <i class="fa-solid fa-rotate flip-hint"></i>
+                
+                <div class="card-branding">
+                    <div class="brand-ar-top ar-text">دار الكلمة</div>
+                    <div class="brand-fr serif-text">Dar Al-Kalimah</div>
+                    <div class="cb-line"></div>
+                </div>
+
+                <div class="front-center-wrapper">
+                    <div class="main-letter ar-text" id="front-letter">أ</div>
+                    
+                    <div class="main-audio-row" dir="ltr">
+                        <span class="main-ph-fr gold-text">FR : <span id="front-ph-fr" class="burgundy-text"></span></span>
+                        <button class="btn-audio-main" onclick="playMainAudio(event)" title="Écouter la lettre">🎙️</button>
+                        <span class="main-ph-es gold-text">ES : <span id="front-ph-es" class="burgundy-text"></span></span>
+                    </div>
+                </div>
+                
+                <div class="recto-modoud-container ar-text">
+                    <div class="modoud-col" data-type="alif" onclick="activateColumn(this, event)">
+                        <div class="col-title-ar ar-text">المَدُّ بِالأَلِف</div>
+                        <div class="col-title-trans" dir="ltr">
+                            <span class="col-t-fr">Madd avec Alif</span>
+                            <span class="col-t-es">Madd con Alif</span>
+                        </div>
+                        <div class="col-madd-form ar-text" id="recto-alif-form"></div>
+                        
+                        <div class="col-footer-row" dir="ltr">
+                            <span class="col-ph-fr gold-text">FR : <span id="recto-alif-fr" class="burgundy-text"></span></span>
+                            <button class="btn-audio-micro" onclick="playModoudAudio('alif', event)" title="Écouter">🎙️</button>
+                            <span class="col-ph-es gold-text">ES : <span id="recto-alif-es" class="burgundy-text"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="modoud-col" data-type="waw" onclick="activateColumn(this, event)">
+                        <div class="col-title-ar ar-text">المَدُّ بِالوَاو</div>
+                        <div class="col-title-trans" dir="ltr">
+                            <span class="col-t-fr">Madd avec Waw</span>
+                            <span class="col-t-es">Madd con Waw</span>
+                        </div>
+                        <div class="col-madd-form ar-text" id="recto-waw-form"></div>
+                        
+                        <div class="col-footer-row" dir="ltr">
+                            <span class="col-ph-fr gold-text">FR : <span id="recto-waw-fr" class="burgundy-text"></span></span>
+                            <button class="btn-audio-micro" onclick="playModoudAudio('waw', event)" title="Écouter">🎙️</button>
+                            <span class="col-ph-es gold-text">ES : <span id="recto-waw-es" class="burgundy-text"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="modoud-col" data-type="yaa" onclick="activateColumn(this, event)">
+                        <div class="col-title-ar ar-text">المَدُّ بِاليَاء</div>
+                        <div class="col-title-trans" dir="ltr">
+                            <span class="col-t-fr">Madd avec Yaa</span>
+                            <span class="col-t-es">Madd con Yaa</span>
+                        </div>
+                        <div class="col-madd-form ar-text" id="recto-yaa-form"></div>
+                        
+                        <div class="col-footer-row" dir="ltr">
+                            <span class="col-ph-fr gold-text">FR : <span id="recto-yaa-fr" class="burgundy-text"></span></span>
+                            <button class="btn-audio-micro" onclick="playModoudAudio('yaa', event)" title="Écouter">🎙️</button>
+                            <span class="col-ph-es gold-text">ES : <span id="recto-yaa-es" class="burgundy-text"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-face card-back">
+                <i class="fa-solid fa-rotate flip-hint"></i>
+
+                <div class="card-branding">
+                    <div class="brand-ar-top ar-text">دار الكلمة</div>
+                    <div class="brand-fr serif-text">Dar Al-Kalimah</div>
+                    <div class="cb-line"></div>
+                </div>
+
+                <div class="verso-modoud-container ar-text">
+                    <div class="verso-col col-alif" data-type="alif" onclick="activateColumn(this, event)">
+                        <div class="vc-header">
+                            <div class="col-title-ar ar-text">المَدُّ بِالأَلِف</div>
+                            <div class="col-title-trans" dir="ltr">
+                                <span class="col-t-fr">Madd bil alif</span>
+                                <span class="col-t-es">Madd bil alif</span>
+                            </div>
+                        </div>
+                        <div class="col-madd-form verso-madd-form ar-text" id="verso-alif-form"></div>
+                        
+                        <div class="verso-separator"></div>
+
+                        <div class="col-example">
+                            <div class="ex-word ar-text" id="verso-alif-ex-ar"></div>
+                        </div>
+
+                        <div class="col-footer-row" dir="ltr">
+                            <span class="col-ph-fr gold-text">FR : <span id="verso-alif-ex-fr" class="burgundy-text"></span></span>
+                            <button class="btn-audio-micro" onclick="playModoudAudio('alif', event)" title="Écouter">🎙️</button>
+                            <span class="col-ph-es gold-text">ES : <span id="verso-alif-ex-es" class="burgundy-text"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="verso-col col-waw" data-type="waw" onclick="activateColumn(this, event)">
+                        <div class="vc-header">
+                            <div class="col-title-ar ar-text">المَدُّ بِالوَاو</div>
+                            <div class="col-title-trans" dir="ltr">
+                                <span class="col-t-fr">Madd bil waw</span>
+                                <span class="col-t-es">Madd bil waw</span>
+                            </div>
+                        </div>
+                        <div class="col-madd-form verso-madd-form ar-text" id="verso-waw-form"></div>
+                        
+                        <div class="verso-separator"></div>
+
+                        <div class="col-example">
+                            <div class="ex-word ar-text" id="verso-waw-ex-ar"></div>
+                        </div>
+
+                        <div class="col-footer-row" dir="ltr">
+                            <span class="col-ph-fr gold-text">FR : <span id="verso-waw-ex-fr" class="burgundy-text"></span></span>
+                            <button class="btn-audio-micro" onclick="playModoudAudio('waw', event)" title="Écouter">🎙️</button>
+                            <span class="col-ph-es gold-text">ES : <span id="verso-waw-ex-es" class="burgundy-text"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="verso-col col-yaa" data-type="yaa" onclick="activateColumn(this, event)">
+                        <div class="vc-header">
+                            <div class="col-title-ar ar-text">المَدُّ بِاليَاء</div>
+                            <div class="col-title-trans" dir="ltr">
+                                <span class="col-t-fr">Madd bil yaa</span>
+                                <span class="col-t-es">Madd bil yaa</span>
+                            </div>
+                        </div>
+                        <div class="col-madd-form verso-madd-form ar-text" id="verso-yaa-form"></div>
+                        
+                        <div class="verso-separator"></div>
+
+                        <div class="col-example">
+                            <div class="ex-word ar-text" id="verso-yaa-ex-ar"></div>
+                        </div>
+
+                        <div class="col-footer-row" dir="ltr">
+                            <span class="col-ph-fr gold-text">FR : <span id="verso-yaa-ex-fr" class="burgundy-text"></span></span>
+                            <button class="btn-audio-micro" onclick="playModoudAudio('yaa', event)" title="Écouter">🎙️</button>
+                            <span class="col-ph-es gold-text">ES : <span id="verso-yaa-ex-es" class="burgundy-text"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-controls">
+        <button class="btn-nav" id="btn-prev" onclick="prevCard()"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
+        <button class="btn-nav" id="btn-next" onclick="nextCard()">Suivant <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <script>
+        const alphabetData = [
+            { letter: "أ", nameFr: "Alif", nameEs: "Álif", audioMain: "audio/01-alif.mp3",
+              alif: { form: "آ", phFr: "â", phEs: "á", audio: "audio/modoud/alif-aa.mp3", exAr: "قُرْآن", exFr: "Qur'ān", exEs: "Qur'ān" },
+              waw:  { form: "أُو", phFr: "oû", phEs: "ú", audio: "audio/modoud/alif-uu.mp3", exAr: "إِقْرَؤُوا", exFr: "Iqra'ū", exEs: "Iqra'ū" },
+              yaa:  { form: "إِي", phFr: "î", phEs: "í", audio: "audio/modoud/alif-ii.mp3", exAr: "لَاجِئِين", exFr: "Lāji'īn", exEs: "Lāji'īn" } },
+            { letter: "ب", nameFr: "Bâ'", nameEs: "Bâ'", audioMain: "audio/02-baa.mp3",
+              alif: { form: "بَا", phFr: "bâ", phEs: "bá", audio: "audio/modoud/baa-aa.mp3", exAr: "بَاب", exFr: "Bāb", exEs: "Bāb" },
+              waw:  { form: "بُو", phFr: "boû", phEs: "bú", audio: "audio/modoud/baa-uu.mp3", exAr: "بُوم", exFr: "Būm", exEs: "Būm" },
+              yaa:  { form: "بِي", phFr: "bî", phEs: "bí", audio: "audio/modoud/baa-ii.mp3", exAr: "طَبِيب", exFr: "Ṭabīb", exEs: "Ṭabīb" } },
+            { letter: "ت", nameFr: "Tâ'", nameEs: "Tâ'", audioMain: "audio/03-taa.mp3",
+              alif: { form: "تَا", phFr: "tâ", phEs: "tá", audio: "audio/modoud/taa-aa.mp3", exAr: "تَاج", exFr: "Tāj", exEs: "Tāj" },
+              waw:  { form: "تُو", phFr: "toû", phEs: "tú", audio: "audio/modoud/taa-uu.mp3", exAr: "تُوت", exFr: "Tūt", exEs: "Tūt" },
+              yaa:  { form: "تِي", phFr: "tî", phEs: "tí", audio: "audio/modoud/taa-ii.mp3", exAr: "تِين", exFr: "Tīn", exEs: "Tīn" } },
+            { letter: "ث", nameFr: "Thâ'", nameEs: "Thâ'", audioMain: "audio/04-thaa.mp3",
+              alif: { form: "ثَا", phFr: "thâ", phEs: "thá", audio: "audio/modoud/thaa-aa.mp3", exAr: "أَثَاث", exFr: "Athāth", exEs: "Athāth" },
+              waw:  { form: "ثُو", phFr: "thoû", phEs: "thú", audio: "audio/modoud/thaa-uu.mp3", exAr: "ثُوم", exFr: "Thūm", exEs: "Thūm" },
+              yaa:  { form: "ثِي", phFr: "thî", phEs: "thí", audio: "audio/modoud/thaa-ii.mp3", exAr: "كَثِير", exFr: "Kathīr", exEs: "Kathīr" } },
+            { letter: "ج", nameFr: "Jîm", nameEs: "Yîm", audioMain: "audio/05-jim.mp3",
+              alif: { form: "جَا", phFr: "jâ", phEs: "yá", audio: "audio/modoud/jim-aa.mp3", exAr: "جَامِع", exFr: "Jāmi'", exEs: "Jāmi'" },
+              waw:  { form: "جُو", phFr: "joû", phEs: "yú", audio: "audio/modoud/jim-uu.mp3", exAr: "نُجُوم", exFr: "Nujūm", exEs: "Nujūm" },
+              yaa:  { form: "جِي", phFr: "jî", phEs: "yí", audio: "audio/modoud/jim-ii.mp3", exAr: "جِيرَان", exFr: "Jīrān", exEs: "Jīrān" } },
+            { letter: "ح", nameFr: "Ḥâ'", nameEs: "Ḥâ'", audioMain: "audio/06-haa.mp3",
+              alif: { form: "حَا", phFr: "ḥâ", phEs: "ḥá", audio: "audio/modoud/haa-aa.mp3", exAr: "حَافِلَة", exFr: "Ḥāfilah", exEs: "Ḥāfilah" },
+              waw:  { form: "حُو", phFr: "ḥoû", phEs: "ḥú", audio: "audio/modoud/haa-uu.mp3", exAr: "حُوت", exFr: "Ḥūt", exEs: "Ḥūt" },
+              yaa:  { form: "حِي", phFr: "ḥî", phEs: "ḥí", audio: "audio/modoud/haa-ii.mp3", exAr: "نَحِيف", exFr: "Naḥīf", exEs: "Naḥīf" } },
+            { letter: "خ", nameFr: "Khâ'", nameEs: "Jâ'", audioMain: "audio/07-khaa.mp3",
+              alif: { form: "خَا", phFr: "khâ", phEs: "já", audio: "audio/modoud/khaa-aa.mp3", exAr: "خَاتَم", exFr: "Khātam", exEs: "Khātam" },
+              waw:  { form: "خُو", phFr: "khoû", phEs: "jú", audio: "audio/modoud/khaa-uu.mp3", exAr: "صُخُور", exFr: "Ṣukhūr", exEs: "Ṣukhūr" },
+              yaa:  { form: "خِي", phFr: "khî", phEs: "jí", audio: "audio/modoud/khaa-ii.mp3", exAr: "نَخِيل", exFr: "Nakhīl", exEs: "Nakhīl" } },
+            { letter: "د", nameFr: "Dâl", nameEs: "Dâl", audioMain: "audio/08-dal.mp3",
+              alif: { form: "دَا", phFr: "dâ", phEs: "dá", audio: "audio/modoud/dal-aa.mp3", exAr: "دَار", exFr: "Dār", exEs: "Dār" },
+              waw:  { form: "دُو", phFr: "doû", phEs: "dú", audio: "audio/modoud/dal-uu.mp3", exAr: "دُود", exFr: "Dūd", exEs: "Dūd" },
+              yaa:  { form: "دِي", phFr: "dî", phEs: "dí", audio: "audio/modoud/dal-ii.mp3", exAr: "دِين", exFr: "Dīn", exEs: "Dīn" } },
+            { letter: "ذ", nameFr: "Dhâl", nameEs: "Dhâl", audioMain: "audio/09-dhal.mp3",
+              alif: { form: "ذَا", phFr: "dhâ", phEs: "dhá", audio: "audio/modoud/dhal-aa.mp3", exAr: "حِذَاء", exFr: "Ḥidhā'", exEs: "Ḥidhā'" },
+              waw:  { form: "ذُو", phFr: "dhoû", phEs: "dhú", audio: "audio/modoud/dhal-uu.mp3", exAr: "بُذُور", exFr: "Budhūr", exEs: "Budhūr" },
+              yaa:  { form: "ذِي", phFr: "dhî", phEs: "dhí", audio: "audio/modoud/dhal-ii.mp3", exAr: "مُذِيع", exFr: "Mudhī'", exEs: "Mudhī'" } },
+            { letter: "ر", nameFr: "Râ'", nameEs: "Râ'", audioMain: "audio/10-raa.mp3",
+              alif: { form: "رَا", phFr: "râ", phEs: "rá", audio: "audio/modoud/raa-aa.mp3", exAr: "غُرَاب", exFr: "Ghurāb", exEs: "Ghurāb" },
+              waw:  { form: "رُو", phFr: "roû", phEs: "rú", audio: "audio/modoud/raa-uu.mp3", exAr: "مُرُور", exFr: "Murūr", exEs: "Murūr" },
+              yaa:  { form: "رِي", phFr: "rî", phEs: "rí", audio: "audio/modoud/raa-ii.mp3", exAr: "سَرِير", exFr: "Sarīr", exEs: "Sarīr" } },
+            { letter: "ز", nameFr: "Zây", nameEs: "Zây", audioMain: "audio/11-zay.mp3",
+              alif: { form: "زَا", phFr: "zâ", phEs: "zá", audio: "audio/modoud/zay-aa.mp3", exAr: "غَزَال", exFr: "Ghazāl", exEs: "Ghazāl" },
+              waw:  { form: "زُو", phFr: "zoû", phEs: "zú", audio: "audio/modoud/zay-uu.mp3", exAr: "يَزُور", exFr: "Yazūr", exEs: "Yazūr" },
+              yaa:  { form: "زِي", phFr: "zî", phEs: "zí", audio: "audio/modoud/zay-ii.mp3", exAr: "حَزِين", exFr: "Ḥazīn", exEs: "Ḥazīn" } },
+            { letter: "س", nameFr: "Sîn", nameEs: "Sîn", audioMain: "audio/12-siin.mp3",
+              alif: { form: "سَا", phFr: "sâ", phEs: "sá", audio: "audio/modoud/siin-aa.mp3", exAr: "سَاعَة", exFr: "Sā'ah", exEs: "Sā'ah" },
+              waw:  { form: "سُو", phFr: "soû", phEs: "sú", audio: "audio/modoud/siin-uu.mp3", exAr: "سُوق", exFr: "Sūq", exEs: "Sūq" },
+              yaa:  { form: "سِي", phFr: "sî", phEs: "sí", audio: "audio/modoud/siin-ii.mp3", exAr: "غَسِيل", exFr: "Ghasīl", exEs: "Ghasīl" } },
+            { letter: "ش", nameFr: "Shîn", nameEs: "Shîn", audioMain: "audio/13-shiin.mp3",
+              alif: { form: "شَا", phFr: "shâ", phEs: "shá", audio: "audio/modoud/shiin-aa.mp3", exAr: "شَارِع", exFr: "Shāri'", exEs: "Shāri'" },
+              waw:  { form: "شُو", phFr: "shoû", phEs: "shú", audio: "audio/modoud/shiin-uu.mp3", exAr: "قُشُور", exFr: "Qushūr", exEs: "Qushūr" },
+              yaa:  { form: "شِي", phFr: "shî", phEs: "shí", audio: "audio/modoud/shiin-ii.mp3", exAr: "نَشِيد", exFr: "Nashīd", exEs: "Nashīd" } },
+            { letter: "ص", nameFr: "Ṣâd", nameEs: "Ṣâd", audioMain: "audio/14-saad.mp3",
+              alif: { form: "صَا", phFr: "ṣâ", phEs: "ṣá", audio: "audio/modoud/saad-aa.mp3", exAr: "صَابُون", exFr: "Ṣābūn", exEs: "Ṣābūn" },
+              waw:  { form: "صُو", phFr: "ṣoû", phEs: "ṣú", audio: "audio/modoud/saad-uu.mp3", exAr: "صُورَة", exFr: "Ṣūrah", exEs: "Ṣūrah" },
+              yaa:  { form: "صِي", phFr: "ṣî", phEs: "ṣí", audio: "audio/modoud/saad-ii.mp3", exAr: "عَصِير", exFr: "'Aṣīr", exEs: "'Aṣīr" } },
+            { letter: "ض", nameFr: "Ḍâd", nameEs: "Ḍâd", audioMain: "audio/15-daad.mp3",
+              alif: { form: "ضَا", phFr: "ḍâ", phEs: "ḍá", audio: "audio/modoud/daad-aa.mp3", exAr: "ضَابِط", exFr: "Ḍābiṭ", exEs: "Ḍābiṭ" },
+              waw:  { form: "ضُو", phFr: "ḍoû", phEs: "ḍú", audio: "audio/modoud/daad-uu.mp3", exAr: "وُضُوء", exFr: "Wuḍū'", exEs: "Wuḍū'" },
+              yaa:  { form: "ضِي", phFr: "ḍî", phEs: "ḍí", audio: "audio/modoud/daad-ii.mp3", exAr: "رَضِيع", exFr: "Raḍī'", exEs: "Raḍī'" } },
+            { letter: "ط", nameFr: "Ṭâ'", nameEs: "Ṭâ'", audioMain: "audio/16-taaa.mp3",
+              alif: { form: "طَا", phFr: "ṭâ", phEs: "ṭá", audio: "audio/modoud/taaa-aa.mp3", exAr: "طَائِرَة", exFr: "Ṭā'irah", exEs: "Ṭā'irah" },
+              waw:  { form: "طُو", phFr: "ṭoû", phEs: "ṭú", audio: "audio/modoud/taaa-uu.mp3", exAr: "فُطُور", exFr: "Fuṭūr", exEs: "Fuṭūr" },
+              yaa:  { form: "طِي", phFr: "ṭî", phEs: "ṭí", audio: "audio/modoud/taaa-ii.mp3", exAr: "مَطِير", exFr: "Maṭīr", exEs: "Maṭīr" } },
+            { letter: "ظ", nameFr: "Ẓâ'", nameEs: "Ẓâ'", audioMain: "audio/17-zaa.mp3",
+              alif: { form: "ظَا", phFr: "ẓâ", phEs: "ẓá", audio: "audio/modoud/zaa-aa.mp3", exAr: "مَنَاظِر", exFr: "Manāẓir", exEs: "Manāẓir" },
+              waw:  { form: "ظُو", phFr: "ẓoû", phEs: "ẓú", audio: "audio/modoud/zaa-uu.mp3", exAr: "مَنْظُور", exFr: "Manẓūr", exEs: "Manẓūr" },
+              yaa:  { form: "ظِي", phFr: "ẓî", phEs: "ẓí", audio: "audio/modoud/zaa-ii.mp3", exAr: "نَظِيف", exFr: "Naẓīf", exEs: "Naẓīf" } },
+            { letter: "ع", nameFr: "‘Ayn", nameEs: "‘Ayn", audioMain: "audio/18-ayn.mp3",
+              alif: { form: "عَا", phFr: "‘â", phEs: "‘á", audio: "audio/modoud/ayn-aa.mp3", exAr: "عَامِل", exFr: "‘Āmil", exEs: "‘Āmil" },
+              waw:  { form: "عُو", phFr: "‘oû", phEs: "‘ú", audio: "audio/modoud/ayn-uu.mp3", exAr: "عُود", exFr: "‘Ūd", exEs: "‘Ūd" },
+              yaa:  { form: "عِي", phFr: "‘î", phEs: "‘í", audio: "audio/modoud/ayn-ii.mp3", exAr: "سَعِيد", exFr: "Sa‘īd", exEs: "Sa‘īd" } },
+            { letter: "غ", nameFr: "Ghayn", nameEs: "Ghayn", audioMain: "audio/19-ghayn.mp3",
+              alif: { form: "غَا", phFr: "ghâ", phEs: "ghá", audio: "audio/modoud/ghayn-aa.mp3", exAr: "غَابَة", exFr: "Ghābah", exEs: "Ghābah" },
+              waw:  { form: "غُو", phFr: "ghoû", phEs: "ghú", audio: "audio/modoud/ghayn-uu.mp3", exAr: "غُوص", exFr: "Ghūṣ", exEs: "Ghūṣ" },
+              yaa:  { form: "غِي", phFr: "ghî", phEs: "ghí", audio: "audio/modoud/ghayn-ii.mp3", exAr: "صَغِير", exFr: "Ṣaghīr", exEs: "Ṣaghīr" } },
+            { letter: "ف", nameFr: "Fâ'", nameEs: "Fâ'", audioMain: "audio/20-faa.mp3",
+              alif: { form: "فَا", phFr: "fâ", phEs: "fá", audio: "audio/modoud/faa-aa.mp3", exAr: "فَارِس", exFr: "Fāris", exEs: "Fāris" },
+              waw:  { form: "فُو", phFr: "foû", phEs: "fú", audio: "audio/modoud/faa-uu.mp3", exAr: "فُول", exFr: "Fūl", exEs: "Fūl" },
+              yaa:  { form: "فِي", phFr: "fî", phEs: "fí", audio: "audio/modoud/faa-ii.mp3", exAr: "فِيل", exFr: "Fīl", exEs: "Fīl" } },
+            { letter: "ق", nameFr: "Qâf", nameEs: "Qâf", audioMain: "audio/21-qaaf.mp3",
+              alif: { form: "قَا", phFr: "qâ", phEs: "qá", audio: "audio/modoud/qaaf-aa.mp3", exAr: "قَارِب", exFr: "Qārib", exEs: "Qārib" },
+              waw:  { form: "قُو", phFr: "qoû", phEs: "qú", audio: "audio/modoud/qaaf-uu.mp3", exAr: "حُقُول", exFr: "Ḥuqūl", exEs: "Ḥuqūl" },
+              yaa:  { form: "قِي", phFr: "qî", phEs: "qí", audio: "audio/modoud/qaaf-ii.mp3", exAr: "ثَقِيل", exFr: "Thaqīl", exEs: "Thaqīl" } },
+            { letter: "ك", nameFr: "Kâf", nameEs: "Kâf", audioMain: "audio/22-kaaf.mp3",
+              alif: { form: "كَا", phFr: "kâ", phEs: "ká", audio: "audio/modoud/kaaf-aa.mp3", exAr: "كَاتِب", exFr: "Kātib", exEs: "Kātib" },
+              waw:  { form: "كُو", phFr: "koû", phEs: "kú", audio: "audio/modoud/kaaf-uu.mp3", exAr: "كُوب", exFr: "Kūb", exEs: "Kūb" },
+              yaa:  { form: "كِي", phFr: "kî", phEs: "kí", audio: "audio/modoud/kaaf-ii.mp3", exAr: "حَكِيم", exFr: "Ḥakīm", exEs: "Ḥakīm" } },
+            { letter: "ل", nameFr: "Lâm", nameEs: "Lâm", audioMain: "audio/23-laam.mp3",
+              alif: { form: "لَا", phFr: "lâ", phEs: "lá", audio: "audio/modoud/laam-aa.mp3", exAr: "لَاعِب", exFr: "Lā‘ib", exEs: "Lā‘ib" },
+              waw:  { form: "لُو", phFr: "loû", phEs: "lú", audio: "audio/modoud/laam-uu.mp3", exAr: "قُلُوب", exFr: "Qulūb", exEs: "Qulūb" },
+              yaa:  { form: "لِي", phFr: "lî", phEs: "lí", audio: "audio/modoud/laam-ii.mp3", exAr: "حَلِيب", exFr: "Ḥalīb", exEs: "Ḥalīb" } },
+            { letter: "م", nameFr: "Mîm", nameEs: "Mîm", audioMain: "audio/24-miim.mp3",
+              alif: { form: "مَا", phFr: "mâ", phEs: "má", audio: "audio/modoud/miim-aa.mp3", exAr: "مَاء", exFr: "Mā’", exEs: "Mā’" },
+              waw:  { form: "مُو", phFr: "moû", phEs: "mú", audio: "audio/modoud/miim-uu.mp3", exAr: "لَيْمُون", exFr: "Laymūn", exEs: "Laymūn" },
+              yaa:  { form: "مِي", phFr: "mî", phEs: "mí", audio: "audio/modoud/miim-ii.mp3", exAr: "قَمِيص", exFr: "Qamīṣ", exEs: "Qamīṣ" } },
+            { letter: "ن", nameFr: "Nûn", nameEs: "Nûn", audioMain: "audio/25-nuun.mp3",
+              alif: { form: "نَا", phFr: "nâ", phEs: "ná", audio: "audio/modoud/nuun-aa.mp3", exAr: "نَار", exFr: "Nār", exEs: "Nār" },
+              waw:  { form: "نُو", phFr: "noû", phEs: "nú", audio: "audio/modoud/nuun-uu.mp3", exAr: "نُور", exFr: "Nūr", exEs: "Nūr" },
+              yaa:  { form: "نِي", phFr: "nî", phEs: "ní", audio: "audio/modoud/nuun-ii.mp3", exAr: "نِيل", exFr: "Nīl", exEs: "Nīl" } },
+            { letter: "ه", nameFr: "Hâ'", nameEs: "Hâ'", audioMain: "audio/26-haaa.mp3",
+              alif: { form: "هَا", phFr: "hâ", phEs: "há", audio: "audio/modoud/haaa-aa.mp3", exAr: "هَاتِف", exFr: "Hātif", exEs: "Hātif" },
+              waw:  { form: "هُو", phFr: "hoû", phEs: "hú", audio: "audio/modoud/haaa-uu.mp3", exAr: "زُهُور", exFr: "Zuhūr", exEs: "Zuhūr" },
+              yaa:  { form: "هِي", phFr: "hî", phEs: "hí", audio: "audio/modoud/haaa-ii.mp3", exAr: "بَهِيج", exFr: "Bahīj", exEs: "Bahīj" } },
+            { letter: "و", nameFr: "Wâw", nameEs: "Wâw", audioMain: "audio/27-waaw.mp3",
+              alif: { form: "وَا", phFr: "wâ", phEs: "wá", audio: "audio/modoud/waaw-aa.mp3", exAr: "وَاحِد", exFr: "Wāḥid", exEs: "Wāḥid" },
+              waw:  { form: "وُو", phFr: "woû", phEs: "wú", audio: "audio/modoud/waaw-uu.mp3", exAr: "طَاوُوس", exFr: "Ṭāwūs", exEs: "Ṭāwūs" },
+              yaa:  { form: "وِي", phFr: "wî", phEs: "wí", audio: "audio/modoud/waaw-ii.mp3", exAr: "طَوِيل", exFr: "Ṭawīl", exEs: "Ṭawīl" } },
+            { letter: "ي", nameFr: "Yâ'", nameEs: "Yâ'", audioMain: "audio/28-yaa.mp3",
+              alif: { form: "يَا", phFr: "yâ", phEs: "yá", audio: "audio/modoud/yaa-aa.mp3", exAr: "يَاسَمِين", exFr: "Yāsamīn", exEs: "Yāsamīn" },
+              waw:  { form: "يُو", phFr: "yoû", phEs: "yú", audio: "audio/modoud/yaa-uu.mp3", exAr: "طُيُور", exFr: "Ṭuyūr", exEs: "Ṭuyūr" },
+              yaa:  { form: "يِي", phFr: "yî", phEs: "yí", audio: "audio/modoud/yaa-ii.mp3", exAr: "تَخْيِيط", exFr: "Takhyīṭ", exEs: "Takhyīṭ" } }
+        ];
+
+        let currentIndex = 0;
+        let isFlipped = false;
+        let currentAudio = new Audio();
+        
+        const flashcard = document.getElementById('flashcard');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCard(currentIndex);
+        });
+
+        // Applique l'effet doré UNIQUEMENT sur la lettre de prolongation (sans voyelle)
+        function makeMaddGold(text) {
+            if (!text) return "";
+            // Ne remplace ا, و, ي que s'ils ne sont pas suivis d'une voyelle/diacritique arabe
+            return text.replace(/([اويآ])(?![\u064B-\u065F])/g, '<span class="gold-madd">$1</span>');
+        }
+
+        function renderCard(index) {
+            const data = alphabetData[index];
+            document.getElementById('current-index').innerText = index + 1;
+            
+            if (isFlipped) {
+                flashcard.classList.remove('is-flipped');
+                isFlipped = false;
+                setTimeout(() => updateDOM(data), 350);
+            } else {
+                updateDOM(data);
+            }
+            
+            document.getElementById('btn-prev').disabled = (index === 0);
+            document.getElementById('btn-next').disabled = (index === alphabetData.length - 1);
+        }
+
+        function updateDOM(data) {
+            // RECTO
+            document.getElementById('front-letter').innerText = data.letter;
+            document.getElementById('front-ph-fr').innerText = data.nameFr;
+            document.getElementById('front-ph-es').innerText = data.nameEs;
+
+            document.getElementById('recto-alif-form').innerHTML = makeMaddGold(data.alif.form);
+            document.getElementById('recto-alif-fr').innerText = data.alif.phFr;
+            document.getElementById('recto-alif-es').innerText = data.alif.phEs;
+
+            document.getElementById('recto-waw-form').innerHTML = makeMaddGold(data.waw.form);
+            document.getElementById('recto-waw-fr').innerText = data.waw.phFr;
+            document.getElementById('recto-waw-es').innerText = data.waw.phEs;
+
+            document.getElementById('recto-yaa-form').innerHTML = makeMaddGold(data.yaa.form);
+            document.getElementById('recto-yaa-fr').innerText = data.yaa.phFr;
+            document.getElementById('recto-yaa-es').innerText = data.yaa.phEs;
+
+            // VERSO
+            document.getElementById('verso-alif-form').innerHTML = makeMaddGold(data.alif.form);
+            document.getElementById('verso-alif-ex-ar').innerHTML = makeMaddGold(data.alif.exAr);
+            document.getElementById('verso-alif-ex-fr').innerText = data.alif.exFr;
+            document.getElementById('verso-alif-ex-es').innerText = data.alif.exEs;
+
+            document.getElementById('verso-waw-form').innerHTML = makeMaddGold(data.waw.form);
+            document.getElementById('verso-waw-ex-ar').innerHTML = makeMaddGold(data.waw.exAr);
+            document.getElementById('verso-waw-ex-fr').innerText = data.waw.exFr;
+            document.getElementById('verso-waw-ex-es').innerText = data.waw.exEs;
+
+            document.getElementById('verso-yaa-form').innerHTML = makeMaddGold(data.yaa.form);
+            document.getElementById('verso-yaa-ex-ar').innerHTML = makeMaddGold(data.yaa.exAr);
+            document.getElementById('verso-yaa-ex-fr').innerText = data.yaa.exFr;
+            document.getElementById('verso-yaa-ex-es').innerText = data.yaa.exEs;
+            
+            // Reset interactive classes
+            document.querySelectorAll('.modoud-col').forEach(col => col.classList.remove('active'));
+            document.querySelectorAll('.verso-col').forEach(col => col.classList.remove('active'));
+        }
+
+        function toggleFlip(event) {
+            // Empêcher le flip sur les clics de boutons ou lors d'interactions spécifiques
+            if (event.target.tagName.toLowerCase() === 'button' || event.target.closest('button')) return;
+            if (event.target.closest('.modoud-col') && !isFlipped) return; // Interaction couleur Recto
+            if (event.target.closest('.verso-col') && isFlipped) return;  // Interaction couleur Verso
+            
+            isFlipped = !isFlipped;
+            flashcard.classList.toggle('is-flipped');
+        }
+
+        // Active les couleurs élégantes au clic sur une colonne
+        function activateColumn(element, event) {
+            if (event.target.tagName.toLowerCase() === 'button' || event.target.closest('button')) return;
+            
+            const isRecto = element.classList.contains('modoud-col');
+            const selector = isRecto ? '.modoud-col' : '.verso-col';
+            
+            element.closest('.card-face').querySelectorAll(selector).forEach(col => col.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function nextCard() {
+            if (currentIndex < alphabetData.length - 1) {
+                currentIndex++;
+                renderCard(currentIndex);
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderCard(currentIndex);
+            }
+        }
+
+        function playMainAudio(event) {
+            if (event) event.stopPropagation();
+            playAudio(alphabetData[currentIndex].audioMain);
+        }
+
+        function playModoudAudio(type, event) {
+            if (event) event.stopPropagation();
+            const data = alphabetData[currentIndex];
+            let audioPath = "";
+            if (type === 'alif') audioPath = data.alif.audio;
+            if (type === 'waw') audioPath = data.waw.audio;
+            if (type === 'yaa') audioPath = data.yaa.audio;
+            playAudio(audioPath);
+        }
+
+        function playAudio(audioPath) {
+            if (!audioPath || audioPath === "") return;
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio.src = audioPath;
+            
+            let playPromise = currentAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => { console.log("Audio bloqué :", error); });
+            }
+        }
+    </script>
+</body>
+</html>
