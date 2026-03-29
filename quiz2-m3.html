@@ -227,7 +227,7 @@
             
             <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
             
-            <a href="menu-module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
+            <a href="module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
         </div>
     </div>
 
@@ -280,7 +280,7 @@
         <div class="cert-actions no-print">
             <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="menu-module2.html" class="btn-link">Menu Principal</a>
+            <a href="module2.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
@@ -411,6 +411,9 @@
                 btn.onclick = () => handleAnswer(arabicWord, btn, currentQ.targetArabic);
                 optionsGrid.appendChild(btn);
             });
+            
+            // LA CORRECTION : L'AUDIO SE LANCE AUTOMATIQUEMENT
+            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
         }
 
         function handleAnswer(selectedArabic, cardElement, targetArabic) {
