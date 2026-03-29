@@ -50,7 +50,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* BOÛTES & BOUTONS GÉNÉRAUX */
+        /* BOÎTES & BOUTONS GÉNÉRAUX */
         .btn-main, .btn-secondary, .btn-link {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
             color: var(--white); border: 2px solid var(--burgundy);
@@ -149,6 +149,8 @@
             font-size: 4rem; color: var(--burgundy); cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
             font-weight: bold;
+            line-height: 0.7;
+            font-feature-settings: "mark" 1;
         }
         
         .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
@@ -224,7 +226,7 @@
             
             <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
             
-            <a href="menu-module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
+            <a href="module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
         </div>
     </div>
 
@@ -277,7 +279,7 @@
         <div class="cert-actions no-print">
             <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="menu-module2.html" class="btn-link">Menu Principal</a>
+            <a href="module2.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
@@ -410,8 +412,8 @@
                 optionsGrid.appendChild(btn);
             });
 
-            // Jouer le son automatiquement (optionnel)
-            // setTimeout(() => { playCurrentQuestionAudio(); }, 400);
+            // CORRECTION DE L'AUDIO AUTOMATIQUE ICI
+            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
         }
 
         function handleAnswer(selectedArabic, cardElement, targetArabic) {
