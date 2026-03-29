@@ -152,6 +152,8 @@
             font-size: 4.5rem; color: var(--burgundy); cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
             font-weight: bold;
+            line-height: 0.7; /* Pour coller les harakates */
+            font-feature-settings: "mark" 1;
         }
         
         .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
@@ -231,7 +233,7 @@
             
             <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
             
-            <a href="menu-module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
+            <a href="module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
         </div>
     </div>
 
@@ -274,7 +276,7 @@
             
             <div class="cert-score-box">
                 <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">110 / 112</div>
+                <div id="cert-score" class="score-value">0 / 0</div>
             </div>
             
             <div id="cert-date" class="cert-date"></div>
@@ -284,153 +286,265 @@
         <div class="cert-actions no-print">
             <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="menu-module2.html" class="btn-link">Menu Principal</a>
+            <a href="module2.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
     <script>
-        // LA MATRICE DES 112 LETTRES AVEC HARAKAT (28 lettres x 4 voyelles)
-        const harakatData = [
-            // Alif
-            { letter: "أَ", audio: "audio/harakat/alif-fatha.mp3", type: "fatha" },
-            { letter: "أُ", audio: "audio/harakat/alif-damma.mp3", type: "damma" },
-            { letter: "إِ", audio: "audio/harakat/alif-kasra.mp3", type: "kasra" },
-            { letter: "أْ", audio: "audio/harakat/alif-sukoun.mp3", type: "sukoun" },
-            // Baa
-            { letter: "بَ", audio: "audio/harakat/baa-fatha.mp3", type: "fatha" },
-            { letter: "بُ", audio: "audio/harakat/baa-damma.mp3", type: "damma" },
-            { letter: "بِ", audio: "audio/harakat/baa-kasra.mp3", type: "kasra" },
-            { letter: "بْ", audio: "audio/harakat/baa-sukoun.mp3", type: "sukoun" },
-            // Taa
-            { letter: "تَ", audio: "audio/harakat/taa-fatha.mp3", type: "fatha" },
-            { letter: "تُ", audio: "audio/harakat/taa-damma.mp3", type: "damma" },
-            { letter: "تِ", audio: "audio/harakat/taa-kasra.mp3", type: "kasra" },
-            { letter: "تْ", audio: "audio/harakat/taa-sukoun.mp3", type: "sukoun" },
-            // Thaa
-            { letter: "ثَ", audio: "audio/harakat/thaa-fatha.mp3", type: "fatha" },
-            { letter: "ثُ", audio: "audio/harakat/thaa-damma.mp3", type: "damma" },
-            { letter: "ثِ", audio: "audio/harakat/thaa-kasra.mp3", type: "kasra" },
-            { letter: "ثْ", audio: "audio/harakat/thaa-sukoun.mp3", type: "sukoun" },
-            // Jim
-            { letter: "جَ", audio: "audio/harakat/jim-fatha.mp3", type: "fatha" },
-            { letter: "جُ", audio: "audio/harakat/jim-damma.mp3", type: "damma" },
-            { letter: "جِ", audio: "audio/harakat/jim-kasra.mp3", type: "kasra" },
-            { letter: "جْ", audio: "audio/harakat/jim-sukoun.mp3", type: "sukoun" },
-            // Haa
-            { letter: "حَ", audio: "audio/harakat/haa-fatha.mp3", type: "fatha" },
-            { letter: "حُ", audio: "audio/harakat/haa-damma.mp3", type: "damma" },
-            { letter: "حِ", audio: "audio/harakat/haa-kasra.mp3", type: "kasra" },
-            { letter: "حْ", audio: "audio/harakat/haa-sukoun.mp3", type: "sukoun" },
-            // Khaa
-            { letter: "خَ", audio: "audio/harakat/khaa-fatha.mp3", type: "fatha" },
-            { letter: "خُ", audio: "audio/harakat/khaa-damma.mp3", type: "damma" },
-            { letter: "خِ", audio: "audio/harakat/khaa-kasra.mp3", type: "kasra" },
-            { letter: "خْ", audio: "audio/harakat/khaa-sukoun.mp3", type: "sukoun" },
-            // Dal
-            { letter: "دَ", audio: "audio/harakat/dal-fatha.mp3", type: "fatha" },
-            { letter: "دُ", audio: "audio/harakat/dal-damma.mp3", type: "damma" },
-            { letter: "دِ", audio: "audio/harakat/dal-kasra.mp3", type: "kasra" },
-            { letter: "دْ", audio: "audio/harakat/dal-sukoun.mp3", type: "sukoun" },
-            // Dhal
-            { letter: "ذَ", audio: "audio/harakat/dhal-fatha.mp3", type: "fatha" },
-            { letter: "ذُ", audio: "audio/harakat/dhal-damma.mp3", type: "damma" },
-            { letter: "ذِ", audio: "audio/harakat/dhal-kasra.mp3", type: "kasra" },
-            { letter: "ذْ", audio: "audio/harakat/dhal-sukoun.mp3", type: "sukoun" },
-            // Raa
-            { letter: "رَ", audio: "audio/harakat/raa-fatha.mp3", type: "fatha" },
-            { letter: "رُ", audio: "audio/harakat/raa-damma.mp3", type: "damma" },
-            { letter: "رِ", audio: "audio/harakat/raa-kasra.mp3", type: "kasra" },
-            { letter: "رْ", audio: "audio/harakat/raa-sukoun.mp3", type: "sukoun" },
-            // Zay
-            { letter: "زَ", audio: "audio/harakat/zay-fatha.mp3", type: "fatha" },
-            { letter: "زُ", audio: "audio/harakat/zay-damma.mp3", type: "damma" },
-            { letter: "زِ", audio: "audio/harakat/zay-kasra.mp3", type: "kasra" },
-            { letter: "زْ", audio: "audio/harakat/zay-sukoun.mp3", type: "sukoun" },
-            // Siin
-            { letter: "سَ", audio: "audio/harakat/siin-fatha.mp3", type: "fatha" },
-            { letter: "سُ", audio: "audio/harakat/siin-damma.mp3", type: "damma" },
-            { letter: "سِ", audio: "audio/harakat/siin-kasra.mp3", type: "kasra" },
-            { letter: "سْ", audio: "audio/harakat/siin-sukoun.mp3", type: "sukoun" },
-            // Shiin
-            { letter: "شَ", audio: "audio/harakat/shiin-fatha.mp3", type: "fatha" },
-            { letter: "شُ", audio: "audio/harakat/shiin-damma.mp3", type: "damma" },
-            { letter: "شِ", audio: "audio/harakat/shiin-kasra.mp3", type: "kasra" },
-            { letter: "شْ", audio: "audio/harakat/shiin-sukoun.mp3", type: "sukoun" },
-            // Saad
-            { letter: "صَ", audio: "audio/harakat/saad-fatha.mp3", type: "fatha" },
-            { letter: "صُ", audio: "audio/harakat/saad-damma.mp3", type: "damma" },
-            { letter: "صِ", audio: "audio/harakat/saad-kasra.mp3", type: "kasra" },
-            { letter: "صْ", audio: "audio/harakat/saad-sukoun.mp3", type: "sukoun" },
-            // Daad
-            { letter: "ضَ", audio: "audio/harakat/daad-fatha.mp3", type: "fatha" },
-            { letter: "ضُ", audio: "audio/harakat/daad-damma.mp3", type: "damma" },
-            { letter: "ضِ", audio: "audio/harakat/daad-kasra.mp3", type: "kasra" },
-            { letter: "ضْ", audio: "audio/harakat/daad-sukoun.mp3", type: "sukoun" },
-            // Taaa
-            { letter: "طَ", audio: "audio/harakat/taaa-fatha.mp3", type: "fatha" },
-            { letter: "طُ", audio: "audio/harakat/taaa-damma.mp3", type: "damma" },
-            { letter: "طِ", audio: "audio/harakat/taaa-kasra.mp3", type: "kasra" },
-            { letter: "طْ", audio: "audio/harakat/taaa-sukoun.mp3", type: "sukoun" },
-            // Zaa
-            { letter: "ظَ", audio: "audio/harakat/zaa-fatha.mp3", type: "fatha" },
-            { letter: "ظُ", audio: "audio/harakat/zaa-damma.mp3", type: "damma" },
-            { letter: "ظِ", audio: "audio/harakat/zaa-kasra.mp3", type: "kasra" },
-            { letter: "ظْ", audio: "audio/harakat/zaa-sukoun.mp3", type: "sukoun" },
-            // Ayn
-            { letter: "عَ", audio: "audio/harakat/ayn-fatha.mp3", type: "fatha" },
-            { letter: "عُ", audio: "audio/harakat/ayn-damma.mp3", type: "damma" },
-            { letter: "عِ", audio: "audio/harakat/ayn-kasra.mp3", type: "kasra" },
-            { letter: "عْ", audio: "audio/harakat/ayn-sukoun.mp3", type: "sukoun" },
-            // Ghayn
-            { letter: "غَ", audio: "audio/harakat/ghayn-fatha.mp3", type: "fatha" },
-            { letter: "غُ", audio: "audio/harakat/ghayn-damma.mp3", type: "damma" },
-            { letter: "غِ", audio: "audio/harakat/ghayn-kasra.mp3", type: "kasra" },
-            { letter: "غْ", audio: "audio/harakat/ghayn-sukoun.mp3", type: "sukoun" },
-            // Faa
-            { letter: "فَ", audio: "audio/harakat/faa-fatha.mp3", type: "fatha" },
-            { letter: "فُ", audio: "audio/harakat/faa-damma.mp3", type: "damma" },
-            { letter: "فِ", audio: "audio/harakat/faa-kasra.mp3", type: "kasra" },
-            { letter: "فْ", audio: "audio/harakat/faa-sukoun.mp3", type: "sukoun" },
-            // Qaaf
-            { letter: "قَ", audio: "audio/harakat/qaaf-fatha.mp3", type: "fatha" },
-            { letter: "قُ", audio: "audio/harakat/qaaf-damma.mp3", type: "damma" },
-            { letter: "قِ", audio: "audio/harakat/qaaf-kasra.mp3", type: "kasra" },
-            { letter: "قْ", audio: "audio/harakat/qaaf-sukoun.mp3", type: "sukoun" },
-            // Kaaf
-            { letter: "كَ", audio: "audio/harakat/kaaf-fatha.mp3", type: "fatha" },
-            { letter: "كُ", audio: "audio/harakat/kaaf-damma.mp3", type: "damma" },
-            { letter: "كِ", audio: "audio/harakat/kaaf-kasra.mp3", type: "kasra" },
-            { letter: "كْ", audio: "audio/harakat/kaaf-sukoun.mp3", type: "sukoun" },
-            // Laam
-            { letter: "لَ", audio: "audio/harakat/laam-fatha.mp3", type: "fatha" },
-            { letter: "لُ", audio: "audio/harakat/laam-damma.mp3", type: "damma" },
-            { letter: "لِ", audio: "audio/harakat/laam-kasra.mp3", type: "kasra" },
-            { letter: "لْ", audio: "audio/harakat/laam-sukoun.mp3", type: "sukoun" },
-            // Miim
-            { letter: "مَ", audio: "audio/harakat/miim-fatha.mp3", type: "fatha" },
-            { letter: "مُ", audio: "audio/harakat/miim-damma.mp3", type: "damma" },
-            { letter: "مِ", audio: "audio/harakat/miim-kasra.mp3", type: "kasra" },
-            { letter: "مْ", audio: "audio/harakat/miim-sukoun.mp3", type: "sukoun" },
-            // Nuun
-            { letter: "نَ", audio: "audio/harakat/nuun-fatha.mp3", type: "fatha" },
-            { letter: "نُ", audio: "audio/harakat/nuun-damma.mp3", type: "damma" },
-            { letter: "نِ", audio: "audio/harakat/nuun-kasra.mp3", type: "kasra" },
-            { letter: "نْ", audio: "audio/harakat/nuun-sukoun.mp3", type: "sukoun" },
-            // Haaa
-            { letter: "هَ", audio: "audio/harakat/haaa-fatha.mp3", type: "fatha" },
-            { letter: "هُ", audio: "audio/harakat/haaa-damma.mp3", type: "damma" },
-            { letter: "هِ", audio: "audio/harakat/haaa-kasra.mp3", type: "kasra" },
-            { letter: "هْ", audio: "audio/harakat/haaa-sukoun.mp3", type: "sukoun" },
-            // Waaw
-            { letter: "وَ", audio: "audio/harakat/waaw-fatha.mp3", type: "fatha" },
-            { letter: "وُ", audio: "audio/harakat/waaw-damma.mp3", type: "damma" },
-            { letter: "وِ", audio: "audio/harakat/waaw-kasra.mp3", type: "kasra" },
-            { letter: "وْ", audio: "audio/harakat/waaw-sukoun.mp3", type: "sukoun" },
-            // Yaa
-            { letter: "يَ", audio: "audio/harakat/yaa-fatha.mp3", type: "fatha" },
-            { letter: "يُ", audio: "audio/harakat/yaa-damma.mp3", type: "damma" },
-            { letter: "يِ", audio: "audio/harakat/yaa-kasra.mp3", type: "kasra" },
-            { letter: "يْ", audio: "audio/harakat/yaa-sukoun.mp3", type: "sukoun" }
+        // LA BASE DE DONNÉES STRUCTURÉE PAR LETTRE DE BASE (Pour générer les 4 options intelligemment)
+        const alphabetHarakatData = [
+            {
+                base: "Alif",
+                options: [
+                    { letter: "أَ", audio: "audio/harakat/alif-fathah.mp3" },
+                    { letter: "أُ", audio: "audio/harakat/alif-dammah.mp3" },
+                    { letter: "إِ", audio: "audio/harakat/alif-kasrah.mp3" },
+                    { letter: "أْ", audio: "audio/harakat/alif-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Baa",
+                options: [
+                    { letter: "بَ", audio: "audio/harakat/baa-fathah.mp3" },
+                    { letter: "بُ", audio: "audio/harakat/baa-dammah.mp3" },
+                    { letter: "بِ", audio: "audio/harakat/baa-kasrah.mp3" },
+                    { letter: "بْ", audio: "audio/harakat/baa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Taa",
+                options: [
+                    { letter: "تَ", audio: "audio/harakat/taa-fathah.mp3" },
+                    { letter: "تُ", audio: "audio/harakat/taa-dammah.mp3" },
+                    { letter: "تِ", audio: "audio/harakat/taa-kasrah.mp3" },
+                    { letter: "تْ", audio: "audio/harakat/taa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Thaa",
+                options: [
+                    { letter: "ثَ", audio: "audio/harakat/thaa-fathah.mp3" },
+                    { letter: "ثُ", audio: "audio/harakat/thaa-dammah.mp3" },
+                    { letter: "ثِ", audio: "audio/harakat/thaa-kasrah.mp3" },
+                    { letter: "ثْ", audio: "audio/harakat/thaa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Jim",
+                options: [
+                    { letter: "جَ", audio: "audio/harakat/jim-fathah.mp3" },
+                    { letter: "جُ", audio: "audio/harakat/jim-dammah.mp3" },
+                    { letter: "جِ", audio: "audio/harakat/jim-kasrah.mp3" },
+                    { letter: "جْ", audio: "audio/harakat/jim-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Haa",
+                options: [
+                    { letter: "حَ", audio: "audio/harakat/haa-fathah.mp3" },
+                    { letter: "حُ", audio: "audio/harakat/haa-dammah.mp3" },
+                    { letter: "حِ", audio: "audio/harakat/haa-kasrah.mp3" },
+                    { letter: "حْ", audio: "audio/harakat/haa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Khaa",
+                options: [
+                    { letter: "خَ", audio: "audio/harakat/khaa-fathah.mp3" },
+                    { letter: "خُ", audio: "audio/harakat/khaa-dammah.mp3" },
+                    { letter: "خِ", audio: "audio/harakat/khaa-kasrah.mp3" },
+                    { letter: "خْ", audio: "audio/harakat/khaa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Dal",
+                options: [
+                    { letter: "دَ", audio: "audio/harakat/dal-fathah.mp3" },
+                    { letter: "دُ", audio: "audio/harakat/dal-dammah.mp3" },
+                    { letter: "دِ", audio: "audio/harakat/dal-kasrah.mp3" },
+                    { letter: "دْ", audio: "audio/harakat/dal-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Dhal",
+                options: [
+                    { letter: "ذَ", audio: "audio/harakat/dhal-fathah.mp3" },
+                    { letter: "ذُ", audio: "audio/harakat/dhal-dammah.mp3" },
+                    { letter: "ذِ", audio: "audio/harakat/dhal-kasrah.mp3" },
+                    { letter: "ذْ", audio: "audio/harakat/dhal-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Raa",
+                options: [
+                    { letter: "رَ", audio: "audio/harakat/raa-fathah.mp3" },
+                    { letter: "رُ", audio: "audio/harakat/raa-dammah.mp3" },
+                    { letter: "رِ", audio: "audio/harakat/raa-kasrah.mp3" },
+                    { letter: "رْ", audio: "audio/harakat/raa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Zay",
+                options: [
+                    { letter: "زَ", audio: "audio/harakat/zay-fathah.mp3" },
+                    { letter: "زُ", audio: "audio/harakat/zay-dammah.mp3" },
+                    { letter: "زِ", audio: "audio/harakat/zay-kasrah.mp3" },
+                    { letter: "زْ", audio: "audio/harakat/zay-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Siin",
+                options: [
+                    { letter: "سَ", audio: "audio/harakat/siin-fathah.mp3" },
+                    { letter: "سُ", audio: "audio/harakat/siin-dammah.mp3" },
+                    { letter: "سِ", audio: "audio/harakat/siin-kasrah.mp3" },
+                    { letter: "سْ", audio: "audio/harakat/siin-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Shiin",
+                options: [
+                    { letter: "شَ", audio: "audio/harakat/shiin-fathah.mp3" },
+                    { letter: "شُ", audio: "audio/harakat/shiin-dammah.mp3" },
+                    { letter: "شِ", audio: "audio/harakat/shiin-kasrah.mp3" },
+                    { letter: "شْ", audio: "audio/harakat/shiin-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Saad",
+                options: [
+                    { letter: "صَ", audio: "audio/harakat/saad-fathah.mp3" },
+                    { letter: "صُ", audio: "audio/harakat/saad-dammah.mp3" },
+                    { letter: "صِ", audio: "audio/harakat/saad-kasrah.mp3" },
+                    { letter: "صْ", audio: "audio/harakat/saad-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Daad",
+                options: [
+                    { letter: "ضَ", audio: "audio/harakat/daad-fathah.mp3" },
+                    { letter: "ضُ", audio: "audio/harakat/daad-dammah.mp3" },
+                    { letter: "ضِ", audio: "audio/harakat/daad-kasrah.mp3" },
+                    { letter: "ضْ", audio: "audio/harakat/daad-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Taaa",
+                options: [
+                    { letter: "طَ", audio: "audio/harakat/taaa-fathah.mp3" },
+                    { letter: "طُ", audio: "audio/harakat/taaa-dammah.mp3" },
+                    { letter: "طِ", audio: "audio/harakat/taaa-kasrah.mp3" },
+                    { letter: "طْ", audio: "audio/harakat/taaa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Zaa",
+                options: [
+                    { letter: "ظَ", audio: "audio/harakat/zaa-fathah.mp3" },
+                    { letter: "ظُ", audio: "audio/harakat/zaa-dammah.mp3" },
+                    { letter: "ظِ", audio: "audio/harakat/zaa-kasrah.mp3" },
+                    { letter: "ظْ", audio: "audio/harakat/zaa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Ayn",
+                options: [
+                    { letter: "عَ", audio: "audio/harakat/ayn-fathah.mp3" },
+                    { letter: "عُ", audio: "audio/harakat/ayn-dammah.mp3" },
+                    { letter: "عِ", audio: "audio/harakat/ayn-kasrah.mp3" },
+                    { letter: "عْ", audio: "audio/harakat/ayn-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Ghayn",
+                options: [
+                    { letter: "غَ", audio: "audio/harakat/ghayn-fathah.mp3" },
+                    { letter: "غُ", audio: "audio/harakat/ghayn-dammah.mp3" },
+                    { letter: "غِ", audio: "audio/harakat/ghayn-kasrah.mp3" },
+                    { letter: "غْ", audio: "audio/harakat/ghayn-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Faa",
+                options: [
+                    { letter: "فَ", audio: "audio/harakat/faa-fathah.mp3" },
+                    { letter: "فُ", audio: "audio/harakat/faa-dammah.mp3" },
+                    { letter: "فِ", audio: "audio/harakat/faa-kasrah.mp3" },
+                    { letter: "فْ", audio: "audio/harakat/faa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Qaaf",
+                options: [
+                    { letter: "قَ", audio: "audio/harakat/qaaf-fathah.mp3" },
+                    { letter: "قُ", audio: "audio/harakat/qaaf-dammah.mp3" },
+                    { letter: "قِ", audio: "audio/harakat/qaaf-kasrah.mp3" },
+                    { letter: "قْ", audio: "audio/harakat/qaaf-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Kaaf",
+                options: [
+                    { letter: "كَ", audio: "audio/harakat/kaaf-fathah.mp3" },
+                    { letter: "كُ", audio: "audio/harakat/kaaf-dammah.mp3" },
+                    { letter: "كِ", audio: "audio/harakat/kaaf-kasrah.mp3" },
+                    { letter: "كْ", audio: "audio/harakat/kaaf-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Laam",
+                options: [
+                    { letter: "لَ", audio: "audio/harakat/laam-fathah.mp3" },
+                    { letter: "لُ", audio: "audio/harakat/laam-dammah.mp3" },
+                    { letter: "لِ", audio: "audio/harakat/laam-kasrah.mp3" },
+                    { letter: "لْ", audio: "audio/harakat/laam-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Miim",
+                options: [
+                    { letter: "مَ", audio: "audio/harakat/miim-fathah.mp3" },
+                    { letter: "مُ", audio: "audio/harakat/miim-dammah.mp3" },
+                    { letter: "مِ", audio: "audio/harakat/miim-kasrah.mp3" },
+                    { letter: "مْ", audio: "audio/harakat/miim-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Nuun",
+                options: [
+                    { letter: "نَ", audio: "audio/harakat/nuun-fathah.mp3" },
+                    { letter: "نُ", audio: "audio/harakat/nuun-dammah.mp3" },
+                    { letter: "نِ", audio: "audio/harakat/nuun-kasrah.mp3" },
+                    { letter: "نْ", audio: "audio/harakat/nuun-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Haaa",
+                options: [
+                    { letter: "هَ", audio: "audio/harakat/haaa-fathah.mp3" },
+                    { letter: "هُ", audio: "audio/harakat/haaa-dammah.mp3" },
+                    { letter: "هِ", audio: "audio/harakat/haaa-kasrah.mp3" },
+                    { letter: "هْ", audio: "audio/harakat/haaa-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Waaw",
+                options: [
+                    { letter: "وَ", audio: "audio/harakat/waaw-fathah.mp3" },
+                    { letter: "وُ", audio: "audio/harakat/waaw-dammah.mp3" },
+                    { letter: "وِ", audio: "audio/harakat/waaw-kasrah.mp3" },
+                    { letter: "وْ", audio: "audio/harakat/waaw-soukoun.mp3" }
+                ]
+            },
+            {
+                base: "Yaa",
+                options: [
+                    { letter: "يَ", audio: "audio/harakat/yaa-fathah.mp3" },
+                    { letter: "يُ", audio: "audio/harakat/yaa-dammah.mp3" },
+                    { letter: "يِ", audio: "audio/harakat/yaa-kasrah.mp3" },
+                    { letter: "يْ", audio: "audio/harakat/yaa-soukoun.mp3" }
+                ]
+            }
         ];
 
         let playerName = "";
@@ -461,30 +575,31 @@
             loadQuestion();
         }
 
-        // GÉNÉRER LES QUESTIONS (Mélange de TOUTES les 112 options)
+        // GÉNÉRER LES QUESTIONS (Logique Pédagogique)
         function generateQuestions() {
             questions = [];
-            // Mélanger les 112 éléments pour le quiz
-            let shuffledData = [...harakatData].sort(() => Math.random() - 0.5);
-
-            shuffledData.forEach(targetObj => {
-                // Trouver 3 autres éléments différents comme distracteurs
-                let distractors = harakatData.filter(item => item.letter !== targetObj.letter);
-                
-                // Pour rendre le quiz pertinent, on essaie de mettre des distracteurs de la même lettre 
-                // mais avec des harakat différentes, ou des lettres différentes avec la même haraka.
-                // Par souci de simplicité pour le moment, on prend 3 distracteurs aléatoires
-                distractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
-                
-                let options = [targetObj.letter, distractors[0].letter, distractors[1].letter, distractors[2].letter];
-                options = options.sort(() => Math.random() - 0.5);
-                
-                questions.push({
-                    targetLetter: targetObj.letter,
-                    targetAudio: targetObj.audio,
-                    options: options
+            
+            // Pour chaque lettre de l'alphabet (28 lettres)
+            alphabetHarakatData.forEach(letterGroup => {
+                // Pour chaque harakah de cette lettre (4 harakates)
+                letterGroup.options.forEach(targetObj => {
+                    
+                    // Les options affichées sont TOUJOURS les 4 harakates de la MÊME lettre
+                    let options = [...letterGroup.options];
+                    
+                    // On mélange l'ordre des boutons pour que la bonne réponse ne soit pas toujours au même endroit
+                    options = options.sort(() => Math.random() - 0.5);
+                    
+                    questions.push({
+                        targetLetter: targetObj.letter,
+                        targetAudio: targetObj.audio,
+                        options: options.map(opt => opt.letter)
+                    });
                 });
             });
+
+            // Une fois les 112 questions créées (28x4), on mélange l'ordre du quiz
+            questions = questions.sort(() => Math.random() - 0.5);
         }
 
         function loadQuestion() {
@@ -573,7 +688,7 @@
 
             triggerConfetti();
 
-            // Lancer l'audio de félicitation (optionnel si tu l'as mis sur ton site)
+            // Lancer l'audio de félicitation
             const mabrukAudio = new Audio("audio/mabruk.mp3");
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
@@ -597,7 +712,7 @@
         function restartQuiz() {
             viewCertificate.classList.add('hidden');
             viewWelcome.classList.remove('hidden');
-            nameInput.value = ""; // Réinitialiser le nom pour une nouvelle partie
+            nameInput.value = "";
         }
     </script>
 </body>
