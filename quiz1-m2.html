@@ -1,719 +1,365 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalimah - Quiz 1 (Al-Harakat)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar Al-Kalimah - Pédagogie Premium</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* =========================================
-           STYLES GLOBAUX & COULEURS (PREMIUM DAR AL-KALIMAH)
-           ========================================= */
+        /* VARIABLES LUXE */
         :root {
             --burgundy: #5D1828;
-            --burgundy-dark: #3a0f19;
             --gold: #C8A462;
             --gold-light: #dfc28b;
             --white: #FFFFFF;
-            --bg-beige: #FAF6F0;
-            --success-green: #e8f5e9;
-            --success-border: #4CAF50;
-            --error-red: #ffebee;
-            --error-border: #f44336;
-            --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+            --bg-page: #FAFAFA;
+            --text-dark: #1A1A1A;
+            --shadow-elegant: 0 10px 40px rgba(93, 24, 40, 0.05);
+            
+            /* COULEURS INTERACTIVES */
+            --color-fatha: #E53935;
+            --color-damma: #1E88E5;
+            --color-kasra: #43A047;
+            --color-sukoun: #8E44AD;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background-color: var(--bg-beige);
-            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh;
-            font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 20px; overflow-x: hidden; color: var(--burgundy);
+            background-color: var(--white);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
         }
 
-        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
-        .serif-text { font-family: "Cinzel", "Georgia", serif; }
-
-        .view {
-            width: 100%; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; animation: floatIn 0.5s ease-out forwards;
-        }
-        .hidden { display: none !important; }
-
-        @keyframes floatIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* =========================================
-           BOÎTES & BOUTONS GÉNÉRAUX
-           ========================================= */
-        .btn-main, .btn-secondary, .btn-link {
-            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
-            color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-family: 'Montserrat', sans-serif; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
-        }
-        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active, .btn-link:active { transform: translateY(1px); }
-
-        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
-        .btn-secondary:hover { background: var(--gold); color: var(--white); }
-
-        .btn-back-menu {
-            display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s;
-        }
-        .btn-back-menu:hover { color: var(--white); }
-
-        /* =========================================
-           ACCUEIL QUIZ (PREMIUM BORDEAUX)
-           ========================================= */
-        .menu-container {
-            text-align: center; 
-            background: var(--burgundy);
-            padding: 50px 40px; border-radius: 24px;
-            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
-            max-width: 600px; width: 100%;
-        }
-
-        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
-        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-        .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px;}
-        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
+        /* TYPOGRAPHIE */
+        .ar-text { font-family: "Amiri", "Noto Naskh Arabic", serif; direction: rtl; line-height: 1.4; }
+        .serif-text { font-family: "Cinzel", serif; text-align: center; letter-spacing: 2px; text-transform: uppercase;}
         
-        .menu-container .subtitle-group { margin-bottom: 30px; }
-        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
-        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+        /* HEADER */
+        .header { margin: 60px 0 40px 0; text-align: center; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards; }
+        .brand-ar { font-size: 3rem; color: var(--gold); font-weight: bold; margin-bottom: 5px; }
+        .title { font-size: 1.5rem; color: var(--burgundy); font-weight: 600; }
+        .divider { width: 40px; height: 1px; background: var(--gold); margin: 20px auto; }
 
-        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
-        .menu-container .input-group input {
-            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif; text-align: center;
-            border: 2px solid var(--gold); border-radius: 12px;
-            background-color: var(--white); color: var(--burgundy); outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        /* SECTIONS COMMUNES */
+        .section {
+            width: 100%; max-width: 1000px; margin-bottom: 80px; padding: 0 20px;
+            opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
-
-        .menu-container .btn-main {
-            background: transparent; color: var(--gold); border: 2px solid var(--gold);
-            width: 100%; max-width: 350px; box-shadow: none;
-        }
-        .menu-container .btn-main:hover {
-            background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);
-        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .section-title { font-size: 1.2rem; color: var(--burgundy); margin-bottom: 40px; text-align: center; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;}
 
         /* =========================================
-           ÉCRAN DE JEU (CLAIR ET LISIBLE)
+           1. SECTION VOYELLES INTERACTIVES
            ========================================= */
-        .quiz-container {
-            text-align: center; background: var(--white);
-            padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold);
-            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
-            max-width: 600px; width: 100%;
-        }
-        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
-        .progress-info { text-align: right; margin-bottom: 8px; }
-        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
-        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
-
-        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 25px; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
-
-        .audio-section { margin-bottom: 35px; display: flex; justify-content: center; }
-        .btn-audio.big-audio {
-            width: 80px; height: 80px; font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--bg-beige), #fff); border: 3px solid var(--gold);
-            color: var(--burgundy); border-radius: 50%; cursor: pointer;
-            box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); transition: all 0.3s ease;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); }
-        .btn-audio.big-audio:active { transform: scale(0.95); }
-
-        /* GRILLE DE 4 BOUTONS (LETTRES) */
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        
-        .option-card {
-            background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px;
-            aspect-ratio: 1.2; display: flex; justify-content: center; align-items: center;
-            font-size: 4.5rem; color: var(--burgundy); cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
-            font-weight: bold;
-            line-height: 0.7; /* Pour coller les harakates */
-            font-feature-settings: "mark" 1;
+        .harakat-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%;
         }
         
-        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
-        .option-card:active { transform: scale(0.95); }
-
-        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
-        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
-        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-
-        /* =========================================
-           CERTIFICAT DE RÉUSSITE
-           ========================================= */
-        .diploma-paper {
-            background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold);
-            padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
+        .haraka-col {
+            background: var(--white); border: 1px solid rgba(200, 164, 98, 0.3);
+            border-radius: 12px; padding: 30px 15px; text-align: center;
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative; overflow: hidden; box-shadow: var(--shadow-elegant);
         }
-        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
-        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
-        .cert-messages { margin-bottom: 25px; }
-        .cert-msg { font-weight: 600; color: #444; }
-        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
-        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
-        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
-        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
-        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        
+        .haraka-col:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 15px 45px rgba(200, 164, 98, 0.15); }
+
+        /* ÉTATS ACTIFS (Couleurs) */
+        .haraka-col.active[data-type="fatha"] { border-color: var(--color-fatha); background: rgba(229,57,53,0.02); }
+        .haraka-col.active[data-type="damma"] { border-color: var(--color-damma); background: rgba(30,136,229,0.02); }
+        .haraka-col.active[data-type="kasra"] { border-color: var(--color-kasra); background: rgba(67,160,71,0.02); }
+        .haraka-col.active[data-type="sukoun"]{ border-color: var(--color-sukoun); background: rgba(142,68,173,0.02); }
+
+        .h-name-ar { font-size: 1.8rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; transition: color 0.3s;}
+        .h-name-fr { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-dark); margin-bottom: 2px;}
+        .h-name-es { font-size: 0.8rem; font-style: italic; color: #888; margin-bottom: 30px; }
+
+        /* LIGNE CENTRALE ET SYMBOLE */
+        .h-visual-zone { position: relative; height: 120px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;}
+        .h-line { position: absolute; width: 60%; height: 1px; background: var(--burgundy); top: 50%; left: 20%; opacity: 0.3; z-index: 1; transition: background 0.3s, opacity 0.3s;}
+        .h-symbol { font-size: 5rem; color: var(--gold); z-index: 2; line-height: 0; font-family: "Amiri", serif; transition: color 0.3s, transform 0.3s;}
+        
+        .h-phonetic { font-size: 1.1rem; color: var(--gold); font-weight: 600; letter-spacing: 2px; }
+
+        /* Changement de couleur au clic sur le visuel */
+        .haraka-col.active[data-type="fatha"] .h-name-ar, .haraka-col.active[data-type="fatha"] .h-symbol { color: var(--color-fatha); }
+        .haraka-col.active[data-type="fatha"] .h-line { background: var(--color-fatha); opacity: 0.6; }
+        
+        .haraka-col.active[data-type="damma"] .h-name-ar, .haraka-col.active[data-type="damma"] .h-symbol { color: var(--color-damma); }
+        .haraka-col.active[data-type="damma"] .h-line { background: var(--color-damma); opacity: 0.6; }
+        
+        .haraka-col.active[data-type="kasra"] .h-name-ar, .haraka-col.active[data-type="kasra"] .h-symbol { color: var(--color-kasra); }
+        .haraka-col.active[data-type="kasra"] .h-line { background: var(--color-kasra); opacity: 0.6; }
+        
+        .haraka-col.active[data-type="sukoun"] .h-name-ar, .haraka-col.active[data-type="sukoun"] .h-symbol { color: var(--color-sukoun); }
+        .haraka-col.active[data-type="sukoun"] .h-line { background: var(--color-sukoun); opacity: 0.6; }
 
         /* =========================================
-           RESPONSIVE & IMPRESSION
+           2. SCHÉMA VISUEL AMÉLIORÉ
            ========================================= */
-        @media (max-width: 768px) {
-            .menu-container, .quiz-container { padding: 40px 20px; }
-            .option-card { font-size: 4rem; }
-            .diploma-paper { padding: 30px 20px; }
+        .diagram-container {
+            display: flex; justify-content: center; align-items: center; padding: 40px;
+            background: var(--bg-page); border-radius: 16px; border: 1px solid rgba(200, 164, 98, 0.2);
+            position: relative;
+        }
+
+        .diagram-svg { width: 100%; max-width: 400px; height: auto; overflow: visible; }
+        
+        .d-axis { stroke: var(--burgundy); stroke-width: 2; stroke-linecap: round; opacity: 0.3; }
+        .d-line { stroke: var(--burgundy); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 1.5s ease; }
+        .d-mark { fill: var(--gold); font-family: "Amiri", serif; font-size: 40px; opacity: 0; transition: opacity 1s ease 1s; }
+        .d-text { fill: var(--text-dark); font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; opacity: 0; transition: opacity 1s ease 1s; }
+        .d-text-sub { fill: #888; font-family: 'Montserrat', sans-serif; font-size: 11px; font-style: italic; opacity: 0; transition: opacity 1s ease 1s; }
+        
+        .section.visible .d-line { stroke-dashoffset: 0; }
+        .section.visible .d-mark, .section.visible .d-text, .section.visible .d-text-sub { opacity: 1; }
+
+        /* =========================================
+           3. RÈGLE D'ÉCRITURE (د ذ ر ز)
+           ========================================= */
+        .writing-rule-box {
+            background: var(--white); padding: 50px; border-radius: 16px;
+            box-shadow: var(--shadow-elegant); border: 1px solid rgba(200, 164, 98, 0.2);
+            text-align: center;
+        }
+
+        .baseline-container {
+            position: relative; height: 180px; width: 100%; max-width: 400px; margin: 0 auto 40px auto;
+            border-bottom: 2px solid rgba(93, 24, 40, 0.3); display: flex; justify-content: center;
+        }
+
+        .w-letter { position: absolute; font-family: "Amiri", serif; font-size: 5rem; color: var(--gold); line-height: 1; }
+        
+        /* Positionnement précis sur et sous la ligne */
+        .pos-on-1 { bottom: -15px; right: 20%; }
+        .pos-on-2 { bottom: -15px; left: 20%; }
+        .pos-under-1 { bottom: -45px; right: 40%; color: var(--burgundy); }
+        .pos-under-2 { bottom: -45px; left: 40%; color: var(--burgundy); }
+
+        .w-explanation { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+        .w-text-block { max-width: 250px; }
+        .w-fr { font-weight: 600; color: var(--burgundy); font-size: 1rem; margin-bottom: 5px; }
+        .w-es { font-size: 0.85rem; color: #888; font-style: italic; }
+
+        /* =========================================
+           4. RÈGLE DE LIAISON (CERCLE / CROIX)
+           ========================================= */
+        .connection-container {
+            display: flex; flex-direction: column; align-items: center; background: var(--bg-page);
+            padding: 50px 30px; border-radius: 16px; border: 1px solid rgba(200, 164, 98, 0.2);
+        }
+
+        .conn-texts { text-align: center; margin-bottom: 40px; }
+        .conn-main-text { font-size: 1.1rem; font-weight: 600; color: var(--burgundy); margin-bottom: 8px; }
+        .conn-sub-text { font-size: 0.9rem; color: #777; font-style: italic; }
+
+        .conn-visual {
+            display: flex; align-items: center; justify-content: center; gap: 30px;
+            background: var(--white); padding: 30px 50px; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid var(--gold-light);
+            direction: rtl; /* IMPORTANT POUR L'ORDRE D'AFFICHAGE */
+        }
+
+        .conn-letter { font-size: 4rem; font-family: "Amiri", serif; color: var(--burgundy); font-weight: bold; line-height: 1; padding: 0 20px;}
+        
+        .conn-indicator {
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+        }
+        
+        .icon-circle {
+            width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; color: var(--white); background: var(--gold);
+            box-shadow: 0 0 0 0 rgba(200, 164, 98, 0.4);
+            animation: pulseGold 2s infinite;
+        }
+        
+        .icon-cross {
+            width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; color: var(--white); background: transparent; border: 2px solid var(--gold); color: var(--gold);
+        }
+
+        .conn-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 1px; }
+
+        @keyframes pulseGold {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(200, 164, 98, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(200, 164, 98, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(200, 164, 98, 0); }
+        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .harakat-grid { grid-template-columns: repeat(2, 1fr); }
+            .w-explanation { flex-direction: column; align-items: center; text-align: center; }
+            .conn-visual { flex-direction: column; border-radius: 20px; padding: 30px; gap: 20px;}
+            .conn-letter { transform: rotate(90deg); margin: 10px 0;}
         }
         @media (max-width: 480px) {
-            .menu-container .brand-ar { font-size: 3rem; }
-            .menu-container .app-title { font-size: 1.1rem; }
-            .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
-            .option-card { font-size: 3.5rem; aspect-ratio: 1.1; }
-            .cert-ar { font-size: 3.5rem; }
-            .cert-title { font-size: 1.5rem; }
-            .cert-name { font-size: 2.5rem; }
-            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
-            .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; }
-        }
-        @media print {
-            body * { visibility: hidden; }
-            #view-certificate, #view-certificate * { visibility: visible; }
-            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
-            .no-print { display: none !important; }
-            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
+            .harakat-grid { grid-template-columns: 1fr; }
+            .diagram-svg { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div id="view-welcome" class="view">
-        <div class="menu-container">
-            <div class="brand-ar ar-text">اختبار الحركات</div>
-            <div class="app-title serif-text">Kalicards – Module 2</div>
-            <div class="app-subtitle">QUIZ 1 : Reconnaissance des voyelles</div>
-            <div class="divider"></div>
-            
-            <div class="subtitle-group">
-                <p class="subtitle fr">Écoute le son et clique sur la bonne lettre avec sa voyelle.</p>
-                <p class="subtitle es">Escucha el sonido y haz clic en la letra correcta con su vocal.</p>
-            </div>
-            
-            <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
-                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
-            </div>
-            
-            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
-            
-            <a href="module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
-        </div>
+    <div class="header">
+        <div class="brand-ar ar-text">دار الكلمة</div>
+        <div class="title serif-text">Les Fondations</div>
+        <div class="divider"></div>
     </div>
 
-    <div id="view-quiz" class="view hidden">
-        <div class="quiz-header">
-            <div class="progress-info">
-                <span id="progress-text" class="progress-text">1 / 112</span>
-            </div>
-            <div class="progress-bar-container">
-                <div id="progress-fill" class="progress-bar-fill"></div>
-            </div>
-        </div>
-
-        <div class="quiz-container">
-            <div class="instruction-text">
-                Écoute et trouve la bonne syllabe !<br>
-                <small>¡Escucha y encuentra la sílaba correcta!</small>
-            </div>
-
-            <div class="audio-section">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
-            </div>
-
-            <div class="options-grid" id="options-grid">
+    <div class="section observe-me">
+        <div class="section-title serif-text">1. Les Harakates (Voyelles courtes)</div>
+        <div class="harakat-grid">
+            <div class="haraka-col" data-type="fatha" onclick="toggleActive(this)">
+                <div class="h-name-ar ar-text">فَتْحَة</div>
+                <div class="h-name-fr">Fathah</div>
+                <div class="h-name-es">Fatha</div>
+                <div class="h-visual-zone">
+                    <div class="h-line"></div>
+                    <div class="h-symbol">ـَ</div>
                 </div>
+                <div class="h-phonetic">" a "</div>
+            </div>
+            <div class="haraka-col" data-type="damma" onclick="toggleActive(this)">
+                <div class="h-name-ar ar-text">ضَمَّة</div>
+                <div class="h-name-fr">Dammah</div>
+                <div class="h-name-es">Damma</div>
+                <div class="h-visual-zone">
+                    <div class="h-line"></div>
+                    <div class="h-symbol">ـُ</div>
+                </div>
+                <div class="h-phonetic">" ou "</div>
+            </div>
+            <div class="haraka-col" data-type="kasra" onclick="toggleActive(this)">
+                <div class="h-name-ar ar-text">كَسْرَة</div>
+                <div class="h-name-fr">Kasrah</div>
+                <div class="h-name-es">Kasra</div>
+                <div class="h-visual-zone">
+                    <div class="h-line"></div>
+                    <div class="h-symbol">ـِ</div>
+                </div>
+                <div class="h-phonetic">" i "</div>
+            </div>
+            <div class="haraka-col" data-type="sukoun" onclick="toggleActive(this)">
+                <div class="h-name-ar ar-text">سُكُون</div>
+                <div class="h-name-fr">Sukoun</div>
+                <div class="h-name-es">Sukun</div>
+                <div class="h-visual-zone">
+                    <div class="h-line"></div>
+                    <div class="h-symbol">ـْ</div>
+                </div>
+                <div class="h-phonetic">" - "</div>
+            </div>
         </div>
     </div>
 
-    <div id="view-certificate" class="view hidden">
-        <div class="diploma-paper">
-            <div class="cert-ar ar-text">مبروك</div>
-            <h2 class="cert-title serif-text">Certificat de réussite</h2>
-            
-            <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 1 du module 2 (Al-Harakat).</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz 1 del módulo 2 (Al-Harakat).</p>
-            </div>
-            
-            <div id="cert-name" class="cert-name ar-text">Participant</div>
-            
-            <div class="cert-score-box">
-                <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">0 / 0</div>
-            </div>
-            
-            <div id="cert-date" class="cert-date"></div>
-            <div class="cert-icon">📖</div>
+    <div class="section observe-me">
+        <div class="section-title serif-text">2. Axe de prononciation</div>
+        <div class="diagram-container">
+            <svg class="diagram-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <path class="d-axis" d="M 50 250 L 350 250" /> <path class="d-axis" d="M 200 50 L 200 250" /> <rect x="200" y="230" width="20" height="20" fill="none" stroke="var(--burgundy)" stroke-width="1" opacity="0.3"/>
+                
+                <path class="d-line" d="M 200 250 L 200 80" />
+                <text class="d-mark" x="175" y="70">ـُ</text>
+                <text class="d-text" x="220" y="60">Dammah (ou)</text>
+                <text class="d-text-sub" x="220" y="80">Vers l'avant / Hacia adelante</text>
+
+                <path class="d-line" d="M 200 250 L 300 150" />
+                <text class="d-mark" x="310" y="140">ـَ</text>
+                <text class="d-text" x="320" y="170">Fathah (a)</text>
+                <text class="d-text-sub" x="320" y="190">Ouverture / Apertura</text>
+
+                <path class="d-line" d="M 200 250 L 80 250" />
+                <text class="d-mark" x="50" y="285">ـِ</text>
+                <text class="d-text" x="40" y="230">Kasrah (i)</text>
+                <text class="d-text-sub" x="20" y="210">Vers le bas / Hacia abajo</text>
+                
+                <circle cx="200" cy="250" r="6" fill="var(--gold)" />
+            </svg>
         </div>
-        
-        <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
-            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="module2.html" class="btn-link">Menu Principal</a>
+    </div>
+
+    <div class="section observe-me">
+        <div class="section-title serif-text">3. Ligne d'écriture (د ذ ر ز)</div>
+        <div class="writing-rule-box">
+            <div class="baseline-container">
+                <span class="w-letter pos-on-1">د</span>
+                <span class="w-letter pos-on-2">ذ</span>
+                
+                <span class="w-letter pos-under-1">ر</span>
+                <span class="w-letter pos-under-2">ز</span>
+            </div>
+            <div class="w-explanation">
+                <div class="w-text-block">
+                    <div class="w-fr"><span style="color: var(--gold);">د</span> et <span style="color: var(--gold);">ذ</span> s'écrivent SUR la ligne.</div>
+                    <div class="w-es">Se escriben SOBRE la línea.</div>
+                </div>
+                <div class="w-text-block">
+                    <div class="w-fr"><span style="color: var(--burgundy);">ر</span> et <span style="color: var(--burgundy);">ز</span> descendent SOUS la ligne.</div>
+                    <div class="w-es">Descienden DEBAJO de la línea.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section observe-me">
+        <div class="section-title serif-text">4. Règle de liaison</div>
+        <div class="connection-container">
+            <div class="conn-texts">
+                <div class="conn-main-text">Ces lettres (د ذ ر ز و ا) ne s'attachent JAMAIS à ce qui suit.<br>Mais elles s'attachent à ce qui précède.</div>
+                <div class="conn-sub-text">Nunca se unen a lo que sigue, pero sí a lo que precede.</div>
+            </div>
+            
+            <div class="conn-visual">
+                <div class="conn-indicator">
+                    <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+                    <div class="conn-label">Avant / Antes</div>
+                </div>
+                
+                <div class="conn-letter">ـد</div>
+                
+                <div class="conn-indicator">
+                    <div class="icon-cross"><i class="fa-solid fa-xmark"></i></div>
+                    <div class="conn-label">Après / Después</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // LA BASE DE DONNÉES STRUCTURÉE PAR LETTRE DE BASE (Pour générer les 4 options intelligemment)
-        const alphabetHarakatData = [
-            {
-                base: "Alif",
-                options: [
-                    { letter: "أَ", audio: "audio/harakat/alif-fathah.mp3" },
-                    { letter: "أُ", audio: "audio/harakat/alif-dammah.mp3" },
-                    { letter: "إِ", audio: "audio/harakat/alif-kasrah.mp3" },
-                    { letter: "أْ", audio: "audio/harakat/alif-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Baa",
-                options: [
-                    { letter: "بَ", audio: "audio/harakat/baa-fathah.mp3" },
-                    { letter: "بُ", audio: "audio/harakat/baa-dammah.mp3" },
-                    { letter: "بِ", audio: "audio/harakat/baa-kasrah.mp3" },
-                    { letter: "بْ", audio: "audio/harakat/baa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Taa",
-                options: [
-                    { letter: "تَ", audio: "audio/harakat/taa-fathah.mp3" },
-                    { letter: "تُ", audio: "audio/harakat/taa-dammah.mp3" },
-                    { letter: "تِ", audio: "audio/harakat/taa-kasrah.mp3" },
-                    { letter: "تْ", audio: "audio/harakat/taa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Thaa",
-                options: [
-                    { letter: "ثَ", audio: "audio/harakat/thaa-fathah.mp3" },
-                    { letter: "ثُ", audio: "audio/harakat/thaa-dammah.mp3" },
-                    { letter: "ثِ", audio: "audio/harakat/thaa-kasrah.mp3" },
-                    { letter: "ثْ", audio: "audio/harakat/thaa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Jim",
-                options: [
-                    { letter: "جَ", audio: "audio/harakat/jim-fathah.mp3" },
-                    { letter: "جُ", audio: "audio/harakat/jim-dammah.mp3" },
-                    { letter: "جِ", audio: "audio/harakat/jim-kasrah.mp3" },
-                    { letter: "جْ", audio: "audio/harakat/jim-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Haa",
-                options: [
-                    { letter: "حَ", audio: "audio/harakat/haa-fathah.mp3" },
-                    { letter: "حُ", audio: "audio/harakat/haa-dammah.mp3" },
-                    { letter: "حِ", audio: "audio/harakat/haa-kasrah.mp3" },
-                    { letter: "حْ", audio: "audio/harakat/haa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Khaa",
-                options: [
-                    { letter: "خَ", audio: "audio/harakat/khaa-fathah.mp3" },
-                    { letter: "خُ", audio: "audio/harakat/khaa-dammah.mp3" },
-                    { letter: "خِ", audio: "audio/harakat/khaa-kasrah.mp3" },
-                    { letter: "خْ", audio: "audio/harakat/khaa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Dal",
-                options: [
-                    { letter: "دَ", audio: "audio/harakat/dal-fathah.mp3" },
-                    { letter: "دُ", audio: "audio/harakat/dal-dammah.mp3" },
-                    { letter: "دِ", audio: "audio/harakat/dal-kasrah.mp3" },
-                    { letter: "دْ", audio: "audio/harakat/dal-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Dhal",
-                options: [
-                    { letter: "ذَ", audio: "audio/harakat/dhal-fathah.mp3" },
-                    { letter: "ذُ", audio: "audio/harakat/dhal-dammah.mp3" },
-                    { letter: "ذِ", audio: "audio/harakat/dhal-kasrah.mp3" },
-                    { letter: "ذْ", audio: "audio/harakat/dhal-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Raa",
-                options: [
-                    { letter: "رَ", audio: "audio/harakat/raa-fathah.mp3" },
-                    { letter: "رُ", audio: "audio/harakat/raa-dammah.mp3" },
-                    { letter: "رِ", audio: "audio/harakat/raa-kasrah.mp3" },
-                    { letter: "رْ", audio: "audio/harakat/raa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Zay",
-                options: [
-                    { letter: "زَ", audio: "audio/harakat/zay-fathah.mp3" },
-                    { letter: "زُ", audio: "audio/harakat/zay-dammah.mp3" },
-                    { letter: "زِ", audio: "audio/harakat/zay-kasrah.mp3" },
-                    { letter: "زْ", audio: "audio/harakat/zay-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Siin",
-                options: [
-                    { letter: "سَ", audio: "audio/harakat/siin-fathah.mp3" },
-                    { letter: "سُ", audio: "audio/harakat/siin-dammah.mp3" },
-                    { letter: "سِ", audio: "audio/harakat/siin-kasrah.mp3" },
-                    { letter: "سْ", audio: "audio/harakat/siin-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Shiin",
-                options: [
-                    { letter: "شَ", audio: "audio/harakat/shiin-fathah.mp3" },
-                    { letter: "شُ", audio: "audio/harakat/shiin-dammah.mp3" },
-                    { letter: "شِ", audio: "audio/harakat/shiin-kasrah.mp3" },
-                    { letter: "شْ", audio: "audio/harakat/shiin-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Saad",
-                options: [
-                    { letter: "صَ", audio: "audio/harakat/saad-fathah.mp3" },
-                    { letter: "صُ", audio: "audio/harakat/saad-dammah.mp3" },
-                    { letter: "صِ", audio: "audio/harakat/saad-kasrah.mp3" },
-                    { letter: "صْ", audio: "audio/harakat/saad-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Daad",
-                options: [
-                    { letter: "ضَ", audio: "audio/harakat/daad-fathah.mp3" },
-                    { letter: "ضُ", audio: "audio/harakat/daad-dammah.mp3" },
-                    { letter: "ضِ", audio: "audio/harakat/daad-kasrah.mp3" },
-                    { letter: "ضْ", audio: "audio/harakat/daad-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Taaa",
-                options: [
-                    { letter: "طَ", audio: "audio/harakat/taaa-fathah.mp3" },
-                    { letter: "طُ", audio: "audio/harakat/taaa-dammah.mp3" },
-                    { letter: "طِ", audio: "audio/harakat/taaa-kasrah.mp3" },
-                    { letter: "طْ", audio: "audio/harakat/taaa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Zaa",
-                options: [
-                    { letter: "ظَ", audio: "audio/harakat/zaa-fathah.mp3" },
-                    { letter: "ظُ", audio: "audio/harakat/zaa-dammah.mp3" },
-                    { letter: "ظِ", audio: "audio/harakat/zaa-kasrah.mp3" },
-                    { letter: "ظْ", audio: "audio/harakat/zaa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Ayn",
-                options: [
-                    { letter: "عَ", audio: "audio/harakat/ayn-fathah.mp3" },
-                    { letter: "عُ", audio: "audio/harakat/ayn-dammah.mp3" },
-                    { letter: "عِ", audio: "audio/harakat/ayn-kasrah.mp3" },
-                    { letter: "عْ", audio: "audio/harakat/ayn-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Ghayn",
-                options: [
-                    { letter: "غَ", audio: "audio/harakat/ghayn-fathah.mp3" },
-                    { letter: "غُ", audio: "audio/harakat/ghayn-dammah.mp3" },
-                    { letter: "غِ", audio: "audio/harakat/ghayn-kasrah.mp3" },
-                    { letter: "غْ", audio: "audio/harakat/ghayn-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Faa",
-                options: [
-                    { letter: "فَ", audio: "audio/harakat/faa-fathah.mp3" },
-                    { letter: "فُ", audio: "audio/harakat/faa-dammah.mp3" },
-                    { letter: "فِ", audio: "audio/harakat/faa-kasrah.mp3" },
-                    { letter: "فْ", audio: "audio/harakat/faa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Qaaf",
-                options: [
-                    { letter: "قَ", audio: "audio/harakat/qaaf-fathah.mp3" },
-                    { letter: "قُ", audio: "audio/harakat/qaaf-dammah.mp3" },
-                    { letter: "قِ", audio: "audio/harakat/qaaf-kasrah.mp3" },
-                    { letter: "قْ", audio: "audio/harakat/qaaf-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Kaaf",
-                options: [
-                    { letter: "كَ", audio: "audio/harakat/kaaf-fathah.mp3" },
-                    { letter: "كُ", audio: "audio/harakat/kaaf-dammah.mp3" },
-                    { letter: "كِ", audio: "audio/harakat/kaaf-kasrah.mp3" },
-                    { letter: "كْ", audio: "audio/harakat/kaaf-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Laam",
-                options: [
-                    { letter: "لَ", audio: "audio/harakat/laam-fathah.mp3" },
-                    { letter: "لُ", audio: "audio/harakat/laam-dammah.mp3" },
-                    { letter: "لِ", audio: "audio/harakat/laam-kasrah.mp3" },
-                    { letter: "لْ", audio: "audio/harakat/laam-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Miim",
-                options: [
-                    { letter: "مَ", audio: "audio/harakat/miim-fathah.mp3" },
-                    { letter: "مُ", audio: "audio/harakat/miim-dammah.mp3" },
-                    { letter: "مِ", audio: "audio/harakat/miim-kasrah.mp3" },
-                    { letter: "مْ", audio: "audio/harakat/miim-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Nuun",
-                options: [
-                    { letter: "نَ", audio: "audio/harakat/nuun-fathah.mp3" },
-                    { letter: "نُ", audio: "audio/harakat/nuun-dammah.mp3" },
-                    { letter: "نِ", audio: "audio/harakat/nuun-kasrah.mp3" },
-                    { letter: "نْ", audio: "audio/harakat/nuun-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Haaa",
-                options: [
-                    { letter: "هَ", audio: "audio/harakat/haaa-fathah.mp3" },
-                    { letter: "هُ", audio: "audio/harakat/haaa-dammah.mp3" },
-                    { letter: "هِ", audio: "audio/harakat/haaa-kasrah.mp3" },
-                    { letter: "هْ", audio: "audio/harakat/haaa-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Waaw",
-                options: [
-                    { letter: "وَ", audio: "audio/harakat/waaw-fathah.mp3" },
-                    { letter: "وُ", audio: "audio/harakat/waaw-dammah.mp3" },
-                    { letter: "وِ", audio: "audio/harakat/waaw-kasrah.mp3" },
-                    { letter: "وْ", audio: "audio/harakat/waaw-soukoun.mp3" }
-                ]
-            },
-            {
-                base: "Yaa",
-                options: [
-                    { letter: "يَ", audio: "audio/harakat/yaa-fathah.mp3" },
-                    { letter: "يُ", audio: "audio/harakat/yaa-dammah.mp3" },
-                    { letter: "يِ", audio: "audio/harakat/yaa-kasrah.mp3" },
-                    { letter: "يْ", audio: "audio/harakat/yaa-soukoun.mp3" }
-                ]
-            }
-        ];
-
-        let playerName = "";
-        let questions = []; 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let currentAudio = new Audio();
-        let isAnswerProcessing = false;
-
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const nameInput = document.getElementById('player-name');
-
-        function startQuiz() {
-            playerName = nameInput.value.trim();
-            if (playerName === "") playerName = "Participant";
-
-            score = 0;
-            currentQuestionIndex = 0;
-            isAnswerProcessing = false;
-
-            generateQuestions();
-
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
-
-            loadQuestion();
+        // Interaction cliquable sur les colonnes des voyelles
+        function toggleActive(element) {
+            // Retire la classe 'active' de toutes les colonnes
+            document.querySelectorAll('.haraka-col').forEach(col => col.classList.remove('active'));
+            // Ajoute la classe 'active' à la colonne cliquée
+            element.classList.add('active');
         }
 
-        // GÉNÉRER LES QUESTIONS (Logique Pédagogique)
-        function generateQuestions() {
-            questions = [];
-            
-            // Pour chaque lettre de l'alphabet (28 lettres)
-            alphabetHarakatData.forEach(letterGroup => {
-                // Pour chaque harakah de cette lettre (4 harakates)
-                letterGroup.options.forEach(targetObj => {
-                    
-                    // Les options affichées sont TOUJOURS les 4 harakates de la MÊME lettre
-                    let options = [...letterGroup.options];
-                    
-                    // On mélange l'ordre des boutons pour que la bonne réponse ne soit pas toujours au même endroit
-                    options = options.sort(() => Math.random() - 0.5);
-                    
-                    questions.push({
-                        targetLetter: targetObj.letter,
-                        targetAudio: targetObj.audio,
-                        options: options.map(opt => opt.letter)
-                    });
-                });
-            });
+        // Animation d'apparition au scroll (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
 
-            // Une fois les 112 questions créées (28x4), on mélange l'ordre du quiz
-            questions = questions.sort(() => Math.random() - 0.5);
-        }
-
-        function loadQuestion() {
-            isAnswerProcessing = false;
-            const currentQ = questions[currentQuestionIndex];
-            
-            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            const progressPercent = (currentQuestionIndex / questions.length) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
-
-            const optionsGrid = document.getElementById('options-grid');
-            optionsGrid.innerHTML = "";
-
-            currentQ.options.forEach(letter => {
-                const btn = document.createElement('div');
-                btn.className = 'option-card ar-text';
-                btn.innerText = letter;
-                btn.onclick = () => handleAnswer(letter, btn, currentQ.targetLetter);
-                optionsGrid.appendChild(btn);
-            });
-
-            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
-        }
-
-        function handleAnswer(selectedLetter, cardElement, targetLetter) {
-            if (isAnswerProcessing) return;
-            isAnswerProcessing = true;
-
-            const allCards = document.getElementById('options-grid').children;
-
-            if (selectedLetter === targetLetter) {
-                score++;
-                cardElement.classList.add('correct');
-            } else {
-                cardElement.classList.add('wrong');
-                if (navigator.vibrate) navigator.vibrate(200);
-                
-                for (let i = 0; i < allCards.length; i++) {
-                    if (allCards[i].innerText === targetLetter) {
-                        allCards[i].classList.add('correct');
-                    }
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Ne joue l'animation qu'une fois
                 }
-            }
+            });
+        }, observerOptions);
 
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    loadQuestion();
-                } else {
-                    finishQuiz();
-                }
-            }, 1200);
-        }
-
-        function playCurrentQuestionAudio() {
-            const currentQ = questions[currentQuestionIndex];
-            const audioPath = currentQ.targetAudio;
-            
-            if (!audioPath || audioPath === "") return;
-
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
-            
-            let playPromise = currentAudio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Lecture auto bloquée par le navigateur :", error);
-                });
-            }
-        }
-
-        function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-
-            document.getElementById('progress-fill').style.width = `100%`;
-
-            document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
-            
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            const dateStr = new Date().toLocaleDateString('fr-FR', options);
-            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
-
-            triggerConfetti();
-
-            // Lancer l'audio de félicitation
-            const mabrukAudio = new Audio("audio/mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Mabrouk audio bloqué :", error);
-                });
-            }
-        }
-
-        function triggerConfetti() {
-            const duration = 3000;
-            const end = Date.now() + duration;
-
-            (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-        }
-
-        function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-            nameInput.value = "";
-        }
+        document.querySelectorAll('.observe-me').forEach(section => {
+            observer.observe(section);
+        });
     </script>
 </body>
 </html>
