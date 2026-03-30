@@ -152,9 +152,9 @@ const wordsDatabase = [
     { id: 141, type: "word", arabe: "قَلْب", icon: "fa-solid fa-heart", fr: "Cœur", es: "Corazón", audio: "audio/module2/qalb.mp3" },
     { id: 142, type: "word", arabe: "أُذُن", icon: "fa-solid fa-ear-listen", fr: "Oreille", es: "Oreja", audio: "audio/module2/udhun.mp3" },
     { id: 143, type: "word", arabe: "رِجْل", icon: "fa-solid fa-shoe-prints", fr: "Jambe", es: "Pierna", audio: "audio/module2/rijl.mp3" },
-    { id: 144, type: "word", arabe: "قِرْد", icon: "fa-solid fa-monkey", fr: "Singe", es: "Mono", audio: "audio/module2/qird.mp3" },
+    { id: 144, type: "word", arabe: "قِرْد", icon: "fa-solid fa-paw", fr: "Singe", es: "Mono", audio: "audio/module2/qird.mp3" },
     { id: 145, type: "word", arabe: "ذِئْب", icon: "fa-solid fa-dog", fr: "Loup", es: "Lobo", audio: "audio/module2/dhib.mp3" },
-    { id: 146, type: "word", arabe: "مَكْتَب", icon: "fa-solid fa-computer-desk", fr: "Bureau", es: "Escritorio", audio: "audio/module2/maktab.mp3" },
+    { id: 146, type: "word", arabe: "مَكْتَب", icon: "fa-solid fa-desktop", fr: "Bureau", es: "Escritorio", audio: "audio/module2/maktab.mp3" },
     { id: 147, type: "word", arabe: "مُسْلِم", icon: "fa-solid fa-person-praying", fr: "Musulman", es: "Musulmán", audio: "audio/module2/muslim.mp3" },
     { id: 148, type: "word", arabe: "دَفْتَر", icon: "fa-solid fa-book-open", fr: "Cahier", es: "Cuaderno", audio: "audio/module2/daftar.mp3" },
 
