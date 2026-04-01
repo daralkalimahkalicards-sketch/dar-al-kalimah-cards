@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalimah - Quiz 1 (Al-Harakat)</title>
+    <title>Dar Al-Kalimah - Quiz 3 (3 et 4 lettres)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script src="database.js"></script>
     
     <style>
         :root {
@@ -44,7 +46,6 @@
 
         @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* LA PETITE MAISON DORÉE */
         .btn-back-home {
             position: absolute; top: 25px; right: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
             padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
@@ -54,13 +55,18 @@
 
         .btn-main, .btn-secondary, .btn-link {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; text-decoration: none;
+            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
         }
-        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); border-color: var(--gold); }
+        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:active, .btn-link:active { transform: translateY(1px); }
 
-        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); }
+        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
+
+        .btn-back-menu { display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s; }
+        .btn-back-menu:hover { color: var(--white); }
 
         .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; }
         .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
@@ -73,8 +79,12 @@
         .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
 
         .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; text-align: center; border: 2px solid var(--gold); border-radius: 12px; }
-        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
+
+        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none; }
+        .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
 
         .quiz-container { text-align: center; background: var(--white); padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft); max-width: 600px; width: 100%; }
         .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
@@ -84,16 +94,21 @@
         .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
 
         .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
-        
-        .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
-        .btn-audio.big-audio { width: 80px; height: 80px; font-size: 2.5rem; background: var(--white); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
-        .btn-audio.big-audio:hover { transform: scale(1.1); background: var(--gold); }
+        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
+
+        .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 35px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
+        .btn-audio.big-audio { width: 90px; height: 90px; font-size: 3rem; background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3); transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; }
+        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
+        .btn-audio.big-audio:active { transform: scale(0.95); }
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 1.5; display: flex; justify-content: center; align-items: center; font-size: 4rem; color: var(--burgundy); cursor: pointer; transition: 0.2s; font-weight: bold; line-height: 0.7; font-feature-settings: "mark" 1; }
-        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 2; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; color: var(--burgundy); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease; font-weight: bold; padding: 10px; }
+        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+        .option-card:active { transform: scale(0.95); }
+
         .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
-        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); pointer-events: none; opacity: 0.7; }
+        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
+        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
         .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px; }
         .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
@@ -109,11 +124,12 @@
         .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3.5rem; } .diploma-paper { padding: 30px 20px; } }
+        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3rem; } .diploma-paper { padding: 30px 20px; } }
         @media (max-width: 480px) { 
             .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
-            .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 3rem; aspect-ratio: 1.3; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } 
+            .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 75px; height: 75px; font-size: 2.2rem; } .option-card { font-size: 2.6rem; aspect-ratio: auto; padding: 25px 5px; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } 
         }
+        @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -122,18 +138,19 @@
 
     <div id="view-welcome" class="view">
         <div class="menu-container">
-            <div class="brand-ar ar-text">الحَرَكَات</div>
+            <div class="brand-ar ar-text">كلمات متقدمة</div>
             <div class="app-title serif-text">Kalicards – Module 2</div>
-            <div class="app-subtitle">QUIZ 1 : Reconnaître les Harakat</div>
+            <div class="app-subtitle">QUIZ 3 : Mots de 3 et 4 lettres</div>
             <div class="divider"></div>
             
             <div class="subtitle-group">
-                <p class="subtitle fr">Écoute l'audio et trouve la bonne voyelle (Harakah).</p>
-                <p class="subtitle es">Escucha el audio y encuentra la vocal correcta (Harakah).</p>
+                <p class="subtitle fr">Écoute l'audio et trouve le bon mot en arabe.</p>
+                <p class="subtitle es">Escucha el audio y encuentra la palabra correcta en árabe.</p>
             </div>
             
             <div class="input-group">
-                <input type="text" id="player-name" placeholder="Nom du participant" autocomplete="off">
+                <label for="player-name">Nom du participant / Nombre del participante</label>
+                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
             
             <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
@@ -143,7 +160,7 @@
     <div id="view-quiz" class="view hidden">
         <div class="quiz-header">
             <div class="progress-info">
-                <span id="progress-text" class="progress-text">1 / 28</span>
+                <span id="progress-text" class="progress-text">1 / X</span>
             </div>
             <div class="progress-bar-container">
                 <div id="progress-fill" class="progress-bar-fill"></div>
@@ -151,9 +168,9 @@
         </div>
 
         <div class="quiz-container">
-            <div class="instruction-text">Écoute et trouve la bonne Harakah !</div>
+            <div class="instruction-text">Écoute et trouve le mot arabe !<br><small>¡Escucha y encuentra la palabra árabe!</small></div>
             <div class="question-focus">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()">🎙️</button>
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
             </div>
             <div class="options-grid" id="options-grid"></div>
         </div>
@@ -163,6 +180,10 @@
         <div class="diploma-paper">
             <div class="cert-ar ar-text">مبروك</div>
             <h2 class="cert-title serif-text">Certificat de réussite</h2>
+            <div class="cert-messages">
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 3 du module 2 (Mots de 3/4 lettres).</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz 3 del módulo 2 (Palabras de 3/4 letras).</p>
+            </div>
             <div id="cert-name" class="cert-name ar-text">Participant</div>
             <div class="cert-score-box">
                 <span class="score-label">Score Final</span>
@@ -172,59 +193,43 @@
             <div class="cert-icon">📖</div>
         </div>
         
-        <div class="cert-actions">
+        <div class="cert-actions no-print">
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
+            <a href="module2.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
     <script>
-        const alphabetData = [
-            { letter: "أ", fathah: { form: "أَ", audio: "audio/harakat/alif-fathah.mp3" }, dammah: { form: "أُ", audio: "audio/harakat/alif-dammah.mp3" }, kasrah: { form: "إِ", audio: "audio/harakat/alif-kasrah.mp3" }, soukoun:{ form: "أْ", audio: "audio/harakat/alif-soukoun.mp3" } },
-            { letter: "ب", fathah: { form: "بَ", audio: "audio/harakat/baa-fathah.mp3" }, dammah: { form: "بُ", audio: "audio/harakat/baa-dammah.mp3" }, kasrah: { form: "بِ", audio: "audio/harakat/baa-kasrah.mp3" }, soukoun:{ form: "بْ", audio: "audio/harakat/baa-soukoun.mp3" } },
-            { letter: "ت", fathah: { form: "تَ", audio: "audio/harakat/taa-fathah.mp3" }, dammah: { form: "تُ", audio: "audio/harakat/taa-dammah.mp3" }, kasrah: { form: "تِ", audio: "audio/harakat/taa-kasrah.mp3" }, soukoun:{ form: "تْ", audio: "audio/harakat/taa-soukoun.mp3" } },
-            { letter: "ث", fathah: { form: "ثَ", audio: "audio/harakat/thaa-fathah.mp3" }, dammah: { form: "ثُ", audio: "audio/harakat/thaa-dammah.mp3" }, kasrah: { form: "ثِ", audio: "audio/harakat/thaa-kasrah.mp3" }, soukoun:{ form: "ثْ", audio: "audio/harakat/thaa-soukoun.mp3" } },
-            { letter: "ج", fathah: { form: "جَ", audio: "audio/harakat/jim-fathah.mp3" }, dammah: { form: "جُ", audio: "audio/harakat/jim-dammah.mp3" }, kasrah: { form: "جِ", audio: "audio/harakat/jim-kasrah.mp3" }, soukoun:{ form: "جْ", audio: "audio/harakat/jim-soukoun.mp3" } },
-            { letter: "ح", fathah: { form: "حَ", audio: "audio/harakat/haa-fathah.mp3" }, dammah: { form: "حُ", audio: "audio/harakat/haa-dammah.mp3" }, kasrah: { form: "حِ", audio: "audio/harakat/haa-kasrah.mp3" }, soukoun:{ form: "حْ", audio: "audio/harakat/haa-soukoun.mp3" } },
-            { letter: "خ", fathah: { form: "خَ", audio: "audio/harakat/khaa-fathah.mp3" }, dammah: { form: "خُ", audio: "audio/harakat/khaa-dammah.mp3" }, kasrah: { form: "خِ", audio: "audio/harakat/khaa-kasrah.mp3" }, soukoun:{ form: "خْ", audio: "audio/harakat/khaa-soukoun.mp3" } },
-            { letter: "د", fathah: { form: "دَ", audio: "audio/harakat/dal-fathah.mp3" }, dammah: { form: "دُ", audio: "audio/harakat/dal-dammah.mp3" }, kasrah: { form: "دِ", audio: "audio/harakat/dal-kasrah.mp3" }, soukoun:{ form: "دْ", audio: "audio/harakat/dal-soukoun.mp3" } },
-            { letter: "ذ", fathah: { form: "ذَ", audio: "audio/harakat/dhal-fathah.mp3" }, dammah: { form: "ذُ", audio: "audio/harakat/dhal-dammah.mp3" }, kasrah: { form: "ذِ", audio: "audio/harakat/dhal-kasrah.mp3" }, soukoun:{ form: "ذْ", audio: "audio/harakat/dhal-soukoun.mp3" } },
-            { letter: "ر", fathah: { form: "رَ", audio: "audio/harakat/raa-fathah.mp3" }, dammah: { form: "رُ", audio: "audio/harakat/raa-dammah.mp3" }, kasrah: { form: "رِ", audio: "audio/harakat/raa-kasrah.mp3" }, soukoun:{ form: "رْ", audio: "audio/harakat/raa-soukoun.mp3" } },
-            { letter: "ز", fathah: { form: "زَ", audio: "audio/harakat/zay-fathah.mp3" }, dammah: { form: "زُ", audio: "audio/harakat/zay-dammah.mp3" }, kasrah: { form: "زِ", audio: "audio/harakat/zay-kasrah.mp3" }, soukoun:{ form: "زْ", audio: "audio/harakat/zay-soukoun.mp3" } },
-            { letter: "س", fathah: { form: "سَ", audio: "audio/harakat/siin-fathah.mp3" }, dammah: { form: "سُ", audio: "audio/harakat/siin-dammah.mp3" }, kasrah: { form: "سِ", audio: "audio/harakat/siin-kasrah.mp3" }, soukoun:{ form: "سْ", audio: "audio/harakat/siin-soukoun.mp3" } },
-            { letter: "ش", fathah: { form: "شَ", audio: "audio/harakat/shiin-fathah.mp3" }, dammah: { form: "شُ", audio: "audio/harakat/shiin-dammah.mp3" }, kasrah: { form: "شِ", audio: "audio/harakat/shiin-kasrah.mp3" }, soukoun:{ form: "شْ", audio: "audio/harakat/shiin-soukoun.mp3" } },
-            { letter: "ص", fathah: { form: "صَ", audio: "audio/harakat/saad-fathah.mp3" }, dammah: { form: "صُ", audio: "audio/harakat/saad-dammah.mp3" }, kasrah: { form: "صِ", audio: "audio/harakat/saad-kasrah.mp3" }, soukoun:{ form: "صْ", audio: "audio/harakat/saad-soukoun.mp3" } },
-            { letter: "ض", fathah: { form: "ضَ", audio: "audio/harakat/daad-fathah.mp3" }, dammah: { form: "ضُ", audio: "audio/harakat/daad-dammah.mp3" }, kasrah: { form: "ضِ", audio: "audio/harakat/daad-kasrah.mp3" }, soukoun:{ form: "ضْ", audio: "audio/harakat/daad-soukoun.mp3" } },
-            { letter: "ط", fathah: { form: "طَ", audio: "audio/harakat/taaa-fathah.mp3" }, dammah: { form: "طُ", audio: "audio/harakat/taaa-dammah.mp3" }, kasrah: { form: "طِ", audio: "audio/harakat/taaa-kasrah.mp3" }, soukoun:{ form: "طْ", audio: "audio/harakat/taaa-soukoun.mp3" } },
-            { letter: "ظ", fathah: { form: "ظَ", audio: "audio/harakat/zaa-fathah.mp3" }, dammah: { form: "ظُ", audio: "audio/harakat/zaa-dammah.mp3" }, kasrah: { form: "ظِ", audio: "audio/harakat/zaa-kasrah.mp3" }, soukoun:{ form: "ظْ", audio: "audio/harakat/zaa-soukoun.mp3" } },
-            { letter: "ع", fathah: { form: "عَ", audio: "audio/harakat/ayn-fathah.mp3" }, dammah: { form: "عُ", audio: "audio/harakat/ayn-dammah.mp3" }, kasrah: { form: "عِ", audio: "audio/harakat/ayn-kasrah.mp3" }, soukoun:{ form: "عْ", audio: "audio/harakat/ayn-soukoun.mp3" } },
-            { letter: "غ", fathah: { form: "غَ", audio: "audio/harakat/ghayn-fathah.mp3" }, dammah: { form: "غُ", audio: "audio/harakat/ghayn-dammah.mp3" }, kasrah: { form: "غِ", audio: "audio/harakat/ghayn-kasrah.mp3" }, soukoun:{ form: "غْ", audio: "audio/harakat/ghayn-soukoun.mp3" } },
-            { letter: "ف", fathah: { form: "فَ", audio: "audio/harakat/faa-fathah.mp3" }, dammah: { form: "فُ", audio: "audio/harakat/faa-dammah.mp3" }, kasrah: { form: "فِ", audio: "audio/harakat/faa-kasrah.mp3" }, soukoun:{ form: "فْ", audio: "audio/harakat/faa-soukoun.mp3" } },
-            { letter: "ق", fathah: { form: "قَ", audio: "audio/harakat/qaaf-fathah.mp3" }, dammah: { form: "قُ", audio: "audio/harakat/qaaf-dammah.mp3" }, kasrah: { form: "قِ", audio: "audio/harakat/qaaf-kasrah.mp3" }, soukoun:{ form: "قْ", audio: "audio/harakat/qaaf-soukoun.mp3" } },
-            { letter: "ك", fathah: { form: "كَ", audio: "audio/harakat/kaaf-fathah.mp3" }, dammah: { form: "كُ", audio: "audio/harakat/kaaf-dammah.mp3" }, kasrah: { form: "كِ", audio: "audio/harakat/kaaf-kasrah.mp3" }, soukoun:{ form: "كْ", audio: "audio/harakat/kaaf-soukoun.mp3" } },
-            { letter: "ل", fathah: { form: "لَ", audio: "audio/harakat/laam-fathah.mp3" }, dammah: { form: "لُ", audio: "audio/harakat/laam-dammah.mp3" }, kasrah: { form: "لِ", audio: "audio/harakat/laam-kasrah.mp3" }, soukoun:{ form: "لْ", audio: "audio/harakat/laam-soukoun.mp3" } },
-            { letter: "م", fathah: { form: "مَ", audio: "audio/harakat/miim-fathah.mp3" }, dammah: { form: "مُ", audio: "audio/harakat/miim-dammah.mp3" }, kasrah: { form: "مِ", audio: "audio/harakat/miim-kasrah.mp3" }, soukoun:{ form: "مْ", audio: "audio/harakat/miim-soukoun.mp3" } },
-            { letter: "ن", fathah: { form: "نَ", audio: "audio/harakat/nuun-fathah.mp3" }, dammah: { form: "نُ", audio: "audio/harakat/nuun-dammah.mp3" }, kasrah: { form: "نِ", audio: "audio/harakat/nuun-kasrah.mp3" }, soukoun:{ form: "نْ", audio: "audio/harakat/nuun-soukoun.mp3" } },
-            { letter: "ه", fathah: { form: "هَ", audio: "audio/harakat/haaa-fathah.mp3" }, dammah: { form: "هُ", audio: "audio/harakat/haaa-dammah.mp3" }, kasrah: { form: "هِ", audio: "audio/harakat/haaa-kasrah.mp3" }, soukoun:{ form: "هْ", audio: "audio/harakat/haaa-soukoun.mp3" } },
-            { letter: "و", fathah: { form: "وَ", audio: "audio/harakat/waaw-fathah.mp3" }, dammah: { form: "وُ", audio: "audio/harakat/waaw-dammah.mp3" }, kasrah: { form: "وِ", audio: "audio/harakat/waaw-kasrah.mp3" }, soukoun:{ form: "وْ", audio: "audio/harakat/waaw-soukoun.mp3" } },
-            { letter: "ي", fathah: { form: "يَ", audio: "audio/harakat/yaa-fathah.mp3" }, dammah: { form: "يُ", audio: "audio/harakat/yaa-dammah.mp3" }, kasrah: { form: "يِ", audio: "audio/harakat/yaa-kasrah.mp3" }, soukoun:{ form: "يْ", audio: "audio/harakat/yaa-soukoun.mp3" } }
-        ];
-
         let playerName = "";
         let questions = []; 
         let currentQuestionIndex = 0;
         let score = 0;
         let currentAudio = new Audio();
         let isAnswerProcessing = false;
+        
+        let wordData = [];
+
+        function initQuizData() {
+            // FILTRE ULTRA STRICT : Bloque le Module 1 et le Module 3 !
+            // Il ne prend que les mots de 3 et 4 lettres entre l'ID 130 et 148.
+            wordData = wordsDatabase.filter(item => {
+                return item.type === "word" && item.id >= 130 && item.id <= 148;
+            });
+        }
 
         function startQuiz() {
-            playerName = document.getElementById('player-name').value.trim() || "Participant";
+            playerName = document.getElementById('player-name').value.trim();
+            if (playerName === "") playerName = "Participant";
+
+            initQuizData();
             score = 0;
             currentQuestionIndex = 0;
             isAnswerProcessing = false;
 
             generateQuestions();
             
-            document.querySelector('.btn-back-home').style.display = 'none'; 
+            document.querySelector('.btn-back-home').style.display = 'none';
             document.getElementById('view-welcome').classList.add('hidden');
             document.getElementById('view-quiz').classList.remove('hidden');
 
@@ -233,31 +238,18 @@
 
         function generateQuestions() {
             questions = [];
-            let shuffledAlphabet = [...alphabetData].sort(() => Math.random() - 0.5);
+            let shuffledData = [...wordData].sort(() => Math.random() - 0.5);
 
-            // Création d'un pool parfait de 28 Harakat : 7 de chaque
-            let harakatPool = [];
-            for (let i = 0; i < 7; i++) {
-                harakatPool.push("fathah", "dammah", "kasrah", "soukoun");
-            }
-            // Mélange du pool
-            harakatPool = harakatPool.sort(() => Math.random() - 0.5);
-
-            shuffledAlphabet.forEach((letterObj, index) => {
-                // On attribue une Harakah équilibrée à chaque lettre
-                const targetKey = harakatPool[index];
-                const targetHarakah = letterObj[targetKey];
-
-                let options = [
-                    letterObj.fathah.form,
-                    letterObj.dammah.form,
-                    letterObj.kasrah.form,
-                    letterObj.soukoun.form
-                ].sort(() => Math.random() - 0.5); 
+            shuffledData.forEach(targetObj => {
+                let distractors = wordData.filter(item => item.arabe !== targetObj.arabe);
+                distractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
+                
+                let options = [targetObj.arabe, distractors[0].arabe, distractors[1].arabe, distractors[2].arabe];
+                options = options.sort(() => Math.random() - 0.5); 
                 
                 questions.push({
-                    targetArabic: targetHarakah.form,
-                    targetAudio: targetHarakah.audio,
+                    targetArabic: targetObj.arabe,
+                    targetAudio: targetObj.audio,
                     options: options
                 });
             });
@@ -268,7 +260,8 @@
             const currentQ = questions[currentQuestionIndex];
             
             document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            document.getElementById('progress-fill').style.width = `${(currentQuestionIndex / questions.length) * 100}%`;
+            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
 
             const optionsGrid = document.getElementById('options-grid');
             optionsGrid.innerHTML = "";
@@ -287,7 +280,6 @@
         function handleAnswer(selectedArabic, cardElement, targetArabic) {
             if (isAnswerProcessing) return;
             isAnswerProcessing = true;
-            
             const allCards = document.getElementById('options-grid').children;
 
             if (selectedArabic === targetArabic) {
@@ -295,6 +287,7 @@
                 cardElement.classList.add('correct');
             } else {
                 cardElement.classList.add('wrong');
+                if (navigator.vibrate) navigator.vibrate(200);
                 for (let i = 0; i < allCards.length; i++) {
                     if (allCards[i].innerText === targetArabic) {
                         allCards[i].classList.add('correct');
@@ -306,14 +299,20 @@
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) { loadQuestion(); } 
                 else { finishQuiz(); }
-            }, 1000);
+            }, 1200);
         }
 
         function playCurrentQuestionAudio() {
             const currentQ = questions[currentQuestionIndex];
-            if (currentQ.targetAudio) {
-                currentAudio.src = currentQ.targetAudio;
-                currentAudio.play().catch(e => console.log(e));
+            const audioPath = currentQ.targetAudio;
+            if (!audioPath || audioPath === "") return;
+
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio.src = audioPath;
+            let playPromise = currentAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => { console.log("Lecture audio impossible :", error); });
             }
         }
 
@@ -331,13 +330,15 @@
 
             triggerConfetti();
 
-            // AUDIO MABROUK (Simple et direct)
-            const mabrukAudio = new Audio("audio/mabruk.mp3");
-            mabrukAudio.play().catch(e => console.log(e));
+            const mabrukAudio = new Audio("mabruk.mp3");
+            let playPromise = mabrukAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
+            }
         }
 
         function triggerConfetti() {
-            const end = Date.now() + 3000;
+            const duration = 3000; const end = Date.now() + duration;
             (function frame() {
                 confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
                 confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
