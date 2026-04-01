@@ -54,14 +54,14 @@
         }
         .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
 
-        .btn-main, .btn-secondary, .btn-link {
+        .btn-main, .btn-secondary {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
             padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
             box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
         }
-        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active, .btn-link:active { transform: translateY(1px); }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:active { transform: translateY(1px); }
 
         .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
@@ -122,10 +122,10 @@
         .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3rem; } .diploma-paper { padding: 30px 20px; } }
+        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3.5rem; } .diploma-paper { padding: 30px 20px; } }
         @media (max-width: 480px) { 
             .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
-            .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 75px; height: 75px; font-size: 2.2rem; } .option-card { font-size: 2.6rem; aspect-ratio: auto; padding: 25px 5px; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.3rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } 
+            .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 75px; height: 75px; font-size: 2.2rem; } .option-card { font-size: 2.6rem; aspect-ratio: auto; padding: 25px 5px; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.3rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary { width: 100%; text-align: center; } 
         }
         @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
     </style>
@@ -208,15 +208,11 @@
         let wordData = [];
 
         function normalizeWordLength(arabicStr) {
-            // Enlève toutes les harakat pour compter le vrai nombre de lettres
-            const cleaned = arabicStr.replace(/[ًٌٍَُِّْ]/g, "");
-            return cleaned.length;
+            return arabicStr.replace(/[ًٌٍَُِّْ]/g, "").length;
         }
 
         function initQuizData() {
-            // FILTRE ULTRA STRICT : Bloque le Module 1 et le Module 3 (Modoud) !
-            // Uniquement les mots entre l'ID 130 et 148 de la base de données.
-            // On s'assure en plus que le mot fait bien 3 ou 4 lettres.
+            // Filtre strict : ID 130 à 148 (sans Modoud), mots de 3 ou 4 lettres
             wordData = wordsDatabase.filter(item => {
                 if (item.type !== "word") return false;
                 if (item.id < 130 || item.id > 148) return false;
@@ -338,7 +334,6 @@
 
             triggerConfetti();
 
-            // L'audio Mabrouk à la racine du projet
             const mabrukAudio = new Audio("mabruk.mp3");
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
