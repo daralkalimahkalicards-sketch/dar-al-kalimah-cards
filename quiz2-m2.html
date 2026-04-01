@@ -6,6 +6,7 @@
     <title>Dar Al-Kalimah - Quiz 2 (Mots de 2 lettres)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script src="database.js"></script>
@@ -34,6 +35,7 @@
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
             padding: 20px; overflow-x: hidden; color: var(--burgundy);
+            position: relative;
         }
 
         .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
@@ -43,6 +45,14 @@
         .hidden { display: none !important; }
 
         @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* LA PETITE MAISON DORÉE À DROITE */
+        .btn-back-home {
+            position: absolute; top: 25px; right: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; z-index: 100;
+        }
+        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
 
         .btn-main, .btn-secondary, .btn-link {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
@@ -56,9 +66,6 @@
         .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
 
-        .btn-back-menu { display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s; }
-        .btn-back-menu:hover { color: var(--white); }
-
         .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; }
         .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
         .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
@@ -70,7 +77,7 @@
         .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
 
         .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; text-transform: uppercase;}
         .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
         .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
 
@@ -103,7 +110,7 @@
 
         .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px; }
         .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
-        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
+        .cert-title { color: var(--burgundy); font-size: 1.8rem; margin-bottom: 20px; line-height: 1.3;}
         .cert-messages { margin-bottom: 25px; }
         .cert-msg { font-weight: 600; color: #444; }
         .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
@@ -116,11 +123,16 @@
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
         @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3.5rem; } .diploma-paper { padding: 30px 20px; } }
-        @media (max-width: 480px) { .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 3rem; aspect-ratio: 1.3; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } }
+        @media (max-width: 480px) { 
+            .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
+            .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 3rem; aspect-ratio: 1.3; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.3rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } 
+        }
         @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
     </style>
 </head>
 <body>
+
+    <a href="module2.html" class="btn-back-home"><i class="fa-solid fa-house"></i> Menu / Menú</a>
 
     <div id="view-welcome" class="view">
         <div class="menu-container">
@@ -135,12 +147,11 @@
             </div>
             
             <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
+                <label for="player-name">Nom / Nombre</label>
                 <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
             
-            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
-            <a href="module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
+            <button class="btn-main" onclick="startQuiz()">Commencer / Empezar</button>
         </div>
     </div>
 
@@ -166,14 +177,14 @@
     <div id="view-certificate" class="view hidden">
         <div class="diploma-paper">
             <div class="cert-ar ar-text">مبروك</div>
-            <h2 class="cert-title serif-text">Certificat de réussite</h2>
+            <h2 class="cert-title serif-text">Certificat de réussite<br>Certificado de logro</h2>
             <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 du module 2 (Mots courts).</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz 2 del módulo 2 (Palabras cortas).</p>
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Mots courts).</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz 2 (Palabras cortas).</p>
             </div>
             <div id="cert-name" class="cert-name ar-text">Participant</div>
             <div class="cert-score-box">
-                <span class="score-label">Score Final</span>
+                <span class="score-label">Score / Puntuación</span>
                 <div id="cert-score" class="score-value">0 / 0</div>
             </div>
             <div id="cert-date" class="cert-date"></div>
@@ -181,9 +192,8 @@
         </div>
         
         <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer / Imprimir</button>
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="module2.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
@@ -196,11 +206,6 @@
         let isAnswerProcessing = false;
         
         let wordData = [];
-
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const nameInput = document.getElementById('player-name');
 
         function normalizeWordLength(arabicStr) {
             // Enlève toutes les harakat pour compter le vrai nombre de lettres
@@ -215,7 +220,7 @@
         }
 
         function startQuiz() {
-            playerName = nameInput.value.trim();
+            playerName = document.getElementById('player-name').value.trim();
             if (playerName === "") playerName = "Participant";
 
             initQuizData();
@@ -225,8 +230,9 @@
 
             generateQuestions();
 
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'none';
+            document.getElementById('view-welcome').classList.add('hidden');
+            document.getElementById('view-quiz').classList.remove('hidden');
 
             loadQuestion();
         }
@@ -312,8 +318,9 @@
         }
 
         function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById('view-certificate').classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'flex';
             document.getElementById('progress-fill').style.width = `100%`;
             document.getElementById('cert-name').innerText = playerName;
             document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
@@ -324,7 +331,7 @@
 
             triggerConfetti();
 
-            const mabrukAudio = new Audio("audio/mabruk.mp3");
+            const mabrukAudio = new Audio("mabruk.mp3");
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
@@ -341,9 +348,9 @@
         }
 
         function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-            nameInput.value = ""; 
+            document.getElementById('view-certificate').classList.add('hidden');
+            document.getElementById('view-welcome').classList.remove('hidden');
+            document.getElementById('player-name').value = ""; 
         }
     </script>
 </body>
