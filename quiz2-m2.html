@@ -195,7 +195,6 @@
         let currentAudio = new Audio();
         let isAnswerProcessing = false;
         
-        // Cible pour le Quiz 2 : Mots à 2 lettres exactement.
         let wordData = [];
 
         const viewWelcome = document.getElementById('view-welcome');
@@ -210,9 +209,9 @@
         }
 
         function initQuizData() {
-            // Filtrer la base de données pour ne garder QUE les mots (pas les lettres seules) 
-            // et QUE ceux qui font exactement 2 lettres
-            wordData = wordsDatabase.filter(item => item.type === "word" && normalizeWordLength(item.arabe) === 2);
+            // FILTRE STRICT : Uniquement les mots du Module 2 (ID 101 à 148) qui ont 2 lettres.
+            // Aucun mot du Module 3 ne pourra s'infiltrer !
+            wordData = wordsDatabase.filter(item => item.type === "word" && item.id >= 101 && item.id <= 148 && normalizeWordLength(item.arabe) === 2);
         }
 
         function startQuiz() {
