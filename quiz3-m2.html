@@ -34,7 +34,7 @@
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
             padding: 20px; overflow-x: hidden; color: var(--burgundy);
-            position: relative; /* Ajouté pour la maison */
+            position: relative;
         }
 
         .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
@@ -45,7 +45,6 @@
 
         @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* LA PETITE MAISON DORÉE */
         .btn-back-home {
             position: absolute; top: 25px; right: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
             padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
@@ -65,9 +64,6 @@
         .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
 
-        .btn-back-menu { display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s; }
-        .btn-back-menu:hover { color: var(--white); }
-
         .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; }
         .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
         .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
@@ -79,7 +75,6 @@
         .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
 
         .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
         .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
         .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
 
@@ -129,7 +124,6 @@
             .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
             .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 75px; height: 75px; font-size: 2.2rem; } .option-card { font-size: 2.6rem; aspect-ratio: auto; padding: 25px 5px; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } 
         }
-        @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -211,30 +205,16 @@
         
         let wordData = [];
 
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const nameInput = document.getElementById('player-name');
-
-        function normalizeWordLength(arabicStr) {
-            // Enlève toutes les harakat pour compter le vrai nombre de lettres
-            const cleaned = arabicStr.replace(/[ًٌٍَُِّْ]/g, "");
-            return cleaned.length;
-        }
-
         function initQuizData() {
-            // BLOQUE STRICTEMENT LES MOTS DU MODULE 3 (MODOUD)
+            // FILTRE ULTRA STRICT : Bloque le Module 1 et le Module 3 !
+            // Il ne prend que les mots de 3 et 4 lettres entre l'ID 130 et 148.
             wordData = wordsDatabase.filter(item => {
-                if (item.type !== "word") return false;
-                if (item.id > 148) return false; // Bloque les ID 149 et plus (Modoud)
-                
-                const len = normalizeWordLength(item.arabe);
-                return len === 3 || len === 4;
+                return item.type === "word" && item.id >= 130 && item.id <= 148;
             });
         }
 
         function startQuiz() {
-            playerName = nameInput.value.trim();
+            playerName = document.getElementById('player-name').value.trim();
             if (playerName === "") playerName = "Participant";
 
             initQuizData();
@@ -244,9 +224,9 @@
 
             generateQuestions();
             
-            document.querySelector('.btn-back-home').style.display = 'none'; // Cache la maison pendant le quiz
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'none';
+            document.getElementById('view-welcome').classList.add('hidden');
+            document.getElementById('view-quiz').classList.remove('hidden');
 
             loadQuestion();
         }
@@ -332,9 +312,9 @@
         }
 
         function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-            document.querySelector('.btn-back-home').style.display = 'flex'; // Réaffiche la maison à la fin
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById('view-certificate').classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'flex';
             document.getElementById('progress-fill').style.width = `100%`;
             document.getElementById('cert-name').innerText = playerName;
             document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
@@ -362,9 +342,9 @@
         }
 
         function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-            nameInput.value = ""; 
+            document.getElementById('view-certificate').classList.add('hidden');
+            document.getElementById('view-welcome').classList.remove('hidden');
+            document.getElementById('player-name').value = ""; 
         }
     </script>
 </body>
