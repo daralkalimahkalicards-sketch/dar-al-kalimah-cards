@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -32,7 +33,7 @@
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
             padding: 20px; overflow-x: hidden; color: var(--burgundy);
-            position: relative; /* Ajouté pour la maison */
+            position: relative;
         }
 
         .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
@@ -53,18 +54,13 @@
 
         .btn-main, .btn-secondary, .btn-link {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
+            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; text-decoration: none;
         }
-        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active, .btn-link:active { transform: translateY(1px); }
+        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); border-color: var(--gold); }
 
-        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
+        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); }
         .btn-secondary:hover { background: var(--gold); color: var(--white); }
-
-        .btn-back-menu { display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s; }
-        .btn-back-menu:hover { color: var(--white); }
 
         .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; }
         .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
@@ -77,12 +73,8 @@
         .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
 
         .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
-        .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
-
-        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none; }
-        .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
+        .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; text-align: center; border: 2px solid var(--gold); border-radius: 12px; }
+        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; }
 
         .quiz-container { text-align: center; background: var(--white); padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft); max-width: 600px; width: 100%; }
         .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
@@ -92,21 +84,16 @@
         .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
 
         .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
-
+        
         .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
-        .btn-audio.big-audio { width: 80px; height: 80px; font-size: 2.5rem; background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3); transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; }
-        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
-        .btn-audio.big-audio:active { transform: scale(0.95); }
+        .btn-audio.big-audio { width: 80px; height: 80px; font-size: 2.5rem; background: var(--white); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
+        .btn-audio.big-audio:hover { transform: scale(1.1); background: var(--gold); }
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 1.5; display: flex; justify-content: center; align-items: center; font-size: 4rem; color: var(--burgundy); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease; font-weight: bold; line-height: 0.7; font-feature-settings: "mark" 1; }
-        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
-        .option-card:active { transform: scale(0.95); }
-
+        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 1.5; display: flex; justify-content: center; align-items: center; font-size: 4rem; color: var(--burgundy); cursor: pointer; transition: 0.2s; font-weight: bold; line-height: 0.7; font-feature-settings: "mark" 1; }
+        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); }
         .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
-        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
-        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); pointer-events: none; opacity: 0.7; }
 
         .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px; }
         .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
@@ -127,7 +114,6 @@
             .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
             .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 3rem; aspect-ratio: 1.3; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } 
         }
-        @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -147,12 +133,10 @@
             </div>
             
             <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
-                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
+                <input type="text" id="player-name" placeholder="Nom du participant" autocomplete="off">
             </div>
             
             <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
-            <a href="module2.html" class="btn-back-menu">← Retour au menu du module 2</a>
         </div>
     </div>
 
@@ -167,9 +151,9 @@
         </div>
 
         <div class="quiz-container">
-            <div class="instruction-text">Écoute et trouve la bonne Harakah !<br><small>¡Escucha y encuentra la Harakah correcta!</small></div>
+            <div class="instruction-text">Écoute et trouve la bonne Harakah !</div>
             <div class="question-focus">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()">🎙️</button>
             </div>
             <div class="options-grid" id="options-grid"></div>
         </div>
@@ -179,10 +163,6 @@
         <div class="diploma-paper">
             <div class="cert-ar ar-text">مبروك</div>
             <h2 class="cert-title serif-text">Certificat de réussite</h2>
-            <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 1 du module 2 (Harakat).</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz 1 del módulo 2 (Harakat).</p>
-            </div>
             <div id="cert-name" class="cert-name ar-text">Participant</div>
             <div class="cert-score-box">
                 <span class="score-label">Score Final</span>
@@ -192,10 +172,8 @@
             <div class="cert-icon">📖</div>
         </div>
         
-        <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+        <div class="cert-actions">
             <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="module2.html" class="btn-link">Menu Principal</a>
         </div>
     </div>
 
@@ -238,24 +216,17 @@
         let currentAudio = new Audio();
         let isAnswerProcessing = false;
 
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const nameInput = document.getElementById('player-name');
-
         function startQuiz() {
-            playerName = nameInput.value.trim();
-            if (playerName === "") playerName = "Participant";
-
+            playerName = document.getElementById('player-name').value.trim() || "Participant";
             score = 0;
             currentQuestionIndex = 0;
             isAnswerProcessing = false;
 
             generateQuestions();
             
-            document.querySelector('.btn-back-home').style.display = 'none'; // Cache la maison
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'none'; 
+            document.getElementById('view-welcome').classList.add('hidden');
+            document.getElementById('view-quiz').classList.remove('hidden');
 
             loadQuestion();
         }
@@ -264,9 +235,17 @@
             questions = [];
             let shuffledAlphabet = [...alphabetData].sort(() => Math.random() - 0.5);
 
-            shuffledAlphabet.forEach(letterObj => {
-                const keys = ["fathah", "dammah", "kasrah", "soukoun"];
-                const targetKey = keys[Math.floor(Math.random() * keys.length)];
+            // Création d'un pool parfait de 28 Harakat : 7 de chaque
+            let harakatPool = [];
+            for (let i = 0; i < 7; i++) {
+                harakatPool.push("fathah", "dammah", "kasrah", "soukoun");
+            }
+            // Mélange du pool
+            harakatPool = harakatPool.sort(() => Math.random() - 0.5);
+
+            shuffledAlphabet.forEach((letterObj, index) => {
+                // On attribue une Harakah équilibrée à chaque lettre
+                const targetKey = harakatPool[index];
                 const targetHarakah = letterObj[targetKey];
 
                 let options = [
@@ -274,8 +253,7 @@
                     letterObj.dammah.form,
                     letterObj.kasrah.form,
                     letterObj.soukoun.form
-                ];
-                options = options.sort(() => Math.random() - 0.5); 
+                ].sort(() => Math.random() - 0.5); 
                 
                 questions.push({
                     targetArabic: targetHarakah.form,
@@ -290,8 +268,7 @@
             const currentQ = questions[currentQuestionIndex];
             
             document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            const progressPercent = (currentQuestionIndex / questions.length) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+            document.getElementById('progress-fill').style.width = `${(currentQuestionIndex / questions.length) * 100}%`;
 
             const optionsGrid = document.getElementById('options-grid');
             optionsGrid.innerHTML = "";
@@ -310,6 +287,7 @@
         function handleAnswer(selectedArabic, cardElement, targetArabic) {
             if (isAnswerProcessing) return;
             isAnswerProcessing = true;
+            
             const allCards = document.getElementById('options-grid').children;
 
             if (selectedArabic === targetArabic) {
@@ -317,7 +295,6 @@
                 cardElement.classList.add('correct');
             } else {
                 cardElement.classList.add('wrong');
-                if (navigator.vibrate) navigator.vibrate(200);
                 for (let i = 0; i < allCards.length; i++) {
                     if (allCards[i].innerText === targetArabic) {
                         allCards[i].classList.add('correct');
@@ -329,27 +306,21 @@
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) { loadQuestion(); } 
                 else { finishQuiz(); }
-            }, 1200);
+            }, 1000);
         }
 
         function playCurrentQuestionAudio() {
             const currentQ = questions[currentQuestionIndex];
-            const audioPath = currentQ.targetAudio;
-            if (!audioPath || audioPath === "") return;
-
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
-            let playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Lecture audio impossible :", error); });
+            if (currentQ.targetAudio) {
+                currentAudio.src = currentQ.targetAudio;
+                currentAudio.play().catch(e => console.log(e));
             }
         }
 
         function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-            document.querySelector('.btn-back-home').style.display = ''; // Réaffiche la maison
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById('view-certificate').classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'flex';
             document.getElementById('progress-fill').style.width = `100%`;
             document.getElementById('cert-name').innerText = playerName;
             document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
@@ -360,15 +331,13 @@
 
             triggerConfetti();
 
+            // AUDIO MABROUK (Simple et direct)
             const mabrukAudio = new Audio("audio/mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
-            }
+            mabrukAudio.play().catch(e => console.log(e));
         }
 
         function triggerConfetti() {
-            const duration = 3000; const end = Date.now() + duration;
+            const end = Date.now() + 3000;
             (function frame() {
                 confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
                 confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
@@ -377,9 +346,9 @@
         }
 
         function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-            nameInput.value = ""; 
+            document.getElementById('view-certificate').classList.add('hidden');
+            document.getElementById('view-welcome').classList.remove('hidden');
+            document.getElementById('player-name').value = ""; 
         }
     </script>
 </body>
