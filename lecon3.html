@@ -162,7 +162,9 @@
 
         .card-front .main-letter {
             font-size: 8rem; color: var(--burgundy); font-weight: bold;
-            text-shadow: 0 5px 15px rgba(93, 24, 40, 0.08); margin-bottom: 0px; line-height: 1.2;
+            text-shadow: 0 5px 15px rgba(93, 24, 40, 0.08); 
+            margin-bottom: 25px; /* ESPACE AJOUTÉ ICI POUR ÉLOIGNER LES LETTRES DU MICRO */
+            line-height: 1.2;
         }
 
         .card-front .main-audio-row {
@@ -266,7 +268,7 @@
             .card-flip:not(.is-flipped) .card-front { display: flex; }
             .card-flip.is-flipped .card-back { display: flex; transform: rotateY(0); }
             
-            .card-front .main-letter { font-size: 5.5rem; margin-bottom: 5px; }
+            .card-front .main-letter { font-size: 5.5rem; margin-bottom: 20px; } /* ESPACE AJOUTÉ MOBILE */
             
             .recto-modoud-container, .verso-modoud-container { flex-direction: row; padding: 10px 5px 25px 5px; gap: 2px; }
             .modoud-col, .verso-col { padding: 15px 5px; margin: 0 4px; }
@@ -301,7 +303,7 @@
             .btn-nav { padding: 12px; font-size: 0.9rem; }
             
             /* Responsive Recto */
-            .card-front .main-letter { font-size: 4.8rem; margin-bottom: 5px;}
+            .card-front .main-letter { font-size: 4.8rem; margin-bottom: 15px;} /* ESPACE AJOUTÉ MOBILE PETIT */
             .card-front .main-audio-row { gap: 12px; margin-bottom: 0px; }
             .card-front .main-ph-fr, .card-front .main-ph-es { font-size: 0.9rem; }
             .card-front .btn-audio-main { width: 35px; height: 35px; font-size: 0.9rem; }
