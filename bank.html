@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="database.js"></script>
+    
     <style>
         /* =========================================
            VARIABLES PREMIUM "DAR AL-KALIMA"
@@ -182,7 +184,6 @@
 
     <div id="toast" class="toast">Audio introuvable / Audio no encontrado.</div>
 
-    <script src="database.js"></script>
     <script>
         let currentWordIndex = 0; let currentAudio = null; let recognition = null;
         const lexiqueView = document.getElementById("lexique-view");
@@ -196,13 +197,22 @@
         const voiceFeedback = document.getElementById("voice-feedback");
         const btnMic = document.getElementById("btn-mic");
 
+        // Utilisation globale de wordsDatabase
         function renderWords(wordsToRender) {
             grid.innerHTML = "";
             wordsToRender.forEach(word => {
-                const card = document.createElement("div"); card.className = "word-card";
+                const card = document.createElement("div"); 
+                card.className = "word-card";
+                
+                let iconHtml = word.icon ? `<i class="${word.icon} visual-placeholder"></i>` : '';
                 let cardTopHtml = '';
-                if (word.type === "letter") { cardTopHtml = `<div class="letter-display-grid">${word.arabe}</div>`; } 
-                else { cardTopHtml = `<i class="${word.icon} visual-placeholder"></i><div class="word-ar-small ar-text">${word.arabe}</div>`; }
+                
+                if (word.type === "letter") { 
+                    cardTopHtml = `<div class="letter-display-grid">${word.arabe}</div>`; 
+                } else { 
+                    cardTopHtml = `${iconHtml}<div class="word-ar-small ar-text">${word.arabe}</div>`; 
+                }
+                
                 card.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; width: 100%;">${cardTopHtml}</div><div class="card-bottom"><div class="lang-fr">${word.fr}</div><div class="lang-es">${word.es}</div></div>`;
                 card.onclick = () => openDictation(word);
                 grid.appendChild(card);
@@ -230,8 +240,15 @@
 
         function loadWord() {
             const word = wordsDatabase[currentWordIndex];
-            if (word.type === "letter") { wordVisual.innerHTML = `<div class="letter-visual"><span class="letter-visual-badge">Lettre / Letra</span></div>`; } 
-            else { wordVisual.innerHTML = `<i class="${word.icon} visual-main"></i>`; }
+            
+            if (word.type === "letter") { 
+                wordVisual.innerHTML = `<div class="letter-visual"><span class="letter-visual-badge">Lettre / Letra</span></div>`; 
+            } else if (word.icon) { 
+                wordVisual.innerHTML = `<i class="${word.icon} visual-main"></i>`; 
+            } else {
+                wordVisual.innerHTML = ``;
+            }
+            
             giantWordText.textContent = word.arabe; wordFrText.textContent = word.fr; wordEsText.textContent = word.es;
             clearSlate(); clearVoiceResult(); setTimeout(playWordAudio, 400);
         }
@@ -278,7 +295,7 @@
         canvas.addEventListener("touchstart", startPosition, { passive: false }); canvas.addEventListener("touchend", endPosition); canvas.addEventListener("touchmove", draw, { passive: false });
         window.addEventListener("resize", resizeCanvas);
 
-        // INITIALISATION AVEC LA BASE DE DONNÉES EXTERNE
+        // INITIALISATION
         document.addEventListener("DOMContentLoaded", () => {
             renderWords(wordsDatabase);
         });
