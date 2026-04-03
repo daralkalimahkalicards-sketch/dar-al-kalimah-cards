@@ -158,17 +158,73 @@ const wordsDatabase = [
     { id: 147, type: "word", arabe: "مُسْلِم", icon: "fa-solid fa-person-praying", fr: "Musulman", es: "Musulmán", audio: "audio/module2/muslim.mp3" },
     { id: 148, type: "word", arabe: "دَفْتَر", icon: "fa-solid fa-book-open", fr: "Cahier", es: "Cuaderno", audio: "audio/module2/daftar.mp3" },
 
-    // MOTS VALIDES MODULE 3 (Modoud - Pour les Quiz)
-    { id: 149, type: "word", arabe: "تَاج", icon: "fa-solid fa-crown", fr: "Couronne", es: "Corona", audio: "audio/module3/taj.mp3" },
-    { id: 150, type: "word", arabe: "حُوت", icon: "fa-solid fa-fish", fr: "Baleine", es: "Ballena", audio: "audio/module3/hut.mp3" },
-    { id: 151, type: "word", arabe: "تِين", icon: "fa-solid fa-leaf", fr: "Figue", es: "Higo", audio: "audio/module3/tin.mp3" },
-    { id: 152, type: "word", arabe: "سَاحَة", icon: "fa-solid fa-tree-city", fr: "Place / Cour", es: "Plaza", audio: "audio/module3/saha.mp3" },
-    { id: 153, type: "word", arabe: "نُور", icon: "fa-solid fa-lightbulb", fr: "Lumière", es: "Luz", audio: "audio/module3/nur.mp3" },
-    { id: 154, type: "word", arabe: "دِيك", icon: "fa-solid fa-crow", fr: "Coq", es: "Gallo", audio: "audio/module3/dik.mp3" },
-    { id: 155, type: "word", arabe: "عَالِم", icon: "fa-solid fa-graduation-cap", fr: "Savant", es: "Erudito", audio: "audio/module3/alim.mp3" },
-    { id: 156, type: "word", arabe: "سُوق", icon: "fa-solid fa-shop", fr: "Marché", es: "Mercado", audio: "audio/module3/suq.mp3" },
-    { id: 157, type: "word", arabe: "طَبِيب", icon: "fa-solid fa-user-doctor", fr: "Médecin", es: "Médico", audio: "audio/module3/tabib.mp3" },
-    { id: 158, type: "word", arabe: "حَقِيبَة", icon: "fa-solid fa-briefcase", fr: "Valise", es: "Maleta", audio: "audio/module3/haqiba.mp3" }
+    // ==========================================
+    // MOTS VALIDES MODULE 3 - QUIZ 2 (30 mots de 3 lettres avec Modoud)
+    // ==========================================
+    { id: 149, type: "word", arabe: "بَاب", icon: "fa-solid fa-door-closed", fr: "Porte", es: "Puerta", audio: "audio/module3/bab.mp3" },
+    { id: 150, type: "word", arabe: "تَاج", icon: "fa-solid fa-crown", fr: "Couronne", es: "Corona", audio: "audio/module3/taj.mp3" },
+    { id: 151, type: "word", arabe: "نَار", icon: "fa-solid fa-fire", fr: "Feu", es: "Fuego", audio: "audio/module3/nar.mp3" },
+    { id: 152, type: "word", arabe: "فَار", icon: "fa-solid fa-computer-mouse", fr: "Souris", es: "Ratón", audio: "audio/module3/far.mp3" },
+    { id: 153, type: "word", arabe: "غَار", icon: "fa-solid fa-dungeon", fr: "Grotte", es: "Cueva", audio: "audio/module3/ghar.mp3" },
+    { id: 154, type: "word", arabe: "دَار", icon: "fa-solid fa-house", fr: "Maison", es: "Casa", audio: "audio/module3/dar.mp3" },
+    { id: 155, type: "word", arabe: "جَار", icon: "fa-solid fa-house-user", fr: "Voisin", es: "Vecino", audio: "audio/module3/jar.mp3" },
+    { id: 156, type: "word", arabe: "صَام", icon: "fa-solid fa-star-and-crescent", fr: "A jeûné", es: "Ayunó", audio: "audio/module3/sam.mp3" },
+    { id: 157, type: "word", arabe: "قَام", icon: "fa-solid fa-person-arrow-up-from-line", fr: "S'est levé", es: "Se levantó", audio: "audio/module3/qam.mp3" },
+    { id: 158, type: "word", arabe: "طَار", icon: "fa-solid fa-dove", fr: "A volé", es: "Voló", audio: "audio/module3/tar.mp3" },
+    { id: 159, type: "word", arabe: "نَام", icon: "fa-solid fa-bed", fr: "A dormi", es: "Durmió", audio: "audio/module3/nam.mp3" },
+    { id: 160, type: "word", arabe: "عَام", icon: "fa-regular fa-calendar-days", fr: "Année", es: "Año", audio: "audio/module3/am.mp3" },
+    { id: 161, type: "word", arabe: "خَال", icon: "fa-solid fa-user-tie", fr: "Oncle", es: "Tío", audio: "audio/module3/khal.mp3" },
+    { id: 162, type: "word", arabe: "غَاب", icon: "fa-solid fa-user-minus", fr: "A disparu", es: "Desapareció", audio: "audio/module3/ghab.mp3" },
+    { id: 163, type: "word", arabe: "سَاق", icon: "fa-solid fa-shoe-prints", fr: "Jambe", es: "Pierna", audio: "audio/module3/saq.mp3" },
+    { id: 164, type: "word", arabe: "كُوب", icon: "fa-solid fa-mug-hot", fr: "Gobelet", es: "Vaso", audio: "audio/module3/kub.mp3" },
+    { id: 165, type: "word", arabe: "تُوت", icon: "fa-solid fa-seedling", fr: "Baies", es: "Bayas", audio: "audio/module3/tut.mp3" },
+    { id: 166, type: "word", arabe: "حُوت", icon: "fa-solid fa-fish", fr: "Baleine", es: "Ballena", audio: "audio/module3/hut.mp3" },
+    { id: 167, type: "word", arabe: "دُود", icon: "fa-solid fa-worm", fr: "Ver", es: "Gusano", audio: "audio/module3/dud.mp3" },
+    { id: 168, type: "word", arabe: "نُور", icon: "fa-solid fa-lightbulb", fr: "Lumière", es: "Luz", audio: "audio/module3/nur.mp3" },
+    { id: 169, type: "word", arabe: "صُوف", icon: "fa-solid fa-mitten", fr: "Laine", es: "Lana", audio: "audio/module3/suf.mp3" },
+    { id: 170, type: "word", arabe: "سُوق", icon: "fa-solid fa-shop", fr: "Marché", es: "Mercado", audio: "audio/module3/suq.mp3" },
+    { id: 171, type: "word", arabe: "سُور", icon: "fa-solid fa-bars-staggered", fr: "Mur", es: "Muro", audio: "audio/module3/sur.mp3" },
+    { id: 172, type: "word", arabe: "رُوح", icon: "fa-solid fa-ghost", fr: "Âme", es: "Alma", audio: "audio/module3/ruh.mp3" },
+    { id: 173, type: "word", arabe: "غُول", icon: "fa-solid fa-pastafarianism", fr: "Ogre", es: "Ogro", audio: "audio/module3/ghul.mp3" },
+    { id: 174, type: "word", arabe: "تِين", icon: "fa-solid fa-leaf", fr: "Figue", es: "Higo", audio: "audio/module3/tin.mp3" },
+    { id: 175, type: "word", arabe: "دِين", icon: "fa-solid fa-book-quran", fr: "Religion", es: "Religión", audio: "audio/module3/din.mp3" },
+    { id: 176, type: "word", arabe: "رِيح", icon: "fa-solid fa-wind", fr: "Vent", es: "Viento", audio: "audio/module3/rih.mp3" },
+    { id: 177, type: "word", arabe: "جِيل", icon: "fa-solid fa-users-rays", fr: "Génération", es: "Generación", audio: "audio/module3/jil.mp3" },
+    { id: 178, type: "word", arabe: "فِيل", icon: "fa-solid fa-paw", fr: "Éléphant", es: "Elefante", audio: "audio/module3/fil.mp3" },
+
+    // ==========================================
+    // MOTS VALIDES MODULE 3 - QUIZ 3 (30 mots de 4+ lettres avec Modoud)
+    // ==========================================
+    { id: 179, type: "word", arabe: "طَائِرَة", icon: "fa-solid fa-plane", fr: "Avion", es: "Avión", audio: "audio/module3/taira.mp3" },
+    { id: 180, type: "word", arabe: "نَافِذَة", icon: "fa-solid fa-border-all", fr: "Fenêtre", es: "Ventana", audio: "audio/module3/nafidhah.mp3" },
+    { id: 181, type: "word", arabe: "حَقِيبَة", icon: "fa-solid fa-briefcase", fr: "Valise", es: "Maleta", audio: "audio/module3/haqibah.mp3" },
+    { id: 182, type: "word", arabe: "سَفِينَة", icon: "fa-solid fa-ship", fr: "Bateau", es: "Barco", audio: "audio/module3/safinah.mp3" },
+    { id: 183, type: "word", arabe: "بُرْتُقَال", icon: "fa-solid fa-lemon", fr: "Orange", es: "Naranja", audio: "audio/module3/burtuqal.mp3" },
+    { id: 184, type: "word", arabe: "صَارُوخ", icon: "fa-solid fa-rocket", fr: "Fusée", es: "Cohete", audio: "audio/module3/sarukh.mp3" },
+    { id: 185, type: "word", arabe: "تِمْسَاح", icon: "fa-solid fa-staff-snake", fr: "Crocodile", es: "Cocodrilo", audio: "audio/module3/timsah.mp3" },
+    { id: 186, type: "word", arabe: "عُصْفُور", icon: "fa-solid fa-crow", fr: "Oiseau", es: "Pájaro", audio: "audio/module3/usfur.mp3" },
+    { id: 187, type: "word", arabe: "فَرَاشَة", icon: "fa-solid fa-bug", fr: "Papillon", es: "Mariposa", audio: "audio/module3/farashah.mp3" },
+    { id: 188, type: "word", arabe: "حَلَزُون", icon: "fa-solid fa-circle-notch", fr: "Escargot", es: "Caracol", audio: "audio/module3/halazun.mp3" },
+    { id: 189, type: "word", arabe: "حَاسُوب", icon: "fa-solid fa-laptop", fr: "Ordinateur", es: "Ordenador", audio: "audio/module3/hasub.mp3" },
+    { id: 190, type: "word", arabe: "مِفْتَاح", icon: "fa-solid fa-key", fr: "Clé", es: "Llave", audio: "audio/module3/miftah.mp3" },
+    { id: 191, type: "word", arabe: "تِلْفَاز", icon: "fa-solid fa-tv", fr: "Télévision", es: "Televisión", audio: "audio/module3/tilfaz.mp3" },
+    { id: 192, type: "word", arabe: "قَامُوس", icon: "fa-solid fa-book", fr: "Dictionnaire", es: "Diccionario", audio: "audio/module3/qamus.mp3" },
+    { id: 193, type: "word", arabe: "مِصْبَاح", icon: "fa-solid fa-lightbulb", fr: "Lampe", es: "Lámpara", audio: "audio/module3/misbah.mp3" },
+    { id: 194, type: "word", arabe: "صُنْدُوق", icon: "fa-solid fa-box", fr: "Boîte", es: "Caja", audio: "audio/module3/sunduq.mp3" },
+    { id: 195, type: "word", arabe: "عَاصِمَة", icon: "fa-solid fa-city", fr: "Capitale", es: "Capital", audio: "audio/module3/asimah.mp3" },
+    { id: 196, type: "word", arabe: "دَجَاجَة", icon: "fa-solid fa-kiwi-bird", fr: "Poule", es: "Gallina", audio: "audio/module3/dajajah.mp3" },
+    { id: 197, type: "word", arabe: "زَرَافَة", icon: "fa-solid fa-paw", fr: "Girafe", es: "Jirafa", audio: "audio/module3/zarafah.mp3" },
+    { id: 198, type: "word", arabe: "سُلَحْفَاة", icon: "fa-solid fa-shield-halved", fr: "Tortue", es: "Tortuga", audio: "audio/module3/sulahfah.mp3" },
+    { id: 199, type: "word", arabe: "فَانُوس", icon: "fa-solid fa-lightbulb", fr: "Lanterne", es: "Linterna", audio: "audio/module3/fanus.mp3" },
+    { id: 200, type: "word", arabe: "مَكْتُوب", icon: "fa-solid fa-envelope", fr: "Lettre", es: "Carta", audio: "audio/module3/maktub.mp3" },
+    { id: 201, type: "word", arabe: "خِزَانَة", icon: "fa-solid fa-door-closed", fr: "Armoire", es: "Armario", audio: "audio/module3/khizanah.mp3" },
+    { id: 202, type: "word", arabe: "مَائِدَة", icon: "fa-solid fa-utensils", fr: "Table", es: "Mesa", audio: "audio/module3/maidah.mp3" },
+    { id: 203, type: "word", arabe: "فَاتُورَة", icon: "fa-solid fa-file-invoice-dollar", fr: "Facture", es: "Factura", audio: "audio/module3/faturah.mp3" },
+    { id: 204, type: "word", arabe: "جَامِعَة", icon: "fa-solid fa-building-columns", fr: "Université", es: "Universidad", audio: "audio/module3/jamiah.mp3" },
+    { id: 205, type: "word", arabe: "كَامِيرَا", icon: "fa-solid fa-camera", fr: "Caméra", es: "Cámara", audio: "audio/module3/kamira.mp3" },
+    { id: 206, type: "word", arabe: "شَاحِنَة", icon: "fa-solid fa-truck", fr: "Camion", es: "Camión", audio: "audio/module3/shahinah.mp3" },
+    { id: 207, type: "word", arabe: "ثَعَالِب", icon: "fa-solid fa-dog", fr: "Renards", es: "Zorros", audio: "audio/module3/thaalib.mp3" },
+    { id: 208, type: "word", arabe: "أُسْبُوع", icon: "fa-solid fa-calendar-week", fr: "Semaine", es: "Semana", audio: "audio/module3/usbu.mp3" }
 ];
 
 // ==========================================
@@ -288,3 +344,8 @@ const alphabetData = [
       waw:  { form: "يُو", phFr: "yoû", phEs: "yú", audio: "audio/modoud/yaa-uu.mp3", exAr: "طُيُور", exFr: "Ṭuyūr", exEs: "Ṭuyūr" },
       yaa:  { form: "يِي", phFr: "yî", phEs: "yí", audio: "audio/modoud/yaa-ii.mp3", exAr: "تَخْيِيط", exFr: "Takhyīṭ", exEs: "Takhyīṭ" } }
 ];
+
+
+Je tai mis tous le fichier pour voir qu’ils y a ts 30 et 30 ms prk ca tourne 10 et 10 ????? 
+
+Apres quznd tu trouve l’erreur tu me refais just le quz3m2 ds le meme fichier ms tu garde en tete qu’ils sont de 30 mots ms modoud ms de 3 ou 4 lettres car ds m2 y a pas de modouds
