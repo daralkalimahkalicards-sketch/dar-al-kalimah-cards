@@ -12,7 +12,6 @@
     <script src="database.js"></script>
     
     <style>
-        /* VARIABLES LUXE DAR AL-KALIMAH */
         :root {
             --burgundy: #5D1828;
             --burgundy-dark: #3a0f19;
@@ -46,7 +45,6 @@
 
         @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* LA PETITE MAISON DORÉE À DROITE */
         .btn-back-home {
             position: absolute; top: 25px; right: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
             padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
@@ -68,9 +66,9 @@
 
         .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; }
         .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
-        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
         .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px;}
-        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5; }
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
         
         .menu-container .subtitle-group { margin-bottom: 30px; }
         .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
@@ -81,7 +79,6 @@
         .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
         .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
 
-        /* BOUTON COMMENCER DU MENU (Transparent & Doré) */
         .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none; display: block; margin: 0 auto; }
         .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
 
@@ -97,7 +94,6 @@
 
         .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 30px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
         
-        /* LE GROS BOUTON MICROPHONE */
         .btn-audio-huge {
             background: var(--white); border: 3px solid var(--gold); color: var(--burgundy);
             width: 80px; height: 80px; border-radius: 50%; font-size: 2.5rem;
@@ -120,18 +116,29 @@
         .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
         @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
-        .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px; }
-        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
-        .cert-title { color: var(--burgundy); font-size: 1.8rem; margin-bottom: 20px; line-height: 1.3;}
-        .cert-messages { margin-bottom: 25px; }
-        .cert-msg { font-weight: 600; color: #444; }
-        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
-        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
-        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
-        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
+        /* CERTIFICAT "ÉCO-PRINT" (Fond blanc pur et Cœurs Dorés) */
+        .diploma-paper { 
+            background: #FFFFFF; 
+            border: 4px solid var(--gold); 
+            padding: 40px; border-radius: 16px; text-align: center; 
+            max-width: 500px; width: 100%; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; margin-bottom: 30px; 
+        }
+        .cert-ar { font-size: 3.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 1.6rem; margin-bottom: 15px; line-height: 1.3;}
+        .cert-messages { margin-bottom: 20px; }
+        .cert-msg { font-weight: 600; color: #333; font-size: 0.95rem; }
+        .cert-msg.es { font-size: 0.85rem; color: #666; margin-top: 5px; }
+        
+        .cert-name { font-size: 2.5rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 5px; margin-bottom: 20px; word-break: break-word; }
+        
+        .cert-score-box { background-color: #fff; border: 1px solid var(--gold); border-radius: 8px; padding: 10px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #555; margin-bottom: 5px; }
+        .score-value { font-size: 1.5rem; font-weight: bold; color: var(--burgundy); }
+        
+        .cert-date { font-size: 0.85rem; color: #888; font-weight: 500; margin-bottom: 20px; }
+        
+        .golden-hearts { font-size: 1.5rem; color: var(--gold); letter-spacing: 5px; }
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
         @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3.5rem; } .diploma-paper { padding: 30px 20px; } }
@@ -143,7 +150,13 @@
             .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.3rem; } .cert-name { font-size: 2.5rem; } 
             .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary { width: 100%; text-align: center; } 
         }
-        @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
+        @media print { 
+            body * { visibility: hidden; } 
+            #view-certificate, #view-certificate * { visibility: visible; } 
+            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } 
+            .no-print { display: none !important; } 
+            .diploma-paper { border: 2px solid var(--gold); box-shadow: none; max-width: 100%; margin: 0; padding: 20px; } 
+        }
     </style>
 </head>
 <body>
@@ -174,7 +187,7 @@
     <div id="view-quiz" class="view hidden">
         <div class="quiz-header">
             <div class="progress-info">
-                <span id="progress-text" class="progress-text">1 / X</span>
+                <span id="progress-text" class="progress-text">1 / 30</span>
             </div>
             <div class="progress-bar-container">
                 <div id="progress-fill" class="progress-bar-fill"></div>
@@ -197,16 +210,21 @@
             <div class="cert-ar ar-text">مبروك</div>
             <h2 class="cert-title serif-text">Certificat de réussite<br>Certificado de logro</h2>
             <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 du Module 3 (Al-Modoud).</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz 2 del Módulo 3 (Al-Modoud).</p>
+                <p class="cert-msg fr">Félicitations, vous avez maîtrisé tous les mots du Quiz 2 !</p>
+                <p class="cert-msg es">Felicidades, has dominado todas las palabras del Quiz 2.</p>
             </div>
             <div id="cert-name" class="cert-name ar-text">Participant</div>
             <div class="cert-score-box">
-                <span class="score-label">Score / Puntuación</span>
-                <div id="cert-score" class="score-value">0 / 0</div>
+                <span class="score-label">Score Parfait / Puntuación Perfecta</span>
+                <div id="cert-score" class="score-value">30 / 30</div>
             </div>
             <div id="cert-date" class="cert-date"></div>
-            <div class="cert-icon">📖</div>
+            
+            <div class="golden-hearts">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
         </div>
         
         <div class="cert-actions no-print">
@@ -217,9 +235,8 @@
 
     <script>
         let playerName = "";
-        let questions = []; 
-        let currentQuestionIndex = 0;
-        let score = 0;
+        let totalWordsCount = 0;
+        let remainingQuestions = []; 
         let isAnswerProcessing = false;
         let questionAudio = new Audio();
         
@@ -230,6 +247,7 @@
             wordData = wordsDatabase.filter(item => {
                 return item.type === "word" && item.id >= 149 && item.id <= 178;
             });
+            totalWordsCount = wordData.length;
         }
 
         function startQuiz() {
@@ -237,8 +255,6 @@
             if (playerName === "") playerName = "Participant";
 
             initQuizData();
-            score = 0;
-            currentQuestionIndex = 0;
             isAnswerProcessing = false;
 
             generateQuestions();
@@ -251,7 +267,7 @@
         }
 
         function generateQuestions() {
-            questions = [];
+            let initialQueue = [];
             let shuffledData = [...wordData].sort(() => Math.random() - 0.5);
 
             shuffledData.forEach(targetObj => {
@@ -261,25 +277,32 @@
                 let options = [targetObj.arabe, distractors[0].arabe, distractors[1].arabe, distractors[2].arabe];
                 options = options.sort(() => Math.random() - 0.5); 
                 
-                questions.push({
+                initialQueue.push({
                     targetArabic: targetObj.arabe,
-                    targetAudio: targetObj.audio, // Récupération de l'audio depuis la database
+                    targetAudio: targetObj.audio,
                     targetFr: targetObj.fr,
                     targetEs: targetObj.es,
                     options: options
                 });
             });
+            
+            remainingQuestions = initialQueue;
         }
 
         function loadQuestion() {
+            if (remainingQuestions.length === 0) {
+                finishQuiz();
+                return;
+            }
+
             isAnswerProcessing = false;
-            const currentQ = questions[currentQuestionIndex];
+            const currentQ = remainingQuestions[0];
             
-            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            let masteredCount = totalWordsCount - remainingQuestions.length;
+            document.getElementById('progress-text').innerText = `${masteredCount} / ${totalWordsCount}`;
+            const progressPercent = (masteredCount / totalWordsCount) * 100;
             document.getElementById('progress-fill').style.width = `${progressPercent}%`;
 
-            // Mettre à jour l'audio et les textes
             questionAudio.src = currentQ.targetAudio;
             document.getElementById('question-fr').innerText = currentQ.targetFr;
             document.getElementById('question-es').innerText = currentQ.targetEs;
@@ -291,9 +314,11 @@
                 const btn = document.createElement('div');
                 btn.className = 'option-card ar-text';
                 btn.innerText = arabicWord;
-                btn.onclick = () => handleAnswer(arabicWord, btn, currentQ.targetArabic);
+                btn.onclick = () => handleAnswer(arabicWord, btn, currentQ);
                 optionsGrid.appendChild(btn);
             });
+
+            setTimeout(() => { playQuestionAudio(); }, 400);
         }
 
         function playQuestionAudio() {
@@ -304,29 +329,29 @@
             }
         }
 
-        function handleAnswer(selectedArabic, cardElement, targetArabic) {
+        function handleAnswer(selectedArabic, cardElement, currentQ) {
             if (isAnswerProcessing) return;
             isAnswerProcessing = true;
             const allCards = document.getElementById('options-grid').children;
 
-            if (selectedArabic === targetArabic) {
-                score++;
+            if (selectedArabic === currentQ.targetArabic) {
                 cardElement.classList.add('correct');
+                remainingQuestions.shift(); 
             } else {
                 cardElement.classList.add('wrong');
                 if (navigator.vibrate) navigator.vibrate(200);
                 for (let i = 0; i < allCards.length; i++) {
-                    if (allCards[i].innerText === targetArabic) {
+                    if (allCards[i].innerText === currentQ.targetArabic) {
                         allCards[i].classList.add('correct');
                     }
                 }
+                let failedQuestion = remainingQuestions.shift();
+                remainingQuestions.push(failedQuestion);
             }
 
             setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) { loadQuestion(); } 
-                else { finishQuiz(); }
-            }, 1200);
+                loadQuestion(); 
+            }, 1500); 
         }
 
         function finishQuiz() {
@@ -334,8 +359,9 @@
             document.getElementById('view-certificate').classList.remove('hidden');
             document.querySelector('.btn-back-home').style.display = 'flex';
             document.getElementById('progress-fill').style.width = `100%`;
+            document.getElementById('progress-text').innerText = `${totalWordsCount} / ${totalWordsCount}`;
+            
             document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
             
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
             const dateStr = new Date().toLocaleDateString('fr-FR', options);
