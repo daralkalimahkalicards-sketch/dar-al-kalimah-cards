@@ -226,7 +226,7 @@
         let wordData = [];
 
         function initQuizData() {
-            // Filtre strict : Uniquement les 30 mots du MODULE 3 (ID 149 à 178)
+            // Filtre strict : Uniquement les 30 mots de 3 lettres du MODULE 3 (ID 149 à 178)
             wordData = wordsDatabase.filter(item => {
                 return item.type === "word" && item.id >= 149 && item.id <= 178;
             });
