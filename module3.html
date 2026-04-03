@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalicards - Module 3</title>
+    <title>Kalicards - Module 3 (Al-Modoud)</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -26,7 +26,10 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .brand-ar { font-family: "Amiri", serif; font-size: 3.8rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
-        .app-title { font-family: "Cinzel", serif; font-size: 1.2rem; color: #d09470; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 20px; }
+        .app-title { font-family: "Cinzel", serif; font-size: 1.2rem; color: #d09470; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 5px; }
+        .app-subtitle { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: var(--gold-light); letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; opacity: 0.9; }
+        .app-subtitle .ar-text { font-family: "Amiri", serif; font-size: 1.1rem; letter-spacing: 0; margin-left: 5px; font-weight: bold;}
+        
         .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 0 auto 30px auto; opacity: 0.5; }
         .instruction-fr { font-size: 1.05rem; font-weight: 500; color: var(--white); margin-bottom: 5px; }
         .instruction-es { font-size: 0.9rem; color: var(--gold-light); font-style: italic; margin-bottom: 35px; }
@@ -34,7 +37,13 @@
         .btn-nav { display: block; width: 100%; max-width: 350px; margin: 0 auto 15px auto; padding: 18px; background: transparent; border: 2px solid var(--gold); color: var(--gold); border-radius: 50px; text-decoration: none; font-size: 1rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease; }
         .btn-nav:hover { background-color: rgba(200, 164, 98, 0.1); transform: translateY(-3px); border-color: var(--gold-light); color: var(--gold-light); }
 
-        @media (max-width: 480px) { .menu-container { padding: 50px 25px; } .brand-ar { font-size: 3rem; } .app-title { font-size: 1rem; } .home-icon { top: 20px; right: 20px; } }
+        @media (max-width: 480px) { 
+            .menu-container { padding: 50px 25px; } 
+            .brand-ar { font-size: 3rem; } 
+            .app-title { font-size: 1rem; } 
+            .app-subtitle { font-size: 0.7rem; }
+            .home-icon { top: 20px; right: 20px; } 
+        }
     </style>
 </head>
 <body>
@@ -42,6 +51,7 @@
         <a href="modules.html" class="home-icon"><i class="fa-solid fa-house"></i></a>
         <div class="brand-ar">دار الكلمة</div>
         <div class="app-title">KALICARDS – MODULE 3</div>
+        <div class="app-subtitle">Al-Modoud <span class="ar-text">(المدود ا و ي)</span></div>
         <div class="divider"></div>
         <div class="instruction-fr">Sélectionnez une activité</div>
         <div class="instruction-es">Selecciona una actividad</div>
