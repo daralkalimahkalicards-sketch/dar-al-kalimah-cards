@@ -157,6 +157,19 @@ const wordsDatabase = [
     { id: 146, type: "word", arabe: "مَكْتَب", icon: "fa-solid fa-desktop", fr: "Bureau", es: "Escritorio", audio: "audio/module2/maktab.mp3" },
     { id: 147, type: "word", arabe: "مُسْلِم", icon: "fa-solid fa-person-praying", fr: "Musulman", es: "Musulmán", audio: "audio/module2/muslim.mp3" },
     { id: 148, type: "word", arabe: "دَفْتَر", icon: "fa-solid fa-book-open", fr: "Cahier", es: "Cuaderno", audio: "audio/module2/daftar.mp3" },
+    
+    // SUITE DES MOTS MODULE 2 (Pour arriver à 30 mots sans Modoud)
+    { id: 209, type: "word", arabe: "فَتَحَ", icon: "fa-solid fa-door-open", fr: "A ouvert", es: "Abrió", audio: "audio/module2/fataha.mp3" },
+    { id: 210, type: "word", arabe: "قَرَأَ", icon: "fa-solid fa-book-open-reader", fr: "A lu", es: "Leyó", audio: "audio/module2/qaraa.mp3" },
+    { id: 211, type: "word", arabe: "نَظَرَ", icon: "fa-solid fa-eye", fr: "A regardé", es: "Miró", audio: "audio/module2/nazhara.mp3" },
+    { id: 212, type: "word", arabe: "غَسَلَ", icon: "fa-solid fa-hands-bubbles", fr: "A lavé", es: "Lavó", audio: "audio/module2/ghasala.mp3" },
+    { id: 213, type: "word", arabe: "أَكَلَ", icon: "fa-solid fa-utensils", fr: "A mangé", es: "Comió", audio: "audio/module2/akala.mp3" },
+    { id: 214, type: "word", arabe: "رَسَمَ", icon: "fa-solid fa-paintbrush", fr: "A dessiné", es: "Dibujó", audio: "audio/module2/rasama.mp3" },
+    { id: 215, type: "word", arabe: "طَبَخَ", icon: "fa-solid fa-kitchen-set", fr: "A cuisiné", es: "Cocinó", audio: "audio/module2/tabakha.mp3" },
+    { id: 216, type: "word", arabe: "قَفَزَ", icon: "fa-solid fa-person-arrow-up-from-line", fr: "A sauté", es: "Saltó", audio: "audio/module2/qafaza.mp3" },
+    { id: 217, type: "word", arabe: "مَسَحَ", icon: "fa-solid fa-broom", fr: "A essuyé", es: "Limpió", audio: "audio/module2/masaha.mp3" },
+    { id: 218, type: "word", arabe: "ضَحِكَ", icon: "fa-solid fa-face-laugh", fr: "A ri", es: "Rió", audio: "audio/module2/dahika.mp3" },
+    { id: 219, type: "word", arabe: "رَكَعَ", icon: "fa-solid fa-person-praying", fr: "S'est incliné", es: "Se inclinó", audio: "audio/module2/rakaa.mp3" },
 
     // ==========================================
     // MOTS VALIDES MODULE 3 - QUIZ 2 (30 mots de 3 lettres avec Modoud)
@@ -216,7 +229,7 @@ const wordsDatabase = [
     { id: 197, type: "word", arabe: "زَرَافَة", icon: "fa-solid fa-paw", fr: "Girafe", es: "Jirafa", audio: "audio/module3/zarafah.mp3" },
     { id: 198, type: "word", arabe: "سُلَحْفَاة", icon: "fa-solid fa-shield-halved", fr: "Tortue", es: "Tortuga", audio: "audio/module3/sulahfah.mp3" },
     { id: 199, type: "word", arabe: "فَانُوس", icon: "fa-solid fa-lightbulb", fr: "Lanterne", es: "Linterna", audio: "audio/module3/fanus.mp3" },
-    { id: 200, type: "word", arabe: "مَكْتُوب", icon: "fa-solid fa-envelope", fr: "Lettre", es: "Carta", audio: "audio/module3/maktub.mp3" },
+    { id: 200, type: "word", arabe: "مَكتُوب", icon: "fa-solid fa-envelope", fr: "Lettre", es: "Carta", audio: "audio/module3/maktub.mp3" },
     { id: 201, type: "word", arabe: "خِزَانَة", icon: "fa-solid fa-door-closed", fr: "Armoire", es: "Armario", audio: "audio/module3/khizanah.mp3" },
     { id: 202, type: "word", arabe: "مَائِدَة", icon: "fa-solid fa-utensils", fr: "Table", es: "Mesa", audio: "audio/module3/maidah.mp3" },
     { id: 203, type: "word", arabe: "فَاتُورَة", icon: "fa-solid fa-file-invoice-dollar", fr: "Facture", es: "Factura", audio: "audio/module3/faturah.mp3" },
@@ -344,8 +357,3 @@ const alphabetData = [
       waw:  { form: "يُو", phFr: "yoû", phEs: "yú", audio: "audio/modoud/yaa-uu.mp3", exAr: "طُيُور", exFr: "Ṭuyūr", exEs: "Ṭuyūr" },
       yaa:  { form: "يِي", phFr: "yî", phEs: "yí", audio: "audio/modoud/yaa-ii.mp3", exAr: "تَخْيِيط", exFr: "Takhyīṭ", exEs: "Takhyīṭ" } }
 ];
-
-
-Je tai mis tous le fichier pour voir qu’ils y a ts 30 et 30 ms prk ca tourne 10 et 10 ????? 
-
-Apres quznd tu trouve l’erreur tu me refais just le quz3m2 ds le meme fichier ms tu garde en tete qu’ils sont de 30 mots ms modoud ms de 3 ou 4 lettres car ds m2 y a pas de modouds
