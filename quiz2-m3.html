@@ -81,7 +81,7 @@
         .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
         .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
 
-        /* LA CORRECTION DU BOUTON EST ICI */
+        /* BOUTON COMMENCER DU MENU (Transparent & Doré) */
         .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none; display: block; margin: 0 auto; }
         .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
 
@@ -96,9 +96,20 @@
         .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
 
         .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 30px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
-        .big-icon { font-size: 5rem; color: var(--burgundy); margin-bottom: 15px; text-shadow: 0 4px 15px rgba(200, 164, 98, 0.3); }
-        .word-translation { font-size: 1.5rem; font-weight: 700; color: var(--burgundy); letter-spacing: 1px; margin-bottom: 5px; }
-        .word-translation.es { font-size: 1.2rem; color: #a99478; font-style: italic; font-weight: 600; }
+        
+        /* LE GROS BOUTON MICROPHONE */
+        .btn-audio-huge {
+            background: var(--white); border: 3px solid var(--gold); color: var(--burgundy);
+            width: 80px; height: 80px; border-radius: 50%; font-size: 2.5rem;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; 
+            transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3);
+            margin: 0 auto 20px auto;
+        }
+        .btn-audio-huge:hover { transform: scale(1.1); background: var(--gold); color: var(--white); }
+        .btn-audio-huge:active { transform: scale(0.95); }
+
+        .word-translation { font-size: 1.3rem; font-weight: 700; color: var(--burgundy); letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase;}
+        .word-translation.es { font-size: 1rem; color: #a99478; font-style: italic; font-weight: 600; text-transform: none;}
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 2.2; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; color: var(--burgundy); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease; font-weight: bold; padding: 10px; line-height: 1; font-feature-settings: "mark" 1;}
@@ -127,7 +138,7 @@
         @media (max-width: 480px) { 
             .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
             .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } 
-            .big-icon { font-size: 4rem; }
+            .btn-audio-huge { width: 65px; height: 65px; font-size: 2rem; }
             .option-card { font-size: 2.8rem; aspect-ratio: auto; padding: 25px 5px; } 
             .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.3rem; } .cert-name { font-size: 2.5rem; } 
             .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary { width: 100%; text-align: center; } 
@@ -143,12 +154,12 @@
         <div class="menu-container">
             <div class="brand-ar ar-text">المدود</div>
             <div class="app-title serif-text">Kalicards – Module 3</div>
-            <div class="app-subtitle">QUIZ 2 : Trouve le mot</div>
+            <div class="app-subtitle">QUIZ 2 : Écoute et trouve</div>
             <div class="divider"></div>
             
             <div class="subtitle-group">
-                <p class="subtitle fr">Regarde l'icône et trouve le mot arabe.</p>
-                <p class="subtitle es">Mira el icono y encuentra la palabra árabe.</p>
+                <p class="subtitle fr">Écoute l'audio et trouve le mot en arabe.</p>
+                <p class="subtitle es">Escucha el audio y encuentra la palabra en árabe.</p>
             </div>
             
             <div class="input-group">
@@ -171,9 +182,9 @@
         </div>
 
         <div class="quiz-container">
-            <div class="instruction-text">Quel est ce mot en arabe ?<br><small>¿Qué es esta palabra en árabe?</small></div>
+            <div class="instruction-text">Écoute et trouve le bon mot :<br><small>Escucha y encuentra la palabra correcta:</small></div>
             <div class="question-focus">
-                <i id="question-icon" class="fa-solid fa-circle-question big-icon"></i>
+                <button id="btn-play-audio" class="btn-audio-huge" onclick="playQuestionAudio()" title="Écouter le mot">🎙️</button>
                 <div id="question-fr" class="word-translation fr">Mot FR</div>
                 <div id="question-es" class="word-translation es">Palabra ES</div>
             </div>
@@ -210,13 +221,14 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let isAnswerProcessing = false;
+        let questionAudio = new Audio();
         
         let wordData = [];
 
         function initQuizData() {
-            // Filtre strict : Uniquement les mots du MODULE 3 (ID 149 à 158)
+            // Filtre strict : Uniquement les 30 mots du MODULE 3 (ID 149 à 178)
             wordData = wordsDatabase.filter(item => {
-                return item.type === "word" && item.id >= 149 && item.id <= 158;
+                return item.type === "word" && item.id >= 149 && item.id <= 178;
             });
         }
 
@@ -251,7 +263,7 @@
                 
                 questions.push({
                     targetArabic: targetObj.arabe,
-                    targetIcon: targetObj.icon,
+                    targetAudio: targetObj.audio, // Récupération de l'audio depuis la database
                     targetFr: targetObj.fr,
                     targetEs: targetObj.es,
                     options: options
@@ -267,8 +279,8 @@
             const progressPercent = (currentQuestionIndex / questions.length) * 100;
             document.getElementById('progress-fill').style.width = `${progressPercent}%`;
 
-            // Mettre à jour l'icône et les textes
-            document.getElementById('question-icon').className = currentQ.targetIcon + " big-icon";
+            // Mettre à jour l'audio et les textes
+            questionAudio.src = currentQ.targetAudio;
             document.getElementById('question-fr').innerText = currentQ.targetFr;
             document.getElementById('question-es').innerText = currentQ.targetEs;
 
@@ -282,6 +294,14 @@
                 btn.onclick = () => handleAnswer(arabicWord, btn, currentQ.targetArabic);
                 optionsGrid.appendChild(btn);
             });
+        }
+
+        function playQuestionAudio() {
+            questionAudio.currentTime = 0;
+            let playPromise = questionAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => { console.log("Audio en attente d'interaction :", error); });
+            }
         }
 
         function handleAnswer(selectedArabic, cardElement, targetArabic) {
@@ -347,4 +367,3 @@
     </script>
 </body>
 </html>
-
