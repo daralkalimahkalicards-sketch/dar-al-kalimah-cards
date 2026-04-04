@@ -1,3 +1,4 @@
+
 // =========================================
 // BASE DE DONNÉES GLOBALE - DAR AL-KALIMAH
 // =========================================
@@ -357,3 +358,47 @@ const alphabetData = [
       waw:  { form: "يُو", phFr: "yoû", phEs: "yú", audio: "audio/modoud/yaa-uu.mp3", exAr: "طُيُور", exFr: "Ṭuyūr", exEs: "Ṭuyūr" },
       yaa:  { form: "يِي", phFr: "yî", phEs: "yí", audio: "audio/modoud/yaa-ii.mp3", exAr: "تَخْيِيط", exFr: "Takhyīṭ", exEs: "Takhyīṭ" } }
 ];
+
+    // --- MODULE 4 : 20 MOTS SOLAIRES ---
+    { id: 401, type: "word", category: "solaire", arabe: "ٱلتَّمْر", audio: "audio/tamr.mp3" },
+    { id: 402, type: "word", category: "solaire", arabe: "ٱلتَّاج", audio: "audio/taaj.mp3" },
+    { id: 403, type: "word", category: "solaire", arabe: "ٱلثَّوْب", audio: "audio/thawb.mp3" },
+    { id: 404, type: "word", category: "solaire", arabe: "ٱلثُّوم", audio: "audio/thoom.mp3" },
+    { id: 405, type: "word", category: "solaire", arabe: "ٱلدَّفْتَر", audio: "audio/daftar.mp3" },
+    { id: 406, type: "word", category: "solaire", arabe: "ٱلدَّوَاء", audio: "audio/dawaa.mp3" },
+    { id: 407, type: "word", category: "solaire", arabe: "ٱلذَّهَب", audio: "audio/dhahab.mp3" },
+    { id: 408, type: "word", category: "solaire", arabe: "ٱلذُّبَابَة", audio: "audio/dhubaaba.mp3" },
+    { id: 409, type: "word", category: "solaire", arabe: "ٱلرُّمَّان", audio: "audio/rummaan.mp3" },
+    { id: 410, type: "word", category: "solaire", arabe: "ٱلرِّسَالَة", audio: "audio/risaala.mp3" },
+    { id: 411, type: "word", category: "solaire", arabe: "ٱلزَّيْتُون", audio: "audio/zaytoon.mp3" },
+    { id: 412, type: "word", category: "solaire", arabe: "ٱلزَّرَافَة", audio: "audio/zaraafa.mp3" },
+    { id: 413, type: "word", category: "solaire", arabe: "ٱلسَّاعَة", audio: "audio/saaa.mp3" },
+    { id: 414, type: "word", category: "solaire", arabe: "ٱلسَّرِير", audio: "audio/sareer.mp3" },
+    { id: 415, type: "word", category: "solaire", arabe: "ٱلشَّارِع", audio: "audio/shaari.mp3" },
+    { id: 416, type: "word", category: "solaire", arabe: "ٱلصَّابُون", audio: "audio/saaboon.mp3" },
+    { id: 417, type: "word", category: "solaire", arabe: "ٱلصَّحْرَاء", audio: "audio/sahraa.mp3" },
+    { id: 418, type: "word", category: "solaire", arabe: "ٱلضَّفْدَع", audio: "audio/dafda.mp3" },
+    { id: 419, type: "word", category: "solaire", arabe: "ٱلطَّبِيب", audio: "audio/tabeeb.mp3" },
+    { id: 420, type: "word", category: "solaire", arabe: "ٱلنَّمْلَة", audio: "audio/namla.mp3" },
+
+    // --- MODULE 4 : 20 MOTS LUNAIRES ---
+    { id: 421, type: "word", category: "lunaire", arabe: "ٱلْأَرْنَب", audio: "audio/arnab.mp3" },
+    { id: 422, type: "word", category: "lunaire", arabe: "ٱلْأُذُن", audio: "audio/udhun.mp3" },
+    { id: 423, type: "word", category: "lunaire", arabe: "ٱلْبَقَرَة", audio: "audio/baqara.mp3" },
+    { id: 424, type: "word", category: "lunaire", arabe: "ٱلْبَحْر", audio: "audio/bahr.mp3" },
+    { id: 425, type: "word", category: "lunaire", arabe: "ٱلْجَزَر", audio: "audio/jazar.mp3" },
+    { id: 426, type: "word", category: "lunaire", arabe: "ٱلْجَدّ", audio: "audio/jadd.mp3" },
+    { id: 427, type: "word", category: "lunaire", arabe: "ٱلْحَقِيبَة", audio: "audio/haqeeba.mp3" },
+    { id: 428, type: "word", category: "lunaire", arabe: "ٱلْحَاسُوب", audio: "audio/haasoob.mp3" },
+    { id: 429, type: "word", category: "lunaire", arabe: "ٱلْخَرُوف", audio: "audio/kharoof.mp3" },
+    { id: 430, type: "word", category: "lunaire", arabe: "ٱلْخَيْمَة", audio: "audio/khayma.mp3" },
+    { id: 431, type: "word", category: "lunaire", arabe: "ٱلْعِنَب", audio: "audio/inab.mp3" },
+    { id: 432, type: "word", category: "lunaire", arabe: "ٱلْعَاصِمَة", audio: "audio/aasima.mp3" },
+    { id: 433, type: "word", category: "lunaire", arabe: "ٱلْغُرْفَة", audio: "audio/ghurfa.mp3" },
+    { id: 434, type: "word", category: "lunaire", arabe: "ٱلْغَابَة", audio: "audio/ghaaba.mp3" },
+    { id: 435, type: "word", category: "lunaire", arabe: "ٱلْفَرَاشَة", audio: "audio/faraasha.mp3" },
+    { id: 436, type: "word", category: "lunaire", arabe: "ٱلْفِنْجَان", audio: "audio/finjaan.mp3" },
+    { id: 437, type: "word", category: "lunaire", arabe: "ٱلْقَلَم", audio: "audio/qalam.mp3" },
+    { id: 438, type: "word", category: "lunaire", arabe: "ٱلْقِطَار", audio: "audio/qitaar.mp3" },
+    { id: 439, type: "word", category: "lunaire", arabe: "ٱلْمَدْرَسَة", audio: "audio/madrasa.mp3" },
+    { id: 440, type: "word", category: "lunaire", arabe: "ٱلْوَرْدَة", audio: "audio/warda.mp3" }
