@@ -24,6 +24,8 @@
             --error-red: #ffebee;
             --error-border: #f44336;
             --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+            --solar-color: #E8A317;
+            --lunar-color: #6D7FCC;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
@@ -45,12 +47,12 @@
 
         @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ICÔNE MAISON EN HAUT À DROITE - Sans cercle */
-        .icon-home-corner {
+        /* ICÔNE MAISON EN HAUT À DROITE */
+        .btn-home-icon {
             position: absolute; top: 25px; right: 25px; background: transparent; border: none; color: var(--gold);
             font-size: 1.8rem; cursor: pointer; text-decoration: none; transition: transform 0.3s ease; z-index: 100;
         }
-        .icon-home-corner:hover { transform: scale(1.1); color: var(--gold-light); }
+        .btn-home-icon:hover { transform: scale(1.1); color: var(--gold-light); }
 
         .btn-main, .btn-secondary {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
@@ -81,7 +83,7 @@
 
         .quiz-container { position: relative; text-align: center; background: var(--white); padding: 70px 40px 50px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft); max-width: 650px; width: 100%; }
         
-        /* NUMÉROS PROGRESSION - Séparés et en haut à gauche */
+        /* NUMÉROS PROGRESSION (EN HAUT À GAUCHE) */
         .progress-pill {
             position: absolute; top: 25px; left: 25px;
             background: var(--gold); color: var(--white);
@@ -89,7 +91,7 @@
             font-weight: 700; font-size: 1.05rem; letter-spacing: 1px;
         }
 
-        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; margin-bottom: 25px;}
+        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; margin-bottom: 25px; margin-top: 10px;}
         .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
 
         .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
@@ -97,18 +99,17 @@
 
         .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 40px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
         
-        .word-to-test { font-size: 4.5rem; color: var(--burgundy); font-weight: bold; margin-bottom: 15px;}
+        .word-to-test { font-size: 4.8rem; color: var(--burgundy); font-weight: bold; margin-bottom: 15px;}
 
-        /* BOUTON AUDIO AVEC TON IMAGE DE MICRO */
+        /* BOUTON AUDIO (AVEC L'ÉMOJI 🎙️) */
         .btn-audio-huge {
             background: var(--white); border: 3px solid var(--gold);
-            width: 90px; height: 90px; border-radius: 50%;
+            width: 80px; height: 80px; border-radius: 50%; font-size: 3rem; color: var(--burgundy);
             cursor: pointer; display: flex; justify-content: center; align-items: center; 
-            transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3);
+            transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); margin-top: 10px;
         }
-        .btn-audio-huge:hover { transform: scale(1.1); }
+        .btn-audio-huge:hover { transform: scale(1.1); background: var(--gold); }
         .btn-audio-huge:active { transform: scale(0.95); }
-        .btn-audio-huge img { width: 45px; height: 45px; object-fit: contain; } /* Image du micro ici */
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         
@@ -118,8 +119,10 @@
             padding: 25px 10px; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
         }
-        .option-box .opt-ar { font-size: 2.2rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; font-family: 'Amiri', serif;}
+        .option-box .opt-icon { font-size: 2.2rem; margin-bottom: 10px; }
+        .option-box .opt-ar { font-size: 2rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; font-family: 'Amiri', serif;}
         .option-box .opt-fr { font-size: 1.15rem; color: var(--burgundy); font-weight: 600; font-family: 'Montserrat', sans-serif;}
+        .option-box .opt-es { font-size: 0.9rem; color: #777; font-style: italic; font-weight: 500; font-family: 'Montserrat', sans-serif;}
         
         .option-box:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
         .option-box:active { transform: scale(0.95); }
@@ -133,8 +136,8 @@
             background: #FFFFFF; 
             border: 4px solid var(--gold); 
             padding: 40px; border-radius: 16px; text-align: center; 
-            max-width: 500px; width: 100%; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; margin-bottom: 30px; 
+            max-width: 500px; width: 100%; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; 
         }
         .cert-ar { font-size: 3.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
         .cert-title { color: var(--burgundy); font-size: 1.6rem; margin-bottom: 15px; line-height: 1.3;}
@@ -153,14 +156,21 @@
         .golden-hearts { font-size: 1.5rem; color: var(--gold); letter-spacing: 5px; }
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 50px 20px 30px; } .diploma-paper { padding: 30px 20px; } }
+        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 70px 20px 40px; } .diploma-paper { padding: 40px 20px; } }
         @media (max-width: 480px) { 
+            .btn-home-icon { top: 20px; right: 20px; font-size: 1.5rem; }
+            .progress-pill { top: 20px; left: 20px; font-size: 0.9rem;}
             .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } 
+            
             .word-to-test { font-size: 3.5rem; }
-            .btn-audio-huge { width: 70px; height: 70px; }
-            .btn-audio-huge img { width: 35px; height: 35px; }
+            .btn-audio-huge { width: 70px; height: 70px; font-size: 2.2rem; }
             .options-grid { grid-template-columns: 1fr; }
-            .option-box { padding: 15px; }
+            .option-box { padding: 15px; flex-direction: row; gap: 15px; align-items: center; justify-content: flex-start; text-align: left; }
+            .option-box .opt-icon { margin-bottom: 0; font-size: 1.8rem; margin-right: 10px;}
+            .option-box .opt-ar { font-size: 1.5rem; margin-bottom: 0;}
+            .option-box .opt-fr { font-size: 0.95rem; }
+            .option-box .opt-es { font-size: 0.8rem; }
+            
             .cert-ar { font-size: 3rem; } .cert-title { font-size: 1.3rem; } .cert-name { font-size: 2rem; } 
             .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary { width: 100%; text-align: center; } 
         }
@@ -177,16 +187,16 @@
 
     <div id="view-welcome" class="view">
         <div class="menu-container">
-            <a href="module4.html" class="icon-home-corner" title="Menu"><i class="fa-solid fa-house"></i></a>
+            <a href="module4.html" class="btn-home-icon" title="Menu"><i class="fa-solid fa-house"></i></a>
             
             <div class="brand-ar ar-text">دار الكلمة</div>
             <div class="app-title serif-text">Kalicards – Module 4</div>
-            <div class="app-subtitle">QUIZ 1 : Solaire ou Lunaire</div>
+            <div class="app-subtitle">QUIZ 1 : Solaire ou Lunaire ?</div>
             <div class="divider"></div>
             
             <div class="subtitle-group">
-                <p class="subtitle fr">Solaire (شمسية) ou Lunaire (قمرية) ?</p>
-                <p class="subtitle es">¿Solar (شمسية) o Lunar (قمرية)?</p>
+                <p class="subtitle fr">Écoute le mot et trouve sa catégorie.</p>
+                <p class="subtitle es">Escucha la palabra y encuentra su categoría.</p>
             </div>
             
             <div class="input-group">
@@ -201,7 +211,7 @@
     <div id="view-quiz" class="view hidden">
         <div class="quiz-container">
             <div class="progress-pill" id="progress-text">1 / 40</div>
-            <a href="module4.html" class="icon-home-corner" title="Menu"><i class="fa-solid fa-house"></i></a>
+            <a href="module4.html" class="btn-home-icon" title="Menu"><i class="fa-solid fa-xmark"></i></a>
 
             <div class="quiz-header">
                 <div class="progress-bar-container">
@@ -214,19 +224,23 @@
             <div class="question-focus">
                 <div id="word-display" class="ar-text word-to-test"></div>
                 
-                <button id="btn-play-audio" class="btn-audio-huge" onclick="playQuestionAudio()" title="Écouter">
-                    <img src="micro.png" alt="Micro">
-                </button>
+                <button id="btn-play-audio" class="btn-audio-huge" onclick="playQuestionAudio()" title="Écouter le mot">🎙️</button>
             </div>
             
             <div class="options-grid" id="options-grid">
                 <div class="option-box" data-cat="solaire" onclick="handleAnswer('solaire', this)">
-                    <div class="opt-ar ar-text">شمسية</div>
-                    <div class="opt-fr">Solaire</div>
+                    <i class="fa-solid fa-sun opt-icon" style="color: var(--solar-color);"></i>
+                    <div>
+                        <div class="opt-ar ar-text">شمسية</div>
+                        <div class="opt-fr">Solaire / Solar</div>
+                    </div>
                 </div>
                 <div class="option-box" data-cat="lunaire" onclick="handleAnswer('lunaire', this)">
-                    <div class="opt-ar ar-text">قمرية</div>
-                    <div class="opt-fr">Lunaire</div>
+                    <i class="fa-solid fa-moon opt-icon" style="color: var(--lunar-color);"></i>
+                    <div>
+                        <div class="opt-ar ar-text">قمرية</div>
+                        <div class="opt-fr">Lunaire / Lunar</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -234,7 +248,7 @@
 
     <div id="view-certificate" class="view hidden">
         <div class="diploma-paper">
-            <a href="module4.html" class="icon-home-corner no-print" title="Menu"><i class="fa-solid fa-house"></i></a>
+            <a href="module4.html" class="btn-home-icon no-print" title="Menu"><i class="fa-solid fa-house"></i></a>
             
             <div class="cert-ar ar-text">مبروك</div>
             <h2 class="cert-title serif-text">Certificat de réussite<br>Certificado de logro</h2>
@@ -263,19 +277,70 @@
     </div>
 
     <script>
+        // SECURITÉ : Les 40 mots (avec ٱ) intégrés ici pour que le quiz marche à 100%
+        const backupWords = [
+            { id: 401, category: "solaire", arabe: "ٱلتَّمْسَاح", audio: "audio/timsah.mp3" },
+            { id: 402, category: "solaire", arabe: "ٱلثَّعْبَان", audio: "audio/thubaan.mp3" },
+            { id: 403, category: "solaire", arabe: "ٱلدَّجَاجَة", audio: "audio/dajaja.mp3" },
+            { id: 404, category: "solaire", arabe: "ٱلذَّيْل", audio: "audio/dhayl.mp3" },
+            { id: 405, category: "solaire", arabe: "ٱلرَّبِيع", audio: "audio/rabee.mp3" },
+            { id: 406, category: "solaire", arabe: "ٱلزَّائِر", audio: "audio/zaair.mp3" },
+            { id: 407, category: "solaire", arabe: "ٱلسَّيْف", audio: "audio/sayf.mp3" },
+            { id: 408, category: "solaire", arabe: "ٱلشَّاطِئ", audio: "audio/shaati.mp3" },
+            { id: 409, category: "solaire", arabe: "ٱلصَّوْت", audio: "audio/sawt.mp3" },
+            { id: 410, category: "solaire", arabe: "ٱلضَّبَاب", audio: "audio/dabaab.mp3" },
+            { id: 411, category: "solaire", arabe: "ٱلطَّرِيق", audio: "audio/tareeq.mp3" },
+            { id: 412, category: "solaire", arabe: "ٱلظَّرْف", audio: "audio/dharf.mp3" },
+            { id: 413, category: "solaire", arabe: "ٱللَّوْن", audio: "audio/lawn.mp3" },
+            { id: 414, category: "solaire", arabe: "ٱلنَّظَّارَة", audio: "audio/nadhara.mp3" },
+            { id: 415, category: "solaire", arabe: "ٱلتَّرَاب", audio: "audio/turaab.mp3" },
+            { id: 416, category: "solaire", arabe: "ٱلثَّانِي", audio: "audio/thaani.mp3" },
+            { id: 417, category: "solaire", arabe: "ٱلدِّين", audio: "audio/deen.mp3" },
+            { id: 418, category: "solaire", arabe: "ٱلذَّقْن", audio: "audio/dhaqn.mp3" },
+            { id: 419, category: "solaire", arabe: "ٱلرِّيَاح", audio: "audio/riyaah.mp3" },
+            { id: 420, category: "solaire", arabe: "ٱلزَّجَاج", audio: "audio/zujaaj.mp3" },
+            { id: 421, category: "lunaire", arabe: "ٱلْأَمِير", audio: "audio/ameer.mp3" },
+            { id: 422, category: "lunaire", arabe: "ٱلْبَرْد", audio: "audio/bard.mp3" },
+            { id: 423, category: "lunaire", arabe: "ٱلْجِسْر", audio: "audio/jisr.mp3" },
+            { id: 424, category: "lunaire", arabe: "ٱلْحَدِيقَة", audio: "audio/hadeeqa.mp3" },
+            { id: 425, category: "lunaire", arabe: "ٱلْخَرِيف", audio: "audio/khareef.mp3" },
+            { id: 426, category: "lunaire", arabe: "ٱلْعَالَم", audio: "audio/aalam.mp3" },
+            { id: 427, category: "lunaire", arabe: "ٱلْغُرُوب", audio: "audio/ghuroob.mp3" },
+            { id: 428, category: "lunaire", arabe: "ٱلْفَرِيق", audio: "audio/fareeq.mp3" },
+            { id: 429, category: "lunaire", arabe: "ٱلْقِطَار", audio: "audio/qitaar.mp3" },
+            { id: 430, category: "lunaire", arabe: "ٱلْكُرَة", audio: "audio/kura.mp3" },
+            { id: 431, category: "lunaire", arabe: "ٱلْمَطَار", audio: "audio/mataar.mp3" },
+            { id: 432, category: "lunaire", arabe: "ٱلْوَقْت", audio: "audio/waqt.mp3" },
+            { id: 433, category: "lunaire", arabe: "ٱلْهَوَاء", audio: "audio/hawaa.mp3" },
+            { id: 434, category: "lunaire", arabe: "ٱلْيَوْم", audio: "audio/yawm.mp3" },
+            { id: 435, category: "lunaire", arabe: "ٱلْأَرْض", audio: "audio/ard.mp3" },
+            { id: 436, category: "lunaire", arabe: "ٱلْبَحَّار", audio: "audio/bahhaar.mp3" },
+            { id: 437, category: "lunaire", arabe: "ٱلْجَزِيرَة", audio: "audio/jazeera.mp3" },
+            { id: 438, category: "lunaire", arabe: "ٱلْحَجَر", audio: "audio/hajar.mp3" },
+            { id: 439, category: "lunaire", arabe: "ٱلْخَشَب", audio: "audio/khashab.mp3" },
+            { id: 440, category: "lunaire", arabe: "ٱلْعُمُر", audio: "audio/umur.mp3" }
+        ];
+
         let playerName = "";
         let totalWordsCount = 0;
         let remainingQuestions = []; 
         let isAnswerProcessing = false;
         let questionAudio = new Audio();
-        
         let wordData = [];
 
         function initQuizData() {
-            // Le quiz va chercher les 40 mots spécifiques du Module 4 (ID 401 à 440)
-            wordData = wordsDatabase.filter(item => {
-                return item.id >= 401 && item.id <= 440;
-            });
+            try {
+                if (typeof wordsDatabase !== 'undefined' && wordsDatabase.length > 0) {
+                    wordData = wordsDatabase.filter(item => item.id >= 401 && item.id <= 440);
+                }
+            } catch(e) {
+                console.log("Erreur database.js");
+            }
+            
+            if (!wordData || wordData.length === 0) {
+                wordData = backupWords;
+            }
+            
             totalWordsCount = wordData.length;
         }
 
@@ -284,16 +349,9 @@
             if (playerName === "") playerName = "Participant";
 
             initQuizData();
-            
-            // Si la base de données n'est pas encore connectée, alerte de sécurité.
-            if (totalWordsCount === 0) {
-                alert("Erreur : Les mots du Module 4 (ID 401 à 440) sont introuvables dans database.js !");
-                return;
-            }
-
             isAnswerProcessing = false;
 
-            // Mélanger les questions
+            // Mélanger la liste
             remainingQuestions = [...wordData].sort(() => Math.random() - 0.5);
             
             document.getElementById('view-welcome').classList.add('hidden');
@@ -311,7 +369,7 @@
             isAnswerProcessing = false;
             const currentQ = remainingQuestions[0];
             
-            // Progression
+            // Mise à jour de la jauge (numéros)
             let masteredCount = totalWordsCount - remainingQuestions.length;
             document.getElementById('progress-text').innerText = `${masteredCount + 1} / ${totalWordsCount}`;
             const progressPercent = (masteredCount / totalWordsCount) * 100;
@@ -323,7 +381,7 @@
             // Audio
             questionAudio.src = currentQ.audio;
 
-            // Reset des couleurs des boutons (enlever les classes correct et wrong)
+            // Enlever les couleurs des cartes
             const allCards = document.getElementById('options-grid').children;
             for (let i = 0; i < allCards.length; i++) {
                 allCards[i].classList.remove('correct', 'wrong');
@@ -336,7 +394,7 @@
             questionAudio.currentTime = 0;
             let playPromise = questionAudio.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Audio en attente d'interaction :", error); });
+                playPromise.catch(e => { console.log("Audio en attente :", e); });
             }
         }
 
@@ -348,22 +406,22 @@
             const allCards = document.getElementById('options-grid').children;
 
             if (selectedCategory === currentQ.category) {
-                // Bonne réponse
+                // Correct
                 cardElement.classList.add('correct');
                 remainingQuestions.shift(); 
             } else {
-                // Mauvaise réponse
+                // Faux
                 cardElement.classList.add('wrong');
                 if (navigator.vibrate) navigator.vibrate(200);
                 
-                // Afficher la bonne réponse en vert
+                // Mettre la bonne réponse en vert
                 for (let i = 0; i < allCards.length; i++) {
                     if (allCards[i].getAttribute('data-cat') === currentQ.category) {
                         allCards[i].classList.add('correct');
                     }
                 }
                 
-                // Repousser la question à la fin
+                // Repousser à la fin
                 let failedQuestion = remainingQuestions.shift();
                 remainingQuestions.push(failedQuestion);
             }
@@ -376,6 +434,7 @@
         function finishQuiz() {
             document.getElementById('view-quiz').classList.add('hidden');
             document.getElementById('view-certificate').classList.remove('hidden');
+
             document.getElementById('progress-fill').style.width = `100%`;
             document.getElementById('progress-text').innerText = `${totalWordsCount} / ${totalWordsCount}`;
             
@@ -390,7 +449,7 @@
             const mabrukAudio = new Audio("mabruk.mp3");
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
+                playPromise.catch(e => { console.log("Mabrouk audio bloqué :", e); });
             }
         }
 
