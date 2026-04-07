@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalima - Les Modules</title>
+    <title>Dar Al-Kalimah - Les Modules</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* =========================================
-           VARIABLES LUXE "DAR AL-KALIMA"
-           ========================================= */
         :root {
             --burgundy: #5D1828;
             --gold: #C8A462;
@@ -51,11 +48,12 @@
         .app-title { font-size: 1.4rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
         .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5;}
         
-        .subtitle { font-size: 1.1rem; color: var(--white); font-weight: 500; margin-bottom: 5px; }
-        .subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
+        .subtitle { font-size: 1.1rem; color: var(--white); font-weight: 500; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;}
+        .subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; letter-spacing: 1px;}
 
+        /* أيقونة المنزل على اليمين كما طلبت */
         .btn-back-home {
-            position: absolute; top: 20px; left: 20px;
+            position: absolute; top: 20px; right: 20px;
             color: var(--gold-light); text-decoration: none; font-size: 1.5rem;
             transition: all 0.3s;
         }
@@ -65,13 +63,13 @@
            LISTE DES MODULES
            ========================================= */
         .modules-grid { 
-            display: flex; flex-direction: column; gap: 20px;
-            width: 100%; max-width: 750px;
+            display: flex; flex-direction: column; gap: 15px;
+            width: 100%; max-width: 800px;
         }
 
         .module-card {
             background: var(--white);
-            border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 25px 30px;
+            border: 1px solid rgba(200, 164, 98, 0.3); border-radius: 12px; padding: 20px 30px;
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease; 
             text-decoration: none; color: inherit;
@@ -80,43 +78,20 @@
 
         .module-info { text-align: left; flex: 1; padding-right: 20px; }
         
-        .mod-number { font-size: 0.9rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;}
-        .mod-number span { color: var(--text-muted); font-weight: 500; font-style: italic; font-size: 0.8rem; letter-spacing: 1px;}
+        .mod-number { font-size: 0.8rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;}
         
-        .mod-title { font-size: 1.2rem; font-weight: 700; color: var(--burgundy); margin-bottom: 4px; line-height: 1.3;}
-        .mod-title-es { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 5px;}
+        .mod-title { font-size: 1.1rem; font-weight: 700; color: var(--burgundy); margin-bottom: 2px; }
+        .mod-title-es { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
 
-        /* Partie droite (Arabe + Flèche) */
-        .mod-right { display: flex; align-items: center; gap: 20px; justify-content: flex-end; width: 45%; }
-        .mod-ar { font-size: 1.6rem; font-weight: 700; color: var(--gold); text-align: right; line-height: 1.4; }
-        .icon-arrow { font-size: 1.5rem; color: var(--burgundy); opacity: 0.4; transition: all 0.3s ease; flex-shrink: 0;}
+        .mod-right { display: flex; align-items: center; gap: 15px; justify-content: flex-end; width: 50%; }
+        .mod-ar { font-size: 1.4rem; font-weight: 700; color: var(--gold); text-align: right; line-height: 1.3; }
+        .icon-arrow { font-size: 1.2rem; color: var(--gold); opacity: 0.6; transition: all 0.3s ease; flex-shrink: 0;}
         
-        .module-card:hover .icon-arrow { opacity: 1; transform: translateX(5px); color: var(--gold);}
-
-        /* Carte de réserve (À venir) */
-        .reserve-card {
-            border: 2px dashed rgba(200, 164, 98, 0.4); background: transparent; box-shadow: none; cursor: default;
-        }
-        .reserve-card:hover { transform: none; box-shadow: none; border-color: rgba(200, 164, 98, 0.4); }
-        .reserve-card .mod-title { color: var(--text-muted); }
-        .reserve-card .mod-ar { color: var(--gold-light); opacity: 0.5; }
-        .reserve-card .icon-arrow { display: none; }
-
-        /* =========================================
-           RESPONSIVE MOBILE
-           ========================================= */
         @media (max-width: 768px) {
-            .module-card { flex-direction: column; text-align: center; gap: 20px; padding: 25px 20px;}
-            .module-info { text-align: center; padding-right: 0; }
-            .mod-right { flex-direction: column; gap: 15px; width: 100%; justify-content: center; }
-            .mod-ar { text-align: center; font-size: 1.5rem; }
+            .module-card { flex-direction: column; text-align: center; padding: 20px;}
+            .module-info { text-align: center; padding-right: 0; margin-bottom: 10px;}
+            .mod-right { width: 100%; justify-content: center; }
             .icon-arrow { transform: rotate(90deg); }
-            .module-card:hover .icon-arrow { transform: rotate(90deg) translateY(5px); }
-        }
-        @media (max-width: 480px) {
-            .brand-ar { font-size: 3rem; }
-            .btn-back-home { top: 15px; left: 15px; font-size: 1.3rem; }
-            .mod-ar { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -124,8 +99,9 @@
 
     <div class="header-container">
         <a href="index.html" class="btn-back-home"><i class="fa-solid fa-house"></i></a>
+        
         <div class="brand-ar ar-text">دار الكلمة</div>
-        <div class="app-title serif-text">Dar Al-Kalima</div>
+        <div class="app-title serif-text">Dar Al-Kalimah</div>
         <div class="divider"></div>
         <p class="subtitle">Les Modules</p>
         <p class="subtitle-es">Los Módulos</p>
@@ -135,31 +111,31 @@
 
         <a href="module1.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 1 <span>/ Módulo 1</span></div>
-                <div class="mod-title">L'Alphabet Isolé</div>
-                <div class="mod-title-es">El Alfabeto Aislado</div>
+                <div class="mod-number">Module 1 / Módulo 1</div>
+                <div class="mod-title">Les Lettres Arabes</div>
+                <div class="mod-title-es">Las Letras Árabes</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">الحروف</div>
+                <div class="mod-ar ar-text">الحروف العربية</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
 
         <a href="module2.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 2 <span>/ Módulo 2</span></div>
-                <div class="mod-title">Les Voyelles</div>
-                <div class="mod-title-es">Las Vocales</div>
+                <div class="mod-number">Module 2 / Módulo 2</div>
+                <div class="mod-title">Les Voyelles Courtes</div>
+                <div class="mod-title-es">Las Vocales Cortas</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">الحركات</div>
+                <div class="mod-ar ar-text">الحركات القصيرة</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
 
         <a href="module3.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 3 <span>/ Módulo 3</span></div>
+                <div class="mod-number">Module 3 / Módulo 3</div>
                 <div class="mod-title">Les Prolongations</div>
                 <div class="mod-title-es">Las Prolongaciones</div>
             </div>
@@ -171,43 +147,55 @@
 
         <a href="module4.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 4 <span>/ Módulo 4</span></div>
-                <div class="mod-title">Al Solaire, Lunaire & Shadda</div>
-                <div class="mod-title-es">Al Solar, Lunar y Shadda</div>
+                <div class="mod-number">Module 4 / Módulo 4</div>
+                <div class="mod-title">Le Tanween & La Hamza</div>
+                <div class="mod-title-es">El Tanween y La Hamza</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">ال الشمسية، ال القمرية، الشدة</div>
+                <div class="mod-ar ar-text">التنوين و الهمزة</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
 
         <a href="module5.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 5 <span>/ Módulo 5</span></div>
-                <div class="mod-title">Lecture de toutes les voyelles</div>
-                <div class="mod-title-es">Lectura de todas las vocales</div>
+                <div class="mod-number">Module 5 / Módulo 5</div>
+                <div class="mod-title">Al Solaire, Lunaire & Shadda</div>
+                <div class="mod-title-es">Al Solar, Lunar y Shadda</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">قراءة جميع الحركات</div>
+                <div class="mod-ar ar-text">ال الشمسية ال القمرية الشدة</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
 
         <a href="module6.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 6 <span>/ Módulo 6</span></div>
-                <div class="mod-title">Sourates Courtes (Al-Kawthar & Al-Ikhlas)</div>
-                <div class="mod-title-es">Suras Cortas (Al-Kawthar y Al-Ikhlas)</div>
+                <div class="mod-number">Module 6 / Módulo 6</div>
+                <div class="mod-title">Vocabulaire & Lecture</div>
+                <div class="mod-title-es">Vocabulario y Refuerzo</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">قراءة قصار السور، سورة الكوثر و سورة الاخلاص</div>
+                <div class="mod-ar ar-text">المفردات الاساسية و تعزيز القراءة</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
 
         <a href="module7.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 7 <span>/ Módulo 7</span></div>
+                <div class="mod-number">Module 7 / Módulo 7</div>
+                <div class="mod-title">Sourates Al-Kawthar & Al-Ikhlas</div>
+                <div class="mod-title-es">Suras Al-Kawthar y Al-Ikhlas</div>
+            </div>
+            <div class="mod-right">
+                <div class="mod-ar ar-text">قصار السور ،الكوثر و الاخلاص.قراءة و تحليل</div>
+                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+            </div>
+        </a>
+
+        <a href="module8.html" class="module-card">
+            <div class="module-info">
+                <div class="mod-number">Module 8 / Módulo 8</div>
                 <div class="mod-title">Le Nom</div>
                 <div class="mod-title-es">El Sustantivo</div>
             </div>
@@ -217,9 +205,21 @@
             </div>
         </a>
 
-        <a href="module8.html" class="module-card">
+        <a href="module9.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 8 <span>/ Módulo 8</span></div>
+                <div class="mod-number">Module 9 / Módulo 9</div>
+                <div class="mod-title">La Phrase Nominale</div>
+                <div class="mod-title-es">La Frase Nominal</div>
+            </div>
+            <div class="mod-right">
+                <div class="mod-ar ar-text">الجملة الاسمية</div>
+                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+            </div>
+        </a>
+
+        <a href="module10.html" class="module-card">
+            <div class="module-info">
+                <div class="mod-number">Module 10 / Módulo 10</div>
                 <div class="mod-title">Le Verbe</div>
                 <div class="mod-title-es">El Verbo</div>
             </div>
@@ -229,64 +229,29 @@
             </div>
         </a>
 
-        <a href="module9.html" class="module-card">
-            <div class="module-info">
-                <div class="mod-number">Module 9 <span>/ Módulo 9</span></div>
-                <div class="mod-title">Phrase Nominale (Sourate Al-Falaq)</div>
-                <div class="mod-title-es">Frase Nominal (Sura Al-Falaq)</div>
-            </div>
-            <div class="mod-right">
-                <div class="mod-ar ar-text">الجملة الاسمية، قراءة سورة الفلق</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
-            </div>
-        </a>
-
-        <a href="module10.html" class="module-card">
-            <div class="module-info">
-                <div class="mod-number">Module 10 <span>/ Módulo 10</span></div>
-                <div class="mod-title">Phrase Verbale (Sourate An-Nas)</div>
-                <div class="mod-title-es">Frase Verbal (Sura An-Nas)</div>
-            </div>
-            <div class="mod-right">
-                <div class="mod-ar ar-text">الجملة الفعلية، قراءة سورة الناس</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
-            </div>
-        </a>
-
         <a href="module11.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 11 <span>/ Módulo 11</span></div>
-                <div class="mod-title">Comprendre la structure (Al-Fatihah)</div>
-                <div class="mod-title-es">Comprender la estructura (Al-Fatihah)</div>
+                <div class="mod-number">Module 11 / Módulo 11</div>
+                <div class="mod-title">Phrase Verbale & Mu'awwidhatayn</div>
+                <div class="mod-title-es">Frase Verbal y Mu'awwidhatayn</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">قراءة الفاتحة</div>
+                <div class="mod-ar ar-text">الجملة الفعلية ، قراءة المعوذتين</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
 
         <a href="module12.html" class="module-card">
             <div class="module-info">
-                <div class="mod-number">Module 12 <span>/ Módulo 12</span></div>
-                <div class="mod-title">Lecture Structurée (Relire Al-Fatihah)</div>
-                <div class="mod-title-es">Lectura Estructurada (Repaso Al-Fatihah)</div>
+                <div class="mod-number">Module 12 / Módulo 12</div>
+                <div class="mod-title">Lecture de la Fatihah</div>
+                <div class="mod-title-es">Lectura de la Fatihah</div>
             </div>
             <div class="mod-right">
-                <div class="mod-ar ar-text">قراءة مهيكلة، مراجعة سورة الفاتحة</div>
+                <div class="mod-ar ar-text">قراءة الفاتحة ،قراءة مهيكلة</div>
                 <i class="fa-solid fa-chevron-right icon-arrow"></i>
             </div>
         </a>
-
-        <div class="module-card reserve-card">
-            <div class="module-info">
-                <div class="mod-number">Module 13+ <span>/ Módulo 13+</span></div>
-                <div class="mod-title">Nouveau module à venir</div>
-                <div class="mod-title-es">Próximo módulo</div>
-            </div>
-            <div class="mod-right">
-                <div class="mod-ar ar-text">قريباً</div>
-            </div>
-        </div>
 
     </div>
 
