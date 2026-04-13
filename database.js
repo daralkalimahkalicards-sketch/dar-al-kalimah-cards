@@ -405,3 +405,111 @@ const alphabetData = [
       waw:  { form: "يُو", phFr: "yoû", phEs: "yú", audio: "audio/modoud/yaa-uu.mp3", exAr: "طُيُور", exFr: "Ṭuyūr", exEs: "Ṭuyūr" },
       yaa:  { form: "يِي", phFr: "yî", phEs: "yí", audio: "audio/modoud/yaa-ii.mp3", exAr: "تَخْيِيط", exFr: "Takhyīṭ", exEs: "Takhyīṭ" } }
 ];
+
+// ==========================================
+// MODULE 5 - QUIZ 1 : LE TANWIN
+// ==========================================
+const tanwinData = [
+    { base: "مَكْتَب", fr: "Un bureau", es: "Un escritorio", trap: "مَكْتَبُ", forms: [{ form: "مَكْتَبًا", audio: "audio/quiz-tanwin/maktab-an.mp3" }, { form: "مَكْتَبٌ", audio: "audio/quiz-tanwin/maktab-un.mp3" }, { form: "مَكْتَبٍ", audio: "audio/quiz-tanwin/maktab-in.mp3" }] },
+    { base: "طَبِيب", fr: "Un médecin", es: "Un médico", trap: "طَبِيبُ", forms: [{ form: "طَبِيبًا", audio: "audio/quiz-tanwin/tabib-an.mp3" }, { form: "طَبِيبٌ", audio: "audio/quiz-tanwin/tabib-un.mp3" }, { form: "طَبِيبٍ", audio: "audio/quiz-tanwin/tabib-in.mp3" }] },
+    { base: "مُعَلِّم", fr: "Un professeur", es: "Un profesor", trap: "مُعَلِّمُ", forms: [{ form: "مُعَلِّمًا", audio: "audio/quiz-tanwin/mouallim-an.mp3" }, { form: "مُعَلِّمٌ", audio: "audio/quiz-tanwin/mouallim-un.mp3" }, { form: "مُعَلِّمٍ", audio: "audio/quiz-tanwin/mouallim-in.mp3" }] },
+    { base: "حَدِيقَة", fr: "Un jardin", es: "Un jardín", trap: "حَدِيقَةُ", forms: [{ form: "حَدِيقَةً", audio: "audio/quiz-tanwin/hadiqa-an.mp3" }, { form: "حَدِيقَةٌ", audio: "audio/quiz-tanwin/hadiqa-un.mp3" }, { form: "حَدِيقَةٍ", audio: "audio/quiz-tanwin/hadiqa-in.mp3" }] },
+    { base: "عُصْفُور", fr: "Un oiseau", es: "Un pájaro", trap: "عُصْفُورُ", forms: [{ form: "عُصْفُورًا", audio: "audio/quiz-tanwin/ousfour-an.mp3" }, { form: "عُصْفُورٌ", audio: "audio/quiz-tanwin/ousfour-un.mp3" }, { form: "عُصْفُورٍ", audio: "audio/quiz-tanwin/ousfour-in.mp3" }] },
+    { base: "قِطَار", fr: "Un train", es: "Un tren", trap: "قِطَارُ", forms: [{ form: "قِطَارًا", audio: "audio/quiz-tanwin/qitar-an.mp3" }, { form: "قِطَارٌ", audio: "audio/quiz-tanwin/qitar-un.mp3" }, { form: "قِطَارٍ", audio: "audio/quiz-tanwin/qitar-in.mp3" }] },
+    { base: "مَدِينَة", fr: "Une ville", es: "Una ciudad", trap: "مَدِينَةُ", forms: [{ form: "مَدِينَةً", audio: "audio/quiz-tanwin/madina-an.mp3" }, { form: "مَدِينَةٌ", audio: "audio/quiz-tanwin/madina-un.mp3" }, { form: "مَدِينَةٍ", audio: "audio/quiz-tanwin/madina-in.mp3" }] },
+    { base: "كُوب", fr: "Une tasse", es: "Una taza", trap: "كُوبُ", forms: [{ form: "كُوبًا", audio: "audio/quiz-tanwin/koub-an.mp3" }, { form: "كُوبٌ", audio: "audio/quiz-tanwin/koub-un.mp3" }, { form: "كُوبٍ", audio: "audio/quiz-tanwin/koub-in.mp3" }] },
+    { base: "صَدِيق", fr: "Un ami", es: "Un amigo", trap: "صَدِيقُ", forms: [{ form: "صَدِيقًا", audio: "audio/quiz-tanwin/sadiq-an.mp3" }, { form: "صَدِيقٌ", audio: "audio/quiz-tanwin/sadiq-un.mp3" }, { form: "صَدِيقٍ", audio: "audio/quiz-tanwin/sadiq-in.mp3" }] },
+    { base: "مَلِك", fr: "Un roi", es: "Un rey", trap: "مَلِكُ", forms: [{ form: "مَلِكًا", audio: "audio/quiz-tanwin/malik-an.mp3" }, { form: "مَلِكٌ", audio: "audio/quiz-tanwin/malik-un.mp3" }, { form: "مَلِكٍ", audio: "audio/quiz-tanwin/malik-in.mp3" }] },
+    { base: "سَرِير", fr: "Un lit", es: "Una cama", trap: "سَرِيرُ", forms: [{ form: "سَرِيرًا", audio: "audio/quiz-tanwin/sarir-an.mp3" }, { form: "سَرِيرٌ", audio: "audio/quiz-tanwin/sarir-un.mp3" }, { form: "سَرِيرٍ", audio: "audio/quiz-tanwin/sarir-in.mp3" }] },
+    { base: "نَافِذَة", fr: "Une fenêtre", es: "Una ventana", trap: "نَافِذَةُ", forms: [{ form: "نَافِذَةً", audio: "audio/quiz-tanwin/nafidha-an.mp3" }, { form: "نَافِذَةٌ", audio: "audio/quiz-tanwin/nafidha-un.mp3" }, { form: "نَافِذَةٍ", audio: "audio/quiz-tanwin/nafidha-in.mp3" }] },
+    { base: "حَقِيبَة", fr: "Un sac", es: "Una mochila", trap: "حَقِيبَةُ", forms: [{ form: "حَقِيبَةً", audio: "audio/quiz-tanwin/haqiba-an.mp3" }, { form: "حَقِيبَةٌ", audio: "audio/quiz-tanwin/haqiba-un.mp3" }, { form: "حَقِيبَةٍ", audio: "audio/quiz-tanwin/haqiba-in.mp3" }] },
+    { base: "سَاعَة", fr: "Une heure / montre", es: "Una hora / reloj", trap: "سَاعَةُ", forms: [{ form: "سَاعَةً", audio: "audio/quiz-tanwin/saaa-an.mp3" }, { form: "سَاعَةٌ", audio: "audio/quiz-tanwin/saaa-un.mp3" }, { form: "سَاعَةٍ", audio: "audio/quiz-tanwin/saaa-in.mp3" }] },
+    { base: "قَارِب", fr: "Un bateau", es: "Un barco", trap: "قَارِبُ", forms: [{ form: "قَارِبًا", audio: "audio/quiz-tanwin/qarib-an.mp3" }, { form: "قَارِبٌ", audio: "audio/quiz-tanwin/qarib-un.mp3" }, { form: "قَارِبٍ", audio: "audio/quiz-tanwin/qarib-in.mp3" }] },
+    { base: "مِصْبَاح", fr: "Une lampe", es: "Una lámpara", trap: "مِصْبَاحُ", forms: [{ form: "مِصْبَاحًا", audio: "audio/quiz-tanwin/misbah-an.mp3" }, { form: "مِصْبَاحٌ", audio: "audio/quiz-tanwin/misbah-un.mp3" }, { form: "مِصْبَاحٍ", audio: "audio/quiz-tanwin/misbah-in.mp3" }] },
+    { base: "صُورَة", fr: "Une image", es: "Una imagen", trap: "صُورَةُ", forms: [{ form: "صُورَةً", audio: "audio/quiz-tanwin/sura-an.mp3" }, { form: "صُورَةٌ", audio: "audio/quiz-tanwin/sura-un.mp3" }, { form: "صُورَةٍ", audio: "audio/quiz-tanwin/sura-in.mp3" }] },
+    { base: "جَار", fr: "Un voisin", es: "Un vecino", trap: "جَارُ", forms: [{ form: "جَارًا", audio: "audio/quiz-tanwin/jar-an.mp3" }, { form: "جَارٌ", audio: "audio/quiz-tanwin/jar-un.mp3" }, { form: "جَارٍ", audio: "audio/quiz-tanwin/jar-in.mp3" }] },
+    { base: "مَطْعَم", fr: "Un restaurant", es: "Un restaurante", trap: "مَطْعَمُ", forms: [{ form: "مَطْعَمًا", audio: "audio/quiz-tanwin/matam-an.mp3" }, { form: "مَطْعَمٌ", audio: "audio/quiz-tanwin/matam-un.mp3" }, { form: "مَطْعَمٍ", audio: "audio/quiz-tanwin/matam-in.mp3" }] },
+    { base: "شَارِع", fr: "Une rue", es: "Una calle", trap: "شَارِعُ", forms: [{ form: "شَارِعًا", audio: "audio/quiz-tanwin/shari-an.mp3" }, { form: "شَارِعٌ", audio: "audio/quiz-tanwin/shari-un.mp3" }, { form: "شَارِعٍ", audio: "audio/quiz-tanwin/shari-in.mp3" }] },
+    { base: "جَوَاب", fr: "Une réponse", es: "Una respuesta", trap: "جَوَابُ", forms: [{ form: "جَوَابًا", audio: "audio/quiz-tanwin/jawab-an.mp3" }, { form: "جَوَابٌ", audio: "audio/quiz-tanwin/jawab-un.mp3" }, { form: "جَوَابٍ", audio: "audio/quiz-tanwin/jawab-in.mp3" }] },
+    { base: "حَانُوت", fr: "Une boutique", es: "Una tienda", trap: "حَانُوتُ", forms: [{ form: "حَانُوتًا", audio: "audio/quiz-tanwin/hanut-an.mp3" }, { form: "حَانُوتٌ", audio: "audio/quiz-tanwin/hanut-un.mp3" }, { form: "حَانُوتٍ", audio: "audio/quiz-tanwin/hanut-in.mp3" }] },
+    { base: "نَار", fr: "Un feu", es: "Un fuego", trap: "نَارُ", forms: [{ form: "نَارًا", audio: "audio/quiz-tanwin/nar-an.mp3" }, { form: "نَارٌ", audio: "audio/quiz-tanwin/nar-un.mp3" }, { form: "نَارٍ", audio: "audio/quiz-tanwin/nar-in.mp3" }] },
+    { base: "طَرِيق", fr: "Un chemin", es: "Un camino", trap: "طَرِيقُ", forms: [{ form: "طَرِيقًا", audio: "audio/quiz-tanwin/tariq-an.mp3" }, { form: "طَرِيقٌ", audio: "audio/quiz-tanwin/tariq-un.mp3" }, { form: "طَرِيقٍ", audio: "audio/quiz-tanwin/tariq-in.mp3" }] },
+    { base: "قَلْعَة", fr: "Un château", es: "Un castillo", trap: "قَلْعَةُ", forms: [{ form: "قَلْعَةً", audio: "audio/quiz-tanwin/qala-an.mp3" }, { form: "قَلْعَةٌ", audio: "audio/quiz-tanwin/qala-un.mp3" }, { form: "قَلْعَةٍ", audio: "audio/quiz-tanwin/qala-in.mp3" }] },
+    { base: "مِقَصّ", fr: "Des ciseaux", es: "Unas tijeras", trap: "مِقَصُّ", forms: [{ form: "مِقَصًّا", audio: "audio/quiz-tanwin/miqass-an.mp3" }, { form: "مِقَصٌّ", audio: "audio/quiz-tanwin/miqass-un.mp3" }, { form: "مِقَصٍّ", audio: "audio/quiz-tanwin/miqass-in.mp3" }] },
+    { base: "دَفْتَر", fr: "Un cahier", es: "Un cuaderno", trap: "دَفْتَرُ", forms: [{ form: "دَفْتَرًا", audio: "audio/quiz-tanwin/daftar-an.mp3" }, { form: "دَفْتَرٌ", audio: "audio/quiz-tanwin/daftar-un.mp3" }, { form: "دَفْتَرٍ", audio: "audio/quiz-tanwin/daftar-in.mp3" }] },
+    { base: "مُمَرِّض", fr: "Un infirmier", es: "Un enfermero", trap: "مُمَرِّضُ", forms: [{ form: "مُمَرِّضًا", audio: "audio/quiz-tanwin/moumarrid-an.mp3" }, { form: "مُمَرِّضٌ", audio: "audio/quiz-tanwin/moumarrid-un.mp3" }, { form: "مُمَرِّضٍ", audio: "audio/quiz-tanwin/moumarrid-in.mp3" }] },
+    { base: "فَصْل", fr: "Une classe / saison", es: "Una clase / estación", trap: "فَصْلُ", forms: [{ form: "فَصْلًا", audio: "audio/quiz-tanwin/fasl-an.mp3" }, { form: "فَصْلٌ", audio: "audio/quiz-tanwin/fasl-un.mp3" }, { form: "فَصْلٍ", audio: "audio/quiz-tanwin/fasl-in.mp3" }] },
+    { base: "طِفْل", fr: "Un enfant", es: "Un niño", trap: "طِفْلُ", forms: [{ form: "طِفْلًا", audio: "audio/quiz-tanwin/tifl-an.mp3" }, { form: "طِفْلٌ", audio: "audio/quiz-tanwin/tifl-un.mp3" }, { form: "طِفْلٍ", audio: "audio/quiz-tanwin/tifl-in.mp3" }] }
+];
+
+// ==========================================
+// MODULE 5 - QUIZ 2 : HAMZAT AL-QAT'
+// ==========================================
+const qatData = [
+    { correct: "أَسَد", traps: ["اسَد", "ئَسَد", "ؤَسَد"], audio: "audio/quiz-qat/asad.mp3", fr: "Un lion", es: "Un león" },
+    { correct: "إِبْرِيق", traps: ["ابْرِيق", "أَِبْرِيق", "أُبْرِيق"], audio: "audio/quiz-qat/ibriq.mp3", fr: "Une cruche", es: "Una jarra" },
+    { correct: "أُمّ", traps: ["امّ", "إِمّ", "ئُمّ"], audio: "audio/quiz-qat/umm.mp3", fr: "Une mère", es: "Una madre" },
+    { correct: "رَأْس", traps: ["رَاس", "رَؤْس", "رَئْس"], audio: "audio/quiz-qat/ras.mp3", fr: "Une tête", es: "Una cabeza" },
+    { correct: "كَأْس", traps: ["كَاس", "كَؤْس", "كَئْس"], audio: "audio/quiz-qat/kas.mp3", fr: "Un verre", es: "Un vaso" },
+    { correct: "بِئْر", traps: ["بِأْر", "بِؤْر", "بِيْر"], audio: "audio/quiz-qat/bir.mp3", fr: "Un puits", es: "Un pozo" },
+    { correct: "ذِئْب", traps: ["ذِأْب", "ذِؤْب", "ذِيب"], audio: "audio/quiz-qat/dhib.mp3", fr: "Un loup", es: "Un lobo" },
+    { correct: "فَأْس", traps: ["فَاس", "فَؤْس", "فَئْس"], audio: "audio/quiz-qat/fas.mp3", fr: "Une hache", es: "Un hacha" },
+    { correct: "مُؤْمِن", traps: ["مُأْمِن", "مُئْمِن", "مُومِن"], audio: "audio/quiz-qat/mumin.mp3", fr: "Un croyant", es: "Un creyente" },
+    { correct: "سُؤَال", traps: ["سُأَال", "سُئَال", "سُوَال"], audio: "audio/quiz-qat/sual.mp3", fr: "Une question", es: "Una pregunta" },
+    { correct: "مَاء", traps: ["مَأ", "مَئ", "مَؤ"], audio: "audio/quiz-qat/ma.mp3", fr: "De l'eau", es: "Agua" },
+    { correct: "سَمَاء", traps: ["سَمَأ", "سَمَئ", "سَمَؤ"], audio: "audio/quiz-qat/sama.mp3", fr: "Un ciel", es: "Un cielo" },
+    { correct: "شَيْء", traps: ["شَيْأ", "شَيْئ", "شَيْؤ"], audio: "audio/quiz-qat/shay.mp3", fr: "Une chose", es: "Una cosa" },
+    { correct: "قَرَأَ", traps: ["قَرَءَ", "قَرَئَ", "قَرَؤَ"], audio: "audio/quiz-qat/qaraa.mp3", fr: "Il a lu", es: "Él leyó" },
+    { correct: "بَدَأَ", traps: ["بَدَءَ", "بَدَئَ", "بَدَؤَ"], audio: "audio/quiz-qat/badaa.mp3", fr: "Il a commencé", es: "Él empezó" },
+    { correct: "يَأْكُل", traps: ["يَئْكُل", "يَؤْكُل", "يَاكُل"], audio: "audio/quiz-qat/yakul.mp3", fr: "Il mange", es: "Él come" },
+    { correct: "مُؤَسَّسَة", traps: ["مُأَسَّسَة", "مُئَسَّسَة", "مُوسَّسَة"], audio: "audio/quiz-qat/muassasa.mp3", fr: "Une institution", es: "Una institución" },
+    { correct: "أَرْنَب", traps: ["ارْنَب", "إِرْنَب", "أُرْنَب"], audio: "audio/quiz-qat/arnab.mp3", fr: "Un lapin", es: "Un conejo" },
+    { correct: "إِسْلَام", traps: ["اسْلَام", "أَسْلَام", "أُسْلَام"], audio: "audio/quiz-qat/islam.mp3", fr: "L'Islam", es: "El Islam" },
+    { correct: "أُسْرَة", traps: ["اسْرَة", "إِسْرَة", "أَسْرَة"], audio: "audio/quiz-qat/usra.mp3", fr: "Une famille", es: "Una familia" },
+    { correct: "مَسَاء", traps: ["مَسَأ", "مَسَئ", "مَسَؤ"], audio: "audio/quiz-qat/masa.mp3", fr: "Le soir", es: "La tarde" },
+    { correct: "شَاطِئ", traps: ["شَاطِأ", "شَاطِؤ", "شَاطِء"], audio: "audio/quiz-qat/shati.mp3", fr: "Une plage", es: "Una playa" },
+    { correct: "قَارِئ", traps: ["قَارِأ", "قَارِؤ", "قَارِء"], audio: "audio/quiz-qat/qari.mp3", fr: "Un lecteur", es: "Un lector" },
+    { correct: "دِفْء", traps: ["دِفْأ", "دِفْئ", "دِفْؤ"], audio: "audio/quiz-qat/dif.mp3", fr: "La chaleur", es: "El calor" },
+    { correct: "بُطْء", traps: ["بُطْأ", "بُطْئ", "بُطْؤ"], audio: "audio/quiz-qat/but.mp3", fr: "La lenteur", es: "La lentitud" },
+    { correct: "رُؤْيَة", traps: ["رُأْيَة", "رُئْيَة", "رُويَة"], audio: "audio/quiz-qat/ruya.mp3", fr: "Une vision", es: "Una visión" },
+    { correct: "فَأْر", traps: ["فَؤْر", "فَئْر", "فَار"], audio: "audio/quiz-qat/far.mp3", fr: "Une souris", es: "Un ratón" },
+    { correct: "مِئْذَنَة", traps: ["مِأْذَنَة", "مِؤْذَنَة", "مِيذَنَة"], audio: "audio/quiz-qat/midhana.mp3", fr: "Un minaret", es: "Un minarete" },
+    { correct: "رِئَة", traps: ["رِأَة", "رِؤَة", "رِيَة"], audio: "audio/quiz-qat/ria.mp3", fr: "Un poumon", es: "Un pulmón" },
+    { correct: "يَقْرَأُ", traps: ["يَقْرَءُ", "يَقْرَئُ", "يَقْرَؤُ"], audio: "audio/quiz-qat/yaqrau.mp3", fr: "Il lit", es: "Él lee" }
+];
+
+// ==========================================
+// MODULE 5 - QUIZ 3 : HAMZAT AL-WASL
+// ==========================================
+const waslData = [
+    { correct: "ٱشْرَبْ", traps: ["إِشْرَبْ", "أَشْرَبْ", "أُشْرَبْ"], audio: "audio/quiz-wasl/ishrab.mp3", fr: "Bois !", es: "¡Bebe!" },
+    { correct: "ٱدْخُلْ", traps: ["إِدْخُلْ", "أَدْخُلْ", "أُدْخُلْ"], audio: "audio/quiz-wasl/udkhul.mp3", fr: "Entre !", es: "¡Entra!" },
+    { correct: "ٱخْرُجْ", traps: ["إِخْرُجْ", "أَخْرُجْ", "أُخْرُجْ"], audio: "audio/quiz-wasl/ukhruj.mp3", fr: "Sors !", es: "¡Sal!" },
+    { correct: "ٱلْعَبْ", traps: ["إِلْعَبْ", "أَلْعَبْ", "أُلْعَبْ"], audio: "audio/quiz-wasl/ilab.mp3", fr: "Joue !", es: "¡Juega!" },
+    { correct: "ٱفْهَمْ", traps: ["إِفْهَمْ", "أَفْهَمْ", "أُفْهَمْ"], audio: "audio/quiz-wasl/ifham.mp3", fr: "Comprends !", es: "¡Entiende!" },
+    { correct: "ٱغْسِلْ", traps: ["إِغْسِلْ", "أَغْسِلْ", "أُغْسِلْ"], audio: "audio/quiz-wasl/ighsil.mp3", fr: "Lave !", es: "¡Lava!" },
+    { correct: "ٱرْكَبْ", traps: ["إِرْكَبْ", "أَرْكَبْ", "أُرْكَبْ"], audio: "audio/quiz-wasl/irkab.mp3", fr: "Monte !", es: "¡Sube!" },
+    { correct: "ٱجْمَعْ", traps: ["إِجْمَعْ", "أَجْمَعْ", "أُجْمَعْ"], audio: "audio/quiz-wasl/ijma.mp3", fr: "Rassemble !", es: "¡Reúne!" },
+    { correct: "ٱذْهَبْ", traps: ["إِذْهَبْ", "أَذْهَبْ", "أُذْهَبْ"], audio: "audio/quiz-wasl/idhhab.mp3", fr: "Pars !", es: "¡Vete!" },
+    { correct: "ٱرْجِعْ", traps: ["إِرْجِعْ", "أَرْجِعْ", "أُرْجِعْ"], audio: "audio/quiz-wasl/irji.mp3", fr: "Reviens !", es: "¡Vuelve!" },
+    { correct: "ٱبْن", traps: ["إِبْن", "أَبْن", "أُبْن"], audio: "audio/quiz-wasl/ibn.mp3", fr: "Un fils", es: "Un hijo" },
+    { correct: "ٱبْنَة", traps: ["إِبْنَة", "أَبْنَة", "أُبْنَة"], audio: "audio/quiz-wasl/ibna.mp3", fr: "Une fille", es: "Una hija" },
+    { correct: "ٱمْرَأَة", traps: ["إِمْرَأَة", "أَمْرَأَة", "أُمْرَأَة"], audio: "audio/quiz-wasl/imraa.mp3", fr: "Une femme", es: "Una mujer" },
+    { correct: "ٱمْرُؤ", traps: ["إِمْرُؤ", "أَمْرُؤ", "أُمْرُؤ"], audio: "audio/quiz-wasl/imru.mp3", fr: "Un homme", es: "Un hombre" },
+    { correct: "ٱثْنَان", traps: ["إِثْنَان", "أَثْنَان", "أُثْنَان"], audio: "audio/quiz-wasl/ithnan.mp3", fr: "Deux", es: "Dos" },
+    { correct: "ٱسْم", traps: ["إِسْم", "أَسْم", "أُسْم"], audio: "audio/quiz-wasl/ism.mp3", fr: "Un nom", es: "Un nombre" },
+    { correct: "ٱلْكِتَاب", traps: ["إِلْكِتَاب", "أَلْكِتَاب", "أُلْكِتَاب"], audio: "audio/quiz-wasl/alkitab.mp3", fr: "Le livre", es: "El libro" },
+    { correct: "ٱلْبَيْت", traps: ["إِلْبَيْت", "أَلْبَيْت", "أُلْبَيْت"], audio: "audio/quiz-wasl/albayt.mp3", fr: "La maison", es: "La casa" },
+    { correct: "ٱلْوَلَد", traps: ["إِلْوَلَد", "أَلْوَلَد", "أُلْوَلَد"], audio: "audio/quiz-wasl/alwalad.mp3", fr: "Le garçon", es: "El chico" },
+    { correct: "وَٱسْم", traps: ["وَإِسْم", "وَأَسْم", "وَأُسْم"], audio: "audio/quiz-wasl/wasm.mp3", fr: "Et un nom", es: "Y un nombre" },
+    { correct: "فَٱسْمَعْ", traps: ["فَإِسْمَعْ", "فَأَسْمَعْ", "فَأُسْمَعْ"], audio: "audio/quiz-wasl/fasma.mp3", fr: "Alors écoute !", es: "¡Entonces escucha!" },
+    { correct: "بِٱلْحَقِّ", traps: ["بِإِلْحَقِّ", "بِأَلْحَقِّ", "بِأُلْحَقِّ"], audio: "audio/quiz-wasl/bilhaqq.mp3", fr: "Par la vérité", es: "Por la verdad" },
+    { correct: "وَٱبْن", traps: ["وَإِبْن", "وَأَبْن", "وَأُبْن"], audio: "audio/quiz-wasl/wabn.mp3", fr: "Et un fils", es: "Y un hijo" },
+    { correct: "كَٱلْأَسَدِ", traps: ["كَإِلْأَسَدِ", "كَأَلْأَسَدِ", "كَأُلْأَسَدِ"], audio: "audio/quiz-wasl/kalasad.mp3", fr: "Comme le lion", es: "Como el león" },
+    { correct: "وَٱدْخُلْ", traps: ["وَإِدْخُلْ", "وَأَدْخُلْ", "وَأُدْخُلْ"], audio: "audio/quiz-wasl/wadkhul.mp3", fr: "Et entre !", es: "¡Y entra!" },
+    { correct: "فَٱغْسِلْ", traps: ["فَإِغْسِلْ", "فَأَغْسِلْ", "فَأُغْسِلْ"], audio: "audio/quiz-wasl/faghsil.mp3", fr: "Alors lave !", es: "¡Entonces lava!" },
+    { correct: "وَٱلْقَمَر", traps: ["وَإِلْقَمَر", "وَأَلْقَمَر", "وَأُلْقَمَر"], audio: "audio/quiz-wasl/walqamar.mp3", fr: "Et la lune", es: "Y la luna" },
+    { correct: "وَٱثْنَان", traps: ["وَإِثْنَان", "وَأَثْنَان", "وَأُثْنَان"], audio: "audio/quiz-wasl/wathnan.mp3", fr: "Et deux", es: "Y dos" },
+    { correct: "فَٱعْلَمْ", traps: ["فَإِعْلَمْ", "فَأَعْلَمْ", "فَأُعْلَمْ"], audio: "audio/quiz-wasl/falam.mp3", fr: "Alors sache !", es: "¡Entonces sabe!" },
+    { correct: "بِٱسْمِ", traps: ["بِإِسْمِ", "بِأَسْمِ", "بِأُسْمِ"], audio: "audio/quiz-wasl/bismi.mp3", fr: "Au nom de", es: "En el nombre de" }
+];
