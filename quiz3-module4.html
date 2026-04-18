@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar Al-Kalimah - Quiz 3 (Hamza complet)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --success-green: #e8f5e9;
+            --success-border: #4CAF50;
+            --error-red: #ffebee;
+            --error-border: #f44336;
+            --wasl-bg: rgba(33, 150, 243, 0.08);
+            --wasl-border: rgba(33, 150, 243, 0.35);
+            --wasl-color: #1356a0;
+            --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', system-ui, sans-serif;
+            padding: 20px;
+            overflow-x: hidden;
+            color: var(--burgundy);
+            position: relative;
+        }
+
+        .ar-text {
+            font-family: "Amiri", serif;
+            line-height: 1.2;
+            direction: rtl;
+            font-feature-settings: "mark" 1, "mkmk" 1;
+        }
+
+        .serif-text {
+            font-family: "Cinzel", "Georgia", serif;
+        }
+
+        .view {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: floatIn 0.5s ease-out forwards;
+        }
+
+        .hidden { display: none !important; }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── BOUTON MAISON ─── */
+        .btn-back-home {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+
+        /* ─── BOUTONS ─── */
+        .btn-main, .btn-secondary {
+            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+            color: var(--white);
+            border: 2px solid var(--burgundy);
+            padding: 16px 45px;
+            font-size: 1.05rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25);
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35);
+            border-color: var(--gold);
+        }
+        .btn-main:active { transform: translateY(1px); }
+
+        .btn-secondary {
+            background: var(--bg-beige);
+            color: var(--burgundy);
+            border-color: var(--gold);
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
+        }
+        .btn-secondary:hover { background: var(--gold); color: var(--white); }
+
+        /* ─── ÉCRAN ACCUEIL ─── */
+        .menu-container {
+            text-align: center;
+            background: var(--burgundy);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            max-width: 600px;
+            width: 100%;
+        }
+        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px; }
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
+        .menu-container .subtitle-group { margin-bottom: 30px; }
+        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
+        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+
+        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .input-group input {
+            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            border: 2px solid var(--gold); border-radius: 12px;
+            background-color: var(--white); color: var(--burgundy); outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu-container .input-group input:focus {
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3);
+        }
+        .menu-container .btn-main {
+            background: transparent; color: var(--gold);
+            border: 2px solid var(--gold); width: 100%; max-width: 350px;
+            box-shadow: none; display: block; margin: 0 auto;
+        }
+        .menu-container .btn-main:hover {
+            background-color: rgba(200, 164, 98, 0.1);
+            border-color: var(--gold-light); color: var(--gold-light);
+            transform: translateY(-3px);
+        }
+
+        /* ─── HEADER QUIZ (progress + score live) ─── */
+        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
+
+        /* ── SCORE LIVE ── */
+        .score-live {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--success-border);
+            background: var(--success-green);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease;
+        }
+        .score-live.bump { transform: scale(1.2); }
+
+        .progress-bar-container {
+            width: 100%; height: 8px; background-color: var(--white);
+            border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden;
+        }
+        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
+
+        /* ─── CONTAINER QUIZ ─── */
+        .quiz-container {
+            text-align: center; background: var(--white);
+            padding: 50px 40px; border-radius: 24px;
+            border: 1px solid var(--gold);
+            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+            max-width: 600px; width: 100%;
+        }
+        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
+        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777; }
+
+        .question-focus {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: var(--bg-beige); border-radius: 16px; padding: 25px; margin-bottom: 30px;
+            border: 2px dashed var(--gold-light);
+        }
+        .btn-audio.big-audio {
+            width: 80px; height: 80px; font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--white), var(--bg-beige));
+            border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3);
+            transition: all 0.3s ease; display: flex; justify-content: center; align-items: center;
+        }
+        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
+        .btn-audio.big-audio:active { transform: scale(0.95); }
+
+        .word-translation { margin-top: 15px; text-align: center; }
+        .word-fr { font-weight: 600; color: var(--burgundy); font-size: 1.15rem; margin-bottom: 5px; }
+        .word-es { font-style: italic; color: #8c775a; font-size: 1rem; }
+
+        /* ── RULE TAG (+ variante Wasl) ── */
+        .rule-tag {
+            margin-top: 12px; display: inline-block;
+            padding: 8px 14px; border-radius: 999px;
+            background: rgba(200, 164, 98, 0.12); color: var(--burgundy);
+            border: 1px solid rgba(200, 164, 98, 0.4);
+            font-size: 0.85rem; font-weight: 700; letter-spacing: 0.4px;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        /* Hamzat al-Wasl → bleu doux pour distinguer visuellement */
+        .rule-tag.wasl {
+            background: var(--wasl-bg);
+            color: var(--wasl-color);
+            border-color: var(--wasl-border);
+        }
+
+        /* ─── GRILLE OPTIONS ─── */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+        .option-card {
+            background: var(--white); border: 2px solid var(--gold-light);
+            border-radius: 16px; min-height: 100px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2.2rem; color: var(--burgundy); cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.2s ease; font-weight: bold; line-height: 1.4;
+            font-feature-settings: "mark" 1, "mkmk" 1;
+            padding: 10px; text-align: center;
+        }
+        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+        .option-card:active { transform: scale(0.95); }
+        .option-card.correct {
+            border: 3px solid var(--success-border) !important;
+            background-color: var(--success-green); color: var(--success-border);
+            pointer-events: none;
+        }
+        .option-card.wrong {
+            border: 3px solid var(--error-border) !important;
+            background-color: var(--error-red);
+            animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7;
+        }
+        @keyframes gentleShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        /* ─── BARRE FEEDBACK APRÈS ERREUR ─── */
+        .feedback-bar {
+            margin-top: 16px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(244, 67, 54, 0.07);
+            border: 1px solid rgba(244, 67, 54, 0.25);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #b71c1c;
+            text-align: center;
+            animation: floatIn 0.3s ease-out;
+            line-height: 1.5;
+        }
+        .feedback-bar .fb-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--error-border);
+            margin-bottom: 3px;
+            opacity: 0.8;
+        }
+        .feedback-bar .fb-rule { color: var(--burgundy); font-weight: 700; }
+
+        /* ─── CERTIFICAT ─── */
+        .diploma-paper {
+            background: linear-gradient(145deg, #ffffff, #fcfcfc);
+            border: 8px double var(--gold); padding: 40px;
+            border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
+        }
+        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
+        .cert-messages { margin-bottom: 25px; }
+        .cert-msg { font-weight: 600; color: #444; }
+        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
+        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
+        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
+        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
+        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
+        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+        /* ─── RESPONSIVE 768px ─── */
+        @media (max-width: 768px) {
+            .menu-container, .quiz-container { padding: 40px 20px; }
+            .option-card { font-size: 2rem; min-height: 90px; }
+            .diploma-paper { padding: 30px 20px; }
+        }
+
+        /* ─── RESPONSIVE 480px ─── */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
+            .menu-container { padding: 30px 20px; }
+            .menu-container .brand-ar { font-size: 3rem; }
+            .menu-container .app-title { font-size: 1.1rem; }
+            .quiz-container { padding: 28px 16px; }
+            .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
+            .option-card { font-size: 1.8rem; min-height: 80px; }
+            .options-grid { gap: 12px; }
+            .cert-ar { font-size: 3.5rem; }
+            .cert-title { font-size: 1.5rem; }
+            .cert-name { font-size: 2.5rem; }
+            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
+            .btn-main, .btn-secondary { width: 100%; text-align: center; }
+        }
+
+        /* ─── RESPONSIVE 360px ─── */
+        @media (max-width: 360px) {
+            body { padding: 8px; }
+            .menu-container { padding: 24px 14px; border-radius: 18px; }
+            .menu-container .brand-ar { font-size: 2.6rem; }
+            .menu-container .app-title { font-size: 0.95rem; letter-spacing: 1px; }
+            .menu-container .app-subtitle { font-size: 0.88rem; }
+            .menu-container .subtitle { font-size: 0.92rem; }
+            .quiz-container { padding: 20px 12px; border-radius: 18px; }
+            .question-focus { padding: 16px 12px; }
+            .btn-audio.big-audio { width: 58px; height: 58px; font-size: 1.7rem; }
+            .word-fr { font-size: 1rem; }
+            .word-es { font-size: 0.88rem; }
+            .rule-tag { font-size: 0.75rem; padding: 6px 10px; }
+            .option-card { font-size: 1.55rem; min-height: 70px; border-radius: 12px; }
+            .options-grid { gap: 9px; }
+            .feedback-bar { font-size: 0.8rem; padding: 10px 12px; }
+            .instruction-text { font-size: 0.95rem; }
+            .progress-text, .score-live { font-size: 0.82rem; }
+            .diploma-paper { padding: 24px 14px; border-width: 5px; }
+            .cert-ar { font-size: 2.8rem; }
+            .cert-title { font-size: 1.25rem; }
+            .cert-name { font-size: 2rem; }
+            .score-value { font-size: 1.5rem; }
+        }
+
+        /* ─── IMPRESSION ─── */
+        @media print {
+            body * { visibility: hidden; }
+            #view-certificate, #view-certificate * { visibility: visible; }
+            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
+            .no-print { display: none !important; }
+            .btn-back-home { display: none !important; }
+            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="module4.html" class="btn-back-home"><i class="fa-solid fa-house"></i> Menu / Menú</a>
+
+    <!-- ══════════════ ACCUEIL ══════════════ -->
+    <div id="view-welcome" class="view">
+        <div class="menu-container">
+            <div class="brand-ar ar-text">الهَمْزَة</div>
+            <div class="app-title serif-text">Kalicards – Module 4</div>
+            <div class="app-subtitle">QUIZ 3 : Toutes les règles de la Hamza</div>
+            <div class="divider"></div>
+            <div class="subtitle-group">
+                <p class="subtitle fr">Écoute l'audio et choisis la bonne orthographe selon la règle de la hamza.</p>
+                <p class="subtitle es">Escucha el audio y elige la ortografía correcta según la regla de la hamza.</p>
+            </div>
+            <div class="input-group">
+                <label for="player-name">Nom du participant / Nombre del participante</label>
+                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
+            </div>
+            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
+        </div>
+    </div>
+
+    <!-- ══════════════ QUIZ ══════════════ -->
+    <div id="view-quiz" class="view hidden">
+        <div class="quiz-header">
+            <div class="progress-info">
+                <span id="progress-text" class="progress-text">1 / 30</span>
+                <span id="score-live" class="score-live">✓ 0</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <div class="instruction-text">
+                Écoute et choisis la bonne orthographe !<br>
+                <small>¡Escucha y elige la ortografía correcta!</small>
+            </div>
+
+            <div class="question-focus">
+                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
+                <div class="word-translation">
+                    <div id="word-fr" class="word-fr"></div>
+                    <div id="word-es" class="word-es"></div>
+                    <div id="rule-tag" class="rule-tag"></div>
+                </div>
+            </div>
+
+            <div class="options-grid" id="options-grid"></div>
+
+            <!-- Feedback après erreur -->
+            <div id="feedback-bar" class="feedback-bar hidden">
+                <span class="fb-label">📌 Règle à retenir</span>
+                <span id="feedback-rule" class="fb-rule"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════ CERTIFICAT ══════════════ -->
+    <div id="view-certificate" class="view hidden">
+        <div class="diploma-paper">
+            <div class="cert-ar ar-text">مبروك</div>
+            <h2 class="cert-title serif-text">Certificat de réussite</h2>
+            <div class="cert-messages">
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 3 du module 4 (Toutes les règles de la Hamza).</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz 3 del módulo 4 (Todas las reglas de la Hamza).</p>
+            </div>
+            <div id="cert-name" class="cert-name ar-text">Participant</div>
+            <div class="cert-score-box">
+                <span class="score-label">Score Final</span>
+                <div id="cert-score" class="score-value">0 / 0</div>
+            </div>
+            <div id="cert-date" class="cert-date"></div>
+            <div class="cert-icon">📖</div>
+        </div>
+        <div class="cert-actions no-print">
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
+        </div>
+    </div>
+
+    <script>
+        /* ══════════════════════════════════════════
+           BASE DE DONNÉES — 30 QUESTIONS
+           Corrections v2 :
+           - كَأْس / رَأْس / فَأْس : règle précisée
+             "Hamza médiane — Soukoun, Fatha avant"
+             (distinct de "Fatha gagne" = hamza porte la fatha)
+           - Cohérence des libellés "X gagne" vs "X → support"
+        ══════════════════════════════════════════ */
+        const hamzaSmartData = [
+            {
+                correct: "سُئِلَ",
+                traps: ["سُؤِلَ", "سُأِلَ", "سَئِلَ"],
+                audio: "audio/quiz3/suila.mp3",
+                fr: "On lui a demandé", es: "Se le preguntó",
+                rule: "Hamza médiane — Kasra gagne → Ya"
+            },
+            {
+                correct: "مُؤْمِن",
+                traps: ["مُئْمِن", "مُأْمِن", "مُومِن"],
+                audio: "audio/quiz3/mumin.mp3",
+                fr: "Un croyant", es: "Un creyente",
+                rule: "Hamza médiane — Soukoun, Damma avant → Waw"
+            },
+            {
+                correct: "يَأْكُل",
+                traps: ["يَئْكُل", "يَؤْكُل", "يَاكُل"],
+                audio: "audio/quiz3/yakul.mp3",
+                fr: "Il mange", es: "Él come",
+                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
+            },
+            {
+                correct: "سُؤَال",
+                traps: ["سُأَال", "سُئَال", "سُوَال"],
+                audio: "audio/quiz3/sual.mp3",
+                fr: "Une question", es: "Una pregunta",
+                rule: "Hamza médiane — Damma gagne → Waw"
+            },
+            {
+                correct: "بِئْر",
+                traps: ["بِأْر", "بِؤْر", "بِيْر"],
+                audio: "audio/quiz3/bir.mp3",
+                fr: "Un puits", es: "Un pozo",
+                rule: "Hamza médiane — Kasra gagne → Ya"
+            },
+            {
+                correct: "ذِئْب",
+                traps: ["ذِأْب", "ذِؤْب", "ذِيب"],
+                audio: "audio/quiz3/dhib.mp3",
+                fr: "Un loup", es: "Un lobo",
+                rule: "Hamza médiane — Kasra gagne → Ya"
+            },
+            {
+                correct: "شَيْء",
+                traps: ["شَيْأ", "شَيْئ", "شَيْؤ"],
+                audio: "audio/quiz3/shay.mp3",
+                fr: "Une chose", es: "Una cosa",
+                rule: "Hamza finale — Soukoun avant → sur la ligne"
+            },
+            {
+                correct: "قَرَأَ",
+                traps: ["قَرَئَ", "قَرَؤَ", "قَرَءَ"],
+                audio: "audio/quiz3/qaraa.mp3",
+                fr: "Il a lu", es: "Él leyó",
+                rule: "Hamza finale — Fatha gagne → Alef"
+            },
+            {
+                correct: "شَاطِئ",
+                traps: ["شَاطِأ", "شَاطِؤ", "شَاطِء"],
+                audio: "audio/quiz3/shati.mp3",
+                fr: "Une plage", es: "Una playa",
+                rule: "Hamza finale — Kasra gagne → Ya"
+            },
+            {
+                correct: "مَاء",
+                traps: ["مَأ", "مَئ", "مَؤ"],
+                audio: "audio/quiz3/ma.mp3",
+                fr: "De l'eau", es: "Agua",
+                rule: "Hamza finale sur la ligne (Madd + Hamza)"
+            },
+            {
+                correct: "أَسَد",
+                traps: ["اسَد", "إِسَد", "ؤَسَد"],
+                audio: "audio/quiz3/asad.mp3",
+                fr: "Un lion", es: "Un león",
+                rule: "Hamzat al-Qat' — Fatha → أَ"
+            },
+            {
+                correct: "إِسْلَام",
+                traps: ["اسْلَام", "أَسْلَام", "أُسْلَام"],
+                audio: "audio/quiz3/islam.mp3",
+                fr: "L'Islam", es: "El Islam",
+                rule: "Hamzat al-Qat' — Kasra → إِ"
+            },
+            {
+                correct: "أُمّ",
+                traps: ["امّ", "إِمّ", "ؤُمّ"],
+                audio: "audio/quiz3/umm.mp3",
+                fr: "Une mère", es: "Una madre",
+                rule: "Hamzat al-Qat' — Damma → أُ"
+            },
+            {
+                correct: "ٱسْم",
+                traps: ["أِسْم", "إِسْم", "أُسْم"],
+                audio: "audio/quiz3/ism.mp3",
+                fr: "Un nom", es: "Un nombre",
+                rule: "Hamzat al-Wasl — nom, commence par I"
+            },
+            {
+                correct: "ٱلْبَيْت",
+                traps: ["إِلْبَيْت", "أُلْبَيْت", "أَلْبَيْت"],
+                audio: "audio/quiz3/albayt.mp3",
+                fr: "La maison", es: "La casa",
+                rule: "Hamzat al-Wasl — article ال → A"
+            },
+            {
+                correct: "ٱكْتُبْ",
+                traps: ["إِكْتُبْ", "أَكْتُبْ", "أُكْتُبْ"],
+                audio: "audio/quiz3/uktub.mp3",
+                fr: "Écris", es: "Escribe",
+                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Damma"
+            },
+            {
+                correct: "ٱفْتَحْ",
+                traps: ["أَفْتَحْ", "أُفْتَحْ", "إِفْتَحْ"],
+                audio: "audio/quiz3/iftah.mp3",
+                fr: "Ouvre", es: "Abre",
+                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
+            },
+            {
+                correct: "ٱجْلِسْ",
+                traps: ["أَجْلِسْ", "أُجْلِسْ", "إِجْلِسْ"],
+                audio: "audio/quiz3/ijlis.mp3",
+                fr: "Assieds-toi", es: "Siéntate",
+                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Kasra"
+            },
+            {
+                /* CORRIGÉ v2 : Hamza porte un soukoun, précédée d'une fatha */
+                correct: "رَأْس",
+                traps: ["رَاس", "رَؤْس", "رَئْس"],
+                audio: "audio/quiz3/ras.mp3",
+                fr: "Une tête", es: "Una cabeza",
+                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
+            },
+            {
+                /* CORRIGÉ v2 */
+                correct: "فَأْس",
+                traps: ["فَاس", "فَؤْس", "فَئْس"],
+                audio: "audio/quiz3/fas.mp3",
+                fr: "Une hache", es: "Un hacha",
+                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
+            },
+            {
+                correct: "مُؤَسَّسَة",
+                traps: ["مُأَسَّسَة", "مُئَسَّسَة", "مُوسَّسَة"],
+                audio: "audio/quiz3/muassasa.mp3",
+                fr: "Une institution", es: "Una institución",
+                rule: "Hamza médiane — Damma gagne → Waw"
+            },
+            {
+                correct: "بَدَأَ",
+                traps: ["بَدَءَ", "بَدَئَ", "بَدَؤَ"],
+                audio: "audio/quiz3/badaa.mp3",
+                fr: "Il a commencé", es: "Él empezó",
+                rule: "Hamza finale — Fatha gagne → Alef"
+            },
+            {
+                correct: "جُزْء",
+                traps: ["جُزْأ", "جُزْؤ", "جُزْئ"],
+                audio: "audio/quiz3/juz.mp3",
+                fr: "Une partie", es: "Una parte",
+                rule: "Hamza finale — Soukoun avant → sur la ligne"
+            },
+            {
+                correct: "هُدُوء",
+                traps: ["هُدُؤ", "هُدُوأ", "هُدُوئ"],
+                audio: "audio/quiz3/huduu.mp3",
+                fr: "Le calme", es: "La calma",
+                rule: "Hamza finale sur la ligne (après Waw)"
+            },
+            {
+                correct: "سَمَاء",
+                traps: ["سَمَأ", "سَمَئ", "سَمَؤ"],
+                audio: "audio/quiz3/sama.mp3",
+                fr: "Un ciel", es: "Un cielo",
+                rule: "Hamza finale sur la ligne (Madd + Hamza)"
+            },
+            {
+                correct: "قَارِئ",
+                traps: ["قَارِأ", "قَارِؤ", "قَارِء"],
+                audio: "audio/quiz3/qari.mp3",
+                fr: "Un lecteur", es: "Un lector",
+                rule: "Hamza finale — Kasra gagne → Ya"
+            },
+            {
+                correct: "إِبْرِيق",
+                traps: ["ابْرِيق", "أَبْرِيق", "أُبْرِيق"],
+                audio: "audio/quiz3/ibriq.mp3",
+                fr: "Une cruche", es: "Una jarra",
+                rule: "Hamzat al-Qat' — Kasra → إِ"
+            },
+            {
+                correct: "ٱبْن",
+                traps: ["إِبْن", "أَبْن", "أُبْن"],
+                audio: "audio/quiz3/ibn.mp3",
+                fr: "Un fils (mot exception)", es: "Un hijo (excepción)",
+                rule: "Hamzat al-Wasl — mot exception : ٱبن"
+            },
+            {
+                correct: "ٱشْرَبْ",
+                traps: ["إِشْرَبْ", "أَشْرَبْ", "أُشْرَبْ"],
+                audio: "audio/quiz3/ishrab.mp3",
+                fr: "Bois", es: "Bebe",
+                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
+            },
+            {
+                /* CORRIGÉ v2 */
+                correct: "كَأْس",
+                traps: ["كَاس", "كَؤْس", "كَئْس"],
+                audio: "audio/quiz3/kas.mp3",
+                fr: "Un verre", es: "Un vaso",
+                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
+            }
+        ];
+
+        /* ══════════════════════════════════════════
+           ÉTAT DU JEU
+        ══════════════════════════════════════════ */
+        let playerName = "";
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let currentAudio = new Audio();
+        let isAnswerProcessing = false;
+
+        const viewWelcome    = document.getElementById('view-welcome');
+        const viewQuiz       = document.getElementById('view-quiz');
+        const viewCertificate= document.getElementById('view-certificate');
+        const nameInput      = document.getElementById('player-name');
+
+        /* ── DÉMARRER ── */
+        function startQuiz() {
+            playerName = nameInput.value.trim() || "Participant";
+            score = 0;
+            currentQuestionIndex = 0;
+            isAnswerProcessing = false;
+
+            generateQuestions();
+            document.querySelector('.btn-back-home').style.display = 'none';
+            viewWelcome.classList.add('hidden');
+            viewQuiz.classList.remove('hidden');
+            updateScoreLive();
+            loadQuestion();
+        }
+
+        /* ── GÉNÉRER LES QUESTIONS (mélangées) ── */
+        function generateQuestions() {
+            questions = [...hamzaSmartData].sort(() => Math.random() - 0.5).map(item => ({
+                targetArabic: item.correct,
+                targetAudio:  item.audio,
+                options:      [item.correct, ...item.traps].sort(() => Math.random() - 0.5),
+                fr:   item.fr,
+                es:   item.es,
+                rule: item.rule
+            }));
+        }
+
+        /* ── CHARGER UNE QUESTION ── */
+        function loadQuestion() {
+            isAnswerProcessing = false;
+            const currentQ = questions[currentQuestionIndex];
+
+            // Progress
+            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+            const pct = (currentQuestionIndex / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+
+            // Traduction + règle
+            document.getElementById('word-fr').innerText = currentQ.fr;
+            document.getElementById('word-es').innerText = currentQ.es;
+
+            const ruleTag = document.getElementById('rule-tag');
+            ruleTag.innerText = currentQ.rule;
+            // Coloration spéciale pour Hamzat al-Wasl
+            ruleTag.className = 'rule-tag' + (currentQ.rule.includes('Wasl') ? ' wasl' : '');
+
+            // Masquer le feedback de l'erreur précédente
+            document.getElementById('feedback-bar').classList.add('hidden');
+
+            // Options
+            const optionsGrid = document.getElementById('options-grid');
+            optionsGrid.innerHTML = "";
+            currentQ.options.forEach(arabicWord => {
+                const btn = document.createElement('div');
+                btn.className = 'option-card ar-text';
+                btn.innerText = arabicWord;
+                btn.onclick = () => handleAnswer(arabicWord, btn, currentQ);
+                optionsGrid.appendChild(btn);
+            });
+
+            setTimeout(playCurrentQuestionAudio, 400);
+        }
+
+        /* ── GÉRER LA RÉPONSE ── */
+        function handleAnswer(selectedArabic, cardElement, currentQ) {
+            if (isAnswerProcessing) return;
+            isAnswerProcessing = true;
+            const allCards = document.getElementById('options-grid').children;
+
+            if (selectedArabic === currentQ.targetArabic) {
+                score++;
+                cardElement.classList.add('correct');
+            } else {
+                cardElement.classList.add('wrong');
+                if (navigator.vibrate) navigator.vibrate(200);
+                // Révèle la bonne réponse
+                for (let i = 0; i < allCards.length; i++) {
+                    if (allCards[i].innerText === currentQ.targetArabic) {
+                        allCards[i].classList.add('correct');
+                    }
+                }
+                // Affiche la règle à retenir
+                document.getElementById('feedback-rule').innerText = currentQ.rule;
+                document.getElementById('feedback-bar').classList.remove('hidden');
+            }
+
+            updateScoreLive();
+
+            // DÉLAI AUGMENTÉ à 1800ms pour laisser le temps de lire
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    finishQuiz();
+                }
+            }, 1800);
+        }
+
+        /* ── SCORE LIVE ── */
+        function updateScoreLive() {
+            const el = document.getElementById('score-live');
+            el.innerText = `✓ ${score}`;
+            // Micro-animation à chaque bonne réponse
+            el.classList.remove('bump');
+            void el.offsetWidth; // force reflow
+            el.classList.add('bump');
+            setTimeout(() => el.classList.remove('bump'), 200);
+        }
+
+        /* ── AUDIO ── */
+        function playCurrentQuestionAudio() {
+            if (currentQuestionIndex >= questions.length) return;
+            const currentQ = questions[currentQuestionIndex];
+            if (!currentQ.targetAudio) return;
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio.src = currentQ.targetAudio;
+            currentAudio.play().catch(e => console.log("Audio bloqué :", e));
+        }
+
+        /* ── FIN DU QUIZ ── */
+        function finishQuiz() {
+            viewQuiz.classList.add('hidden');
+            viewCertificate.classList.remove('hidden');
+            document.querySelector('.btn-back-home').style.display = 'flex';
+            document.getElementById('progress-fill').style.width = '100%';
+            document.getElementById('cert-name').innerText = playerName;
+            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
+
+            const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
+
+            triggerConfetti();
+            new Audio("audio/mabruk.mp3").play().catch(() => {});
+        }
+
+        /* ── CONFETTIS ── */
+        function triggerConfetti() {
+            const end = Date.now() + 3000;
+            (function frame() {
+                confetti({ particleCount: 5, angle:  60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        /* ── RECOMMENCER ── */
+        function restartQuiz() {
+            viewCertificate.classList.add('hidden');
+            viewWelcome.classList.remove('hidden');
+            nameInput.value = "";
+        }
+    </script>
+</body>
+</html>
