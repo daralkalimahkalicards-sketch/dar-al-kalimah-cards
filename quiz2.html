@@ -3,135 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalicards - Quiz Grand Plateau</title>
+    
+    <title>Dar Al-Kalimah - Quiz Grand Plateau</title>
+    <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah">
+    <meta name="theme-color" content="#5D1828">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     
     <style>
         /* =========================================
-           VARIABLES & GLOBALS
+           VARIABLES GLOBALES (Design System du Q1)
            ========================================= */
         :root {
-            --burgundy: #5D1828; --burgundy-dark: #3a0f19;
-            --gold: #C8A462; --gold-light: #dfc28b;
-            --white: #FFFFFF; --bg-beige: #FAF6F0;
-            --success-green: #e8f5e9; --success-border: #4CAF50;
-            --error-red: #ffebee; --error-border: #f44336;
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --success-green: #e8f5e9;
+            --success-border: #4CAF50;
+            --error-red: #ffebee;
+            --error-border: #f44336;
             --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
-            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.25);
+            --shadow-hover: 0 8px 20px rgba(200, 164, 98, 0.2);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        /* =========================================
+           RESET & ACCESSIBILITÉ (Mobile-First)
+           ========================================= */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-beige);
             background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 15px; overflow-x: hidden; color: var(--burgundy);
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', system-ui, sans-serif;
+            padding: 20px; 
+            overflow-x: hidden; 
+            color: var(--burgundy);
+            position: relative;
         }
 
-        .ar-text { font-family: "Amiri", serif; line-height: 1.2; }
+        button, a, input, .board-card {
+            touch-action: manipulation;
+        }
+
+        .ar-text { 
+            font-family: "Amiri", serif; 
+            line-height: 1.2; 
+            direction: rtl;
+            unicode-bidi: isolate;
+            text-rendering: optimizeLegibility;
+        }
+
         .serif-text { font-family: "Cinzel", "Georgia", serif; }
 
-        .view { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: floatIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
-        .hidden { display: none !important; }
-        @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* BOUTONS */
-        .btn-main, .btn-secondary {
-            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
-            color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 40px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-family: 'Montserrat', sans-serif; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); display: inline-block;
+        /* =========================================
+           VUES (Gestion des écrans)
+           ========================================= */
+        .view {
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center; 
+            animation: floatIn 0.5s ease-out forwards;
         }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active { transform: translateY(1px); box-shadow: 0 5px 15px rgba(93, 24, 40, 0.2); }
-        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
-        .btn-secondary:hover { background: var(--gold); color: var(--white); }
+        .hidden { display: none !important; }
 
-        /* ACCUEIL */
-        .menu-container { text-align: center; background: var(--burgundy); padding: 40px 30px; border-radius: 24px; box-shadow: var(--shadow-deep); width: 100%; max-width: 800px; }
-        .menu-container .brand-ar { font-size: 3.8rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
-        .menu-container .app-title { font-size: 1.6rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
-        .menu-container .divider { width: 60px; height: 3px; background-color: var(--gold); margin: 20px auto; border-radius: 3px; opacity: 0.5; }
-        .menu-container .subtitle-group { margin-bottom: 30px; }
-        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
-        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
-        .menu-container .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; width: 100%; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;}
-        .menu-container .input-group input { width: 100%; max-width: 380px; padding: 16px; font-size: 1.15rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); transform: translateY(-2px); }
-        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); box-shadow: none; }
-        .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* PLATEAU */
-        .board-container { text-align: center; background: linear-gradient(145deg, var(--white), #fdfdfd); padding: 40px 30px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft); width: 100%; max-width: 800px; }
+        /* =========================================
+           BOUTON MAISON
+           ========================================= */
+        .btn-house {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: var(--gold);
+            font-size: 1.6rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+            z-index: 10;
+            padding: 5px;
+        }
+        .btn-house:hover, .btn-house:focus-visible {
+            transform: scale(1.1);
+            color: var(--gold-light);
+            outline: none;
+        }
+
+        /* =========================================
+           BOUTONS GÉNÉRAUX
+           ========================================= */
+        .btn-main, .btn-secondary {
+            border: 2px solid var(--burgundy);
+            padding: 16px 45px; 
+            font-size: 1.05rem; 
+            border-radius: 50px; 
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600;
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); 
+            display: inline-block; 
+            text-decoration: none; 
+            text-align: center;
+        }
+        
+        .btn-main {
+            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+            color: var(--white); 
+        }
+        .btn-main:hover, .btn-main:focus-visible { 
+            transform: translateY(-3px); 
+            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); 
+            border-color: var(--gold); 
+            outline: none;
+        }
+        .btn-main:active { transform: translateY(1px); }
+
+        .btn-secondary { 
+            background: var(--bg-beige); 
+            color: var(--burgundy); 
+            border-color: var(--gold); 
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); 
+        }
+        .btn-secondary:hover, .btn-secondary:focus-visible { 
+            background: var(--gold); 
+            color: var(--white); 
+            outline: none;
+        }
+
+        /* =========================================
+           ÉCRAN ACCUEIL
+           ========================================= */
+        .menu-container {
+            position: relative; 
+            text-align: center; 
+            background: var(--burgundy);
+            padding: 56px 44px; 
+            border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            max-width: 680px; 
+            width: 100%;
+        }
+
+        .menu-container .brand-ar { font-size: 3.9rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
+        .menu-container .app-title { font-size: 1.8rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
+        .menu-container .subtitle-group { margin-bottom: 34px; }
+        .menu-container .subtitle { font-size: 1.12rem; font-weight: 500; margin-bottom: 6px; color: var(--white); }
+        .menu-container .subtitle.es { font-size: 1rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+
+        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 38px; }
+        .menu-container .input-group label { font-size: 0.95rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.95; }
+        .menu-container .input-group input {
+            width: 100%; max-width: 380px; padding: 16px; font-size: 1.15rem;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            border: 2px solid var(--gold); border-radius: 12px;
+            background-color: var(--white); color: var(--burgundy); outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
+
+        .menu-container .btn-main.start-btn {
+            background: transparent; color: var(--gold); border: 2px solid var(--gold);
+            width: 100%; max-width: 380px; box-shadow: none;
+        }
+        .menu-container .btn-main.start-btn:hover, .menu-container .btn-main.start-btn:focus-visible {
+            background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);
+        }
+
+        /* =========================================
+           ÉCRAN DE JEU : LE GRAND PLATEAU
+           ========================================= */
+        .board-container {
+            text-align: center; background: var(--white);
+            padding: 40px 30px; border-radius: 24px; border: 1px solid var(--gold);
+            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+            width: 100%; max-width: 800px; /* Plus large pour le plateau */
+        }
+
         .quiz-header { width: 100%; max-width: 800px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
+        
         .progress-container { width: 100%; max-width: 450px; margin-bottom: 15px; }
         .progress-info { text-align: center; margin-bottom: 10px; }
         .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1.1rem; letter-spacing: 2px; }
-        .progress-bar-container { width: 100%; height: 10px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
 
-        .audio-section { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 25px; background: var(--bg-beige); padding: 15px 25px; border-radius: 100px; border: 1px solid var(--gold-light); box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); }
+        .audio-section { 
+            display: flex; justify-content: center; align-items: center; gap: 20px; 
+            margin-bottom: 25px; background: var(--bg-beige); padding: 15px 25px; 
+            border-radius: 100px; border: 1px solid var(--gold-light); 
+        }
+        
         .instruction-text { font-weight: 600; font-size: 1.1rem; text-align: left; line-height: 1.4; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.7; font-weight: 500; font-size: 0.85rem; display: block; }
-        .btn-audio.big-audio { width: 70px; height: 70px; font-size: 2.2rem; background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 3px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
-        .btn-audio.big-audio:hover { transform: scale(1.1) rotate(-5deg); background: var(--gold); color: var(--white); box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); }
+        .instruction-text small { opacity: 0.7; font-weight: 500; font-size: 0.85rem; display: block; font-style: italic; }
+        
+        .btn-audio.big-audio {
+            width: 70px; height: 70px; font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 3px solid var(--gold);
+            color: var(--burgundy); border-radius: 50%; cursor: pointer;
+            box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center; flex-shrink: 0; outline: none;
+        }
+        .btn-audio.big-audio:hover, .btn-audio.big-audio:focus-visible { 
+            transform: scale(1.1) rotate(-5deg); background: var(--gold); color: var(--white); box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); 
+        }
         .btn-audio.big-audio:active { transform: scale(0.95); }
 
-        .board-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; }
-        .board-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 14px; aspect-ratio: 1; display: flex; justify-content: center; align-items: center; font-size: 2.6rem; color: var(--burgundy); cursor: pointer; box-shadow: 0 5px 15px rgba(93, 24, 40, 0.05); transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); user-select: none; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+        /* --- LA GRILLE DU PLATEAU --- */
+        .board-grid { 
+            display: grid; 
+            grid-template-columns: repeat(7, 1fr); /* 7 colonnes sur PC */
+            gap: 12px; width: 100%; 
+        }
+        
+        .board-card {
+            background: var(--white); border: 2px solid var(--gold-light); border-radius: 12px;
+            aspect-ratio: 1; display: flex; justify-content: center; align-items: center;
+            font-size: 3.2rem; color: var(--burgundy); cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: all 0.2s ease;
+            user-select: none; font-family: "Amiri", serif;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
-        .board-card:hover { transform: translateY(-4px) scale(1.05); border-color: var(--gold); box-shadow: 0 10px 20px rgba(200, 164, 98, 0.25); z-index: 10; }
-        .board-card:active { transform: scale(0.92); }
-        .board-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); z-index: 2; transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
-        .board-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; opacity: 0.5; transform: scale(0.95); }
-        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 
-        /* CERTIFICAT */
-        .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 20px; text-align: center; max-width: 550px; width: 100%; box-shadow: 0 20px 50px rgba(93, 24, 40, 0.1); position: relative; margin-bottom: 30px; }
-        .cert-ar { font-size: 5rem; color: var(--gold); line-height: 1; margin-bottom: 5px; text-shadow: 0 4px 10px rgba(200, 164, 98, 0.2); }
-        .cert-title { color: var(--burgundy); font-size: 2.2rem; margin-bottom: 25px; }
-        .cert-messages { margin-bottom: 30px; }
-        .cert-msg { font-weight: 600; color: #444; font-size: 1.05rem; }
+        .board-card:hover, .board-card:focus-visible { 
+            transform: translateY(-4px) scale(1.05); border-color: var(--gold); 
+            box-shadow: var(--shadow-hover); outline: none; z-index: 10;
+        }
+        .board-card:active { transform: scale(0.92); }
+
+        .board-card.correct { 
+            border: 3px solid var(--success-border) !important; background-color: var(--success-green); 
+            color: var(--success-border); z-index: 2; transform: scale(1.1); 
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.4); pointer-events: none; 
+        }
+        .board-card.wrong { 
+            border: 3px solid var(--error-border) !important; background-color: var(--error-red); 
+            animation: gentleShake 0.4s; opacity: 0.5; transform: scale(0.95); pointer-events: none; 
+        }
+        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+        /* =========================================
+           CERTIFICAT
+           ========================================= */
+        .diploma-paper {
+            background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold);
+            padding: 40px; border-radius: 16px; text-align: center; max-width: 560px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
+        }
+        .cert-ar { font-size: 4.8rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 2.1rem; margin-bottom: 20px; }
+        .cert-messages { margin-bottom: 25px; }
+        .cert-msg { font-weight: 600; color: #444; }
         .cert-msg.es { font-size: 0.95rem; color: #777; margin-top: 5px; }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 2px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 30px; word-break: break-word; }
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 16px; padding: 20px; display: inline-block; margin-bottom: 25px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
-        .score-label { display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+        .cert-name { font-size: 3.1rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
+        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
         .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; font-style: italic; }
-        .cert-icon { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-size: 3rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
+        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
         .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        @media (min-width: 768px) {
-            .board-grid { grid-template-columns: repeat(7, 1fr); gap: 15px; } 
-            .board-card { font-size: 3.5rem; }
-            .board-container { padding: 50px; }
+        /* Modifier prénom input dans certificat */
+        .cert-edit-group { margin-bottom: 20px; width: 100%; max-width: 380px; }
+        .cert-edit-group input { 
+            width: 100%; padding: 10px; font-family: 'Montserrat', sans-serif; text-align: center;
+            border: 1px solid var(--gold); border-radius: 8px; color: var(--burgundy); outline: none;
         }
+
+        /* =========================================
+           RESPONSIVE & IMPRESSION
+           ========================================= */
+        @media (max-width: 768px) {
+            .menu-container, .board-container { padding: 42px 22px; }
+            .board-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; }
+            .board-card { font-size: 2.8rem; }
+            .diploma-paper { padding: 30px 20px; }
+        }
+
         @media (max-width: 480px) {
-            .menu-container { padding: 40px 20px; }
+            body { padding: 16px; }
+            .menu-container, .board-container { padding: 34px 18px; }
             .menu-container .brand-ar { font-size: 3.2rem; }
-            .menu-container .app-title { font-size: 1.3rem; }
-            .board-container { padding: 25px 15px; }
-            .board-grid { gap: 10px; }
-            .board-card { font-size: 2.2rem; border-radius: 10px; }
-            .audio-section { flex-direction: column; text-align: center; gap: 10px; padding: 15px; border-radius: 20px; }
+            .menu-container .app-title { font-size: 1.35rem; }
+            
+            .audio-section { flex-direction: column; gap: 10px; border-radius: 16px; }
             .instruction-text { text-align: center; }
-            .cert-ar { font-size: 4rem; }
+            
+            /* 4 colonnes sur mobile pour le plateau de 28 lettres */
+            .board-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .board-card { font-size: 2.2rem; border-radius: 8px; }
+
+            .cert-ar { font-size: 3.7rem; }
             .cert-title { font-size: 1.6rem; }
-            .cert-name { font-size: 2.4rem; }
-            .cert-actions { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
+            .cert-name { font-size: 2.5rem; }
+            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
             .btn-main, .btn-secondary { width: 100%; text-align: center; }
         }
+
         @media print {
             body * { visibility: hidden; }
             #view-certificate, #view-certificate * { visibility: visible; }
-            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; padding: 0; }
+            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
             .no-print { display: none !important; }
             .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; margin: 0; }
         }
@@ -139,250 +338,353 @@
 </head>
 <body>
 
-    <div id="view-welcome" class="view">
-        <div class="menu-container">
-            <div class="brand-ar ar-text">اختبار الحروف</div>
-            <div class="app-title serif-text">Kalicards – Grand Quiz</div>
-            <div class="divider"></div>
-            
-            <div class="subtitle-group">
-                <p class="subtitle fr">Trouve les 28 lettres sur le grand plateau.</p>
-                <p class="subtitle es">Encuentra las 28 letras en el gran tablero.</p>
-            </div>
-            
-            <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
-                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
-            </div>
-            
-            <button class="btn-main" onclick="startQuiz()">Commencer le jeu</button>
-        </div>
-    </div>
-
-    <div id="view-quiz" class="view hidden">
-        <div class="quiz-header">
-            <div class="progress-container">
-                <div class="progress-info">
-                    <span id="progress-text" class="progress-text">1 / 28</span>
+    <div id="app-root">
+        <section id="view-welcome" class="view" aria-labelledby="welcome-title">
+            <div class="menu-container">
+                <a href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
+                    <i class="fa-solid fa-house" aria-hidden="true"></i>
+                </a>
+                
+                <h1 id="welcome-title" class="brand-ar ar-text" lang="ar">اختبار الحروف</h1>
+                <div class="app-title serif-text">Kalicards – Grand Quiz</div>
+                <div class="divider"></div>
+                
+                <div class="subtitle-group">
+                    <p class="subtitle fr">Trouve les 28 lettres sur le grand plateau.</p>
+                    <p class="subtitle es">Encuentra las 28 letras en el gran tablero.</p>
                 </div>
-                <div class="progress-bar-container">
-                    <div id="progress-fill" class="progress-bar-fill"></div>
+                
+                <div class="input-group">
+                    <label for="player-name">Nom du participant / Nombre del participante</label>
+                    <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
                 </div>
+                
+                <button type="button" id="btn-start-quiz" class="btn-main start-btn">Commencer le jeu</button>
             </div>
-        </div>
+        </section>
 
-        <div class="board-container">
-            <div class="audio-section">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio(true)" title="Écouter">🎙️</button>
-                <div class="instruction-text">
-                    Écoute et trouve la lettre !<br>
-                    <small>¡Escucha y encuentra la letra!</small>
+        <section id="view-quiz" class="view hidden" aria-live="polite">
+            <header class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span id="progress-text" class="progress-text">1 / 28</span>
+                    </div>
+                    <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
+                        <div id="progress-fill" class="progress-bar-fill"></div>
+                    </div>
                 </div>
+            </header>
+
+            <div class="board-container">
+                <div class="audio-section">
+                    <button type="button" id="btn-play-audio" class="btn-audio big-audio" title="Écouter l'audio" aria-label="Écouter l'audio">
+                        🎙️
+                    </button>
+                    <div class="instruction-text">
+                        Écoute et trouve la lettre !<br>
+                        <small>¡Escucha y encuentra la letra!</small>
+                    </div>
+                </div>
+
+                <div class="board-grid" id="board-grid" dir="rtl" role="group" aria-label="Plateau de jeu">
+                    </div>
+            </div>
+        </section>
+
+        <section id="view-certificate" class="view hidden" aria-labelledby="cert-title-main">
+            <div class="cert-edit-group no-print">
+                <input type="text" id="cert-name-input" placeholder="Modifier le prénom avant impression...">
             </div>
 
-            <div class="board-grid" id="board-grid" dir="rtl"></div>
-        </div>
-    </div>
-
-    <div id="view-certificate" class="view hidden">
-        <div class="input-group no-print" style="margin-bottom: 20px; width: 100%; max-width: 380px;">
-            <input type="text" id="cert-name-input" placeholder="Modifier le prénom avant impression..." oninput="updateCertName(this.value)">
-        </div>
-
-        <div class="diploma-paper">
-            <div class="cert-ar ar-text">مبروك</div>
-            <h2 class="cert-title serif-text">Certificat de réussite</h2>
-            
-            <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.</p>
-                <p class="cert-msg es">Felicidades, has completado el Gran Quiz del Alfabeto.</p>
+            <div class="diploma-paper">
+                <a href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+                    <i class="fa-solid fa-house" aria-hidden="true"></i>
+                </a>
+                
+                <div class="cert-ar ar-text" lang="ar">مبروك</div>
+                <h2 id="cert-title-main" class="cert-title serif-text">Certificat de réussite</h2>
+                
+                <div class="cert-messages">
+                    <p class="cert-msg fr">Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.</p>
+                    <p class="cert-msg es">Felicidades, has completado el Gran Quiz del Alfabeto.</p>
+                </div>
+                
+                <div id="cert-name" class="cert-name ar-text">Participant</div>
+                
+                <div class="cert-score-box">
+                    <span class="score-label">Score Final</span>
+                    <div id="cert-score" class="score-value">0 / 0</div>
+                </div>
+                
+                <div id="cert-date" class="cert-date"></div>
+                <div class="cert-icon" aria-hidden="true">📖</div>
             </div>
             
-            <div id="cert-name" class="cert-name serif-text">Participant</div>
-            
-            <div class="cert-score-box">
-                <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">28 / 28</div>
-            </div>
-            
-            <div id="cert-date" class="cert-date"></div>
-            <div class="cert-icon">📖</div>
-        </div>
-        
-        <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer le certificat</button>
-            <button class="btn-main" onclick="restartQuiz()">Rejouer ↺</button>
-        </div>
+            <nav class="cert-actions no-print">
+                <button type="button" id="btn-print-cert" class="btn-secondary">🖨️ Imprimer</button>
+                <button type="button" id="btn-restart-quiz" class="btn-main">Rejouer ↺</button>
+            </nav>
+        </section>
     </div>
 
     <script>
-        const alphabetData = [
-            { id: 0, letter: "أ", audio: "audio/01-alif.mp3" },
-            { id: 1, letter: "ب", audio: "audio/02-baa.mp3" },
-            { id: 2, letter: "ت", audio: "audio/03-taa.mp3" },
-            { id: 3, letter: "ث", audio: "audio/04-thaa.mp3" },
-            { id: 4, letter: "ج", audio: "audio/05-jim.mp3" },
-            { id: 5, letter: "ح", audio: "audio/06-haa.mp3" },
-            { id: 6, letter: "خ", audio: "audio/07-khaa.mp3" },
-            { id: 7, letter: "د", audio: "audio/08-dal.mp3" },
-            { id: 8, letter: "ذ", audio: "audio/09-dhal.mp3" },
-            { id: 9, letter: "ر", audio: "audio/10-raa.mp3" },
-            { id: 10, letter: "ز", audio: "audio/11-zay.mp3" },
-            { id: 11, letter: "س", audio: "audio/12-siin.mp3" },
-            { id: 12, letter: "ش", audio: "audio/13-shiin.mp3" },
-            { id: 13, letter: "ص", audio: "audio/14-saad.mp3" },
-            { id: 14, letter: "ض", audio: "audio/15-daad.mp3" },
-            { id: 15, letter: "ط", audio: "audio/16-taaa.mp3" },
-            { id: 16, letter: "ظ", audio: "audio/17-zaa.mp3" },
-            { id: 17, letter: "ع", audio: "audio/18-ayn.mp3" },
-            { id: 18, letter: "غ", audio: "audio/19-ghayn.mp3" },
-            { id: 19, letter: "ف", audio: "audio/20-faa.mp3" },
-            { id: 20, letter: "ق", audio: "audio/21-qaaf.mp3" },
-            { id: 21, letter: "ك", audio: "audio/22-kaaf.mp3" },
-            { id: 22, letter: "ل", audio: "audio/23-laam.mp3" },
-            { id: 23, letter: "م", audio: "audio/24-miim.mp3" },
-            { id: 24, letter: "ن", audio: "audio/25-nuun.mp3" },
-            { id: 25, letter: "ه", audio: "audio/26-haaa.mp3" },
-            { id: 26, letter: "و", audio: "audio/27-waaw.mp3" },
-            { id: 27, letter: "ي", audio: "audio/28-yaa.mp3" }
+        const QUIZ_DATABASE = [
+            { id: "alif", value: "أ", audio: "audio/01-alif.mp3" },
+            { id: "baa", value: "ب", audio: "audio/02-baa.mp3" },
+            { id: "taa", value: "ت", audio: "audio/03-taa.mp3" },
+            { id: "thaa", value: "ث", audio: "audio/04-thaa.mp3" },
+            { id: "jim", value: "ج", audio: "audio/05-jim.mp3" },
+            { id: "haa", value: "ح", audio: "audio/06-haa.mp3" },
+            { id: "khaa", value: "خ", audio: "audio/07-khaa.mp3" },
+            { id: "dal", value: "د", audio: "audio/08-dal.mp3" },
+            { id: "dhal", value: "ذ", audio: "audio/09-dhal.mp3" },
+            { id: "raa", value: "ر", audio: "audio/10-raa.mp3" },
+            { id: "zay", value: "ز", audio: "audio/11-zay.mp3" },
+            { id: "siin", value: "س", audio: "audio/12-siin.mp3" },
+            { id: "shiin", value: "ش", audio: "audio/13-shiin.mp3" },
+            { id: "saad", value: "ص", audio: "audio/14-saad.mp3" },
+            { id: "daad", value: "ض", audio: "audio/15-daad.mp3" },
+            { id: "taaa", value: "ط", audio: "audio/16-taaa.mp3" },
+            { id: "zaa", value: "ظ", audio: "audio/17-zaa.mp3" },
+            { id: "ayn", value: "ع", audio: "audio/18-ayn.mp3" },
+            { id: "ghayn", value: "غ", audio: "audio/19-ghayn.mp3" },
+            { id: "faa", value: "ف", audio: "audio/20-faa.mp3" },
+            { id: "qaaf", value: "ق", audio: "audio/21-qaaf.mp3" },
+            { id: "kaaf", value: "ك", audio: "audio/22-kaaf.mp3" },
+            { id: "laam", value: "ل", audio: "audio/23-laam.mp3" },
+            { id: "miim", value: "م", audio: "audio/24-miim.mp3" },
+            { id: "nuun", value: "ن", audio: "audio/25-nuun.mp3" },
+            { id: "haaa", value: "ه", audio: "audio/26-haaa.mp3" },
+            { id: "waaw", value: "و", audio: "audio/27-waaw.mp3" },
+            { id: "yaa", value: "ي", audio: "audio/28-yaa.mp3" }
         ];
 
-        let playerName = "";
-        let targetQueue = []; 
-        let currentTargetIndex = 0;
-        let score = 0;
-        let currentAudio = new Audio();
-        let isBoardLocked = false;
-
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const boardGrid = document.getElementById('board-grid');
-
-        function startQuiz() {
-            playerName = document.getElementById('player-name').value.trim();
-            if (playerName === "") playerName = "Participant";
-            score = 0;
-            currentTargetIndex = 0;
-            isBoardLocked = false;
-            targetQueue = [...alphabetData].sort(() => Math.random() - 0.5);
-            renderBoard();
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
-            loadNextTarget();
-        }
-
-        function renderBoard() {
-            boardGrid.innerHTML = "";
-            alphabetData.forEach((item, index) => {
-                const btn = document.createElement('div');
-                btn.className = 'board-card ar-text';
-                btn.innerText = item.letter;
-                btn.dataset.id = item.id;
-                btn.style.animationDelay = `${index * 0.03}s`;
-                btn.onclick = () => handleCardClick(btn, item);
-                boardGrid.appendChild(btn);
-            });
-        }
-
-        function loadNextTarget() {
-            isBoardLocked = false;
-            document.getElementById('progress-text').innerText = `${currentTargetIndex + 1} / 28`;
-            const progressPercent = (currentTargetIndex / 28) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
-            resetBoardColors();
-            setTimeout(() => { playCurrentQuestionAudio(false); }, 500);
-        }
-
-        function handleCardClick(btnElement, clickedItem) {
-            if (isBoardLocked) return;
-            isBoardLocked = true;
-            const targetItem = targetQueue[currentTargetIndex];
-
-            if (clickedItem.id === targetItem.id) {
-                score++;
-                btnElement.classList.add('correct');
-            } else {
-                btnElement.classList.add('wrong');
-                if (navigator.vibrate) navigator.vibrate(200);
-                const allCards = boardGrid.children;
-                for (let i = 0; i < allCards.length; i++) {
-                    if (parseInt(allCards[i].dataset.id) === targetItem.id) {
-                        allCards[i].classList.add('correct');
-                    }
-                }
-            }
-
-            setTimeout(() => {
-                currentTargetIndex++;
-                if (currentTargetIndex < 28) {
-                    loadNextTarget();
-                } else {
-                    finishQuiz();
-                }
-            }, 1200);
-        }
-
-        function resetBoardColors() {
-            const allCards = boardGrid.children;
-            for (let i = 0; i < allCards.length; i++) {
-                allCards[i].classList.remove('correct', 'wrong');
-            }
-        }
-
-        // L'AUDIO SILENCIEUX (AUCUN MESSAGE ROUGE NE PEUT APPARAÎTRE)
-        function playCurrentQuestionAudio(isManualClick = false) {
-            const audioPath = targetQueue[currentTargetIndex].audio;
-            if (!audioPath || audioPath === "") return;
-
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
+        const AudioController = {
+            player: new Audio(),
+            effectPlayer: new Audio(),
             
-            let playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Audio bloqué :", error); });
+            init() {
+                this.player.preload = 'auto';
+                this.effectPlayer.preload = 'auto';
+            },
+            
+            playMain(src) {
+                if (!src) return;
+                this.player.pause();
+                this.player.currentTime = 0;
+                this.player.src = src;
+                this.player.play().catch(err => console.warn('Lecture auto bloquée :', err));
+            },
+            
+            playEffect(src) {
+                if (!src) return;
+                this.effectPlayer.pause();
+                this.effectPlayer.currentTime = 0;
+                this.effectPlayer.src = src;
+                this.effectPlayer.play().catch(err => console.warn('Effet audio bloqué :', err));
             }
-        }
+        };
 
-        function updateCertName(val) {
-            document.getElementById('cert-name').innerText = val.trim() || "Participant";
-        }
+        const AppEngine = {
+            state: {
+                playerName: "Participant",
+                targetQueue: [], // Ordre aléatoire de ce qu'on doit trouver
+                currentIndex: 0,
+                score: 0,
+                isProcessing: false,
+                config: {
+                    delayNextCard: 1200
+                }
+            },
 
-        function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-            document.getElementById('progress-fill').style.width = `100%`;
-            const finalName = playerName !== "Participant" ? playerName : "";
-            document.getElementById('cert-name-input').value = finalName;
-            document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / 28`;
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            const dateStr = new Date().toLocaleDateString('fr-FR', options);
-            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
-            triggerConfetti();
+            dom: {
+                views: {
+                    welcome: document.getElementById('view-welcome'),
+                    quiz: document.getElementById('view-quiz'),
+                    certificate: document.getElementById('view-certificate')
+                },
+                inputs: {
+                    name: document.getElementById('player-name'),
+                    certNameEdit: document.getElementById('cert-name-input')
+                },
+                buttons: {
+                    startQuiz: document.getElementById('btn-start-quiz'),
+                    playAudio: document.getElementById('btn-play-audio'),
+                    printCert: document.getElementById('btn-print-cert'),
+                    restartQuiz: document.getElementById('btn-restart-quiz')
+                },
+                ui: {
+                    progressText: document.getElementById('progress-text'),
+                    progressFill: document.getElementById('progress-fill'),
+                    progressBarA11y: document.getElementById('progress-bar-accessibility'),
+                    boardGrid: document.getElementById('board-grid'),
+                    certName: document.getElementById('cert-name'),
+                    certScore: document.getElementById('cert-score'),
+                    certDate: document.getElementById('cert-date')
+                }
+            },
 
-            const mabrukAudio = new Audio("mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Audio error:", error); });
+            shuffle(array) {
+                const arr = [...array];
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            },
+
+            startQuiz() {
+                const nameVal = this.dom.inputs.name.value.trim();
+                this.state.playerName = nameVal !== "" ? nameVal : "Participant";
+                this.state.score = 0;
+                this.state.currentIndex = 0;
+                this.state.isProcessing = false;
+
+                // L'ordre des cibles à trouver est mélangé
+                this.state.targetQueue = this.shuffle(QUIZ_DATABASE);
+                
+                this.switchView('quiz');
+                this.renderBoard();
+                this.loadNextTarget();
+            },
+
+            restartQuiz() {
+                this.switchView('welcome');
+                this.dom.inputs.name.value = "";
+            },
+
+            endQuiz() {
+                this.switchView('certificate');
+                this.dom.ui.progressFill.style.width = `100%`;
+                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', '100');
+                
+                const finalName = this.state.playerName !== "Participant" ? this.state.playerName : "";
+                this.dom.inputs.certNameEdit.value = finalName;
+                this.dom.ui.certName.textContent = this.state.playerName;
+                this.dom.ui.certScore.textContent = `${this.state.score} / ${QUIZ_DATABASE.length}`;
+                
+                const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+                this.dom.ui.certDate.textContent = `Fait le ${dateStr}`;
+
+                this.triggerSuccessEffects();
+            },
+
+            // Génère TOUTES les cartes une seule fois
+            renderBoard() {
+                this.dom.ui.boardGrid.innerHTML = "";
+                QUIZ_DATABASE.forEach((item, index) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'board-card ar-text';
+                    btn.textContent = item.value;
+                    btn.dataset.id = item.id;
+                    btn.style.animationDelay = `${index * 0.03}s`;
+                    btn.addEventListener('click', () => this.handleAnswer(btn, item));
+                    this.dom.ui.boardGrid.appendChild(btn);
+                });
+            },
+
+            loadNextTarget() {
+                this.state.isProcessing = false;
+                const total = this.state.targetQueue.length;
+                
+                this.dom.ui.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+                const pct = Math.round((this.state.currentIndex / total) * 100);
+                this.dom.ui.progressFill.style.width = `${pct}%`;
+                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', String(pct));
+
+                // Réinitialise les couleurs du plateau
+                Array.from(this.dom.ui.boardGrid.children).forEach(card => {
+                    card.classList.remove('correct', 'wrong');
+                });
+
+                setTimeout(() => this.playAudio(), 400);
+            },
+
+            handleAnswer(cardElement, clickedItem) {
+                if (this.state.isProcessing) return;
+                this.state.isProcessing = true;
+
+                const targetItem = this.state.targetQueue[this.state.currentIndex];
+
+                if (clickedItem.id === targetItem.id) {
+                    this.state.score++;
+                    cardElement.classList.add('correct');
+                } else {
+                    cardElement.classList.add('wrong');
+                    if (navigator.vibrate) navigator.vibrate(200);
+                    
+                    // Révèle la bonne carte sur le plateau
+                    Array.from(this.dom.ui.boardGrid.children).forEach(c => {
+                        if (c.dataset.id === targetItem.id) {
+                            c.classList.add('correct');
+                        }
+                    });
+                }
+
+                setTimeout(() => {
+                    this.state.currentIndex++;
+                    if (this.state.currentIndex < this.state.targetQueue.length) {
+                        this.loadNextTarget();
+                    } else {
+                        this.endQuiz();
+                    }
+                }, this.state.config.delayNextCard);
+            },
+
+            playAudio() {
+                if (this.state.currentIndex >= this.state.targetQueue.length) return;
+                const src = this.state.targetQueue[this.state.currentIndex].audio;
+                AudioController.playMain(src);
+            },
+
+            switchView(viewName) {
+                Object.values(this.dom.views).forEach(view => view.classList.add('hidden'));
+                this.dom.views[viewName].classList.remove('hidden');
+            },
+
+            triggerSuccessEffects() {
+                const end = Date.now() + 3000;
+                (function frame() {
+                    if (typeof confetti === 'function') {
+                        confetti({ particleCount: 6, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#C8A462', '#5D1828', '#dfc28b'] });
+                        confetti({ particleCount: 6, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#C8A462', '#5D1828', '#dfc28b'] });
+                    }
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+
+                AudioController.playEffect("audio/mabruk.mp3");
+            },
+
+            bindEvents() {
+                this.dom.buttons.startQuiz.addEventListener('click', () => this.startQuiz());
+                this.dom.buttons.playAudio.addEventListener('click', () => this.playAudio());
+                this.dom.buttons.printCert.addEventListener('click', () => window.print());
+                this.dom.buttons.restartQuiz.addEventListener('click', () => this.restartQuiz());
+
+                this.dom.inputs.name.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.startQuiz();
+                    }
+                });
+
+                // Mise à jour du nom sur le certificat en direct
+                this.dom.inputs.certNameEdit.addEventListener('input', (e) => {
+                    const val = e.target.value.trim();
+                    this.dom.ui.certName.textContent = val || "Participant";
+                });
+            },
+
+            init() {
+                AudioController.init();
+                this.bindEvents();
             }
-        }
+        };
 
-        function triggerConfetti() {
-            const duration = 4000;
-            const end = Date.now() + duration;
-            (function frame() {
-                confetti({ particleCount: 6, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#C8A462', '#5D1828', '#dfc28b'] });
-                confetti({ particleCount: 6, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#C8A462', '#5D1828', '#dfc28b'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-        }
-
-        function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            AppEngine.init();
+        });
     </script>
 </body>
 </html>
