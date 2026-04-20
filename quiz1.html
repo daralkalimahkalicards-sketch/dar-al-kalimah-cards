@@ -1,19 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalicards - Quiz Module 1</title>
     
+    <title>Dar Al-Kalimah - Quiz Module 1</title>
+    <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah">
+    <meta name="theme-color" content="#5D1828">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     
     <style>
-        /* =========================================
-           STYLES GLOBAUX & COULEURS
-           ========================================= */
         :root {
             --burgundy: #5D1828;
             --burgundy-dark: #3a0f19;
@@ -26,26 +29,56 @@
             --error-red: #ffebee;
             --error-border: #f44336;
             --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+            --shadow-hover: 0 8px 20px rgba(200, 164, 98, 0.2);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-beige);
             background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex; justify-content: center; align-items: center;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
             min-height: 100vh;
             font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 20px; overflow-x: hidden; color: var(--burgundy);
+            padding: 20px; 
+            overflow-x: hidden; 
+            color: var(--burgundy);
+            position: relative;
         }
 
-        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
+        button, a, input, .option-card {
+            touch-action: manipulation;
+        }
+
+        .ar-text { 
+            font-family: "Amiri", serif; 
+            line-height: 1.2; 
+            direction: rtl;
+            unicode-bidi: isolate;
+            text-rendering: optimizeLegibility;
+        }
+
         .serif-text { font-family: "Cinzel", "Georgia", serif; }
 
         .view {
-            width: 100%; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; animation: floatIn 0.5s ease-out forwards;
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center; 
+            animation: floatIn 0.5s ease-out forwards;
         }
+
         .hidden { display: none !important; }
 
         @keyframes floatIn {
@@ -53,426 +86,868 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* =========================================
-           BOÎTES & BOUTONS GÉNÉRAUX
-           ========================================= */
-        .btn-main, .btn-secondary, .btn-link {
+        .btn-house {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: var(--gold);
+            font-size: 1.6rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+            z-index: 10;
+            padding: 5px;
+        }
+
+        .btn-house:hover, .btn-house:focus-visible {
+            transform: scale(1.1);
+            color: var(--gold-light);
+            outline: none;
+        }
+
+        .btn-main, .btn-secondary {
+            border: 2px solid var(--burgundy);
+            padding: 16px 45px; 
+            font-size: 1.05rem; 
+            border-radius: 50px; 
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600;
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); 
+            display: inline-block; 
+            text-decoration: none; 
+            text-align: center;
+        }
+        
+        .btn-main {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
-            color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-family: 'Montserrat', sans-serif; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
+            color: var(--white); 
         }
-        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active, .btn-link:active { transform: translateY(1px); }
 
-        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
-        .btn-secondary:hover { background: var(--gold); color: var(--white); }
-
-        .btn-back-menu {
-            display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s;
+        .btn-main:hover, .btn-main:focus-visible { 
+            transform: translateY(-3px); 
+            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); 
+            border-color: var(--gold); 
+            outline: none;
         }
-        .btn-back-menu:hover { color: var(--white); }
 
-        /* =========================================
-           ACCUEIL QUIZ (PREMIUM BORDEAUX)
-           ========================================= */
+        .btn-main:active { transform: translateY(1px); }
+
+        .btn-secondary { 
+            background: var(--bg-beige); 
+            color: var(--burgundy); 
+            border-color: var(--gold); 
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); 
+        }
+
+        .btn-secondary:hover, .btn-secondary:focus-visible { 
+            background: var(--gold); 
+            color: var(--white); 
+            outline: none;
+        }
+
         .menu-container {
+            position: relative; 
             text-align: center; 
             background: var(--burgundy);
-            padding: 50px 40px; border-radius: 24px;
+            padding: 56px 44px; 
+            border-radius: 24px;
             box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
-            max-width: 600px; width: 100%;
+            max-width: 680px; 
+            width: 100%;
         }
 
-        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
-        .menu-container .app-title { font-size: 1.6rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
-        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
-        
-        .menu-container .subtitle-group { margin-bottom: 30px; }
-        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
-        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+        .menu-container .brand-ar {
+            font-size: 3.9rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
 
-        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .app-title {
+            font-size: 1.8rem;
+            color: #d09470;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu-container .divider {
+            width: 60px;
+            height: 2px;
+            background-color: var(--gold);
+            margin: 25px auto;
+            border-radius: 2px;
+            opacity: 0.5;
+        }
+        
+        .menu-container .subtitle-group { margin-bottom: 34px; }
+
+        .menu-container .subtitle {
+            font-size: 1.12rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--white);
+        }
+
+        .menu-container .subtitle.es {
+            font-size: 1rem;
+            opacity: 0.9;
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 38px;
+        }
+
+        .menu-container .input-group label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
         .menu-container .input-group input {
-            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif; text-align: center;
-            border: 2px solid var(--gold); border-radius: 12px;
-            background-color: var(--white); color: var(--burgundy); outline: none;
+            width: 100%;
+            max-width: 380px;
+            padding: 16px;
+            font-size: 1.15rem;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            background-color: var(--white);
+            color: var(--burgundy);
+            outline: none;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
 
-        .menu-container .btn-main {
-            background: transparent; color: var(--gold); border: 2px solid var(--gold);
-            width: 100%; max-width: 350px; box-shadow: none;
-        }
-        .menu-container .btn-main:hover {
-            background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);
+        .menu-container .input-group input:focus { 
+            border-color: var(--gold-light); 
+            box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); 
         }
 
-        /* =========================================
-           ÉCRAN DE JEU (RESTE CLAIR)
-           ========================================= */
+        .menu-container .btn-main.start-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            width: 100%;
+            max-width: 380px;
+            box-shadow: none;
+        }
+
+        .menu-container .btn-main.start-btn:hover,
+        .menu-container .btn-main.start-btn:focus-visible {
+            background-color: rgba(200, 164, 98, 0.1);
+            border-color: var(--gold-light);
+            color: var(--gold-light);
+            transform: translateY(-3px);
+        }
+
         .quiz-container {
-            text-align: center; background: var(--white);
-            padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold);
+            text-align: center;
+            background: var(--white);
+            padding: 56px 44px;
+            border-radius: 24px;
+            border: 1px solid var(--gold);
             box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
-            max-width: 600px; width: 100%;
+            max-width: 680px;
+            width: 100%;
         }
-        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
-        .progress-info { text-align: right; margin-bottom: 8px; }
-        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
-        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
 
-        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 25px; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.8; font-weight: 500; }
+        .quiz-header {
+            width: 100%;
+            max-width: 680px;
+            margin-bottom: 22px;
+        }
 
-        .audio-section { margin-bottom: 35px; display: flex; justify-content: center; }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-text {
+            font-weight: 700;
+            color: var(--burgundy);
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .score-live {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--success-border);
+            background: var(--success-green);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease;
+        }
+
+        .score-live.bump { transform: scale(1.2); }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: var(--white);
+            border: 1px solid var(--gold-light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--gold);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .instruction-text {
+            font-weight: 600;
+            font-size: 1.18rem;
+            margin-bottom: 28px;
+            color: var(--burgundy);
+        }
+
+        .instruction-text small {
+            opacity: 0.8;
+            font-weight: 500;
+            display: block;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .audio-section {
+            margin-bottom: 38px;
+            display: flex;
+            justify-content: center;
+        }
+
         .btn-audio.big-audio {
-            width: 80px; height: 80px; font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--bg-beige), #fff); border: 3px solid var(--gold);
-            color: var(--burgundy); border-radius: 50%; cursor: pointer;
-            box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); transition: all 0.3s ease;
-            display: flex; justify-content: center; align-items: center;
+            width: 86px;
+            height: 86px;
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, var(--bg-beige), #fff);
+            border: 3px solid var(--gold);
+            color: var(--burgundy);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            outline: none;
         }
-        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); }
+
+        .btn-audio.big-audio:hover,
+        .btn-audio.big-audio:focus-visible { 
+            transform: scale(1.1) translateY(-3px); 
+            background: var(--gold); 
+            color: var(--white);
+            box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); 
+        }
+
         .btn-audio.big-audio:active { transform: scale(0.95); }
 
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        .option-card {
-            background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px;
-            aspect-ratio: 1.2; display: flex; justify-content: center; align-items: center;
-            font-size: 4.5rem; color: var(--burgundy); cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            width: 100%;
         }
-        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+
+        .option-card {
+            background: var(--white);
+            border: 2px solid var(--gold-light);
+            border-radius: 16px;
+            aspect-ratio: 1.22;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            color: var(--burgundy);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            user-select: none;
+            font-family: "Amiri", serif;
+        }
+
+        .option-card:hover,
+        .option-card:focus-visible { 
+            transform: translateY(-3px); 
+            border-color: var(--gold); 
+            box-shadow: var(--shadow-hover); 
+            outline: none;
+        }
+
         .option-card:active { transform: scale(0.95); }
 
-        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
-        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
-        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-
-        /* =========================================
-           CERTIFICAT
-           ========================================= */
-        .diploma-paper {
-            background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold);
-            padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
+        .option-card.correct {
+            border: 3px solid var(--success-border) !important;
+            background-color: var(--success-green);
+            color: var(--success-border);
+            pointer-events: none;
         }
-        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
-        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
-        .cert-messages { margin-bottom: 25px; }
-        .cert-msg { font-weight: 600; color: #444; }
-        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
-        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
-        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
-        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
-        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        /* =========================================
-           RESPONSIVE & IMPRESSION
-           ========================================= */
+        .option-card.wrong {
+            border: 3px solid var(--error-border) !important;
+            background-color: var(--error-red);
+            animation: gentleShake 0.4s;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .option-card:disabled { cursor: default; }
+
+        @keyframes gentleShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .diploma-paper {
+            background: linear-gradient(145deg, #ffffff, #fcfcfc);
+            border: 8px double var(--gold);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 560px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .cert-ar {
+            font-size: 4.8rem;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .cert-title {
+            color: var(--burgundy);
+            font-size: 2.1rem;
+            margin-bottom: 20px;
+        }
+
+        .cert-messages { margin-bottom: 25px; }
+
+        .cert-msg {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .cert-msg.es {
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .cert-name {
+            font-size: 3.1rem;
+            color: var(--burgundy);
+            border-bottom: 1px solid var(--gold-light);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            word-break: break-word;
+        }
+
+        .cert-score-box {
+            background-color: var(--bg-beige);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .score-label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--burgundy);
+        }
+
+        .cert-date {
+            font-size: 0.95rem;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .cert-icon {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            background: var(--bg-beige);
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .cert-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         @media (max-width: 768px) {
-            .menu-container, .quiz-container { padding: 40px 20px; }
-            .option-card { font-size: 4rem; }
+            .menu-container, .quiz-container {
+                padding: 42px 22px;
+                max-width: 620px;
+            }
+
+            .option-card { font-size: 4.4rem; }
             .diploma-paper { padding: 30px 20px; }
         }
+
         @media (max-width: 480px) {
-            .menu-container .brand-ar { font-size: 3rem; }
-            .menu-container .app-title { font-size: 1.3rem; }
-            .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
-            .option-card { font-size: 3.5rem; aspect-ratio: 1.1; }
-            .cert-ar { font-size: 3.5rem; }
-            .cert-title { font-size: 1.5rem; }
+            body { padding: 16px; }
+
+            .menu-container, .quiz-container {
+                padding: 34px 18px;
+            }
+
+            .menu-container .brand-ar { font-size: 3.2rem; }
+            .menu-container .app-title { font-size: 1.35rem; }
+            .menu-container .subtitle { font-size: 1rem; }
+            .menu-container .subtitle.es { font-size: 0.92rem; }
+
+            .btn-audio.big-audio {
+                width: 70px;
+                height: 70px;
+                font-size: 2.1rem;
+            }
+
+            .instruction-text { font-size: 1.08rem; }
+
+            .option-card {
+                font-size: 3.9rem;
+                aspect-ratio: 1.08;
+            }
+
+            .cert-ar { font-size: 3.7rem; }
+            .cert-title { font-size: 1.6rem; }
             .cert-name { font-size: 2.5rem; }
-            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
-            .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; }
+
+            .cert-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn-main, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
         }
+
         @media print {
             body * { visibility: hidden; }
             #view-certificate, #view-certificate * { visibility: visible; }
-            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
+            #view-certificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: white;
+            }
             .no-print { display: none !important; }
-            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
+            .diploma-paper {
+                border: 10px double var(--gold);
+                box-shadow: none;
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div id="view-welcome" class="view">
-        <div class="menu-container">
-            <div class="brand-ar ar-text">اختبار الحروف</div>
-            <div class="app-title serif-text">Kalicards – Quiz</div>
-            <div class="divider"></div>
-            
-            <div class="subtitle-group">
-                <p class="subtitle fr">Écoute la lettre et clique sur la bonne réponse.</p>
-                <p class="subtitle es">Escucha la letra y haz clic en la respuesta correcta.</p>
+    <div id="app-root">
+        <section id="view-welcome" class="view" aria-labelledby="welcome-title">
+            <div class="menu-container">
+                <a href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
+                    <i class="fa-solid fa-house" aria-hidden="true"></i>
+                </a>
+                
+                <h1 id="welcome-title" class="brand-ar ar-text" lang="ar">اختبار الحروف</h1>
+                <div class="app-title serif-text">Kalicards – Quiz</div>
+                <div class="divider"></div>
+                
+                <div class="subtitle-group">
+                    <p class="subtitle fr">Écoute la lettre et clique sur la bonne réponse.</p>
+                    <p class="subtitle es">Escucha la letra y haz clic en la respuesta correcta.</p>
+                </div>
+                
+                <div class="input-group">
+                    <label for="player-name">Nom du participant / Nombre del participante</label>
+                    <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
+                </div>
+                
+                <button type="button" id="btn-start-quiz" class="btn-main start-btn">Commencer le quiz</button>
             </div>
-            
-            <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
-                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
-            </div>
-            
-            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
-            
-            <a href="module1.html" class="btn-back-menu">← Retour au menu du module</a>
-        </div>
-    </div>
+        </section>
 
-    <div id="view-quiz" class="view hidden">
-        <div class="quiz-header">
-            <div class="progress-info">
-                <span id="progress-text" class="progress-text">1 / 28</span>
-            </div>
-            <div class="progress-bar-container">
-                <div id="progress-fill" class="progress-bar-fill"></div>
-            </div>
-        </div>
+        <section id="view-quiz" class="view hidden" aria-live="polite">
+            <header class="quiz-header">
+                <div class="progress-info">
+                    <span id="progress-text" class="progress-text">1 / 28</span>
+                    <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
+                </div>
+                <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
+                    <div id="progress-fill" class="progress-bar-fill"></div>
+                </div>
+            </header>
 
-        <div class="quiz-container">
-            <div class="instruction-text">
-                Écoute et trouve la bonne lettre !<br>
-                <small>¡Escucha y encuentra la letra correcta!</small>
-            </div>
+            <div class="quiz-container">
+                <div class="instruction-text">
+                    Écoute et trouve la bonne lettre !<br>
+                    <small>¡Escucha y encuentra la letra correcta!</small>
+                </div>
 
-            <div class="audio-section">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
-            </div>
+                <div class="audio-section">
+                    <button type="button" id="btn-play-audio" class="btn-audio big-audio" title="Écouter l'audio" aria-label="Écouter l'audio de la question">
+                        🎙️
+                    </button>
+                </div>
 
-            <div class="options-grid" id="options-grid">
+                <div class="options-grid" id="options-grid" role="group" aria-label="Options de réponse"></div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="view-certificate" class="view hidden">
-        <div class="diploma-paper">
-            <div class="cert-ar ar-text">مبروك</div>
-            <h2 class="cert-title serif-text">Certificat de réussite</h2>
-            
-            <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz du module 1.</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz del módulo 1.</p>
+        <section id="view-certificate" class="view hidden" aria-labelledby="cert-title-main">
+            <div class="diploma-paper">
+                <a href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+                    <i class="fa-solid fa-house" aria-hidden="true"></i>
+                </a>
+                
+                <div class="cert-ar ar-text" lang="ar">مبروك</div>
+                <h2 id="cert-title-main" class="cert-title serif-text">Certificat de réussite</h2>
+                
+                <div class="cert-messages">
+                    <p class="cert-msg fr">Félicitations, vous avez terminé le quiz du module 1.</p>
+                    <p class="cert-msg es">Felicidades, has completado el quiz del módulo 1.</p>
+                </div>
+                
+                <div id="cert-name" class="cert-name ar-text">Participant</div>
+                
+                <div class="cert-score-box">
+                    <span class="score-label">Score Final</span>
+                    <div id="cert-score" class="score-value">0 / 0</div>
+                </div>
+                
+                <div id="cert-date" class="cert-date"></div>
+                <div class="cert-icon" aria-hidden="true">📖</div>
             </div>
             
-            <div id="cert-name" class="cert-name ar-text">Participant</div>
-            
-            <div class="cert-score-box">
-                <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">24 / 28</div>
-            </div>
-            
-            <div id="cert-date" class="cert-date"></div>
-            <div class="cert-icon">📖</div>
-        </div>
-        
-        <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
-            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="module1.html" class="btn-link">Menu Principal</a>
-        </div>
+            <nav class="cert-actions no-print">
+                <button type="button" id="btn-print-cert" class="btn-secondary">🖨️ Imprimer</button>
+                <button type="button" id="btn-restart-quiz" class="btn-main">Recommencer ↺</button>
+            </nav>
+        </section>
     </div>
 
     <script>
-        // LA MATRICE AUDIO UNIVERSELLE
-        const alphabetData = [
-            { letter: "أ", audio: "audio/01-alif.mp3" },
-            { letter: "ب", audio: "audio/02-baa.mp3" },
-            { letter: "ت", audio: "audio/03-taa.mp3" },
-            { letter: "ث", audio: "audio/04-thaa.mp3" },
-            { letter: "ج", audio: "audio/05-jim.mp3" },
-            { letter: "ح", audio: "audio/06-haa.mp3" },
-            { letter: "خ", audio: "audio/07-khaa.mp3" },
-            { letter: "د", audio: "audio/08-dal.mp3" },
-            { letter: "ذ", audio: "audio/09-dhal.mp3" },
-            { letter: "ر", audio: "audio/10-raa.mp3" },
-            { letter: "ز", audio: "audio/11-zay.mp3" },
-            { letter: "س", audio: "audio/12-siin.mp3" },
-            { letter: "ش", audio: "audio/13-shiin.mp3" },
-            { letter: "ص", audio: "audio/14-saad.mp3" },
-            { letter: "ض", audio: "audio/15-daad.mp3" },
-            { letter: "ط", audio: "audio/16-taaa.mp3" },
-            { letter: "ظ", audio: "audio/17-zaa.mp3" },
-            { letter: "ع", audio: "audio/18-ayn.mp3" },
-            { letter: "غ", audio: "audio/19-ghayn.mp3" },
-            { letter: "ف", audio: "audio/20-faa.mp3" },
-            { letter: "ق", audio: "audio/21-qaaf.mp3" },
-            { letter: "ك", audio: "audio/22-kaaf.mp3" },
-            { letter: "ل", audio: "audio/23-laam.mp3" },
-            { letter: "م", audio: "audio/24-miim.mp3" },
-            { letter: "ن", audio: "audio/25-nuun.mp3" },
-            { letter: "ه", audio: "audio/26-haaa.mp3" },
-            { letter: "و", audio: "audio/27-waaw.mp3" },
-            { letter: "ي", audio: "audio/28-yaa.mp3" }
+        const QUIZ_DATABASE = [
+            { id: "alif", value: "أ", audio: "audio/01-alif.mp3" },
+            { id: "baa", value: "ب", audio: "audio/02-baa.mp3" },
+            { id: "taa", value: "ت", audio: "audio/03-taa.mp3" },
+            { id: "thaa", value: "ث", audio: "audio/04-thaa.mp3" },
+            { id: "jim", value: "ج", audio: "audio/05-jim.mp3" },
+            { id: "haa", value: "ح", audio: "audio/06-haa.mp3" },
+            { id: "khaa", value: "خ", audio: "audio/07-khaa.mp3" },
+            { id: "dal", value: "د", audio: "audio/08-dal.mp3" },
+            { id: "dhal", value: "ذ", audio: "audio/09-dhal.mp3" },
+            { id: "raa", value: "ر", audio: "audio/10-raa.mp3" },
+            { id: "zay", value: "ز", audio: "audio/11-zay.mp3" },
+            { id: "siin", value: "س", audio: "audio/12-siin.mp3" },
+            { id: "shiin", value: "ش", audio: "audio/13-shiin.mp3" },
+            { id: "saad", value: "ص", audio: "audio/14-saad.mp3" },
+            { id: "daad", value: "ض", audio: "audio/15-daad.mp3" },
+            { id: "taaa", value: "ط", audio: "audio/16-taaa.mp3" },
+            { id: "zaa", value: "ظ", audio: "audio/17-zaa.mp3" },
+            { id: "ayn", value: "ع", audio: "audio/18-ayn.mp3" },
+            { id: "ghayn", value: "غ", audio: "audio/19-ghayn.mp3" },
+            { id: "faa", value: "ف", audio: "audio/20-faa.mp3" },
+            { id: "qaaf", value: "ق", audio: "audio/21-qaaf.mp3" },
+            { id: "kaaf", value: "ك", audio: "audio/22-kaaf.mp3" },
+            { id: "laam", value: "ل", audio: "audio/23-laam.mp3" },
+            { id: "miim", value: "م", audio: "audio/24-miim.mp3" },
+            { id: "nuun", value: "ن", audio: "audio/25-nuun.mp3" },
+            { id: "haaa", value: "ه", audio: "audio/26-haaa.mp3" },
+            { id: "waaw", value: "و", audio: "audio/27-waaw.mp3" },
+            { id: "yaa", value: "ي", audio: "audio/28-yaa.mp3" }
         ];
 
-        let playerName = "";
-        let questions = []; 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let currentAudio = new Audio();
-        let isAnswerProcessing = false;
-
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const nameInput = document.getElementById('player-name');
-
-        function startQuiz() {
-            playerName = nameInput.value.trim();
-            if (playerName === "") playerName = "Participant";
-
-            score = 0;
-            currentQuestionIndex = 0;
-            isAnswerProcessing = false;
-
-            generateQuestions();
-
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
-
-            loadQuestion();
-        }
-
-        function generateQuestions() {
-            questions = [];
-            let shuffledData = [...alphabetData].sort(() => Math.random() - 0.5);
-
-            shuffledData.forEach(targetObj => {
-                let distractors = alphabetData.filter(item => item.letter !== targetObj.letter);
-                distractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
-                
-                let options = [targetObj.letter, distractors[0].letter, distractors[1].letter, distractors[2].letter];
-                options = options.sort(() => Math.random() - 0.5);
-                
-                questions.push({
-                    targetLetter: targetObj.letter,
-                    targetAudio: targetObj.audio,
-                    options: options
-                });
-            });
-        }
-
-        function loadQuestion() {
-            isAnswerProcessing = false;
-            const currentQ = questions[currentQuestionIndex];
+        const AudioController = {
+            player: new Audio(),
+            effectPlayer: new Audio(),
             
-            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            const progressPercent = (currentQuestionIndex / questions.length) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
-
-            const optionsGrid = document.getElementById('options-grid');
-            optionsGrid.innerHTML = "";
-
-            currentQ.options.forEach(letter => {
-                const btn = document.createElement('div');
-                btn.className = 'option-card ar-text';
-                btn.innerText = letter;
-                btn.onclick = () => handleAnswer(letter, btn, currentQ.targetLetter);
-                optionsGrid.appendChild(btn);
-            });
-
-            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
-        }
-
-        function handleAnswer(selectedLetter, cardElement, targetLetter) {
-            if (isAnswerProcessing) return;
-            isAnswerProcessing = true;
-
-            const allCards = document.getElementById('options-grid').children;
-
-            if (selectedLetter === targetLetter) {
-                score++;
-                cardElement.classList.add('correct');
-            } else {
-                cardElement.classList.add('wrong');
-                if (navigator.vibrate) navigator.vibrate(200);
-                
-                for (let i = 0; i < allCards.length; i++) {
-                    if (allCards[i].innerText === targetLetter) {
-                        allCards[i].classList.add('correct');
-                    }
-                }
+            init() {
+                this.player.preload = 'auto';
+                this.effectPlayer.preload = 'auto';
+                this.player.playsInline = true;
+                this.effectPlayer.playsInline = true;
+            },
+            
+            playMain(src) {
+                if (!src) return;
+                this.player.pause();
+                this.player.currentTime = 0;
+                this.player.src = src;
+                this.player.play().catch(err => console.warn('Lecture audio bloquée :', err));
+            },
+            
+            playEffect(src) {
+                if (!src) return;
+                this.effectPlayer.pause();
+                this.effectPlayer.currentTime = 0;
+                this.effectPlayer.src = src;
+                this.effectPlayer.play().catch(err => console.warn('Effet audio bloqué :', err));
             }
+        };
 
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    loadQuestion();
+        const AppEngine = {
+            state: {
+                playerName: "Participant",
+                questions: [],
+                currentIndex: 0,
+                score: 0,
+                isProcessing: false,
+                config: {
+                    optionsCount: 4,
+                    delayNextCard: 1200
+                }
+            },
+
+            dom: {
+                views: {
+                    welcome: document.getElementById('view-welcome'),
+                    quiz: document.getElementById('view-quiz'),
+                    certificate: document.getElementById('view-certificate')
+                },
+                inputs: {
+                    name: document.getElementById('player-name')
+                },
+                buttons: {
+                    startQuiz: document.getElementById('btn-start-quiz'),
+                    playAudio: document.getElementById('btn-play-audio'),
+                    printCert: document.getElementById('btn-print-cert'),
+                    restartQuiz: document.getElementById('btn-restart-quiz')
+                },
+                ui: {
+                    progressText: document.getElementById('progress-text'),
+                    progressFill: document.getElementById('progress-fill'),
+                    progressBarA11y: document.getElementById('progress-bar-accessibility'),
+                    scoreLive: document.getElementById('score-live'),
+                    optionsGrid: document.getElementById('options-grid'),
+                    certName: document.getElementById('cert-name'),
+                    certScore: document.getElementById('cert-score'),
+                    certDate: document.getElementById('cert-date')
+                }
+            },
+
+            shuffle(array) {
+                const arr = [...array];
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            },
+
+            startQuiz() {
+                const nameVal = this.dom.inputs.name.value.trim();
+                this.state.playerName = nameVal !== "" ? nameVal : "Participant";
+                this.state.score = 0;
+                this.state.currentIndex = 0;
+                this.state.isProcessing = false;
+
+                this.buildQuestionsPayload();
+                
+                this.switchView('quiz');
+                this.updateScoreLiveUI();
+                this.renderQuestion();
+            },
+
+            restartQuiz() {
+                this.switchView('welcome');
+                this.dom.inputs.name.value = "";
+                this.dom.inputs.name.focus();
+            },
+
+            endQuiz() {
+                this.switchView('certificate');
+                this.dom.ui.progressFill.style.width = `100%`;
+                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', '100');
+                
+                this.dom.ui.certName.textContent = this.state.playerName;
+                this.dom.ui.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+                
+                const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+                this.dom.ui.certDate.textContent = `Fait le ${dateStr}`;
+
+                this.triggerSuccessEffects();
+            },
+
+            buildQuestionsPayload() {
+                const shuffledDB = this.shuffle(QUIZ_DATABASE);
+                
+                this.state.questions = shuffledDB.map(targetItem => {
+                    let distractors = QUIZ_DATABASE.filter(item => item.id !== targetItem.id);
+                    distractors = this.shuffle(distractors).slice(0, this.state.config.optionsCount - 1);
+                    
+                    let options = [targetItem.value, ...distractors.map(d => d.value)];
+                    options = this.shuffle(options);
+                    
+                    return {
+                        targetValue: targetItem.value,
+                        targetAudio: targetItem.audio,
+                        options: options
+                    };
+                });
+            },
+
+            renderQuestion() {
+                this.state.isProcessing = false;
+                const q = this.state.questions[this.state.currentIndex];
+                const total = this.state.questions.length;
+                
+                this.dom.ui.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+                const pct = Math.round((this.state.currentIndex / total) * 100);
+                this.dom.ui.progressFill.style.width = `${pct}%`;
+                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', String(pct));
+
+                this.dom.ui.optionsGrid.innerHTML = "";
+
+                q.options.forEach((optValue, idx) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'option-card ar-text';
+                    btn.textContent = optValue;
+                    btn.setAttribute('aria-label', `Option ${idx + 1}`);
+                    btn.addEventListener('click', () => this.handleAnswer(optValue, btn, q.targetValue));
+                    this.dom.ui.optionsGrid.appendChild(btn);
+                });
+
+                setTimeout(() => this.playAudio(), 300);
+            },
+
+            handleAnswer(selectedValue, cardElement, targetValue) {
+                if (this.state.isProcessing) return;
+                this.state.isProcessing = true;
+
+                const allCards = Array.from(this.dom.ui.optionsGrid.children);
+                allCards.forEach(card => {
+                    card.disabled = true;
+                });
+
+                if (selectedValue === targetValue) {
+                    this.state.score++;
+                    cardElement.classList.add('correct');
+                    this.updateScoreLiveUI();
                 } else {
-                    finishQuiz();
+                    cardElement.classList.add('wrong');
+                    if (navigator.vibrate) navigator.vibrate(200);
+                    
+                    allCards.forEach(card => {
+                        if (card.textContent === targetValue) {
+                            card.classList.add('correct');
+                        }
+                    });
                 }
-            }, 1200);
-        }
 
-        function playCurrentQuestionAudio() {
-            const currentQ = questions[currentQuestionIndex];
-            const audioPath = currentQ.targetAudio;
-            
-            if (!audioPath || audioPath === "") return;
+                setTimeout(() => {
+                    this.state.currentIndex++;
+                    if (this.state.currentIndex < this.state.questions.length) {
+                        this.renderQuestion();
+                    } else {
+                        this.endQuiz();
+                    }
+                }, this.state.config.delayNextCard);
+            },
 
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
-            
-            let playPromise = currentAudio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Lecture auto bloquée par le navigateur :", error);
+            playAudio() {
+                if (this.state.currentIndex >= this.state.questions.length) return;
+                const src = this.state.questions[this.state.currentIndex].targetAudio;
+                AudioController.playMain(src);
+            },
+
+            switchView(viewName) {
+                Object.values(this.dom.views).forEach(view => view.classList.add('hidden'));
+                this.dom.views[viewName].classList.remove('hidden');
+            },
+
+            updateScoreLiveUI() {
+                const el = this.dom.ui.scoreLive;
+                el.textContent = `✓ ${this.state.score}`;
+                el.classList.remove('bump');
+                void el.offsetWidth;
+                el.classList.add('bump');
+                setTimeout(() => el.classList.remove('bump'), 200);
+            },
+
+            triggerSuccessEffects() {
+                const end = Date.now() + 3000;
+                (function frame() {
+                    if (typeof confetti === 'function') {
+                        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
+                        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
+                    }
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+
+                AudioController.playEffect("audio/mabruk.mp3");
+            },
+
+            bindEvents() {
+                this.dom.buttons.startQuiz.addEventListener('click', () => this.startQuiz());
+                this.dom.buttons.playAudio.addEventListener('click', () => this.playAudio());
+                this.dom.buttons.printCert.addEventListener('click', () => window.print());
+                this.dom.buttons.restartQuiz.addEventListener('click', () => this.restartQuiz());
+
+                this.dom.inputs.name.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.startQuiz();
+                    }
                 });
+            },
+
+            init() {
+                AudioController.init();
+                this.bindEvents();
             }
-        }
+        };
 
-        function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-
-            document.getElementById('progress-fill').style.width = `100%`;
-
-            document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
-            
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            const dateStr = new Date().toLocaleDateString('fr-FR', options);
-            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
-
-            triggerConfetti();
-
-            const mabrukAudio = new Audio("mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Mabrouk audio bloqué :", error);
-                });
-            }
-        }
-
-        function triggerConfetti() {
-            const duration = 3000;
-            const end = Date.now() + duration;
-
-            (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-        }
-
-        function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            AppEngine.init();
+        });
     </script>
 </body>
 </html>
