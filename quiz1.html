@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
+
     <title>Dar Al-Kalimah - Quiz Module 1</title>
     <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah">
     <meta name="theme-color" content="#5D1828">
@@ -13,9 +13,9 @@
     <link rel="apple-touch-icon" href="icon-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
-    
+
     <style>
         :root {
             --burgundy: #5D1828;
@@ -33,11 +33,11 @@
             --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            -webkit-tap-highlight-color: transparent; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html { scroll-behavior: smooth; }
@@ -45,13 +45,13 @@
         body {
             background-color: var(--bg-beige);
             background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex; 
-            justify-content: center; 
+            display: flex;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
             font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 20px; 
-            overflow-x: hidden; 
+            padding: 20px;
+            overflow-x: hidden;
             color: var(--burgundy);
             position: relative;
         }
@@ -60,22 +60,22 @@
             touch-action: manipulation;
         }
 
-        .ar-text { 
-            font-family: "Amiri", serif; 
-            line-height: 1.2; 
+        .ar-text {
+            font-family: "Amiri", serif;
+            line-height: 1.2;
             direction: rtl;
-            unicode-bidi: isolate;
             text-rendering: optimizeLegibility;
+            unicode-bidi: isolate;
         }
 
         .serif-text { font-family: "Cinzel", "Georgia", serif; }
 
         .view {
-            width: 100%; 
-            display: flex; 
-            flex-direction: column; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center; 
+            justify-content: center;
             animation: floatIn 0.5s ease-out forwards;
         }
 
@@ -98,76 +98,80 @@
             padding: 5px;
         }
 
-        .btn-house:hover, .btn-house:focus-visible {
+        .btn-house:hover,
+        .btn-house:focus-visible {
             transform: scale(1.1);
             color: var(--gold-light);
             outline: none;
         }
 
-        .btn-main, .btn-secondary {
+        .btn-main,
+        .btn-secondary {
             border: 2px solid var(--burgundy);
-            padding: 16px 45px; 
-            font-size: 1.05rem; 
-            border-radius: 50px; 
+            padding: 16px 45px;
+            font-size: 1.05rem;
+            border-radius: 50px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            font-family: 'Montserrat', sans-serif; 
+            font-family: 'Montserrat', sans-serif;
             font-weight: 600;
-            letter-spacing: 1px; 
+            letter-spacing: 1px;
             text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); 
-            display: inline-block; 
-            text-decoration: none; 
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25);
+            display: inline-block;
+            text-decoration: none;
             text-align: center;
         }
-        
+
         .btn-main {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
-            color: var(--white); 
+            color: var(--white);
         }
 
-        .btn-main:hover, .btn-main:focus-visible { 
-            transform: translateY(-3px); 
-            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); 
-            border-color: var(--gold); 
+        .btn-main:hover,
+        .btn-main:focus-visible {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35);
+            border-color: var(--gold);
             outline: none;
         }
 
         .btn-main:active { transform: translateY(1px); }
 
-        .btn-secondary { 
-            background: var(--bg-beige); 
-            color: var(--burgundy); 
-            border-color: var(--gold); 
-            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); 
+        .btn-secondary {
+            background: var(--bg-beige);
+            color: var(--burgundy);
+            border-color: var(--gold);
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
         }
 
-        .btn-secondary:hover, .btn-secondary:focus-visible { 
-            background: var(--gold); 
-            color: var(--white); 
+        .btn-secondary:hover,
+        .btn-secondary:focus-visible {
+            background: var(--gold);
+            color: var(--white);
             outline: none;
         }
 
         .menu-container {
-            position: relative; 
-            text-align: center; 
+            position: relative;
+            text-align: center;
             background: var(--burgundy);
-            padding: 56px 44px; 
+            padding: 50px 40px;
             border-radius: 24px;
             box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
-            max-width: 680px; 
+            max-width: 600px;
             width: 100%;
         }
 
         .menu-container .brand-ar {
-            font-size: 3.9rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: var(--gold);
             margin-bottom: 5px;
         }
 
         .menu-container .app-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #d09470;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -181,18 +185,18 @@
             border-radius: 2px;
             opacity: 0.5;
         }
-        
-        .menu-container .subtitle-group { margin-bottom: 34px; }
+
+        .menu-container .subtitle-group { margin-bottom: 30px; }
 
         .menu-container .subtitle {
-            font-size: 1.12rem;
+            font-size: 1.05rem;
             font-weight: 500;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: var(--white);
         }
 
         .menu-container .subtitle.es {
-            font-size: 1rem;
+            font-size: 0.95rem;
             opacity: 0.9;
             color: var(--gold-light);
             font-style: italic;
@@ -202,22 +206,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 38px;
+            margin-bottom: 35px;
         }
 
         .menu-container .input-group label {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--gold);
             margin-bottom: 10px;
-            opacity: 0.95;
+            opacity: 0.9;
         }
 
         .menu-container .input-group input {
             width: 100%;
-            max-width: 380px;
-            padding: 16px;
-            font-size: 1.15rem;
+            max-width: 350px;
+            padding: 15px;
+            font-size: 1.1rem;
             font-family: 'Montserrat', sans-serif;
             text-align: center;
             border: 2px solid var(--gold);
@@ -228,9 +232,9 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .menu-container .input-group input:focus { 
-            border-color: var(--gold-light); 
-            box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); 
+        .menu-container .input-group input:focus {
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3);
         }
 
         .menu-container .btn-main.start-btn {
@@ -238,7 +242,7 @@
             color: var(--gold);
             border: 2px solid var(--gold);
             width: 100%;
-            max-width: 380px;
+            max-width: 350px;
             box-shadow: none;
         }
 
@@ -253,18 +257,18 @@
         .quiz-container {
             text-align: center;
             background: var(--white);
-            padding: 56px 44px;
+            padding: 50px 40px;
             border-radius: 24px;
             border: 1px solid var(--gold);
             box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
-            max-width: 680px;
+            max-width: 600px;
             width: 100%;
         }
 
         .quiz-header {
             width: 100%;
-            max-width: 680px;
-            margin-bottom: 22px;
+            max-width: 600px;
+            margin-bottom: 20px;
         }
 
         .progress-info {
@@ -280,7 +284,7 @@
             font-size: 1rem;
             letter-spacing: 1px;
         }
-        
+
         .score-live {
             font-weight: 700;
             font-size: 0.95rem;
@@ -313,8 +317,8 @@
 
         .instruction-text {
             font-weight: 600;
-            font-size: 1.18rem;
-            margin-bottom: 28px;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
             color: var(--burgundy);
         }
 
@@ -327,15 +331,15 @@
         }
 
         .audio-section {
-            margin-bottom: 38px;
+            margin-bottom: 35px;
             display: flex;
             justify-content: center;
         }
 
         .btn-audio.big-audio {
-            width: 86px;
-            height: 86px;
-            font-size: 2.6rem;
+            width: 80px;
+            height: 80px;
+            font-size: 2.5rem;
             background: linear-gradient(135deg, var(--bg-beige), #fff);
             border: 3px solid var(--gold);
             color: var(--burgundy);
@@ -350,11 +354,11 @@
         }
 
         .btn-audio.big-audio:hover,
-        .btn-audio.big-audio:focus-visible { 
-            transform: scale(1.1) translateY(-3px); 
-            background: var(--gold); 
+        .btn-audio.big-audio:focus-visible {
+            transform: scale(1.1) translateY(-3px);
+            background: var(--gold);
+            box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5);
             color: var(--white);
-            box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); 
         }
 
         .btn-audio.big-audio:active { transform: scale(0.95); }
@@ -362,7 +366,7 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            gap: 15px;
             width: 100%;
         }
 
@@ -370,24 +374,23 @@
             background: var(--white);
             border: 2px solid var(--gold-light);
             border-radius: 16px;
-            aspect-ratio: 1.22;
+            aspect-ratio: 1.2;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 5rem;
+            font-size: 4.5rem;
             color: var(--burgundy);
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: all 0.2s ease;
             user-select: none;
-            font-family: "Amiri", serif;
         }
 
         .option-card:hover,
-        .option-card:focus-visible { 
-            transform: translateY(-3px); 
-            border-color: var(--gold); 
-            box-shadow: var(--shadow-hover); 
+        .option-card:focus-visible {
+            transform: translateY(-3px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-hover);
             outline: none;
         }
 
@@ -408,7 +411,7 @@
             opacity: 0.7;
         }
 
-        .option-card:disabled { cursor: default; }
+        .option-card.disabled { pointer-events: none; }
 
         @keyframes gentleShake {
             0%, 100% { transform: translateX(0); }
@@ -422,7 +425,7 @@
             padding: 40px;
             border-radius: 16px;
             text-align: center;
-            max-width: 560px;
+            max-width: 500px;
             width: 100%;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             position: relative;
@@ -430,7 +433,7 @@
         }
 
         .cert-ar {
-            font-size: 4.8rem;
+            font-size: 4.5rem;
             color: var(--gold);
             line-height: 1;
             margin-bottom: 10px;
@@ -438,25 +441,22 @@
 
         .cert-title {
             color: var(--burgundy);
-            font-size: 2.1rem;
+            font-size: 2rem;
             margin-bottom: 20px;
         }
 
         .cert-messages { margin-bottom: 25px; }
 
-        .cert-msg {
-            font-weight: 600;
-            color: #444;
-        }
+        .cert-msg { font-weight: 600; color: #444; }
 
         .cert-msg.es {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #777;
             margin-top: 5px;
         }
 
         .cert-name {
-            font-size: 3.1rem;
+            font-size: 3rem;
             color: var(--burgundy);
             border-bottom: 1px solid var(--gold-light);
             padding-bottom: 10px;
@@ -514,54 +514,23 @@
         }
 
         @media (max-width: 768px) {
-            .menu-container, .quiz-container {
-                padding: 42px 22px;
-                max-width: 620px;
-            }
+            .menu-container,
+            .quiz-container { padding: 40px 20px; }
 
-            .option-card { font-size: 4.4rem; }
+            .option-card { font-size: 4rem; }
             .diploma-paper { padding: 30px 20px; }
         }
 
         @media (max-width: 480px) {
-            body { padding: 16px; }
-
-            .menu-container, .quiz-container {
-                padding: 34px 18px;
-            }
-
-            .menu-container .brand-ar { font-size: 3.2rem; }
-            .menu-container .app-title { font-size: 1.35rem; }
-            .menu-container .subtitle { font-size: 1rem; }
-            .menu-container .subtitle.es { font-size: 0.92rem; }
-
-            .btn-audio.big-audio {
-                width: 70px;
-                height: 70px;
-                font-size: 2.1rem;
-            }
-
-            .instruction-text { font-size: 1.08rem; }
-
-            .option-card {
-                font-size: 3.9rem;
-                aspect-ratio: 1.08;
-            }
-
-            .cert-ar { font-size: 3.7rem; }
-            .cert-title { font-size: 1.6rem; }
+            .menu-container .brand-ar { font-size: 3rem; }
+            .menu-container .app-title { font-size: 1.3rem; }
+            .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
+            .option-card { font-size: 3.5rem; aspect-ratio: 1.1; }
+            .cert-ar { font-size: 3.5rem; }
+            .cert-title { font-size: 1.5rem; }
             .cert-name { font-size: 2.5rem; }
-
-            .cert-actions {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .btn-main, .btn-secondary {
-                width: 100%;
-                text-align: center;
-            }
+            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
+            .btn-main, .btn-secondary { width: 100%; text-align: center; }
         }
 
         @media print {
@@ -578,99 +547,93 @@
                 background: white;
             }
             .no-print { display: none !important; }
-            .diploma-paper {
-                border: 10px double var(--gold);
-                box-shadow: none;
-                max-width: 100%;
-            }
+            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div id="app-root">
-        <section id="view-welcome" class="view" aria-labelledby="welcome-title">
-            <div class="menu-container">
-                <a href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
-                    <i class="fa-solid fa-house" aria-hidden="true"></i>
-                </a>
-                
-                <h1 id="welcome-title" class="brand-ar ar-text" lang="ar">اختبار الحروف</h1>
-                <div class="app-title serif-text">Kalicards – Quiz</div>
-                <div class="divider"></div>
-                
-                <div class="subtitle-group">
-                    <p class="subtitle fr">Écoute la lettre et clique sur la bonne réponse.</p>
-                    <p class="subtitle es">Escucha la letra y haz clic en la respuesta correcta.</p>
-                </div>
-                
-                <div class="input-group">
-                    <label for="player-name">Nom du participant / Nombre del participante</label>
-                    <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
-                </div>
-                
-                <button type="button" id="btn-start-quiz" class="btn-main start-btn">Commencer le quiz</button>
+    <main id="view-welcome" class="view" role="main">
+        <section class="menu-container" aria-labelledby="welcome-title">
+            <a href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+            </a>
+
+            <h1 id="welcome-title" class="brand-ar ar-text">اختبار الحروف</h1>
+            <div class="app-title serif-text">Kalicards – Quiz 1</div>
+            <div class="divider"></div>
+
+            <div class="subtitle-group">
+                <p class="subtitle fr">Écoute la lettre et clique sur la bonne réponse.</p>
+                <p class="subtitle es">Escucha la letra y haz clic en la respuesta correcta.</p>
             </div>
-        </section>
 
-        <section id="view-quiz" class="view hidden" aria-live="polite">
-            <header class="quiz-header">
-                <div class="progress-info">
-                    <span id="progress-text" class="progress-text">1 / 28</span>
-                    <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
-                </div>
-                <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
-                    <div id="progress-fill" class="progress-bar-fill"></div>
-                </div>
-            </header>
-
-            <div class="quiz-container">
-                <div class="instruction-text">
-                    Écoute et trouve la bonne lettre !<br>
-                    <small>¡Escucha y encuentra la letra correcta!</small>
-                </div>
-
-                <div class="audio-section">
-                    <button type="button" id="btn-play-audio" class="btn-audio big-audio" title="Écouter l'audio" aria-label="Écouter l'audio de la question">
-                        🎙️
-                    </button>
-                </div>
-
-                <div class="options-grid" id="options-grid" role="group" aria-label="Options de réponse"></div>
+            <div class="input-group">
+                <label for="player-name">Nom du participant / Nombre del participante</label>
+                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
-        </section>
 
-        <section id="view-certificate" class="view hidden" aria-labelledby="cert-title-main">
-            <div class="diploma-paper">
-                <a href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
-                    <i class="fa-solid fa-house" aria-hidden="true"></i>
-                </a>
-                
-                <div class="cert-ar ar-text" lang="ar">مبروك</div>
-                <h2 id="cert-title-main" class="cert-title serif-text">Certificat de réussite</h2>
-                
-                <div class="cert-messages">
-                    <p class="cert-msg fr">Félicitations, vous avez terminé le quiz du module 1.</p>
-                    <p class="cert-msg es">Felicidades, has completado el quiz del módulo 1.</p>
-                </div>
-                
-                <div id="cert-name" class="cert-name ar-text">Participant</div>
-                
-                <div class="cert-score-box">
-                    <span class="score-label">Score Final</span>
-                    <div id="cert-score" class="score-value">0 / 0</div>
-                </div>
-                
-                <div id="cert-date" class="cert-date"></div>
-                <div class="cert-icon" aria-hidden="true">📖</div>
-            </div>
-            
-            <nav class="cert-actions no-print">
-                <button type="button" id="btn-print-cert" class="btn-secondary">🖨️ Imprimer</button>
-                <button type="button" id="btn-restart-quiz" class="btn-main">Recommencer ↺</button>
-            </nav>
+            <button class="btn-main start-btn" id="btn-start-quiz" type="button">Commencer le quiz</button>
         </section>
-    </div>
+    </main>
+
+    <main id="view-quiz" class="view hidden" aria-live="polite">
+        <header class="quiz-header">
+            <div class="progress-info">
+                <span id="progress-text" class="progress-text">1 / 28</span>
+                <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
+            </div>
+            <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
+                <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+        </header>
+
+        <section class="quiz-container">
+            <div class="instruction-text">
+                Écoute et trouve la bonne lettre !<br>
+                <small>¡Escucha y encuentra la letra correcta!</small>
+            </div>
+
+            <div class="audio-section">
+                <button class="btn-audio big-audio" id="btn-play-audio" type="button" title="Écouter l'audio" aria-label="Écouter l'audio de la question">
+                    🎙️
+                </button>
+            </div>
+
+            <div class="options-grid" id="options-grid" role="group" aria-label="Options de réponse"></div>
+        </section>
+    </main>
+
+    <main id="view-certificate" class="view hidden" role="main">
+        <article class="diploma-paper">
+            <a href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+            </a>
+
+            <div class="cert-ar ar-text">مبروك</div>
+            <h2 class="cert-title serif-text">Certificat de réussite</h2>
+
+            <div class="cert-messages">
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz du module 1.</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz del módulo 1.</p>
+            </div>
+
+            <div id="cert-name" class="cert-name ar-text">Participant</div>
+
+            <div class="cert-score-box">
+                <span class="score-label">Score Final</span>
+                <div id="cert-score" class="score-value">0 / 0</div>
+            </div>
+
+            <div id="cert-date" class="cert-date"></div>
+            <div class="cert-icon" aria-hidden="true">📖</div>
+        </article>
+
+        <nav class="cert-actions no-print">
+            <button class="btn-secondary" id="btn-print-cert" type="button">🖨️ Imprimer</button>
+            <button class="btn-main" id="btn-restart-quiz" type="button">Recommencer ↺</button>
+        </nav>
+    </main>
 
     <script>
         const QUIZ_DATABASE = [
@@ -707,14 +670,14 @@
         const AudioController = {
             player: new Audio(),
             effectPlayer: new Audio(),
-            
+
             init() {
                 this.player.preload = 'auto';
                 this.effectPlayer.preload = 'auto';
                 this.player.playsInline = true;
                 this.effectPlayer.playsInline = true;
             },
-            
+
             playMain(src) {
                 if (!src) return;
                 this.player.pause();
@@ -722,7 +685,7 @@
                 this.player.src = src;
                 this.player.play().catch(err => console.warn('Lecture audio bloquée :', err));
             },
-            
+
             playEffect(src) {
                 if (!src) return;
                 this.effectPlayer.pause();
@@ -781,6 +744,24 @@
                 return arr;
             },
 
+            buildQuestionsPayload() {
+                const shuffledDB = this.shuffle(QUIZ_DATABASE);
+
+                this.state.questions = shuffledDB.map(targetItem => {
+                    let distractors = QUIZ_DATABASE.filter(item => item.id !== targetItem.id);
+                    distractors = this.shuffle(distractors).slice(0, this.state.config.optionsCount - 1);
+
+                    let options = [targetItem.value, ...distractors.map(d => d.value)];
+                    options = this.shuffle(options);
+
+                    return {
+                        targetValue: targetItem.value,
+                        targetAudio: targetItem.audio,
+                        options
+                    };
+                });
+            },
+
             startQuiz() {
                 const nameVal = this.dom.inputs.name.value.trim();
                 this.state.playerName = nameVal !== "" ? nameVal : "Participant";
@@ -789,69 +770,53 @@
                 this.state.isProcessing = false;
 
                 this.buildQuestionsPayload();
-                
-                this.switchView('quiz');
+                this.switchView("quiz");
                 this.updateScoreLiveUI();
                 this.renderQuestion();
             },
 
             restartQuiz() {
-                this.switchView('welcome');
+                this.switchView("welcome");
                 this.dom.inputs.name.value = "";
                 this.dom.inputs.name.focus();
             },
 
             endQuiz() {
-                this.switchView('certificate');
-                this.dom.ui.progressFill.style.width = `100%`;
-                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', '100');
-                
+                this.switchView("certificate");
+                this.dom.ui.progressFill.style.width = "100%";
+                this.dom.ui.progressBarA11y.setAttribute("aria-valuenow", "100");
                 this.dom.ui.certName.textContent = this.state.playerName;
                 this.dom.ui.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
-                
-                const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+                const dateStr = new Date().toLocaleDateString("fr-FR", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
                 this.dom.ui.certDate.textContent = `Fait le ${dateStr}`;
 
                 this.triggerSuccessEffects();
             },
 
-            buildQuestionsPayload() {
-                const shuffledDB = this.shuffle(QUIZ_DATABASE);
-                
-                this.state.questions = shuffledDB.map(targetItem => {
-                    let distractors = QUIZ_DATABASE.filter(item => item.id !== targetItem.id);
-                    distractors = this.shuffle(distractors).slice(0, this.state.config.optionsCount - 1);
-                    
-                    let options = [targetItem.value, ...distractors.map(d => d.value)];
-                    options = this.shuffle(options);
-                    
-                    return {
-                        targetValue: targetItem.value,
-                        targetAudio: targetItem.audio,
-                        options: options
-                    };
-                });
-            },
-
             renderQuestion() {
                 this.state.isProcessing = false;
+
                 const q = this.state.questions[this.state.currentIndex];
                 const total = this.state.questions.length;
-                
-                this.dom.ui.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
                 const pct = Math.round((this.state.currentIndex / total) * 100);
-                this.dom.ui.progressFill.style.width = `${pct}%`;
-                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', String(pct));
 
+                this.dom.ui.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+                this.dom.ui.progressFill.style.width = `${pct}%`;
+                this.dom.ui.progressBarA11y.setAttribute("aria-valuenow", String(pct));
                 this.dom.ui.optionsGrid.innerHTML = "";
 
                 q.options.forEach((optValue, idx) => {
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = 'option-card ar-text';
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "option-card ar-text";
                     btn.textContent = optValue;
-                    btn.setAttribute('aria-label', `Option ${idx + 1}`);
-                    btn.addEventListener('click', () => this.handleAnswer(optValue, btn, q.targetValue));
+                    btn.setAttribute("aria-label", `Option ${idx + 1}`);
+                    btn.addEventListener("click", () => this.handleAnswer(optValue, btn, q.targetValue));
                     this.dom.ui.optionsGrid.appendChild(btn);
                 });
 
@@ -865,25 +830,30 @@
                 const allCards = Array.from(this.dom.ui.optionsGrid.children);
                 allCards.forEach(card => {
                     card.disabled = true;
+                    card.classList.add("disabled");
                 });
 
                 if (selectedValue === targetValue) {
                     this.state.score++;
-                    cardElement.classList.add('correct');
+                    cardElement.classList.add("correct");
                     this.updateScoreLiveUI();
                 } else {
-                    cardElement.classList.add('wrong');
-                    if (navigator.vibrate) navigator.vibrate(200);
-                    
+                    cardElement.classList.add("wrong");
+
+                    if (navigator.vibrate) {
+                        navigator.vibrate(200);
+                    }
+
                     allCards.forEach(card => {
                         if (card.textContent === targetValue) {
-                            card.classList.add('correct');
+                            card.classList.add("correct");
                         }
                     });
                 }
 
                 setTimeout(() => {
                     this.state.currentIndex++;
+
                     if (this.state.currentIndex < this.state.questions.length) {
                         this.renderQuestion();
                     } else {
@@ -899,40 +869,53 @@
             },
 
             switchView(viewName) {
-                Object.values(this.dom.views).forEach(view => view.classList.add('hidden'));
-                this.dom.views[viewName].classList.remove('hidden');
+                Object.values(this.dom.views).forEach(view => view.classList.add("hidden"));
+                this.dom.views[viewName].classList.remove("hidden");
             },
 
             updateScoreLiveUI() {
                 const el = this.dom.ui.scoreLive;
                 el.textContent = `✓ ${this.state.score}`;
-                el.classList.remove('bump');
+                el.classList.remove("bump");
                 void el.offsetWidth;
-                el.classList.add('bump');
-                setTimeout(() => el.classList.remove('bump'), 200);
+                el.classList.add("bump");
+                setTimeout(() => el.classList.remove("bump"), 200);
             },
 
             triggerSuccessEffects() {
                 const end = Date.now() + 3000;
+
                 (function frame() {
-                    if (typeof confetti === 'function') {
-                        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
-                        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
+                    if (typeof confetti === "function") {
+                        confetti({
+                            particleCount: 5,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 },
+                            colors: ["#C8A462", "#5D1828"]
+                        });
+                        confetti({
+                            particleCount: 5,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 },
+                            colors: ["#C8A462", "#5D1828"]
+                        });
                     }
                     if (Date.now() < end) requestAnimationFrame(frame);
-                }());
+                })();
 
                 AudioController.playEffect("audio/mabruk.mp3");
             },
 
             bindEvents() {
-                this.dom.buttons.startQuiz.addEventListener('click', () => this.startQuiz());
-                this.dom.buttons.playAudio.addEventListener('click', () => this.playAudio());
-                this.dom.buttons.printCert.addEventListener('click', () => window.print());
-                this.dom.buttons.restartQuiz.addEventListener('click', () => this.restartQuiz());
+                this.dom.buttons.startQuiz.addEventListener("click", () => this.startQuiz());
+                this.dom.buttons.playAudio.addEventListener("click", () => this.playAudio());
+                this.dom.buttons.printCert.addEventListener("click", () => window.print());
+                this.dom.buttons.restartQuiz.addEventListener("click", () => this.restartQuiz());
 
-                this.dom.inputs.name.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
+                this.dom.inputs.name.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") {
                         e.preventDefault();
                         this.startQuiz();
                     }
@@ -945,7 +928,7 @@
             }
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             AppEngine.init();
         });
     </script>
