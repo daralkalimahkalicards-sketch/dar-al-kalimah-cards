@@ -1,875 +1,1624 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dar Al-Kalimah - Quiz 3 (Hamza complet)</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        :root {
-            --burgundy: #5D1828;
-            --burgundy-dark: #3a0f19;
-            --gold: #C8A462;
-            --gold-light: #dfc28b;
-            --white: #FFFFFF;
-            --bg-beige: #FAF6F0;
-            --success-green: #e8f5e9;
-            --success-border: #4CAF50;
-            --error-red: #ffebee;
-            --error-border: #f44336;
-            --wasl-bg: rgba(33, 150, 243, 0.08);
-            --wasl-border: rgba(33, 150, 243, 0.35);
-            --wasl-color: #1356a0;
-            --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no" />
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            margin: 0;
-            padding: 0;
-        }
+  <title>Dar Al-Kalimah - Quiz 3 (Hamza complet)</title>
+  <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah" />
+  <meta name="theme-color" content="#5D1828" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dar Al-Kalimah" />
+  <meta name="format-detection" content="telephone=no" />
 
-        body {
-            background-color: var(--bg-beige);
-            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 20px;
-            overflow-x: hidden;
-            color: var(--burgundy);
-            position: relative;
-        }
+  <link rel="icon" type="image/png" href="icon-192x192.png" />
+  <link rel="apple-touch-icon" href="icon-192x192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
 
-        .ar-text {
-            font-family: "Amiri", serif;
-            line-height: 1.2;
-            direction: rtl;
-            font-feature-settings: "mark" 1, "mkmk" 1;
-        }
+  <style>
+    :root {
+      --burgundy: #5D1828;
+      --burgundy-dark: #3a0f19;
+      --gold: #C8A462;
+      --gold-light: #dfc28b;
+      --white: #FFFFFF;
+      --bg-beige: #FAF6F0;
+      --success-green: #e8f5e9;
+      --success-border: #4CAF50;
+      --error-red: #ffebee;
+      --error-border: #f44336;
+      --wasl-bg: rgba(33, 150, 243, 0.08);
+      --wasl-border: rgba(33, 150, 243, 0.35);
+      --wasl-color: #1356a0;
+      --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+      --shadow-hover: 0 8px 20px rgba(200, 164, 98, 0.2);
+      --shadow-card: 0 8px 25px rgba(93, 24, 40, 0.25);
+      --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --tap-size: 52px;
+      --container-max: 640px;
+    }
 
-        .serif-text {
-            font-family: "Cinzel", "Georgia", serif;
-        }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
 
-        .view {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            animation: floatIn 0.5s ease-out forwards;
-        }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
-        .hidden { display: none !important; }
+    body {
+      background-color: var(--bg-beige);
+      background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: "Montserrat", system-ui, sans-serif;
+      padding:
+        calc(12px + var(--safe-top))
+        calc(12px + var(--safe-right))
+        calc(12px + var(--safe-bottom))
+        calc(12px + var(--safe-left));
+      overflow-x: hidden;
+      color: var(--burgundy);
+      position: relative;
+    }
 
-        @keyframes floatIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    button, input, a, .option-card {
+      font: inherit;
+      touch-action: manipulation;
+    }
 
-        /* ─── BOUTON MAISON ─── */
-        .btn-back-home {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+    .app-shell {
+      width: 100%;
+      max-width: var(--container-max);
+    }
 
-        /* ─── BOUTONS ─── */
-        .btn-main, .btn-secondary {
-            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
-            color: var(--white);
-            border: 2px solid var(--burgundy);
-            padding: 16px 45px;
-            font-size: 1.05rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25);
-            display: inline-block;
-            text-decoration: none;
-            text-align: center;
-        }
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35);
-            border-color: var(--gold);
-        }
-        .btn-main:active { transform: translateY(1px); }
+    .ar-text {
+      font-family: "Amiri", serif;
+      direction: rtl;
+      line-height: 1.2;
+      unicode-bidi: isolate;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: "mark" 1, "mkmk" 1;
+    }
 
-        .btn-secondary {
-            background: var(--bg-beige);
-            color: var(--burgundy);
-            border-color: var(--gold);
-            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
-        }
-        .btn-secondary:hover { background: var(--gold); color: var(--white); }
+    .serif-text {
+      font-family: "Cinzel", "Georgia", serif;
+    }
 
-        /* ─── ÉCRAN ACCUEIL ─── */
-        .menu-container {
-            text-align: center;
-            background: var(--burgundy);
-            padding: 50px 40px;
-            border-radius: 24px;
-            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
-            max-width: 600px;
-            width: 100%;
-        }
-        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
-        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-        .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px; }
-        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
-        .menu-container .subtitle-group { margin-bottom: 30px; }
-        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
-        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+    .view {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: floatIn 0.45s ease-out forwards;
+    }
 
-        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
-        .menu-container .input-group input {
-            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif; text-align: center;
-            border: 2px solid var(--gold); border-radius: 12px;
-            background-color: var(--white); color: var(--burgundy); outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .menu-container .input-group input:focus {
-            border-color: var(--gold-light);
-            box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3);
-        }
-        .menu-container .btn-main {
-            background: transparent; color: var(--gold);
-            border: 2px solid var(--gold); width: 100%; max-width: 350px;
-            box-shadow: none; display: block; margin: 0 auto;
-        }
-        .menu-container .btn-main:hover {
-            background-color: rgba(200, 164, 98, 0.1);
-            border-color: var(--gold-light); color: var(--gold-light);
-            transform: translateY(-3px);
-        }
+    .hidden {
+      display: none !important;
+    }
 
-        /* ─── HEADER QUIZ (progress + score live) ─── */
-        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
+    /* === MAISON DORÉE === */
+    .btn-house {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      color: var(--gold);
+      font-size: 1.6rem;
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+      z-index: 50;
+    }
 
-        /* ── SCORE LIVE ── */
-        .score-live {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--success-border);
-            background: var(--success-green);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            padding: 4px 12px;
-            border-radius: 999px;
-            letter-spacing: 0.5px;
-            transition: transform 0.2s ease;
-        }
-        .score-live.bump { transform: scale(1.2); }
+    .btn-house:hover,
+    .btn-house:focus-visible {
+      transform: scale(1.1);
+      color: var(--gold-light);
+      outline: none;
+    }
 
-        .progress-bar-container {
-            width: 100%; height: 8px; background-color: var(--white);
-            border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden;
-        }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
+    .btn-main, .btn-secondary {
+      min-height: var(--tap-size);
+      border: 2px solid var(--burgundy);
+      padding: 14px 24px;
+      font-size: 0.98rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      text-align: center;
+    }
 
-        /* ─── CONTAINER QUIZ ─── */
-        .quiz-container {
-            text-align: center; background: var(--white);
-            padding: 50px 40px; border-radius: 24px;
-            border: 1px solid var(--gold);
-            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
-            max-width: 600px; width: 100%;
-        }
-        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777; }
+    .btn-main {
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+      color: var(--white);
+    }
 
-        .question-focus {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: var(--bg-beige); border-radius: 16px; padding: 25px; margin-bottom: 30px;
-            border: 2px dashed var(--gold-light);
-        }
-        .btn-audio.big-audio {
-            width: 80px; height: 80px; font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--white), var(--bg-beige));
-            border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3);
-            transition: all 0.3s ease; display: flex; justify-content: center; align-items: center;
-        }
-        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
-        .btn-audio.big-audio:active { transform: scale(0.95); }
+    .btn-main:hover, .btn-main:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35);
+      border-color: var(--gold);
+      outline: none;
+    }
 
-        .word-translation { margin-top: 15px; text-align: center; }
-        .word-fr { font-weight: 600; color: var(--burgundy); font-size: 1.15rem; margin-bottom: 5px; }
-        .word-es { font-style: italic; color: #8c775a; font-size: 1rem; }
+    .btn-main:active {
+      transform: translateY(1px);
+    }
 
-        /* ── RULE TAG (+ variante Wasl) ── */
-        .rule-tag {
-            margin-top: 12px; display: inline-block;
-            padding: 8px 14px; border-radius: 999px;
-            background: rgba(200, 164, 98, 0.12); color: var(--burgundy);
-            border: 1px solid rgba(200, 164, 98, 0.4);
-            font-size: 0.85rem; font-weight: 700; letter-spacing: 0.4px;
-            transition: background 0.3s, color 0.3s, border-color 0.3s;
-        }
-        /* Hamzat al-Wasl → bleu doux pour distinguer visuellement */
-        .rule-tag.wasl {
-            background: var(--wasl-bg);
-            color: var(--wasl-color);
-            border-color: var(--wasl-border);
-        }
+    .btn-secondary {
+      background: var(--bg-beige);
+      color: var(--burgundy);
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
+    }
 
-        /* ─── GRILLE OPTIONS ─── */
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-        }
-        .option-card {
-            background: var(--white); border: 2px solid var(--gold-light);
-            border-radius: 16px; min-height: 100px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 2.2rem; color: var(--burgundy); cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.2s ease; font-weight: bold; line-height: 1.4;
-            font-feature-settings: "mark" 1, "mkmk" 1;
-            padding: 10px; text-align: center;
-        }
-        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
-        .option-card:active { transform: scale(0.95); }
-        .option-card.correct {
-            border: 3px solid var(--success-border) !important;
-            background-color: var(--success-green); color: var(--success-border);
-            pointer-events: none;
-        }
-        .option-card.wrong {
-            border: 3px solid var(--error-border) !important;
-            background-color: var(--error-red);
-            animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7;
-        }
-        @keyframes gentleShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
+    .btn-secondary:hover, .btn-secondary:focus-visible {
+      background: var(--gold);
+      color: var(--white);
+      outline: none;
+    }
 
-        /* ─── BARRE FEEDBACK APRÈS ERREUR ─── */
-        .feedback-bar {
-            margin-top: 16px;
-            padding: 12px 18px;
-            border-radius: 12px;
-            background: rgba(244, 67, 54, 0.07);
-            border: 1px solid rgba(244, 67, 54, 0.25);
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #b71c1c;
-            text-align: center;
-            animation: floatIn 0.3s ease-out;
-            line-height: 1.5;
-        }
-        .feedback-bar .fb-label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--error-border);
-            margin-bottom: 3px;
-            opacity: 0.8;
-        }
-        .feedback-bar .fb-rule { color: var(--burgundy); font-weight: 700; }
+    .panel {
+      width: 100%;
+      border-radius: var(--radius-xl);
+    }
 
-        /* ─── CERTIFICAT ─── */
-        .diploma-paper {
-            background: linear-gradient(145deg, #ffffff, #fcfcfc);
-            border: 8px double var(--gold); padding: 40px;
-            border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
-        }
-        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
-        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
-        .cert-messages { margin-bottom: 25px; }
-        .cert-msg { font-weight: 600; color: #444; }
-        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
-        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
-        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
-        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
-        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+    .menu-container {
+      position: relative; /* Indispensable pour la position absolute de la maison */
+      text-align: center;
+      background: var(--burgundy);
+      padding: 54px 18px 28px;
+      box-shadow: var(--shadow-card);
+    }
 
-        /* ─── RESPONSIVE 768px ─── */
-        @media (max-width: 768px) {
-            .menu-container, .quiz-container { padding: 40px 20px; }
-            .option-card { font-size: 2rem; min-height: 90px; }
-            .diploma-paper { padding: 30px 20px; }
-        }
+    .brand-ar {
+      font-size: clamp(2.6rem, 10vw, 3.5rem);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+      line-height: 1.08;
+    }
 
-        /* ─── RESPONSIVE 480px ─── */
-        @media (max-width: 480px) {
-            body { padding: 12px; }
-            .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
-            .menu-container { padding: 30px 20px; }
-            .menu-container .brand-ar { font-size: 3rem; }
-            .menu-container .app-title { font-size: 1.1rem; }
-            .quiz-container { padding: 28px 16px; }
-            .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
-            .option-card { font-size: 1.8rem; min-height: 80px; }
-            .options-grid { gap: 12px; }
-            .cert-ar { font-size: 3.5rem; }
-            .cert-title { font-size: 1.5rem; }
-            .cert-name { font-size: 2.5rem; }
-            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
-            .btn-main, .btn-secondary { width: 100%; text-align: center; }
-        }
+    .app-title {
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      color: #d09470;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
 
-        /* ─── RESPONSIVE 360px ─── */
-        @media (max-width: 360px) {
-            body { padding: 8px; }
-            .menu-container { padding: 24px 14px; border-radius: 18px; }
-            .menu-container .brand-ar { font-size: 2.6rem; }
-            .menu-container .app-title { font-size: 0.95rem; letter-spacing: 1px; }
-            .menu-container .app-subtitle { font-size: 0.88rem; }
-            .menu-container .subtitle { font-size: 0.92rem; }
-            .quiz-container { padding: 20px 12px; border-radius: 18px; }
-            .question-focus { padding: 16px 12px; }
-            .btn-audio.big-audio { width: 58px; height: 58px; font-size: 1.7rem; }
-            .word-fr { font-size: 1rem; }
-            .word-es { font-size: 0.88rem; }
-            .rule-tag { font-size: 0.75rem; padding: 6px 10px; }
-            .option-card { font-size: 1.55rem; min-height: 70px; border-radius: 12px; }
-            .options-grid { gap: 9px; }
-            .feedback-bar { font-size: 0.8rem; padding: 10px 12px; }
-            .instruction-text { font-size: 0.95rem; }
-            .progress-text, .score-live { font-size: 0.82rem; }
-            .diploma-paper { padding: 24px 14px; border-width: 5px; }
-            .cert-ar { font-size: 2.8rem; }
-            .cert-title { font-size: 1.25rem; }
-            .cert-name { font-size: 2rem; }
-            .score-value { font-size: 1.5rem; }
-        }
+    .app-subtitle {
+      font-size: 0.94rem;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
 
-        /* ─── IMPRESSION ─── */
-        @media print {
-            body * { visibility: hidden; }
-            #view-certificate, #view-certificate * { visibility: visible; }
-            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
-            .no-print { display: none !important; }
-            .btn-back-home { display: none !important; }
-            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
-        }
-    </style>
+    .divider {
+      width: 60px;
+      height: 2px;
+      background-color: var(--gold);
+      margin: 20px auto;
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+
+    .subtitle-group {
+      margin-bottom: 26px;
+    }
+
+    .subtitle {
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .subtitle.es {
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      font-style: italic;
+      opacity: 0.95;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 26px;
+    }
+
+    .input-group label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 10px;
+      opacity: 0.95;
+    }
+
+    .input-group input {
+      width: 100%;
+      max-width: 360px;
+      min-height: var(--tap-size);
+      padding: 14px 16px;
+      font-size: 1.02rem;
+      text-align: center;
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-sm);
+      background-color: var(--white);
+      color: var(--burgundy);
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3);
+    }
+
+    /* Bouton Commencer Bilingue */
+    .menu-container .btn-main {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      width: 100%;
+      max-width: 360px;
+      box-shadow: none;
+      flex-direction: column;
+      gap: 4px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .menu-container .btn-main:hover,
+    .menu-container .btn-main:focus-visible {
+      background-color: rgba(200, 164, 98, 0.1);
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+
+    .btn-es {
+      font-size: 0.85em;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+    }
+
+    .quiz-header {
+      width: 100%;
+      margin-bottom: 14px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .progress-text {
+      font-weight: 700;
+      color: var(--burgundy);
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+
+    .score-live {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--success-border);
+      background: var(--success-green);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: transform 0.2s ease;
+    }
+
+    .score-live.bump {
+      transform: scale(1.12);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: var(--white);
+      border: 1px solid var(--gold-light);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--gold);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-container {
+      text-align: center;
+      background: var(--white);
+      padding: 22px 12px 18px;
+      border: 1px solid var(--gold);
+      box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+    }
+
+    .instruction-text {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      color: var(--burgundy);
+      line-height: 1.5;
+    }
+
+    .instruction-text small {
+      opacity: 0.8;
+      font-weight: 500;
+      display: block;
+      margin-top: 5px;
+      font-style: italic;
+      color: #777;
+    }
+
+    .question-focus {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-beige);
+      border-radius: var(--radius-md);
+      padding: 18px 12px;
+      margin-bottom: 20px;
+      border: 2px dashed var(--gold-light);
+    }
+
+    .btn-audio {
+      width: 76px;
+      height: 76px;
+      min-width: 76px;
+      min-height: 76px;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--white), var(--bg-beige));
+      border: 2px solid var(--gold);
+      color: var(--burgundy);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3);
+      transition: var(--transition-smooth);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+
+    .btn-audio:hover,
+    .btn-audio:focus-visible {
+      transform: scale(1.08) translateY(-3px);
+      background: var(--gold);
+      color: var(--white);
+      outline: none;
+    }
+
+    .btn-audio:active {
+      transform: scale(0.96);
+    }
+
+    .word-translation {
+      margin-top: 14px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .word-fr {
+      font-weight: 600;
+      color: var(--burgundy);
+      font-size: 1.05rem;
+      margin-bottom: 5px;
+      line-height: 1.45;
+    }
+
+    .word-es {
+      font-style: italic;
+      color: #8c775a;
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+
+    .rule-tag {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(200, 164, 98, 0.12);
+      color: var(--burgundy);
+      border: 1px solid rgba(200, 164, 98, 0.4);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.35px;
+      transition: var(--transition-smooth);
+      line-height: 1.4;
+    }
+
+    .rule-tag.wasl {
+      background: var(--wasl-bg);
+      color: var(--wasl-color);
+      border-color: var(--wasl-border);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .option-card {
+      background: var(--white);
+      border: 2px solid var(--gold-light);
+      border-radius: var(--radius-md);
+      min-height: 88px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(1.65rem, 6vw, 2.2rem);
+      color: var(--burgundy);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: var(--transition-smooth);
+      font-weight: 700;
+      line-height: 1.4;
+      padding: 10px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .option-card:hover,
+    .option-card:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-hover);
+      outline: none;
+    }
+
+    .option-card:active {
+      transform: scale(0.96);
+    }
+
+    .option-card.correct {
+      border: 3px solid var(--success-border) !important;
+      background-color: var(--success-green);
+      color: var(--success-border);
+      pointer-events: none;
+    }
+
+    .option-card.wrong {
+      border: 3px solid var(--error-border) !important;
+      background-color: var(--error-red);
+      animation: gentleShake 0.4s;
+      pointer-events: none;
+      opacity: 0.78;
+    }
+
+    .option-card.disabled {
+      pointer-events: none;
+    }
+
+    @keyframes gentleShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    .feedback-bar {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(244, 67, 54, 0.07);
+      border: 1px solid rgba(244, 67, 54, 0.25);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #b71c1c;
+      text-align: center;
+      animation: floatIn 0.3s ease-out;
+      line-height: 1.5;
+    }
+
+    .feedback-bar .fb-label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--error-border);
+      margin-bottom: 4px;
+      opacity: 0.8;
+    }
+
+    .feedback-bar .fb-rule {
+      color: var(--burgundy);
+      font-weight: 700;
+    }
+
+    .diploma-paper {
+      background: linear-gradient(145deg, #ffffff, #fcfcfc);
+      border: 8px double var(--gold);
+      padding: 30px 16px 26px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .cert-ar {
+      font-size: clamp(3.2rem, 10vw, 4.5rem);
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .cert-title {
+      color: var(--burgundy);
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      margin-bottom: 18px;
+    }
+
+    .cert-messages {
+      margin-bottom: 22px;
+    }
+
+    .cert-msg {
+      font-weight: 600;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .cert-msg.es {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    .cert-name {
+      font-size: clamp(2rem, 7vw, 3rem);
+      color: var(--burgundy);
+      border-bottom: 1px solid var(--gold-light);
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+      word-break: break-word;
+    }
+
+    .cert-score-box {
+      background-color: var(--bg-beige);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 15px;
+      display: inline-block;
+      margin-bottom: 18px;
+      min-width: min(100%, 220px);
+    }
+
+    .score-label {
+      display: block;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+
+    .score-value {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--burgundy);
+    }
+
+    .cert-date {
+      font-size: 0.92rem;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .cert-icon {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.3rem;
+      background: var(--bg-beige);
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    .cert-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .menu-container {
+        padding: 56px 40px 34px;
+      }
+      .quiz-container {
+        padding: 34px 30px 26px;
+      }
+      .question-focus {
+        padding: 24px;
+      }
+      .option-card {
+        min-height: 100px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .btn-house {
+        top: 15px;
+        right: 15px;
+        font-size: 1.4rem;
+      }
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      #view-certificate, #view-certificate * { visibility: visible; }
+      #view-certificate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+      }
+      .no-print { display: none !important; }
+      .diploma-paper {
+        border: 10px double var(--gold);
+        box-shadow: none;
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app-shell">
 
-    <a href="module4.html" class="btn-back-home"><i class="fa-solid fa-house"></i> Menu / Menú</a>
+    <main id="view-welcome" class="view" role="main">
+      <section class="menu-container panel" aria-labelledby="welcome-title">
+        
+        <a href="module4.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+        </a>
 
-    <!-- ══════════════ ACCUEIL ══════════════ -->
-    <div id="view-welcome" class="view">
-        <div class="menu-container">
-            <div class="brand-ar ar-text">الهَمْزَة</div>
-            <div class="app-title serif-text">Kalicards – Module 4</div>
-            <div class="app-subtitle">QUIZ 3 : Toutes les règles de la Hamza</div>
-            <div class="divider"></div>
-            <div class="subtitle-group">
-                <p class="subtitle fr">Écoute l'audio et choisis la bonne orthographe selon la règle de la hamza.</p>
-                <p class="subtitle es">Escucha el audio y elige la ortografía correcta según la regla de la hamza.</p>
-            </div>
-            <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
-                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
-            </div>
-            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
-        </div>
-    </div>
+        <h1 id="welcome-title" class="brand-ar ar-text">الهَمْزَة</h1>
+        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Module 4</div>
+        <div id="welcome-app-subtitle" class="app-subtitle">QUIZ 3 : Toutes les règles de la Hamza</div>
+        <div class="divider"></div>
 
-    <!-- ══════════════ QUIZ ══════════════ -->
-    <div id="view-quiz" class="view hidden">
-        <div class="quiz-header">
-            <div class="progress-info">
-                <span id="progress-text" class="progress-text">1 / 30</span>
-                <span id="score-live" class="score-live">✓ 0</span>
-            </div>
-            <div class="progress-bar-container">
-                <div id="progress-fill" class="progress-bar-fill"></div>
-            </div>
+        <div class="subtitle-group">
+          <p id="welcome-subtitle-fr" class="subtitle fr">Écoute l'audio et choisis la bonne orthographe selon la règle de la hamza.</p>
+          <p id="welcome-subtitle-es" class="subtitle es">Escucha el audio y elige la ortografía correcta según la regla de la hamza.</p>
         </div>
 
-        <div class="quiz-container">
-            <div class="instruction-text">
-                Écoute et choisis la bonne orthographe !<br>
-                <small>¡Escucha y elige la ortografía correcta!</small>
-            </div>
-
-            <div class="question-focus">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
-                <div class="word-translation">
-                    <div id="word-fr" class="word-fr"></div>
-                    <div id="word-es" class="word-es"></div>
-                    <div id="rule-tag" class="rule-tag"></div>
-                </div>
-            </div>
-
-            <div class="options-grid" id="options-grid"></div>
-
-            <!-- Feedback après erreur -->
-            <div id="feedback-bar" class="feedback-bar hidden">
-                <span class="fb-label">📌 Règle à retenir</span>
-                <span id="feedback-rule" class="fb-rule"></span>
-            </div>
+        <div class="input-group">
+          <label id="player-name-label" for="player-name">Nom du participant / Nombre del participante</label>
+          <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off" maxlength="40" />
         </div>
-    </div>
 
-    <!-- ══════════════ CERTIFICAT ══════════════ -->
-    <div id="view-certificate" class="view hidden">
-        <div class="diploma-paper">
-            <div class="cert-ar ar-text">مبروك</div>
-            <h2 class="cert-title serif-text">Certificat de réussite</h2>
-            <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 3 du module 4 (Toutes les règles de la Hamza).</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz 3 del módulo 4 (Todas las reglas de la Hamza).</p>
-            </div>
-            <div id="cert-name" class="cert-name ar-text">Participant</div>
-            <div class="cert-score-box">
-                <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">0 / 0</div>
-            </div>
-            <div id="cert-date" class="cert-date"></div>
-            <div class="cert-icon">📖</div>
-        </div>
-        <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
-            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-        </div>
-    </div>
+        <button id="start-quiz-btn" class="btn-main" type="button"></button>
+      </section>
+    </main>
 
-    <script>
-        /* ══════════════════════════════════════════
-           BASE DE DONNÉES — 30 QUESTIONS
-           Corrections v2 :
-           - كَأْس / رَأْس / فَأْس : règle précisée
-             "Hamza médiane — Soukoun, Fatha avant"
-             (distinct de "Fatha gagne" = hamza porte la fatha)
-           - Cohérence des libellés "X gagne" vs "X → support"
-        ══════════════════════════════════════════ */
-        const hamzaSmartData = [
-            {
-                correct: "سُئِلَ",
-                traps: ["سُؤِلَ", "سُأِلَ", "سَئِلَ"],
-                audio: "audio/quiz3/suila.mp3",
-                fr: "On lui a demandé", es: "Se le preguntó",
-                rule: "Hamza médiane — Kasra gagne → Ya"
-            },
-            {
-                correct: "مُؤْمِن",
-                traps: ["مُئْمِن", "مُأْمِن", "مُومِن"],
-                audio: "audio/quiz3/mumin.mp3",
-                fr: "Un croyant", es: "Un creyente",
-                rule: "Hamza médiane — Soukoun, Damma avant → Waw"
-            },
-            {
-                correct: "يَأْكُل",
-                traps: ["يَئْكُل", "يَؤْكُل", "يَاكُل"],
-                audio: "audio/quiz3/yakul.mp3",
-                fr: "Il mange", es: "Él come",
-                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
-            },
-            {
-                correct: "سُؤَال",
-                traps: ["سُأَال", "سُئَال", "سُوَال"],
-                audio: "audio/quiz3/sual.mp3",
-                fr: "Une question", es: "Una pregunta",
-                rule: "Hamza médiane — Damma gagne → Waw"
-            },
-            {
-                correct: "بِئْر",
-                traps: ["بِأْر", "بِؤْر", "بِيْر"],
-                audio: "audio/quiz3/bir.mp3",
-                fr: "Un puits", es: "Un pozo",
-                rule: "Hamza médiane — Kasra gagne → Ya"
-            },
-            {
-                correct: "ذِئْب",
-                traps: ["ذِأْب", "ذِؤْب", "ذِيب"],
-                audio: "audio/quiz3/dhib.mp3",
-                fr: "Un loup", es: "Un lobo",
-                rule: "Hamza médiane — Kasra gagne → Ya"
-            },
-            {
-                correct: "شَيْء",
-                traps: ["شَيْأ", "شَيْئ", "شَيْؤ"],
-                audio: "audio/quiz3/shay.mp3",
-                fr: "Une chose", es: "Una cosa",
-                rule: "Hamza finale — Soukoun avant → sur la ligne"
-            },
-            {
-                correct: "قَرَأَ",
-                traps: ["قَرَئَ", "قَرَؤَ", "قَرَءَ"],
-                audio: "audio/quiz3/qaraa.mp3",
-                fr: "Il a lu", es: "Él leyó",
-                rule: "Hamza finale — Fatha gagne → Alef"
-            },
-            {
-                correct: "شَاطِئ",
-                traps: ["شَاطِأ", "شَاطِؤ", "شَاطِء"],
-                audio: "audio/quiz3/shati.mp3",
-                fr: "Une plage", es: "Una playa",
-                rule: "Hamza finale — Kasra gagne → Ya"
-            },
-            {
-                correct: "مَاء",
-                traps: ["مَأ", "مَئ", "مَؤ"],
-                audio: "audio/quiz3/ma.mp3",
-                fr: "De l'eau", es: "Agua",
-                rule: "Hamza finale sur la ligne (Madd + Hamza)"
-            },
-            {
-                correct: "أَسَد",
-                traps: ["اسَد", "إِسَد", "ؤَسَد"],
-                audio: "audio/quiz3/asad.mp3",
-                fr: "Un lion", es: "Un león",
-                rule: "Hamzat al-Qat' — Fatha → أَ"
-            },
-            {
-                correct: "إِسْلَام",
-                traps: ["اسْلَام", "أَسْلَام", "أُسْلَام"],
-                audio: "audio/quiz3/islam.mp3",
-                fr: "L'Islam", es: "El Islam",
-                rule: "Hamzat al-Qat' — Kasra → إِ"
-            },
-            {
-                correct: "أُمّ",
-                traps: ["امّ", "إِمّ", "ؤُمّ"],
-                audio: "audio/quiz3/umm.mp3",
-                fr: "Une mère", es: "Una madre",
-                rule: "Hamzat al-Qat' — Damma → أُ"
-            },
-            {
-                correct: "ٱسْم",
-                traps: ["أِسْم", "إِسْم", "أُسْم"],
-                audio: "audio/quiz3/ism.mp3",
-                fr: "Un nom", es: "Un nombre",
-                rule: "Hamzat al-Wasl — nom, commence par I"
-            },
-            {
-                correct: "ٱلْبَيْت",
-                traps: ["إِلْبَيْت", "أُلْبَيْت", "أَلْبَيْت"],
-                audio: "audio/quiz3/albayt.mp3",
-                fr: "La maison", es: "La casa",
-                rule: "Hamzat al-Wasl — article ال → A"
-            },
-            {
-                correct: "ٱكْتُبْ",
-                traps: ["إِكْتُبْ", "أَكْتُبْ", "أُكْتُبْ"],
-                audio: "audio/quiz3/uktub.mp3",
-                fr: "Écris", es: "Escribe",
-                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Damma"
-            },
-            {
-                correct: "ٱفْتَحْ",
-                traps: ["أَفْتَحْ", "أُفْتَحْ", "إِفْتَحْ"],
-                audio: "audio/quiz3/iftah.mp3",
-                fr: "Ouvre", es: "Abre",
-                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
-            },
-            {
-                correct: "ٱجْلِسْ",
-                traps: ["أَجْلِسْ", "أُجْلِسْ", "إِجْلِسْ"],
-                audio: "audio/quiz3/ijlis.mp3",
-                fr: "Assieds-toi", es: "Siéntate",
-                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Kasra"
-            },
-            {
-                /* CORRIGÉ v2 : Hamza porte un soukoun, précédée d'une fatha */
-                correct: "رَأْس",
-                traps: ["رَاس", "رَؤْس", "رَئْس"],
-                audio: "audio/quiz3/ras.mp3",
-                fr: "Une tête", es: "Una cabeza",
-                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
-            },
-            {
-                /* CORRIGÉ v2 */
-                correct: "فَأْس",
-                traps: ["فَاس", "فَؤْس", "فَئْس"],
-                audio: "audio/quiz3/fas.mp3",
-                fr: "Une hache", es: "Un hacha",
-                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
-            },
-            {
-                correct: "مُؤَسَّسَة",
-                traps: ["مُأَسَّسَة", "مُئَسَّسَة", "مُوسَّسَة"],
-                audio: "audio/quiz3/muassasa.mp3",
-                fr: "Une institution", es: "Una institución",
-                rule: "Hamza médiane — Damma gagne → Waw"
-            },
-            {
-                correct: "بَدَأَ",
-                traps: ["بَدَءَ", "بَدَئَ", "بَدَؤَ"],
-                audio: "audio/quiz3/badaa.mp3",
-                fr: "Il a commencé", es: "Él empezó",
-                rule: "Hamza finale — Fatha gagne → Alef"
-            },
-            {
-                correct: "جُزْء",
-                traps: ["جُزْأ", "جُزْؤ", "جُزْئ"],
-                audio: "audio/quiz3/juz.mp3",
-                fr: "Une partie", es: "Una parte",
-                rule: "Hamza finale — Soukoun avant → sur la ligne"
-            },
-            {
-                correct: "هُدُوء",
-                traps: ["هُدُؤ", "هُدُوأ", "هُدُوئ"],
-                audio: "audio/quiz3/huduu.mp3",
-                fr: "Le calme", es: "La calma",
-                rule: "Hamza finale sur la ligne (après Waw)"
-            },
-            {
-                correct: "سَمَاء",
-                traps: ["سَمَأ", "سَمَئ", "سَمَؤ"],
-                audio: "audio/quiz3/sama.mp3",
-                fr: "Un ciel", es: "Un cielo",
-                rule: "Hamza finale sur la ligne (Madd + Hamza)"
-            },
-            {
-                correct: "قَارِئ",
-                traps: ["قَارِأ", "قَارِؤ", "قَارِء"],
-                audio: "audio/quiz3/qari.mp3",
-                fr: "Un lecteur", es: "Un lector",
-                rule: "Hamza finale — Kasra gagne → Ya"
-            },
-            {
-                correct: "إِبْرِيق",
-                traps: ["ابْرِيق", "أَبْرِيق", "أُبْرِيق"],
-                audio: "audio/quiz3/ibriq.mp3",
-                fr: "Une cruche", es: "Una jarra",
-                rule: "Hamzat al-Qat' — Kasra → إِ"
-            },
-            {
-                correct: "ٱبْن",
-                traps: ["إِبْن", "أَبْن", "أُبْن"],
-                audio: "audio/quiz3/ibn.mp3",
-                fr: "Un fils (mot exception)", es: "Un hijo (excepción)",
-                rule: "Hamzat al-Wasl — mot exception : ٱبن"
-            },
-            {
-                correct: "ٱشْرَبْ",
-                traps: ["إِشْرَبْ", "أَشْرَبْ", "أُشْرَبْ"],
-                audio: "audio/quiz3/ishrab.mp3",
-                fr: "Bois", es: "Bebe",
-                rule: "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
-            },
-            {
-                /* CORRIGÉ v2 */
-                correct: "كَأْس",
-                traps: ["كَاس", "كَؤْس", "كَئْس"],
-                audio: "audio/quiz3/kas.mp3",
-                fr: "Un verre", es: "Un vaso",
-                rule: "Hamza médiane — Soukoun, Fatha avant → Alef"
+    <main id="view-quiz" class="view hidden" aria-live="polite">
+      <header class="quiz-header">
+        <div class="progress-info">
+          <span id="progress-text" class="progress-text">1 / 30</span>
+          <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
+        </div>
+        <div id="progress-bar-accessibility" class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+      </header>
+
+      <section class="quiz-container panel">
+        <div id="instruction-text" class="instruction-text">
+          Écoute et choisis la bonne orthographe !<br />
+          <small>¡Escucha y elige la ortografía correcta!</small>
+        </div>
+
+        <div class="question-focus">
+          <button id="btn-play-audio" class="btn-audio" type="button" title="Écouter" aria-label="Écouter l'audio de la question">🎙️</button>
+
+          <div class="word-translation">
+            <div id="word-fr" class="word-fr"></div>
+            <div id="word-es" class="word-es"></div>
+            <div id="rule-tag" class="rule-tag"></div>
+          </div>
+        </div>
+
+        <div id="options-grid" class="options-grid" role="group" aria-label="Options de réponse"></div>
+
+        <div id="feedback-bar" class="feedback-bar hidden" aria-live="polite">
+          <span class="fb-label">📌 Règle à retenir</span>
+          <span id="feedback-rule" class="fb-rule"></span>
+        </div>
+      </section>
+    </main>
+
+    <main id="view-certificate" class="view hidden" role="main">
+      <article class="diploma-paper">
+        
+        <a href="module4.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+        </a>
+
+        <div id="cert-ar" class="cert-ar ar-text">مبروك</div>
+        <h2 id="cert-title" class="cert-title serif-text">Certificat de réussite</h2>
+
+        <div class="cert-messages">
+          <p id="cert-msg-fr" class="cert-msg">Félicitations, vous avez terminé le quiz 3 du module 4 (Toutes les règles de la Hamza).</p>
+          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el quiz 3 del módulo 4 (Todas las reglas de la Hamza).</p>
+        </div>
+
+        <div id="cert-name" class="cert-name ar-text">Participant</div>
+
+        <div class="cert-score-box">
+          <span id="cert-score-label" class="score-label">Score Final</span>
+          <div id="cert-score" class="score-value">0 / 0</div>
+        </div>
+
+        <div id="cert-date" class="cert-date"></div>
+        <div class="cert-icon" aria-hidden="true">📖</div>
+      </article>
+
+      <nav class="cert-actions no-print" aria-label="Actions certificat">
+        <button id="print-btn" class="btn-secondary" type="button">🖨️ Imprimer</button>
+        <button id="restart-btn" class="btn-main" type="button">Recommencer ↺</button>
+      </nav>
+    </main>
+  </div>
+
+  <script id="app-data" type="application/json">
+  {
+    "meta": {
+      "pageTitle": "Dar Al-Kalimah - Quiz 3 (Hamza complet)",
+      "brandName": "Dar Al-Kalimah",
+      "appTitle": "Kalicards – Module 4",
+      "appSubtitle": "QUIZ 3 : Toutes les règles de la Hamza",
+      "moduleId": "module-4-quiz-3-hamza-complet",
+      "homeHref": "module4.html",
+      "storage": {
+        "playerName": "dak_module4_quiz3_hamza_player_name",
+        "lastScore": "dak_module4_quiz3_hamza_last_score"
+      },
+      "pwa": {
+        "appName": "Dar Al-Kalimah",
+        "shortName": "Kalicards",
+        "startUrl": "module4.html",
+        "display": "standalone",
+        "backgroundColor": "#FAF6F0",
+        "themeColor": "#5D1828",
+        "icon192": "icon-192x192.png",
+        "icon512": "icon-512x512.png"
+      }
+    },
+    "settings": {
+      "autoPlayQuestionAudio": true,
+      "autoPlayDelay": 400,
+      "delayNextQuestion": 1800,
+      "shuffleQuestions": true,
+      "shuffleOptions": true,
+      "feedbackOnError": true,
+      "enableVibration": true,
+      "enableCertificateAudio": true,
+      "successAudio": "mabruk.mp3",
+      "warmupAudio": "mabruk.mp3",
+      "questionsPerRound": 30
+    },
+    "ui": {
+      "welcomeTitleAr": "الهَمْزَة",
+      "welcomeSubtitleFr": "Écoute l'audio et choisis la bonne orthographe selon la règle de la hamza.",
+      "welcomeSubtitleEs": "Escucha el audio y elige la ortografía correcta según la regla de la hamza.",
+      "playerLabel": "Nom du participant / Nombre del participante",
+      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empieza el quiz</span>",
+      "instructionFr": "Écoute et choisis la bonne orthographe !",
+      "instructionEs": "¡Escucha y elige la ortografía correcta!",
+      "feedbackLabel": "📌 Règle à retenir",
+      "certificateTitle": "Certificat de réussite",
+      "certificateMessageFr": "Félicitations, vous avez terminé le quiz 3 du module 4 (Toutes les règles de la Hamza).",
+      "certificateMessageEs": "Felicidades, has completado el quiz 3 del módulo 4 (Todas las reglas de la Hamza).",
+      "certificateScoreLabel": "Score Final",
+      "certificateDatePrefix": "Fait le",
+      "printButton": "🖨️ Imprimer",
+      "restartButton": "Recommencer ↺"
+    },
+    "quizDatabase": [
+      {
+        "id": "hamza-01",
+        "correct": "سُئِلَ",
+        "traps": ["سُؤِلَ", "سُأِلَ", "سَئِلَ"],
+        "audio": "audio/quiz3/suila.mp3",
+        "fr": "On lui a demandé",
+        "es": "Se le preguntó",
+        "rule": "Hamza médiane — Kasra gagne → Ya"
+      },
+      {
+        "id": "hamza-02",
+        "correct": "مُؤْمِن",
+        "traps": ["مُئْمِن", "مُأْمِن", "مُومِن"],
+        "audio": "audio/quiz3/mumin.mp3",
+        "fr": "Un croyant",
+        "es": "Un creyente",
+        "rule": "Hamza médiane — Soukoun, Damma avant → Waw"
+      },
+      {
+        "id": "hamza-03",
+        "correct": "يَأْكُل",
+        "traps": ["يَئْكُل", "يَؤْكُل", "يَاكُل"],
+        "audio": "audio/quiz3/yakul.mp3",
+        "fr": "Il mange",
+        "es": "Él come",
+        "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
+      },
+      {
+        "id": "hamza-04",
+        "correct": "سُؤَال",
+        "traps": ["سُأَال", "سُئَال", "سُوَال"],
+        "audio": "audio/quiz3/sual.mp3",
+        "fr": "Une question",
+        "es": "Una pregunta",
+        "rule": "Hamza médiane — Damma gagne → Waw"
+      },
+      {
+        "id": "hamza-05",
+        "correct": "بِئْر",
+        "traps": ["بِأْر", "بِؤْر", "بِيْر"],
+        "audio": "audio/quiz3/bir.mp3",
+        "fr": "Un puits",
+        "es": "Un pozo",
+        "rule": "Hamza médiane — Kasra gagne → Ya"
+      },
+      {
+        "id": "hamza-06",
+        "correct": "ذِئْب",
+        "traps": ["ذِأْب", "ذِؤْب", "ذِيب"],
+        "audio": "audio/quiz3/dhib.mp3",
+        "fr": "Un loup",
+        "es": "Un lobo",
+        "rule": "Hamza médiane — Kasra gagne → Ya"
+      },
+      {
+        "id": "hamza-07",
+        "correct": "شَيْء",
+        "traps": ["شَيْأ", "شَيْئ", "شَيْؤ"],
+        "audio": "audio/quiz3/shay.mp3",
+        "fr": "Une chose",
+        "es": "Una cosa",
+        "rule": "Hamza finale — Soukoun avant → sur la ligne"
+      },
+      {
+        "id": "hamza-08",
+        "correct": "قَرَأَ",
+        "traps": ["قَرَئَ", "قَرَؤَ", "قَرَءَ"],
+        "audio": "audio/quiz3/qaraa.mp3",
+        "fr": "Il a lu",
+        "es": "Él leyó",
+        "rule": "Hamza finale — Fatha gagne → Alef"
+      },
+      {
+        "id": "hamza-09",
+        "correct": "شَاطِئ",
+        "traps": ["شَاطِأ", "شَاطِؤ", "شَاطِء"],
+        "audio": "audio/quiz3/shati.mp3",
+        "fr": "Une plage",
+        "es": "Una playa",
+        "rule": "Hamza finale — Kasra gagne → Ya"
+      },
+      {
+        "id": "hamza-10",
+        "correct": "مَاء",
+        "traps": ["مَأ", "مَئ", "مَؤ"],
+        "audio": "audio/quiz3/ma.mp3",
+        "fr": "De l'eau",
+        "es": "Agua",
+        "rule": "Hamza finale sur la ligne (Madd + Hamza)"
+      },
+      {
+        "id": "hamza-11",
+        "correct": "أَسَد",
+        "traps": ["اسَد", "إِسَد", "ؤَسَد"],
+        "audio": "audio/quiz3/asad.mp3",
+        "fr": "Un lion",
+        "es": "Un león",
+        "rule": "Hamzat al-Qat' — Fatha → أَ"
+      },
+      {
+        "id": "hamza-12",
+        "correct": "إِسْلَام",
+        "traps": ["اسْلَام", "أَسْلَام", "أُسْلَام"],
+        "audio": "audio/quiz3/islam.mp3",
+        "fr": "L'Islam",
+        "es": "El Islam",
+        "rule": "Hamzat al-Qat' — Kasra → إِ"
+      },
+      {
+        "id": "hamza-13",
+        "correct": "أُمّ",
+        "traps": ["امّ", "إِمّ", "ؤُمّ"],
+        "audio": "audio/quiz3/umm.mp3",
+        "fr": "Une mère",
+        "es": "Una madre",
+        "rule": "Hamzat al-Qat' — Damma → أُ"
+      },
+      {
+        "id": "hamza-14",
+        "correct": "ٱسْم",
+        "traps": ["أِسْم", "إِسْم", "أُسْم"],
+        "audio": "audio/quiz3/ism.mp3",
+        "fr": "Un nom",
+        "es": "Un nombre",
+        "rule": "Hamzat al-Wasl — nom, commence par I"
+      },
+      {
+        "id": "hamza-15",
+        "correct": "ٱلْبَيْت",
+        "traps": ["إِلْبَيْت", "أُلْبَيْت", "أَلْبَيْت"],
+        "audio": "audio/quiz3/albayt.mp3",
+        "fr": "La maison",
+        "es": "La casa",
+        "rule": "Hamzat al-Wasl — article ال → A"
+      },
+      {
+        "id": "hamza-16",
+        "correct": "ٱكْتُبْ",
+        "traps": ["إِكْتُبْ", "أَكْتُبْ", "أُكْتُبْ"],
+        "audio": "audio/quiz3/uktub.mp3",
+        "fr": "Écris",
+        "es": "Escribe",
+        "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Damma"
+      },
+      {
+        "id": "hamza-17",
+        "correct": "ٱفْتَحْ",
+        "traps": ["أَفْتَحْ", "أُفْتَحْ", "إِفْتَحْ"],
+        "audio": "audio/quiz3/iftah.mp3",
+        "fr": "Ouvre",
+        "es": "Abre",
+        "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
+      },
+      {
+        "id": "hamza-18",
+        "correct": "ٱجْلِسْ",
+        "traps": ["أَجْلِسْ", "أُجْلِسْ", "إِجْلِسْ"],
+        "audio": "audio/quiz3/ijlis.mp3",
+        "fr": "Assieds-toi",
+        "es": "Siéntate",
+        "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Kasra"
+      },
+      {
+        "id": "hamza-19",
+        "correct": "رَأْس",
+        "traps": ["رَاس", "رَؤْس", "رَئْس"],
+        "audio": "audio/quiz3/ras.mp3",
+        "fr": "Une tête",
+        "es": "Una cabeza",
+        "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
+      },
+      {
+        "id": "hamza-20",
+        "correct": "فَأْس",
+        "traps": ["فَاس", "فَؤْس", "فَئْس"],
+        "audio": "audio/quiz3/fas.mp3",
+        "fr": "Une hache",
+        "es": "Un hacha",
+        "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
+      },
+      {
+        "id": "hamza-21",
+        "correct": "مُؤَسَّسَة",
+        "traps": ["مُأَسَّسَة", "مُئَسَّسَة", "مُوسَّسَة"],
+        "audio": "audio/quiz3/muassasa.mp3",
+        "fr": "Une institution",
+        "es": "Una institución",
+        "rule": "Hamza médiane — Damma gagne → Waw"
+      },
+      {
+        "id": "hamza-22",
+        "correct": "بَدَأَ",
+        "traps": ["بَدَءَ", "بَدَئَ", "بَدَؤَ"],
+        "audio": "audio/quiz3/badaa.mp3",
+        "fr": "Il a commencé",
+        "es": "Él empezó",
+        "rule": "Hamza finale — Fatha gagne → Alef"
+      },
+      {
+        "id": "hamza-23",
+        "correct": "جُزْء",
+        "traps": ["جُزْأ", "جُزْؤ", "جُزْئ"],
+        "audio": "audio/quiz3/juz.mp3",
+        "fr": "Une partie",
+        "es": "Una parte",
+        "rule": "Hamza finale — Soukoun avant → sur la ligne"
+      },
+      {
+        "id": "hamza-24",
+        "correct": "هُدُوء",
+        "traps": ["هُدُؤ", "هُدُوأ", "هُدُوئ"],
+        "audio": "audio/quiz3/huduu.mp3",
+        "fr": "Le calme",
+        "es": "La calma",
+        "rule": "Hamza finale sur la ligne (après Waw)"
+      },
+      {
+        "id": "hamza-25",
+        "correct": "سَمَاء",
+        "traps": ["سَمَأ", "سَمَئ", "سَمَؤ"],
+        "audio": "audio/quiz3/sama.mp3",
+        "fr": "Un ciel",
+        "es": "Un cielo",
+        "rule": "Hamza finale sur la ligne (Madd + Hamza)"
+      },
+      {
+        "id": "hamza-26",
+        "correct": "قَارِئ",
+        "traps": ["قَارِأ", "قَارِؤ", "قَارِء"],
+        "audio": "audio/quiz3/qari.mp3",
+        "fr": "Un lecteur",
+        "es": "Un lector",
+        "rule": "Hamza finale — Kasra gagne → Ya"
+      },
+      {
+        "id": "hamza-27",
+        "correct": "إِبْرِيق",
+        "traps": ["ابْرِيق", "أَبْرِيق", "أُبْرِيق"],
+        "audio": "audio/quiz3/ibriq.mp3",
+        "fr": "Une cruche",
+        "es": "Una jarra",
+        "rule": "Hamzat al-Qat' — Kasra → إِ"
+      },
+      {
+        "id": "hamza-28",
+        "correct": "ٱبْن",
+        "traps": ["إِبْن", "أَبْن", "أُبْن"],
+        "audio": "audio/quiz3/ibn.mp3",
+        "fr": "Un fils (mot exception)",
+        "es": "Un hijo (excepción)",
+        "rule": "Hamzat al-Wasl — mot exception : ٱبن"
+      },
+      {
+        "id": "hamza-29",
+        "correct": "ٱشْرَبْ",
+        "traps": ["إِشْرَبْ", "أَشْرَبْ", "أُشْرَبْ"],
+        "audio": "audio/quiz3/ishrab.mp3",
+        "fr": "Bois",
+        "es": "Bebe",
+        "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
+      },
+      {
+        "id": "hamza-30",
+        "correct": "كَأْس",
+        "traps": ["كَاس", "كَؤْس", "كَئْس"],
+        "audio": "audio/quiz3/kas.mp3",
+        "fr": "Un verre",
+        "es": "Un vaso",
+        "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DATA = JSON.parse(document.getElementById("app-data").textContent);
+
+      const $ = (id) => document.getElementById(id);
+
+      const DOM = {
+        title: document.querySelector("title"),
+        views: {
+          welcome: $("view-welcome"),
+          quiz: $("view-quiz"),
+          certificate: $("view-certificate")
+        },
+        playerName: $("player-name"),
+        certNameInput: $("cert-name-input"),
+        startBtn: $("start-quiz-btn"),
+        playAudioBtn: $("btn-play-audio"),
+        printBtn: $("print-btn"),
+        restartBtn: $("restart-btn"),
+        progressText: $("progress-text"),
+        progressFill: $("progress-fill"),
+        progressBar: $("progress-bar-accessibility"),
+        scoreLive: $("score-live"),
+        wordFr: $("word-fr"),
+        wordEs: $("word-es"),
+        ruleTag: $("rule-tag"),
+        optionsGrid: $("options-grid"),
+        feedbackBar: $("feedback-bar"),
+        feedbackRule: $("feedback-rule"),
+        certName: $("cert-name"),
+        certScore: $("cert-score"),
+        certDate: $("cert-date"),
+        ui: {
+          welcomeTitle: $("welcome-title"),
+          welcomeAppTitle: $("welcome-app-title"),
+          welcomeAppSubtitle: $("welcome-app-subtitle"),
+          welcomeSubtitleFr: $("welcome-subtitle-fr"),
+          welcomeSubtitleEs: $("welcome-subtitle-es"),
+          playerNameLabel: $("player-name-label"),
+          instructionText: $("instruction-text"),
+          certAr: $("cert-ar"),
+          certTitle: $("cert-title"),
+          certMsgFr: $("cert-msg-fr"),
+          certMsgEs: $("cert-msg-es"),
+          certScoreLabel: $("cert-score-label")
+        }
+      };
+
+      const Utils = {
+        shuffle(array) {
+          const arr = [...array];
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        },
+
+        save(key, value) {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+          } catch (_) {}
+        },
+
+        load(key, fallback = "") {
+          try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+          } catch (_) {
+            return fallback;
+          }
+        },
+
+        formatDateFr(date = new Date()) {
+          return date.toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+        },
+
+        vibrate(pattern) {
+          if (DATA.settings.enableVibration && navigator.vibrate) {
+            navigator.vibrate(pattern);
+          }
+        },
+
+        sliceQuestions(array, count) {
+          return array.slice(0, Math.min(count, array.length));
+        }
+      };
+
+      const AudioController = {
+        player: new Audio(),
+        effectPlayer: new Audio(),
+        isUnlocked: false,
+
+        init() {
+          this.player.preload = "auto";
+          this.effectPlayer.preload = "auto";
+          this.player.playsInline = true;
+          this.effectPlayer.playsInline = true;
+          this.player.volume = 1;
+          this.effectPlayer.volume = 1;
+        },
+
+        async unlock() {
+          if (this.isUnlocked) return true;
+
+          try {
+            const warmup = DATA.settings.warmupAudio || DATA.settings.successAudio || "";
+            if (warmup) {
+              this.player.src = warmup;
+              this.effectPlayer.src = warmup;
             }
-        ];
 
-        /* ══════════════════════════════════════════
-           ÉTAT DU JEU
-        ══════════════════════════════════════════ */
-        let playerName = "";
-        let questions = [];
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let currentAudio = new Audio();
-        let isAnswerProcessing = false;
+            this.player.muted = true;
+            this.effectPlayer.muted = true;
 
-        const viewWelcome    = document.getElementById('view-welcome');
-        const viewQuiz       = document.getElementById('view-quiz');
-        const viewCertificate= document.getElementById('view-certificate');
-        const nameInput      = document.getElementById('player-name');
+            await this.player.play().catch(() => {});
+            this.player.pause();
+            this.player.currentTime = 0;
 
-        /* ── DÉMARRER ── */
-        function startQuiz() {
-            playerName = nameInput.value.trim() || "Participant";
-            score = 0;
-            currentQuestionIndex = 0;
-            isAnswerProcessing = false;
+            await this.effectPlayer.play().catch(() => {});
+            this.effectPlayer.pause();
+            this.effectPlayer.currentTime = 0;
 
-            generateQuestions();
-            document.querySelector('.btn-back-home').style.display = 'none';
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
-            updateScoreLive();
-            loadQuestion();
+            this.player.muted = false;
+            this.effectPlayer.muted = false;
+            this.isUnlocked = true;
+            return true;
+          } catch (_) {
+            this.player.muted = false;
+            this.effectPlayer.muted = false;
+            return false;
+          }
+        },
+
+        async play(instance, src) {
+          if (!src || !instance) return false;
+
+          try {
+            instance.pause();
+            instance.currentTime = 0;
+            instance.src = src;
+            instance.load();
+            await instance.play();
+            return true;
+          } catch (err) {
+            console.warn("Audio non lu :", src, err);
+            return false;
+          }
+        },
+
+        playMain(src) {
+          return this.play(this.player, src);
+        },
+
+        playEffect(src) {
+          return this.play(this.effectPlayer, src);
+        },
+
+        pauseAll() {
+          this.player.pause();
+          this.effectPlayer.pause();
         }
+      };
 
-        /* ── GÉNÉRER LES QUESTIONS (mélangées) ── */
-        function generateQuestions() {
-            questions = [...hamzaSmartData].sort(() => Math.random() - 0.5).map(item => ({
-                targetArabic: item.correct,
-                targetAudio:  item.audio,
-                options:      [item.correct, ...item.traps].sort(() => Math.random() - 0.5),
-                fr:   item.fr,
-                es:   item.es,
-                rule: item.rule
-            }));
+      const PWAController = {
+        ensureManifest() {
+          if (document.querySelector('link[rel="manifest"]')) return;
+          try {
+            const manifest = {
+              name: DATA.meta.pwa?.appName || DATA.meta.brandName || "Dar Al-Kalimah",
+              short_name: DATA.meta.pwa?.shortName || "Kalicards",
+              start_url: DATA.meta.pwa?.startUrl || "./",
+              display: DATA.meta.pwa?.display || "standalone",
+              background_color: DATA.meta.pwa?.backgroundColor || "#FAF6F0",
+              theme_color: DATA.meta.pwa?.themeColor || "#5D1828",
+              icons: [
+                {
+                  src: DATA.meta.pwa?.icon192 || "icon-192x192.png",
+                  sizes: "192x192",
+                  type: "image/png"
+                },
+                {
+                  src: DATA.meta.pwa?.icon512 || "icon-512x512.png",
+                  sizes: "512x512",
+                  type: "image/png"
+                }
+              ]
+            };
+            const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+            const manifestUrl = URL.createObjectURL(blob);
+            const link = document.createElement("link");
+            link.rel = "manifest";
+            link.href = manifestUrl;
+            document.head.appendChild(link);
+          } catch (_) {}
         }
+      };
 
-        /* ── CHARGER UNE QUESTION ── */
-        function loadQuestion() {
-            isAnswerProcessing = false;
-            const currentQ = questions[currentQuestionIndex];
+      const App = {
+        state: {
+          playerName: "Participant",
+          questions: [],
+          currentIndex: 0,
+          score: 0,
+          isProcessing: false
+        },
 
-            // Progress
-            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            const pct = (currentQuestionIndex / questions.length) * 100;
-            document.getElementById('progress-fill').style.width = `${pct}%`;
+        init() {
+          AudioController.init();
+          PWAController.ensureManifest();
+          this.applyStaticContent();
+          this.restorePlayerName();
+          this.bindEvents();
+        },
 
-            // Traduction + règle
-            document.getElementById('word-fr').innerText = currentQ.fr;
-            document.getElementById('word-es').innerText = currentQ.es;
+        applyStaticContent() {
+          DOM.title.textContent = DATA.meta.pageTitle;
 
-            const ruleTag = document.getElementById('rule-tag');
-            ruleTag.innerText = currentQ.rule;
-            // Coloration spéciale pour Hamzat al-Wasl
-            ruleTag.className = 'rule-tag' + (currentQ.rule.includes('Wasl') ? ' wasl' : '');
+          DOM.ui.welcomeTitle.textContent = DATA.ui.welcomeTitleAr;
+          DOM.ui.welcomeAppTitle.textContent = DATA.meta.appTitle;
+          DOM.ui.welcomeAppSubtitle.textContent = DATA.meta.appSubtitle;
+          DOM.ui.welcomeSubtitleFr.textContent = DATA.ui.welcomeSubtitleFr;
+          DOM.ui.welcomeSubtitleEs.textContent = DATA.ui.welcomeSubtitleEs;
+          DOM.ui.playerNameLabel.textContent = DATA.ui.playerLabel;
+          DOM.startBtn.innerHTML = DATA.ui.startButtonHtml;
+          DOM.ui.instructionText.innerHTML = `${DATA.ui.instructionFr}<br><small>${DATA.ui.instructionEs}</small>`;
+          DOM.feedbackBar.querySelector(".fb-label").textContent = DATA.ui.feedbackLabel;
+          DOM.ui.certAr.textContent = "مبروك";
+          DOM.ui.certTitle.textContent = DATA.ui.certificateTitle;
+          DOM.ui.certMsgFr.textContent = DATA.ui.certificateMessageFr;
+          DOM.ui.certMsgEs.textContent = DATA.ui.certificateMessageEs;
+          DOM.ui.certScoreLabel.textContent = DATA.ui.certificateScoreLabel;
+          DOM.printBtn.textContent = DATA.ui.printButton;
+          DOM.restartBtn.textContent = DATA.ui.restartButton;
+        },
 
-            // Masquer le feedback de l'erreur précédente
-            document.getElementById('feedback-bar').classList.add('hidden');
+        restorePlayerName() {
+          const saved = Utils.load(DATA.meta.storage.playerName, "");
+          if (saved) DOM.playerName.value = saved;
+        },
 
-            // Options
-            const optionsGrid = document.getElementById('options-grid');
-            optionsGrid.innerHTML = "";
-            currentQ.options.forEach(arabicWord => {
-                const btn = document.createElement('div');
-                btn.className = 'option-card ar-text';
-                btn.innerText = arabicWord;
-                btn.onclick = () => handleAnswer(arabicWord, btn, currentQ);
-                optionsGrid.appendChild(btn);
+        switchView(viewName) {
+          Object.values(DOM.views).forEach(view => view.classList.add("hidden"));
+          DOM.views[viewName].classList.remove("hidden");
+        },
+
+        buildQuestionsPayload() {
+          const source = DATA.settings.shuffleQuestions
+            ? Utils.shuffle(DATA.quizDatabase)
+            : [...DATA.quizDatabase];
+
+          const roundQuestions = Utils.sliceQuestions(source, DATA.settings.questionsPerRound);
+
+          return roundQuestions.map((item, index) => {
+            const optionsSource = [item.correct, ...(Array.isArray(item.traps) ? item.traps : [])];
+            const options = DATA.settings.shuffleOptions ? Utils.shuffle(optionsSource) : optionsSource;
+
+            return {
+              id: item.id || `question-${index + 1}`,
+              targetArabic: item.correct,
+              targetAudio: item.audio || "",
+              options,
+              fr: item.fr || "",
+              es: item.es || "",
+              rule: item.rule || ""
+            };
+          });
+        },
+
+        startQuiz() {
+          this.state.playerName = DOM.playerName.value.trim() || "Participant";
+          this.state.questions = this.buildQuestionsPayload();
+          this.state.currentIndex = 0;
+          this.state.score = 0;
+          this.state.isProcessing = false;
+
+          Utils.save(DATA.meta.storage.playerName, this.state.playerName);
+
+          AudioController.unlock().finally(() => {
+            this.switchView("quiz");
+            this.updateScoreLive();
+            this.renderQuestion();
+          });
+        },
+
+        restartQuiz() {
+          AudioController.pauseAll();
+          DOM.feedbackBar.classList.add("hidden");
+          this.switchView("welcome");
+          DOM.playerName.focus();
+        },
+
+        renderQuestion() {
+          this.state.isProcessing = false;
+
+          const currentQ = this.state.questions[this.state.currentIndex];
+          if (!currentQ) return;
+
+          const total = this.state.questions.length || 1;
+          const progressPercent = Math.round((this.state.currentIndex / total) * 100);
+
+          DOM.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+          DOM.progressFill.style.width = `${progressPercent}%`;
+          DOM.progressBar.setAttribute("aria-valuenow", String(progressPercent));
+
+          DOM.wordFr.textContent = currentQ.fr;
+          DOM.wordEs.textContent = currentQ.es;
+          DOM.ruleTag.textContent = currentQ.rule;
+          DOM.ruleTag.className = `rule-tag${currentQ.rule.includes("Wasl") ? " wasl" : ""}`;
+
+          DOM.feedbackBar.classList.add("hidden");
+          DOM.feedbackRule.textContent = "";
+          DOM.optionsGrid.innerHTML = "";
+
+          currentQ.options.forEach((arabicWord, optionIndex) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-card ar-text";
+            btn.textContent = arabicWord;
+            btn.dataset.value = arabicWord;
+            btn.setAttribute("aria-label", `Option ${optionIndex + 1}`);
+            btn.addEventListener("click", () => this.handleAnswer(arabicWord, btn, currentQ));
+            DOM.optionsGrid.appendChild(btn);
+          });
+
+          if (DATA.settings.autoPlayQuestionAudio) {
+            setTimeout(() => this.playCurrentQuestionAudio(), DATA.settings.autoPlayDelay);
+          }
+        },
+
+        handleAnswer(selectedArabic, buttonNode, currentQ) {
+          if (this.state.isProcessing) return;
+          this.state.isProcessing = true;
+
+          const allCards = Array.from(DOM.optionsGrid.children);
+          const isCorrect = selectedArabic === currentQ.targetArabic;
+
+          allCards.forEach(card => {
+            card.disabled = true;
+            card.classList.add("disabled");
+          });
+
+          if (isCorrect) {
+            this.state.score += 1;
+            buttonNode.classList.add("correct");
+            this.updateScoreLive();
+            Utils.vibrate(40);
+          } else {
+            buttonNode.classList.add("wrong");
+            Utils.vibrate(200);
+
+            allCards.forEach(card => {
+              if (card.dataset.value === currentQ.targetArabic) {
+                card.classList.add("correct");
+              }
             });
 
-            setTimeout(playCurrentQuestionAudio, 400);
-        }
-
-        /* ── GÉRER LA RÉPONSE ── */
-        function handleAnswer(selectedArabic, cardElement, currentQ) {
-            if (isAnswerProcessing) return;
-            isAnswerProcessing = true;
-            const allCards = document.getElementById('options-grid').children;
-
-            if (selectedArabic === currentQ.targetArabic) {
-                score++;
-                cardElement.classList.add('correct');
-            } else {
-                cardElement.classList.add('wrong');
-                if (navigator.vibrate) navigator.vibrate(200);
-                // Révèle la bonne réponse
-                for (let i = 0; i < allCards.length; i++) {
-                    if (allCards[i].innerText === currentQ.targetArabic) {
-                        allCards[i].classList.add('correct');
-                    }
-                }
-                // Affiche la règle à retenir
-                document.getElementById('feedback-rule').innerText = currentQ.rule;
-                document.getElementById('feedback-bar').classList.remove('hidden');
+            if (DATA.settings.feedbackOnError) {
+              DOM.feedbackRule.textContent = currentQ.rule;
+              DOM.feedbackBar.classList.remove("hidden");
             }
+          }
 
-            updateScoreLive();
+          setTimeout(() => {
+            this.state.currentIndex += 1;
 
-            // DÉLAI AUGMENTÉ à 1800ms pour laisser le temps de lire
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    loadQuestion();
-                } else {
-                    finishQuiz();
-                }
-            }, 1800);
+            if (this.state.currentIndex < this.state.questions.length) {
+              this.renderQuestion();
+            } else {
+              this.finishQuiz();
+            }
+          }, DATA.settings.delayNextQuestion);
+        },
+
+        updateScoreLive() {
+          DOM.scoreLive.textContent = `✓ ${this.state.score}`;
+          DOM.scoreLive.classList.remove("bump");
+          void DOM.scoreLive.offsetWidth;
+          DOM.scoreLive.classList.add("bump");
+          setTimeout(() => DOM.scoreLive.classList.remove("bump"), 200);
+        },
+
+        playCurrentQuestionAudio() {
+          if (this.state.currentIndex >= this.state.questions.length) return;
+          const currentQ = this.state.questions[this.state.currentIndex];
+          if (!currentQ?.targetAudio) return;
+          AudioController.playMain(currentQ.targetAudio);
+        },
+
+        finishQuiz() {
+          AudioController.pauseAll();
+          this.switchView("certificate");
+
+          DOM.progressFill.style.width = "100%";
+          DOM.progressBar.setAttribute("aria-valuenow", "100");
+          DOM.certName.textContent = this.state.playerName;
+          DOM.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+          DOM.certDate.textContent = `${DATA.ui.certificateDatePrefix} ${Utils.formatDateFr()}`;
+
+          Utils.save(DATA.meta.storage.lastScore, {
+            score: this.state.score,
+            total: this.state.questions.length,
+            date: new Date().toISOString()
+          });
+
+          this.triggerSuccessEffects();
+        },
+
+        triggerSuccessEffects() {
+          const end = Date.now() + 3000;
+
+          (function frame() {
+            if (typeof confetti === "function") {
+              confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ["#C8A462", "#5D1828"]
+              });
+              confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ["#C8A462", "#5D1828"]
+              });
+            }
+            if (Date.now() < end) requestAnimationFrame(frame);
+          })();
+
+          Utils.vibrate([80, 50, 120]);
+
+          if (DATA.settings.enableCertificateAudio) {
+            AudioController.playEffect(DATA.settings.successAudio);
+          }
+        },
+
+        bindEvents() {
+          DOM.startBtn.addEventListener("click", () => this.startQuiz());
+          DOM.playAudioBtn.addEventListener("click", () => this.playCurrentQuestionAudio());
+          DOM.printBtn.addEventListener("click", () => window.print());
+          DOM.restartBtn.addEventListener("click", () => this.restartQuiz());
+
+          DOM.playerName.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              this.startQuiz();
+            }
+          });
+
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) AudioController.pauseAll();
+          });
         }
+      };
 
-        /* ── SCORE LIVE ── */
-        function updateScoreLive() {
-            const el = document.getElementById('score-live');
-            el.innerText = `✓ ${score}`;
-            // Micro-animation à chaque bonne réponse
-            el.classList.remove('bump');
-            void el.offsetWidth; // force reflow
-            el.classList.add('bump');
-            setTimeout(() => el.classList.remove('bump'), 200);
-        }
+      document.addEventListener("DOMContentLoaded", () => {
+        App.init();
+      });
 
-        /* ── AUDIO ── */
-        function playCurrentQuestionAudio() {
-            if (currentQuestionIndex >= questions.length) return;
-            const currentQ = questions[currentQuestionIndex];
-            if (!currentQ.targetAudio) return;
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = currentQ.targetAudio;
-            currentAudio.play().catch(e => console.log("Audio bloqué :", e));
-        }
-
-        /* ── FIN DU QUIZ ── */
-        function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-            document.querySelector('.btn-back-home').style.display = 'flex';
-            document.getElementById('progress-fill').style.width = '100%';
-            document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
-
-            const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
-
-            triggerConfetti();
-            new Audio("audio/mabruk.mp3").play().catch(() => {});
-        }
-
-        /* ── CONFETTIS ── */
-        function triggerConfetti() {
-            const end = Date.now() + 3000;
-            (function frame() {
-                confetti({ particleCount: 5, angle:  60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-        }
-
-        /* ── RECOMMENCER ── */
-        function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-            nameInput.value = "";
-        }
-    </script>
+      window.DarAlKalimahHamzaQuiz3 = App;
+    })();
+  </script>
 </body>
 </html>
