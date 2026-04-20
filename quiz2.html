@@ -945,12 +945,20 @@
           this.effectPlayer.preload = "auto";
           this.player.playsInline = true;
           this.effectPlayer.playsInline = true;
+          this.player.volume = 1;
+          this.effectPlayer.volume = 1;
         },
 
         async unlock() {
-          if (this.isUnlocked) return;
+          if (this.isUnlocked) return true;
 
           try {
+            const warmup = DATA.settings.successAudio || "";
+            if (warmup) {
+              this.player.src = warmup;
+              this.effectPlayer.src = warmup;
+            }
+
             this.player.muted = true;
             this.effectPlayer.muted = true;
 
@@ -965,28 +973,36 @@
             this.player.muted = false;
             this.effectPlayer.muted = false;
             this.isUnlocked = true;
+            return true;
           } catch (_) {
             this.player.muted = false;
             this.effectPlayer.muted = false;
+            return false;
+          }
+        },
+
+        async play(instance, src) {
+          if (!src || !instance) return false;
+
+          try {
+            instance.pause();
+            instance.currentTime = 0;
+            instance.src = src;
+            instance.load();
+            await instance.play();
+            return true;
+          } catch (err) {
+            console.warn("Audio non lu :", src, err);
+            return false;
           }
         },
 
         playMain(src) {
-          if (!src) return;
-          this.player.pause();
-          this.player.currentTime = 0;
-          this.player.src = src;
-          this.player.load();
-          this.player.play().catch(err => console.warn("Lecture audio bloquée :", err));
+          return this.play(this.player, src);
         },
 
         playEffect(src) {
-          if (!src) return;
-          this.effectPlayer.pause();
-          this.effectPlayer.currentTime = 0;
-          this.effectPlayer.src = src;
-          this.effectPlayer.load();
-          this.effectPlayer.play().catch(err => console.warn("Effet audio bloqué :", err));
+          return this.play(this.effectPlayer, src);
         },
 
         pauseAll() {
@@ -1072,10 +1088,11 @@
 
           Utils.save(DATA.meta.storage.playerName, this.state.playerName);
 
-          AudioController.unlock();
-          this.switchView("quiz");
-          this.updateScoreLiveUI();
-          this.renderQuestion();
+          AudioController.unlock().finally(() => {
+            this.switchView("quiz");
+            this.updateScoreLiveUI();
+            this.renderQuestion();
+          });
         },
 
         restartQuiz() {
