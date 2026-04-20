@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -242,6 +242,14 @@
             width: 100%;
             max-width: 350px;
             box-shadow: none;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            line-height: 1.25;
+            padding-top: 16px;
+            padding-bottom: 16px;
         }
 
         .menu-container .btn-main.start-btn:hover,
@@ -250,6 +258,14 @@
             border-color: var(--gold-light);
             color: var(--gold-light);
             transform: translateY(-3px);
+        }
+
+        .start-btn .btn-es {
+            font-size: 0.88em;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            opacity: 0.95;
         }
 
         .board-container {
@@ -625,7 +641,10 @@
                 <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
 
-            <button class="btn-main start-btn" id="btn-start-quiz" type="button">Commencer le jeu</button>
+            <button class="btn-main start-btn" id="btn-start-quiz" type="button">
+                Commencer le quiz
+                <span class="btn-es">Empieza el quiz</span>
+            </button>
         </section>
     </main>
 
