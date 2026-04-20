@@ -3,126 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalicards - Quiz 3</title>
+    
+    <title>Dar Al-Kalimah - Quiz 3</title>
+    <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah">
+    <meta name="theme-color" content="#5D1828">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+    
     <style>
+        /* =========================================
+           VARIABLES GLOBALES (Design System)
+           ========================================= */
         :root {
-            --burgundy: #5D1828; --burgundy-dark: #3a0f19;
-            --gold: #C8A462; --gold-light: #dfc28b;
-            --white: #FFFFFF; --bg-beige: #FAF6F0;
-            --success-green: #e8f5e9; --success-border: #4CAF50;
-            --error-red: #ffebee; --error-border: #f44336;
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --success-green: #e8f5e9;
+            --success-border: #4CAF50;
+            --error-red: #ffebee;
+            --error-border: #f44336;
             --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
-            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.25);
+            --shadow-hover: 0 8px 20px rgba(200, 164, 98, 0.2);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+        /* =========================================
+           RESET & ACCESSIBILITÉ (Mobile-First)
+           ========================================= */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-beige);
             background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 15px; overflow-x: hidden; color: var(--burgundy);
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', system-ui, sans-serif;
+            padding: 20px; 
+            overflow-x: hidden; 
+            color: var(--burgundy);
+            position: relative;
         }
-        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
+
+        /* Optimisation Tactile */
+        button, a, input, .option-card {
+            touch-action: manipulation;
+        }
+
+        /* =========================================
+           TYPOGRAPHIE
+           ========================================= */
+        .ar-text { 
+            font-family: "Amiri", serif; 
+            line-height: 1.2; 
+            direction: rtl; 
+            text-rendering: optimizeLegibility;
+        }
         .serif-text { font-family: "Cinzel", "Georgia", serif; }
-        .gold { color: var(--gold) !important; }
-        .burgundy { color: var(--burgundy) !important; }
-        .view { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: floatIn 0.6s forwards; }
-        .hidden { display: none !important; }
-        @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .menu-container { text-align: center; background: var(--burgundy); padding: 40px 30px; border-radius: 24px; box-shadow: var(--shadow-deep); width: 100%; max-width: 650px; }
-        .menu-container .brand-ar { font-size: 3.8rem; font-weight: bold; color: var(--gold); }
-        .menu-container .app-title { font-size: 1.6rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
-        .menu-container .divider { width: 60px; height: 3px; background-color: var(--gold); margin: 20px auto; opacity: 0.5; }
-        .menu-container .subtitle { font-size: 1.05rem; color: var(--white); margin-bottom: 5px; }
-        .menu-container .subtitle.es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; margin-bottom: 30px;}
-
-        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; width: 100%; }
-        .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 12px; }
-        .input-group input { width: 100%; max-width: 380px; padding: 16px; font-size: 1.15rem; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); outline: none; }
-
-        .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 16px 40px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
-        .btn-main:hover { background: rgba(200, 164, 98, 0.1); transform: translateY(-3px); }
-
-        .quiz-container { text-align: center; background: var(--white); padding: 40px 30px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: var(--shadow-soft); width: 100%; max-width: 650px; }
-        .progress-bar-container { width: 100%; height: 10px; background-color: var(--bg-beige); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: 0.5s; }
-        .word-display-box { background: var(--bg-beige); border: 2px solid var(--gold-light); border-radius: 20px; padding: 30px; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .big-word { font-size: 6.5rem; font-weight: bold; direction: rtl; unicode-bidi: isolate; }
-        .btn-audio { width: 55px; height: 55px; font-size: 1.5rem; background: var(--white); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; }
-        .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; }
-        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 1.5; display: flex; justify-content: center; align-items: center; font-size: 4rem; cursor: pointer; transition: 0.25s; }
-        .option-card.correct { border-color: var(--success-border); background: var(--success-green); color: var(--success-border); }
-        .option-card.wrong { border-color: var(--error-border); background: var(--error-red); pointer-events: none; opacity: 0.7;}
-
-        .diploma-paper { background: white; border: 8px double var(--gold); padding: 40px; border-radius: 20px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 2px solid var(--gold-light); margin: 20px 0; word-break: break-word;}
-        
-        .toast {
-            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            background-color: rgba(93, 24, 40, 0.95); backdrop-filter: blur(10px);
-            color: var(--white); padding: 16px 35px; border-radius: 50px; font-size: 0.95rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25); transition: bottom 0.5s ease;
-            z-index: 1000; text-align: center; border: 1px solid rgba(200, 164, 98, 0.3); font-weight: 500;
+        /* =========================================
+           VUES (Gestion des écrans SPA)
+           ========================================= */
+        .view {
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center; 
+            animation: floatIn 0.5s ease-out forwards;
         }
-        .toast.show { bottom: 40px; }
+        .hidden { display: none !important; }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           COMPOSANTS UI : BOUTONS
+           ========================================= */
+        .btn-house {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: var(--gold);
+            font-size: 1.6rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+            z-index: 10;
+            padding: 5px;
+        }
+        .btn-house:hover, .btn-house:focus-visible {
+            transform: scale(1.1);
+            color: var(--gold-light);
+            outline: none;
+        }
+
+        .btn-main, .btn-secondary {
+            border: 2px solid var(--burgundy);
+            padding: 16px 45px; 
+            font-size: 1.05rem; 
+            border-radius: 50px; 
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600;
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); 
+            display: inline-block; 
+            text-decoration: none; 
+            text-align: center;
+        }
         
+        .btn-main {
+            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+            color: var(--white); 
+        }
+        .btn-main:hover, .btn-main:focus-visible { 
+            transform: translateY(-3px); 
+            box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); 
+            border-color: var(--gold); 
+            outline: none;
+        }
+        .btn-main:active { transform: translateY(1px); }
+
+        .btn-secondary { 
+            background: var(--bg-beige); 
+            color: var(--burgundy); 
+            border-color: var(--gold); 
+            box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); 
+        }
+        .btn-secondary:hover, .btn-secondary:focus-visible { 
+            background: var(--gold); 
+            color: var(--white); 
+            outline: none;
+        }
+
+        /* =========================================
+           ÉCRAN ACCUEIL
+           ========================================= */
+        .menu-container {
+            position: relative; 
+            text-align: center; 
+            background: var(--burgundy);
+            padding: 50px 40px; 
+            border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            max-width: 600px; 
+            width: 100%;
+        }
+
+        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; }
+        .menu-container .app-title { font-size: 1.6rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; }
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
+        
+        .menu-container .subtitle-group { margin-bottom: 30px; }
+        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
+        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+
+        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .input-group input {
+            width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            border: 2px solid var(--gold); border-radius: 12px;
+            background-color: var(--white); color: var(--burgundy); outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu-container .input-group input:focus { 
+            border-color: var(--gold-light); 
+            box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); 
+        }
+
+        .menu-container .btn-main.start-btn {
+            background: transparent; color: var(--gold); border: 2px solid var(--gold);
+            width: 100%; max-width: 350px; box-shadow: none;
+        }
+        .menu-container .btn-main.start-btn:hover, .menu-container .btn-main.start-btn:focus-visible {
+            background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px);
+        }
+
+        /* =========================================
+           ÉCRAN DE JEU (QUIZ)
+           ========================================= */
+        .quiz-container {
+            text-align: center; background: var(--white);
+            padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold);
+            box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+            max-width: 600px; width: 100%;
+        }
+        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
+        .progress-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
+        
+        .score-live {
+            font-weight: 700; font-size: 0.95rem; color: var(--success-border); background: var(--success-green);
+            border: 1px solid rgba(76, 175, 80, 0.3); padding: 4px 12px; border-radius: 999px;
+            letter-spacing: 0.5px; transition: transform 0.2s ease;
+        }
+        .score-live.bump { transform: scale(1.2); }
+
+        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
+
+        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 25px; color: var(--burgundy); }
+        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic;}
+
+        .word-display {
+            margin-bottom: 25px;
+            padding: 24px 18px;
+            border: 2px dashed var(--gold-light);
+            border-radius: 18px;
+            background: linear-gradient(180deg, #fffdf9 0%, var(--bg-beige) 100%);
+        }
+
+        .big-word {
+            font-size: 5.4rem;
+            color: var(--burgundy);
+            font-weight: 700;
+            line-height: 1.1;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .audio-section { margin-bottom: 35px; display: flex; justify-content: center; }
+        .btn-audio.big-audio {
+            width: 80px; height: 80px; font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--bg-beige), #fff); border: 3px solid var(--gold);
+            color: var(--burgundy); border-radius: 50%; cursor: pointer;
+            box-shadow: 0 8px 25px rgba(200, 164, 98, 0.3); transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center; outline: none;
+        }
+        .btn-audio.big-audio:hover, .btn-audio.big-audio:focus-visible { 
+            transform: scale(1.1) translateY(-3px); 
+            background: var(--gold); 
+            box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5); 
+            color: var(--white);
+        }
+        .btn-audio.big-audio:active { transform: scale(0.95); }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+        .option-card {
+            background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px;
+            aspect-ratio: 1.2; display: flex; justify-content: center; align-items: center;
+            font-size: 4.5rem; color: var(--burgundy); cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease;
+            user-select: none;
+        }
+        .option-card:hover, .option-card:focus-visible { 
+            transform: translateY(-3px); 
+            border-color: var(--gold); 
+            box-shadow: var(--shadow-hover); 
+            outline: none;
+        }
+        .option-card:active { transform: scale(0.95); }
+
+        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
+        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
+        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+        /* =========================================
+           CERTIFICAT
+           ========================================= */
+        .diploma-paper {
+            background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold);
+            padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px;
+        }
+        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
+        .cert-messages { margin-bottom: 25px; }
+        .cert-msg { font-weight: 600; color: #444; }
+        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
+        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
+        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
+        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
+        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
+        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+        /* =========================================
+           RESPONSIVE & IMPRESSION
+           ========================================= */
+        @media (max-width: 768px) {
+            .menu-container, .quiz-container { padding: 40px 20px; }
+            .option-card { font-size: 4rem; }
+            .big-word { font-size: 4.4rem; }
+            .diploma-paper { padding: 30px 20px; }
+        }
         @media (max-width: 480px) {
-            .big-word { font-size: 4.5rem; }
-            .option-card { font-size: 3rem; aspect-ratio: 1.2; }
-            .cert-name { font-size: 2.2rem; }
+            .menu-container .brand-ar { font-size: 3rem; }
+            .menu-container .app-title { font-size: 1.3rem; }
+            .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
+            .option-card { font-size: 3.5rem; aspect-ratio: 1.1; }
+            .big-word { font-size: 3.7rem; }
+            .word-display { padding: 18px 12px; }
+            .cert-ar { font-size: 3.5rem; }
+            .cert-title { font-size: 1.5rem; }
+            .cert-name { font-size: 2.5rem; }
+            .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
+            .btn-main, .btn-secondary { width: 100%; text-align: center; }
+        }
+        @media print {
+            body * { visibility: hidden; }
+            #view-certificate, #view-certificate * { visibility: visible; }
+            #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; }
+            .no-print { display: none !important; }
+            .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div id="view-welcome" class="view">
-        <div class="menu-container">
-            <div class="brand-ar ar-text">اختبار الكلمات</div>
-            <div class="app-title serif-text">Dar Al-Kalima - Quiz 3</div>
+    <main id="view-welcome" class="view" role="main">
+        <section class="menu-container" aria-labelledby="welcome-title">
+            <a href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+            </a>
+            
+            <h1 id="welcome-title" class="brand-ar ar-text">اختبار الكلمات</h1>
+            <div class="app-title serif-text">Kalicards – Quiz 3</div>
             <div class="divider"></div>
-            <p class="subtitle">Trouve la lettre dorée dans le mot.</p>
-            <p class="subtitle es">Encuentra la letra dorada en la palabra.</p>
+            
+            <div class="subtitle-group">
+                <p class="subtitle fr">Trouve la lettre dorée dans le mot.</p>
+                <p class="subtitle es">Encuentra la letra dorada en la palabra.</p>
+            </div>
+            
             <div class="input-group">
-                <label>NOM DU PARTICIPANT</label>
-                <input type="text" id="player-name" placeholder="Ton nom..." autocomplete="off">
+                <label for="player-name">Nom du participant / Nombre del participante</label>
+                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
-            <button class="btn-main" onclick="startQuiz()">Commencer</button>
-        </div>
-    </div>
+            
+            <button class="btn-main start-btn" onclick="AppEngine.startQuiz()">Commencer le quiz</button>
+        </section>
+    </main>
 
-    <div id="view-quiz" class="view hidden">
-        <div class="quiz-container">
-            <div class="progress-bar-container"><div id="progress-fill" class="progress-bar-fill"></div></div>
-            <div class="word-display-box">
-                <div class="big-word ar-text" id="quiz-word"></div>
-                <button class="btn-audio" onclick="playWordAudio()">🎙️</button>
+    <main id="view-quiz" class="view hidden" aria-live="polite">
+        <header class="quiz-header">
+            <div class="progress-info">
+                <span id="progress-text" class="progress-text">1 / 28</span>
+                <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
             </div>
-            <div class="options-grid" id="options-grid" dir="rtl"></div>
-        </div>
-    </div>
+            <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progress-bar-accessibility">
+                <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+        </header>
 
-    <div id="view-certificate" class="view hidden">
-        <div class="diploma-paper">
-            <div class="ar-text" style="font-size: 4rem; color: var(--gold);">مبروك</div>
-            <h2 class="serif-text" style="color: var(--burgundy);">CERTIFICAT DE RÉUSSITE</h2>
-            <div id="cert-name" class="cert-name">Participant</div>
-            <div style="font-size: 1.5rem; font-weight: bold; color: var(--burgundy);" id="cert-score">0 / 28</div>
-            <button class="btn-main" style="margin-top: 30px; border-color: var(--burgundy); color: var(--burgundy);" onclick="location.reload()">Recommencer ↺</button>
-        </div>
-    </div>
-    
-    <div id="toast" class="toast">
-        Audio non disponible pour le moment.
-    </div>
+        <section class="quiz-container">
+            <div class="instruction-text">
+                Trouve la lettre dorée dans le mot !<br>
+                <small>Encuentra la letra dorada en la palabra.</small>
+            </div>
+
+            <div class="word-display">
+                <div id="quiz-word" class="big-word ar-text"></div>
+            </div>
+
+            <div class="audio-section">
+                <button class="btn-audio big-audio" onclick="AppEngine.playAudio()" title="Écouter l'audio" aria-label="Écouter l'audio de la question">
+                    🎙️
+                </button>
+            </div>
+
+            <div class="options-grid" id="options-grid" role="group" aria-label="Options de réponse"></div>
+        </section>
+    </main>
+
+    <main id="view-certificate" class="view hidden" role="main">
+        <article class="diploma-paper">
+            <a href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+                <i class="fa-solid fa-house" aria-hidden="true"></i>
+            </a>
+            
+            <div class="cert-ar ar-text">مبروك</div>
+            <h2 class="cert-title serif-text">Certificat de réussite</h2>
+            
+            <div class="cert-messages">
+                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 3 du module 1.</p>
+                <p class="cert-msg es">Felicidades, has completado el quiz 3 del módulo 1.</p>
+            </div>
+            
+            <div id="cert-name" class="cert-name ar-text">Participant</div>
+            
+            <div class="cert-score-box">
+                <span class="score-label">Score Final</span>
+                <div id="cert-score" class="score-value">0 / 0</div>
+            </div>
+            
+            <div id="cert-date" class="cert-date"></div>
+            <div class="cert-icon" aria-hidden="true">📖</div>
+        </article>
+        
+        <nav class="cert-actions no-print">
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-main" onclick="AppEngine.restartQuiz()">Recommencer ↺</button>
+        </nav>
+    </main>
 
     <script>
-        const alphabetOnly = ["أ","ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","ه","و","ي"];
-        
-        // MATRICE UNIVERSELLE APPLIQUÉE AU QUIZ 3
-        const wordsData = [
+        const ALPHABET_LETTERS = ["أ","ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","ه","و","ي"];
+
+        const QUIZ_DATABASE = [
             { letter: "أ", audio: "audio/01-alif.mp3", words: ['<span class="gold">أَ</span>سَد','كَ<span class="gold">أْ</span>س','مَلْجَ<span class="gold">أ</span>']},
             { letter: "ب", audio: "audio/02-baa.mp3", words: ['<span class="gold">بَ</span>اب','كَ<span class="gold">بِ</span>ير','كِتَا<span class="gold">ب</span>']},
             { letter: "ت", audio: "audio/03-taa.mp3", words: ['<span class="gold">تَ</span>مْر','كِ<span class="gold">تَ</span>اب','بَيْ<span class="gold">ت</span>']},
@@ -153,101 +453,228 @@
             { letter: "ي", audio: "audio/28-yaa.mp3", words: ['<span class="gold">يَ</span>د','بَ<span class="gold">يْ</span>ت','كُرْسِ<span class="gold">ي</span>']}
         ];
 
-        let playerName = "", questions = [], currentIndex = 0, score = 0, currentAudio = null, toastTimeout = null;
-        let isProcessing = false;
-
-        function startQuiz() {
-            playerName = document.getElementById('player-name').value.trim() || "Participant";
-            questions = [...wordsData].sort(() => Math.random() - 0.5);
-            document.getElementById('view-welcome').classList.add('hidden');
-            document.getElementById('view-quiz').classList.remove('hidden');
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            isProcessing = false;
-            const q = questions[currentIndex];
-            document.getElementById('progress-fill').style.width = `${(currentIndex / 28) * 100}%`;
-            document.getElementById('quiz-word').innerHTML = q.words[Math.floor(Math.random() * q.words.length)];
+        /**
+         * 2. AUDIO CONTROLLER
+         */
+        const AudioController = {
+            player: new Audio(),
+            effectPlayer: new Audio(),
             
-            const options = [q.letter, ...alphabetOnly.filter(l => l !== q.letter).sort(() => Math.random() - 0.5).slice(0, 3)].sort(() => Math.random() - 0.5);
-            const grid = document.getElementById('options-grid');
-            grid.innerHTML = "";
+            playMain(src) {
+                if (!src) return;
+                this.player.pause();
+                this.player.currentTime = 0;
+                this.player.src = src;
+                this.player.play().catch(err => console.warn('Lecture auto bloquée par le navigateur :', err));
+            },
             
-            options.forEach(l => {
-                const card = document.createElement('div'); 
-                card.className = 'option-card ar-text'; 
-                card.innerText = l;
+            playEffect(src) {
+                if (!src) return;
+                this.effectPlayer.pause();
+                this.effectPlayer.currentTime = 0;
+                this.effectPlayer.src = src;
+                this.effectPlayer.play().catch(err => console.warn('Effet audio bloqué :', err));
+            }
+        };
+
+        /**
+         * 3. MOTEUR DU QUIZ
+         */
+        const AppEngine = {
+            state: {
+                playerName: "Participant",
+                questions: [],
+                currentIndex: 0,
+                score: 0,
+                isProcessing: false,
+                config: {
+                    optionsCount: 4,
+                    delayNextCard: 1200
+                }
+            },
+
+            dom: {
+                views: {
+                    welcome: document.getElementById('view-welcome'),
+                    quiz: document.getElementById('view-quiz'),
+                    certificate: document.getElementById('view-certificate')
+                },
+                inputs: {
+                    name: document.getElementById('player-name')
+                },
+                ui: {
+                    progressText: document.getElementById('progress-text'),
+                    progressFill: document.getElementById('progress-fill'),
+                    progressBarA11y: document.getElementById('progress-bar-accessibility'),
+                    scoreLive: document.getElementById('score-live'),
+                    optionsGrid: document.getElementById('options-grid'),
+                    quizWord: document.getElementById('quiz-word'),
+                    certName: document.getElementById('cert-name'),
+                    certScore: document.getElementById('cert-score'),
+                    certDate: document.getElementById('cert-date')
+                }
+            },
+
+            shuffle(array) {
+                const arr = [...array];
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            },
+
+            startQuiz() {
+                const nameVal = this.dom.inputs.name.value.trim();
+                this.state.playerName = nameVal !== "" ? nameVal : "Participant";
+                this.state.score = 0;
+                this.state.currentIndex = 0;
+                this.state.isProcessing = false;
+
+                this.buildQuestionsPayload();
                 
-                card.onclick = () => {
-                    if(isProcessing) return;
-                    isProcessing = true;
-                    
-                    if (l === q.letter) { 
-                        score++; 
-                        card.classList.add('correct'); 
-                    } else { 
-                        card.classList.add('wrong'); 
-                        if (navigator.vibrate) navigator.vibrate(200);
-                        // Montrer la bonne réponse
-                        Array.from(grid.children).forEach(c => {
-                            if(c.innerText === q.letter) c.classList.add('correct');
-                        });
-                    }
-                    setTimeout(() => { 
-                        currentIndex++; 
-                        if (currentIndex < 28) loadQuestion(); 
-                        else finish(); 
-                    }, 1200);
-                };
-                grid.appendChild(card);
-            });
-            setTimeout(() => { playWordAudio(); }, 400);
-        }
+                this.switchView('quiz');
+                this.updateScoreLiveUI();
+                this.renderQuestion();
+            },
 
-        function playWordAudio() {
-            const audioPath = questions[currentIndex].audio;
-            if (!audioPath) return;
+            restartQuiz() {
+                this.switchView('welcome');
+                this.dom.inputs.name.value = "";
+            },
 
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
-            
-            currentAudio = new Audio(audioPath);
-            let playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Audio error:", error);
-                    showToast();
+            endQuiz() {
+                this.switchView('certificate');
+                this.dom.ui.progressFill.style.width = `100%`;
+                
+                this.dom.ui.certName.textContent = this.state.playerName;
+                this.dom.ui.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+                
+                const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+                this.dom.ui.certDate.textContent = `Fait le ${dateStr}`;
+
+                this.triggerSuccessEffects();
+            },
+
+            buildQuestionsPayload() {
+                const shuffledDB = this.shuffle(QUIZ_DATABASE);
+
+                this.state.questions = shuffledDB.map(targetItem => {
+                    const randomWord = targetItem.words[Math.floor(Math.random() * targetItem.words.length)];
+
+                    let distractors = ALPHABET_LETTERS.filter(item => item !== targetItem.letter);
+                    distractors = this.shuffle(distractors).slice(0, this.state.config.optionsCount - 1);
+
+                    let options = [targetItem.letter, ...distractors];
+                    options = this.shuffle(options);
+
+                    return {
+                        targetValue: targetItem.letter,
+                        targetAudio: targetItem.audio,
+                        displayWord: randomWord,
+                        options: options
+                    };
                 });
-            }
-        }
-        
-        function showToast() {
-            clearTimeout(toastTimeout);
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 2500);
-        }
+            },
 
-        function finish() {
-            document.getElementById('view-quiz').classList.add('hidden');
-            document.getElementById('view-certificate').classList.remove('hidden');
-            
-            document.getElementById('progress-fill').style.width = `100%`;
-            document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / 28`;
-            
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            
-            // Audio Mabruk blindé
-            const mabrukAudio = new Audio("mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => console.log("Erreur mabruk:", e));
+            renderQuestion() {
+                this.state.isProcessing = false;
+                const q = this.state.questions[this.state.currentIndex];
+                const total = this.state.questions.length;
+                
+                this.dom.ui.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+                const pct = (this.state.currentIndex / total) * 100;
+                this.dom.ui.progressFill.style.width = `${pct}%`;
+                this.dom.ui.progressBarA11y.setAttribute('aria-valuenow', pct);
+
+                this.dom.ui.quizWord.innerHTML = q.displayWord;
+                this.dom.ui.optionsGrid.innerHTML = "";
+
+                q.options.forEach((optValue, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-card ar-text';
+                    btn.textContent = optValue;
+                    btn.setAttribute('aria-label', `Option ${idx + 1}`);
+                    btn.onclick = () => this.handleAnswer(optValue, btn, q.targetValue);
+                    this.dom.ui.optionsGrid.appendChild(btn);
+                });
+
+                setTimeout(() => this.playAudio(), 400);
+            },
+
+            handleAnswer(selectedValue, cardElement, targetValue) {
+                if (this.state.isProcessing) return;
+                this.state.isProcessing = true;
+
+                const allCards = Array.from(this.dom.ui.optionsGrid.children);
+
+                if (selectedValue === targetValue) {
+                    this.state.score++;
+                    cardElement.classList.add('correct');
+                    this.updateScoreLiveUI();
+                } else {
+                    cardElement.classList.add('wrong');
+                    if (navigator.vibrate) navigator.vibrate(200);
+                    
+                    allCards.forEach(card => {
+                        if (card.textContent === targetValue) {
+                            card.classList.add('correct');
+                        }
+                    });
+                }
+
+                setTimeout(() => {
+                    this.state.currentIndex++;
+                    if (this.state.currentIndex < this.state.questions.length) {
+                        this.renderQuestion();
+                    } else {
+                        this.endQuiz();
+                    }
+                }, this.state.config.delayNextCard);
+            },
+
+            playAudio() {
+                if (this.state.currentIndex >= this.state.questions.length) return;
+                const src = this.state.questions[this.state.currentIndex].targetAudio;
+                AudioController.playMain(src);
+            },
+
+            switchView(viewName) {
+                Object.values(this.dom.views).forEach(view => view.classList.add('hidden'));
+                this.dom.views[viewName].classList.remove('hidden');
+            },
+
+            updateScoreLiveUI() {
+                if(!this.dom.ui.scoreLive) return;
+                const el = this.dom.ui.scoreLive;
+                el.textContent = `✓ ${this.state.score}`;
+                el.classList.remove('bump');
+                void el.offsetWidth;
+                el.classList.add('bump');
+                setTimeout(() => el.classList.remove('bump'), 200);
+            },
+
+            triggerSuccessEffects() {
+                const end = Date.now() + 3000;
+                (function frame() {
+                    if(typeof confetti === 'function') {
+                        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
+                        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
+                    }
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+
+                AudioController.playEffect("audio/mabruk.mp3");
             }
-        }
+        };
+
+        document.getElementById('player-name').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                AppEngine.startQuiz();
+            }
+        });
+
     </script>
 </body>
 </html>
