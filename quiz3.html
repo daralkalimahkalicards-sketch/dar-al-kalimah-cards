@@ -8,6 +8,7 @@
     <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah">
     <meta name="theme-color" content="#5D1828">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="icon-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -531,6 +532,12 @@
                 this.state.currentIndex = 0;
                 this.state.isProcessing = false;
 
+                // SÉCURITÉ APPLE : Déverrouille les flux audios au premier vrai clic
+                AudioController.player.play().catch(()=>{});
+                AudioController.player.pause();
+                AudioController.effectPlayer.play().catch(()=>{});
+                AudioController.effectPlayer.pause();
+
                 this.buildQuestionsPayload();
                 
                 this.switchView('quiz');
@@ -664,7 +671,8 @@
                     if (Date.now() < end) requestAnimationFrame(frame);
                 }());
 
-                AudioController.playEffect("audio/mabruk.mp3");
+                // LE CHEMIN CORRIGÉ EST ICI
+                AudioController.playEffect("mabruk.mp3");
             }
         };
 
