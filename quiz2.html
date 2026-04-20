@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no" />
 
-  <title>Dar Al-Kalimah - Quiz Grand Plateau</title>
+  <title>Dar Al-Kalimah - Quiz Module 1</title>
   <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah" />
   <meta name="theme-color" content="#5D1828" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -12,6 +12,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Dar Al-Kalimah" />
   <meta name="format-detection" content="telephone=no" />
+
+  <link rel="apple-touch-icon" href="icon-192x192.png" />
+  <link rel="icon" type="image/png" href="icon-192x192.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,7 +48,7 @@
       --safe-left: env(safe-area-inset-left, 0px);
       --tap-size: 52px;
       --container-menu: 600px;
-      --container-board: 800px;
+      --container-quiz: 600px;
     }
 
     * {
@@ -79,7 +82,7 @@
       position: relative;
     }
 
-    button, a, input, .board-card {
+    button, a, input, .option-card {
       touch-action: manipulation;
     }
 
@@ -89,7 +92,7 @@
 
     .app-shell {
       width: 100%;
-      max-width: var(--container-board);
+      max-width: var(--container-quiz);
     }
 
     .ar-text {
@@ -110,7 +113,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      animation: floatIn 0.5s ease-out forwards;
+      animation: floatIn 0.45s ease-out forwards;
     }
 
     .hidden {
@@ -124,10 +127,10 @@
 
     .btn-house {
       position: absolute;
-      top: 25px;
-      right: 25px;
+      top: 20px;
+      right: 20px;
       color: var(--gold);
-      font-size: 1.6rem;
+      font-size: 1.45rem;
       text-decoration: none;
       transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
       z-index: 10;
@@ -137,7 +140,7 @@
 
     .btn-house:hover,
     .btn-house:focus-visible {
-      transform: scale(1.1);
+      transform: scale(1.08);
       color: var(--gold-light);
       background: rgba(255,255,255,0.06);
       outline: none;
@@ -207,7 +210,7 @@
     }
 
     .menu-container .brand-ar {
-      font-size: clamp(2.6rem, 8vw, 3.5rem);
+      font-size: clamp(2.8rem, 8vw, 3.5rem);
       font-weight: bold;
       color: var(--gold);
       margin-bottom: 5px;
@@ -316,65 +319,53 @@
       opacity: 0.95;
     }
 
-    .board-container {
+    .quiz-container {
       text-align: center;
       background: var(--white);
-      padding: 40px 30px;
+      padding: 50px 40px;
       border-radius: var(--radius-xl);
       border: 1px solid var(--gold);
       box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+      max-width: var(--container-quiz);
       width: 100%;
-      max-width: var(--container-board);
     }
 
     .quiz-header {
       width: 100%;
-      max-width: var(--container-board);
+      max-width: var(--container-quiz);
       margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .progress-container {
-      width: 100%;
-      max-width: 450px;
-      margin-bottom: 5px;
     }
 
     .progress-info {
-      text-align: center;
-      margin-bottom: 10px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
     .progress-text {
       font-weight: 700;
       color: var(--burgundy);
-      font-size: 1.1rem;
-      letter-spacing: 2px;
+      font-size: 1rem;
+      letter-spacing: 1px;
     }
 
     .score-live {
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--success-border);
       background: var(--success-green);
       border: 1px solid rgba(76, 175, 80, 0.3);
       padding: 4px 12px;
       border-radius: 999px;
       letter-spacing: 0.5px;
-      white-space: nowrap;
       transition: transform 0.2s ease;
+      white-space: nowrap;
     }
 
     .score-live.bump {
-      transform: scale(1.12);
+      transform: scale(1.15);
     }
 
     .progress-bar-container {
@@ -393,41 +384,35 @@
       transition: width 0.4s ease;
     }
 
-    .audio-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 25px;
-      background: var(--bg-beige);
-      padding: 15px 25px;
-      border-radius: 100px;
-      border: 1px solid var(--gold-light);
-    }
-
     .instruction-text {
       font-weight: 600;
       font-size: 1.1rem;
-      text-align: left;
-      line-height: 1.4;
+      margin-bottom: 25px;
       color: var(--burgundy);
+      line-height: 1.45;
     }
 
     .instruction-text small {
-      opacity: 0.7;
+      opacity: 0.8;
       font-weight: 500;
-      font-size: 0.85rem;
       display: block;
+      margin-top: 5px;
       font-style: italic;
     }
 
+    .audio-section {
+      margin-bottom: 35px;
+      display: flex;
+      justify-content: center;
+    }
+
     .btn-audio.big-audio {
-      width: 70px;
-      height: 70px;
-      min-width: 70px;
-      min-height: 70px;
-      font-size: 2.2rem;
-      background: linear-gradient(135deg, var(--white), var(--bg-beige));
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      min-height: 80px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--bg-beige), #fff);
       border: 3px solid var(--gold);
       color: var(--burgundy);
       border-radius: 50%;
@@ -437,85 +422,73 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-shrink: 0;
       outline: none;
     }
 
     .btn-audio.big-audio:hover,
     .btn-audio.big-audio:focus-visible {
-      transform: scale(1.1) rotate(-5deg);
+      transform: scale(1.1) translateY(-3px);
       background: var(--gold);
-      color: var(--white);
       box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5);
+      color: var(--white);
     }
 
     .btn-audio.big-audio:active {
       transform: scale(0.95);
     }
 
-    .board-grid {
+    .options-grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
       width: 100%;
     }
 
-    .board-card {
+    .option-card {
       background: var(--white);
       border: 2px solid var(--gold-light);
-      border-radius: 12px;
-      aspect-ratio: 1;
+      border-radius: var(--radius-md);
+      aspect-ratio: 1.2;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(3.4rem, 10vw, 4.5rem);
       color: var(--burgundy);
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       transition: all 0.2s ease;
       user-select: none;
-      font-family: "Amiri", serif;
-      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      padding: 8px;
     }
 
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.5); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .board-card:hover,
-    .board-card:focus-visible {
-      transform: translateY(-4px) scale(1.05);
+    .option-card:hover,
+    .option-card:focus-visible {
+      transform: translateY(-3px);
       border-color: var(--gold);
       box-shadow: var(--shadow-hover);
       outline: none;
-      z-index: 10;
     }
 
-    .board-card:active {
-      transform: scale(0.92);
+    .option-card:active {
+      transform: scale(0.95);
     }
 
-    .board-card.correct {
+    .option-card.correct {
       border: 3px solid var(--success-border) !important;
       background-color: var(--success-green);
       color: var(--success-border);
-      z-index: 2;
-      transform: scale(1.1);
-      box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
       pointer-events: none;
     }
 
-    .board-card.wrong {
+    .option-card.wrong {
       border: 3px solid var(--error-border) !important;
       background-color: var(--error-red);
       animation: gentleShake 0.4s;
-      opacity: 0.5;
-      transform: scale(0.95);
       pointer-events: none;
+      opacity: 0.7;
     }
 
-    .board-card.disabled {
+    .option-card.disabled {
       pointer-events: none;
     }
 
@@ -531,7 +504,7 @@
       padding: 40px;
       border-radius: var(--radius-md);
       text-align: center;
-      max-width: 560px;
+      max-width: 500px;
       width: 100%;
       box-shadow: 0 20px 50px rgba(0,0,0,0.1);
       position: relative;
@@ -539,7 +512,7 @@
     }
 
     .cert-ar {
-      font-size: 4.8rem;
+      font-size: 4.5rem;
       color: var(--gold);
       line-height: 1;
       margin-bottom: 10px;
@@ -547,7 +520,7 @@
 
     .cert-title {
       color: var(--burgundy);
-      font-size: 2.1rem;
+      font-size: 2rem;
       margin-bottom: 20px;
     }
 
@@ -561,13 +534,13 @@
     }
 
     .cert-msg.es {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #777;
       margin-top: 5px;
     }
 
     .cert-name {
-      font-size: 3.1rem;
+      font-size: 3rem;
       color: var(--burgundy);
       border-bottom: 1px solid var(--gold-light);
       padding-bottom: 10px;
@@ -625,32 +598,10 @@
       justify-content: center;
     }
 
-    .cert-edit-group {
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .cert-edit-group input {
-      width: 100%;
-      padding: 10px;
-      font-family: "Montserrat", sans-serif;
-      text-align: center;
-      border: 1px solid var(--gold);
-      border-radius: 8px;
-      color: var(--burgundy);
-      outline: none;
-    }
-
     @media (max-width: 768px) {
       .menu-container,
-      .board-container {
-        padding: 42px 22px;
-      }
-
-      .board-grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
+      .quiz-container {
+        padding: 40px 20px;
       }
 
       .diploma-paper {
@@ -667,40 +618,32 @@
           calc(16px + var(--safe-left));
       }
 
-      .menu-container,
-      .board-container {
-        padding: 34px 18px;
-      }
-
       .menu-container .brand-ar {
-        font-size: 3.2rem;
+        font-size: 3rem;
       }
 
       .menu-container .app-title {
-        font-size: 1.35rem;
+        font-size: 1.3rem;
       }
 
-      .audio-section {
-        flex-direction: column;
-        gap: 10px;
-        border-radius: 16px;
+      .btn-audio.big-audio {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        min-height: 65px;
+        font-size: 2rem;
       }
 
-      .instruction-text {
-        text-align: center;
-      }
-
-      .board-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
+      .option-card {
+        aspect-ratio: 1.1;
       }
 
       .cert-ar {
-        font-size: 3.7rem;
+        font-size: 3.5rem;
       }
 
       .cert-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
       }
 
       .cert-name {
@@ -711,7 +654,6 @@
         flex-direction: column;
         width: 100%;
         max-width: 300px;
-        margin: 0 auto;
       }
 
       .btn-main,
@@ -723,7 +665,7 @@
       .btn-house {
         top: 14px;
         right: 14px;
-        font-size: 1.25rem;
+        font-size: 1.2rem;
       }
     }
 
@@ -745,7 +687,6 @@
         border: 10px double var(--gold);
         box-shadow: none;
         max-width: 100%;
-        margin: 0;
       }
     }
   </style>
@@ -759,12 +700,12 @@
         </a>
 
         <h1 id="welcome-title" class="brand-ar ar-text">اختبار الحروف</h1>
-        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Grand Quiz</div>
+        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Quiz 1</div>
         <div class="divider"></div>
 
         <div class="subtitle-group">
-          <p id="welcome-subtitle-fr" class="subtitle fr">Trouve les 28 lettres sur le grand plateau.</p>
-          <p id="welcome-subtitle-es" class="subtitle es">Encuentra las 28 letras en el gran tablero.</p>
+          <p id="welcome-subtitle-fr" class="subtitle fr">Écoute la lettre et clique sur la bonne réponse.</p>
+          <p id="welcome-subtitle-es" class="subtitle es">Escucha la letra y haz clic en la respuesta correcta.</p>
         </div>
 
         <div class="input-group">
@@ -781,37 +722,32 @@
 
     <main id="view-quiz" class="view hidden" aria-live="polite">
       <header class="quiz-header">
-        <div class="progress-container">
-          <div class="progress-info">
-            <span id="progress-text" class="progress-text">1 / 28</span>
-            <span id="score-live" class="score-live">✓ 0</span>
-          </div>
-          <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
-            <div id="progress-fill" class="progress-bar-fill"></div>
-          </div>
+        <div class="progress-info">
+          <span id="progress-text" class="progress-text">1 / 28</span>
+          <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
+        </div>
+        <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
+          <div id="progress-fill" class="progress-bar-fill"></div>
         </div>
       </header>
 
-      <section class="board-container">
-        <div class="audio-section">
-          <button type="button" id="btn-play-audio" class="btn-audio big-audio" title="Écouter l'audio" aria-label="Écouter l'audio">
-            🎙️
-          </button>
-          <div id="instruction-text" class="instruction-text">
-            Écoute et trouve la lettre !<br />
-            <small>¡Escucha y encuentra la letra!</small>
-          </div>
+      <section class="quiz-container">
+        <div id="instruction-text" class="instruction-text">
+          Écoute et trouve la bonne lettre !<br />
+          <small>¡Escucha y encuentra la letra correcta!</small>
         </div>
 
-        <div class="board-grid" id="board-grid" dir="rtl" role="group" aria-label="Plateau de jeu"></div>
+        <div class="audio-section">
+          <button class="btn-audio big-audio" id="btn-play-audio" type="button" title="Écouter l'audio" aria-label="Écouter l'audio de la question">
+            🎙️
+          </button>
+        </div>
+
+        <div class="options-grid" id="options-grid" role="group" aria-label="Options de réponse"></div>
       </section>
     </main>
 
     <main id="view-certificate" class="view hidden" role="main">
-      <div class="cert-edit-group no-print">
-        <input type="text" id="cert-name-input" placeholder="Modifier le prénom avant impression..." />
-      </div>
-
       <article class="diploma-paper">
         <a id="nav-home-certificate" href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
           <i class="fa-solid fa-house" aria-hidden="true"></i>
@@ -821,8 +757,8 @@
         <h2 id="cert-title" class="cert-title serif-text">Certificat de réussite</h2>
 
         <div class="cert-messages">
-          <p id="cert-msg-fr" class="cert-msg fr">Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.</p>
-          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el Gran Quiz del Alfabeto.</p>
+          <p id="cert-msg-fr" class="cert-msg fr">Félicitations, vous avez terminé le quiz du module 1.</p>
+          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el quiz del módulo 1.</p>
         </div>
 
         <div id="cert-name" class="cert-name ar-text">Participant</div>
@@ -837,8 +773,8 @@
       </article>
 
       <nav class="cert-actions no-print">
-        <button type="button" id="btn-print-cert" class="btn-secondary">🖨️ Imprimer</button>
-        <button type="button" id="btn-restart-quiz" class="btn-main">Rejouer ↺</button>
+        <button class="btn-secondary" id="btn-print-cert" type="button">🖨️ Imprimer</button>
+        <button class="btn-main" id="btn-restart-quiz" type="button">Recommencer ↺</button>
       </nav>
     </main>
   </div>
@@ -846,39 +782,40 @@
   <script id="app-data" type="application/json">
   {
     "meta": {
-      "pageTitle": "Dar Al-Kalimah - Quiz Grand Plateau",
+      "pageTitle": "Dar Al-Kalimah - Quiz Module 1",
       "brandName": "Dar Al-Kalimah",
-      "appTitle": "Kalicards – Grand Quiz",
-      "moduleId": "module-1-grand-quiz",
+      "appTitle": "Kalicards – Quiz 1",
+      "moduleId": "module-1-quiz-1",
       "homeHref": "module1.html",
       "storage": {
-        "playerName": "dak_grand_quiz_player_name"
+        "playerName": "dak_quiz1_player_name"
       }
     },
     "settings": {
-      "autoPlayQuestionAudio": true,
-      "autoPlayDelay": 350,
+      "optionsCount": 4,
       "delayNextCard": 1200,
+      "autoPlayDelay": 300,
+      "autoplayQuestionAudio": true,
       "shuffleQuestions": true,
-      "shuffleBoardOnStart": false,
+      "shuffleOptions": true,
       "enableVibration": true,
       "enableCertificateAudio": true,
       "successAudio": "mabruk.mp3"
     },
     "ui": {
       "welcomeTitleAr": "اختبار الحروف",
-      "welcomeSubtitleFr": "Trouve les 28 lettres sur le grand plateau.",
-      "welcomeSubtitleEs": "Encuentra las 28 letras en el gran tablero.",
+      "welcomeSubtitleFr": "Écoute la lettre et clique sur la bonne réponse.",
+      "welcomeSubtitleEs": "Escucha la letra y haz clic en la respuesta correcta.",
       "playerLabel": "Nom du participant / Nombre del participante",
       "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empieza el quiz</span>",
-      "instructionFr": "Écoute et trouve la lettre !",
-      "instructionEs": "¡Escucha y encuentra la letra!",
+      "instructionFr": "Écoute et trouve la bonne lettre !",
+      "instructionEs": "¡Escucha y encuentra la letra correcta!",
       "certificateTitle": "Certificat de réussite",
-      "certificateMessageFr": "Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.",
-      "certificateMessageEs": "Felicidades, has completado el Gran Quiz del Alfabeto.",
+      "certificateMessageFr": "Félicitations, vous avez terminé le quiz du module 1.",
+      "certificateMessageEs": "Felicidades, has completado el quiz del módulo 1.",
       "certificateScoreLabel": "Score Final",
       "printButton": "🖨️ Imprimer",
-      "restartButton": "Rejouer ↺",
+      "restartButton": "Recommencer ↺",
       "certificateDatePrefix": "Fait le"
     },
     "quizDatabase": [
@@ -919,7 +856,6 @@
       "use strict";
 
       const DATA = JSON.parse(document.getElementById("app-data").textContent);
-
       const $ = (id) => document.getElementById(id);
 
       const DOM = {
@@ -932,16 +868,15 @@
         navHomeTop: $("nav-home-top"),
         navHomeCertificate: $("nav-home-certificate"),
         playerName: $("player-name"),
-        certNameInput: $("cert-name-input"),
         startBtn: $("btn-start-quiz"),
         playAudioBtn: $("btn-play-audio"),
         printBtn: $("btn-print-cert"),
         restartBtn: $("btn-restart-quiz"),
-        boardGrid: $("board-grid"),
         progressText: $("progress-text"),
         progressFill: $("progress-fill"),
         progressBar: $("progress-bar-accessibility"),
         scoreLive: $("score-live"),
+        optionsGrid: $("options-grid"),
         certName: $("cert-name"),
         certScore: $("cert-score"),
         certDate: $("cert-date"),
@@ -985,18 +920,18 @@
           }
         },
 
+        vibrate(pattern) {
+          if (DATA.settings.enableVibration && navigator.vibrate) {
+            navigator.vibrate(pattern);
+          }
+        },
+
         formatDateFr(date = new Date()) {
           return date.toLocaleDateString("fr-FR", {
             day: "numeric",
             month: "long",
             year: "numeric"
           });
-        },
-
-        vibrate(pattern) {
-          if (DATA.settings.enableVibration && navigator.vibrate) {
-            navigator.vibrate(pattern);
-          }
         }
       };
 
@@ -1010,60 +945,48 @@
           this.effectPlayer.preload = "auto";
           this.player.playsInline = true;
           this.effectPlayer.playsInline = true;
-          this.player.volume = 1;
-          this.effectPlayer.volume = 1;
         },
 
         async unlock() {
-          if (this.isUnlocked) return true;
+          if (this.isUnlocked) return;
 
           try {
-            const silentMain = this.player;
-            const silentEffect = this.effectPlayer;
+            this.player.muted = true;
+            this.effectPlayer.muted = true;
 
-            silentMain.muted = true;
-            silentEffect.muted = true;
+            await this.player.play().catch(() => {});
+            this.player.pause();
+            this.player.currentTime = 0;
 
-            await silentMain.play().catch(() => {});
-            silentMain.pause();
-            silentMain.currentTime = 0;
+            await this.effectPlayer.play().catch(() => {});
+            this.effectPlayer.pause();
+            this.effectPlayer.currentTime = 0;
 
-            await silentEffect.play().catch(() => {});
-            silentEffect.pause();
-            silentEffect.currentTime = 0;
-
-            silentMain.muted = false;
-            silentEffect.muted = false;
+            this.player.muted = false;
+            this.effectPlayer.muted = false;
             this.isUnlocked = true;
-            return true;
           } catch (_) {
             this.player.muted = false;
             this.effectPlayer.muted = false;
-            return false;
-          }
-        },
-
-        async play(instance, src) {
-          if (!src || !instance) return false;
-
-          try {
-            instance.pause();
-            instance.currentTime = 0;
-            instance.src = src;
-            instance.load();
-            await instance.play();
-            return true;
-          } catch (_) {
-            return false;
           }
         },
 
         playMain(src) {
-          return this.play(this.player, src);
+          if (!src) return;
+          this.player.pause();
+          this.player.currentTime = 0;
+          this.player.src = src;
+          this.player.load();
+          this.player.play().catch(err => console.warn("Lecture audio bloquée :", err));
         },
 
         playEffect(src) {
-          return this.play(this.effectPlayer, src);
+          if (!src) return;
+          this.effectPlayer.pause();
+          this.effectPlayer.currentTime = 0;
+          this.effectPlayer.src = src;
+          this.effectPlayer.load();
+          this.effectPlayer.play().catch(err => console.warn("Effet audio bloqué :", err));
         },
 
         pauseAll() {
@@ -1075,8 +998,7 @@
       const App = {
         state: {
           playerName: "Participant",
-          boardItems: [],
-          targetQueue: [],
+          questions: [],
           currentIndex: 0,
           score: 0,
           isProcessing: false
@@ -1085,7 +1007,7 @@
         init() {
           AudioController.init();
           this.applyStaticContent();
-          this.restoreState();
+          this.restorePlayerName();
           this.bindEvents();
         },
 
@@ -1110,9 +1032,30 @@
           DOM.uiText.certAr.textContent = "مبروك";
         },
 
-        restoreState() {
-          const savedName = Utils.load(DATA.meta.storage.playerName, "");
-          if (savedName) DOM.playerName.value = savedName;
+        restorePlayerName() {
+          const saved = Utils.load(DATA.meta.storage.playerName, "");
+          if (saved) DOM.playerName.value = saved;
+        },
+
+        buildQuestionsPayload() {
+          const shuffledDB = DATA.settings.shuffleQuestions
+            ? Utils.shuffle(DATA.quizDatabase)
+            : [...DATA.quizDatabase];
+
+          return shuffledDB.map((targetItem) => {
+            let distractors = DATA.quizDatabase.filter(item => item.id !== targetItem.id);
+            distractors = Utils.shuffle(distractors).slice(0, DATA.settings.optionsCount - 1);
+
+            let options = [targetItem.value, ...distractors.map(d => d.value)];
+            options = DATA.settings.shuffleOptions ? Utils.shuffle(options) : options;
+
+            return {
+              targetId: targetItem.id,
+              targetValue: targetItem.value,
+              targetAudio: targetItem.audio,
+              options
+            };
+          });
         },
 
         switchView(viewName) {
@@ -1120,49 +1063,19 @@
           DOM.views[viewName].classList.remove("hidden");
         },
 
-        buildBoardItems() {
-          return DATA.settings.shuffleBoardOnStart
-            ? Utils.shuffle(DATA.quizDatabase)
-            : [...DATA.quizDatabase];
-        },
-
-        buildTargetQueue() {
-          return DATA.settings.shuffleQuestions
-            ? Utils.shuffle(DATA.quizDatabase)
-            : [...DATA.quizDatabase];
-        },
-
-        renderBoard() {
-          DOM.boardGrid.innerHTML = "";
-
-          this.state.boardItems.forEach((item, index) => {
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "board-card ar-text";
-            btn.textContent = item.value;
-            btn.dataset.id = item.id;
-            btn.setAttribute("aria-label", `Lettre ${item.value}`);
-            btn.style.animationDelay = `${index * 0.03}s`;
-            btn.addEventListener("click", () => this.handleAnswer(btn, item));
-            DOM.boardGrid.appendChild(btn);
-          });
-        },
-
         startQuiz() {
           this.state.playerName = DOM.playerName.value.trim() || "Participant";
-          this.state.score = 0;
+          this.state.questions = this.buildQuestionsPayload();
           this.state.currentIndex = 0;
+          this.state.score = 0;
           this.state.isProcessing = false;
-          this.state.boardItems = this.buildBoardItems();
-          this.state.targetQueue = this.buildTargetQueue();
 
           Utils.save(DATA.meta.storage.playerName, this.state.playerName);
 
           AudioController.unlock();
           this.switchView("quiz");
-          this.renderBoard();
-          this.updateScore();
-          this.loadNextTarget();
+          this.updateScoreLiveUI();
+          this.renderQuestion();
         },
 
         restartQuiz() {
@@ -1170,54 +1083,55 @@
           DOM.playerName.focus();
         },
 
-        updateScore() {
-          DOM.scoreLive.textContent = `✓ ${this.state.score}`;
-          DOM.scoreLive.classList.remove("bump");
-          void DOM.scoreLive.offsetWidth;
-          DOM.scoreLive.classList.add("bump");
-          setTimeout(() => DOM.scoreLive.classList.remove("bump"), 180);
-        },
-
-        loadNextTarget() {
+        renderQuestion() {
           this.state.isProcessing = false;
 
-          const total = this.state.targetQueue.length || 1;
-          const currentDisplay = this.state.currentIndex + 1;
+          const q = this.state.questions[this.state.currentIndex];
+          const total = this.state.questions.length || 1;
           const pct = Math.round((this.state.currentIndex / total) * 100);
 
-          DOM.progressText.textContent = `${currentDisplay} / ${total}`;
+          DOM.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
           DOM.progressFill.style.width = `${pct}%`;
           DOM.progressBar.setAttribute("aria-valuenow", String(pct));
+          DOM.optionsGrid.innerHTML = "";
 
-          Array.from(DOM.boardGrid.children).forEach(card => {
-            card.classList.remove("correct", "wrong", "disabled");
+          q.options.forEach((optValue, idx) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-card ar-text";
+            btn.textContent = optValue;
+            btn.dataset.value = optValue;
+            btn.setAttribute("aria-label", `Option ${idx + 1}`);
+            btn.addEventListener("click", () => this.handleAnswer(optValue, btn, q.targetValue));
+            DOM.optionsGrid.appendChild(btn);
           });
 
-          if (DATA.settings.autoPlayQuestionAudio) {
+          if (DATA.settings.autoplayQuestionAudio) {
             setTimeout(() => this.playAudio(), DATA.settings.autoPlayDelay);
           }
         },
 
-        handleAnswer(cardElement, clickedItem) {
+        handleAnswer(selectedValue, cardElement, targetValue) {
           if (this.state.isProcessing) return;
           this.state.isProcessing = true;
 
-          const targetItem = this.state.targetQueue[this.state.currentIndex];
-          const allCards = Array.from(DOM.boardGrid.children);
+          const allCards = Array.from(DOM.optionsGrid.children);
+          allCards.forEach(card => {
+            card.disabled = true;
+            card.classList.add("disabled");
+          });
 
-          allCards.forEach(card => card.classList.add("disabled"));
-
-          if (clickedItem.id === targetItem.id) {
+          if (selectedValue === targetValue) {
             this.state.score += 1;
             cardElement.classList.add("correct");
-            this.updateScore();
+            this.updateScoreLiveUI();
             Utils.vibrate(40);
           } else {
             cardElement.classList.add("wrong");
             Utils.vibrate(200);
 
             allCards.forEach(card => {
-              if (card.dataset.id === targetItem.id) {
+              if (card.dataset.value === targetValue) {
                 card.classList.add("correct");
               }
             });
@@ -1226,8 +1140,8 @@
           setTimeout(() => {
             this.state.currentIndex += 1;
 
-            if (this.state.currentIndex < this.state.targetQueue.length) {
-              this.loadNextTarget();
+            if (this.state.currentIndex < this.state.questions.length) {
+              this.renderQuestion();
             } else {
               this.endQuiz();
             }
@@ -1235,23 +1149,27 @@
         },
 
         playAudio() {
-          if (this.state.currentIndex >= this.state.targetQueue.length) return;
-          const src = this.state.targetQueue[this.state.currentIndex]?.audio;
+          if (this.state.currentIndex >= this.state.questions.length) return;
+          const src = this.state.questions[this.state.currentIndex].targetAudio;
           AudioController.playMain(src);
+        },
+
+        updateScoreLiveUI() {
+          const el = DOM.scoreLive;
+          el.textContent = `✓ ${this.state.score}`;
+          el.classList.remove("bump");
+          void el.offsetWidth;
+          el.classList.add("bump");
+          setTimeout(() => el.classList.remove("bump"), 200);
         },
 
         endQuiz() {
           this.switchView("certificate");
           DOM.progressFill.style.width = "100%";
           DOM.progressBar.setAttribute("aria-valuenow", "100");
-
-          DOM.certNameInput.value = this.state.playerName !== "Participant" ? this.state.playerName : "";
           DOM.certName.textContent = this.state.playerName;
-          DOM.certScore.textContent = `${this.state.score} / ${this.state.targetQueue.length}`;
-
-          const dateStr = Utils.formatDateFr();
-          DOM.certDate.textContent = `${DATA.ui.certificateDatePrefix} ${dateStr}`;
-
+          DOM.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+          DOM.certDate.textContent = `${DATA.ui.certificateDatePrefix} ${Utils.formatDateFr()}`;
           this.triggerSuccessEffects();
         },
 
@@ -1261,18 +1179,18 @@
           (function frame() {
             if (typeof confetti === "function") {
               confetti({
-                particleCount: 6,
+                particleCount: 5,
                 angle: 60,
-                spread: 60,
+                spread: 55,
                 origin: { x: 0 },
-                colors: ["#C8A462", "#5D1828", "#dfc28b"]
+                colors: ["#C8A462", "#5D1828"]
               });
               confetti({
-                particleCount: 6,
+                particleCount: 5,
                 angle: 120,
-                spread: 60,
+                spread: 55,
                 origin: { x: 1 },
-                colors: ["#C8A462", "#5D1828", "#dfc28b"]
+                colors: ["#C8A462", "#5D1828"]
               });
             }
             if (Date.now() < end) requestAnimationFrame(frame);
@@ -1298,11 +1216,6 @@
             }
           });
 
-          DOM.certNameInput.addEventListener("input", (e) => {
-            const val = e.target.value.trim();
-            DOM.certName.textContent = val || "Participant";
-          });
-
           document.addEventListener("visibilitychange", () => {
             if (document.hidden) AudioController.pauseAll();
           });
@@ -1313,7 +1226,7 @@
         App.init();
       });
 
-      window.DarAlKalimahGrandQuiz = App;
+      window.DarAlKalimahQuiz1 = App;
     })();
   </script>
 </body>
