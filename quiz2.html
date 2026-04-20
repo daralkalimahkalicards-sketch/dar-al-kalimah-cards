@@ -1010,24 +1010,30 @@
           this.effectPlayer.preload = "auto";
           this.player.playsInline = true;
           this.effectPlayer.playsInline = true;
+          this.player.volume = 1;
+          this.effectPlayer.volume = 1;
         },
 
         async unlock() {
           if (this.isUnlocked) return true;
+
           try {
-            this.player.muted = true;
-            this.effectPlayer.muted = true;
+            const silentMain = this.player;
+            const silentEffect = this.effectPlayer;
 
-            await this.player.play().catch(() => {});
-            this.player.pause();
-            this.player.currentTime = 0;
+            silentMain.muted = true;
+            silentEffect.muted = true;
 
-            await this.effectPlayer.play().catch(() => {});
-            this.effectPlayer.pause();
-            this.effectPlayer.currentTime = 0;
+            await silentMain.play().catch(() => {});
+            silentMain.pause();
+            silentMain.currentTime = 0;
 
-            this.player.muted = false;
-            this.effectPlayer.muted = false;
+            await silentEffect.play().catch(() => {});
+            silentEffect.pause();
+            silentEffect.currentTime = 0;
+
+            silentMain.muted = false;
+            silentEffect.muted = false;
             this.isUnlocked = true;
             return true;
           } catch (_) {
@@ -1039,6 +1045,7 @@
 
         async play(instance, src) {
           if (!src || !instance) return false;
+
           try {
             instance.pause();
             instance.currentTime = 0;
@@ -1114,10 +1121,9 @@
         },
 
         buildBoardItems() {
-          const items = DATA.settings.shuffleBoardOnStart
+          return DATA.settings.shuffleBoardOnStart
             ? Utils.shuffle(DATA.quizDatabase)
             : [...DATA.quizDatabase];
-          return items;
         },
 
         buildTargetQueue() {
