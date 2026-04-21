@@ -1,378 +1,1360 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalimah - Quiz 2 (Hamzat Al-Qat')</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        :root {
-            --burgundy: #5D1828;
-            --burgundy-dark: #3a0f19;
-            --gold: #C8A462;
-            --gold-light: #dfc28b;
-            --white: #FFFFFF;
-            --bg-beige: #FAF6F0;
-            --success-green: #e8f5e9;
-            --success-border: #4CAF50;
-            --error-red: #ffebee;
-            --error-border: #f44336;
-            --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no" />
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+  <title>Dar Al-Kalimah - Quiz 2 (Hamzat Al-Qat')</title>
+  <meta name="description" content="Quiz 2 : L'écriture de Hamzat Al-Qat' - Dar Al-Kalimah" />
+  <meta name="theme-color" content="#5D1828" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dar Al-Kalimah" />
+  <meta name="format-detection" content="telephone=no" />
 
-        body {
-            background-color: var(--bg-beige);
-            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
-            padding: 20px; overflow-x: hidden; color: var(--burgundy);
-        }
+  <link rel="icon" type="image/png" href="icon-192x192.png" />
+  <link rel="apple-touch-icon" href="icon-192x192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
 
-        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
-        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+  <style>
+    :root {
+      --burgundy: #5D1828;
+      --burgundy-dark: #3a0f19;
+      --gold: #C8A462;
+      --gold-light: #dfc28b;
+      --white: #FFFFFF;
+      --bg-beige: #FAF6F0;
+      --success-green: #e8f5e9;
+      --success-border: #4CAF50;
+      --error-red: #ffebee;
+      --error-border: #f44336;
+      --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+      --shadow-hover: 0 8px 20px rgba(200, 164, 98, 0.2);
+      --shadow-card: 0 8px 25px rgba(93, 24, 40, 0.25);
+      --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --tap-size: 52px;
+      --container-max: 600px;
+    }
 
-        .view { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: floatIn 0.5s ease-out forwards; }
-        .hidden { display: none !important; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
 
-        @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
-        .btn-main, .btn-secondary, .btn-link {
-            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
-            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
-        }
-        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
-        .btn-main:active, .btn-link:active { transform: translateY(1px); }
+    body {
+      background-color: var(--bg-beige);
+      background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: "Montserrat", system-ui, sans-serif;
+      padding:
+        calc(16px + var(--safe-top))
+        calc(16px + var(--safe-right))
+        calc(16px + var(--safe-bottom))
+        calc(16px + var(--safe-left));
+      overflow-x: hidden;
+      color: var(--burgundy);
+      position: relative;
+    }
 
-        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
-        .btn-secondary:hover { background: var(--gold); color: var(--white); }
+    button,
+    input,
+    a,
+    .option-card {
+      font: inherit;
+      touch-action: manipulation;
+    }
 
-        .btn-back-menu { display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s; }
-        .btn-back-menu:hover { color: var(--white); }
+    .app-shell {
+      width: 100%;
+      max-width: var(--container-max);
+    }
 
-        .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; }
-        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
-        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-        .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px;}
-        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
-        
-        .menu-container .subtitle-group { margin-bottom: 30px; }
-        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
-        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+    .ar-text {
+      font-family: "Amiri", serif;
+      line-height: 1.2;
+      direction: rtl;
+      unicode-bidi: isolate;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: "mark" 1, "mkmk" 1;
+    }
 
-        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
-        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
-        .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
+    .serif-text {
+      font-family: "Cinzel", "Georgia", serif;
+    }
 
-        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none; }
-        .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
+    .view {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: floatIn 0.45s ease-out forwards;
+    }
 
-        .quiz-container { text-align: center; background: var(--white); padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft); max-width: 600px; width: 100%; }
-        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
-        .progress-info { text-align: right; margin-bottom: 8px; }
-        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
-        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
+    .hidden {
+      display: none !important;
+    }
 
-        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
-        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
-        .btn-audio.big-audio { width: 80px; height: 80px; font-size: 2.5rem; background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3); transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; }
-        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
-        .btn-audio.big-audio:active { transform: scale(0.95); }
+    /* === MAISON DORÉE === */
+    .btn-house {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      color: var(--gold);
+      font-size: 1.6rem;
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+      z-index: 50;
+    }
 
-        .word-translation { margin-top: 15px; text-align: center; }
-        .word-fr { font-weight: 600; color: var(--burgundy); font-size: 1.15rem; margin-bottom: 5px; }
-        .word-es { font-style: italic; color: #8c775a; font-size: 1rem; }
+    .btn-house:hover,
+    .btn-house:focus-visible {
+      transform: scale(1.1);
+      color: var(--gold-light);
+      outline: none;
+    }
 
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
-        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 2; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; color: var(--burgundy); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease; font-weight: bold; line-height: 1.4; font-feature-settings: "mark" 1; padding: 10px; }
-        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
-        .option-card:active { transform: scale(0.95); }
+    .btn-main,
+    .btn-secondary {
+      min-height: var(--tap-size);
+      padding: 16px 45px;
+      font-size: 1.05rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      text-align: center;
+      border: 2px solid var(--burgundy);
+    }
 
-        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
-        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
-        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+    .btn-main {
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25);
+    }
 
-        .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px; }
-        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
-        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
-        .cert-messages { margin-bottom: 25px; }
-        .cert-msg { font-weight: 600; color: #444; }
-        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
-        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
-        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
-        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
-        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
-        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
-        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
-        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+    .btn-main:hover,
+    .btn-main:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35);
+      border-color: var(--gold);
+      outline: none;
+    }
 
-        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 2.2rem; } .diploma-paper { padding: 30px 20px; } }
-        @media (max-width: 480px) { .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 1.8rem; aspect-ratio: 1.8; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } }
-        @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
-    </style>
+    .btn-main:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-beige);
+      color: var(--burgundy);
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      background: var(--gold);
+      color: var(--white);
+      outline: none;
+    }
+
+    .menu-container {
+      position: relative;
+      text-align: center;
+      background: var(--burgundy);
+      padding: 50px 40px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      max-width: var(--container-max);
+      width: 100%;
+    }
+
+    .menu-container .brand-ar {
+      font-size: clamp(2.8rem, 8vw, 3.5rem);
+      font-weight: bold;
+      color: var(--gold);
+      margin-bottom: 5px;
+      line-height: 1.1;
+    }
+
+    .menu-container .app-title {
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      color: #d09470;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .menu-container .app-subtitle {
+      font-size: 1rem;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .menu-container .divider {
+      width: 60px;
+      height: 2px;
+      background-color: var(--gold);
+      margin: 25px auto;
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+
+    .menu-container .subtitle-group {
+      margin-bottom: 30px;
+    }
+
+    .menu-container .subtitle {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .menu-container .subtitle.es {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 35px;
+    }
+
+    .menu-container .input-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 10px;
+      opacity: 0.9;
+    }
+
+    .menu-container .input-group input {
+      width: 100%;
+      max-width: 350px;
+      min-height: var(--tap-size);
+      padding: 15px;
+      font-size: 1.1rem;
+      font-family: "Montserrat", sans-serif;
+      text-align: center;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      background-color: var(--white);
+      color: var(--burgundy);
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .menu-container .input-group input:focus {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3);
+    }
+
+    .menu-container .btn-main.start-btn {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      width: 100%;
+      max-width: 350px;
+      box-shadow: none;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      line-height: 1.25;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    .menu-container .btn-main.start-btn:hover,
+    .menu-container .btn-main.start-btn:focus-visible {
+      background-color: rgba(200, 164, 98, 0.1);
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+
+    .start-btn .btn-es {
+      font-size: 0.88em;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.3px;
+      opacity: 0.95;
+    }
+
+    .quiz-header {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-bottom: 20px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .progress-text {
+      font-weight: 700;
+      color: var(--burgundy);
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .score-live {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--success-border);
+      background: var(--success-green);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: transform 0.2s ease;
+    }
+
+    .score-live.bump {
+      transform: scale(1.15);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: var(--white);
+      border: 1px solid var(--gold-light);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--gold);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-container {
+      text-align: center;
+      background: var(--white);
+      padding: 50px 40px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--gold);
+      box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
+      max-width: var(--container-max);
+      width: 100%;
+    }
+
+    .instruction-text {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--burgundy);
+      line-height: 1.45;
+    }
+
+    .instruction-text small {
+      opacity: 0.8;
+      font-weight: 500;
+      display: block;
+      margin-top: 5px;
+      font-style: italic;
+      color: #777;
+    }
+
+    .question-focus {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-beige);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 2px dashed var(--gold-light);
+    }
+
+    .btn-audio.big-audio {
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      min-height: 80px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--white), var(--bg-beige));
+      border: 2px solid var(--gold);
+      color: var(--burgundy);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+
+    .btn-audio.big-audio:hover,
+    .btn-audio.big-audio:focus-visible {
+      transform: scale(1.1) translateY(-3px);
+      background: var(--gold);
+      color: var(--white);
+      outline: none;
+    }
+
+    .btn-audio.big-audio:active {
+      transform: scale(0.95);
+    }
+
+    .word-translation {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .word-fr {
+      font-weight: 600;
+      color: var(--burgundy);
+      font-size: 1.15rem;
+      margin-bottom: 5px;
+      line-height: 1.45;
+    }
+
+    .word-es {
+      font-style: italic;
+      color: #8c775a;
+      font-size: 1rem;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      width: 100%;
+    }
+
+    .option-card {
+      background: var(--white);
+      border: 2px solid var(--gold-light);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      color: var(--burgundy);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      font-weight: bold;
+      line-height: 1.4;
+      font-family: "Amiri", serif;
+      font-feature-settings: "mark" 1, "mkmk" 1;
+      padding: 10px;
+      user-select: none;
+      direction: rtl;
+    }
+
+    .option-card:hover,
+    .option-card:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-hover);
+      outline: none;
+    }
+
+    .option-card:active {
+      transform: scale(0.95);
+    }
+
+    .option-card.correct {
+      border: 3px solid var(--success-border) !important;
+      background-color: var(--success-green);
+      color: var(--success-border);
+      pointer-events: none;
+    }
+
+    .option-card.wrong {
+      border: 3px solid var(--error-border) !important;
+      background-color: var(--error-red);
+      animation: gentleShake 0.4s;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .option-card.disabled {
+      pointer-events: none;
+    }
+
+    @keyframes gentleShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    .diploma-paper {
+      background: linear-gradient(145deg, #ffffff, #fcfcfc);
+      border: 8px double var(--gold);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .cert-ar {
+      font-size: 4.5rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .cert-title {
+      color: var(--burgundy);
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .cert-messages {
+      margin-bottom: 25px;
+    }
+
+    .cert-msg {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .cert-msg.es {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    .cert-name {
+      font-size: 3rem;
+      color: var(--burgundy);
+      border-bottom: 1px solid var(--gold-light);
+      padding-bottom: 10px;
+      margin-bottom: 25px;
+      word-break: break-word;
+    }
+
+    .cert-score-box {
+      background-color: var(--bg-beige);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 15px;
+      display: inline-block;
+      margin-bottom: 20px;
+      min-width: min(100%, 220px);
+    }
+
+    .score-label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+
+    .score-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--burgundy);
+    }
+
+    .cert-date {
+      font-size: 0.95rem;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .cert-icon {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      background: var(--bg-beige);
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    .cert-actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .menu-container,
+      .quiz-container {
+        padding: 40px 20px;
+      }
+
+      .diploma-paper {
+        padding: 30px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding:
+          calc(16px + var(--safe-top))
+          calc(16px + var(--safe-right))
+          calc(16px + var(--safe-bottom))
+          calc(16px + var(--safe-left));
+      }
+
+      .btn-house {
+        top: 15px;
+        right: 15px;
+        font-size: 1.4rem;
+      }
+
+      .menu-container .brand-ar {
+        font-size: 3rem;
+      }
+
+      .menu-container .app-title {
+        font-size: 1.1rem;
+      }
+
+      .btn-audio.big-audio {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        min-height: 65px;
+        font-size: 2rem;
+      }
+
+      .option-card {
+        aspect-ratio: 1.8;
+        font-size: 1.8rem;
+      }
+
+      .cert-ar {
+        font-size: 3.5rem;
+      }
+
+      .cert-title {
+        font-size: 1.5rem;
+      }
+
+      .cert-name {
+        font-size: 2.5rem;
+      }
+
+      .cert-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .btn-main,
+      .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      #view-certificate, #view-certificate * { visibility: visible; }
+      #view-certificate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+      }
+      .no-print { display: none !important; }
+      .diploma-paper {
+        border: 10px double var(--gold);
+        box-shadow: none;
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app-shell">
 
-    <div id="view-welcome" class="view">
-        <div class="menu-container">
-            <div class="brand-ar ar-text">هَمْزَةُ الْقَطْعِ</div>
-            <div class="app-title serif-text">Kalicards – Module 5</div>
-            <div class="app-subtitle">QUIZ 2 : L'écriture de Hamzat Al-Qat'</div>
-            <div class="divider"></div>
-            
-            <div class="subtitle-group">
-                <p class="subtitle fr">Écoute l'audio et trouve la bonne orthographe.</p>
-                <p class="subtitle es">Escucha el audio y encuentra la ortografía correcta.</p>
-            </div>
-            
-            <div class="input-group">
-                <label for="player-name">Nom du participant / Nombre del participante</label>
-                <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
-            </div>
-            
-            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
-            <a href="module5.html" class="btn-back-menu">← Retour au menu du module</a>
-        </div>
-    </div>
-
-    <div id="view-quiz" class="view hidden">
-        <div class="quiz-header">
-            <div class="progress-info">
-                <span id="progress-text" class="progress-text">1 / 30</span>
-            </div>
-            <div class="progress-bar-container">
-                <div id="progress-fill" class="progress-bar-fill"></div>
-            </div>
-        </div>
-
-        <div class="quiz-container">
-            <div class="instruction-text">Écoute et choisis la bonne orthographe !<br><small>¡Escucha y elige la ortografía correcta!</small></div>
-            <div class="question-focus">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
-                <div class="word-translation">
-                    <div id="word-fr" class="word-fr"></div>
-                    <div id="word-es" class="word-es"></div>
-                </div>
-            </div>
-            <div class="options-grid" id="options-grid"></div>
-        </div>
-    </div>
-
-    <div id="view-certificate" class="view hidden">
-        <div class="diploma-paper">
-            <div class="cert-ar ar-text">مبروك</div>
-            <h2 class="cert-title serif-text">Certificat de réussite</h2>
-            <div class="cert-messages">
-                <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 du module 5 (Hamzat Al-Qat').</p>
-                <p class="cert-msg es">Felicidades, has completado el quiz 2 del módulo 5 (Hamzat Al-Qat').</p>
-            </div>
-            <div id="cert-name" class="cert-name ar-text">Participant</div>
-            <div class="cert-score-box">
-                <span class="score-label">Score Final</span>
-                <div id="cert-score" class="score-value">0 / 0</div>
-            </div>
-            <div id="cert-date" class="cert-date"></div>
-            <div class="cert-icon">📖</div>
-        </div>
+    <main id="view-welcome" class="view" role="main">
+      <section class="menu-container" aria-labelledby="welcome-title">
         
-        <div class="cert-actions no-print">
-            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
-            <button class="btn-main" onclick="restartQuiz()">Recommencer ↺</button>
-            <a href="module5.html" class="btn-link">Menu du Module 5</a>
+        <a id="btn-house-welcome" href="module5.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+        </a>
+
+        <h1 id="welcome-title" class="brand-ar ar-text">هَمْزَةُ الْقَطْعِ</h1>
+        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Module 5</div>
+        <div id="welcome-app-subtitle" class="app-subtitle">QUIZ 2 : L'écriture de Hamzat Al-Qat'</div>
+        <div class="divider"></div>
+
+        <div class="subtitle-group">
+          <p id="welcome-subtitle-fr" class="subtitle fr">Écoute l'audio et trouve la bonne orthographe.</p>
+          <p id="welcome-subtitle-es" class="subtitle es">Escucha el audio y encuentra la ortografía correcta.</p>
         </div>
-    </div>
 
-    <script>
-        // BASE DE DONNÉES SPÉCIFIQUE AU QUIZ 2 : HAMZAT AL-QAT'
-        // 30 mots avec le bon orthographe et 3 pièges
-        const qatData = [
-            { correct: "أَسَد", traps: ["اسَد", "ئَسَد", "ؤَسَد"], audio: "audio/quiz-qat/asad.mp3", fr: "Un lion", es: "Un león" },
-            { correct: "إِبْرِيق", traps: ["ابْرِيق", "أَِبْرِيق", "أُبْرِيق"], audio: "audio/quiz-qat/ibriq.mp3", fr: "Une cruche", es: "Una jarra" },
-            { correct: "أُمّ", traps: ["امّ", "إِمّ", "ئُمّ"], audio: "audio/quiz-qat/umm.mp3", fr: "Une mère", es: "Una madre" },
-            { correct: "رَأْس", traps: ["رَاس", "رَؤْس", "رَئْس"], audio: "audio/quiz-qat/ras.mp3", fr: "Une tête", es: "Una cabeza" },
-            { correct: "كَأْس", traps: ["كَاس", "كَؤْس", "كَئْس"], audio: "audio/quiz-qat/kas.mp3", fr: "Un verre", es: "Un vaso" },
-            { correct: "بِئْر", traps: ["بِأْر", "بِؤْر", "بِيْر"], audio: "audio/quiz-qat/bir.mp3", fr: "Un puits", es: "Un pozo" },
-            { correct: "ذِئْب", traps: ["ذِأْب", "ذِؤْب", "ذِيب"], audio: "audio/quiz-qat/dhib.mp3", fr: "Un loup", es: "Un lobo" },
-            { correct: "فَأْس", traps: ["فَاس", "فَؤْس", "فَئْس"], audio: "audio/quiz-qat/fas.mp3", fr: "Une hache", es: "Un hacha" },
-            { correct: "مُؤْمِن", traps: ["مُأْمِن", "مُئْمِن", "مُومِن"], audio: "audio/quiz-qat/mumin.mp3", fr: "Un croyant", es: "Un creyente" },
-            { correct: "سُؤَال", traps: ["سُأَال", "سُئَال", "سُوَال"], audio: "audio/quiz-qat/sual.mp3", fr: "Une question", es: "Una pregunta" },
-            { correct: "مَاء", traps: ["مَأ", "مَئ", "مَؤ"], audio: "audio/quiz-qat/ma.mp3", fr: "De l'eau", es: "Agua" },
-            { correct: "سَمَاء", traps: ["سَمَأ", "سَمَئ", "سَمَؤ"], audio: "audio/quiz-qat/sama.mp3", fr: "Un ciel", es: "Un cielo" },
-            { correct: "شَيْء", traps: ["شَيْأ", "شَيْئ", "شَيْؤ"], audio: "audio/quiz-qat/shay.mp3", fr: "Une chose", es: "Una cosa" },
-            { correct: "قَرَأَ", traps: ["قَرَءَ", "قَرَئَ", "قَرَؤَ"], audio: "audio/quiz-qat/qaraa.mp3", fr: "Il a lu", es: "Él leyó" },
-            { correct: "بَدَأَ", traps: ["بَدَءَ", "بَدَئَ", "بَدَؤَ"], audio: "audio/quiz-qat/badaa.mp3", fr: "Il a commencé", es: "Él empezó" },
-            { correct: "يَأْكُل", traps: ["يَئْكُل", "يَؤْكُل", "يَاكُل"], audio: "audio/quiz-qat/yakul.mp3", fr: "Il mange", es: "Él come" },
-            { correct: "مُؤَسَّسَة", traps: ["مُأَسَّسَة", "مُئَسَّسَة", "مُوسَّسَة"], audio: "audio/quiz-qat/muassasa.mp3", fr: "Une institution", es: "Una institución" },
-            { correct: "أَرْنَب", traps: ["ارْنَب", "إِرْنَب", "أُرْنَب"], audio: "audio/quiz-qat/arnab.mp3", fr: "Un lapin", es: "Un conejo" },
-            { correct: "إِسْلَام", traps: ["اسْلَام", "أَسْلَام", "أُسْلَام"], audio: "audio/quiz-qat/islam.mp3", fr: "L'Islam", es: "El Islam" },
-            { correct: "أُسْرَة", traps: ["اسْرَة", "إِسْرَة", "أَسْرَة"], audio: "audio/quiz-qat/usra.mp3", fr: "Une famille", es: "Una familia" },
-            { correct: "مَسَاء", traps: ["مَسَأ", "مَسَئ", "مَسَؤ"], audio: "audio/quiz-qat/masa.mp3", fr: "Le soir", es: "La tarde" },
-            { correct: "شَاطِئ", traps: ["شَاطِأ", "شَاطِؤ", "شَاطِء"], audio: "audio/quiz-qat/shati.mp3", fr: "Une plage", es: "Una playa" },
-            { correct: "قَارِئ", traps: ["قَارِأ", "قَارِؤ", "قَارِء"], audio: "audio/quiz-qat/qari.mp3", fr: "Un lecteur", es: "Un lector" },
-            { correct: "دِفْء", traps: ["دِفْأ", "دِفْئ", "دِفْؤ"], audio: "audio/quiz-qat/dif.mp3", fr: "La chaleur", es: "El calor" },
-            { correct: "بُطْء", traps: ["بُطْأ", "بُطْئ", "بُطْؤ"], audio: "audio/quiz-qat/but.mp3", fr: "La lenteur", es: "La lentitud" },
-            { correct: "رُؤْيَة", traps: ["رُأْيَة", "رُئْيَة", "رُويَة"], audio: "audio/quiz-qat/ruya.mp3", fr: "Une vision", es: "Una visión" },
-            { correct: "فَأْر", traps: ["فَؤْر", "فَئْر", "فَار"], audio: "audio/quiz-qat/far.mp3", fr: "Une souris", es: "Un ratón" },
-            { correct: "مِئْذَنَة", traps: ["مِأْذَنَة", "مِؤْذَنَة", "مِيذَنَة"], audio: "audio/quiz-qat/midhana.mp3", fr: "Un minaret", es: "Un minarete" },
-            { correct: "رِئَة", traps: ["رِأَة", "رِؤَة", "رِيَة"], audio: "audio/quiz-qat/ria.mp3", fr: "Un poumon", es: "Un pulmón" },
-            { correct: "يَقْرَأُ", traps: ["يَقْرَءُ", "يَقْرَئُ", "يَقْرَؤُ"], audio: "audio/quiz-qat/yaqrau.mp3", fr: "Il lit", es: "Él lee" }
-        ];
+        <div class="input-group">
+          <label id="player-name-label" for="player-name">Nom du participant / Nombre del participante</label>
+          <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off" maxlength="40" />
+        </div>
 
-        let playerName = "";
-        let questions = []; 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let currentAudio = new Audio();
-        let isAnswerProcessing = false;
+        <button class="btn-main start-btn" id="btn-start-quiz" type="button">
+          Commencer le quiz
+          <span class="btn-es">Empieza el quiz</span>
+        </button>
 
-        const viewWelcome = document.getElementById('view-welcome');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewCertificate = document.getElementById('view-certificate');
-        const nameInput = document.getElementById('player-name');
+      </section>
+    </main>
 
-        function startQuiz() {
-            playerName = nameInput.value.trim();
-            if (playerName === "") playerName = "Participant";
+    <main id="view-quiz" class="view hidden" aria-live="polite">
+      <header class="quiz-header">
+        <div class="progress-info">
+          <span id="progress-text" class="progress-text">1 / 30</span>
+          <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
+        </div>
+        <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+      </header>
 
-            score = 0;
-            currentQuestionIndex = 0;
-            isAnswerProcessing = false;
+      <section class="quiz-container">
+        <div id="instruction-text" class="instruction-text">
+          Écoute et choisis la bonne orthographe !<br />
+          <small>¡Escucha y elige la ortografía correcta!</small>
+        </div>
 
-            generateQuestions();
+        <div class="question-focus">
+          <button type="button" class="btn-audio big-audio" id="btn-play-audio" title="Écouter" aria-label="Écouter l'audio de la question">🎙️</button>
+          <div class="word-translation">
+            <div id="word-fr" class="word-fr"></div>
+            <div id="word-es" class="word-es"></div>
+          </div>
+        </div>
 
-            viewWelcome.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
+        <div id="options-grid" class="options-grid" role="group" aria-label="Options de réponse"></div>
+      </section>
+    </main>
 
-            loadQuestion();
+    <main id="view-certificate" class="view hidden" role="main">
+      <article class="diploma-paper">
+
+        <a id="btn-house-cert" href="module5.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+        </a>
+
+        <div id="cert-ar" class="cert-ar ar-text">مبروك</div>
+        <h2 id="cert-title" class="cert-title serif-text">Certificat de réussite</h2>
+
+        <div class="cert-messages">
+          <p id="cert-msg-fr" class="cert-msg">Félicitations, vous avez terminé le quiz 2 du module 5 (Hamzat Al-Qat').</p>
+          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el quiz 2 del módulo 5 (Hamzat Al-Qat').</p>
+        </div>
+
+        <div id="cert-name" class="cert-name ar-text">Participant</div>
+
+        <div class="cert-score-box">
+          <span id="cert-score-label" class="score-label">Score Final</span>
+          <div id="cert-score" class="score-value">0 / 0</div>
+        </div>
+
+        <div id="cert-date" class="cert-date"></div>
+        <div class="cert-icon" aria-hidden="true">📖</div>
+      </article>
+
+      <nav class="cert-actions no-print" aria-label="Actions certificat">
+        <button type="button" class="btn-secondary" id="btn-print">🖨️ Imprimer</button>
+        <button type="button" class="btn-main" id="btn-restart">Recommencer ↺</button>
+      </nav>
+    </main>
+
+  </div>
+
+  <script id="app-data" type="application/json">
+  {
+    "meta": {
+      "pageTitle": "Dar Al-Kalimah - Quiz 2 (Hamzat Al-Qat')",
+      "brandName": "Dar Al-Kalimah",
+      "appTitle": "Kalicards – Module 5",
+      "appSubtitle": "QUIZ 2 : L'écriture de Hamzat Al-Qat'",
+      "moduleId": "module-5-quiz-2-hamzat-alqat",
+      "homeHref": "module5.html",
+      "storage": {
+        "playerName": "dak_module5_quiz2_qat_player_name",
+        "lastScore": "dak_module5_quiz2_qat_last_score"
+      },
+      "pwa": {
+        "appName": "Dar Al-Kalimah",
+        "shortName": "Kalicards",
+        "startUrl": "module5.html",
+        "display": "standalone",
+        "backgroundColor": "#FAF6F0",
+        "themeColor": "#5D1828",
+        "icon192": "icon-192x192.png",
+        "icon512": "icon-512x512.png"
+      }
+    },
+    "settings": {
+      "autoPlayQuestionAudio": true,
+      "autoPlayDelay": 400,
+      "delayNextQuestion": 1200,
+      "shuffleQuestions": true,
+      "shuffleOptions": true,
+      "enableVibration": true,
+      "enableCertificateAudio": true,
+      "successAudio": "mabruk.mp3",
+      "warmupAudio": "mabruk.mp3",
+      "questionsPerRound": 30
+    },
+    "ui": {
+      "welcomeTitleAr": "هَمْزَةُ الْقَطْعِ",
+      "welcomeSubtitleFr": "Écoute l'audio et trouve la bonne orthographe.",
+      "welcomeSubtitleEs": "Escucha el audio y encuentra la ortografía correcta.",
+      "playerLabel": "Nom du participant / Nombre del participante",
+      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empieza el quiz</span>",
+      "instructionFr": "Écoute et choisis la bonne orthographe !",
+      "instructionEs": "¡Escucha y elige la ortografía correcta!",
+      "certificateTitle": "Certificat de réussite",
+      "certificateMessageFr": "Félicitations, vous avez terminé le quiz 2 du module 5 (Hamzat Al-Qat').",
+      "certificateMessageEs": "Felicidades, has completado el quiz 2 del módulo 5 (Hamzat Al-Qat').",
+      "certificateScoreLabel": "Score Final",
+      "certificateDatePrefix": "Fait le",
+      "printButton": "🖨️ Imprimer",
+      "restartButton": "Recommencer ↺"
+    },
+    "quizDatabase": [
+      { "id": "qat-01", "correct": "أَسَد", "traps": ["اسَد","ئَسَد","ؤَسَد"], "audio": "audio/quiz-qat/asad.mp3", "fr": "Un lion", "es": "Un león" },
+      { "id": "qat-02", "correct": "إِبْرِيق", "traps": ["ابْرِيق","أَِبْرِيق","أُبْرِيق"], "audio": "audio/quiz-qat/ibriq.mp3", "fr": "Une cruche", "es": "Una jarra" },
+      { "id": "qat-03", "correct": "أُمّ", "traps": ["امّ","إِمّ","ئُمّ"], "audio": "audio/quiz-qat/umm.mp3", "fr": "Une mère", "es": "Una madre" },
+      { "id": "qat-04", "correct": "رَأْس", "traps": ["رَاس","رَؤْس","رَئْس"], "audio": "audio/quiz-qat/ras.mp3", "fr": "Une tête", "es": "Una cabeza" },
+      { "id": "qat-05", "correct": "كَأْس", "traps": ["كَاس","كَؤْس","كَئْس"], "audio": "audio/quiz-qat/kas.mp3", "fr": "Un verre", "es": "Un vaso" },
+      { "id": "qat-06", "correct": "بِئْر", "traps": ["بِأْر","بِؤْر","بِيْر"], "audio": "audio/quiz-qat/bir.mp3", "fr": "Un puits", "es": "Un pozo" },
+      { "id": "qat-07", "correct": "ذِئْب", "traps": ["ذِأْب","ذِؤْب","ذِيب"], "audio": "audio/quiz-qat/dhib.mp3", "fr": "Un loup", "es": "Un lobo" },
+      { "id": "qat-08", "correct": "فَأْس", "traps": ["فَاس","فَؤْس","فَئْس"], "audio": "audio/quiz-qat/fas.mp3", "fr": "Une hache", "es": "Un hacha" },
+      { "id": "qat-09", "correct": "مُؤْمِن", "traps": ["مُأْمِن","مُئْمِن","مُومِن"], "audio": "audio/quiz-qat/mumin.mp3", "fr": "Un croyant", "es": "Un creyente" },
+      { "id": "qat-10", "correct": "سُؤَال", "traps": ["سُأَال","سُئَال","سُوَال"], "audio": "audio/quiz-qat/sual.mp3", "fr": "Une question", "es": "Una pregunta" },
+      { "id": "qat-11", "correct": "مَاء", "traps": ["مَأ","مَئ","مَؤ"], "audio": "audio/quiz-qat/ma.mp3", "fr": "De l'eau", "es": "Agua" },
+      { "id": "qat-12", "correct": "سَمَاء", "traps": ["سَمَأ","سَمَئ","سَمَؤ"], "audio": "audio/quiz-qat/sama.mp3", "fr": "Un ciel", "es": "Un cielo" },
+      { "id": "qat-13", "correct": "شَيْء", "traps": ["شَيْأ","شَيْئ","شَيْؤ"], "audio": "audio/quiz-qat/shay.mp3", "fr": "Une chose", "es": "Una cosa" },
+      { "id": "qat-14", "correct": "قَرَأَ", "traps": ["قَرَءَ","قَرَئَ","قَرَؤَ"], "audio": "audio/quiz-qat/qaraa.mp3", "fr": "Il a lu", "es": "Él leyó" },
+      { "id": "qat-15", "correct": "بَدَأَ", "traps": ["بَدَءَ","بَدَئَ","بَدَؤَ"], "audio": "audio/quiz-qat/badaa.mp3", "fr": "Il a commencé", "es": "Él empezó" },
+      { "id": "qat-16", "correct": "يَأْكُل", "traps": ["يَئْكُل","يَؤْكُل","يَاكُل"], "audio": "audio/quiz-qat/yakul.mp3", "fr": "Il mange", "es": "Él come" },
+      { "id": "qat-17", "correct": "مُؤَسَّسَة", "traps": ["مُأَسَّسَة","مُئَسَّسَة","مُوسَّسَة"], "audio": "audio/quiz-qat/muassasa.mp3", "fr": "Une institution", "es": "Una institución" },
+      { "id": "qat-18", "correct": "أَرْنَب", "traps": ["ارْنَب","إِرْنَب","أُرْنَب"], "audio": "audio/quiz-qat/arnab.mp3", "fr": "Un lapin", "es": "Un conejo" },
+      { "id": "qat-19", "correct": "إِسْلَام", "traps": ["اسْلَام","أَسْلَام","أُسْلَام"], "audio": "audio/quiz-qat/islam.mp3", "fr": "L'Islam", "es": "El Islam" },
+      { "id": "qat-20", "correct": "أُسْرَة", "traps": ["اسْرَة","إِسْرَة","أَسْرَة"], "audio": "audio/quiz-qat/usra.mp3", "fr": "Une famille", "es": "Una familia" },
+      { "id": "qat-21", "correct": "مَسَاء", "traps": ["مَسَأ","مَسَئ","مَسَؤ"], "audio": "audio/quiz-qat/masa.mp3", "fr": "Le soir", "es": "La tarde" },
+      { "id": "qat-22", "correct": "شَاطِئ", "traps": ["شَاطِأ","شَاطِؤ","شَاطِء"], "audio": "audio/quiz-qat/shati.mp3", "fr": "Une plage", "es": "Una playa" },
+      { "id": "qat-23", "correct": "قَارِئ", "traps": ["قَارِأ","قَارِؤ","قَارِء"], "audio": "audio/quiz-qat/qari.mp3", "fr": "Un lecteur", "es": "Un lector" },
+      { "id": "qat-24", "correct": "دِفْء", "traps": ["دِفْأ","دِفْئ","دِفْؤ"], "audio": "audio/quiz-qat/dif.mp3", "fr": "La chaleur", "es": "El calor" },
+      { "id": "qat-25", "correct": "بُطْء", "traps": ["بُطْأ","بُطْئ","بُطْؤ"], "audio": "audio/quiz-qat/but.mp3", "fr": "La lenteur", "es": "La lentitud" },
+      { "id": "qat-26", "correct": "رُؤْيَة", "traps": ["رُأْيَة","رُئْيَة","رُويَة"], "audio": "audio/quiz-qat/ruya.mp3", "fr": "Une vision", "es": "Una visión" },
+      { "id": "qat-27", "correct": "فَأْر", "traps": ["فَؤْر","فَئْر","فَار"], "audio": "audio/quiz-qat/far.mp3", "fr": "Une souris", "es": "Un ratón" },
+      { "id": "qat-28", "correct": "مِئْذَنَة", "traps": ["مِأْذَنَة","مِؤْذَنَة","مِيذَنَة"], "audio": "audio/quiz-qat/midhana.mp3", "fr": "Un minaret", "es": "Un minarete" },
+      { "id": "qat-29", "correct": "رِئَة", "traps": ["رِأَة","رِؤَة","رِيَة"], "audio": "audio/quiz-qat/ria.mp3", "fr": "Un poumon", "es": "Un pulmón" },
+      { "id": "qat-30", "correct": "يَقْرَأُ", "traps": ["يَقْرَءُ","يَقْرَئُ","يَقْرَؤُ"], "audio": "audio/quiz-qat/yaqrau.mp3", "fr": "Il lit", "es": "Él lee" }
+    ]
+  }
+  </script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DATA = JSON.parse(document.getElementById("app-data").textContent);
+      const $ = (id) => document.getElementById(id);
+
+      const DOM = {
+        title: document.querySelector("title"),
+        views: {
+          welcome: $("view-welcome"),
+          quiz: $("view-quiz"),
+          certificate: $("view-certificate")
+        },
+        playerName: $("player-name"),
+        btnStartQuiz: $("btn-start-quiz"),
+        btnPlayAudio: $("btn-play-audio"),
+        btnPrint: $("btn-print"),
+        btnRestart: $("btn-restart"),
+        btnHouseWelcome: $("btn-house-welcome"),
+        btnHouseCert: $("btn-house-cert"),
+        progressText: $("progress-text"),
+        progressFill: $("progress-fill"),
+        progressBar: $("progress-bar-accessibility"),
+        scoreLive: $("score-live"),
+        wordFr: $("word-fr"),
+        wordEs: $("word-es"),
+        optionsGrid: $("options-grid"),
+        certName: $("cert-name"),
+        certScore: $("cert-score"),
+        certDate: $("cert-date"),
+        ui: {
+          welcomeTitle: $("welcome-title"),
+          welcomeAppTitle: $("welcome-app-title"),
+          welcomeAppSubtitle: $("welcome-app-subtitle"),
+          welcomeSubtitleFr: $("welcome-subtitle-fr"),
+          welcomeSubtitleEs: $("welcome-subtitle-es"),
+          playerNameLabel: $("player-name-label"),
+          instructionText: $("instruction-text"),
+          certTitle: $("cert-title"),
+          certMsgFr: $("cert-msg-fr"),
+          certMsgEs: $("cert-msg-es"),
+          certScoreLabel: $("cert-score-label")
         }
+      };
 
-        function generateQuestions() {
-            questions = [];
-            let shuffledWords = [...qatData].sort(() => Math.random() - 0.5);
+      const Utils = {
+        shuffle(array) {
+          const arr = [...array];
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        },
 
-            shuffledWords.forEach(wordObj => {
-                let options = [wordObj.correct, ...wordObj.traps];
-                options = options.sort(() => Math.random() - 0.5); 
-                
-                questions.push({
-                    targetArabic: wordObj.correct,
-                    targetAudio: wordObj.audio,
-                    options: options,
-                    fr: wordObj.fr,
-                    es: wordObj.es
-                });
+        save(key, value) {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+          } catch (_) {}
+        },
+
+        load(key, fallback = "") {
+          try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+          } catch (_) {
+            return fallback;
+          }
+        },
+
+        vibrate(pattern) {
+          if (DATA.settings.enableVibration && navigator.vibrate) {
+            navigator.vibrate(pattern);
+          }
+        },
+
+        formatDateFr(date = new Date()) {
+          return date.toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+        },
+
+        sliceQuestions(array, count) {
+          return array.slice(0, Math.min(count, array.length));
+        }
+      };
+
+      const AudioController = {
+        player: new Audio(),
+        effectPlayer: new Audio(),
+        isUnlocked: false,
+
+        init() {
+          this.player.preload = "auto";
+          this.effectPlayer.preload = "auto";
+          this.player.playsInline = true;
+          this.effectPlayer.playsInline = true;
+          this.player.volume = 1;
+          this.effectPlayer.volume = 1;
+        },
+
+        async unlock() {
+          if (this.isUnlocked) return true;
+
+          try {
+            const warmup = DATA.settings.warmupAudio || DATA.settings.successAudio || "";
+            if (warmup) {
+              this.player.src = warmup;
+              this.effectPlayer.src = warmup;
+            }
+
+            this.player.muted = true;
+            this.effectPlayer.muted = true;
+
+            await this.player.play().catch(() => {});
+            this.player.pause();
+            this.player.currentTime = 0;
+
+            await this.effectPlayer.play().catch(() => {});
+            this.effectPlayer.pause();
+            this.effectPlayer.currentTime = 0;
+
+            this.player.muted = false;
+            this.effectPlayer.muted = false;
+            this.isUnlocked = true;
+            return true;
+          } catch (_) {
+            this.player.muted = false;
+            this.effectPlayer.muted = false;
+            return false;
+          }
+        },
+
+        async play(instance, src) {
+          if (!src || !instance) return false;
+
+          try {
+            instance.pause();
+            instance.currentTime = 0;
+            instance.src = src;
+            instance.load();
+            await instance.play();
+            return true;
+          } catch (err) {
+            console.warn("Audio non lu :", src, err);
+            return false;
+          }
+        },
+
+        playMain(src) {
+          return this.play(this.player, src);
+        },
+
+        playEffect(src) {
+          return this.play(this.effectPlayer, src);
+        },
+
+        pauseAll() {
+          this.player.pause();
+          this.effectPlayer.pause();
+        }
+      };
+
+      const PWAController = {
+        ensureManifest() {
+          if (document.querySelector('link[rel="manifest"]')) return;
+
+          const pwaMeta = DATA.meta.pwa;
+          if (!pwaMeta) return;
+
+          try {
+            const manifest = {
+              name: pwaMeta.appName || "Dar Al-Kalimah",
+              short_name: pwaMeta.shortName || "Kalicards",
+              start_url: pwaMeta.startUrl || "./",
+              display: pwaMeta.display || "standalone",
+              background_color: pwaMeta.backgroundColor || "#FAF6F0",
+              theme_color: pwaMeta.themeColor || "#5D1828",
+              icons: [
+                { src: pwaMeta.icon192 || "icon-192x192.png", sizes: "192x192", type: "image/png" },
+                { src: pwaMeta.icon512 || "icon-512x512.png", sizes: "512x512", type: "image/png" }
+              ]
+            };
+
+            const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+            const link = document.createElement("link");
+            link.rel = "manifest";
+            link.href = URL.createObjectURL(blob);
+            document.head.appendChild(link);
+          } catch (_) {}
+        }
+      };
+
+      const App = {
+        state: {
+          playerName: "Participant",
+          questions: [],
+          currentIndex: 0,
+          score: 0,
+          isProcessing: false
+        },
+
+        init() {
+          AudioController.init();
+          PWAController.ensureManifest();
+          this.applyStaticContent();
+          this.restorePlayerName();
+          this.bindEvents();
+        },
+
+        applyStaticContent() {
+          DOM.title.textContent = DATA.meta.pageTitle;
+          DOM.btnHouseWelcome.href = DATA.meta.homeHref;
+          DOM.btnHouseCert.href = DATA.meta.homeHref;
+
+          DOM.ui.welcomeTitle.textContent = DATA.ui.welcomeTitleAr;
+          DOM.ui.welcomeAppTitle.textContent = DATA.meta.appTitle;
+          DOM.ui.welcomeAppSubtitle.textContent = DATA.meta.appSubtitle;
+          DOM.ui.welcomeSubtitleFr.textContent = DATA.ui.welcomeSubtitleFr;
+          DOM.ui.welcomeSubtitleEs.textContent = DATA.ui.welcomeSubtitleEs;
+          DOM.ui.playerNameLabel.textContent = DATA.ui.playerLabel;
+          DOM.btnStartQuiz.innerHTML = DATA.ui.startButtonHtml;
+          DOM.ui.instructionText.innerHTML = `${DATA.ui.instructionFr}<br><small>${DATA.ui.instructionEs}</small>`;
+          DOM.ui.certTitle.textContent = DATA.ui.certificateTitle;
+          DOM.ui.certMsgFr.textContent = DATA.ui.certificateMessageFr;
+          DOM.ui.certMsgEs.textContent = DATA.ui.certificateMessageEs;
+          DOM.ui.certScoreLabel.textContent = DATA.ui.certificateScoreLabel;
+          DOM.btnPrint.textContent = DATA.ui.printButton;
+          DOM.btnRestart.textContent = DATA.ui.restartButton;
+        },
+
+        restorePlayerName() {
+          const saved = Utils.load(DATA.meta.storage.playerName, "");
+          if (saved) DOM.playerName.value = saved;
+        },
+
+        switchView(viewName) {
+          Object.values(DOM.views).forEach(view => view.classList.add("hidden"));
+          DOM.views[viewName].classList.remove("hidden");
+        },
+
+        buildQuestionsPayload() {
+          const source = DATA.settings.shuffleQuestions
+            ? Utils.shuffle(DATA.quizDatabase)
+            : [...DATA.quizDatabase];
+
+          const round = Utils.sliceQuestions(source, DATA.settings.questionsPerRound || source.length);
+
+          return round.map((item, index) => {
+            const pool = [item.correct, ...(Array.isArray(item.traps) ? item.traps : [])];
+            const options = DATA.settings.shuffleOptions ? Utils.shuffle(pool) : pool;
+
+            return {
+              id: item.id || `q-${index + 1}`,
+              targetArabic: item.correct,
+              targetAudio: item.audio || "",
+              options,
+              fr: item.fr || "",
+              es: item.es || ""
+            };
+          });
+        },
+
+        startQuiz() {
+          this.state.playerName = DOM.playerName.value.trim() || "Participant";
+          this.state.questions = this.buildQuestionsPayload();
+          this.state.currentIndex = 0;
+          this.state.score = 0;
+          this.state.isProcessing = false;
+
+          Utils.save(DATA.meta.storage.playerName, this.state.playerName);
+
+          AudioController.unlock().finally(() => {
+            this.switchView("quiz");
+            this.updateScoreLive();
+            this.renderQuestion();
+          });
+        },
+
+        restartQuiz() {
+          AudioController.pauseAll();
+          this.switchView("welcome");
+          DOM.playerName.focus();
+        },
+
+        renderQuestion() {
+          this.state.isProcessing = false;
+
+          const q = this.state.questions[this.state.currentIndex];
+          if (!q) return;
+
+          const total = this.state.questions.length || 1;
+          const pct = Math.round((this.state.currentIndex / total) * 100);
+
+          DOM.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+          DOM.progressFill.style.width = `${pct}%`;
+          DOM.progressBar.setAttribute("aria-valuenow", String(pct));
+
+          DOM.wordFr.textContent = q.fr;
+          DOM.wordEs.textContent = q.es;
+          DOM.optionsGrid.innerHTML = "";
+
+          q.options.forEach((arabicWord, idx) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-card ar-text";
+            btn.textContent = arabicWord;
+            btn.dataset.value = arabicWord;
+            btn.setAttribute("aria-label", `Option ${idx + 1}`);
+            btn.addEventListener("click", () => this.handleAnswer(arabicWord, btn, q));
+            DOM.optionsGrid.appendChild(btn);
+          });
+
+          if (DATA.settings.autoPlayQuestionAudio) {
+            setTimeout(() => this.playAudio(), DATA.settings.autoPlayDelay);
+          }
+        },
+
+        handleAnswer(selected, cardElement, q) {
+          if (this.state.isProcessing) return;
+          this.state.isProcessing = true;
+
+          const allCards = Array.from(DOM.optionsGrid.children);
+          allCards.forEach(card => {
+            card.disabled = true;
+            card.classList.add("disabled");
+          });
+
+          if (selected === q.targetArabic) {
+            this.state.score += 1;
+            cardElement.classList.add("correct");
+            this.updateScoreLive();
+            Utils.vibrate(40);
+          } else {
+            cardElement.classList.add("wrong");
+            Utils.vibrate(200);
+
+            allCards.forEach(card => {
+              if (card.dataset.value === q.targetArabic) {
+                card.classList.add("correct");
+              }
             });
-        }
+          }
 
-        function loadQuestion() {
-            isAnswerProcessing = false;
-            const currentQ = questions[currentQuestionIndex];
-            
-            document.getElementById('progress-text').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-            const progressPercent = (currentQuestionIndex / questions.length) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+          setTimeout(() => {
+            this.state.currentIndex += 1;
 
-            // Injection des traductions
-            document.getElementById('word-fr').innerText = currentQ.fr;
-            document.getElementById('word-es').innerText = currentQ.es;
-
-            const optionsGrid = document.getElementById('options-grid');
-            optionsGrid.innerHTML = "";
-
-            currentQ.options.forEach(arabicWord => {
-                const btn = document.createElement('div');
-                btn.className = 'option-card ar-text';
-                btn.innerText = arabicWord;
-                btn.onclick = () => handleAnswer(arabicWord, btn, currentQ.targetArabic);
-                optionsGrid.appendChild(btn);
-            });
-
-            setTimeout(() => { playCurrentQuestionAudio(); }, 400);
-        }
-
-        function handleAnswer(selectedArabic, cardElement, targetArabic) {
-            if (isAnswerProcessing) return;
-            isAnswerProcessing = true;
-            const allCards = document.getElementById('options-grid').children;
-
-            if (selectedArabic === targetArabic) {
-                score++;
-                cardElement.classList.add('correct');
+            if (this.state.currentIndex < this.state.questions.length) {
+              this.renderQuestion();
             } else {
-                cardElement.classList.add('wrong');
-                if (navigator.vibrate) navigator.vibrate(200);
-                for (let i = 0; i < allCards.length; i++) {
-                    if (allCards[i].innerText === targetArabic) {
-                        allCards[i].classList.add('correct');
-                    }
-                }
+              this.finishQuiz();
             }
+          }, DATA.settings.delayNextQuestion);
+        },
 
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) { loadQuestion(); } 
-                else { finishQuiz(); }
-            }, 1200);
-        }
+        playAudio() {
+          if (this.state.currentIndex >= this.state.questions.length) return;
+          const src = this.state.questions[this.state.currentIndex]?.targetAudio;
+          if (src) AudioController.playMain(src);
+        },
 
-        function playCurrentQuestionAudio() {
-            const currentQ = questions[currentQuestionIndex];
-            const audioPath = currentQ.targetAudio;
-            if (!audioPath || audioPath === "") return;
+        updateScoreLive() {
+          DOM.scoreLive.textContent = `✓ ${this.state.score}`;
+          DOM.scoreLive.classList.remove("bump");
+          void DOM.scoreLive.offsetWidth;
+          DOM.scoreLive.classList.add("bump");
+          setTimeout(() => DOM.scoreLive.classList.remove("bump"), 200);
+        },
 
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
-            let playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Lecture audio impossible :", error); });
+        finishQuiz() {
+          AudioController.pauseAll();
+          this.switchView("certificate");
+          DOM.progressFill.style.width = "100%";
+          DOM.progressBar.setAttribute("aria-valuenow", "100");
+          DOM.certName.textContent = this.state.playerName;
+          DOM.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+          DOM.certDate.textContent = `${DATA.ui.certificateDatePrefix} ${Utils.formatDateFr()}`;
+
+          if (DATA.meta.storage.lastScore) {
+            Utils.save(DATA.meta.storage.lastScore, {
+              score: this.state.score,
+              total: this.state.questions.length,
+              date: new Date().toISOString()
+            });
+          }
+
+          this.triggerSuccessEffects();
+        },
+
+        triggerSuccessEffects() {
+          const end = Date.now() + 3000;
+
+          (function frame() {
+            if (typeof confetti === "function") {
+              confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ["#C8A462", "#5D1828"]
+              });
+              confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ["#C8A462", "#5D1828"]
+              });
             }
-        }
+            if (Date.now() < end) requestAnimationFrame(frame);
+          })();
 
-        function finishQuiz() {
-            viewQuiz.classList.add('hidden');
-            viewCertificate.classList.remove('hidden');
-            document.getElementById('progress-fill').style.width = `100%`;
-            document.getElementById('cert-name').innerText = playerName;
-            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
-            
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            const dateStr = new Date().toLocaleDateString('fr-FR', options);
-            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
+          Utils.vibrate([80, 50, 120]);
 
-            triggerConfetti();
+          if (DATA.settings.enableCertificateAudio) {
+            AudioController.playEffect(DATA.settings.successAudio);
+          }
+        },
 
-            const mabrukAudio = new Audio("audio/mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
+        bindEvents() {
+          DOM.btnStartQuiz.addEventListener("click", () => this.startQuiz());
+          DOM.btnPlayAudio.addEventListener("click", () => this.playAudio());
+          DOM.btnPrint.addEventListener("click", () => window.print());
+          DOM.btnRestart.addEventListener("click", () => this.restartQuiz());
+
+          DOM.playerName.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              this.startQuiz();
             }
-        }
+          });
 
-        function triggerConfetti() {
-            const duration = 3000; const end = Date.now() + duration;
-            (function frame() {
-                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
-                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) AudioController.pauseAll();
+          });
         }
+      };
 
-        function restartQuiz() {
-            viewCertificate.classList.add('hidden');
-            viewWelcome.classList.remove('hidden');
-            nameInput.value = ""; 
-        }
-    </script>
+      document.addEventListener("DOMContentLoaded", () => App.init());
+      window.DarAlKalimahQuiz2Qat = App;
+    })();
+  </script>
 </body>
 </html>
