@@ -1,888 +1,2551 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalima - Ardoise Intelligente Premium</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>Dar Al-Kalimah - Ardoise Intelligente Premium</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="description" content="Dar Al-Kalimah - Ardoise Intelligente Premium | Analyse grammaticale, écriture, lexique et entraînement guidé." />
+  <meta name="theme-color" content="#5D1828" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dar Al-Kalimah" />
+  <meta name="format-detection" content="telephone=no" />
 
-    <style>
-        /* =========================================
-           LE COFFRE-FORT : VARIABLES PREMIUM
-           ========================================= */
-        :root {
-            --burgundy: #5D1828;
-            --burgundy-dark: #3a0f19;
-            --gold: #C8A462;
-            --gold-light: #dfc28b;
-            --white: #FFFFFF;
-            --bg-beige: #FAF6F0;
-            --text-dark: #2C3E50;
-            --text-muted: #7F8C8D;
-            --pos-noun: #5D1828;
-            --pos-verb: #C8A462;
-            --pos-particle: #2C3E50;
-            --shadow-elegant: 0 4px 15px rgba(93, 24, 40, 0.05);
-            --shadow-deep: 0 8px 25px rgba(93, 24, 40, 0.15);
-        }
+  <link rel="icon" type="image/png" href="icon-192x192.png" />
+  <link rel="apple-touch-icon" href="icon-192x192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  <style>
+    :root {
+      --burgundy: #5D1828;
+      --burgundy-dark: #3a0f19;
+      --gold: #C8A462;
+      --gold-light: #dfc28b;
+      --gold-soft: rgba(200, 164, 98, 0.18);
+      --white: #FFFFFF;
+      --bg-beige: #FAF6F0;
+      --bg-soft: #F7F0E8;
+      --text-dark: #2C3E50;
+      --text-muted: #7F8C8D;
+      --success: #2E7D32;
+      --success-bg: #E8F5E9;
+      --warning: #8D6E63;
+      --warning-bg: #FFF8E1;
+      --pos-noun: #5D1828;
+      --pos-verb: #C8A462;
+      --pos-particle: #2C3E50;
+      --pos-unknown: #B0BEC5;
 
-        body {
-            background-color: var(--bg-beige);
-            background-image: linear-gradient(135deg, var(--white) 0%, var(--bg-beige) 100%);
-            font-family: 'Montserrat', sans-serif;
-            padding: 30px 15px;
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+      --shadow-elegant: 0 8px 25px rgba(93, 24, 40, 0.05);
+      --shadow-deep: 0 18px 42px rgba(93, 24, 40, 0.14);
+      --shadow-card: 0 12px 30px rgba(93, 24, 40, 0.08);
 
-        .ar-text { font-family: "Noto Naskh Arabic", "Amiri", serif; direction: rtl; }
-        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
 
-        /* =========================================
-           HEADER
-           ========================================= */
-        .header-container {
-            background: var(--burgundy);
-            padding: 30px 20px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-deep);
-            width: 100%;
-            max-width: 1000px;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-        }
-        .btn-back-home {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-            max-width: calc(100% - 40px);
-        }
-        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
 
-        .brand-ar { font-size: 2.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.2; }
-        .brand-fr-es { font-size: 1.1rem; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 8px; }
-        .app-title { font-size: 1rem; color: #d09470; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
-        .trilingual-title {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            color: var(--white);
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-            border-top: 1px solid rgba(200,164,98,0.3);
-            padding-top: 15px;
-        }
+      --tap-size: 46px;
+      --content-max: 1120px;
+      --line-color: rgba(200, 164, 98, 0.32);
+    }
 
-        /* =========================================
-           SECTION MODULE
-           ========================================= */
-        .module-section {
-            background: var(--white);
-            border: 1px solid var(--gold-light);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 1000px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-elegant);
-        }
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--burgundy);
-            margin-bottom: 25px;
-            text-align: center;
-            border-bottom: 2px dashed var(--bg-beige);
-            padding-bottom: 15px;
-        }
-        .section-title-es { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; display: block; margin-top: 5px; font-style: italic; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        /* =========================================
-           ANALYSE GRAMMATICALE
-           ========================================= */
-        .analysis-input-group { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .analysis-input {
-            flex: 1;
-            min-width: 250px;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.4rem;
-            border: 2px solid var(--gold-light);
-            border-radius: 12px;
-            background: var(--bg-beige);
-            color: var(--burgundy);
-            outline: none;
-            transition: 0.3s;
-            font-family: "Noto Naskh Arabic", serif;
-            text-align: right;
-        }
-        .analysis-input:focus { border-color: var(--gold); background: var(--white); }
-        .btn-analyze {
-            background: var(--burgundy);
-            color: var(--white);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            transition: 0.3s;
-            min-width: 150px;
-        }
-        .btn-analyze:hover { background: var(--burgundy-dark); }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
-        .analysis-result { display: none; background: var(--bg-beige); border: 1px solid var(--gold); border-radius: 12px; padding: 25px; margin-top: 20px; }
-        .sentence-type {
-            text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--burgundy);
-            margin-bottom: 25px; background: var(--white); padding: 15px; border-radius: 8px;
-            border: 1px solid var(--gold-light); box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-        .sentence-type small { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 5px; }
+    body {
+      background:
+        radial-gradient(circle at top center, rgba(255,255,255,0.95), rgba(250,246,240,0.8) 35%, rgba(250,246,240,1) 100%);
+      background-color: var(--bg-beige);
+      color: var(--text-dark);
+      font-family: "Montserrat", system-ui, sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding:
+        calc(20px + var(--safe-top))
+        calc(12px + var(--safe-right))
+        calc(32px + var(--safe-bottom))
+        calc(12px + var(--safe-left));
+      overflow-x: hidden;
+    }
 
-        .tags-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; direction: rtl; }
-        .word-tag {
-            background: var(--white);
-            border: 2px solid var(--gold-light);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            min-width: 140px;
-            max-width: 100%;
-            position: relative;
-        }
-        .word-tag .word {
-            font-size: 2rem; font-weight: bold; color: var(--burgundy);
-            margin-bottom: 15px; display: block; font-family: "Noto Naskh Arabic", serif;
-            word-break: break-word;
-        }
-        .word-tag .pos {
-            font-size: 1.1rem; font-weight: 700; padding: 8px 15px; border-radius: 8px;
-            display: inline-block; color: white; letter-spacing: 1px;
-            font-family: "Noto Naskh Arabic", serif; margin-bottom: 10px;
-        }
-        .word-tag .pos-tr { font-size: 0.85rem; color: var(--text-muted); display: block; font-weight: 600; line-height: 1.4; }
+    button,
+    input,
+    select,
+    textarea,
+    a {
+      font: inherit;
+      touch-action: manipulation;
+    }
 
-        .pos-noun { background-color: var(--pos-noun); }
-        .pos-verb { background-color: var(--pos-verb); color: var(--burgundy-dark) !important; }
-        .pos-particle { background-color: var(--pos-particle); }
+    .ar-text {
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      direction: rtl;
+      unicode-bidi: isolate;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: "mark" 1, "mkmk" 1;
+      line-height: 1.7;
+    }
 
-        /* =========================================
-           MODE TOGGLE
-           ========================================= */
-        .mode-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .mode-btn {
-            background: var(--bg-beige);
-            border: 2px solid var(--gold-light);
-            color: var(--burgundy);
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .mode-btn.active { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); }
+    .latin-serif {
+      font-family: "Cinzel", Georgia, serif;
+    }
 
-        /* =========================================
-           SÉLECTEUR BANK
-           ========================================= */
-        .bank-selector-wrap { display: none; margin-bottom: 25px; text-align: center; }
-        .bank-select {
-            width: 100%;
-            max-width: 400px;
-            padding: 15px;
-            font-size: 1.2rem;
-            font-family: "Noto Naskh Arabic", serif;
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            background: var(--white);
-            color: var(--burgundy);
-            cursor: pointer;
-            outline: none;
-        }
+    .gold-mark {
+      color: var(--gold) !important;
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      font-weight: 700;
+    }
 
-        /* =========================================
-           SÉLECTEUR DE LETTRES
-           ========================================= */
-        .letters-selector { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 25px; }
-        .letter-btn {
-            background: var(--bg-beige);
-            border: 1px solid var(--gold-light);
-            color: var(--burgundy);
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            font-size: 1.6rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: "Noto Naskh Arabic", serif;
-            flex: 0 0 auto;
-        }
-        .letter-btn:hover, .letter-btn.active { background: var(--gold); color: var(--white); border-color: var(--gold); transform: translateY(-2px); }
+    .app-shell {
+      width: 100%;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-        /* =========================================
-           GUIDE D'ÉCRITURE & POSITIONS
-           ========================================= */
-        .stroke-guide-wrapper { display: none; flex-direction: column; gap: 20px; margin-bottom: 30px; }
-        .stroke-guide {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            background: var(--bg-beige);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px dashed var(--gold);
-            flex-wrap: wrap;
-        }
-        .stroke-guide-letter {
-            font-size: 6rem;
-            color: var(--burgundy);
-            font-family: "Noto Naskh Arabic", serif;
-            line-height: 1;
-            border-left: 2px solid var(--gold-light);
-            padding-left: 40px;
-            transition: transform 0.3s;
-        }
-        .stroke-guide-steps { text-align: right; flex: 1; min-width: 250px; }
-        .stroke-step { margin-bottom: 12px; }
-        .step-ar { font-weight: bold; color: var(--burgundy); font-size: 1.15rem; }
-        .step-fr-es {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-top: 3px;
-            word-break: break-word;
-        }
+    .header-container {
+      background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+      padding: 26px 18px 22px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-deep);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
 
-        /* =========================================
-           CARTES DE POSITIONS
-           ========================================= */
-        .forms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .form-card {
-            background: var(--white);
-            border: 1px solid var(--gold-light);
-            border-radius: 12px;
-            padding: 15px 10px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            min-width: 0;
-        }
-        .form-card .ar-form { font-size: 2.5rem; font-family: "Noto Naskh Arabic", serif; color: var(--burgundy); line-height: 1; margin-bottom: 10px; }
-        .form-card .la-form { font-size: 0.8rem; font-weight: 600; color: var(--gold); text-transform: uppercase; }
-        .form-card .la-form small { display: block; color: var(--text-muted); font-style: italic; font-weight: normal; text-transform: none; }
+    .header-container::before,
+    .header-container::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(200,164,98,0.18) 0%, rgba(200,164,98,0) 72%);
+      pointer-events: none;
+      z-index: -1;
+    }
 
-        /* =========================================
-           L'ARDOISE
-           ========================================= */
-        .slate-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .slate-title { font-size: 1.1rem; font-weight: 700; color: var(--burgundy); }
-        .slate-title span { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; font-style: italic; margin-top: 3px; }
+    .header-container::before {
+      width: 320px;
+      height: 320px;
+      top: -160px;
+      left: -100px;
+    }
 
-        .slate-controls { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn-slate {
-            background: var(--white);
-            border: 1px solid var(--gold);
-            color: var(--burgundy);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-slate:hover { background: var(--bg-beige); }
+    .header-container::after {
+      width: 280px;
+      height: 280px;
+      bottom: -140px;
+      right: -80px;
+    }
 
-        .slate-container {
-            width: 100%;
-            height: 350px;
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            background-color: var(--white);
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.05);
-            background-image: repeating-linear-gradient(transparent, transparent 48px, var(--bg-beige) 49px, var(--bg-beige) 50px);
-        }
+    .header-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
 
-        .slate-watermark {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: "Noto Naskh Arabic", serif;
-            color: var(--gold);
-            opacity: 0.15;
-            font-size: 12rem;
-            z-index: 1;
-            pointer-events: none;
-            user-select: none;
-            transition: transform 0.3s;
-            text-align: center;
-            padding: 0 12px;
-            overflow: hidden;
-        }
+    .btn-back-home,
+    .btn-header-ghost {
+      background: transparent;
+      border: 1px solid rgba(200, 164, 98, 0.75);
+      color: var(--gold);
+      padding: 9px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: var(--tap-size);
+      transition: 0.28s ease;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      box-shadow: none;
+    }
 
-        /* =========================================
-           FLÈCHES ANIMÉES
-           ========================================= */
-        .arrow-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-        .anim-arrow-horizontal {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            height: 50px;
-            opacity: 0.8;
-            max-width: calc(100% - 40px);
-        }
-        .anim-arrow-vertical {
-            position: absolute;
-            top: 50%;
-            right: 40px;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 200px;
-            opacity: 0.8;
-        }
-        .anim-arrow path {
-            fill: none; stroke: var(--burgundy); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round;
-            stroke-dasharray: 400; stroke-dashoffset: 400;
-            animation: drawArrow 2s ease-in-out infinite;
-        }
-        .anim-arrow polygon {
-            fill: var(--burgundy); opacity: 0;
-            animation: fadeArrowHead 2s ease-in-out infinite;
-        }
-        @keyframes drawArrow { 40%, 100% { stroke-dashoffset: 0; } }
-        @keyframes fadeArrowHead { 35% { opacity: 0; } 40%, 100% { opacity: 1; } }
+    .btn-back-home:hover,
+    .btn-back-home:focus-visible,
+    .btn-header-ghost:hover,
+    .btn-header-ghost:focus-visible {
+      background: rgba(200, 164, 98, 0.10);
+      color: #f7e7bf;
+      outline: none;
+      transform: translateY(-1px);
+    }
 
-        canvas.slate-canvas {
-            width: 100%; height: 100%;
-            cursor: crosshair;
-            touch-action: none;
-            position: relative;
-            z-index: 3;
-            background: transparent;
-            display: block;
-        }
+    .header-branding {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
 
-        /* =========================================
-           RESPONSIVE — TABLETTE (max-width: 768px)
-           ========================================= */
-        @media (max-width: 768px) {
-            body { padding: 20px 12px; }
+    .brand-ar {
+      color: var(--gold);
+      font-size: clamp(2rem, 7vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
 
-            .header-container {
-                padding: 22px 16px 24px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .btn-back-home {
-                position: static;
-                align-self: flex-start; /* Fixe le bouton sur la droite (start en RTL) */
-                margin-bottom: 14px;
-                width: fit-content;
-                font-size: 0.8rem;
-                padding: 8px 16px;
-            }
+    .brand-fr-es {
+      color: var(--gold-light);
+      font-size: clamp(0.85rem, 2vw, 1.08rem);
+      letter-spacing: 0.8px;
+    }
 
-            .brand-ar { font-size: 2.1rem; }
-            .brand-fr-es { font-size: 0.98rem; }
-            .app-title { font-size: 0.9rem; letter-spacing: 2px; }
-            .trilingual-title { font-size: 0.82rem; gap: 8px; }
+    .app-title {
+      color: #d6a983;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.86rem;
+    }
 
-            .module-section { padding: 22px 16px; margin-bottom: 22px; }
+    .trilingual-title {
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(200,164,98,0.24);
+      color: var(--white);
+      opacity: 0.95;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.86rem;
+      text-align: center;
+    }
 
-            .forms-grid { grid-template-columns: repeat(2, 1fr); }
+    .trilingual-title .sep {
+      color: rgba(200,164,98,0.8);
+      font-weight: 700;
+    }
 
-            .stroke-guide { flex-direction: column; text-align: center; gap: 22px; padding: 22px 16px; }
-            .stroke-guide-letter {
-                border-left: none;
-                border-bottom: 2px solid var(--gold-light);
-                padding-left: 0;
-                padding-bottom: 20px;
-                width: 100%;
-                font-size: 5rem;
-            }
-            .stroke-guide-steps { text-align: center; min-width: unset; width: 100%; }
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
 
-            .analysis-input-group { flex-direction: column; }
-            .analysis-input { min-width: 0; font-size: 1.25rem; }
-            .btn-analyze { width: 100%; }
+    .module-section {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.6);
+      border-radius: var(--radius-xl);
+      padding: 24px 16px;
+      box-shadow: var(--shadow-elegant);
+      position: relative;
+      overflow: hidden;
+    }
 
-            .word-tag { min-width: 120px; padding: 16px 12px; }
-            .word-tag .word { font-size: 1.7rem; }
-            .tags-container { gap: 12px; }
+    .module-section::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(200,164,98,0), rgba(200,164,98,0.55), rgba(200,164,98,0));
+      pointer-events: none;
+    }
 
-            .mode-btn { padding: 9px 18px; font-size: 0.9rem; }
+    .section-title {
+      text-align: center;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--burgundy);
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px dashed rgba(200,164,98,0.25);
+      line-height: 1.55;
+    }
 
-            .slate-container { height: 300px; }
+    .section-title-es {
+      display: block;
+      margin-top: 5px;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-style: italic;
+      font-weight: 500;
+    }
 
-            .anim-arrow-horizontal { width: 190px; height: 42px; bottom: 22px; }
-            .anim-arrow-vertical { width: 42px; height: 160px; right: 22px; }
-        }
+    .intro-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
 
-        /* =========================================
-           RESPONSIVE — MOBILE (max-width: 480px)
-           ========================================= */
-        @media (max-width: 480px) {
-            body { padding: 14px 10px; }
+    .intro-card {
+      background: linear-gradient(180deg, #fffdfb 0%, #faf6f0 100%);
+      border: 1px solid rgba(200,164,98,0.45);
+      border-radius: var(--radius-lg);
+      padding: 18px 14px;
+      box-shadow: 0 4px 14px rgba(93,24,40,0.04);
+    }
 
-            .header-container { border-radius: 12px; padding: 16px 12px 18px; margin-bottom: 18px; }
-            .btn-back-home { font-size: 0.74rem; padding: 7px 12px; gap: 6px; }
+    .intro-card-title {
+      color: var(--burgundy);
+      font-weight: 800;
+      margin-bottom: 10px;
+      font-size: 0.98rem;
+      line-height: 1.4;
+    }
 
-            .brand-ar { font-size: 1.8rem; }
-            .brand-fr-es { font-size: 0.82rem; letter-spacing: 0.3px; line-height: 1.4; }
-            .app-title { font-size: 0.78rem; letter-spacing: 1.5px; margin-bottom: 10px; }
-            .trilingual-title {
-                flex-direction: column;
-                gap: 4px;
-                font-size: 0.74rem;
-                padding-top: 10px;
-            }
+    .intro-card-body {
+      color: var(--text-dark);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
 
-            .module-section { padding: 16px 12px; border-radius: 12px; margin-bottom: 18px; }
-            .section-title { font-size: 1rem; margin-bottom: 18px; padding-bottom: 12px; }
-            .section-title-es { font-size: 0.78rem; }
+    .intro-card-body small {
+      display: block;
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
 
-            .analysis-input { font-size: 1.15rem; padding: 12px; }
-            .analysis-result { padding: 16px 12px; }
-            .btn-analyze { padding: 13px 18px; font-size: 0.92rem; }
+    .analysis-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
 
-            .sentence-type { font-size: 1.15rem; padding: 12px; margin-bottom: 18px; }
-            .tags-container { gap: 10px; }
+    .analysis-input {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      font-size: 1.25rem;
+      border: 2px solid rgba(200,164,98,0.6);
+      border-radius: var(--radius-md);
+      background: var(--bg-beige);
+      color: var(--burgundy);
+      outline: none;
+      transition: var(--transition-smooth);
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      text-align: right;
+    }
 
-            .word-tag {
-                min-width: unset;
-                width: calc(50% - 5px);
-                max-width: 160px;
-                padding: 12px 8px;
-            }
-            .word-tag .word { font-size: 1.45rem; margin-bottom: 10px; }
-            .word-tag .pos { font-size: 0.92rem; padding: 6px 10px; }
-            .word-tag .pos-tr { font-size: 0.76rem; }
+    .analysis-input:focus {
+      background: var(--white);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(200,164,98,0.15);
+    }
 
-            .mode-toggle { gap: 8px; }
-            .mode-btn { padding: 8px 14px; font-size: 0.8rem; }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-            .bank-select { max-width: 100%; padding: 12px; font-size: 1rem; }
+    .btn-primary,
+    .btn-secondary,
+    .btn-neutral {
+      min-height: var(--tap-size);
+      border-radius: 12px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
 
-            .letters-selector { gap: 7px; margin-bottom: 18px; }
-            .letter-btn { width: 42px; height: 42px; border-radius: 8px; font-size: 1.3rem; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+      color: var(--white);
+      border-color: var(--burgundy);
+      box-shadow: 0 8px 18px rgba(93,24,40,0.18);
+    }
 
-            .stroke-guide { padding: 18px 12px; gap: 18px; }
-            .stroke-guide-letter { font-size: 4rem; padding-bottom: 14px; }
-            .step-ar { font-size: 1rem; }
-            .step-fr-es { font-size: 0.78rem; }
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+      border-color: var(--gold);
+    }
 
-            .forms-grid { gap: 10px; }
-            .form-card { padding: 12px 6px; border-radius: 10px; }
-            .form-card .ar-form { font-size: 2rem; }
-            .form-card .la-form { font-size: 0.7rem; }
+    .btn-secondary {
+      background: var(--white);
+      color: var(--burgundy);
+      border-color: rgba(200,164,98,0.6);
+    }
 
-            .slate-header { flex-direction: column; align-items: stretch; }
-            .slate-title { font-size: 0.95rem; text-align: center; }
-            .slate-title span { font-size: 0.74rem; }
-            .slate-controls { justify-content: center; }
-            .btn-slate { padding: 8px 14px; font-size: 0.8rem; }
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+      background: var(--bg-beige);
+      outline: none;
+    }
 
-            .slate-container { height: 260px; border-radius: 10px; }
+    .btn-neutral {
+      background: var(--bg-soft);
+      color: var(--text-dark);
+      border-color: rgba(200,164,98,0.35);
+    }
 
-            .anim-arrow-horizontal { width: 150px; height: 34px; bottom: 18px; }
-            .anim-arrow-vertical { width: 34px; height: 130px; right: 16px; }
-        }
-    </style>
+    .btn-neutral:hover,
+    .btn-neutral:focus-visible {
+      background: #f4ece3;
+      outline: none;
+    }
+
+    .analysis-result {
+      display: none;
+      margin-top: 18px;
+      background: linear-gradient(180deg, rgba(250,246,240,0.9), rgba(255,255,255,0.95));
+      border: 1px solid rgba(200,164,98,0.7);
+      border-radius: var(--radius-lg);
+      padding: 18px 14px;
+    }
+
+    .sentence-type {
+      text-align: center;
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--burgundy);
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.55);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      line-height: 1.45;
+    }
+
+    .sentence-type small {
+      display: block;
+      margin-top: 6px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .analysis-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .meta-card {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.35);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .meta-label {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .meta-value {
+      color: var(--burgundy);
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      direction: rtl;
+    }
+
+    .word-tag {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.55);
+      border-top-width: 5px;
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      min-width: 132px;
+      max-width: 180px;
+      flex: 1 1 132px;
+      box-shadow: 0 4px 14px rgba(93,24,40,0.04);
+    }
+
+    .word-tag .word {
+      display: block;
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      margin-bottom: 10px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .word-tag .pos {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--white);
+      font-size: 0.98rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      min-width: 68px;
+    }
+
+    .word-tag .pos-tr {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .pos-noun { background-color: var(--pos-noun); }
+    .pos-verb { background-color: var(--pos-verb); color: var(--burgundy-dark) !important; }
+    .pos-particle { background-color: var(--pos-particle); }
+    .pos-unknown { background-color: var(--pos-unknown); color: #1f2d3d !important; }
+
+    .toolbar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .mode-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-btn {
+      background: var(--bg-beige);
+      border: 2px solid rgba(200,164,98,0.45);
+      color: var(--burgundy);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      min-height: var(--tap-size);
+      font-size: 0.88rem;
+    }
+
+    .mode-btn:hover,
+    .mode-btn:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .mode-btn.active {
+      background: var(--burgundy);
+      color: var(--white);
+      border-color: var(--burgundy);
+      box-shadow: 0 8px 18px rgba(93,24,40,0.16);
+    }
+
+    .quick-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip-btn {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.55);
+      color: var(--burgundy);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      min-height: 40px;
+    }
+
+    .chip-btn:hover,
+    .chip-btn:focus-visible {
+      background: var(--bg-beige);
+      outline: none;
+    }
+
+    .bank-selector-wrap {
+      display: none;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .bank-select {
+      width: 100%;
+      max-width: 420px;
+      min-height: 54px;
+      padding: 12px 14px;
+      font-size: 1.06rem;
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      border: 2px solid rgba(200,164,98,0.7);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--burgundy);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .bank-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(200,164,98,0.15);
+    }
+
+    .letters-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .letter-btn {
+      background: var(--bg-beige);
+      border: 1px solid rgba(200,164,98,0.5);
+      color: var(--burgundy);
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      flex: 0 0 auto;
+    }
+
+    .letter-btn:hover,
+    .letter-btn:focus-visible,
+    .letter-btn.active {
+      background: var(--gold);
+      color: var(--white);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .practice-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .guide-column,
+    .slate-column {
+      min-width: 0;
+    }
+
+    .stroke-guide-wrapper {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stroke-guide {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--bg-beige), #fffdfb);
+      border: 1px dashed rgba(200,164,98,0.9);
+      border-radius: var(--radius-lg);
+      padding: 20px 14px;
+    }
+
+    .stroke-guide-letter {
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      color: var(--burgundy);
+      font-size: clamp(4.4rem, 14vw, 7rem);
+      line-height: 1;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stroke-guide-steps {
+      width: 100%;
+      text-align: center;
+    }
+
+    .stroke-step {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.35);
+      border-radius: 12px;
+      padding: 14px 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .step-ar {
+      color: var(--burgundy);
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.8;
+    }
+
+    .step-fr-es {
+      margin-top: 7px;
+      color: var(--text-muted);
+      font-size: 0.79rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .forms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .form-card {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.42);
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      min-width: 0;
+    }
+
+    .ar-form {
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      font-size: 2.15rem;
+      color: var(--burgundy);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .la-form {
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 0.74rem;
+      letter-spacing: 0.5px;
+    }
+
+    .la-form small {
+      display: block;
+      margin-top: 4px;
+      color: var(--text-muted);
+      text-transform: none;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .prompt-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      background: linear-gradient(180deg, #fffdfb, #faf6f0);
+      border: 1px solid rgba(200,164,98,0.45);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .prompt-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 800;
+    }
+
+    .prompt-value {
+      color: var(--burgundy);
+      font-weight: 800;
+      line-height: 1.55;
+      font-size: 1rem;
+    }
+
+    .prompt-value .mini-note {
+      display: block;
+      margin-top: 4px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .slate-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .slate-title {
+      font-size: 1.03rem;
+      font-weight: 800;
+      color: var(--burgundy);
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .slate-title span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    .slate-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-slate {
+      background: var(--white);
+      border: 1px solid rgba(200,164,98,0.7);
+      color: var(--burgundy);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-slate:hover,
+    .btn-slate:focus-visible {
+      background: var(--bg-beige);
+      outline: none;
+    }
+
+    .slate-container {
+      width: 100%;
+      height: 280px;
+      border: 2px solid rgba(200,164,98,0.78);
+      border-radius: 14px;
+      background-color: var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 4px 15px rgba(0,0,0,0.05);
+      background-image:
+        linear-gradient(transparent, transparent),
+        repeating-linear-gradient(
+          transparent,
+          transparent 46px,
+          rgba(250,246,240,0.85) 47px,
+          rgba(250,246,240,0.85) 48px
+        );
+    }
+
+    .slate-watermark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      color: var(--gold);
+      opacity: 0.15;
+      font-size: 11rem;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      transition: transform 0.3s ease, font-size 0.3s ease;
+      padding: 0 10px;
+      overflow: hidden;
+      line-height: 1.1;
+    }
+
+    .arrow-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .anim-arrow-horizontal {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 46px;
+      opacity: 0.84;
+      max-width: calc(100% - 30px);
+    }
+
+    .anim-arrow-vertical {
+      position: absolute;
+      top: 50%;
+      right: 24px;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 170px;
+      opacity: 0.84;
+    }
+
+    .anim-arrow path {
+      fill: none;
+      stroke: var(--burgundy);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawArrow 2s ease-in-out infinite;
+    }
+
+    .anim-arrow polygon {
+      fill: var(--burgundy);
+      opacity: 0;
+      animation: fadeArrowHead 2s ease-in-out infinite;
+    }
+
+    @keyframes drawArrow {
+      40%, 100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes fadeArrowHead {
+      35% { opacity: 0; }
+      40%, 100% { opacity: 1; }
+    }
+
+    canvas.slate-canvas {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: transparent;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .challenge-card {
+      background: linear-gradient(180deg, #fffdfb, #faf6f0);
+      border: 1px solid rgba(200,164,98,0.48);
+      border-radius: 16px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .challenge-badge {
+      align-self: center;
+      background: var(--burgundy);
+      color: var(--white);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .challenge-word {
+      text-align: center;
+      font-family: "Noto Naskh Arabic", "Amiri", serif;
+      color: var(--burgundy);
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      line-height: 1.35;
+      font-weight: 700;
+      min-height: 54px;
+    }
+
+    .challenge-hint {
+      text-align: center;
+      color: var(--text-dark);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .challenge-hint small {
+      display: block;
+      margin-top: 5px;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.78rem;
+    }
+
+    .challenge-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .status-box {
+      margin-top: 14px;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      display: none;
+      text-align: center;
+      border: 1px solid transparent;
+    }
+
+    .status-box.success {
+      display: block;
+      background: var(--success-bg);
+      color: var(--success);
+      border-color: rgba(46,125,50,0.18);
+    }
+
+    .status-box.warning {
+      display: block;
+      background: var(--warning-bg);
+      color: var(--warning);
+      border-color: rgba(141,110,99,0.2);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      line-height: 1.6;
+      padding: 2px 8px 8px;
+    }
+
+    @media (min-width: 700px) {
+      .analysis-input-group {
+        flex-direction: row;
+        align-items: stretch;
+      }
+
+      .analysis-input {
+        flex: 1;
+      }
+
+      .action-row {
+        flex: 0 0 auto;
+      }
+
+      .intro-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .analysis-meta {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .forms-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .challenge-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 960px) {
+      .practice-layout {
+        grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .module-section {
+        padding: 28px 22px;
+      }
+
+      .slate-container {
+        height: 360px;
+      }
+
+      .toolbar-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .quick-actions {
+        justify-content: flex-end;
+      }
+
+      .mode-toggle {
+        justify-content: flex-start;
+      }
+
+      .challenge-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding:
+          calc(14px + var(--safe-top))
+          calc(10px + var(--safe-right))
+          calc(24px + var(--safe-bottom))
+          calc(10px + var(--safe-left));
+      }
+
+      .header-container {
+        padding: 18px 12px 16px;
+        border-radius: 18px;
+      }
+
+      .header-topbar {
+        margin-bottom: 14px;
+      }
+
+      .btn-back-home,
+      .btn-header-ghost {
+        padding: 8px 12px;
+        font-size: 0.76rem;
+      }
+
+      .brand-fr-es {
+        line-height: 1.45;
+      }
+
+      .app-title {
+        letter-spacing: 1.6px;
+      }
+
+      .trilingual-title {
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.74rem;
+      }
+
+      .trilingual-title .sep {
+        display: none;
+      }
+
+      .module-section {
+        padding: 18px 12px;
+        border-radius: 18px;
+      }
+
+      .section-title {
+        font-size: 1rem;
+      }
+
+      .analysis-input {
+        font-size: 1.12rem;
+        padding: 12px 14px;
+      }
+
+      .word-tag {
+        min-width: 0;
+        max-width: none;
+      }
+
+      .stroke-guide-letter {
+        font-size: 4.2rem;
+      }
+
+      .slate-container {
+        height: 250px;
+      }
+
+      .anim-arrow-horizontal {
+        width: 160px;
+        height: 34px;
+        bottom: 16px;
+      }
+
+      .anim-arrow-vertical {
+        width: 34px;
+        height: 128px;
+        right: 14px;
+      }
+
+      .slate-watermark {
+        font-size: 8rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app-shell">
 
-    <div class="header-container">
-        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-house"></i> القائمة / Menu</a>
-        
-        <div class="brand-ar ar-text">اللوح الذكي</div>
-        <div class="brand-fr-es serif-text">L'Ardoise Intelligente | La Pizarra Inteligente</div>
-        <div class="app-title serif-text">Dar Al-Kalima</div>
-        <div class="trilingual-title">
-            <span>تحليل وكتابة</span> | <span>Analyse & Écriture</span> | <span>Análisis & Escritura</span>
+    <header class="header-container">
+      <div class="header-topbar">
+        <a id="btn-back-home" href="index.html" class="btn-back-home">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+          <span>القائمة / Menu</span>
+        </a>
+
+        <button id="btn-install-hint" class="btn-header-ghost" type="button" aria-label="Informations PWA">
+          <i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
+          <span>App Ready</span>
+        </button>
+      </div>
+
+      <div class="header-branding">
+        <div id="brand-ar" class="brand-ar ar-text">اللوح الذكي</div>
+        <div id="brand-fr-es" class="brand-fr-es latin-serif">L'Ardoise Intelligente | La Pizarra Inteligente</div>
+        <div id="app-title" class="app-title latin-serif">Dar Al-Kalimah</div>
+      </div>
+
+      <div class="trilingual-title">
+        <span id="title-ar" class="ar-text">تحليل وكتابة</span>
+        <span class="sep">|</span>
+        <span id="title-fr">Analyse &amp; Écriture</span>
+        <span class="sep">|</span>
+        <span id="title-es">Análisis &amp; Escritura</span>
+      </div>
+    </header>
+
+    <section class="module-section" aria-labelledby="intro-title">
+      <h2 id="intro-title" class="section-title">
+        نظرة سريعة على الوحدة
+        <span class="section-title-es">Vue d’ensemble / Vista general</span>
+      </h2>
+
+      <div id="intro-cards" class="intro-cards"></div>
+    </section>
+
+    <section class="module-section" aria-labelledby="analysis-title">
+      <h2 id="analysis-title" class="section-title">
+        تحليل الجملة
+        <span class="section-title-es">Analyse de la phrase / Análisis de la frase</span>
+      </h2>
+
+      <div class="analysis-input-group">
+        <input
+          type="text"
+          id="sentence-input"
+          class="analysis-input"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="اكتب جملة هنا... (Ex: يشرب الولد الحليب)"
+          aria-label="Saisie de la phrase à analyser"
+        />
+
+        <div class="action-row">
+          <button id="btn-analyze" class="btn-primary" type="button">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span>تحليل / Analyser</span>
+          </button>
+          <button id="btn-fill-example" class="btn-secondary" type="button">
+            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+            <span>مثال / Exemple</span>
+          </button>
         </div>
-    </div>
+      </div>
 
-    <div class="module-section">
-        <div class="section-title">
-            تحليل الجملة <br>
-            <span class="section-title-es">Analyse de la phrase / Análisis de la frase</span>
+      <div id="analysis-result" class="analysis-result" aria-live="polite">
+        <div id="sentence-type" class="sentence-type"></div>
+        <div id="analysis-meta" class="analysis-meta"></div>
+        <div id="tags-container" class="tags-container"></div>
+        <div id="analysis-status" class="status-box"></div>
+      </div>
+    </section>
+
+    <section class="module-section" aria-labelledby="practice-title">
+      <h2 id="practice-title" class="section-title">
+        التدريب الموجّه
+        <span class="section-title-es">Entraînement guidé / Práctica guiada</span>
+      </h2>
+
+      <div class="toolbar-row">
+        <div class="mode-toggle" aria-label="Sélection du mode">
+          <button id="btn-mode-letters" class="mode-btn active" type="button">الحروف (Lettres)</button>
+          <button id="btn-mode-bank" class="mode-btn" type="button">الكلمات (Lexique)</button>
         </div>
 
-        <div class="analysis-input-group">
-            <input type="text" id="sentence-input" class="analysis-input" placeholder="اكتب جملة هنا... (Ex: يشرب الولد الحليب)">
-            <button class="btn-analyze" onclick="analyzeSentence()">تحليل / Analyser</button>
+        <div class="quick-actions">
+          <button id="btn-random-letter" class="chip-btn" type="button">حرف عشوائي</button>
+          <button id="btn-random-word" class="chip-btn" type="button">كلمة عشوائية</button>
+          <button id="btn-next-prompt" class="chip-btn" type="button">تحدي جديد</button>
         </div>
+      </div>
 
-        <div id="analysis-result" class="analysis-result">
-            <div id="sentence-type" class="sentence-type"></div>
-            <div id="tags-container" class="tags-container"></div>
-        </div>
-    </div>
+      <div id="letters-selector" class="letters-selector" dir="rtl"></div>
 
-    <div class="module-section">
-        <div class="section-title">
-            ترتيب الخطوط والتدريب <br>
-            <span class="section-title-es">Ordre des traits & Entraînement / Orden de los trazos & Práctica</span>
-        </div>
+      <div id="bank-selector-wrap" class="bank-selector-wrap">
+        <select id="bank-select" class="bank-select" aria-label="Choisir un mot du lexique">
+          <option value="">-- اختر كلمة / Choisir un mot --</option>
+        </select>
+      </div>
 
-        <div class="mode-toggle">
-            <button id="btn-mode-letters" class="mode-btn active" onclick="setMode('letters')">الحروف (Lettres)</button>
-            <button id="btn-mode-bank" class="mode-btn" onclick="setMode('bank')">الكلمات (Mots du Lexique)</button>
-        </div>
-
-        <div class="letters-selector" id="letters-selector" dir="rtl"></div>
-
-        <div class="bank-selector-wrap" id="bank-selector-wrap">
-            <select class="bank-select" id="bank-select" onchange="showBankWord(this.value)">
-                <option value="">-- اختر كلمة / Choisir un mot --</option>
-            </select>
-        </div>
-
-        <div id="stroke-guide-wrapper" class="stroke-guide-wrapper">
+      <div class="practice-layout">
+        <div class="guide-column">
+          <div id="stroke-guide-wrapper" class="stroke-guide-wrapper">
             <div class="stroke-guide">
-                <div id="guide-letter" class="stroke-guide-letter">ب</div>
-                <div id="guide-steps" class="stroke-guide-steps"></div>
+              <div id="guide-letter" class="stroke-guide-letter">ب</div>
+              <div id="guide-steps" class="stroke-guide-steps"></div>
             </div>
-            <div class="forms-grid" id="forms-grid"></div>
+
+            <div id="forms-grid" class="forms-grid"></div>
+          </div>
         </div>
 
-        <div class="slate-header">
+        <div class="slate-column">
+          <div id="prompt-card" class="prompt-card">
+            <div class="prompt-label">Prompt pédagogique</div>
+            <div id="prompt-value" class="prompt-value">
+              اختر حرفًا أو كلمة ثم اكتبها على اللوح.
+              <span class="mini-note">Choisis un élément puis entraîne-toi à l’écrire.</span>
+            </div>
+          </div>
+
+          <div class="slate-header">
             <div class="slate-title ar-text">
-                اكتب هنا <span>Écrire ici / Escribir aquí</span>
+              اكتب هنا
+              <span>Écrire ici / Escribir aquí</span>
             </div>
+
             <div class="slate-controls">
-                <button class="btn-slate" onclick="clearSlate()"><i class="fa-solid fa-eraser"></i> مسح / Effacer</button>
+              <button id="btn-replay-arrow" class="btn-slate" type="button">
+                <i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i>
+                <span>إعادة التوجيه</span>
+              </button>
+              <button id="btn-clear-slate" class="btn-slate" type="button">
+                <i class="fa-solid fa-eraser" aria-hidden="true"></i>
+                <span>مسح / Effacer</span>
+              </button>
             </div>
-        </div>
-        <div class="slate-container">
+          </div>
+
+          <div class="slate-container">
             <div id="slate-watermark" class="slate-watermark"></div>
             <div id="arrow-overlay" class="arrow-overlay"></div>
-            <canvas id="slate-canvas" class="slate-canvas"></canvas>
+            <canvas id="slate-canvas" class="slate-canvas" aria-label="Ardoise d’écriture"></canvas>
+          </div>
+
+          <div id="slate-status" class="status-box warning"></div>
         </div>
+      </div>
+    </section>
+
+    <section class="module-section" aria-labelledby="challenge-title">
+      <h2 id="challenge-title" class="section-title">
+        تحديات سريعة
+        <span class="section-title-es">Défis rapides / Desafíos rápidos</span>
+      </h2>
+
+      <div id="challenge-grid" class="challenge-grid"></div>
+    </section>
+
+    <div class="footer-note">
+      Structure prête pour données dynamiques, audio réutilisable, prompts rotatifs, logique modulaire, PWA et extension future vers quiz intelligent.
     </div>
+  </div>
 
-    <script>
-        // =========================================
-        // 1. MOTEUR D'ANALYSE GRAMMATICALE
-        // =========================================
+  <script id="app-data" type="application/json">
+  {
+    "meta": {
+      "pageTitle": "Dar Al-Kalimah - Ardoise Intelligente Premium",
+      "moduleId": "ardoise-intelligente-premium",
+      "homeHref": "index.html",
+      "brandAr": "اللوح الذكي",
+      "brandFrEs": "L'Ardoise Intelligente | La Pizarra Inteligente",
+      "appTitle": "Dar Al-Kalimah",
+      "titleAr": "تحليل وكتابة",
+      "titleFr": "Analyse & Écriture",
+      "titleEs": "Análisis & Escritura",
+      "storageKeys": {
+        "mode": "dak_ardoise_mode",
+        "selectedLetter": "dak_ardoise_letter",
+        "selectedWord": "dak_ardoise_word",
+        "lastSentence": "dak_ardoise_sentence",
+        "lastPrompt": "dak_ardoise_prompt"
+      },
+      "pwa": {
+        "appName": "Dar Al-Kalimah",
+        "shortName": "Kalimah",
+        "startUrl": "index.html",
+        "display": "standalone",
+        "backgroundColor": "#FAF6F0",
+        "themeColor": "#5D1828",
+        "icon192": "icon-192x192.png",
+        "icon512": "icon-512x512.png"
+      }
+    },
+    "ui": {
+      "analysisPlaceholder": "اكتب جملة هنا... (Ex: يشرب الولد الحليب)",
+      "installHint": "Ce module est prêt pour usage app / PWA.",
+      "sentenceTypes": {
+        "verbal": {
+          "ar": "جملة فعلية",
+          "fr": "Phrase verbale",
+          "es": "Frase verbal"
+        },
+        "nominal": {
+          "ar": "جملة اسمية",
+          "fr": "Phrase nominale",
+          "es": "Frase nominal"
+        }
+      },
+      "partsOfSpeech": {
+        "noun": { "ar": "اسم", "fr": "Nom", "es": "Sustantivo", "className": "pos-noun" },
+        "verb": { "ar": "فعل", "fr": "Verbe", "es": "Verbo", "className": "pos-verb" },
+        "particle": { "ar": "حرف", "fr": "Particule", "es": "Partícula", "className": "pos-particle" },
+        "unknown": { "ar": "غير محدد", "fr": "Indéterminé", "es": "Indeterminado", "className": "pos-unknown" }
+      },
+      "formLabels": [
+        { "fr": "Libre", "es": "Aislado" },
+        { "fr": "Début", "es": "Inicio" },
+        { "fr": "Milieu", "es": "Medio" },
+        { "fr": "Fin", "es": "Final" }
+      ]
+    },
+    "settings": {
+      "enableAudio": true,
+      "enableAnalysisExamples": true,
+      "enableCanvasPersistence": false,
+      "defaultMode": "letters",
+      "defaultLetter": "ا",
+      "randomChallengesCount": 3
+    },
+    "audioMap": {
+      "letter:ا": "",
+      "letter:ب": "",
+      "letter:ت": "",
+      "letter:ث": "",
+      "letter:ج": "",
+      "letter:ح": "",
+      "letter:خ": "",
+      "letter:د": "",
+      "letter:ذ": "",
+      "letter:ر": "",
+      "letter:ز": "",
+      "letter:س": "",
+      "letter:ش": "",
+      "letter:ص": "",
+      "letter:ض": "",
+      "letter:ط": "",
+      "letter:ظ": "",
+      "letter:ع": "",
+      "letter:غ": "",
+      "letter:ف": "",
+      "letter:ق": "",
+      "letter:ك": "",
+      "letter:ل": "",
+      "letter:م": "",
+      "letter:ن": "",
+      "letter:ه": "",
+      "letter:و": "",
+      "letter:ي": "",
+      "word:أَسَد": "",
+      "word:كَأْس": "",
+      "word:مَلْجَأ": ""
+    },
+    "introCards": [
+      {
+        "title": "ما وظيفة هذه الصفحة؟",
+        "bodyAr": "تساعدك هذه الصفحة على تحليل الجملة، التمييز بين الاسم والفعل والحرف، ثم الانتقال مباشرة إلى التدريب الكتابي على الحروف أو الكلمات.",
+        "bodyFrEs": "Cette page combine analyse grammaticale + entraînement d’écriture. / Esta página combina análisis gramatical + práctica de escritura."
+      },
+      {
+        "title": "كيف تستعملها؟",
+        "bodyAr": "ابدأ بجملة قصيرة، ثم جرّب حرفًا أو كلمة من البنك، واتبع اتجاه السهم على اللوح. بعد ذلك انتقل إلى التحديات السريعة في الأسفل.",
+        "bodyFrEs": "Commence par une phrase, puis entraîne-toi sur un lettre ou un mot. / Empieza con una frase y luego practica una letra o una palabra."
+      },
+      {
+        "title": "جاهزة للتطوير",
+        "bodyAr": "البنية هنا معدّة لإضافة قواعد بيانات، أصوات، بنك كلمات أكبر، تمارين ذكية، وتتبع تقدّم المتعلّم لاحقًا.",
+        "bodyFrEs": "Structure prête pour données dynamiques, audio et quiz futurs. / Estructura lista para datos dinámicos, audio y futuros cuestionarios."
+      }
+    ],
+    "analysisExamples": [
+      "يشرب الولد الحليب",
+      "الكتاب مفيد",
+      "كتب الطالب الدرس",
+      "في البيت نور"
+    ],
+    "particles": [
+      "في","من","إلى","على","عن","ب","ل","ك","و","أو","ثم","هل","لم","لن","أن","كي","حتى","يا","مع","هذا","هذه","ذلك","تلك","إذ","إذا"
+    ],
+    "knownVerbs": [
+      "كتب","ذهب","أكل","شرب","قرأ","لعب","نام","جلس","قام","قال","كان","درس","فهم","حفظ","عمل","رسم","فتح","نجح","صام",
+      "رجع","سمع","نظر","سجد","وقف","خرج","دخل","لبس","غسل","حمل","ركب","شرح","عرف","استخرج","استعمل","استغفر"
+    ],
+    "strokeData": {
+      "ا": {
+        "stepsAr": "١. ⬇️ خط عمودي من الأعلى إلى الأسفل",
+        "stepsFr": "1. ⬇️ Ligne verticale de haut en bas",
+        "stepsEs": "1. ⬇️ Línea vertical de arriba hacia abajo",
+        "direction": "vertical"
+      },
+      "ب": {
+        "stepsAr": "١. ⬅️ خط أفقي مقوس من اليمين إلى اليسار<br>٢. ⏺️ نقطة واحدة في الأسفل",
+        "stepsFr": "1. ⬅️ Courbe de droite à gauche<br>2. ⏺️ Un point en dessous",
+        "stepsEs": "1. ⬅️ Curva de derecha a izquierda<br>2. ⏺️ Un punto debajo",
+        "direction": "horizontal"
+      },
+      "ت": {
+        "stepsAr": "١. ⬅️ خط أفقي مقوس<br>٢. ⏺️⏺️ نقطتان في الأعلى",
+        "stepsFr": "1. ⬅️ Courbe de droite à gauche<br>2. ⏺️⏺️ Deux points au-dessus",
+        "stepsEs": "1. ⬅️ Curva<br>2. ⏺️⏺️ Dos puntos arriba",
+        "direction": "horizontal"
+      },
+      "ث": {
+        "stepsAr": "١. ⬅️ خط أفقي مقوس<br>٢. ⏺️⏺️⏺️ ثلاثة نقاط في الأعلى",
+        "stepsFr": "1. ⬅️ Courbe<br>2. ⏺️⏺️⏺️ Trois points",
+        "stepsEs": "1. ⬅️ Curva<br>2. ⏺️⏺️⏺️ Tres puntos",
+        "direction": "horizontal"
+      },
+      "ج": {
+        "stepsAr": "١. ➡️ بداية أفقية قصيرة<br>٢. ↩️ نصف دائرة للأسفل<br>٣. ⏺️ نقطة في الداخل أو الأسفل حسب الشكل",
+        "stepsFr": "1. ➡️ Départ horizontal<br>2. ↩️ Demi-cercle vers le bas<br>3. ⏺️ Point",
+        "stepsEs": "1. ➡️ Inicio horizontal<br>2. ↩️ Semicírculo hacia abajo<br>3. ⏺️ Punto",
+        "direction": "horizontal"
+      },
+      "ح": {
+        "stepsAr": "١. ➡️ بداية أفقية قصيرة<br>٢. ↩️ نصف دائرة للأسفل",
+        "stepsFr": "1. ➡️ Départ horizontal<br>2. ↩️ Demi-cercle",
+        "stepsEs": "1. ➡️ Inicio horizontal<br>2. ↩️ Semicírculo",
+        "direction": "horizontal"
+      },
+      "خ": {
+        "stepsAr": "١. ➡️ بداية أفقية قصيرة<br>٢. ↩️ نصف دائرة للأسفل<br>٣. ⏺️ نقطة في الأعلى",
+        "stepsFr": "1. ➡️ Départ horizontal<br>2. ↩️ Demi-cercle<br>3. ⏺️ Point au-dessus",
+        "stepsEs": "1. ➡️ Inicio horizontal<br>2. ↩️ Semicírculo<br>3. ⏺️ Punto arriba",
+        "direction": "horizontal"
+      },
+      "د": {
+        "stepsAr": "١. ↙️↘️ زاوية مفتوحة تميل إلى اليسار",
+        "stepsFr": "1. ↙️↘️ Angle ouvert vers la gauche",
+        "stepsEs": "1. ↙️↘️ Ángulo abierto hacia la izquierda",
+        "direction": "horizontal"
+      },
+      "ذ": {
+        "stepsAr": "١. ↙️↘️ زاوية مفتوحة<br>٢. ⏺️ نقطة في الأعلى",
+        "stepsFr": "1. ↙️↘️ Angle ouvert<br>2. ⏺️ Point au-dessus",
+        "stepsEs": "1. ↙️↘️ Ángulo abierto<br>2. ⏺️ Punto arriba",
+        "direction": "horizontal"
+      },
+      "ر": {
+        "stepsAr": "١. ⤵️ خط مقوس ينزل تحت السطر",
+        "stepsFr": "1. ⤵️ Courbe descendante sous la ligne",
+        "stepsEs": "1. ⤵️ Curva descendente",
+        "direction": "horizontal"
+      },
+      "ز": {
+        "stepsAr": "١. ⤵️ خط مقوس<br>٢. ⏺️ نقطة في الأعلى",
+        "stepsFr": "1. ⤵️ Courbe<br>2. ⏺️ Point",
+        "stepsEs": "1. ⤵️ Curva<br>2. ⏺️ Punto",
+        "direction": "horizontal"
+      },
+      "س": {
+        "stepsAr": "١. ⤵️⤵️ أسنان صغيرة متتابعة<br>٢. ↪️ امتداد مقوس",
+        "stepsFr": "1. ⤵️⤵️ Petites dents<br>2. ↪️ Extension courbe",
+        "stepsEs": "1. ⤵️⤵️ Dientes pequeños<br>2. ↪️ Extensión curva",
+        "direction": "horizontal"
+      },
+      "ش": {
+        "stepsAr": "١. ⤵️⤵️ أسنان صغيرة<br>٢. ↪️ امتداد مقوس<br>٣. ⏺️⏺️⏺️ ثلاثة نقاط",
+        "stepsFr": "1. ⤵️⤵️ Petites dents<br>2. ↪️ Extension courbe<br>3. ⏺️⏺️⏺️ Trois points",
+        "stepsEs": "1. ⤵️⤵️ Dientes pequeños<br>2. ↪️ Extensión curva<br>3. ⏺️⏺️⏺️ Tres puntos",
+        "direction": "horizontal"
+      },
+      "ص": {
+        "stepsAr": "١. ↖️➡️ حلقة بيضاوية<br>٢. ↪️ ذيل أو امتداد",
+        "stepsFr": "1. ↖️➡️ Boucle ovale<br>2. ↪️ Extension",
+        "stepsEs": "1. ↖️➡️ Bucle ovalado<br>2. ↪️ Extensión",
+        "direction": "horizontal"
+      },
+      "ض": {
+        "stepsAr": "١. ↖️➡️ حلقة بيضاوية<br>٢. ↪️ امتداد<br>٣. ⏺️ نقطة في الأعلى",
+        "stepsFr": "1. ↖️➡️ Boucle ovale<br>2. ↪️ Extension<br>3. ⏺️ Point au-dessus",
+        "stepsEs": "1. ↖️➡️ Bucle ovalado<br>2. ↪️ Extensión<br>3. ⏺️ Punto arriba",
+        "direction": "horizontal"
+      },
+      "ط": {
+        "stepsAr": "١. ↖️➡️ حلقة بيضاوية<br>٢. ⬇️ خط عمودي واضح",
+        "stepsFr": "1. ↖️➡️ Boucle ovale<br>2. ⬇️ Ligne verticale",
+        "stepsEs": "1. ↖️➡️ Bucle ovalado<br>2. ⬇️ Línea vertical",
+        "direction": "vertical"
+      },
+      "ظ": {
+        "stepsAr": "١. ↖️➡️ حلقة بيضاوية<br>٢. ⬇️ خط عمودي<br>٣. ⏺️ نقطة",
+        "stepsFr": "1. ↖️➡️ Boucle ovale<br>2. ⬇️ Ligne verticale<br>3. ⏺️ Point",
+        "stepsEs": "1. ↖️➡️ Bucle ovalado<br>2. ⬇️ Línea vertical<br>3. ⏺️ Punto",
+        "direction": "vertical"
+      },
+      "ع": {
+        "stepsAr": "١. ↩️ نصف دائرة صغيرة<br>٢. ↩️ نصف دائرة أكبر",
+        "stepsFr": "1. ↩️ Petit demi-cercle<br>2. ↩️ Demi-cercle plus large",
+        "stepsEs": "1. ↩️ Semicírculo pequeño<br>2. ↩️ Semicírculo más grande",
+        "direction": "horizontal"
+      },
+      "غ": {
+        "stepsAr": "١. ↩️ نصف دائرة صغيرة<br>٢. ↩️ نصف دائرة أكبر<br>٣. ⏺️ نقطة في الأعلى",
+        "stepsFr": "1. ↩️ Petit demi-cercle<br>2. ↩️ Grand demi-cercle<br>3. ⏺️ Point",
+        "stepsEs": "1. ↩️ Semicírculo pequeño<br>2. ↩️ Semicírculo grande<br>3. ⏺️ Punto",
+        "direction": "horizontal"
+      },
+      "ف": {
+        "stepsAr": "١. ↻ حلقة صغيرة<br>٢. ⬅️ امتداد أفقي مقوس<br>٣. ⏺️ نقطة",
+        "stepsFr": "1. ↻ Petite boucle<br>2. ⬅️ Extension courbe<br>3. ⏺️ Point",
+        "stepsEs": "1. ↻ Bucle pequeño<br>2. ⬅️ Extensión curva<br>3. ⏺️ Punto",
+        "direction": "horizontal"
+      },
+      "ق": {
+        "stepsAr": "١. ↻ حلقة صغيرة<br>٢. ↪️ امتداد واضح<br>٣. ⏺️⏺️ نقطتان في الأعلى",
+        "stepsFr": "1. ↻ Petite boucle<br>2. ↪️ Extension<br>3. ⏺️⏺️ Deux points",
+        "stepsEs": "1. ↻ Bucle pequeño<br>2. ↪️ Extensión<br>3. ⏺️⏺️ Dos puntos",
+        "direction": "horizontal"
+      },
+      "ك": {
+        "stepsAr": "١. ⬇️ خط عمودي<br>٢. ⬅️ امتداد أفقي<br>٣. ✍️ شكل داخلي صغير",
+        "stepsFr": "1. ⬇️ Ligne verticale<br>2. ⬅️ Extension horizontale<br>3. ✍️ Forme interne",
+        "stepsEs": "1. ⬇️ Línea vertical<br>2. ⬅️ Extensión horizontal<br>3. ✍️ Forma interna",
+        "direction": "vertical"
+      },
+      "ل": {
+        "stepsAr": "١. ⬇️ خط عمودي طويل ثم انحناء",
+        "stepsFr": "1. ⬇️ Ligne verticale longue puis courbe",
+        "stepsEs": "1. ⬇️ Línea vertical larga y luego curva",
+        "direction": "vertical"
+      },
+      "م": {
+        "stepsAr": "١. ↻ دائرة أو بداية مستديرة<br>٢. ⬇️ نزول خفيف أو امتداد",
+        "stepsFr": "1. ↻ Forme ronde<br>2. ⬇️ Descente légère",
+        "stepsEs": "1. ↻ Forma redonda<br>2. ⬇️ Descenso suave",
+        "direction": "horizontal"
+      },
+      "ن": {
+        "stepsAr": "١. ↪️ نصف دائرة تحت السطر<br>٢. ⏺️ نقطة واحدة",
+        "stepsFr": "1. ↪️ Demi-cercle sous la ligne<br>2. ⏺️ Un point",
+        "stepsEs": "1. ↪️ Semicírculo bajo la línea<br>2. ⏺️ Un punto",
+        "direction": "horizontal"
+      },
+      "ه": {
+        "stepsAr": "١. ↻ شكل دائري داخلي وخارجي بحسب الموضع",
+        "stepsFr": "1. ↻ Forme circulaire interne et externe selon la position",
+        "stepsEs": "1. ↻ Forma circular interna y externa según la posición",
+        "direction": "horizontal"
+      },
+      "و": {
+        "stepsAr": "١. ↻ بداية مستديرة<br>٢. ⤵️ نزول مقوس",
+        "stepsFr": "1. ↻ Départ arrondi<br>2. ⤵️ Courbe descendante",
+        "stepsEs": "1. ↻ Inicio redondeado<br>2. ⤵️ Curva descendente",
+        "direction": "horizontal"
+      },
+      "ي": {
+        "stepsAr": "١. ↪️ شكل مقوس ينزل تحت السطر<br>٢. ⏺️⏺️ نقطتان في الأسفل أو الأعلى حسب الموضع",
+        "stepsFr": "1. ↪️ Forme courbe sous la ligne<br>2. ⏺️⏺️ Deux points selon la position",
+        "stepsEs": "1. ↪️ Forma curva bajo la línea<br>2. ⏺️⏺️ Dos puntos según la posición",
+        "direction": "horizontal"
+      }
+    },
+    "letterForms": {
+      "ا": ["ا", "ا", "ـا", "ـا"],
+      "ب": ["ب", "بـ", "ـبـ", "ـب"],
+      "ت": ["ت", "تـ", "ـتـ", "ـت"],
+      "ث": ["ث", "ثـ", "ـثـ", "ـث"],
+      "ج": ["ج", "جـ", "ـجـ", "ـج"],
+      "ح": ["ح", "حـ", "ـحـ", "ـح"],
+      "خ": ["خ", "خـ", "ـخـ", "ـخ"],
+      "د": ["د", "د", "ـد", "ـد"],
+      "ذ": ["ذ", "ذ", "ـذ", "ـذ"],
+      "ر": ["ر", "ر", "ـر", "ـر"],
+      "ز": ["ز", "ز", "ـز", "ـز"],
+      "س": ["س", "سـ", "ـسـ", "ـس"],
+      "ش": ["ش", "شـ", "ـشـ", "ـش"],
+      "ص": ["ص", "صـ", "ـصـ", "ـص"],
+      "ض": ["ض", "ضـ", "ـضـ", "ـض"],
+      "ط": ["ط", "طـ", "ـطـ", "ـط"],
+      "ظ": ["ظ", "ظـ", "ـظـ", "ـظ"],
+      "ع": ["ع", "عـ", "ـعـ", "ـع"],
+      "غ": ["غ", "غـ", "ـغـ", "ـغ"],
+      "ف": ["ف", "فـ", "ـفـ", "ـف"],
+      "ق": ["ق", "قـ", "ـقـ", "ـق"],
+      "ك": ["ك", "كـ", "ـكـ", "ـك"],
+      "ل": ["ل", "لـ", "ـلـ", "ـل"],
+      "م": ["م", "مـ", "ـمـ", "ـم"],
+      "ن": ["ن", "نـ", "ـنـ", "ـن"],
+      "ه": ["ه", "هـ", "ـهـ", "ـه"],
+      "و": ["و", "و", "ـو", "ـو"],
+      "ي": ["ي", "يـ", "ـيـ", "ـي"]
+    },
+    "wordBank": [
+      "أَسَد","كَأْس","مَلْجَأ","بَاب","كَبِير","كِتَاب","تَمْر","بَيْت","ثَوْب","مَثَل","بَحَث","جَمَل","رَجُل","بُرْج","حَبْل",
+      "بَحْر","مِفْتَاح","خُبْز","نَخْل","مَطْبَخ","دُب","مَدْرَسَة","وَلَد","ذَهَب","هَذَا","لَذِيذ","وَرْدَة","قَمَر","زَيْت","مَوْزَة",
+      "سَمَك","مَسْجِد","دَرْس","شَمْس","مِشْمِش","عَرْش","صَبْر","بَصِير","نَص","ضَوْء","مَرِيض","أَرْض","طِين","مَطَر","قِط",
+      "ظِل","عَظِيم","حَظ","عَيْن","مَلْعَب","جَمْع","غَيْم","مَغْرِب","صِبْغ","فِيل","صَيْف","بَقَرَة","سُوق","مَكْتَبَة","لَبَن",
+      "قَلَم","جَبَل","مَاء","نَجْم","عِنَب","هِلَال","نَهْر","وَجْه","وَرْد","قَوْس","يَد","كُرْسِي"
+    ],
+    "practicePrompts": [
+      {
+        "mode": "letters",
+        "ar": "اكتب الحرف الكبير بوضوح ثلاث مرات على السطر.",
+        "fr": "Écris la lettre en grand et clairement trois fois.",
+        "es": "Escribe la letra grande y claramente tres veces."
+      },
+      {
+        "mode": "letters",
+        "ar": "تتبّع اتجاه السهم ثم أعد كتابة الحرف بدون النظر إلى النموذج.",
+        "fr": "Suis la direction puis réécris la lettre sans regarder le modèle.",
+        "es": "Sigue la dirección y luego vuelve a escribir la letra sin mirar el modelo."
+      },
+      {
+        "mode": "bank",
+        "ar": "اقرأ الكلمة ثم اكتبها كاملة مرة بطيئة ومرة أسرع.",
+        "fr": "Lis le mot puis écris-le une fois lentement et une fois plus vite.",
+        "es": "Lee la palabra y luego escríbela una vez despacio y otra más rápido."
+      },
+      {
+        "mode": "bank",
+        "ar": "قسّم الكلمة إلى حروف، ثم أعد كتابتها متصلة على اللوح.",
+        "fr": "Découpe le mot en lettres puis réécris-le connecté.",
+        "es": "Divide la palabra en letras y luego reescríbela conectada."
+      }
+    ],
+    "challengeCards": [
+      {
+        "type": "letter",
+        "badge": "Trace",
+        "word": "ب",
+        "ar": "اكتب الحرف ب في الأشكال الأربعة.",
+        "fr": "Écris la lettre ب dans les quatre positions.",
+        "es": "Escribe la letra ب en las cuatro posiciones."
+      },
+      {
+        "type": "word",
+        "badge": "Word",
+        "word": "كِتَاب",
+        "ar": "اقرأ الكلمة ثم اكتبها مرة واحدة دون نموذج.",
+        "fr": "Lis le mot puis écris-le une fois sans modèle.",
+        "es": "Lee la palabra y escríbela una vez sin modelo."
+      },
+      {
+        "type": "analysis",
+        "badge": "Analyse",
+        "word": "يشرب الولد الحليب",
+        "ar": "حدّد الفعل والاسم والحرف إن وُجد.",
+        "fr": "Repère le verbe, le nom et la particule s’il y en a une.",
+        "es": "Identifica el verbo, el sustantivo y la partícula si existe."
+      }
+    ]
+  }
+  </script>
 
-        function isVerb(word) {
-            const pastVerbs = ["كتب","ذهب","أكل","شرب","قرأ","لعب","نام","جلس","قام","قال","كان","درس","فهم","حفظ","عمل","رسم","فتح","نجح","صام"];
-            const imperativeShort = ["كل","خذ","قل","قم","نم","قف","دع","صل","بع","ضع","رد","عد"];
-            if (imperativeShort.includes(word)) return true;
-            if (pastVerbs.some(root => word.startsWith(root))) return true;
-            if (!word.startsWith("ال") && (word.startsWith("ي") || word.startsWith("ت") || word.startsWith("ن"))) {
-                if (word.length >= 3) return true;
-            }
-            if (word.startsWith("ا") && word.length >= 4 && !word.startsWith("ال")) return true;
+  <script>
+    (() => {
+      "use strict";
+
+      const DATA = JSON.parse(document.getElementById("app-data").textContent);
+      const $ = (id) => document.getElementById(id);
+
+      const DOM = {
+        btnBackHome: $("btn-back-home"),
+        btnInstallHint: $("btn-install-hint"),
+        brandAr: $("brand-ar"),
+        brandFrEs: $("brand-fr-es"),
+        appTitle: $("app-title"),
+        titleAr: $("title-ar"),
+        titleFr: $("title-fr"),
+        titleEs: $("title-es"),
+
+        introCards: $("intro-cards"),
+
+        sentenceInput: $("sentence-input"),
+        btnAnalyze: $("btn-analyze"),
+        btnFillExample: $("btn-fill-example"),
+        analysisResult: $("analysis-result"),
+        sentenceType: $("sentence-type"),
+        analysisMeta: $("analysis-meta"),
+        tagsContainer: $("tags-container"),
+        analysisStatus: $("analysis-status"),
+
+        btnModeLetters: $("btn-mode-letters"),
+        btnModeBank: $("btn-mode-bank"),
+        btnRandomLetter: $("btn-random-letter"),
+        btnRandomWord: $("btn-random-word"),
+        btnNextPrompt: $("btn-next-prompt"),
+
+        lettersSelector: $("letters-selector"),
+        bankSelectorWrap: $("bank-selector-wrap"),
+        bankSelect: $("bank-select"),
+
+        strokeGuideWrapper: $("stroke-guide-wrapper"),
+        guideLetter: $("guide-letter"),
+        guideSteps: $("guide-steps"),
+        formsGrid: $("forms-grid"),
+
+        promptValue: $("prompt-value"),
+
+        btnReplayArrow: $("btn-replay-arrow"),
+        btnClearSlate: $("btn-clear-slate"),
+        slateWatermark: $("slate-watermark"),
+        arrowOverlay: $("arrow-overlay"),
+        slateCanvas: $("slate-canvas"),
+        slateStatus: $("slate-status"),
+
+        challengeGrid: $("challenge-grid")
+      };
+
+      const Utils = {
+        save(key, value) {
+          try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) {}
+        },
+        load(key, fallback) {
+          try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+          } catch (_) {
+            return fallback;
+          }
+        },
+        sample(array) {
+          return array[Math.floor(Math.random() * array.length)];
+        },
+        shuffle(array) {
+          const arr = [...array];
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        },
+        stripDiacritics(word) {
+          return (word || "").replace(/[ًٌٍَُِّْـٰٕٓٔ،,.!?؟]/g, "");
+        },
+        countArabicWords(text) {
+          return text.trim().split(/\s+/).filter(Boolean).length;
+        },
+        countDetected(words, type) {
+          return words.filter(w => w.type === type).length;
+        },
+        setStatus(node, type, message) {
+          node.className = "status-box";
+          if (!message) {
+            node.textContent = "";
+            node.style.display = "none";
+            return;
+          }
+          node.classList.add(type);
+          node.textContent = message;
+          node.style.display = "block";
+        }
+      };
+
+      const AudioController = {
+        player: new Audio(),
+        currentBtn: null,
+        isUnlocked: false,
+
+        init() {
+          this.player.preload = "auto";
+          this.player.playsInline = true;
+          this.player.volume = 1;
+          this.player.addEventListener("ended", () => this.resetPlayingState());
+          this.player.addEventListener("pause", () => this.resetPlayingState());
+        },
+
+        async unlock() {
+          if (this.isUnlocked) return true;
+          try {
+            this.player.muted = true;
+            await this.player.play().catch(() => {});
+            this.player.pause();
+            this.player.currentTime = 0;
+            this.player.muted = false;
+            this.isUnlocked = true;
+            return true;
+          } catch (_) {
+            this.player.muted = false;
             return false;
+          }
+        },
+
+        async play(src, btn = null) {
+          if (!src || !DATA.settings.enableAudio) return false;
+          try {
+            await this.unlock();
+            this.resetPlayingState();
+            this.currentBtn = btn;
+            if (this.currentBtn) this.currentBtn.classList.add("is-playing");
+            this.player.pause();
+            this.player.currentTime = 0;
+            this.player.src = src;
+            this.player.load();
+            await this.player.play();
+            return true;
+          } catch (err) {
+            console.warn("Audio non lu :", src, err);
+            this.resetPlayingState();
+            return false;
+          }
+        },
+
+        pause() {
+          this.player.pause();
+          this.resetPlayingState();
+        },
+
+        resetPlayingState() {
+          if (this.currentBtn) {
+            this.currentBtn.classList.remove("is-playing");
+            this.currentBtn = null;
+          }
         }
+      };
 
-        const commonParticles = ["في","من","إلى","على","عن","ب","ل","ك","و","أو","ثم","هل","لم","لن","أن","كي","حتى","يا"];
+      const PWAController = {
+        ensureManifest() {
+          if (document.querySelector('link[rel="manifest"]')) return;
+          const pwa = DATA.meta.pwa;
+          if (!pwa) return;
 
-        function analyzeSentence() {
-            const input = document.getElementById('sentence-input').value.trim();
-            if (!input) return;
-            const resultBox = document.getElementById('analysis-result');
-            const typeBox   = document.getElementById('sentence-type');
-            const tagsCont  = document.getElementById('tags-container');
-            resultBox.style.display = 'block';
-            tagsCont.innerHTML = '';
-            const words = input.split(/\s+/);
-            if (!words.length) return;
-            const firstWordClean = words[0].replace(/[ًٌٍَُِّْ.,!؟]/g, "");
-            typeBox.innerHTML = isVerb(firstWordClean)
-                ? `جملة فعلية <small>Phrase verbale / Frase verbal</small>`
-                : `جملة اسمية <small>Phrase nominale / Frase nominal</small>`;
-            words.forEach(w => {
-                const clean = w.replace(/[ًٌٍَُِّْ.,!؟]/g, "");
-                let posClass = "pos-noun", posAr = "اسم", posFr = "Nom", posEs = "Sustantivo";
-                if (commonParticles.includes(clean) || (clean.length === 1 && !isVerb(firstWordClean))) {
-                    posClass = "pos-particle"; posAr = "حرف"; posFr = "Particule"; posEs = "Partícula";
-                } else if (isVerb(clean)) {
-                    posClass = "pos-verb"; posAr = "فعل"; posFr = "Verbe"; posEs = "Verbo";
-                }
-                tagsCont.insertAdjacentHTML('beforeend', `
-                    <div class="word-tag" style="border-top: 5px solid var(--${posClass});">
-                        <span class="word">${w}</span>
-                        <span class="pos ${posClass} ar-text">${posAr}</span>
-                        <span class="pos-tr">${posFr}<br>${posEs}</span>
-                    </div>`);
-            });
+          try {
+            const manifest = {
+              name: pwa.appName,
+              short_name: pwa.shortName,
+              start_url: pwa.startUrl,
+              display: pwa.display,
+              background_color: pwa.backgroundColor,
+              theme_color: pwa.themeColor,
+              icons: [
+                { src: pwa.icon192, sizes: "192x192", type: "image/png" },
+                { src: pwa.icon512, sizes: "512x512", type: "image/png" }
+              ]
+            };
+
+            const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+            const link = document.createElement("link");
+            link.rel = "manifest";
+            link.href = URL.createObjectURL(blob);
+            document.head.appendChild(link);
+          } catch (_) {}
         }
+      };
 
-        // =========================================
-        // 2. DICTIONNAIRES
-        // =========================================
+      const AnalysisEngine = {
+        isParticle(word) {
+          return DATA.particles.includes(word);
+        },
 
-        const strokeData = {
-            "ا": { ar: "١. ⬇️ خط عمودي من الأعلى للأسفل", fr: "1. ⬇️ Ligne verticale de haut en bas", es: "1. ⬇️ Línea vertical de arriba a abajo" },
-            "ب": { ar: "١. ⬇️⬅️ خط مقوس<br>٢. ⏺️ نقطة في الأسفل", fr: "1. ⬇️⬅️ Courbe de droite à gauche<br>2. ⏺️ Un point en dessous", es: "1. ⬇️⬅️ Curva de derecha a izquierda<br>2. ⏺️ Un punto debajo" },
-            "ت": { ar: "١. ⬇️⬅️ خط مقوس<br>٢. ⏺️⏺️ نقطتان في الأعلى", fr: "1. ⬇️⬅️ Courbe de droite à gauche<br>2. ⏺️⏺️ Deux points au-dessus", es: "1. ⬇️⬅️ Curva<br>2. ⏺️⏺️ Dos puntos arriba" },
-            "ث": { ar: "١. ⬇️⬅️ خط مقوس<br>٢. ⏺️⏺️⏺️ ثلاثة نقاط", fr: "1. ⬇️⬅️ Courbe<br>2. ⏺️⏺️⏺️ Trois points", es: "1. ⬇️⬅️ Curva<br>2. ⏺️⏺️⏺️ Tres puntos" },
-            "ج": { ar: "١. ➡️ خط أفقي<br>٢. ↩️ نصف دائرة للأسفل<br>٣. ⏺️ نقطة", fr: "1. ➡️ Ligne horizontale<br>2. ↩️ Demi-cercle<br>3. ⏺️ Point", es: "1. ➡️ Línea<br>2. ↩️ Semicírculo<br>3. ⏺️ Punto" },
-            "ح": { ar: "١. ➡️ خط أفقي<br>٢. ↩️ نصف دائرة للأسفل", fr: "1. ➡️ Ligne horizontale<br>2. ↩️ Demi-cercle", es: "1. ➡️ Línea<br>2. ↩️ Semicírculo" },
-            "خ": { ar: "١. ➡️ خط أفقي<br>٢. ↩️ نصف دائرة<br>٣. ⏺️ نقطة في الأعلى", fr: "1. ➡️ Ligne<br>2. ↩️ Demi-cercle<br>3. ⏺️ Point", es: "1. ➡️ Línea<br>2. ↩️ Semicírculo<br>3. ⏺️ Punto" },
-            "د": { ar: "١. ↙️↘️ زاوية مفتوحة لليسار", fr: "1. ↙️↘️ Angle ouvert vers la gauche", es: "1. ↙️↘️ Ángulo abierto" },
-            "ذ": { ar: "١. ↙️↘️ زاوية مفتوحة<br>٢. ⏺️ نقطة", fr: "1. ↙️↘️ Angle ouvert<br>2. ⏺️ Point", es: "1. ↙️↘️ Ángulo<br>2. ⏺️ Punto" },
-            "ر": { ar: "١. ⤵️ خط مقوس ينزل تحت السطر", fr: "1. ⤵️ Courbe plongeant sous la ligne", es: "1. ⤵️ Curva descendente" },
-            "ز": { ar: "١. ⤵️ خط مقوس<br>٢. ⏺️ نقطة", fr: "1. ⤵️ Courbe<br>2. ⏺️ Point", es: "1. ⤵️ Curva<br>2. ⏺️ Punto" },
-            "س": { ar: "١. ⤵️⤵️ سنتان صغيرتان<br>٢. ↪️ نصف دائرة تحت السطر", fr: "1. ⤵️⤵️ Deux petites dents<br>2. ↪️ Grand demi-cercle", es: "1. ⤵️⤵️ Dos dientes<br>2. ↪️ Semicírculo" },
-            "ش": { ar: "١. ⤵️⤵️ سنتان<br>٢. ↪️ نصف دائرة<br>٣. ⏺️⏺️⏺️ ثلاثة نقاط", fr: "1. ⤵️⤵️ Deux dents<br>2. ↪️ Demi-cercle<br>3. ⏺️⏺️⏺️ Trois points", es: "1. ⤵️⤵️ Dos dientes<br>2. ↪️ Semicírculo<br>3. ⏺️⏺️⏺️ Tres puntos" },
-            "ص": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ↪️ نصف دائرة", fr: "1. ↖️➡️ Boucle ovale<br>2. ↪️ Demi-cercle", es: "1. ↖️➡️ Bucle ovalado<br>2. ↪️ Semicírculo" },
-            "ض": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ↪️ نصف دائرة<br>٣. ⏺️ نقطة", fr: "1. ↖️➡️ Boucle ovale<br>2. ↪️ Demi-cercle<br>3. ⏺️ Point", es: "1. ↖️➡️ Bucle<br>2. ↪️ Semicírculo<br>3. ⏺️ Punto" },
-            "ط": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ⬇️ خط عمودي", fr: "1. ↖️➡️ Boucle ovale<br>2. ⬇️ Ligne verticale", es: "1. ↖️➡️ Bucle<br>2. ⬇️ Línea vertical" },
-            "ظ": { ar: "١. ↖️➡️ حلقة بيضاوية<br>٢. ⬇️ خط عمودي<br>٣. ⏺️ نقطة", fr: "1. ↖️➡️ Boucle<br>2. ⬇️ Ligne verticale<br>3. ⏺️ Point", es: "1. ↖️➡️ Bucle<br>2. ⬇️ Línea<br>3. ⏺️ Punto" },
-            "ع": { ar: "١. ↩️ نصف دائرة صغيرة<br>٢. ↩️ نصف دائرة كبيرة", fr: "1. ↩️ Petit demi-cercle<br>2. ↩️ Grand demi-cercle", es: "1. ↩️ Pequeño semicírculo<br>2. ↩️ Gran semicírculo" },
-            "غ": { ar: "١. ↩️ نصف دائرة صغيرة<br>٢. ↩️ نصف دائرة كبيرة<br>٣. ⏺️ نقطة", fr: "1. ↩️ Petit demi-cercle<br>2. ↩️ Grand demi-cercle<br>3. ⏺️ Point", es: "1. ↩️ Pequeño<br>2. ↩️ Grande<br>3. ⏺️ Punto" },
-            "ف": { ar: "١. ↻ دائرة صغيرة<br>٢. ⬇️⬅️ خط أفقي مقوس<br>٣. ⏺️ نقطة", fr: "1. ↻ Petit cercle<br>2. ⬇️⬅️ Courbe<br>3. ⏺️ Point", es: "1. ↻ Círculo<br>2. ⬇️⬅️ Curva<br>3. ⏺️ Punto" },
-            "ق": { ar: "١. ↻ دائرة صغيرة<br>٢. ↪️ نصف دائرة<br>٣. ⏺️⏺️ نقطتان", fr: "1. ↻ Petit cercle<br>2. ↪️ Demi-cercle<br>3. ⏺️⏺️ Deux points", es: "1. ↻ Círculo<br>2. ↪️ Semicírculo<br>3. ⏺️⏺️ Dos puntos" },
-            "ك": { ar: "١. ⬇️⬅️ خط عمودي ثم أفقي<br>٢. ✍️ همزة صغيرة", fr: "1. ⬇️⬅️ Ligne verticale puis horizontale<br>2. ✍️ Petite Hamza", es: "1. ⬇️⬅️ Línea vertical<br>2. ✍️ Pequeña Hamza" },
-            "ل": { ar: "١. ⬇️↪️ خط عمودي يشكل نصف دائرة", fr: "1. ⬇️↪️ Ligne verticale formant un demi-cercle", es: "1. ⬇️↪️ Línea + semicírculo" },
-            "م": { ar: "١. ↻ دائرة صغيرة<br>٢. ⬇️ خط ينزل للأسفل", fr: "1. ↻ Petit cercle<br>2. ⬇️ Ligne descendante", es: "1. ↻ Círculo<br>2. ⬇️ Línea" },
-            "ن": { ar: "١. ↪️ نصف دائرة تحت السطر<br>٢. ⏺️ نقطة في الوسط", fr: "1. ↪️ Demi-cercle sous la ligne<br>2. ⏺️ Point au milieu", es: "1. ↪️ Semicírculo<br>2. ⏺️ Punto" },
-            "ه": { ar: "١. ↻ دائرة داخلها دائرة صغيرة", fr: "1. ↻ Boucle avec petite boucle intérieure", es: "1. ↻ Bucle con bucle interior" },
-            "و": { ar: "١. ↻ دائرة صغيرة<br>٢. ⤵️ خط مقوس ينزل للأسفل", fr: "1. ↻ Boucle<br>2. ⤵️ Courbe plongeante", es: "1. ↻ Bucle<br>2. ⤵️ Curva" },
-            "ي": { ar: "١. ↪️ شكل مقوس ينزل تحت السطر<br>٢. ⏺️⏺️ نقطتان", fr: "1. ↪️ Forme courbée sous la ligne<br>2. ⏺️⏺️ Deux points", es: "1. ↪️ Curva<br>2. ⏺️⏺️ Dos puntos" }
-        };
+        isKnownVerb(word) {
+          return DATA.knownVerbs.some(v => word === v || word.startsWith(v));
+        },
 
-        const letterForms = {
-            "ا":["ا","ا","ـا","ـا"], "ب":["ب","بـ","ـبـ","ـب"], "ت":["ت","تـ","ـتـ","ـت"],
-            "ث":["ث","ثـ","ـثـ","ـث"], "ج":["ج","جـ","ـجـ","ـج"], "ح":["ح","حـ","ـحـ","ـح"],
-            "خ":["خ","خـ","ـخـ","ـخ"], "د":["د","د","ـد","ـد"], "ذ":["ذ","ذ","ـذ","ـذ"],
-            "ر":["ر","ر","ـر","ـر"], "ز":["ز","ز","ـز","ـز"], "س":["س","سـ","ـسـ","ـس"],
-            "ش":["ش","شـ","ـشـ","ـش"], "ص":["ص","صـ","ـصـ","ـص"], "ض":["ض","ضـ","ـضـ","ـض"],
-            "ط":["ط","طـ","ـطـ","ـط"], "ظ":["ظ","ظـ","ـظـ","ـظ"], "ع":["ع","عـ","ـعـ","ـع"],
-            "غ":["غ","غـ","ـغـ","ـغ"], "ف":["ف","فـ","ـفـ","ـف"], "ق":["ق","قـ","ـقـ","ـق"],
-            "ك":["ك","كـ","ـكـ","ـك"], "ل":["ل","لـ","ـلـ","ـل"], "م":["م","مـ","ـمـ","ـم"],
-            "ن":["ن","نـ","ـنـ","ـن"], "ه":["ه","هـ","ـهـ","ـه"], "و":["و","و","ـو","ـو"],
-            "ي":["ي","يـ","ـيـ","ـي"]
-        };
+        looksLikePresentVerb(word) {
+          return !word.startsWith("ال") && /^[يتأن]/.test(word) && word.length >= 3;
+        },
 
-        const bankWords = [
-            "أَسَد","كَأْس","مَلْجَأ","بَاب","كَبِير","كِتَاب","تَمْر","بَيْت","ثَوْب","مَثَل","بَحَث","جَمَل","رَجُل","بُرْج","حَبْل",
-            "بَحْر","مِفْتَاح","خُبْز","نَخْل","مَطْبَخ","دُب","مَدْرَسَة","وَلَد","ذَهَب","هَذَا","لَذِيذ","وَرْدَة","قَمَر","زَيْت","مَوْزَة",
-            "سَمَك","مَسْجِد","دَرْس","شَمْس","مِشْمِش","عَرْش","صَبْر","بَصِير","نَص","ضَوْء","مَرِيض","أَرْض","طِين","مَطَر","قِط",
-            "ظِل","عَظِيم","حَظ","عَيْن","مَلْعَب","جَمْع","غَيْم","مَغْرِب","صِبْغ","فِيل","صَيْف","بَقَرَة","سُوق","مَكْتَبَة","لَبَن",
-            "قَلَم","جَبَل","مَاء","نَجْم","عِنَب","هِلَال","نَهْر","وَجْه","وَرْد","قَوْس","يَد","كُرْسِي"
-        ];
+        looksLikeImperative(word) {
+          if (word.startsWith("ا") && !word.startsWith("ال") && word.length >= 4) return true;
+          return ["كل","خذ","قل","قم","نم","قف","دع","صل","بع","ضع","رد","عد"].includes(word);
+        },
 
-        // =========================================
-        // 3. LOGIQUE UI
-        // =========================================
+        isVerb(word) {
+          return this.isKnownVerb(word) || this.looksLikePresentVerb(word) || this.looksLikeImperative(word);
+        },
 
-        const watermark  = document.getElementById('slate-watermark');
-        const arrowOverlay = document.getElementById('arrow-overlay');
+        detectWordType(rawWord) {
+          const clean = Utils.stripDiacritics(rawWord);
 
-        function getResponsiveWatermarkSize(type, text = "") {
-            const w = window.innerWidth;
-            if (type === "letter") {
-                if (w <= 480) return "8rem";
-                if (w <= 768) return "11rem";
-                return "16rem";
+          if (!clean) return "unknown";
+          if (this.isParticle(clean)) return "particle";
+          if (this.isVerb(clean)) return "verb";
+          if (clean.startsWith("ال") || clean.length >= 2) return "noun";
+          return "unknown";
+        },
+
+        detectSentenceType(words) {
+          const first = words[0]?.clean || "";
+          return this.isVerb(first) ? "verbal" : "nominal";
+        },
+
+        analyze(text) {
+          const tokens = text.trim().split(/\s+/).filter(Boolean);
+          if (!tokens.length) return null;
+
+          const words = tokens.map(raw => {
+            const clean = Utils.stripDiacritics(raw);
+            const type = this.detectWordType(raw);
+            return { raw, clean, type };
+          });
+
+          const sentenceType = this.detectSentenceType(words);
+
+          return {
+            text,
+            sentenceType,
+            words,
+            stats: {
+              wordsCount: words.length,
+              nouns: Utils.countDetected(words, "noun"),
+              verbs: Utils.countDetected(words, "verb"),
+              particles: Utils.countDetected(words, "particle")
             }
-            if (w <= 480) return text.length >= 6 ? "3.8rem" : "5rem";
-            if (w <= 768) return text.length >= 6 ? "5.5rem" : "6.5rem";
-            return "8rem";
+          };
         }
+      };
 
-        function initData() {
-            const lettersContainer = document.getElementById('letters-selector');
-            Object.keys(strokeData).forEach(letter => {
-                const btn = document.createElement('button');
-                btn.className = 'letter-btn';
-                btn.innerText = letter;
-                btn.onclick = () => showStrokeGuide(letter, btn);
-                lettersContainer.appendChild(btn);
-            });
-            const bankSelect = document.getElementById('bank-select');
-            bankWords.forEach(word => {
-                const opt = document.createElement('option');
-                opt.value = word; opt.innerText = word;
-                bankSelect.appendChild(opt);
-            });
+      const PracticePrompts = {
+        currentIndex: 0,
+
+        getByMode(mode) {
+          return DATA.practicePrompts.filter(item => item.mode === mode);
+        },
+
+        next(mode) {
+          const pool = this.getByMode(mode);
+          if (!pool.length) return null;
+          this.currentIndex = (this.currentIndex + 1) % pool.length;
+          return pool[this.currentIndex];
+        },
+
+        random(mode) {
+          const pool = this.getByMode(mode);
+          if (!pool.length) return null;
+          const prompt = Utils.sample(pool);
+          this.currentIndex = pool.indexOf(prompt);
+          return prompt;
+        },
+
+        render(prompt) {
+          if (!prompt) return;
+          DOM.promptValue.innerHTML = `
+            ${prompt.ar}
+            <span class="mini-note">${prompt.fr} / ${prompt.es}</span>
+          `;
+          Utils.save(DATA.meta.storageKeys.lastPrompt, prompt);
         }
+      };
 
-        function setMode(mode) {
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-mode-' + mode).classList.add('active');
-            if (mode === 'letters') {
-                document.getElementById('letters-selector').style.display = 'flex';
-                document.getElementById('bank-selector-wrap').style.display = 'none';
-                document.getElementById('stroke-guide-wrapper').style.display = 'flex';
-                const firstBtn = document.querySelector('.letter-btn');
-                if (firstBtn) showStrokeGuide("ا", firstBtn);
+      const SlateController = {
+        canvas: null,
+        ctx: null,
+        isDrawing: false,
+        lastX: 0,
+        lastY: 0,
+
+        init() {
+          this.canvas = DOM.slateCanvas;
+          this.ctx = this.canvas.getContext("2d");
+          this.resizeCanvas();
+
+          this.canvas.addEventListener("mousedown", (e) => this.start(e));
+          this.canvas.addEventListener("mouseup", () => this.end());
+          this.canvas.addEventListener("mousemove", (e) => this.draw(e));
+          this.canvas.addEventListener("mouseout", () => this.end());
+
+          this.canvas.addEventListener("touchstart", (e) => this.start(e), { passive: false });
+          this.canvas.addEventListener("touchend", () => this.end());
+          this.canvas.addEventListener("touchmove", (e) => this.draw(e), { passive: false });
+
+          window.addEventListener("resize", () => this.resizeCanvas());
+        },
+
+        resizeCanvas() {
+          const width = this.canvas.offsetWidth;
+          const height = this.canvas.offsetHeight;
+          this.canvas.width = width;
+          this.canvas.height = height;
+
+          this.ctx.lineWidth = window.innerWidth <= 480 ? 4.5 : 6;
+          this.ctx.lineCap = "round";
+          this.ctx.lineJoin = "round";
+          this.ctx.strokeStyle = "#5D1828";
+        },
+
+        getPos(e) {
+          const rect = this.canvas.getBoundingClientRect();
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+          };
+        },
+
+        start(e) {
+          this.isDrawing = true;
+          const pos = this.getPos(e);
+          this.lastX = pos.x;
+          this.lastY = pos.y;
+        },
+
+        end() {
+          this.isDrawing = false;
+          this.ctx.beginPath();
+        },
+
+        draw(e) {
+          if (!this.isDrawing) return;
+          e.preventDefault();
+          const pos = this.getPos(e);
+          this.ctx.beginPath();
+          this.ctx.moveTo(this.lastX, this.lastY);
+          this.ctx.lineTo(pos.x, pos.y);
+          this.ctx.stroke();
+          this.lastX = pos.x;
+          this.lastY = pos.y;
+        },
+
+        clear() {
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+      };
+
+      const App = {
+        state: {
+          mode: DATA.settings.defaultMode,
+          selectedLetter: DATA.settings.defaultLetter,
+          selectedWord: "",
+          currentPrompt: null
+        },
+
+        init() {
+          document.title = DATA.meta.pageTitle;
+          DOM.btnBackHome.href = DATA.meta.homeHref;
+          DOM.brandAr.textContent = DATA.meta.brandAr;
+          DOM.brandFrEs.textContent = DATA.meta.brandFrEs;
+          DOM.appTitle.textContent = DATA.meta.appTitle;
+          DOM.titleAr.textContent = DATA.meta.titleAr;
+          DOM.titleFr.textContent = DATA.meta.titleFr;
+          DOM.titleEs.textContent = DATA.meta.titleEs;
+          DOM.sentenceInput.placeholder = DATA.ui.analysisPlaceholder;
+
+          AudioController.init();
+          PWAController.ensureManifest();
+          SlateController.init();
+
+          this.renderIntroCards();
+          this.renderLetters();
+          this.renderBank();
+          this.renderChallenges();
+          this.restoreState();
+          this.bindEvents();
+          this.syncModeUI();
+          this.initializeDefaultSelection();
+
+          DOM.btnInstallHint.addEventListener("click", () => {
+            alert(DATA.ui.installHint);
+          });
+        },
+
+        restoreState() {
+          this.state.mode = Utils.load(DATA.meta.storageKeys.mode, DATA.settings.defaultMode);
+          this.state.selectedLetter = Utils.load(DATA.meta.storageKeys.selectedLetter, DATA.settings.defaultLetter);
+          this.state.selectedWord = Utils.load(DATA.meta.storageKeys.selectedWord, "");
+          const lastSentence = Utils.load(DATA.meta.storageKeys.lastSentence, "");
+          if (lastSentence) DOM.sentenceInput.value = lastSentence;
+        },
+
+        bindEvents() {
+          DOM.btnAnalyze.addEventListener("click", () => this.handleAnalyze());
+          DOM.btnFillExample.addEventListener("click", () => this.fillExampleSentence());
+
+          DOM.sentenceInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              this.handleAnalyze();
+            }
+          });
+
+          DOM.btnModeLetters.addEventListener("click", () => this.setMode("letters"));
+          DOM.btnModeBank.addEventListener("click", () => this.setMode("bank"));
+
+          DOM.bankSelect.addEventListener("change", (e) => {
+            this.showBankWord(e.target.value);
+          });
+
+          DOM.btnRandomLetter.addEventListener("click", () => this.pickRandomLetter());
+          DOM.btnRandomWord.addEventListener("click", () => this.pickRandomWord());
+          DOM.btnNextPrompt.addEventListener("click", () => this.updatePrompt("random"));
+
+          DOM.btnClearSlate.addEventListener("click", () => {
+            SlateController.clear();
+            Utils.setStatus(DOM.slateStatus, "warning", "تم مسح اللوح. / L’ardoise a été effacée. / La pizarra ha sido borrada.");
+          });
+
+          DOM.btnReplayArrow.addEventListener("click", () => {
+            this.replayGuide();
+          });
+
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) AudioController.pause();
+          });
+        },
+
+        renderIntroCards() {
+          DOM.introCards.innerHTML = DATA.introCards.map(card => `
+            <article class="intro-card">
+              <h3 class="intro-card-title">${card.title}</h3>
+              <div class="intro-card-body ar-text">
+                ${card.bodyAr}
+                <small>${card.bodyFrEs}</small>
+              </div>
+            </article>
+          `).join("");
+        },
+
+        renderLetters() {
+          DOM.lettersSelector.innerHTML = Object.keys(DATA.strokeData).map(letter => `
+            <button
+              class="letter-btn${letter === this.state.selectedLetter ? " active" : ""}"
+              type="button"
+              data-letter="${letter}"
+              aria-label="Choisir la lettre ${letter}"
+            >${letter}</button>
+          `).join("");
+
+          DOM.lettersSelector.querySelectorAll(".letter-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+              this.showLetterGuide(btn.dataset.letter);
+            });
+          });
+        },
+
+        renderBank() {
+          const options = DATA.wordBank.map(word => `<option value="${word}">${word}</option>`).join("");
+          DOM.bankSelect.innerHTML = `<option value="">-- اختر كلمة / Choisir un mot --</option>${options}`;
+          if (this.state.selectedWord) DOM.bankSelect.value = this.state.selectedWord;
+        },
+
+        renderChallenges() {
+          const cards = DATA.challengeCards;
+          DOM.challengeGrid.innerHTML = cards.map((card, index) => `
+            <article class="challenge-card">
+              <div class="challenge-badge">${card.badge}</div>
+              <div class="challenge-word">${card.word}</div>
+              <div class="challenge-hint ar-text">
+                ${card.ar}
+                <small>${card.fr} / ${card.es}</small>
+              </div>
+              <div class="challenge-actions">
+                <button class="btn-secondary" type="button" data-challenge-index="${index}" data-action="apply">
+                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  <span>استعمل</span>
+                </button>
+              </div>
+            </article>
+          `).join("");
+
+          DOM.challengeGrid.querySelectorAll("[data-action='apply']").forEach(btn => {
+            btn.addEventListener("click", () => {
+              const item = DATA.challengeCards[Number(btn.dataset.challengeIndex)];
+              this.applyChallenge(item);
+            });
+          });
+        },
+
+        initializeDefaultSelection() {
+          if (this.state.mode === "letters") {
+            this.showLetterGuide(this.state.selectedLetter || DATA.settings.defaultLetter);
+          } else {
+            if (this.state.selectedWord) {
+              this.showBankWord(this.state.selectedWord);
             } else {
-                document.getElementById('letters-selector').style.display = 'none';
-                document.getElementById('stroke-guide-wrapper').style.display = 'none';
-                document.getElementById('bank-selector-wrap').style.display = 'block';
-                watermark.innerText = "";
-                watermark.style.transform = "translateY(0)";
-                arrowOverlay.innerHTML = "";
-                clearSlate();
+              this.pickRandomWord();
             }
-        }
+          }
+          this.updatePrompt("random");
+        },
 
-        function getArrowSvg(letter) {
-            const vertical = ["ا","ط","ظ","ك","ل"];
-            if (vertical.includes(letter)) {
-                return `<svg class="anim-arrow anim-arrow-vertical" viewBox="0 0 50 200">
-                    <path d="M 25 20 L 25 170"/><polygon points="15,160 35,160 25,185"/>
-                </svg>`;
-            }
-            return `<svg class="anim-arrow anim-arrow-horizontal" viewBox="0 0 250 50">
-                <path d="M 230 25 L 30 25"/><polygon points="45,10 45,40 20,25"/>
-            </svg>`;
-        }
+        syncModeUI() {
+          const isLetters = this.state.mode === "letters";
+          DOM.btnModeLetters.classList.toggle("active", isLetters);
+          DOM.btnModeBank.classList.toggle("active", !isLetters);
 
-        function getWordArrowSvg() {
-            return `<svg class="anim-arrow anim-arrow-horizontal" viewBox="0 0 250 50">
-                <path d="M 230 25 L 30 25"/><polygon points="45,10 45,40 20,25"/>
-            </svg>`;
-        }
+          DOM.lettersSelector.style.display = isLetters ? "flex" : "none";
+          DOM.bankSelectorWrap.style.display = isLetters ? "none" : "block";
+          DOM.strokeGuideWrapper.style.display = isLetters ? "flex" : "none";
 
-        function showStrokeGuide(letter, btnElement) {
-            document.querySelectorAll('.letter-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-            document.getElementById('stroke-guide-wrapper').style.display = 'flex';
-            const guideLetter = document.getElementById('guide-letter');
-            guideLetter.innerText = letter;
-            const data = strokeData[letter];
-            document.getElementById('guide-steps').innerHTML = `
-                <div class="stroke-step">
-                    <div class="step-ar ar-text">${data.ar}</div>
-                    <div class="step-fr-es">${data.fr}<br>${data.es}</div>
-                </div>`;
-            const forms = letterForms[letter];
-            document.getElementById('forms-grid').innerHTML = `
-                <div class="form-card"><div class="ar-form">${forms[0]}</div><div class="la-form">Libre<small>Aislado</small></div></div>
-                <div class="form-card"><div class="ar-form">${forms[1]}</div><div class="la-form">Début<small>Inicio</small></div></div>
-                <div class="form-card"><div class="ar-form">${forms[2]}</div><div class="la-form">Milieu<small>Medio</small></div></div>
-                <div class="form-card"><div class="ar-form">${forms[3]}</div><div class="la-form">Fin<small>Fin</small></div></div>`;
+          Utils.save(DATA.meta.storageKeys.mode, this.state.mode);
+        },
 
-            watermark.style.fontSize = getResponsiveWatermarkSize("letter");
-            watermark.innerText = letter;
+        setMode(mode) {
+          this.state.mode = mode;
+          this.syncModeUI();
+          SlateController.clear();
 
-            if (letter === "ي") {
-                guideLetter.style.transform = "translateY(-15px)";
-                watermark.style.transform = window.innerWidth <= 480 ? "translateY(-22px)" : "translateY(-40px)";
+          if (mode === "letters") {
+            this.showLetterGuide(this.state.selectedLetter || DATA.settings.defaultLetter);
+          } else {
+            if (this.state.selectedWord) {
+              this.showBankWord(this.state.selectedWord);
             } else {
-                guideLetter.style.transform = "translateY(0)";
-                watermark.style.transform = "translateY(0)";
+              this.pickRandomWord();
             }
-            arrowOverlay.innerHTML = getArrowSvg(letter);
-            clearSlate();
+          }
+
+          this.updatePrompt("random");
+        },
+
+        fillExampleSentence() {
+          const example = Utils.sample(DATA.analysisExamples);
+          DOM.sentenceInput.value = example;
+          this.handleAnalyze();
+        },
+
+        handleAnalyze() {
+          const value = DOM.sentenceInput.value.trim();
+          if (!value) {
+            Utils.setStatus(DOM.analysisStatus, "warning", "المرجو كتابة جملة أولًا. / Écris une phrase d’abord. / Escribe primero una frase.");
+            DOM.analysisResult.style.display = "none";
+            return;
+          }
+
+          const analysis = AnalysisEngine.analyze(value);
+          if (!analysis) return;
+
+          Utils.save(DATA.meta.storageKeys.lastSentence, value);
+          this.renderAnalysis(analysis);
+        },
+
+        renderAnalysis(analysis) {
+          const typeConfig = DATA.ui.sentenceTypes[analysis.sentenceType];
+          DOM.analysisResult.style.display = "block";
+          DOM.sentenceType.innerHTML = `
+            ${typeConfig.ar}
+            <small>${typeConfig.fr} / ${typeConfig.es}</small>
+          `;
+
+          DOM.analysisMeta.innerHTML = `
+            <div class="meta-card">
+              <div class="meta-label">Mots</div>
+              <div class="meta-value">${analysis.stats.wordsCount}</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label">Noms</div>
+              <div class="meta-value">${analysis.stats.nouns}</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label">Verbes</div>
+              <div class="meta-value">${analysis.stats.verbs}</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label">Particules</div>
+              <div class="meta-value">${analysis.stats.particles}</div>
+            </div>
+          `;
+
+          DOM.tagsContainer.innerHTML = analysis.words.map(item => {
+            const pos = DATA.ui.partsOfSpeech[item.type] || DATA.ui.partsOfSpeech.unknown;
+            return `
+              <div class="word-tag" style="border-top-color: var(--${pos.className});">
+                <span class="word">${item.raw}</span>
+                <span class="pos ${pos.className} ar-text">${pos.ar}</span>
+                <span class="pos-tr">${pos.fr}<br>${pos.es}</span>
+              </div>
+            `;
+          }).join("");
+
+          Utils.setStatus(
+            DOM.analysisStatus,
+            "success",
+            `تم التحليل بنجاح. / Analyse terminée. / Análisis completado.`
+          );
+        },
+
+        pickRandomLetter() {
+          const letter = Utils.sample(Object.keys(DATA.strokeData));
+          this.state.mode = "letters";
+          this.syncModeUI();
+          this.showLetterGuide(letter);
+          this.updatePrompt("random");
+        },
+
+        pickRandomWord() {
+          const word = Utils.sample(DATA.wordBank);
+          this.state.mode = "bank";
+          this.syncModeUI();
+          this.showBankWord(word);
+          this.updatePrompt("random");
+        },
+
+        updatePrompt(type = "random") {
+          const mode = this.state.mode;
+          const prompt = type === "next" ? PracticePrompts.next(mode) : PracticePrompts.random(mode);
+          this.state.currentPrompt = prompt;
+          PracticePrompts.render(prompt);
+        },
+
+        showLetterGuide(letter) {
+          const data = DATA.strokeData[letter];
+          const forms = DATA.letterForms[letter];
+          if (!data || !forms) return;
+
+          this.state.selectedLetter = letter;
+          this.state.selectedWord = "";
+          Utils.save(DATA.meta.storageKeys.selectedLetter, letter);
+
+          DOM.lettersSelector.querySelectorAll(".letter-btn").forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.letter === letter);
+          });
+
+          DOM.guideLetter.textContent = letter;
+          DOM.guideLetter.style.transform = letter === "ي"
+            ? (window.innerWidth <= 480 ? "translateY(-12px)" : "translateY(-18px)")
+            : "translateY(0)";
+
+          DOM.guideSteps.innerHTML = `
+            <div class="stroke-step">
+              <div class="step-ar ar-text">${data.stepsAr}</div>
+              <div class="step-fr-es">${data.stepsFr}<br>${data.stepsEs}</div>
+            </div>
+          `;
+
+          DOM.formsGrid.innerHTML = forms.map((form, index) => `
+            <div class="form-card">
+              <div class="ar-form">${form}</div>
+              <div class="la-form">
+                ${DATA.ui.formLabels[index].fr}
+                <small>${DATA.ui.formLabels[index].es}</small>
+              </div>
+            </div>
+          `).join("");
+
+          DOM.strokeGuideWrapper.style.display = "flex";
+          DOM.bankSelect.value = "";
+          this.setWatermark(letter, "letter");
+          this.setArrow(data.direction || "horizontal");
+          SlateController.clear();
+
+          Utils.setStatus(
+            DOM.slateStatus,
+            "warning",
+            `تدرّب الآن على كتابة الحرف ${letter}. / Entraîne-toi maintenant sur la lettre ${letter}. / Practica ahora la letra ${letter}.`
+          );
+        },
+
+        showBankWord(word) {
+          if (!word) return;
+
+          this.state.selectedWord = word;
+          Utils.save(DATA.meta.storageKeys.selectedWord, word);
+          DOM.bankSelect.value = word;
+
+          this.setWatermark(word, "word");
+          this.setArrow("horizontal");
+          SlateController.clear();
+
+          Utils.setStatus(
+            DOM.slateStatus,
+            "warning",
+            `اكتب الكلمة ${word} على اللوح. / Écris le mot ${word} sur l’ardoise. / Escribe la palabra ${word} en la pizarra.`
+          );
+        },
+
+        applyChallenge(item) {
+          if (!item) return;
+
+          if (item.type === "letter") {
+            this.state.mode = "letters";
+            this.syncModeUI();
+            this.showLetterGuide(item.word);
+          } else if (item.type === "word") {
+            this.state.mode = "bank";
+            this.syncModeUI();
+            this.showBankWord(item.word);
+          } else if (item.type === "analysis") {
+            DOM.sentenceInput.value = item.word;
+            this.handleAnalyze();
+          }
+
+          this.updatePrompt("random");
+        },
+
+        replayGuide() {
+          if (this.state.mode === "letters") {
+            const current = DATA.strokeData[this.state.selectedLetter];
+            this.setArrow(current?.direction || "horizontal");
+          } else {
+            this.setArrow("horizontal");
+          }
+
+          Utils.setStatus(
+            DOM.slateStatus,
+            "success",
+            "تمت إعادة عرض الاتجاه. / Guide relancé. / Guía reiniciada."
+          );
+        },
+
+        setWatermark(text, type) {
+          DOM.slateWatermark.textContent = text;
+          DOM.slateWatermark.style.fontSize = this.getResponsiveWatermarkSize(type, text);
+          DOM.slateWatermark.style.transform = (type === "letter" && text === "ي")
+            ? (window.innerWidth <= 480 ? "translateY(-14px)" : "translateY(-24px)")
+            : "translateY(0)";
+        },
+
+        getResponsiveWatermarkSize(type, text = "") {
+          const w = window.innerWidth;
+          if (type === "letter") {
+            if (w <= 480) return "7rem";
+            if (w <= 768) return "9.5rem";
+            return "12rem";
+          }
+
+          if (w <= 480) return text.length >= 6 ? "3rem" : "4.2rem";
+          if (w <= 768) return text.length >= 6 ? "4.2rem" : "5.4rem";
+          return text.length >= 6 ? "5.8rem" : "7rem";
+        },
+
+        setArrow(direction) {
+          DOM.arrowOverlay.innerHTML = direction === "vertical" ? this.getVerticalArrowSvg() : this.getHorizontalArrowSvg();
+        },
+
+        getHorizontalArrowSvg() {
+          return `
+            <svg class="anim-arrow anim-arrow-horizontal" viewBox="0 0 250 50" aria-hidden="true">
+              <path d="M 230 25 L 30 25"></path>
+              <polygon points="45,10 45,40 20,25"></polygon>
+            </svg>
+          `;
+        },
+
+        getVerticalArrowSvg() {
+          return `
+            <svg class="anim-arrow anim-arrow-vertical" viewBox="0 0 50 200" aria-hidden="true">
+              <path d="M 25 20 L 25 170"></path>
+              <polygon points="15,160 35,160 25,185"></polygon>
+            </svg>
+          `;
         }
+      };
 
-        function showBankWord(word) {
-            if (!word) { watermark.innerText = ""; arrowOverlay.innerHTML = ""; return; }
-            watermark.style.fontSize = getResponsiveWatermarkSize("word", word);
-            watermark.innerText = word;
-            watermark.style.transform = "translateY(0)";
-            arrowOverlay.innerHTML = getWordArrowSvg();
-            clearSlate();
-        }
-
-        // =========================================
-        // 4. L'ARDOISE
-        // =========================================
-        const canvas = document.getElementById("slate-canvas");
-        const ctx = canvas.getContext("2d");
-        let isDrawing = false, lastX = 0, lastY = 0;
-
-        function resizeCanvas() {
-            canvas.width  = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            ctx.lineWidth = window.innerWidth <= 480 ? 4.5 : 6;
-            ctx.lineCap   = "round";
-            ctx.lineJoin  = "round";
-            ctx.strokeStyle = "#5D1828";
-
-            const activeBtn  = document.querySelector('.letter-btn.active');
-            const selectedWord = document.getElementById('bank-select').value;
-            const isLetters  = document.getElementById('btn-mode-letters').classList.contains('active');
-            if (isLetters && activeBtn) {
-                watermark.style.fontSize = getResponsiveWatermarkSize("letter");
-                if (activeBtn.innerText === "ي") {
-                    watermark.style.transform = window.innerWidth <= 480 ? "translateY(-22px)" : "translateY(-40px)";
-                }
-            } else if (selectedWord) {
-                watermark.style.fontSize = getResponsiveWatermarkSize("word", selectedWord);
-            }
-        }
-
-        function getPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return { x: clientX - rect.left, y: clientY - rect.top };
-        }
-
-        function startPosition(e) { isDrawing = true; const pos = getPos(e); lastX = pos.x; lastY = pos.y; }
-        function endPosition()    { isDrawing = false; ctx.beginPath(); }
-        function draw(e) {
-            if (!isDrawing) return;
-            e.preventDefault();
-            const pos = getPos(e);
-            ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke();
-            lastX = pos.x; lastY = pos.y;
-        }
-        function clearSlate() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-        canvas.addEventListener("mousedown",  startPosition);
-        canvas.addEventListener("mouseup",    endPosition);
-        canvas.addEventListener("mousemove",  draw);
-        canvas.addEventListener("mouseout",   endPosition);
-        canvas.addEventListener("touchstart", startPosition, { passive: false });
-        canvas.addEventListener("touchend",   endPosition);
-        canvas.addEventListener("touchmove",  draw,          { passive: false });
-        window.addEventListener("resize",     resizeCanvas);
-
-        window.onload = () => {
-            initData();
-            resizeCanvas();
-            setTimeout(() => setMode('letters'), 100);
-        };
-    </script>
+      document.addEventListener("DOMContentLoaded", () => App.init());
+      window.DarAlKalimahArdoisePremium = App;
+    })();
+  </script>
 </body>
 </html>
