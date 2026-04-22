@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>Dar Al-Kalimah - Quiz Grand Plateau</title>
-  <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah" />
-  <meta name="theme-color" content="#5D1828" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Dar Al-Kalimah" />
-  <meta name="format-detection" content="telephone=no" />
+  <meta name="description" content="Application d'apprentissage de l'arabe - Dar Al-Kalimah">
+  <meta name="theme-color" content="#5D1828">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
 
   <style>
@@ -33,19 +28,7 @@
       --error-border: #f44336;
       --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
       --shadow-hover: 0 8px 20px rgba(200, 164, 98, 0.2);
-      --shadow-card: 0 8px 25px rgba(93, 24, 40, 0.25);
       --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-right: env(safe-area-inset-right, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-      --safe-left: env(safe-area-inset-left, 0px);
-      --tap-size: 52px;
-      --container-menu: 600px;
-      --container-board: 800px;
     }
 
     * {
@@ -55,10 +38,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html {
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg-beige);
@@ -67,13 +47,8 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      min-height: 100dvh;
-      font-family: "Montserrat", system-ui, sans-serif;
-      padding:
-        calc(16px + var(--safe-top))
-        calc(16px + var(--safe-right))
-        calc(16px + var(--safe-bottom))
-        calc(16px + var(--safe-left));
+      font-family: 'Montserrat', system-ui, sans-serif;
+      padding: 20px;
       overflow-x: hidden;
       color: var(--burgundy);
       position: relative;
@@ -81,15 +56,6 @@
 
     button, a, input, .board-card {
       touch-action: manipulation;
-    }
-
-    button, input {
-      font: inherit;
-    }
-
-    .app-shell {
-      width: 100%;
-      max-width: var(--container-board);
     }
 
     .ar-text {
@@ -100,9 +66,7 @@
       unicode-bidi: isolate;
     }
 
-    .serif-text {
-      font-family: "Cinzel", "Georgia", serif;
-    }
+    .serif-text { font-family: "Cinzel", "Georgia", serif; }
 
     .view {
       width: 100%;
@@ -113,9 +77,7 @@
       animation: floatIn 0.5s ease-out forwards;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     @keyframes floatIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -129,37 +91,32 @@
       color: var(--gold);
       font-size: 1.6rem;
       text-decoration: none;
-      transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+      transition: transform 0.3s ease, color 0.3s ease;
       z-index: 10;
-      padding: 8px;
-      border-radius: 999px;
+      padding: 5px;
     }
 
     .btn-house:hover,
     .btn-house:focus-visible {
       transform: scale(1.1);
       color: var(--gold-light);
-      background: rgba(255,255,255,0.06);
       outline: none;
     }
 
     .btn-main,
     .btn-secondary {
-      min-height: var(--tap-size);
       border: 2px solid var(--burgundy);
       padding: 16px 45px;
       font-size: 1.05rem;
       border-radius: 50px;
       cursor: pointer;
       transition: var(--transition-smooth);
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
       box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-block;
       text-decoration: none;
       text-align: center;
     }
@@ -177,9 +134,7 @@
       outline: none;
     }
 
-    .btn-main:active {
-      transform: translateY(1px);
-    }
+    .btn-main:active { transform: translateY(1px); }
 
     .btn-secondary {
       background: var(--bg-beige);
@@ -200,21 +155,21 @@
       text-align: center;
       background: var(--burgundy);
       padding: 50px 40px;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-card);
-      max-width: var(--container-menu);
+      border-radius: 24px;
+      box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+      max-width: 600px;
       width: 100%;
     }
 
     .menu-container .brand-ar {
-      font-size: clamp(2.6rem, 8vw, 3.5rem);
+      font-size: 3.5rem;
       font-weight: bold;
       color: var(--gold);
       margin-bottom: 5px;
     }
 
     .menu-container .app-title {
-      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      font-size: 1.6rem;
       color: #d09470;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -229,9 +184,7 @@
       opacity: 0.5;
     }
 
-    .menu-container .subtitle-group {
-      margin-bottom: 30px;
-    }
+    .menu-container .subtitle-group { margin-bottom: 30px; }
 
     .menu-container .subtitle {
       font-size: 1.05rem;
@@ -265,10 +218,9 @@
     .menu-container .input-group input {
       width: 100%;
       max-width: 350px;
-      min-height: var(--tap-size);
       padding: 15px;
       font-size: 1.1rem;
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       text-align: center;
       border: 2px solid var(--gold);
       border-radius: 12px;
@@ -320,37 +272,31 @@
       text-align: center;
       background: var(--white);
       padding: 40px 30px;
-      border-radius: var(--radius-xl);
+      border-radius: 24px;
       border: 1px solid var(--gold);
       box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft);
       width: 100%;
-      max-width: var(--container-board);
+      max-width: 800px;
     }
 
     .quiz-header {
       width: 100%;
-      max-width: var(--container-board);
+      max-width: 800px;
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
     }
 
     .progress-container {
       width: 100%;
       max-width: 450px;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
     }
 
     .progress-info {
       text-align: center;
       margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
     }
 
     .progress-text {
@@ -358,23 +304,6 @@
       color: var(--burgundy);
       font-size: 1.1rem;
       letter-spacing: 2px;
-    }
-
-    .score-live {
-      font-weight: 700;
-      font-size: 0.92rem;
-      color: var(--success-border);
-      background: var(--success-green);
-      border: 1px solid rgba(76, 175, 80, 0.3);
-      padding: 4px 12px;
-      border-radius: 999px;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-      transition: transform 0.2s ease;
-    }
-
-    .score-live.bump {
-      transform: scale(1.12);
     }
 
     .progress-bar-container {
@@ -424,8 +353,6 @@
     .btn-audio.big-audio {
       width: 70px;
       height: 70px;
-      min-width: 70px;
-      min-height: 70px;
       font-size: 2.2rem;
       background: linear-gradient(135deg, var(--white), var(--bg-beige));
       border: 3px solid var(--gold);
@@ -449,9 +376,7 @@
       box-shadow: 0 12px 30px rgba(200, 164, 98, 0.5);
     }
 
-    .btn-audio.big-audio:active {
-      transform: scale(0.95);
-    }
+    .btn-audio.big-audio:active { transform: scale(0.95); }
 
     .board-grid {
       display: grid;
@@ -468,7 +393,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: 3.2rem;
       color: var(--burgundy);
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -492,9 +417,7 @@
       z-index: 10;
     }
 
-    .board-card:active {
-      transform: scale(0.92);
-    }
+    .board-card:active { transform: scale(0.92); }
 
     .board-card.correct {
       border: 3px solid var(--success-border) !important;
@@ -515,9 +438,7 @@
       pointer-events: none;
     }
 
-    .board-card.disabled {
-      pointer-events: none;
-    }
+    .board-card.disabled { pointer-events: none; }
 
     @keyframes gentleShake {
       0%, 100% { transform: translateX(0); }
@@ -529,7 +450,7 @@
       background: linear-gradient(145deg, #ffffff, #fcfcfc);
       border: 8px double var(--gold);
       padding: 40px;
-      border-radius: var(--radius-md);
+      border-radius: 16px;
       text-align: center;
       max-width: 560px;
       width: 100%;
@@ -551,14 +472,9 @@
       margin-bottom: 20px;
     }
 
-    .cert-messages {
-      margin-bottom: 25px;
-    }
+    .cert-messages { margin-bottom: 25px; }
 
-    .cert-msg {
-      font-weight: 600;
-      color: #444;
-    }
+    .cert-msg { font-weight: 600; color: #444; }
 
     .cert-msg.es {
       font-size: 0.95rem;
@@ -582,7 +498,6 @@
       padding: 15px;
       display: inline-block;
       margin-bottom: 20px;
-      min-width: min(100%, 220px);
     }
 
     .score-label {
@@ -634,7 +549,7 @@
     .cert-edit-group input {
       width: 100%;
       padding: 10px;
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       text-align: center;
       border: 1px solid var(--gold);
       border-radius: 8px;
@@ -644,68 +559,31 @@
 
     @media (max-width: 768px) {
       .menu-container,
-      .board-container {
-        padding: 42px 22px;
-      }
+      .board-container { padding: 42px 22px; }
 
-      .board-grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-      }
-
-      .diploma-paper {
-        padding: 30px 20px;
-      }
+      .board-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; }
+      .board-card { font-size: 2.8rem; }
+      .diploma-paper { padding: 30px 20px; }
     }
 
     @media (max-width: 480px) {
-      body {
-        padding:
-          calc(16px + var(--safe-top))
-          calc(16px + var(--safe-right))
-          calc(16px + var(--safe-bottom))
-          calc(16px + var(--safe-left));
-      }
+      body { padding: 16px; }
 
       .menu-container,
-      .board-container {
-        padding: 34px 18px;
-      }
+      .board-container { padding: 34px 18px; }
 
-      .menu-container .brand-ar {
-        font-size: 3.2rem;
-      }
+      .menu-container .brand-ar { font-size: 3.2rem; }
+      .menu-container .app-title { font-size: 1.35rem; }
 
-      .menu-container .app-title {
-        font-size: 1.35rem;
-      }
+      .audio-section { flex-direction: column; gap: 10px; border-radius: 16px; }
+      .instruction-text { text-align: center; }
 
-      .audio-section {
-        flex-direction: column;
-        gap: 10px;
-        border-radius: 16px;
-      }
+      .board-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .board-card { font-size: 2.2rem; border-radius: 8px; }
 
-      .instruction-text {
-        text-align: center;
-      }
-
-      .board-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-      }
-
-      .cert-ar {
-        font-size: 3.7rem;
-      }
-
-      .cert-title {
-        font-size: 1.6rem;
-      }
-
-      .cert-name {
-        font-size: 2.5rem;
-      }
+      .cert-ar { font-size: 3.7rem; }
+      .cert-title { font-size: 1.6rem; }
+      .cert-name { font-size: 2.5rem; }
 
       .cert-actions {
         flex-direction: column;
@@ -715,16 +593,7 @@
       }
 
       .btn-main,
-      .btn-secondary {
-        width: 100%;
-        text-align: center;
-      }
-
-      .btn-house {
-        top: 14px;
-        right: 14px;
-        font-size: 1.25rem;
-      }
+      .btn-secondary { width: 100%; text-align: center; }
     }
 
     @media print {
@@ -751,570 +620,432 @@
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <main id="view-welcome" class="view" role="main">
-      <section class="menu-container" aria-labelledby="welcome-title">
-        <a id="nav-home-top" href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
-          <i class="fa-solid fa-house" aria-hidden="true"></i>
-        </a>
 
-        <h1 id="welcome-title" class="brand-ar ar-text">اختبار الحروف</h1>
-        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Grand Quiz</div>
-        <div class="divider"></div>
+  <main id="view-welcome" class="view" role="main">
+    <section class="menu-container" aria-labelledby="welcome-title">
+      <a href="module1.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+      </a>
 
-        <div class="subtitle-group">
-          <p id="welcome-subtitle-fr" class="subtitle fr">Trouve les 28 lettres sur le grand plateau.</p>
-          <p id="welcome-subtitle-es" class="subtitle es">Encuentra las 28 letras en el gran tablero.</p>
-        </div>
+      <h1 id="welcome-title" class="brand-ar ar-text">اختبار الحروف</h1>
+      <div class="app-title serif-text">Kalicards – Grand Quiz</div>
+      <div class="divider"></div>
 
-        <div class="input-group">
-          <label id="player-name-label" for="player-name">Nom du participant / Nombre del participante</label>
-          <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off" maxlength="40" />
-        </div>
-
-        <button class="btn-main start-btn" id="btn-start-quiz" type="button">
-          Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
-        </button>
-      </section>
-    </main>
-
-    <main id="view-quiz" class="view hidden" aria-live="polite">
-      <header class="quiz-header">
-        <div class="progress-container">
-          <div class="progress-info">
-            <span id="progress-text" class="progress-text">1 / 28</span>
-            <span id="score-live" class="score-live">✓ 0</span>
-          </div>
-          <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
-            <div id="progress-fill" class="progress-bar-fill"></div>
-          </div>
-        </div>
-      </header>
-
-      <section class="board-container">
-        <div class="audio-section">
-          <button type="button" id="btn-play-audio" class="btn-audio big-audio" title="Écouter l'audio" aria-label="Écouter l'audio">
-            🎙️
-          </button>
-          <div id="instruction-text" class="instruction-text">
-            Écoute et trouve la lettre !<br />
-            <small>¡Escucha y encuentra la letra!</small>
-          </div>
-        </div>
-
-        <div class="board-grid" id="board-grid" dir="rtl" role="group" aria-label="Plateau de jeu"></div>
-      </section>
-    </main>
-
-    <main id="view-certificate" class="view hidden" role="main">
-      <div class="cert-edit-group no-print">
-        <input type="text" id="cert-name-input" placeholder="Modifier le prénom avant impression..." />
+      <div class="subtitle-group">
+        <p class="subtitle fr">Trouve les 28 lettres sur le grand plateau.</p>
+        <p class="subtitle es">Encuentra las 28 letras en el gran tablero.</p>
       </div>
 
-      <article class="diploma-paper">
-        <a id="nav-home-certificate" href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
-          <i class="fa-solid fa-house" aria-hidden="true"></i>
-        </a>
+      <div class="input-group">
+        <label for="player-name">Nom du participant / Nombre del participante</label>
+        <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
+      </div>
 
-        <div id="cert-ar" class="cert-ar ar-text">مبروك</div>
-        <h2 id="cert-title" class="cert-title serif-text">Certificat de réussite</h2>
+      <button class="btn-main start-btn" id="btn-start-quiz" type="button">
+        Commencer le quiz
+        <span class="btn-es">Empieza el quiz</span>
+      </button>
+    </section>
+  </main>
 
-        <div class="cert-messages">
-          <p id="cert-msg-fr" class="cert-msg fr">Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.</p>
-          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el Gran Quiz del Alfabeto.</p>
+  <main id="view-quiz" class="view hidden" aria-live="polite">
+    <header class="quiz-header">
+      <div class="progress-container">
+        <div class="progress-info">
+          <span id="progress-text" class="progress-text">1 / 28</span>
         </div>
-
-        <div id="cert-name" class="cert-name ar-text">Participant</div>
-
-        <div class="cert-score-box">
-          <span id="cert-score-label" class="score-label">Score Final</span>
-          <div id="cert-score" class="score-value">0 / 0</div>
+        <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-accessibility">
+          <div id="progress-fill" class="progress-bar-fill"></div>
         </div>
+      </div>
+    </header>
 
-        <div id="cert-date" class="cert-date"></div>
-        <div class="cert-icon" aria-hidden="true">📖</div>
-      </article>
+    <section class="board-container">
+      <div class="audio-section">
+        <button type="button" id="btn-play-audio" class="btn-audio big-audio" title="Écouter l'audio" aria-label="Écouter l'audio">
+          🎙️
+        </button>
+        <div class="instruction-text">
+          Écoute et trouve la lettre !<br>
+          <small>¡Escucha y encuentra la letra!</small>
+        </div>
+      </div>
 
-      <nav class="cert-actions no-print">
-        <button type="button" id="btn-print-cert" class="btn-secondary">🖨️ Imprimer</button>
-        <button type="button" id="btn-restart-quiz" class="btn-main">Rejouer ↺</button>
-      </nav>
-    </main>
-  </div>
+      <div class="board-grid" id="board-grid" dir="rtl" role="group" aria-label="Plateau de jeu"></div>
+    </section>
+  </main>
 
-  <script id="app-data" type="application/json">
-  {
-    "meta": {
-      "pageTitle": "Dar Al-Kalimah - Quiz Grand Plateau",
-      "brandName": "Dar Al-Kalimah",
-      "appTitle": "Kalicards – Grand Quiz",
-      "moduleId": "module-1-grand-quiz",
-      "homeHref": "module1.html",
-      "storage": {
-        "playerName": "dak_grand_quiz_player_name"
-      }
-    },
-    "settings": {
-      "autoPlayQuestionAudio": true,
-      "autoPlayDelay": 350,
-      "delayNextCard": 1200,
-      "shuffleQuestions": true,
-      "shuffleBoardOnStart": false,
-      "enableVibration": true,
-      "enableCertificateAudio": true,
-      "successAudio": "mabruk.mp3"
-    },
-    "ui": {
-      "welcomeTitleAr": "اختبار الحروف",
-      "welcomeSubtitleFr": "Trouve les 28 lettres sur le grand plateau.",
-      "welcomeSubtitleEs": "Encuentra las 28 letras en el gran tablero.",
-      "playerLabel": "Nom du participant / Nombre del participante",
-      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empieza el quiz</span>",
-      "instructionFr": "Écoute et trouve la lettre !",
-      "instructionEs": "¡Escucha y encuentra la letra!",
-      "certificateTitle": "Certificat de réussite",
-      "certificateMessageFr": "Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.",
-      "certificateMessageEs": "Felicidades, has completado el Gran Quiz del Alfabeto.",
-      "certificateScoreLabel": "Score Final",
-      "printButton": "🖨️ Imprimer",
-      "restartButton": "Rejouer ↺",
-      "certificateDatePrefix": "Fait le"
-    },
-    "quizDatabase": [
-      { "id": "alif", "value": "أ", "audio": "audio/01-alif.mp3" },
-      { "id": "baa", "value": "ب", "audio": "audio/02-baa.mp3" },
-      { "id": "taa", "value": "ت", "audio": "audio/03-taa.mp3" },
-      { "id": "thaa", "value": "ث", "audio": "audio/04-thaa.mp3" },
-      { "id": "jim", "value": "ج", "audio": "audio/05-jim.mp3" },
-      { "id": "haa", "value": "ح", "audio": "audio/06-haa.mp3" },
-      { "id": "khaa", "value": "خ", "audio": "audio/07-khaa.mp3" },
-      { "id": "dal", "value": "د", "audio": "audio/08-dal.mp3" },
-      { "id": "dhal", "value": "ذ", "audio": "audio/09-dhal.mp3" },
-      { "id": "raa", "value": "ر", "audio": "audio/10-raa.mp3" },
-      { "id": "zay", "value": "ز", "audio": "audio/11-zay.mp3" },
-      { "id": "siin", "value": "س", "audio": "audio/12-siin.mp3" },
-      { "id": "shiin", "value": "ش", "audio": "audio/13-shiin.mp3" },
-      { "id": "saad", "value": "ص", "audio": "audio/14-saad.mp3" },
-      { "id": "daad", "value": "ض", "audio": "audio/15-daad.mp3" },
-      { "id": "taaa", "value": "ط", "audio": "audio/16-taaa.mp3" },
-      { "id": "zaa", "value": "ظ", "audio": "audio/17-zaa.mp3" },
-      { "id": "ayn", "value": "ع", "audio": "audio/18-ayn.mp3" },
-      { "id": "ghayn", "value": "غ", "audio": "audio/19-ghayn.mp3" },
-      { "id": "faa", "value": "ف", "audio": "audio/20-faa.mp3" },
-      { "id": "qaaf", "value": "ق", "audio": "audio/21-qaaf.mp3" },
-      { "id": "kaaf", "value": "ك", "audio": "audio/22-kaaf.mp3" },
-      { "id": "laam", "value": "ل", "audio": "audio/23-laam.mp3" },
-      { "id": "miim", "value": "م", "audio": "audio/24-miim.mp3" },
-      { "id": "nuun", "value": "ن", "audio": "audio/25-nuun.mp3" },
-      { "id": "haaa", "value": "ه", "audio": "audio/26-haaa.mp3" },
-      { "id": "waaw", "value": "و", "audio": "audio/27-waaw.mp3" },
-      { "id": "yaa", "value": "ي", "audio": "audio/28-yaa.mp3" }
-    ]
-  }
-  </script>
+  <main id="view-certificate" class="view hidden" role="main">
+    <div class="cert-edit-group no-print">
+      <input type="text" id="cert-name-input" placeholder="Modifier le prénom avant impression...">
+    </div>
+
+    <article class="diploma-paper">
+      <a href="module1.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+      </a>
+
+      <div class="cert-ar ar-text">مبروك</div>
+      <h2 class="cert-title serif-text">Certificat de réussite</h2>
+
+      <div class="cert-messages">
+        <p class="cert-msg fr">Félicitations, vous avez terminé le Grand Quiz de l'Alphabet.</p>
+        <p class="cert-msg es">Felicidades, has completado el Gran Quiz del Alfabeto.</p>
+      </div>
+
+      <div id="cert-name" class="cert-name ar-text">Participant</div>
+
+      <div class="cert-score-box">
+        <span class="score-label">Score Final</span>
+        <div id="cert-score" class="score-value">0 / 0</div>
+      </div>
+
+      <div id="cert-date" class="cert-date"></div>
+      <div class="cert-icon" aria-hidden="true">📖</div>
+    </article>
+
+    <nav class="cert-actions no-print">
+      <button type="button" id="btn-print-cert" class="btn-secondary">🖨️ Imprimer</button>
+      <button type="button" id="btn-restart-quiz" class="btn-main">Rejouer ↺</button>
+    </nav>
+  </main>
 
   <script>
-    (() => {
-      "use strict";
+    const QUIZ_DATABASE = [
+      { id: "alif", value: "أ", audio: "audio/01-alif.mp3" },
+      { id: "baa", value: "ب", audio: "audio/02-baa.mp3" },
+      { id: "taa", value: "ت", audio: "audio/03-taa.mp3" },
+      { id: "thaa", value: "ث", audio: "audio/04-thaa.mp3" },
+      { id: "jim", value: "ج", audio: "audio/05-jim.mp3" },
+      { id: "haa", value: "ح", audio: "audio/06-haa.mp3" },
+      { id: "khaa", value: "خ", audio: "audio/07-khaa.mp3" },
+      { id: "dal", value: "د", audio: "audio/08-dal.mp3" },
+      { id: "dhal", value: "ذ", audio: "audio/09-dhal.mp3" },
+      { id: "raa", value: "ر", audio: "audio/10-raa.mp3" },
+      { id: "zay", value: "ز", audio: "audio/11-zay.mp3" },
+      { id: "siin", value: "س", audio: "audio/12-siin.mp3" },
+      { id: "shiin", value: "ش", audio: "audio/13-shiin.mp3" },
+      { id: "saad", value: "ص", audio: "audio/14-saad.mp3" },
+      { id: "daad", value: "ض", audio: "audio/15-daad.mp3" },
+      { id: "taaa", value: "ط", audio: "audio/16-taaa.mp3" },
+      { id: "zaa", value: "ظ", audio: "audio/17-zaa.mp3" },
+      { id: "ayn", value: "ع", audio: "audio/18-ayn.mp3" },
+      { id: "ghayn", value: "غ", audio: "audio/19-ghayn.mp3" },
+      { id: "faa", value: "ف", audio: "audio/20-faa.mp3" },
+      { id: "qaaf", value: "ق", audio: "audio/21-qaaf.mp3" },
+      { id: "kaaf", value: "ك", audio: "audio/22-kaaf.mp3" },
+      { id: "laam", value: "ل", audio: "audio/23-laam.mp3" },
+      { id: "miim", value: "م", audio: "audio/24-miim.mp3" },
+      { id: "nuun", value: "ن", audio: "audio/25-nuun.mp3" },
+      { id: "haaa", value: "ه", audio: "audio/26-haaa.mp3" },
+      { id: "waaw", value: "و", audio: "audio/27-waaw.mp3" },
+      { id: "yaa", value: "ي", audio: "audio/28-yaa.mp3" }
+    ];
 
-      const DATA = JSON.parse(document.getElementById("app-data").textContent);
+    const AUDIO_PATHS = {
+      success: "mabruk.mp3" // racine du projet, pas dans /audio
+    };
 
-      const $ = (id) => document.getElementById(id);
+    const AudioController = {
+      player: new Audio(),
+      effectPlayer: new Audio(),
+      isUnlocked: false,
 
-      const DOM = {
-        title: document.querySelector("title"),
-        views: {
-          welcome: $("view-welcome"),
-          quiz: $("view-quiz"),
-          certificate: $("view-certificate")
-        },
-        navHomeTop: $("nav-home-top"),
-        navHomeCertificate: $("nav-home-certificate"),
-        playerName: $("player-name"),
-        certNameInput: $("cert-name-input"),
-        startBtn: $("btn-start-quiz"),
-        playAudioBtn: $("btn-play-audio"),
-        printBtn: $("btn-print-cert"),
-        restartBtn: $("btn-restart-quiz"),
-        boardGrid: $("board-grid"),
-        progressText: $("progress-text"),
-        progressFill: $("progress-fill"),
-        progressBar: $("progress-bar-accessibility"),
-        scoreLive: $("score-live"),
-        certName: $("cert-name"),
-        certScore: $("cert-score"),
-        certDate: $("cert-date"),
-        uiText: {
-          welcomeTitle: $("welcome-title"),
-          welcomeAppTitle: $("welcome-app-title"),
-          welcomeSubtitleFr: $("welcome-subtitle-fr"),
-          welcomeSubtitleEs: $("welcome-subtitle-es"),
-          playerLabel: $("player-name-label"),
-          instructionText: $("instruction-text"),
-          certTitle: $("cert-title"),
-          certMsgFr: $("cert-msg-fr"),
-          certMsgEs: $("cert-msg-es"),
-          certScoreLabel: $("cert-score-label"),
-          certAr: $("cert-ar")
-        }
-      };
+      init() {
+        this.player.preload = "auto";
+        this.effectPlayer.preload = "auto";
+        this.player.playsInline = true;
+        this.effectPlayer.playsInline = true;
+        this.player.volume = 1;
+        this.effectPlayer.volume = 1;
+      },
 
-      const Utils = {
-        shuffle(array) {
-          const arr = [...array];
-          for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-          }
-          return arr;
-        },
+      async unlock() {
+        if (this.isUnlocked) return true;
 
-        save(key, value) {
-          try {
-            localStorage.setItem(key, JSON.stringify(value));
-          } catch (_) {}
-        },
+        try {
+          this.player.muted = true;
+          this.effectPlayer.muted = true;
 
-        load(key, fallback = "") {
-          try {
-            const raw = localStorage.getItem(key);
-            return raw ? JSON.parse(raw) : fallback;
-          } catch (_) {
-            return fallback;
-          }
-        },
+          this.player.src = AUDIO_PATHS.success;
+          this.effectPlayer.src = AUDIO_PATHS.success;
 
-        formatDateFr(date = new Date()) {
-          return date.toLocaleDateString("fr-FR", {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-          });
-        },
-
-        vibrate(pattern) {
-          if (DATA.settings.enableVibration && navigator.vibrate) {
-            navigator.vibrate(pattern);
-          }
-        }
-      };
-
-      const AudioController = {
-        player: new Audio(),
-        effectPlayer: new Audio(),
-        isUnlocked: false,
-
-        init() {
-          this.player.preload = "auto";
-          this.effectPlayer.preload = "auto";
-          this.player.playsInline = true;
-          this.effectPlayer.playsInline = true;
-          this.player.volume = 1;
-          this.effectPlayer.volume = 1;
-        },
-
-        async unlock() {
-          if (this.isUnlocked) return true;
-
-          try {
-            const silentMain = this.player;
-            const silentEffect = this.effectPlayer;
-
-            silentMain.muted = true;
-            silentEffect.muted = true;
-
-            await silentMain.play().catch(() => {});
-            silentMain.pause();
-            silentMain.currentTime = 0;
-
-            await silentEffect.play().catch(() => {});
-            silentEffect.pause();
-            silentEffect.currentTime = 0;
-
-            silentMain.muted = false;
-            silentEffect.muted = false;
-            this.isUnlocked = true;
-            return true;
-          } catch (_) {
-            this.player.muted = false;
-            this.effectPlayer.muted = false;
-            return false;
-          }
-        },
-
-        async play(instance, src) {
-          if (!src || !instance) return false;
-
-          try {
-            instance.pause();
-            instance.currentTime = 0;
-            instance.src = src;
-            instance.load();
-            await instance.play();
-            return true;
-          } catch (_) {
-            return false;
-          }
-        },
-
-        playMain(src) {
-          return this.play(this.player, src);
-        },
-
-        playEffect(src) {
-          return this.play(this.effectPlayer, src);
-        },
-
-        pauseAll() {
+          await this.player.play().catch(() => {});
           this.player.pause();
+          this.player.currentTime = 0;
+
+          await this.effectPlayer.play().catch(() => {});
           this.effectPlayer.pause();
+          this.effectPlayer.currentTime = 0;
+
+          this.player.muted = false;
+          this.effectPlayer.muted = false;
+          this.isUnlocked = true;
+          return true;
+        } catch (err) {
+          console.warn("Déblocage audio échoué :", err);
+          this.player.muted = false;
+          this.effectPlayer.muted = false;
+          return false;
         }
-      };
+      },
 
-      const App = {
-        state: {
-          playerName: "Participant",
-          boardItems: [],
-          targetQueue: [],
-          currentIndex: 0,
-          score: 0,
-          isProcessing: false
+      async playMain(src) {
+        if (!src) return;
+        try {
+          this.player.pause();
+          this.player.currentTime = 0;
+          this.player.src = src;
+          this.player.load();
+          await this.player.play();
+        } catch (err) {
+          console.warn("Lecture audio bloquée :", err);
+        }
+      },
+
+      async playEffect(src) {
+        if (!src) return;
+        try {
+          this.effectPlayer.pause();
+          this.effectPlayer.currentTime = 0;
+          this.effectPlayer.src = src;
+          this.effectPlayer.load();
+          await this.effectPlayer.play();
+        } catch (err) {
+          console.warn("Effet audio bloqué :", err);
+        }
+      }
+    };
+
+    const AppEngine = {
+      state: {
+        playerName: "Participant",
+        targetQueue: [],
+        currentIndex: 0,
+        score: 0,
+        isProcessing: false,
+        config: {
+          delayNextCard: 1200
+        }
+      },
+
+      dom: {
+        views: {
+          welcome: document.getElementById("view-welcome"),
+          quiz: document.getElementById("view-quiz"),
+          certificate: document.getElementById("view-certificate")
         },
-
-        init() {
-          AudioController.init();
-          this.applyStaticContent();
-          this.restoreState();
-          this.bindEvents();
+        inputs: {
+          name: document.getElementById("player-name"),
+          certNameEdit: document.getElementById("cert-name-input")
         },
-
-        applyStaticContent() {
-          DOM.title.textContent = DATA.meta.pageTitle;
-          DOM.navHomeTop.href = DATA.meta.homeHref;
-          DOM.navHomeCertificate.href = DATA.meta.homeHref;
-
-          DOM.uiText.welcomeTitle.textContent = DATA.ui.welcomeTitleAr;
-          DOM.uiText.welcomeAppTitle.textContent = DATA.meta.appTitle;
-          DOM.uiText.welcomeSubtitleFr.textContent = DATA.ui.welcomeSubtitleFr;
-          DOM.uiText.welcomeSubtitleEs.textContent = DATA.ui.welcomeSubtitleEs;
-          DOM.uiText.playerLabel.textContent = DATA.ui.playerLabel;
-          DOM.startBtn.innerHTML = DATA.ui.startButtonHtml;
-          DOM.uiText.instructionText.innerHTML = `${DATA.ui.instructionFr}<br><small>${DATA.ui.instructionEs}</small>`;
-          DOM.uiText.certTitle.textContent = DATA.ui.certificateTitle;
-          DOM.uiText.certMsgFr.textContent = DATA.ui.certificateMessageFr;
-          DOM.uiText.certMsgEs.textContent = DATA.ui.certificateMessageEs;
-          DOM.uiText.certScoreLabel.textContent = DATA.ui.certificateScoreLabel;
-          DOM.printBtn.textContent = DATA.ui.printButton;
-          DOM.restartBtn.textContent = DATA.ui.restartButton;
-          DOM.uiText.certAr.textContent = "مبروك";
+        buttons: {
+          startQuiz: document.getElementById("btn-start-quiz"),
+          playAudio: document.getElementById("btn-play-audio"),
+          printCert: document.getElementById("btn-print-cert"),
+          restartQuiz: document.getElementById("btn-restart-quiz")
         },
+        ui: {
+          progressText: document.getElementById("progress-text"),
+          progressFill: document.getElementById("progress-fill"),
+          progressBarA11y: document.getElementById("progress-bar-accessibility"),
+          boardGrid: document.getElementById("board-grid"),
+          certName: document.getElementById("cert-name"),
+          certScore: document.getElementById("cert-score"),
+          certDate: document.getElementById("cert-date")
+        }
+      },
 
-        restoreState() {
-          const savedName = Utils.load(DATA.meta.storage.playerName, "");
-          if (savedName) DOM.playerName.value = savedName;
-        },
+      shuffle(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      },
 
-        switchView(viewName) {
-          Object.values(DOM.views).forEach(view => view.classList.add("hidden"));
-          DOM.views[viewName].classList.remove("hidden");
-        },
+      vibrate(pattern) {
+        if (navigator.vibrate) {
+          navigator.vibrate(pattern);
+        }
+      },
 
-        buildBoardItems() {
-          return DATA.settings.shuffleBoardOnStart
-            ? Utils.shuffle(DATA.quizDatabase)
-            : [...DATA.quizDatabase];
-        },
+      renderBoard() {
+        this.dom.ui.boardGrid.innerHTML = "";
 
-        buildTargetQueue() {
-          return DATA.settings.shuffleQuestions
-            ? Utils.shuffle(DATA.quizDatabase)
-            : [...DATA.quizDatabase];
-        },
+        QUIZ_DATABASE.forEach((item, index) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "board-card ar-text";
+          btn.textContent = item.value;
+          btn.dataset.id = item.id;
+          btn.setAttribute("aria-label", `Lettre ${item.value}`);
+          btn.style.animationDelay = `${index * 0.03}s`;
+          btn.addEventListener("click", () => this.handleAnswer(btn, item));
+          this.dom.ui.boardGrid.appendChild(btn);
+        });
+      },
 
-        renderBoard() {
-          DOM.boardGrid.innerHTML = "";
+      async startQuiz() {
+        await AudioController.unlock();
 
-          this.state.boardItems.forEach((item, index) => {
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "board-card ar-text";
-            btn.textContent = item.value;
-            btn.dataset.id = item.id;
-            btn.setAttribute("aria-label", `Lettre ${item.value}`);
-            btn.style.animationDelay = `${index * 0.03}s`;
-            btn.addEventListener("click", () => this.handleAnswer(btn, item));
-            DOM.boardGrid.appendChild(btn);
+        const nameVal = this.dom.inputs.name.value.trim();
+        this.state.playerName = nameVal !== "" ? nameVal : "Participant";
+        this.state.score = 0;
+        this.state.currentIndex = 0;
+        this.state.isProcessing = false;
+        this.state.targetQueue = this.shuffle(QUIZ_DATABASE);
+
+        this.switchView("quiz");
+        this.renderBoard();
+        this.loadNextTarget();
+      },
+
+      restartQuiz() {
+        this.switchView("welcome");
+        this.dom.inputs.name.value = "";
+        this.dom.inputs.name.focus();
+      },
+
+      endQuiz() {
+        this.switchView("certificate");
+        this.dom.ui.progressFill.style.width = "100%";
+        this.dom.ui.progressBarA11y.setAttribute("aria-valuenow", "100");
+
+        const finalName = this.state.playerName !== "Participant" ? this.state.playerName : "";
+        this.dom.inputs.certNameEdit.value = finalName;
+        this.dom.ui.certName.textContent = this.state.playerName;
+        this.dom.ui.certScore.textContent = `${this.state.score} / ${QUIZ_DATABASE.length}`;
+
+        const dateStr = new Date().toLocaleDateString("fr-FR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+        this.dom.ui.certDate.textContent = `Fait le ${dateStr}`;
+
+        this.triggerSuccessEffects();
+      },
+
+      loadNextTarget() {
+        this.state.isProcessing = false;
+
+        const total = this.state.targetQueue.length;
+        const pct = Math.round((this.state.currentIndex / total) * 100);
+
+        this.dom.ui.progressText.textContent = `${this.state.currentIndex + 1} / ${total}`;
+        this.dom.ui.progressFill.style.width = `${pct}%`;
+        this.dom.ui.progressBarA11y.setAttribute("aria-valuenow", String(pct));
+
+        Array.from(this.dom.ui.boardGrid.children).forEach(card => {
+          card.classList.remove("correct", "wrong", "disabled");
+        });
+
+        setTimeout(() => this.playAudio(), 350);
+      },
+
+      handleAnswer(cardElement, clickedItem) {
+        if (this.state.isProcessing) return;
+        this.state.isProcessing = true;
+
+        const targetItem = this.state.targetQueue[this.state.currentIndex];
+        const allCards = Array.from(this.dom.ui.boardGrid.children);
+
+        allCards.forEach(card => card.classList.add("disabled"));
+
+        if (clickedItem.id === targetItem.id) {
+          this.state.score++;
+          cardElement.classList.add("correct");
+          this.vibrate(45);
+        } else {
+          cardElement.classList.add("wrong");
+          this.vibrate([120, 50, 120]);
+
+          allCards.forEach(card => {
+            if (card.dataset.id === targetItem.id) {
+              card.classList.add("correct");
+            }
           });
-        },
+        }
 
-        startQuiz() {
-          this.state.playerName = DOM.playerName.value.trim() || "Participant";
-          this.state.score = 0;
-          this.state.currentIndex = 0;
-          this.state.isProcessing = false;
-          this.state.boardItems = this.buildBoardItems();
-          this.state.targetQueue = this.buildTargetQueue();
+        setTimeout(() => {
+          this.state.currentIndex++;
 
-          Utils.save(DATA.meta.storage.playerName, this.state.playerName);
-
-          AudioController.unlock();
-          this.switchView("quiz");
-          this.renderBoard();
-          this.updateScore();
-          this.loadNextTarget();
-        },
-
-        restartQuiz() {
-          this.switchView("welcome");
-          DOM.playerName.focus();
-        },
-
-        updateScore() {
-          DOM.scoreLive.textContent = `✓ ${this.state.score}`;
-          DOM.scoreLive.classList.remove("bump");
-          void DOM.scoreLive.offsetWidth;
-          DOM.scoreLive.classList.add("bump");
-          setTimeout(() => DOM.scoreLive.classList.remove("bump"), 180);
-        },
-
-        loadNextTarget() {
-          this.state.isProcessing = false;
-
-          const total = this.state.targetQueue.length || 1;
-          const currentDisplay = this.state.currentIndex + 1;
-          const pct = Math.round((this.state.currentIndex / total) * 100);
-
-          DOM.progressText.textContent = `${currentDisplay} / ${total}`;
-          DOM.progressFill.style.width = `${pct}%`;
-          DOM.progressBar.setAttribute("aria-valuenow", String(pct));
-
-          Array.from(DOM.boardGrid.children).forEach(card => {
-            card.classList.remove("correct", "wrong", "disabled");
-          });
-
-          if (DATA.settings.autoPlayQuestionAudio) {
-            setTimeout(() => this.playAudio(), DATA.settings.autoPlayDelay);
-          }
-        },
-
-        handleAnswer(cardElement, clickedItem) {
-          if (this.state.isProcessing) return;
-          this.state.isProcessing = true;
-
-          const targetItem = this.state.targetQueue[this.state.currentIndex];
-          const allCards = Array.from(DOM.boardGrid.children);
-
-          allCards.forEach(card => card.classList.add("disabled"));
-
-          if (clickedItem.id === targetItem.id) {
-            this.state.score += 1;
-            cardElement.classList.add("correct");
-            this.updateScore();
-            Utils.vibrate(40);
+          if (this.state.currentIndex < this.state.targetQueue.length) {
+            this.loadNextTarget();
           } else {
-            cardElement.classList.add("wrong");
-            Utils.vibrate(200);
+            this.endQuiz();
+          }
+        }, this.state.config.delayNextCard);
+      },
 
-            allCards.forEach(card => {
-              if (card.dataset.id === targetItem.id) {
-                card.classList.add("correct");
-              }
+      playAudio() {
+        if (this.state.currentIndex >= this.state.targetQueue.length) return;
+        const src = this.state.targetQueue[this.state.currentIndex].audio;
+        AudioController.playMain(src);
+      },
+
+      switchView(viewName) {
+        Object.values(this.dom.views).forEach(view => view.classList.add("hidden"));
+        this.dom.views[viewName].classList.remove("hidden");
+      },
+
+      triggerSuccessEffects() {
+        const end = Date.now() + 3000;
+
+        (function frame() {
+          if (typeof confetti === "function") {
+            confetti({
+              particleCount: 6,
+              angle: 60,
+              spread: 60,
+              origin: { x: 0 },
+              colors: ["#C8A462", "#5D1828", "#dfc28b"]
+            });
+            confetti({
+              particleCount: 6,
+              angle: 120,
+              spread: 60,
+              origin: { x: 1 },
+              colors: ["#C8A462", "#5D1828", "#dfc28b"]
             });
           }
+          if (Date.now() < end) requestAnimationFrame(frame);
+        })();
 
-          setTimeout(() => {
-            this.state.currentIndex += 1;
+        this.vibrate([120, 50, 120, 50, 180]);
+        AudioController.playEffect(AUDIO_PATHS.success);
+      },
 
-            if (this.state.currentIndex < this.state.targetQueue.length) {
-              this.loadNextTarget();
-            } else {
-              this.endQuiz();
-            }
-          }, DATA.settings.delayNextCard);
-        },
+      bindEvents() {
+        this.dom.buttons.startQuiz.addEventListener("click", () => this.startQuiz());
+        this.dom.buttons.playAudio.addEventListener("click", () => this.playAudio());
+        this.dom.buttons.printCert.addEventListener("click", () => window.print());
+        this.dom.buttons.restartQuiz.addEventListener("click", () => this.restartQuiz());
 
-        playAudio() {
-          if (this.state.currentIndex >= this.state.targetQueue.length) return;
-          const src = this.state.targetQueue[this.state.currentIndex]?.audio;
-          AudioController.playMain(src);
-        },
-
-        endQuiz() {
-          this.switchView("certificate");
-          DOM.progressFill.style.width = "100%";
-          DOM.progressBar.setAttribute("aria-valuenow", "100");
-
-          DOM.certNameInput.value = this.state.playerName !== "Participant" ? this.state.playerName : "";
-          DOM.certName.textContent = this.state.playerName;
-          DOM.certScore.textContent = `${this.state.score} / ${this.state.targetQueue.length}`;
-
-          const dateStr = Utils.formatDateFr();
-          DOM.certDate.textContent = `${DATA.ui.certificateDatePrefix} ${dateStr}`;
-
-          this.triggerSuccessEffects();
-        },
-
-        triggerSuccessEffects() {
-          const end = Date.now() + 3000;
-
-          (function frame() {
-            if (typeof confetti === "function") {
-              confetti({
-                particleCount: 6,
-                angle: 60,
-                spread: 60,
-                origin: { x: 0 },
-                colors: ["#C8A462", "#5D1828", "#dfc28b"]
-              });
-              confetti({
-                particleCount: 6,
-                angle: 120,
-                spread: 60,
-                origin: { x: 1 },
-                colors: ["#C8A462", "#5D1828", "#dfc28b"]
-              });
-            }
-            if (Date.now() < end) requestAnimationFrame(frame);
-          })();
-
-          Utils.vibrate([80, 50, 120]);
-
-          if (DATA.settings.enableCertificateAudio) {
-            AudioController.playEffect(DATA.settings.successAudio);
+        this.dom.inputs.name.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            this.startQuiz();
           }
-        },
+        });
 
-        bindEvents() {
-          DOM.startBtn.addEventListener("click", () => this.startQuiz());
-          DOM.playAudioBtn.addEventListener("click", () => this.playAudio());
-          DOM.printBtn.addEventListener("click", () => window.print());
-          DOM.restartBtn.addEventListener("click", () => this.restartQuiz());
+        this.dom.inputs.certNameEdit.addEventListener("input", (e) => {
+          const val = e.target.value.trim();
+          this.dom.ui.certName.textContent = val || "Participant";
+        });
+      },
 
-          DOM.playerName.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              this.startQuiz();
-            }
-          });
+      init() {
+        AudioController.init();
+        this.bindEvents();
+      }
+    };
 
-          DOM.certNameInput.addEventListener("input", (e) => {
-            const val = e.target.value.trim();
-            DOM.certName.textContent = val || "Participant";
-          });
-
-          document.addEventListener("visibilitychange", () => {
-            if (document.hidden) AudioController.pauseAll();
-          });
-        }
-      };
-
-      document.addEventListener("DOMContentLoaded", () => {
-        App.init();
-      });
-
-      window.DarAlKalimahGrandQuiz = App;
-    })();
+    document.addEventListener("DOMContentLoaded", () => {
+      AppEngine.init();
+    });
   </script>
 </body>
 </html>
