@@ -721,7 +721,7 @@
       <header class="quiz-header">
         <div class="progress-info">
           <span id="progress-text" class="progress-text">1 / 28</span>
-          <span id="score-live" class="score-live" aria-label="Score actuel">✓ 0</span>
+          <span id="score-live" class="score-live" aria-label="Score actuel" aria-live="polite">✓ 0</span>
         </div>
         <div id="progress-bar-accessibility" class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div id="progress-fill" class="progress-bar-fill"></div>
@@ -789,6 +789,7 @@
       "moduleId": "module-1-quiz-3",
       "homeHref": "module1.html",
       "successAudio": "mabruk.mp3",
+      "silentUnlockAudio": "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=",
       "storage": {
         "playerName": "dak_quiz3_player_name"
       }
@@ -944,19 +945,28 @@
         isUnlocked: false,
 
         init() {
-          this.player.preload = "auto";
-          this.effectPlayer.preload = "auto";
+          this.player.preload = "none";
+          this.effectPlayer.preload = "none";
+          this.player.playsInline = true;
+          this.effectPlayer.playsInline = true;
+          this.player.volume = 1;
+          this.effectPlayer.volume = 1;
         },
 
         async unlock() {
           if (this.isUnlocked) return true;
 
           try {
-            const testSrc = DATA.meta.successAudio || "";
-            if (testSrc) {
-              this.player.src = testSrc;
-              this.effectPlayer.src = testSrc;
-            }
+            const silentSrc = DATA.meta.silentUnlockAudio || "";
+            if (!silentSrc) return false;
+
+            this.player.pause();
+            this.effectPlayer.pause();
+            this.player.currentTime = 0;
+            this.effectPlayer.currentTime = 0;
+
+            this.player.src = silentSrc;
+            this.effectPlayer.src = silentSrc;
 
             this.player.muted = true;
             this.effectPlayer.muted = true;
@@ -971,6 +981,12 @@
 
             this.player.muted = false;
             this.effectPlayer.muted = false;
+
+            this.player.removeAttribute("src");
+            this.effectPlayer.removeAttribute("src");
+            this.player.load();
+            this.effectPlayer.load();
+
             this.isUnlocked = true;
             return true;
           } catch (_) {
@@ -1002,6 +1018,8 @@
         pauseAll() {
           this.player.pause();
           this.effectPlayer.pause();
+          this.player.currentTime = 0;
+          this.effectPlayer.currentTime = 0;
         }
       };
 
@@ -1012,7 +1030,9 @@
           currentIndex: 0,
           score: 0,
           isProcessing: false,
-          currentAudio: ""
+          currentAudio: "",
+          hasFinished: false,
+          hasPlayedSuccess: false
         },
 
         init() {
@@ -1075,23 +1095,30 @@
           });
         },
 
-        startQuiz() {
+        async startQuiz() {
           this.state.playerName = DOM.playerName.value.trim() || "Participant";
           this.state.questions = this.buildQuestions();
           this.state.currentIndex = 0;
           this.state.score = 0;
           this.state.isProcessing = false;
           this.state.currentAudio = "";
+          this.state.hasFinished = false;
+          this.state.hasPlayedSuccess = false;
 
           Utils.save(DATA.meta.storage.playerName, this.state.playerName);
 
-          AudioController.unlock();
+          await AudioController.unlock();
           this.switchView("quiz");
           this.updateScore();
           this.renderQuestion();
         },
 
         restartQuiz() {
+          this.state.isProcessing = false;
+          this.state.currentAudio = "";
+          this.state.hasFinished = false;
+          this.state.hasPlayedSuccess = false;
+          AudioController.pauseAll();
           this.switchView("welcome");
           DOM.playerName.focus();
         },
@@ -1143,7 +1170,7 @@
         },
 
         handleAnswer(selectedValue, buttonNode) {
-          if (this.state.isProcessing) return;
+          if (this.state.isProcessing || this.state.hasFinished) return;
 
           const currentQuestion = this.state.questions[this.state.currentIndex];
           if (!currentQuestion) return;
@@ -1183,11 +1210,14 @@
         },
 
         playAudio() {
-          if (!this.state.currentAudio) return;
+          if (!this.state.currentAudio || this.state.hasFinished) return;
           AudioController.playMain(this.state.currentAudio);
         },
 
         endQuiz() {
+          if (this.state.hasFinished) return;
+
+          this.state.hasFinished = true;
           this.switchView("certificate");
           DOM.progressFill.style.width = "100%";
           DOM.progressBar.setAttribute("aria-valuenow", "100");
@@ -1220,6 +1250,8 @@
             if (Date.now() < end) requestAnimationFrame(frame);
           })();
 
+          if (this.state.hasPlayedSuccess) return;
+          this.state.hasPlayedSuccess = true;
           AudioController.playEffect(DATA.meta.successAudio);
         },
 
