@@ -710,40 +710,53 @@
     </nav>
   </main>
 
+  <script id="app-data" type="application/json">
+    {
+      "meta": {
+        "homeHref": "module1.html",
+        "successAudio": "mabruk.mp3",
+        "silentUnlockAudio": "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA="
+      },
+      "quizDatabase": [
+        { "id": "alif", "value": "أ", "audio": "audio/01-alif.mp3" },
+        { "id": "baa", "value": "ب", "audio": "audio/02-baa.mp3" },
+        { "id": "taa", "value": "ت", "audio": "audio/03-taa.mp3" },
+        { "id": "thaa", "value": "ث", "audio": "audio/04-thaa.mp3" },
+        { "id": "jim", "value": "ج", "audio": "audio/05-jim.mp3" },
+        { "id": "haa", "value": "ح", "audio": "audio/06-haa.mp3" },
+        { "id": "khaa", "value": "خ", "audio": "audio/07-khaa.mp3" },
+        { "id": "dal", "value": "د", "audio": "audio/08-dal.mp3" },
+        { "id": "dhal", "value": "ذ", "audio": "audio/09-dhal.mp3" },
+        { "id": "raa", "value": "ر", "audio": "audio/10-raa.mp3" },
+        { "id": "zay", "value": "ز", "audio": "audio/11-zay.mp3" },
+        { "id": "siin", "value": "س", "audio": "audio/12-siin.mp3" },
+        { "id": "shiin", "value": "ش", "audio": "audio/13-shiin.mp3" },
+        { "id": "saad", "value": "ص", "audio": "audio/14-saad.mp3" },
+        { "id": "daad", "value": "ض", "audio": "audio/15-daad.mp3" },
+        { "id": "taaa", "value": "ط", "audio": "audio/16-taaa.mp3" },
+        { "id": "zaa", "value": "ظ", "audio": "audio/17-zaa.mp3" },
+        { "id": "ayn", "value": "ع", "audio": "audio/18-ayn.mp3" },
+        { "id": "ghayn", "value": "غ", "audio": "audio/19-ghayn.mp3" },
+        { "id": "faa", "value": "ف", "audio": "audio/20-faa.mp3" },
+        { "id": "qaaf", "value": "ق", "audio": "audio/21-qaaf.mp3" },
+        { "id": "kaaf", "value": "ك", "audio": "audio/22-kaaf.mp3" },
+        { "id": "laam", "value": "ل", "audio": "audio/23-laam.mp3" },
+        { "id": "miim", "value": "م", "audio": "audio/24-miim.mp3" },
+        { "id": "nuun", "value": "ن", "audio": "audio/25-nuun.mp3" },
+        { "id": "haaa", "value": "ه", "audio": "audio/26-haaa.mp3" },
+        { "id": "waaw", "value": "و", "audio": "audio/27-waaw.mp3" },
+        { "id": "yaa", "value": "ي", "audio": "audio/28-yaa.mp3" }
+      ]
+    }
+  </script>
+
   <script>
-    const QUIZ_DATABASE = [
-      { id: "alif", value: "أ", audio: "audio/01-alif.mp3" },
-      { id: "baa", value: "ب", audio: "audio/02-baa.mp3" },
-      { id: "taa", value: "ت", audio: "audio/03-taa.mp3" },
-      { id: "thaa", value: "ث", audio: "audio/04-thaa.mp3" },
-      { id: "jim", value: "ج", audio: "audio/05-jim.mp3" },
-      { id: "haa", value: "ح", audio: "audio/06-haa.mp3" },
-      { id: "khaa", value: "خ", audio: "audio/07-khaa.mp3" },
-      { id: "dal", value: "د", audio: "audio/08-dal.mp3" },
-      { id: "dhal", value: "ذ", audio: "audio/09-dhal.mp3" },
-      { id: "raa", value: "ر", audio: "audio/10-raa.mp3" },
-      { id: "zay", value: "ز", audio: "audio/11-zay.mp3" },
-      { id: "siin", value: "س", audio: "audio/12-siin.mp3" },
-      { id: "shiin", value: "ش", audio: "audio/13-shiin.mp3" },
-      { id: "saad", value: "ص", audio: "audio/14-saad.mp3" },
-      { id: "daad", value: "ض", audio: "audio/15-daad.mp3" },
-      { id: "taaa", value: "ط", audio: "audio/16-taaa.mp3" },
-      { id: "zaa", value: "ظ", audio: "audio/17-zaa.mp3" },
-      { id: "ayn", value: "ع", audio: "audio/18-ayn.mp3" },
-      { id: "ghayn", value: "غ", audio: "audio/19-ghayn.mp3" },
-      { id: "faa", value: "ف", audio: "audio/20-faa.mp3" },
-      { id: "qaaf", value: "ق", audio: "audio/21-qaaf.mp3" },
-      { id: "kaaf", value: "ك", audio: "audio/22-kaaf.mp3" },
-      { id: "laam", value: "ل", audio: "audio/23-laam.mp3" },
-      { id: "miim", value: "م", audio: "audio/24-miim.mp3" },
-      { id: "nuun", value: "ن", audio: "audio/25-nuun.mp3" },
-      { id: "haaa", value: "ه", audio: "audio/26-haaa.mp3" },
-      { id: "waaw", value: "و", audio: "audio/27-waaw.mp3" },
-      { id: "yaa", value: "ي", audio: "audio/28-yaa.mp3" }
-    ];
+    const APP_DATA = JSON.parse(document.getElementById("app-data").textContent);
+    const QUIZ_DATABASE = APP_DATA.quizDatabase;
 
     const AUDIO_PATHS = {
-      success: "mabruk.mp3" // racine du projet, pas dans /audio
+      success: APP_DATA.meta.successAudio,
+      silentUnlock: APP_DATA.meta.silentUnlockAudio
     };
 
     const AudioController = {
@@ -752,8 +765,8 @@
       isUnlocked: false,
 
       init() {
-        this.player.preload = "auto";
-        this.effectPlayer.preload = "auto";
+        this.player.preload = "none";
+        this.effectPlayer.preload = "none";
         this.player.playsInline = true;
         this.effectPlayer.playsInline = true;
         this.player.volume = 1;
@@ -764,11 +777,18 @@
         if (this.isUnlocked) return true;
 
         try {
+          const silentSrc = AUDIO_PATHS.silentUnlock;
+
+          this.player.pause();
+          this.effectPlayer.pause();
+          this.player.currentTime = 0;
+          this.effectPlayer.currentTime = 0;
+
+          this.player.src = silentSrc;
+          this.effectPlayer.src = silentSrc;
+
           this.player.muted = true;
           this.effectPlayer.muted = true;
-
-          this.player.src = AUDIO_PATHS.success;
-          this.effectPlayer.src = AUDIO_PATHS.success;
 
           await this.player.play().catch(() => {});
           this.player.pause();
@@ -780,6 +800,12 @@
 
           this.player.muted = false;
           this.effectPlayer.muted = false;
+
+          this.player.removeAttribute("src");
+          this.effectPlayer.removeAttribute("src");
+          this.player.load();
+          this.effectPlayer.load();
+
           this.isUnlocked = true;
           return true;
         } catch (err) {
@@ -814,6 +840,13 @@
         } catch (err) {
           console.warn("Effet audio bloqué :", err);
         }
+      },
+
+      stopAll() {
+        this.player.pause();
+        this.effectPlayer.pause();
+        this.player.currentTime = 0;
+        this.effectPlayer.currentTime = 0;
       }
     };
 
@@ -824,6 +857,7 @@
         currentIndex: 0,
         score: 0,
         isProcessing: false,
+        hasFinished: false,
         config: {
           delayNextCard: 1200
         }
@@ -895,6 +929,7 @@
         this.state.score = 0;
         this.state.currentIndex = 0;
         this.state.isProcessing = false;
+        this.state.hasFinished = false;
         this.state.targetQueue = this.shuffle(QUIZ_DATABASE);
 
         this.switchView("quiz");
@@ -903,12 +938,23 @@
       },
 
       restartQuiz() {
+        AudioController.stopAll();
+        this.state.playerName = "Participant";
+        this.state.targetQueue = [];
+        this.state.currentIndex = 0;
+        this.state.score = 0;
+        this.state.isProcessing = false;
+        this.state.hasFinished = false;
         this.switchView("welcome");
         this.dom.inputs.name.value = "";
+        this.dom.inputs.certNameEdit.value = "";
         this.dom.inputs.name.focus();
       },
 
       endQuiz() {
+        if (this.state.hasFinished) return;
+        this.state.hasFinished = true;
+
         this.switchView("certificate");
         this.dom.ui.progressFill.style.width = "100%";
         this.dom.ui.progressBarA11y.setAttribute("aria-valuenow", "100");
@@ -946,7 +992,7 @@
       },
 
       handleAnswer(cardElement, clickedItem) {
-        if (this.state.isProcessing) return;
+        if (this.state.isProcessing || this.state.hasFinished) return;
         this.state.isProcessing = true;
 
         const targetItem = this.state.targetQueue[this.state.currentIndex];
@@ -981,7 +1027,7 @@
       },
 
       playAudio() {
-        if (this.state.currentIndex >= this.state.targetQueue.length) return;
+        if (this.state.currentIndex >= this.state.targetQueue.length || this.state.hasFinished) return;
         const src = this.state.targetQueue[this.state.currentIndex].audio;
         AudioController.playMain(src);
       },
@@ -1034,6 +1080,12 @@
         this.dom.inputs.certNameEdit.addEventListener("input", (e) => {
           const val = e.target.value.trim();
           this.dom.ui.certName.textContent = val || "Participant";
+        });
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            AudioController.stopAll();
+          }
         });
       },
 
