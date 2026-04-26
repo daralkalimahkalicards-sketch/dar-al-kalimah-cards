@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <title>Dar Al-Kalimah - Quiz 2 (Hamzat Al-Qat')</title>
+  <title>Dar Al-Kalimah - Quiz 2 (Al-Qamariyya)</title>
   <meta name="theme-color" content="#5D1828">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,7 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
-  <script src="database.js"></script>
   <style>
     :root {
       --burgundy:#5D1828; --burgundy-dark:#3a0f19;
@@ -113,13 +112,13 @@
     <main id="view-welcome" class="view" role="main">
       <section class="menu-container" aria-labelledby="welcome-title">
         <a href="module5.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
-        <h1 id="welcome-title" class="brand-ar ar-text">هَمْزَةُ القَطْع</h1>
+        <h1 id="welcome-title" class="brand-ar ar-text">ال القَمَرِيَّة</h1>
         <div class="app-title serif-text">Kalicards – Module 5</div>
-        <div class="app-subtitle">Quiz 2 : Hamzat Al-Qat'</div>
+        <div class="app-subtitle">Quiz 2 : Al-Qamariyya</div>
         <div class="divider"></div>
         <div class="subtitle-group">
-          <p class="subtitle fr">Écoute l'audio et trouve la bonne hamza.</p>
-          <p class="subtitle es">Escucha el audio y encuentra la hamza correcta.</p>
+          <p class="subtitle fr">Écoute l'audio et trouve le bon mot.</p>
+          <p class="subtitle es">Escucha el audio y encuentra la palabra correcta.</p>
         </div>
         <div class="input-group">
           <label for="player-name">Nom / Nombre</label>
@@ -135,7 +134,7 @@
     <main id="view-quiz" class="view hidden" aria-live="polite">
       <header class="quiz-header">
         <div class="progress-info">
-          <span id="progress-text" class="progress-text">1 / 30</span>
+          <span id="progress-text" class="progress-text">1 / 15</span>
           <span id="score-live" class="score-live">✓ 0</span>
         </div>
         <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
@@ -164,8 +163,8 @@
         <div class="cert-ar ar-text">مبروك</div>
         <h2 class="cert-title serif-text">Certificat de réussite</h2>
         <div class="cert-messages">
-          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Hamzat Al-Qat').</p>
-          <p class="cert-msg es">Felicidades, has completado el quiz 2 (Hamzat Al-Qat').</p>
+          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Al-Qamariyya).</p>
+          <p class="cert-msg es">Felicidades, has completado el quiz 2 (Al-Qamariyya).</p>
         </div>
         <div id="cert-name" class="cert-name ar-text">Participant</div>
         <div class="cert-score-box">
@@ -185,6 +184,26 @@
   <script>
   (() => {
     "use strict";
+
+    // BASE DE DONNÉES INTÉGRÉE POUR AL-QAMARIYYA
+    const qamariyyaData = [
+      { correct: "البَاب", traps: ["اَلْبَاب", "بَاب", "البَّاب"], audio: "audio/qamariyya/bab.mp3", fr: "La porte", es: "La puerta" },
+      { correct: "القَمَر", traps: ["اَلْقَمَر", "قَمَر", "القَّمَر"], audio: "audio/qamariyya/qamar.mp3", fr: "La lune", es: "La luna" },
+      { correct: "الكِتَاب", traps: ["اَلْكِتَاب", "كِتَاب", "الكِّتَاب"], audio: "audio/qamariyya/kitab.mp3", fr: "Le livre", es: "El libro" },
+      { correct: "الوَلَد", traps: ["اَلْوَلَد", "وَلَد", "الوَّلَد"], audio: "audio/qamariyya/walad.mp3", fr: "Le garçon", es: "El niño" },
+      { correct: "البِنْت", traps: ["اَلْبِنْت", "بِنْت", "البِّنْت"], audio: "audio/qamariyya/bint.mp3", fr: "La fille", es: "La niña" },
+      { correct: "الجَمَل", traps: ["اَلْجَمَل", "جَمَل", "الجَّمَل"], audio: "audio/qamariyya/jamal.mp3", fr: "Le chameau", es: "El camello" },
+      { correct: "الحِصَان", traps: ["اَلْحِصَان", "حِصَان", "الحِّصَان"], audio: "audio/qamariyya/hisan.mp3", fr: "Le cheval", es: "El caballo" },
+      { correct: "الخُبْز", traps: ["اَلْخُبْز", "خُبْز", "الخُّبْز"], audio: "audio/qamariyya/khubz.mp3", fr: "Le pain", es: "El pan" },
+      { correct: "العَيْن", traps: ["اَلْعَيْن", "عَيْن", "العَّيْن"], audio: "audio/qamariyya/ayn.mp3", fr: "L'œil", es: "El ojo" },
+      { correct: "الغُرَاب", traps: ["اَلْغُرَاب", "غُرَاب", "الغُّرَاب"], audio: "audio/qamariyya/ghurab.mp3", fr: "Le corbeau", es: "El cuervo" },
+      { correct: "الفِيل", traps: ["اَلْفِيل", "فِيل", "الفِّيل"], audio: "audio/qamariyya/fil.mp3", fr: "L'éléphant", es: "El elefante" },
+      { correct: "المَاء", traps: ["اَلْمَاء", "مَاء", "المَّاء"], audio: "audio/qamariyya/maa.mp3", fr: "L'eau", es: "El agua" },
+      { correct: "الهِلَال", traps: ["اَلْهِلَال", "هِلال", "الهِّلَال"], audio: "audio/qamariyya/hilal.mp3", fr: "Le croissant", es: "La luna creciente" },
+      { correct: "اليَد", traps: ["اَلْيَد", "يَد", "اليَّد"], audio: "audio/qamariyya/yad.mp3", fr: "La main", es: "La mano" },
+      { correct: "الأَسَد", traps: ["اَلْأَسَد", "أَسَد", "الأَّسَد"], audio: "audio/qamariyya/asad.mp3", fr: "Le lion", es: "El león" }
+    ];
+
     const $ = id => document.getElementById(id);
     const DOM = {
       views:{welcome:$("view-welcome"),quiz:$("view-quiz"),certificate:$("view-certificate")},
@@ -226,8 +245,9 @@
       clearTimer(){if(this.state.pendingTimer){clearTimeout(this.state.pendingTimer);this.state.pendingTimer=null;}},
       switchView(name){Object.values(DOM.views).forEach(v=>v.classList.add("hidden"));DOM.views[name].classList.remove("hidden");},
       buildQuestions(){
-        return Utils.shuffle(qatData).map(item=>{
-          const options=Utils.shuffle([item.correct,...item.traps]);
+        return Utils.shuffle(qamariyyaData).map(item=>{
+          // Options limitées à 4 choix maximum
+          const options=Utils.shuffle([item.correct,...item.traps]).slice(0, 4);
           return{targetArabic:item.correct,targetAudio:item.audio,options,fr:item.fr,es:item.es};
         });
       },
@@ -303,4 +323,3 @@
   </script>
 </body>
 </html>
-
