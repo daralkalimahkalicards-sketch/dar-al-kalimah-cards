@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <title>Dar Al-Kalimah - Quiz 2 (Al-Qamariyya)</title>
+  <title>Dar Al-Kalimah - Quiz 1 (Al-Shamsiyya)</title>
   <meta name="theme-color" content="#5D1828">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -112,9 +112,9 @@
     <main id="view-welcome" class="view" role="main">
       <section class="menu-container" aria-labelledby="welcome-title">
         <a href="module5.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
-        <h1 id="welcome-title" class="brand-ar ar-text">ال القَمَرِيَّة</h1>
+        <h1 id="welcome-title" class="brand-ar ar-text">ال الشَّمْسِيَّة</h1>
         <div class="app-title serif-text">Kalicards – Module 5</div>
-        <div class="app-subtitle">Quiz 2 : Al-Qamariyya</div>
+        <div class="app-subtitle">Quiz 1 : Al-Shamsiyya</div>
         <div class="divider"></div>
         <div class="subtitle-group">
           <p class="subtitle fr">Écoute l'audio et trouve le bon mot.</p>
@@ -134,7 +134,7 @@
     <main id="view-quiz" class="view hidden" aria-live="polite">
       <header class="quiz-header">
         <div class="progress-info">
-          <span id="progress-text" class="progress-text">1 / 15</span>
+          <span id="progress-text" class="progress-text">1 / 29</span>
           <span id="score-live" class="score-live">✓ 0</span>
         </div>
         <div class="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
@@ -163,8 +163,8 @@
         <div class="cert-ar ar-text">مبروك</div>
         <h2 class="cert-title serif-text">Certificat de réussite</h2>
         <div class="cert-messages">
-          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Al-Qamariyya).</p>
-          <p class="cert-msg es">Felicidades, has completado el quiz 2 (Al-Qamariyya).</p>
+          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 1 (Al-Shamsiyya).</p>
+          <p class="cert-msg es">Felicidades, has completado el quiz 1 (Al-Shamsiyya).</p>
         </div>
         <div id="cert-name" class="cert-name ar-text">Participant</div>
         <div class="cert-score-box">
@@ -185,23 +185,37 @@
   (() => {
     "use strict";
 
-    // BASE DE DONNÉES INTÉGRÉE POUR AL-QAMARIYYA
-    const qamariyyaData = [
-      { correct: "البَاب", traps: ["اَلْبَاب", "بَاب", "البَّاب"], audio: "audio/qamariyya/bab.mp3", fr: "La porte", es: "La puerta" },
-      { correct: "القَمَر", traps: ["اَلْقَمَر", "قَمَر", "القَّمَر"], audio: "audio/qamariyya/qamar.mp3", fr: "La lune", es: "La luna" },
-      { correct: "الكِتَاب", traps: ["اَلْكِتَاب", "كِتَاب", "الكِّتَاب"], audio: "audio/qamariyya/kitab.mp3", fr: "Le livre", es: "El libro" },
-      { correct: "الوَلَد", traps: ["اَلْوَلَد", "وَلَد", "الوَّلَد"], audio: "audio/qamariyya/walad.mp3", fr: "Le garçon", es: "El niño" },
-      { correct: "البِنْت", traps: ["اَلْبِنْت", "بِنْت", "البِّنْت"], audio: "audio/qamariyya/bint.mp3", fr: "La fille", es: "La niña" },
-      { correct: "الجَمَل", traps: ["اَلْجَمَل", "جَمَل", "الجَّمَل"], audio: "audio/qamariyya/jamal.mp3", fr: "Le chameau", es: "El camello" },
-      { correct: "الحِصَان", traps: ["اَلْحِصَان", "حِصَان", "الحِّصَان"], audio: "audio/qamariyya/hisan.mp3", fr: "Le cheval", es: "El caballo" },
-      { correct: "الخُبْز", traps: ["اَلْخُبْز", "خُبْز", "الخُّبْز"], audio: "audio/qamariyya/khubz.mp3", fr: "Le pain", es: "El pan" },
-      { correct: "العَيْن", traps: ["اَلْعَيْن", "عَيْن", "العَّيْن"], audio: "audio/qamariyya/ayn.mp3", fr: "L'œil", es: "El ojo" },
-      { correct: "الغُرَاب", traps: ["اَلْغُرَاب", "غُرَاب", "الغُّرَاب"], audio: "audio/qamariyya/ghurab.mp3", fr: "Le corbeau", es: "El cuervo" },
-      { correct: "الفِيل", traps: ["اَلْفِيل", "فِيل", "الفِّيل"], audio: "audio/qamariyya/fil.mp3", fr: "L'éléphant", es: "El elefante" },
-      { correct: "المَاء", traps: ["اَلْمَاء", "مَاء", "المَّاء"], audio: "audio/qamariyya/maa.mp3", fr: "L'eau", es: "El agua" },
-      { correct: "الهِلَال", traps: ["اَلْهِلَال", "هِلال", "الهِّلَال"], audio: "audio/qamariyya/hilal.mp3", fr: "Le croissant", es: "La luna creciente" },
-      { correct: "اليَد", traps: ["اَلْيَد", "يَد", "اليَّد"], audio: "audio/qamariyya/yad.mp3", fr: "La main", es: "La mano" },
-      { correct: "الأَسَد", traps: ["اَلْأَسَد", "أَسَد", "الأَّسَد"], audio: "audio/qamariyya/asad.mp3", fr: "Le lion", es: "El león" }
+    // BASE DE DONNÉES INTÉGRÉE POUR AL-SHAMSIYYA (29 MOTS)
+    const shamsiyyaData = [
+      { correct: "الشَّمْس", traps: ["اَلْشَمْس", "شَمْس", "الشَمْس"], audio: "audio/shamsiyya/shams.mp3", fr: "Le soleil", es: "El sol" },
+      { correct: "التُّفَّاح", traps: ["اَلْتُفَّاح", "تُفَّاح", "التُفَّاح"], audio: "audio/shamsiyya/tuffah.mp3", fr: "La pomme", es: "La manzana" },
+      { correct: "الثَّلْج", traps: ["اَلْثَلْج", "ثَلْج", "الثَلْج"], audio: "audio/shamsiyya/thalj.mp3", fr: "La neige", es: "La nieve" },
+      { correct: "الدِّيك", traps: ["اَلْدِّيك", "دِيك", "الدِيك"], audio: "audio/shamsiyya/dik.mp3", fr: "Le coq", es: "El gallo" },
+      { correct: "الذَّهَب", traps: ["اَلْذَّهَب", "ذَهَب", "الذَهَب"], audio: "audio/shamsiyya/dhahab.mp3", fr: "L'or", es: "El oro" },
+      { correct: "الرَّجُل", traps: ["اَلْرَّجُل", "رَجُل", "الرَجُل"], audio: "audio/shamsiyya/rajul.mp3", fr: "L'homme", es: "El hombre" },
+      { correct: "الزَّيْت", traps: ["اَلْزَّيْت", "زَيْت", "الزَيْت"], audio: "audio/shamsiyya/zayt.mp3", fr: "L'huile", es: "El aceite" },
+      { correct: "السَّمَك", traps: ["اَلْسَّمَك", "سَمَك", "السَمَك"], audio: "audio/shamsiyya/samak.mp3", fr: "Le poisson", es: "El pez" },
+      { correct: "الشَّجَرَة", traps: ["اَلْشَّجَرَة", "شَجَرَة", "الشَجَرَة"], audio: "audio/shamsiyya/shajara.mp3", fr: "L'arbre", es: "El árbol" },
+      { correct: "الصَّقْر", traps: ["اَلْصَّقْر", "صَقْر", "الصَقْر"], audio: "audio/shamsiyya/saqr.mp3", fr: "Le faucon", es: "El halcón" },
+      { correct: "الضَّوْء", traps: ["اَلْضَّوْء", "ضَوْء", "الضَوْء"], audio: "audio/shamsiyya/daw.mp3", fr: "La lumière", es: "La luz" },
+      { correct: "الطَّيْر", traps: ["اَلْطَّيْر", "طَيْر", "الطَيْر"], audio: "audio/shamsiyya/tayr.mp3", fr: "L'oiseau", es: "El pájaro" },
+      { correct: "الظِّلّ", traps: ["اَلْظِّلّ", "ظِلّ", "الظِلّ"], audio: "audio/shamsiyya/zill.mp3", fr: "L'ombre", es: "La sombra" },
+      { correct: "اللَّيْل", traps: ["اَلْلَّيْل", "لَيْل", "اللَيْل"], audio: "audio/shamsiyya/layl.mp3", fr: "La nuit", es: "La noche" },
+      { correct: "النَّجْم", traps: ["اَلْنَّجْم", "نَجْم", "النَجْم"], audio: "audio/shamsiyya/najm.mp3", fr: "L'étoile", es: "La estrella" },
+      { correct: "التَّاجِر", traps: ["اَلْتَاجِر", "تَاجِر", "التَاجِر"], audio: "audio/shamsiyya/tajir.mp3", fr: "Le marchand", es: "El comerciante" },
+      { correct: "الثَّعْلَب", traps: ["اَلْثَعْلَب", "ثَعْلَب", "الثَعْلَب"], audio: "audio/shamsiyya/thalab.mp3", fr: "Le renard", es: "El zorro" },
+      { correct: "الدَّرْس", traps: ["اَلْدَّرْس", "دَرْس", "الدَرْس"], audio: "audio/shamsiyya/dars.mp3", fr: "La leçon", es: "La lección" },
+      { correct: "الذِّئْب", traps: ["اَلْذِّئْب", "ذِئْب", "الذِئْب"], audio: "audio/shamsiyya/dhib.mp3", fr: "Le loup", es: "El lobo" },
+      { correct: "الرَّأْس", traps: ["اَلْرَّأْس", "رَأْس", "الرَأْس"], audio: "audio/shamsiyya/ras.mp3", fr: "La tête", es: "La cabeza" },
+      { correct: "الزَّرَافَة", traps: ["اَلْزَّرَافَة", "زَرَافَة", "الزَرَافَة"], audio: "audio/shamsiyya/zarafa.mp3", fr: "La girafe", es: "La jirafa" },
+      { correct: "السَّيَّارَة", traps: ["اَلْسَّيَّارَة", "سَيَّارَة", "السَيَّارَة"], audio: "audio/shamsiyya/sayyara.mp3", fr: "La voiture", es: "El coche" },
+      { correct: "الشَّارِع", traps: ["اَلْشَّارِع", "شَارِع", "الشَارِع"], audio: "audio/shamsiyya/shari.mp3", fr: "La rue", es: "La calle" },
+      { correct: "الصَّدِيق", traps: ["اَلْصَّدِيق", "صَدِيق", "الصَدِيق"], audio: "audio/shamsiyya/sadiq.mp3", fr: "L'ami", es: "El amigo" },
+      { correct: "الضِّفْدَع", traps: ["اَلْضِّفْدَع", "ضِفْدَع", "الضِفْدَع"], audio: "audio/shamsiyya/difda.mp3", fr: "La grenouille", es: "La rana" },
+      { correct: "الطَّالِب", traps: ["اَلْطَّالِب", "طَالِب", "الطَالِب"], audio: "audio/shamsiyya/talib.mp3", fr: "L'étudiant", es: "El estudiante" },
+      { correct: "الظَّرْف", traps: ["اَلْظَّرْف", "ظَرْف", "الظَرْف"], audio: "audio/shamsiyya/zarf.mp3", fr: "L'enveloppe", es: "El sobre" },
+      { correct: "اللِّسَان", traps: ["اَلْلِّسَان", "لِسَان", "اللِسَان"], audio: "audio/shamsiyya/lisan.mp3", fr: "La langue", es: "La lengua" },
+      { correct: "النَّهْر", traps: ["اَلْنَّهْر", "نَهْر", "النَهْر"], audio: "audio/shamsiyya/nahr.mp3", fr: "Le fleuve", es: "El río" }
     ];
 
     const $ = id => document.getElementById(id);
@@ -245,7 +259,7 @@
       clearTimer(){if(this.state.pendingTimer){clearTimeout(this.state.pendingTimer);this.state.pendingTimer=null;}},
       switchView(name){Object.values(DOM.views).forEach(v=>v.classList.add("hidden"));DOM.views[name].classList.remove("hidden");},
       buildQuestions(){
-        return Utils.shuffle(qamariyyaData).map(item=>{
+        return Utils.shuffle(shamsiyyaData).map(item=>{
           // Options limitées à 4 choix maximum
           const options=Utils.shuffle([item.correct,...item.traps]).slice(0, 4);
           return{targetArabic:item.correct,targetAudio:item.audio,options,fr:item.fr,es:item.es};
