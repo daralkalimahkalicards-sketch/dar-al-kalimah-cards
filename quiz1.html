@@ -688,10 +688,19 @@
 
             playEffect(src) {
                 if (!src) return;
+
+                this.player.pause();
+                this.player.currentTime = 0;
+
                 this.effectPlayer.pause();
                 this.effectPlayer.currentTime = 0;
                 this.effectPlayer.src = src;
-                this.effectPlayer.play().catch(err => console.warn('Effet audio bloqué :', err));
+
+                this.effectPlayer.load();
+
+                this.effectPlayer.play().catch(err => {
+                    console.warn("Effet audio bloqué ou introuvable :", src, err);
+                });
             }
         };
 
@@ -905,7 +914,7 @@
                     if (Date.now() < end) requestAnimationFrame(frame);
                 })();
 
-                AudioController.playEffect("mabruk.mp3");
+                AudioController.playEffect("./mabruk.mp3");
             },
 
             bindEvents() {
