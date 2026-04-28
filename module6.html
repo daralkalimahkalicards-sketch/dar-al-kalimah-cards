@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Kalicards - Module 6</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --burgundy: #671e2d; /* Ajusté pour coller exactement à ton image */
+      --gold: #C8A462;
+      --bg-cream: #F8F5F0;
+      --white: #FFFFFF;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    body {
+      background-color: var(--bg-cream);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      padding: 20px;
+    }
+
+    /* === LA CARTE PRINCIPALE AUX BONNES DIMENSIONS === */
+    .menu-card {
+      background-color: var(--burgundy);
+      width: 100%;
+      max-width: 540px; /* Remis à la taille standard large */
+      border-radius: 20px;
+      padding: 60px 40px; /* Marges généreuses comme sur le M4 */
+      position: relative;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      animation: floatIn 0.4s ease-out forwards;
+    }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === ICÔNE MAISON === */
+    .home-icon {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      color: var(--gold);
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .home-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* === EN-TÊTE === */
+    .brand-ar {
+      font-family: 'Amiri', serif;
+      font-size: 3.8rem;
+      color: var(--gold);
+      font-weight: normal;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .module-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      color: var(--gold);
+      letter-spacing: 3.5px;
+      margin-bottom: 8px;
+    }
+
+    .module-subtitle {
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 25px;
+    }
+
+    .divider {
+      width: 50px;
+      height: 1px;
+      background-color: var(--gold);
+      margin: 0 auto 25px auto;
+      opacity: 0.5;
+    }
+
+    /* === INSTRUCTIONS === */
+    .instruction-fr {
+      color: var(--white);
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .instruction-es {
+      color: var(--gold);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: 35px;
+      opacity: 0.9;
+    }
+
+    /* === BOUTONS STANDARDS === */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 18px; /* Espacement standard entre les boutons */
+      width: 100%;
+      max-width: 380px; /* Boutons bien larges */
+      margin: 0 auto;
+    }
+
+    .menu-btn {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50px;
+      background: transparent;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .menu-btn:hover, .menu-btn:active {
+      background-color: var(--gold);
+      color: var(--burgundy);
+    }
+
+    /* Responsive très petits écrans */
+    @media (max-width: 480px) {
+      .menu-card { padding: 45px 20px; }
+      .brand-ar { font-size: 3.2rem; }
+      .module-title { font-size: 1rem; letter-spacing: 2px; }
+      .btn-group { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-card">
+    <a href="index.html" class="home-icon" aria-label="Accueil"><i class="fa-solid fa-house"></i></a>
+    
+    <h1 class="brand-ar">دار الكلمة</h1>
+    <h2 class="module-title">KALICARDS – MODULE 6</h2>
+    <h3 class="module-subtitle">VOCABULAIRE & LECTURE</h3>
+    
+    <div class="divider"></div>
+    
+    <p class="instruction-fr">Sélectionnez une activité</p>
+    <p class="instruction-es">Selecciona una actividad</p>
+    
+    <div class="btn-group">
+      <a href="lecon6.html" class="menu-btn">LA LEÇON</a>
+      <a href="module6-quiz1.html" class="menu-btn">QUIZ 1</a>
+      <a href="module6-quiz2.html" class="menu-btn">QUIZ 2</a>
+      <a href="module6-quiz3.html" class="menu-btn">QUIZ 3</a>
+    </div>
+  </div>
+
+</body>
+</html>
