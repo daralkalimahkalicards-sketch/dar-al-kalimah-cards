@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Dar Al-Kalimah – Leçon 6 | المفردات</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --burgundy:#5D1828; --burgundy-dark:#3a0f19;
+      --gold:#C8A462; --gold-light:#dfc28b;
+      --white:#FFFFFF; --bg-beige:#FAF6F0;
+      --shadow-card:0 26px 70px rgba(93,24,40,0.20);
+      --shadow-soft:0 8px 28px rgba(93,24,40,0.09);
+      --transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      --radius-xl:28px; --radius-lg:22px; --radius-md:18px; --radius-sm:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{-webkit-text-size-adjust:100%;}
+    body{
+      min-height:100vh;background:var(--bg-beige);
+      font-family:"Montserrat",system-ui,sans-serif;
+      color:var(--burgundy);display:flex;flex-direction:column;align-items:center;
+      padding:20px 16px 50px;overflow-x:hidden;
+    }
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+      background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),
+                 radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),
+                 radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
+    a,button{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
+    .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .serif{font-family:"Cinzel","Georgia",serif;}
+    .hidden{display:none!important;}
+    .view{width:100%;max-width:660px;display:flex;flex-direction:column;align-items:center;animation:fadeIn 0.38s ease-out;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+    /* ════════════════════════════════════════
+       VUE 1 — MENU THÈMES
+    ════════════════════════════════════════ */
+    .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
+    .menu-brand-ar{font-family:"Amiri",serif;font-size:3rem;color:var(--gold);margin-bottom:4px;line-height:1;}
+    .menu-title{font-family:"Cinzel",serif;font-size:0.95rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+    .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.7rem;transition:var(--transition);}
+    .btn-house-menu:hover{transform:scale(1.1);}
+    .menu-subtitle{font-size:0.82rem;color:#aaa;font-style:italic;margin-top:3px;}
+
+    .theme-list{width:100%;display:flex;flex-direction:column;gap:14px;}
+    .theme-card{
+      background:var(--white);border:1px solid rgba(200,164,98,0.22);
+      border-radius:var(--radius-lg);padding:36px 22px 30px;
+      box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;
+      transition:var(--transition);width:100%;
+    }
+    .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
+    .theme-card:active{transform:scale(0.98);}
+    .theme-card.lecture-card{
+      background:linear-gradient(135deg,var(--white),#fffdf8);
+      border:2px solid rgba(200,164,98,0.45);
+      border-top:4px solid var(--gold);
+    }
+    .theme-icon{font-size:3.2rem;color:var(--gold);margin-bottom:28px;}
+    .theme-title-ar{font-size:2rem;color:var(--burgundy);font-weight:bold;margin-bottom:14px;line-height:1.4;}
+    .theme-divider{width:48px;height:1px;background:var(--gold);margin-bottom:12px;opacity:0.5;}
+    .theme-title-fr{font-weight:700;font-size:0.95rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+    .theme-title-es{font-size:0.88rem;color:#999;font-style:italic;}
+
+    /* ════════════════════════════════════════
+       VUE 2 — FLASHCARDS VOCABULAIRE
+    ════════════════════════════════════════ */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+    .pill-counter{background:var(--burgundy);color:var(--white);padding:9px 22px;border-radius:999px;font-weight:700;font-size:1rem;letter-spacing:1px;box-shadow:0 4px 12px rgba(93,24,40,0.2);}
+    .btn-house-lesson{color:var(--gold);font-size:1.7rem;transition:var(--transition);}
+    .btn-house-lesson:hover{transform:scale(1.1);}
+
+    .lesson-branding{text-align:center;margin-bottom:20px;}
+    .lesson-brand-ar{font-family:"Amiri",serif;font-size:2.5rem;color:var(--gold);line-height:1;margin-bottom:4px;}
+    .lesson-brand-fr{font-family:"Cinzel",serif;font-size:0.78rem;color:var(--burgundy);letter-spacing:3px;font-weight:700;text-transform:uppercase;}
+
+    /* ── FLIP CARD 3D vocab ── */
+    .flip-scene{width:100%;perspective:1400px;margin-bottom:22px;}
+    .flip-card-3d{position:relative;width:100%;height:480px;transform-style:preserve-3d;transition:transform 0.62s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;}
+    .flip-card-3d.is-flipped{transform:rotateY(180deg);}
+    .flip-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 26px 36px;box-shadow:var(--shadow-soft);overflow:hidden;}
+    .flip-front{background:var(--white);border:1px solid rgba(200,164,98,0.28);border-top:5px solid var(--burgundy);}
+    .flip-front::before{content:"";position:absolute;inset:12px;border:1px dashed rgba(200,164,98,0.2);border-radius:18px;pointer-events:none;}
+    .flip-back{background:linear-gradient(145deg,var(--burgundy),var(--burgundy-dark));border:1px solid rgba(200,164,98,0.4);border-bottom:5px solid var(--gold);transform:rotateY(180deg);}
+    .flip-back::before{content:"";position:absolute;inset:12px;border:1px dashed rgba(200,164,98,0.2);border-radius:18px;pointer-events:none;}
+    /* ── RECTO DESIGN ── */
+    .front-word-ar{
+      font-family:"Amiri",serif;direction:rtl;
+      font-size:clamp(3.2rem,9vw,4.8rem);
+      color:var(--burgundy);font-weight:700;
+      text-align:center;line-height:1;
+      margin-bottom:0;
+      font-feature-settings:"mark" 1,"mkmk" 1;
+    }
+    .front-divider-gold{
+      display:flex;align-items:center;gap:10px;
+      width:75%;margin:22px auto 0;
+    }
+    .front-divider-gold::before,.front-divider-gold::after{
+      content:"";flex:1;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(200,164,98,0.6),transparent);
+    }
+    .front-divider-gold span{color:var(--gold);font-size:0.6rem;opacity:0.9;}
+    .front-mic-row{
+      display:flex;align-items:center;justify-content:center;
+      margin-top:20px;
+    }
+    .front-icon-foot{
+      font-size:4.2rem;color:var(--gold);
+      margin-bottom:64px;
+    }
+    .front-color-foot{
+      width:96px;height:96px;border-radius:50%;
+      border:2px solid rgba(200,164,98,0.3);
+      box-shadow:0 6px 18px rgba(0,0,0,0.12);
+      margin-bottom:64px;
+    }
+    .front-num-foot{
+      font-family:"Cinzel",serif;
+      font-size:4.2rem;font-weight:700;
+      color:var(--gold);
+      margin-bottom:64px;
+    }
+    .flip-hint{position:absolute;top:14px;right:14px;color:var(--gold-light);font-size:1rem;opacity:0.7;animation:pulse 2.5s infinite;}
+    @keyframes pulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
+
+    /* ── VERSO DESIGN ── */
+    .back-trans-fr{font-size:clamp(2rem,8vw,3.2rem);font-weight:800;color:var(--white);text-align:center;line-height:1.2;margin-bottom:14px;}
+    .back-trans-es{font-size:clamp(1rem,3.5vw,1.4rem);color:var(--gold-light);font-style:italic;text-align:center;margin-bottom:14px;}
+    .back-note{background:rgba(200,164,98,0.15);border:1px solid var(--gold-light);color:var(--white);padding:8px 18px;border-radius:12px;font-weight:600;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;margin-top:6px;text-align:center;}
+    .back-color-dot{width:80px;height:80px;border-radius:50%;border:4px solid rgba(255,255,255,0.4);box-shadow:0 8px 22px rgba(0,0,0,0.25);margin-bottom:22px;}
+    .back-num{font-size:3.2rem;font-weight:800;color:var(--gold);font-family:"Cinzel",serif;margin-bottom:18px;line-height:1;}
+    .back-word-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.8rem,6vw,2.6rem);color:rgba(255,255,255,0.35);margin-bottom:16px;}
+    .flashcard{
+      background:var(--white);width:100%;min-height:540px;
+      border:1px solid rgba(200,164,98,0.28);border-radius:var(--radius-lg);
+      padding:44px 26px 38px;box-shadow:var(--shadow-soft);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      margin-bottom:22px;position:relative;
+    }
+    .card-icon{font-size:clamp(4rem,11vw,5.2rem);color:var(--gold);margin-bottom:28px;line-height:1;display:block;}
+    
+    
+    
+    .card-divider{width:88%;margin-bottom:26px;flex-shrink:0;display:flex;align-items:center;gap:10px;}
+    .card-divider::before,.card-divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(200,164,98,0.5),transparent);}
+    .card-divider span{color:var(--gold);font-size:0.6rem;opacity:0.85;flex-shrink:0;}
+    .translation-wrapper{display:flex;align-items:center;justify-content:center;width:100%;gap:16px;}
+    .lang-block{display:flex;align-items:center;gap:5px;}
+    .lang-prefix{color:var(--gold);font-weight:700;font-size:0.88rem;}
+    .trans-fr{font-size:1.05rem;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:1px;}
+    .btn-mic{width:50px;height:50px;border-radius:50%;background:#f0eeec;border:1.5px solid rgba(200,164,98,0.32);color:#7a9e9b;display:flex;justify-content:center;align-items:center;font-size:1.3rem;transition:var(--transition);box-shadow:0 3px 10px rgba(0,0,0,0.06);flex-shrink:0;}
+    
+    .btn-mic:hover{transform:scale(1.08);border-color:var(--gold);color:var(--burgundy);}
+    .trans-es{font-size:1rem;color:#999;font-style:italic;}
+    .fc-note{margin-top:20px;font-size:0.78rem;color:#bbb;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;}
+
+    .controls-container{width:100%;display:flex;justify-content:space-between;gap:14px;}
+    .btn-nav{flex:1;padding:16px 10px;border-radius:999px;font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;border:1.5px solid var(--gold);min-height:52px;}
+    .btn-prev{background:transparent;color:#ccc;border-color:#e0e0e0;}
+    .btn-prev.active{color:var(--burgundy);border-color:rgba(200,164,98,0.5);}
+    .btn-prev.active:hover{background:rgba(200,164,98,0.08);}
+    .btn-next{background:var(--white);color:var(--burgundy);}
+    .btn-next:hover{background:rgba(200,164,98,0.1);}
+    .btn-next:disabled{opacity:0.35;border-color:#eee;color:#ccc;pointer-events:none;background:transparent;}
+
+    /* ════════════════════════════════════════
+       VUE 3 — RENFORCEMENT LECTURE
+    ════════════════════════════════════════ */
+    .lecture-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+    .lecture-title-block{text-align:center;}
+    .lecture-title-ar{font-family:"Amiri",serif;font-size:1.5rem;color:var(--burgundy);direction:rtl;}
+    .lecture-title-fr{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
+
+    /* Pilules recto/verso */
+    .side-indicator{display:flex;align-items:center;gap:10px;width:100%;justify-content:center;margin-bottom:18px;}
+    .side-pill{padding:8px 20px;border-radius:999px;font-size:0.76rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:var(--transition);user-select:none;}
+    .side-pill.active{background:var(--burgundy);color:var(--white);box-shadow:0 4px 14px rgba(93,24,40,0.22);}
+    .side-pill.inactive{background:var(--white);color:#bbb;border:1px solid #e8e8e8;}
+    .side-pill.inactive:hover{border-color:var(--gold-light);color:var(--burgundy);}
+    .side-sep{font-size:0.9rem;color:var(--gold-light);}
+
+    /* Card wrapper fade */
+    .card-wrapper{width:100%;}
+    .face{
+      width:100%;border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-card);padding:28px 22px 24px;
+      transition:opacity 0.28s ease,transform 0.28s ease;
+    }
+    .face.is-hidden{display:none;}
+
+    /* Recto texte */
+    .face-front{background:var(--white);border:1px solid rgba(200,164,98,0.32);border-top:5px solid var(--burgundy);}
+    .face-front-brand{text-align:center;margin-bottom:16px;}
+    .face-brand-ar{font-family:"Amiri",serif;font-size:1.7rem;color:var(--gold);line-height:1;margin-bottom:2px;}
+    .face-brand-fr{font-family:"Cinzel",serif;font-size:0.65rem;color:var(--burgundy);letter-spacing:2.5px;text-transform:uppercase;opacity:0.7;}
+    .face-divider{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+    .face-divider::before,.face-divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(200,164,98,0.45),transparent);}
+    .face-divider span{color:var(--gold);font-size:0.58rem;}
+    .legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+    .legend-item{display:flex;align-items:center;gap:5px;font-size:0.7rem;color:#777;}
+    .leg-dot{width:12px;height:8px;border-radius:3px;}
+    .leg-dot.verb{background:rgba(93,24,40,0.10);border-bottom:2px solid var(--burgundy);}
+    .leg-dot.fam{background:rgba(200,164,98,0.18);border-bottom:2px solid var(--gold);}
+
+    .text-line{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(200,164,98,0.1);direction:rtl;}
+    .text-line:last-child{border-bottom:none;}
+    .line-emoji{font-size:1.1rem;flex-shrink:0;width:24px;text-align:center;padding-top:5px;}
+    .line-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.1rem,3.2vw,1.45rem);color:var(--burgundy);font-weight:700;line-height:1.5;text-align:right;margin-bottom:3px;}
+    .line-fr{font-size:0.75rem;color:#777;font-style:italic;line-height:1.4;margin-bottom:1px;direction:ltr;text-align:left;}
+    .line-es{font-size:0.71rem;color:#bbb;font-style:italic;line-height:1.4;direction:ltr;text-align:left;}
+    .hl-v{background:rgba(93,24,40,0.09);border-bottom:2px solid var(--burgundy);border-radius:3px;padding:0 2px;}
+    .hl-f{background:rgba(200,164,98,0.14);border-bottom:2px solid var(--gold);border-radius:3px;padding:0 2px;}
+
+    /* Verso racines */
+    .face-back{background:var(--white);border:1px solid rgba(200,164,98,0.32);border-bottom:5px solid var(--gold);display:flex;flex-direction:column;gap:10px;}
+    .back-header{text-align:center;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid rgba(200,164,98,0.3);}
+    .back-header-ar{font-family:"Amiri",serif;font-size:1.6rem;color:var(--burgundy);direction:rtl;margin-bottom:4px;}
+    .back-header-fr{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
+
+    .root-row{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--white);border-radius:var(--radius-md);border:1px solid rgba(200,164,98,0.22);border-left:4px solid var(--gold);box-shadow:0 2px 8px rgba(93,24,40,0.05);}
+    .root-block{flex-shrink:0;order:2;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dark));color:var(--white);font-family:"Amiri",serif;font-size:1.1rem;font-weight:700;direction:rtl;letter-spacing:5px;padding:10px 14px;border-radius:var(--radius-md);border:1.5px solid var(--gold);line-height:1.3;text-align:center;min-width:90px;box-shadow:0 4px 12px rgba(93,24,40,0.2);}
+    .root-block .wl{color:var(--gold);}
+    .root-content{flex:1;order:1;}
+    .root-verb{font-family:"Amiri",serif;direction:rtl;font-size:1.2rem;font-weight:700;color:var(--burgundy);margin-bottom:3px;}
+    .root-meaning{font-size:0.73rem;font-weight:700;color:var(--burgundy);margin-bottom:8px;line-height:1.5;}
+
+
+    .chips{display:flex;flex-wrap:wrap;gap:4px;}
+    .chip{display:flex;align-items:center;gap:4px;background:#f8f9fa;border:1px solid rgba(200,164,98,0.28);border-radius:999px;padding:3px 8px;direction:rtl;}
+    .chip.in-text{border-color:var(--burgundy);background:rgba(93,24,40,0.07);}
+    .chip.fem{border-color:var(--gold);background:rgba(200,164,98,0.10);}
+    .chip-ar{font-family:"Amiri",serif;font-size:0.95rem;color:var(--burgundy);font-weight:700;}
+    .chip-sep{font-size:0.55rem;color:var(--gold-light);direction:ltr;}
+    .chip-fr{font-size:0.62rem;font-weight:600;color:#555;direction:ltr;white-space:nowrap;}
+    .chip-dot{font-size:0.5rem;color:#ccc;direction:ltr;}
+    .chip-es{font-size:0.63rem;color:#6b7280;font-style:italic;direction:ltr;white-space:nowrap;}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:480px){
+      body{padding:14px 12px 40px;}
+      .flip-card-3d{height:460px;}
+      .flashcard{min-height:480px;padding:36px 16px 30px;}
+      .word-ar{font-size:clamp(3rem,11vw,4.2rem);}
+      .card-icon,.card-number{font-size:4rem;margin-bottom:22px;}
+      .card-color-circle{width:76px;height:76px;margin-bottom:22px;}
+      .face{padding:20px 14px 18px;}
+      .root-block{font-size:0.95rem;min-width:76px;letter-spacing:3px;}
+      .line-ar{font-size:1.05rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     VUE 1 — MENU THÈMES
+════════════════════════════════════════════════ -->
+<main id="view-menu" class="view">
+  <header class="menu-header">
+    <a href="module6.html" class="btn-house-menu" aria-label="Retour module">
+      <i class="fa-solid fa-house"></i>
+    </a>
+    <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-title serif">Leçon 6 — Vocabulaire</div>
+    <div class="menu-subtitle">Lección 6 — Vocabulario</div>
+  </header>
+  <div class="theme-list" id="theme-list"></div>
+</main>
+
+<!-- ════════════════════════════════════════════════
+     VUE 2 — FLASHCARDS VOCABULAIRE
+════════════════════════════════════════════════ -->
+<main id="view-cards" class="view hidden" aria-live="polite">
+  <div class="lesson-top-bar">
+    <div class="pill-counter" id="card-counter">1 / 1</div>
+    <button class="btn-house-lesson" id="btn-back-menu" type="button">
+      <i class="fa-solid fa-house"></i>
+    </button>
+  </div>
+  <div class="lesson-branding">
+    <div class="lesson-brand-ar ar">دار الكلمة</div>
+    <div class="lesson-brand-fr serif">DAR AL-KALIMAH</div>
+  </div>
+  <div class="flip-scene">
+    <div class="flip-card-3d" id="flip-card-vocab" role="button" tabindex="0" aria-label="Retourner la carte">
+      <!-- RECTO : icône → arabe → divider → mic -->
+      <div class="flip-face flip-front">
+        <i class="fa-solid fa-rotate flip-hint"></i>
+        <div id="fc-visual"></div>
+        <div class="front-word-ar ar" id="fc-ar"></div>
+        <div class="front-divider-gold"><span>✦</span></div>
+        <div class="front-mic-row">
+          <button class="btn-mic" id="btn-audio" type="button" onclick="event.stopPropagation()" aria-label="Écouter">
+            <i class="fa-solid fa-microphone-lines"></i>
+          </button>
+        </div>
+      </div>
+      <!-- VERSO : couleur/num + FR + ES + note + arabe discret -->
+      <div class="flip-face flip-back">
+        <div id="fc-color-back"></div>
+        <div id="fc-num-back"></div>
+        <div class="back-trans-fr" id="fc-fr"></div>
+        <div class="back-trans-es" id="fc-es"></div>
+        <div class="back-note hidden" id="fc-note"></div>
+        <div class="back-word-ar ar" id="fc-ar-back"></div>
+      </div>
+    </div>
+  </div>
+  <div class="controls-container">
+    <button class="btn-nav btn-prev" id="btn-prev" type="button">
+      <i class="fa-solid fa-arrow-left"></i> Préc. / Ant.
+    </button>
+    <button class="btn-nav btn-next" id="btn-next" type="button">
+      Suiv. / Sig. <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</main>
+
+<!-- ════════════════════════════════════════════════
+     VUE 3 — RENFORCEMENT LECTURE (يوم عزيز)
+════════════════════════════════════════════════ -->
+<main id="view-lecture" class="view hidden" aria-live="polite">
+
+  <div class="lecture-top-bar">
+    <div style="width:38px;"></div>
+    <div class="lecture-title-block">
+      <div class="lecture-title-ar ar">يَوْمُ عَزِيز</div>
+      <div class="lecture-title-fr">Renforcement lecture · Refuerzo de lectura</div>
+    </div>
+    <button class="btn-house-lesson" id="btn-back-lecture" type="button">
+      <i class="fa-solid fa-house"></i>
+    </button>
+  </div>
+
+  <!-- Flip card يوم عزيز -->
+  <div class="flip-scene" id="lect-scene">
+    <div class="flip-card-3d" id="flip-card-lect" style="height:auto;min-height:400px;">
+
+    <!-- RECTO — texte -->
+      <div class="flip-face flip-front" id="face-front" style="position:relative;height:auto;min-height:400px;justify-content:flex-start;padding:28px 22px 24px;cursor:pointer;background:var(--white);border:1px solid rgba(200,164,98,0.32);border-top:5px solid var(--burgundy);border-radius:var(--radius-xl);">
+      <i class="fa-solid fa-rotate flip-hint" style="position:absolute;top:14px;right:14px;"></i>
+      <div class="face-front-brand">
+        <div class="face-brand-ar ar">دار الكلمة</div>
+        <div class="face-brand-fr serif">DAR AL-KALIMAH</div>
+      </div>
+      <div class="face-divider"><span>✦</span></div>
+      <div class="legend">
+        <div class="legend-item"><div class="leg-dot verb"></div> Verbe / Verbo</div>
+        <div class="legend-item"><div class="leg-dot fam"></div> Mot de la famille / Familia</div>
+      </div>
+      <div>
+        <div class="text-line"><div class="line-emoji">📅</div><div class="line-texts"><div class="line-ar">يَوْمُ الجُمُعَة</div><div class="line-fr">Le jour du vendredi</div><div class="line-es">El día del viernes</div></div></div>
+        <div class="text-line"><div class="line-emoji">🛏️</div><div class="line-texts"><div class="line-ar"><span class="hl-v">يَسْتَيْقِظُ</span> عَزِيز فِي السَّاعَةِ السَّابِعَةِ، <span class="hl-v">وَيَقُومُ</span> مِنَ السَّرِيرِ.</div><div class="line-fr">Aziz <b>se réveille</b> à sept heures et <b>se lève</b> du lit.</div><div class="line-es">Aziz <b>se despierta</b> y <b>se levanta</b> de la cama.</div></div></div>
+        <div class="text-line"><div class="line-emoji">💧</div><div class="line-texts"><div class="line-ar"><span class="hl-v">يَتَوَضَّأُ</span> <span class="hl-v">وَيُصَلِّي</span> الفَجْرَ 🕌، ثُمَّ <span class="hl-v">يَقْرَأُ</span> <span class="hl-f">القُرْآنَ</span> 📖 قَلِيلًا.</div><div class="line-fr">Il <b>fait ses ablutions</b>, <b>prie</b> le Fajr, puis <b>lit</b> le Coran.</div><div class="line-es">Hace abluciones, <b>reza</b> el Fajr, luego <b>lee</b> el Corán.</div></div></div>
+        <div class="text-line"><div class="line-emoji">👕</div><div class="line-texts"><div class="line-ar"><span class="hl-v">يَلْبَسُ</span> قَمِيصًا <span class="hl-f">أَبْيَضَ</span> وَسِرْوَالًا <span class="hl-f">أَزْرَقَ</span>.</div><div class="line-fr">Il <b>met</b> une chemise <b>blanche</b> et un pantalon <b>bleu</b>.</div><div class="line-es">Se <b>pone</b> camisa <b>blanca</b> y pantalón <b>azul</b>.</div></div></div>
+        <div class="text-line"><div class="line-emoji">👨‍👩‍👧</div><div class="line-texts"><div class="line-ar"><span class="hl-v">يَجْلِسُ</span> مَعَ <span class="hl-f">أَبِيهِ</span> وَ<span class="hl-f">أُمِّهِ</span> وَ<span class="hl-f">أُخْتِهِ</span> لِ<span class="hl-v">يَأْكُلُوا</span> الفُطُورَ 🍽️.</div><div class="line-fr">Il <b>s'assoit</b> avec son père, sa mère et sa sœur pour <b>manger</b>.</div><div class="line-es">Se <b>sienta</b> con su familia para <b>desayunar</b>.</div></div></div>
+        <div class="text-line"><div class="line-emoji">🚌</div><div class="line-texts"><div class="line-ar">ثُمَّ <span class="hl-v">يَذْهَبُ</span> إِلَى <span class="hl-f">المَدْرَسَةِ</span> 🏫 بِالحَافِلَةِ.</div><div class="line-fr">Puis il <b>va</b> à l'<b>école</b> en bus.</div><div class="line-es">Luego <b>va</b> al <b>colegio</b> en autobús.</div></div></div>
+        <div class="text-line"><div class="line-emoji">📚</div><div class="line-texts"><div class="line-ar">فِي <span class="hl-f">المَدْرَسَةِ</span> <span class="hl-v">يَدْرُسُ</span> <span class="hl-v">وَيَكْتُبُ</span> ✏️، <span class="hl-v">وَيَعُدُّ</span>: <span class="hl-f">وَاحِد</span>، <span class="hl-f">اِثْنَان</span>، <span class="hl-f">ثَلَاثَة</span> 🔢.</div><div class="line-fr">Il <b>étudie</b>, <b>écrit</b> et <b>compte</b> : un, deux, trois.</div><div class="line-es"><b>Estudia</b>, <b>escribe</b> y <b>cuenta</b> : uno, dos, tres.</div></div></div>
+        <div class="text-line"><div class="line-emoji">🕛</div><div class="line-texts"><div class="line-ar">عِنْدَ السَّاعَةِ الثَّانِيَةَ عَشْرَةَ <span class="hl-v">يُصَلِّي</span> الظُّهْرَ 🕌.</div><div class="line-fr">À midi, il <b>prie</b> le Dhohr.</div><div class="line-es">A las doce, <b>reza</b> el Dhohr.</div></div></div>
+        <div class="text-line"><div class="line-emoji">⚽</div><div class="line-texts"><div class="line-ar">بَعْدَ الدَّرْسِ <span class="hl-v">يَلْعَبُ</span> كُرَةَ القَدَمِ.</div><div class="line-fr">Après les cours, il <b>joue</b> au football.</div><div class="line-es">Después de clase, <b>juega</b> al fútbol.</div></div></div>
+        <div class="text-line"><div class="line-emoji">🚗</div><div class="line-texts"><div class="line-ar">ثُمَّ <span class="hl-v">يَعُودُ</span> إِلَى البَيْتِ 🏠 بِالسَّيَّارَةِ.</div><div class="line-fr">Puis il <b>rentre</b> à la maison en voiture.</div><div class="line-es">Luego <b>vuelve</b> a casa en coche.</div></div></div>
+        <div class="text-line"><div class="line-emoji">🍲</div><div class="line-texts"><div class="line-ar">فِي المَسَاءِ <span class="hl-v">يُصَلِّي</span> المَغْرِبَ 🕌، ثُمَّ <span class="hl-v">يَتَعَشَّى</span> مَعَ عَائِلَتِهِ.</div><div class="line-fr">Le soir, il <b>prie</b> le Maghrib, puis <b>dîne</b> avec sa famille.</div><div class="line-es"><b>Reza</b> el Maghrib, luego <b>cena</b> con su familia.</div></div></div>
+        <div class="text-line"><div class="line-emoji">😴</div><div class="line-texts"><div class="line-ar">قَبْلَ النَّوْمِ <span class="hl-v">يَقْرَأُ</span> <span class="hl-f">القُرْآنَ</span> 📖، <span class="hl-v">يُصَلِّي</span> العِشَاءَ، ثُمَّ <span class="hl-v">يَنَامُ</span>.</div><div class="line-fr">Il <b>lit</b> le Coran, <b>prie</b> l'Isha, puis <b>s'endort</b>.</div><div class="line-es"><b>Lee</b> el Corán, <b>reza</b> el Isha, luego <b>se duerme</b>.</div></div></div>
+      </div>
+    </div>
+
+    <!-- VERSO — racines -->
+      <div class="flip-face flip-back" id="face-back" style="position:absolute;top:0;left:0;height:100%;overflow-y:auto;cursor:pointer;padding:24px 18px 30px;justify-content:flex-start;background:var(--white);border:1px solid rgba(200,164,98,0.32);border-bottom:5px solid var(--gold);border-radius:var(--radius-xl);">
+      <div class="back-header">
+        <div class="back-header-ar ar">الجُذُور — كُلُّ الأَفْعَال</div>
+        <div class="back-header-fr">Racines · Raíces</div>
+      </div>
+      <!-- ي ق ظ --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَسْتَيْقِظُ — يَقِظَ</div><div class="root-meaning">Se réveiller <span style="color:#aaa;font-style:italic;font-weight:400;">/ Despertarse</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَسْتَيْقِظُ</span><span class="chip-sep">→</span><span class="chip-fr">il se réveille</span><span class="chip-dot">·</span><span class="chip-es">se despierta</span></div><div class="chip"><span class="chip-ar">يَقِظ</span><span class="chip-sep">→</span><span class="chip-fr">éveillé (m.)</span><span class="chip-dot">·</span><span class="chip-es">despierto</span></div><div class="chip fem"><span class="chip-ar">يَقِظَة</span><span class="chip-sep">→</span><span class="chip-fr">éveillée (f.)</span><span class="chip-dot">·</span><span class="chip-es">despierta</span></div><div class="chip"><span class="chip-ar">يَقَظَة</span><span class="chip-sep">→</span><span class="chip-fr">éveil</span><span class="chip-dot">·</span><span class="chip-es">vigilia</span></div></div></div><div class="root-block ar"><span class="wl">ي</span> – ق – ظ</div></div>
+      <!-- ق و م --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَقُومُ — قَامَ</div><div class="root-meaning">Se lever <span style="color:#aaa;font-style:italic;font-weight:400;">/ Levantarse</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَقُومُ</span><span class="chip-sep">→</span><span class="chip-fr">il se lève</span><span class="chip-dot">·</span><span class="chip-es">se levanta</span></div><div class="chip"><span class="chip-ar">قَائِم</span><span class="chip-sep">→</span><span class="chip-fr">debout (m.)</span><span class="chip-dot">·</span><span class="chip-es">de pie</span></div><div class="chip fem"><span class="chip-ar">قَائِمَة</span><span class="chip-sep">→</span><span class="chip-fr">debout (f.)</span><span class="chip-dot">·</span><span class="chip-es">de pie</span></div><div class="chip"><span class="chip-ar">قِيَام</span><span class="chip-sep">→</span><span class="chip-fr">lever</span><span class="chip-dot">·</span><span class="chip-es">levantamiento</span></div></div></div><div class="root-block ar">ق – <span class="wl">و</span> – م</div></div>
+      <!-- و ض أ --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَتَوَضَّأُ — تَوَضَّأَ</div><div class="root-meaning">Faire les ablutions <span style="color:#aaa;font-style:italic;font-weight:400;">/ Hacer las abluciones</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَتَوَضَّأُ</span><span class="chip-sep">→</span><span class="chip-fr">il fait ses ablutions</span><span class="chip-dot">·</span><span class="chip-es">hace abluciones</span></div><div class="chip"><span class="chip-ar">وُضُوء</span><span class="chip-sep">→</span><span class="chip-fr">ablutions</span><span class="chip-dot">·</span><span class="chip-es">abluciones</span></div><div class="chip"><span class="chip-ar">مُتَوَضِّئ</span><span class="chip-sep">→</span><span class="chip-fr">qui se purifie (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que se purifica</span></div><div class="chip fem"><span class="chip-ar">مُتَوَضِّئَة</span><span class="chip-sep">→</span><span class="chip-fr">qui se purifie (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que se purifica</span></div></div></div><div class="root-block ar"><span class="wl">و</span> – ض – أ</div></div>
+      <!-- ص ل و --><div class="root-row"><div class="root-content"><div class="root-verb ar">يُصَلِّي — صَلَّى</div><div class="root-meaning">Prier <span style="color:#aaa;font-style:italic;font-weight:400;">/ Rezar</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يُصَلِّي</span><span class="chip-sep">→</span><span class="chip-fr">il prie</span><span class="chip-dot">·</span><span class="chip-es">reza</span></div><div class="chip"><span class="chip-ar">صَلَاة</span><span class="chip-sep">→</span><span class="chip-fr">prière</span><span class="chip-dot">·</span><span class="chip-es">oración</span></div><div class="chip"><span class="chip-ar">مُصَلِّي</span><span class="chip-sep">→</span><span class="chip-fr">qui prie (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que reza</span></div><div class="chip fem"><span class="chip-ar">مُصَلِّيَة</span><span class="chip-sep">→</span><span class="chip-fr">qui prie (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que reza</span></div><div class="chip"><span class="chip-ar">مُصَلَّى</span><span class="chip-sep">→</span><span class="chip-fr">lieu de prière</span><span class="chip-dot">·</span><span class="chip-es">sala de oración</span></div></div></div><div class="root-block ar">ص – ل – <span class="wl">و</span></div></div>
+      <!-- ق ر أ --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَقْرَأُ — قَرَأَ</div><div class="root-meaning">Lire <span style="color:#aaa;font-style:italic;font-weight:400;">/ Leer</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَقْرَأُ</span><span class="chip-sep">→</span><span class="chip-fr">il lit</span><span class="chip-dot">·</span><span class="chip-es">lee</span></div><div class="chip in-text"><span class="chip-ar">القُرْآن</span><span class="chip-sep">→</span><span class="chip-fr">le Coran</span><span class="chip-dot">·</span><span class="chip-es">el Corán</span></div><div class="chip"><span class="chip-ar">قِرَاءَة</span><span class="chip-sep">→</span><span class="chip-fr">lecture</span><span class="chip-dot">·</span><span class="chip-es">lectura</span></div><div class="chip"><span class="chip-ar">قَارِئ</span><span class="chip-sep">→</span><span class="chip-fr">lecteur (m.)</span><span class="chip-dot">·</span><span class="chip-es">lector</span></div><div class="chip fem"><span class="chip-ar">قَارِئَة</span><span class="chip-sep">→</span><span class="chip-fr">lectrice (f.)</span><span class="chip-dot">·</span><span class="chip-es">lectora</span></div></div></div><div class="root-block ar">ق – ر – أ</div></div>
+      <!-- ل ب س --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَلْبَسُ — لَبِسَ</div><div class="root-meaning">S'habiller <span style="color:#aaa;font-style:italic;font-weight:400;">/ Vestirse</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَلْبَسُ</span><span class="chip-sep">→</span><span class="chip-fr">il porte</span><span class="chip-dot">·</span><span class="chip-es">lleva</span></div><div class="chip"><span class="chip-ar">لِبَاس</span><span class="chip-sep">→</span><span class="chip-fr">vêtement</span><span class="chip-dot">·</span><span class="chip-es">vestimenta</span></div><div class="chip"><span class="chip-ar">لَابِس</span><span class="chip-sep">→</span><span class="chip-fr">qui porte (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que lleva</span></div><div class="chip fem"><span class="chip-ar">لَابِسَة</span><span class="chip-sep">→</span><span class="chip-fr">qui porte (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que lleva</span></div><div class="chip"><span class="chip-ar">مَلَابِس</span><span class="chip-sep">→</span><span class="chip-fr">habits</span><span class="chip-dot">·</span><span class="chip-es">ropa</span></div></div></div><div class="root-block ar">ل – ب – س</div></div>
+      <!-- ج ل س --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَجْلِسُ — جَلَسَ</div><div class="root-meaning">S'asseoir <span style="color:#aaa;font-style:italic;font-weight:400;">/ Sentarse</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَجْلِسُ</span><span class="chip-sep">→</span><span class="chip-fr">il s'assoit</span><span class="chip-dot">·</span><span class="chip-es">se sienta</span></div><div class="chip"><span class="chip-ar">جَالِس</span><span class="chip-sep">→</span><span class="chip-fr">assis (m.)</span><span class="chip-dot">·</span><span class="chip-es">sentado</span></div><div class="chip fem"><span class="chip-ar">جَالِسَة</span><span class="chip-sep">→</span><span class="chip-fr">assise (f.)</span><span class="chip-dot">·</span><span class="chip-es">sentada</span></div><div class="chip"><span class="chip-ar">جُلُوس</span><span class="chip-sep">→</span><span class="chip-fr">position assise</span><span class="chip-dot">·</span><span class="chip-es">posición sentada</span></div><div class="chip"><span class="chip-ar">مَجْلِس</span><span class="chip-sep">→</span><span class="chip-fr">salon</span><span class="chip-dot">·</span><span class="chip-es">salón</span></div></div></div><div class="root-block ar">ج – ل – س</div></div>
+      <!-- أ ك ل --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَأْكُلُوا — أَكَلَ</div><div class="root-meaning">Manger <span style="color:#aaa;font-style:italic;font-weight:400;">/ Comer</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَأْكُلُوا</span><span class="chip-sep">→</span><span class="chip-fr">ils mangent</span><span class="chip-dot">·</span><span class="chip-es">comen</span></div><div class="chip"><span class="chip-ar">آكِل</span><span class="chip-sep">→</span><span class="chip-fr">qui mange (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que come</span></div><div class="chip fem"><span class="chip-ar">آكِلَة</span><span class="chip-sep">→</span><span class="chip-fr">qui mange (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que come</span></div><div class="chip"><span class="chip-ar">أَكْل</span><span class="chip-sep">→</span><span class="chip-fr">nourriture</span><span class="chip-dot">·</span><span class="chip-es">comida</span></div></div></div><div class="root-block ar">أ – ك – ل</div></div>
+      <!-- ذ ه ب --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَذْهَبُ — ذَهَبَ</div><div class="root-meaning">Aller <span style="color:#aaa;font-style:italic;font-weight:400;">/ Ir</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَذْهَبُ</span><span class="chip-sep">→</span><span class="chip-fr">il va</span><span class="chip-dot">·</span><span class="chip-es">va</span></div><div class="chip"><span class="chip-ar">ذَاهِب</span><span class="chip-sep">→</span><span class="chip-fr">qui part (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que va</span></div><div class="chip fem"><span class="chip-ar">ذَاهِبَة</span><span class="chip-sep">→</span><span class="chip-fr">qui part (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que va</span></div><div class="chip"><span class="chip-ar">ذَهَاب</span><span class="chip-sep">→</span><span class="chip-fr">départ</span><span class="chip-dot">·</span><span class="chip-es">ida</span></div><div class="chip"><span class="chip-ar">ذَهَب</span><span class="chip-sep">→</span><span class="chip-fr">or ✨</span><span class="chip-dot">·</span><span class="chip-es">oro ✨</span></div></div></div><div class="root-block ar">ذ – ه – ب</div></div>
+      <!-- د ر س --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَدْرُسُ — دَرَسَ</div><div class="root-meaning">Étudier <span style="color:#aaa;font-style:italic;font-weight:400;">/ Estudiar</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَدْرُسُ</span><span class="chip-sep">→</span><span class="chip-fr">il étudie</span><span class="chip-dot">·</span><span class="chip-es">estudia</span></div><div class="chip in-text"><span class="chip-ar">مَدْرَسَة</span><span class="chip-sep">→</span><span class="chip-fr">école</span><span class="chip-dot">·</span><span class="chip-es">colegio</span></div><div class="chip"><span class="chip-ar">دَرْس</span><span class="chip-sep">→</span><span class="chip-fr">leçon</span><span class="chip-dot">·</span><span class="chip-es">lección</span></div><div class="chip"><span class="chip-ar">مُدَرِّس</span><span class="chip-sep">→</span><span class="chip-fr">professeur (m.)</span><span class="chip-dot">·</span><span class="chip-es">profesor</span></div><div class="chip fem"><span class="chip-ar">مُدَرِّسَة</span><span class="chip-sep">→</span><span class="chip-fr">professeure (f.)</span><span class="chip-dot">·</span><span class="chip-es">profesora</span></div></div></div><div class="root-block ar">د – ر – س</div></div>
+      <!-- ك ت ب --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَكْتُبُ — كَتَبَ</div><div class="root-meaning">Écrire <span style="color:#aaa;font-style:italic;font-weight:400;">/ Escribir</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَكْتُبُ</span><span class="chip-sep">→</span><span class="chip-fr">il écrit</span><span class="chip-dot">·</span><span class="chip-es">escribe</span></div><div class="chip"><span class="chip-ar">كَاتِب</span><span class="chip-sep">→</span><span class="chip-fr">écrivain (m.)</span><span class="chip-dot">·</span><span class="chip-es">escritor</span></div><div class="chip fem"><span class="chip-ar">كَاتِبَة</span><span class="chip-sep">→</span><span class="chip-fr">écrivaine (f.)</span><span class="chip-dot">·</span><span class="chip-es">escritora</span></div><div class="chip"><span class="chip-ar">كِتَاب</span><span class="chip-sep">→</span><span class="chip-fr">livre</span><span class="chip-dot">·</span><span class="chip-es">libro</span></div><div class="chip"><span class="chip-ar">مَكْتَبَة</span><span class="chip-sep">→</span><span class="chip-fr">bibliothèque</span><span class="chip-dot">·</span><span class="chip-es">biblioteca</span></div></div></div><div class="root-block ar">ك – ت – ب</div></div>
+      <!-- ع د د --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَعُدُّ — عَدَّ</div><div class="root-meaning">Compter <span style="color:#aaa;font-style:italic;font-weight:400;">/ Contar</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَعُدُّ</span><span class="chip-sep">→</span><span class="chip-fr">il compte</span><span class="chip-dot">·</span><span class="chip-es">cuenta</span></div><div class="chip"><span class="chip-ar">عَدَد</span><span class="chip-sep">→</span><span class="chip-fr">nombre</span><span class="chip-dot">·</span><span class="chip-es">número</span></div><div class="chip in-text"><span class="chip-ar">أَعْدَاد</span><span class="chip-sep">→</span><span class="chip-fr">les nombres</span><span class="chip-dot">·</span><span class="chip-es">los números</span></div></div></div><div class="root-block ar">ع – د – د</div></div>
+      <!-- ل ع ب --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَلْعَبُ — لَعِبَ</div><div class="root-meaning">Jouer <span style="color:#aaa;font-style:italic;font-weight:400;">/ Jugar</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَلْعَبُ</span><span class="chip-sep">→</span><span class="chip-fr">il joue</span><span class="chip-dot">·</span><span class="chip-es">juega</span></div><div class="chip"><span class="chip-ar">لَعِب</span><span class="chip-sep">→</span><span class="chip-fr">jeu</span><span class="chip-dot">·</span><span class="chip-es">juego</span></div><div class="chip"><span class="chip-ar">لَاعِب</span><span class="chip-sep">→</span><span class="chip-fr">joueur (m.)</span><span class="chip-dot">·</span><span class="chip-es">jugador</span></div><div class="chip fem"><span class="chip-ar">لَاعِبَة</span><span class="chip-sep">→</span><span class="chip-fr">joueuse (f.)</span><span class="chip-dot">·</span><span class="chip-es">jugadora</span></div><div class="chip"><span class="chip-ar">مَلْعَب</span><span class="chip-sep">→</span><span class="chip-fr">terrain</span><span class="chip-dot">·</span><span class="chip-es">campo</span></div></div></div><div class="root-block ar">ل – ع – ب</div></div>
+      <!-- ع و د --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَعُودُ — عَادَ</div><div class="root-meaning">Revenir <span style="color:#aaa;font-style:italic;font-weight:400;">/ Volver</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَعُودُ</span><span class="chip-sep">→</span><span class="chip-fr">il revient</span><span class="chip-dot">·</span><span class="chip-es">vuelve</span></div><div class="chip"><span class="chip-ar">عَائِد</span><span class="chip-sep">→</span><span class="chip-fr">qui revient (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que vuelve</span></div><div class="chip fem"><span class="chip-ar">عَائِدَة</span><span class="chip-sep">→</span><span class="chip-fr">qui revient (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que vuelve</span></div><div class="chip"><span class="chip-ar">عَوْدَة</span><span class="chip-sep">→</span><span class="chip-fr">retour</span><span class="chip-dot">·</span><span class="chip-es">vuelta</span></div></div></div><div class="root-block ar">ع – <span class="wl">و</span> – د</div></div>
+      <!-- ع ش و --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَتَعَشَّى — عَشَّى</div><div class="root-meaning">Dîner <span style="color:#aaa;font-style:italic;font-weight:400;">/ Cenar</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَتَعَشَّى</span><span class="chip-sep">→</span><span class="chip-fr">il dîne</span><span class="chip-dot">·</span><span class="chip-es">cena</span></div><div class="chip"><span class="chip-ar">مُتَعَشِّي</span><span class="chip-sep">→</span><span class="chip-fr">qui dîne (m.)</span><span class="chip-dot">·</span><span class="chip-es">el que cena</span></div><div class="chip fem"><span class="chip-ar">مُتَعَشِّيَة</span><span class="chip-sep">→</span><span class="chip-fr">qui dîne (f.)</span><span class="chip-dot">·</span><span class="chip-es">la que cena</span></div><div class="chip"><span class="chip-ar">عَشَاء</span><span class="chip-sep">→</span><span class="chip-fr">dîner / soir</span><span class="chip-dot">·</span><span class="chip-es">cena / noche</span></div></div></div><div class="root-block ar">ع – ش – <span class="wl">و</span></div></div>
+      <!-- ن و م --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَنَامُ — نَامَ</div><div class="root-meaning">Dormir <span style="color:#aaa;font-style:italic;font-weight:400;">/ Dormir</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَنَامُ</span><span class="chip-sep">→</span><span class="chip-fr">il dort</span><span class="chip-dot">·</span><span class="chip-es">duerme</span></div><div class="chip"><span class="chip-ar">نَائِم</span><span class="chip-sep">→</span><span class="chip-fr">endormi (m.)</span><span class="chip-dot">·</span><span class="chip-es">dormido</span></div><div class="chip fem"><span class="chip-ar">نَائِمَة</span><span class="chip-sep">→</span><span class="chip-fr">endormie (f.)</span><span class="chip-dot">·</span><span class="chip-es">dormida</span></div><div class="chip"><span class="chip-ar">نَوْم</span><span class="chip-sep">→</span><span class="chip-fr">sommeil</span><span class="chip-dot">·</span><span class="chip-es">sueño</span></div><div class="chip"><span class="chip-ar">مَنَام</span><span class="chip-sep">→</span><span class="chip-fr">dortoir / songe</span><span class="chip-dot">·</span><span class="chip-es">dormitorio</span></div></div></div><div class="root-block ar">ن – <span class="wl">و</span> – م</div></div>
+      <!-- ب ي ض --><div class="root-row"><div class="root-content"><div class="root-verb ar">أَبْيَض — بَيَّضَ</div><div class="root-meaning">Blanc — blanchir <span style="color:#aaa;font-style:italic;font-weight:400;">/ Blanco — blanquear</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">أَبْيَض</span><span class="chip-sep">→</span><span class="chip-fr">blanc (m.)</span><span class="chip-dot">·</span><span class="chip-es">blanco</span></div><div class="chip fem"><span class="chip-ar">بَيْضَاء</span><span class="chip-sep">→</span><span class="chip-fr">blanche (f.)</span><span class="chip-dot">·</span><span class="chip-es">blanca</span></div><div class="chip"><span class="chip-ar">بَيَاض</span><span class="chip-sep">→</span><span class="chip-fr">blancheur</span><span class="chip-dot">·</span><span class="chip-es">blancura</span></div><div class="chip"><span class="chip-ar">بَيْضَة</span><span class="chip-sep">→</span><span class="chip-fr">œuf 🥚</span><span class="chip-dot">·</span><span class="chip-es">huevo 🥚</span></div></div></div><div class="root-block ar">ب – <span class="wl">ي</span> – ض</div></div>
+      </div><!-- /face-back -->
+    </div><!-- /flip-card-3d -->
+  </div><!-- /flip-scene -->
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  // ════════════════════════════════════════════
+  // DONNÉES
+  // ════════════════════════════════════════════
+  const THEMES = [
+    { id:"jours", icon:"fa-calendar-week", nameFr:"Les Jours de la Semaine", nameEs:"Los Días de la Semana", nameAr:"أَيَّامُ الأُسْبُوع",
+      cards:[
+        {ar:"الإثْنَيْن",  fr:"Lundi",    es:"Lunes",    icon:"fa-calendar-day"},
+        {ar:"الثُّلَاثَاء",fr:"Mardi",    es:"Martes",   icon:"fa-calendar-day"},
+        {ar:"الأَرْبِعَاء",fr:"Mercredi", es:"Miércoles",icon:"fa-calendar-day"},
+        {ar:"الخَمِيس",   fr:"Jeudi",    es:"Jueves",   icon:"fa-calendar-day"},
+        {ar:"الجُمُعَة",  fr:"Vendredi", es:"Viernes",  icon:"fa-mosque", note:"يَوْمُ الجُمُعَة — صَلَاةُ الجُمُعَة · Jour de la Prière · Día de la Oración"},
+        {ar:"السَّبْت",   fr:"Samedi",   es:"Sábado",   icon:"fa-calendar-day"},
+        {ar:"الأَحَد",    fr:"Dimanche", es:"Domingo",  icon:"fa-calendar-day"}
+      ]},
+    { id:"horaires", icon:"fa-mosque", nameFr:"Horaires & Prières", nameEs:"Horarios y Oraciones", nameAr:"أَوْقَاتُ الصَّلَاة",
+      cards:[
+        {ar:"الفَجْر",  fr:"L'Aube",      es:"El Amanecer",  icon:"fa-cloud-sun",    note:"Prière du Fajr"},
+        {ar:"الصُّبْح", fr:"Le Matin",     es:"La Mañana",    icon:"fa-sun"},
+        {ar:"الضُّحَى", fr:"La Matinée",   es:"Media Mañana", icon:"fa-sun"},
+        {ar:"الصَّبَاح",fr:"Le Matin",     es:"La Mañana",    icon:"fa-mug-hot"},
+        {ar:"الظُّهْر", fr:"Midi",         es:"El Mediodía",  icon:"fa-sun",          note:"Prière du Dhohr"},
+        {ar:"العَصْر",  fr:"L'Après-midi", es:"La Tarde",     icon:"fa-cloud-sun",    note:"Prière du Asr"},
+        {ar:"المَسَاء", fr:"Le Soir",      es:"La Tarde",     icon:"fa-cloud-moon"},
+        {ar:"المَغْرِب",fr:"Le Coucher",   es:"El Atardecer", icon:"fa-moon",         note:"Prière du Maghrib"},
+        {ar:"العِشَاء", fr:"La Nuit",      es:"La Noche",     icon:"fa-moon",         note:"Prière du Isha"},
+        {ar:"اللَّيْل", fr:"La Nuit",      es:"La Noche",     icon:"fa-star"}
+      ]},
+    { id:"famille", icon:"fa-people-roof", nameFr:"La Famille", nameEs:"La Familia", nameAr:"العَائِلَة",
+      cards:[
+        {ar:"أَب",              fr:"Père",         es:"Padre",   icon:"fa-user-tie"},
+        {ar:"أُمّ",             fr:"Mère",         es:"Madre",   icon:"fa-person-dress"},
+        {ar:"أَخ",              fr:"Frère",        es:"Hermano", icon:"fa-child"},
+        {ar:"أُخْت",            fr:"Sœur",         es:"Hermana", icon:"fa-child-dress"},
+        {ar:"اِبْن",            fr:"Fils",         es:"Hijo",    icon:"fa-baby"},
+        {ar:"بِنْت",            fr:"Fille",        es:"Hija",    icon:"fa-baby"},
+        {ar:"جَدّ",             fr:"Grand-père",   es:"Abuelo",  icon:"fa-person-cane"},
+        {ar:"جَدَّة",           fr:"Grand-mère",   es:"Abuela",  icon:"fa-person-cane"},
+        {ar:"حَفِيد",           fr:"Petit-fils",   es:"Nieto",   icon:"fa-child"},
+        {ar:"حَفِيدَة",         fr:"Petite-fille", es:"Nieta",   icon:"fa-child-dress"},
+        {ar:"عَمّ",             fr:"Oncle (côté père)",  es:"Tío (lado paterno)",  icon:"fa-user-tie"},
+        {ar:"عَمَّة",           fr:"Tante (côté père)",  es:"Tía (lado paterno)",  icon:"fa-user-tie"},
+        {ar:"خَال",             fr:"Oncle (côté mère)",  es:"Tío (lado materno)",  icon:"fa-user-tie"},
+        {ar:"خَالَة",           fr:"Tante (côté mère)",  es:"Tía (lado materno)",  icon:"fa-user-tie"},
+        {ar:"اِبْنُ العَمّ",    fr:"Cousin (oncle pat.)",   es:"Primo (tío paterno)",   icon:"fa-people-arrows"},
+        {ar:"اِبْنُ العَمَّة",  fr:"Cousin (tante pat.)",   es:"Primo (tía paterna)",   icon:"fa-people-arrows"},
+        {ar:"اِبْنُ الخَال",    fr:"Cousin (oncle mat.)",   es:"Primo (tío materno)",   icon:"fa-people-arrows"},
+        {ar:"اِبْنُ الخَالَة",  fr:"Cousin (tante mat.)",   es:"Primo (tía materna)",   icon:"fa-people-arrows"}
+      ]},
+    { id:"nombres", icon:"fa-list-ol", nameFr:"Les Nombres", nameEs:"Los Números", nameAr:"الأَعْدَاد",
+      cards:[
+        {ar:"صِفْر",              fr:"Zéro",            es:"Cero",         num:"0"},
+        {ar:"وَاحِد",             fr:"Un",              es:"Uno",          num:"1"},
+        {ar:"اِثْنَان",           fr:"Deux",            es:"Dos",          num:"2"},
+        {ar:"ثَلَاثَة",           fr:"Trois",           es:"Tres",         num:"3"},
+        {ar:"أَرْبَعَة",          fr:"Quatre",          es:"Cuatro",       num:"4"},
+        {ar:"خَمْسَة",            fr:"Cinq",            es:"Cinco",        num:"5"},
+        {ar:"سِتَّة",             fr:"Six",             es:"Seis",         num:"6"},
+        {ar:"سَبْعَة",            fr:"Sept",            es:"Siete",        num:"7"},
+        {ar:"ثَمَانِيَة",         fr:"Huit",            es:"Ocho",         num:"8"},
+        {ar:"تِسْعَة",            fr:"Neuf",            es:"Nueve",        num:"9"},
+        {ar:"عَشَرَة",            fr:"Dix",             es:"Diez",         num:"10"},
+        {ar:"أَحَدَ عَشَر",       fr:"Onze",            es:"Once",         num:"11"},
+        {ar:"اثْنَا عَشَر",       fr:"Douze",           es:"Doce",         num:"12"},
+        {ar:"ثَلَاثَةَ عَشَر",    fr:"Treize",          es:"Trece",        num:"13"},
+        {ar:"أَرْبَعَةَ عَشَر",   fr:"Quatorze",        es:"Catorce",      num:"14"},
+        {ar:"خَمْسَةَ عَشَر",     fr:"Quinze",          es:"Quince",       num:"15"},
+        {ar:"سِتَّةَ عَشَر",      fr:"Seize",           es:"Dieciséis",    num:"16"},
+        {ar:"سَبْعَةَ عَشَر",     fr:"Dix-sept",        es:"Diecisiete",   num:"17"},
+        {ar:"ثَمَانِيَةَ عَشَر",  fr:"Dix-huit",        es:"Dieciocho",    num:"18"},
+        {ar:"تِسْعَةَ عَشَر",     fr:"Dix-neuf",        es:"Diecinueve",   num:"19"},
+        {ar:"عِشْرُون",           fr:"Vingt",           es:"Veinte",       num:"20"},
+        {ar:"ثَلَاثُون",          fr:"Trente",          es:"Treinta",      num:"30"},
+        {ar:"أَرْبَعُون",         fr:"Quarante",        es:"Cuarenta",     num:"40"},
+        {ar:"خَمْسُون",           fr:"Cinquante",       es:"Cincuenta",    num:"50"},
+        {ar:"سِتُّون",            fr:"Soixante",        es:"Sesenta",      num:"60"},
+        {ar:"سَبْعُون",           fr:"Soixante-dix",    es:"Setenta",      num:"70"},
+        {ar:"ثَمَانُون",          fr:"Quatre-vingts",   es:"Ochenta",      num:"80"},
+        {ar:"مِئَة",              fr:"Cent",            es:"Cien",         num:"100"},
+        {ar:"أَلْف",              fr:"Mille",           es:"Mil",          num:"1000"}
+      ]},
+    { id:"transports", icon:"fa-car", nameFr:"Les Transports", nameEs:"Los Transportes", nameAr:"المُوَاصَلَات",
+      cards:[
+        {ar:"سَيَّارَة",              fr:"Voiture",     es:"Coche",      icon:"fa-car-side"},
+        {ar:"طَائِرَة",              fr:"Avion",       es:"Avión",      icon:"fa-plane"},
+        {ar:"دَرَّاجَة هَوَائِيَّة",  fr:"Vélo",        es:"Bicicleta",  icon:"fa-bicycle"},
+        {ar:"دَرَّاجَة نَارِيَّة",    fr:"Moto",        es:"Moto",       icon:"fa-motorcycle"},
+        {ar:"قِطَار",                fr:"Train",       es:"Tren",       icon:"fa-train"},
+        {ar:"حَافِلَة",              fr:"Bus",         es:"Autobús",    icon:"fa-bus"},
+        {ar:"سَفِينَة",              fr:"Bateau",      es:"Barco",      icon:"fa-ship"},
+        {ar:"قَارِب",                fr:"Barque",      es:"Barca",      icon:"fa-anchor"},
+        {ar:"قِطَارٌ سَرِيع",         fr:"TGV",         es:"Tren de alta velocidad", icon:"fa-train"},
+        {ar:"تَاكْسِي",              fr:"Taxi",        es:"Taxi",       icon:"fa-taxi"},
+        {ar:"مِتْرُو",               fr:"Métro",       es:"Metro",      icon:"fa-train-subway"},
+        {ar:"سْكُوتَر",              fr:"Scooter",     es:"Scooter",    icon:"fa-motorcycle"}
+      ]},
+    { id:"couleurs", icon:"fa-palette", nameFr:"Les Couleurs", nameEs:"Los Colores", nameAr:"الأَلْوَان",
+      cards:[
+        {ar:"أَحْمَر",     fr:"Rouge",   es:"Rojo",     color:"#E53935"},
+        {ar:"أَزْرَق",     fr:"Bleu",    es:"Azul",     color:"#1E88E5"},
+        {ar:"أَخْضَر",     fr:"Vert",    es:"Verde",    color:"#43A047"},
+        {ar:"أَسْوَد",     fr:"Noir",    es:"Negro",    color:"#212121"},
+        {ar:"أَبْيَض",     fr:"Blanc",   es:"Blanco",   color:"#F5F5F5", border:"1.5px solid #ddd"},
+        {ar:"بُنِّي",      fr:"Marron",  es:"Marrón",   color:"#795548"},
+        {ar:"بَنَفْسَجِي", fr:"Violet",  es:"Violeta",  color:"#8E24AA"},
+        {ar:"أَصْفَر",     fr:"Jaune",   es:"Amarillo", color:"#FDD835"},
+        {ar:"بُرْتُقَالِي",fr:"Orange",  es:"Naranja",  color:"#FB8C00"},
+        {ar:"نِيلِي",      fr:"Indigo",  es:"Índigo",   color:"#3949AB"}
+      ]}
+  ];
+
+  // ════════════════════════════════════════════
+  // ÉTAT
+  // ════════════════════════════════════════════
+  let activeTheme = null;
+  let cardIndex   = 0;
+  let isBack      = false;
+  let isAnimating = false;
+
+  const $ = id => document.getElementById(id);
+
+  const DOM = {
+    viewMenu:    $("view-menu"),
+    viewCards:   $("view-cards"),
+    viewLecture: $("view-lecture"),
+    themeList:   $("theme-list"),
+    btnBackMenu: $("btn-back-menu"),
+    btnBackLect: $("btn-back-lecture"),
+    fcVisual:    $("fc-visual"),
+    fcAr:        $("fc-ar"),
+    fcFr:        $("fc-fr"),
+    fcEs:        $("fc-es"),
+    fcNote:      $("fc-note"),
+    cardCounter: $("card-counter"),
+    btnPrev:     $("btn-prev"),
+    btnNext:     $("btn-next"),
+    btnAudio:    $("btn-audio"),
+    faceFront:   $("face-front"),
+    faceBack:    $("face-back"),
+  };
+
+  // ════════════════════════════════════════════
+  // MENU
+  // ════════════════════════════════════════════
+  function renderMenu() {
+    DOM.themeList.innerHTML = "";
+    THEMES.forEach(t => {
+      const btn = document.createElement("button");
+      btn.className = "theme-card";
+      btn.innerHTML = `
+        <i class="fa-solid ${t.icon} theme-icon" aria-hidden="true"></i>
+        <div class="theme-title-ar ar">${t.nameAr}</div>
+        <div class="theme-divider"></div>
+        <div class="theme-title-fr">${t.nameFr}</div>
+        <div class="theme-title-es">${t.nameEs}</div>`;
+      btn.addEventListener("click", () => openTheme(t.id));
+      DOM.themeList.appendChild(btn);
+    });
+    // Tuile Renforcement lecture
+    const lectBtn = document.createElement("button");
+    lectBtn.className = "theme-card lecture-card";
+    lectBtn.innerHTML = `
+      <i class="fa-solid fa-book-open theme-icon" aria-hidden="true"></i>
+      <div class="theme-title-ar ar">تَعْزِيزُ القِرَاءَة</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Renforcement Lecture</div>
+      <div class="theme-title-es">Refuerzo de Lectura — يَوْمُ عَزِيز</div>`;
+    lectBtn.addEventListener("click", openLecture);
+    DOM.themeList.appendChild(lectBtn);
+  }
+
+  // ════════════════════════════════════════════
+  // FLASHCARDS VOCAB
+  // ════════════════════════════════════════════
+  function openTheme(id) {
+    activeTheme = THEMES.find(t => t.id === id);
+    if (!activeTheme) return;
+    cardIndex = 0;
+    DOM.viewMenu.classList.add("hidden");
+    DOM.viewCards.classList.remove("hidden");
+    renderCard();
+  }
+
+  let vocabFlipped = false;
+
+  function renderCard() {
+    if (!activeTheme) return;
+    const c = activeTheme.cards[cardIndex];
+    const total = activeTheme.cards.length;
+    DOM.cardCounter.textContent = `${cardIndex + 1} / ${total}`;
+    DOM.btnPrev.disabled = (cardIndex === 0);
+    DOM.btnPrev.className = cardIndex === 0 ? "btn-nav btn-prev" : "btn-nav btn-prev active";
+    DOM.btnNext.disabled  = (cardIndex === total - 1);
+
+    // Reset flip
+    vocabFlipped = false;
+    document.getElementById("flip-card-vocab").classList.remove("is-flipped");
+
+    // RECTO — icône en premier puis arabe
+    DOM.fcAr.textContent = c.ar;
+    DOM.fcVisual.innerHTML = "";
+    if (c.color) {
+      const b = c.border ? `border:${c.border};` : "";
+      DOM.fcVisual.innerHTML = `<div class="front-color-foot" style="background:${c.color};${b}"></div>`;
+    } else if (c.num !== undefined) {
+      DOM.fcVisual.innerHTML = `<div class="front-num-foot">${c.num}</div>`;
+    } else {
+      DOM.fcVisual.innerHTML = `<i class="fa-solid ${c.icon || activeTheme.icon} front-icon-foot" aria-hidden="true"></i>`;
+    }
+
+    // VERSO — couleur/num + FR + ES + arabe discret
+    const cbEl = document.getElementById("fc-color-back");
+    const nbEl = document.getElementById("fc-num-back");
+    cbEl.innerHTML = ""; nbEl.innerHTML = "";
+    if (c.color) {
+      const b = c.border ? `border:${c.border};` : "";
+      cbEl.innerHTML = `<div class="back-color-dot" style="background:${c.color};${b}"></div>`;
+    }
+    if (c.num !== undefined) {
+      nbEl.innerHTML = `<div class="back-num">${c.num}</div>`;
+    }
+    DOM.fcFr.textContent = c.fr;
+    DOM.fcEs.textContent = c.es;
+    const arBack = document.getElementById("fc-ar-back");
+    if (arBack) arBack.textContent = c.ar;
+    if (c.note) { DOM.fcNote.textContent = c.note; DOM.fcNote.classList.remove("hidden"); }
+    else { DOM.fcNote.classList.add("hidden"); }
+  }
+
+  // Flip vocab card
+  document.getElementById("flip-card-vocab").addEventListener("click", () => {
+    vocabFlipped = !vocabFlipped;
+    document.getElementById("flip-card-vocab").classList.toggle("is-flipped", vocabFlipped);
+  });
+
+  DOM.btnBackMenu.addEventListener("click", () => {
+    DOM.viewCards.classList.add("hidden");
+    DOM.viewMenu.classList.remove("hidden");
+  });
+  DOM.btnPrev.addEventListener("click", () => { if (cardIndex > 0){ cardIndex--; renderCard(); } });
+  DOM.btnNext.addEventListener("click", () => { if (activeTheme && cardIndex < activeTheme.cards.length - 1){ cardIndex++; renderCard(); } });
+
+  // Swipe flashcards
+  let tx0 = 0;
+  DOM.viewCards && document.addEventListener("touchstart", e => { tx0 = e.changedTouches[0].clientX; }, {passive:true});
+  document.addEventListener("touchend", e => {
+    if (!DOM.viewCards.classList.contains("hidden")) {
+      const dx = e.changedTouches[0].clientX - tx0;
+      if (Math.abs(dx) > 55) { if (dx < 0) DOM.btnNext.click(); else DOM.btnPrev.click(); }
+    }
+  }, {passive:true});
+
+  // ════════════════════════════════════════════
+  // RENFORCEMENT LECTURE
+  // ════════════════════════════════════════════
+  let lectFlipped = false;
+
+  function openLecture() {
+    DOM.viewMenu.classList.add("hidden");
+    DOM.viewLecture.classList.remove("hidden");
+    // Reset
+    lectFlipped = false;
+    document.getElementById("flip-card-lect").classList.remove("is-flipped");
+    syncLectHeight();
+  }
+
+  function syncLectHeight() {
+    const fc = document.getElementById("flip-card-lect");
+    const front = document.getElementById("face-front");
+    const back  = document.getElementById("face-back");
+    if (!fc || !front || !back) return;
+    const h = Math.max(front.scrollHeight, 400);
+    fc.style.height = h + "px";
+    back.style.height = h + "px";
+  }
+
+  DOM.btnBackLect.addEventListener("click", () => {
+    DOM.viewLecture.classList.add("hidden");
+    DOM.viewMenu.classList.remove("hidden");
+  });
+
+  // Flip card lecture au clic
+  document.getElementById("face-front").addEventListener("click", () => {
+    lectFlipped = true;
+    document.getElementById("flip-card-lect").classList.add("is-flipped");
+  });
+  document.getElementById("face-back").addEventListener("click", () => {
+    lectFlipped = false;
+    document.getElementById("flip-card-lect").classList.remove("is-flipped");
+  });
+
+  // Swipe lecture
+  let txL = 0;
+  document.getElementById("flip-card-lect").addEventListener("touchstart", e => { txL = e.changedTouches[0].clientX; }, {passive:true});
+  document.getElementById("flip-card-lect").addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - txL;
+    if (Math.abs(dx) > 60) {
+      lectFlipped = !lectFlipped;
+      document.getElementById("flip-card-lect").classList.toggle("is-flipped", lectFlipped);
+    }
+  }, {passive:true});
+
+  // ════════════════════════════════════════════
+  // INIT
+  // ════════════════════════════════════════════
+  renderMenu();
+
+})();
+</script>
+</body>
+</html>
