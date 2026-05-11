@@ -26,8 +26,12 @@
 
     /* MENUS */
     .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
-    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:4px;line-height:1;}
-    .menu-title{font-size:1.1rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:2px;line-height:1;}
+    .menu-brand-sub{font-size:0.82rem;letter-spacing:5px;text-transform:uppercase;color:var(--burgundy);opacity:0.75;margin-bottom:14px;font-family:"Cinzel","Georgia",serif;}
+    .menu-title{font-size:1.05rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:2px;}
+    .menu-title-sub{font-size:0.82rem;color:var(--burgundy);font-weight:600;margin-bottom:8px;}
+    .menu-title-es{font-size:0.88rem;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px;}
+    .menu-title-es-sub{font-size:0.75rem;color:#bbb;font-style:italic;}
     .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.8rem;transition:var(--transition);}
     .btn-house-menu:hover{transform:scale(1.1);}
     .btn-back-menu{position:absolute;top:8px;left:0;color:var(--burgundy);font-size:1.8rem;transition:var(--transition);}
@@ -35,9 +39,10 @@
     .theme-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:44px 28px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;}
     .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
     .theme-card:active{transform:scale(0.98);}
-    .theme-card.lecture-card{border-top:4px solid var(--gold);background:linear-gradient(135deg,var(--white),#fffdf8);}
-    .theme-icon{font-size:4.2rem;color:var(--gold);margin-bottom:20px;}
-    .theme-title-ar{font-size:2.6rem;color:var(--burgundy);font-weight:bold;margin-bottom:16px;line-height:1.3;}
+    .theme-card.lecture-card{background:linear-gradient(135deg,var(--white),#fffdf8);}
+    .theme-card.tilawa-card{background:linear-gradient(135deg,var(--bg-beige),var(--white));}
+    .theme-icon{font-size:3.6rem;color:var(--gold);margin-bottom:16px;}
+    .theme-title-ar{font-size:2rem;color:var(--burgundy);font-weight:bold;margin-bottom:14px;line-height:1.6;}
     .theme-divider{width:80px;height:2px;background:var(--gold);margin-bottom:14px;opacity:0.5;border-radius:2px;}
     .theme-title-fr{font-weight:700;font-size:1.2rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
     .theme-title-es{font-size:1rem;color:#888;font-style:italic;}
@@ -49,17 +54,16 @@
     .lesson-branding{text-align:center;margin-bottom:30px;}
     .lesson-brand-ar{font-size:3rem;color:var(--gold);line-height:1;margin-bottom:5px;font-weight:normal;}
     .lesson-brand-fr{font-size:0.9rem;color:var(--burgundy);letter-spacing:3px;font-weight:700;text-transform:uppercase;}
-    .flashcard{background:var(--white);width:100%;min-height:520px;border:1px solid rgba(200,164,98,0.28);border-radius:var(--radius-xl);padding:50px 28px 40px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:30px;position:relative;}
-    .card-emoji{font-size:4.5rem;margin-bottom:24px;line-height:1;}
-    .card-icon{font-size:5rem;color:var(--gold);margin-bottom:28px;line-height:1;display:block;}
-    .word-ar{font-size:clamp(1.6rem,5.5vw,2.4rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2;margin-bottom:0;flex:1;}
+    .flashcard{background:var(--white);width:100%;min-height:580px;border:1px solid rgba(200,164,98,0.28);border-radius:var(--radius-xl);padding:50px 28px 40px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:30px;position:relative;}
+    .card-center-stack{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;margin-bottom:25px;}
+    .card-icon{font-size:5rem;color:var(--gold);line-height:1;display:block;margin-bottom:0;}
+    .btn-audio{background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);width:55px;height:55px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 15px rgba(200,164,98,0.2);transition:all 0.3s ease;flex-shrink:0;}
+    .btn-audio:hover{transform:scale(1.08);background:var(--gold);color:var(--white);}
+    .word-ar{font-size:clamp(1.6rem,5.5vw,2.4rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:1.8;width:100%;}
     .card-divider{width:85%;height:1px;background-color:rgba(200,164,98,0.4);margin-bottom:25px;}
     .trans-fr-block{text-align:left;width:100%;margin-bottom:15px;display:flex;align-items:flex-start;gap:5px;}
     .lang-prefix{color:var(--gold);font-weight:700;font-size:1.05rem;}
     .trans-fr{font-size:1.1rem;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:1px;line-height:1.4;}
-    .audio-es-row{display:flex;align-items:center;justify-content:center;gap:15px;width:100%;margin-bottom:20px;}
-    .btn-mic{width:50px;height:50px;border-radius:50%;background:var(--white);border:1.5px solid var(--gold);color:var(--mic-color);display:flex;justify-content:center;align-items:center;font-size:1.3rem;transition:var(--transition);box-shadow:0 2px 8px rgba(0,0,0,0.05);flex-shrink:0;}
-    .btn-mic:hover{transform:scale(1.1);background:var(--bg-beige);}
     .trans-es-block{display:flex;align-items:center;gap:5px;}
     .trans-es{font-size:1rem;color:#888;font-style:italic;}
     .notes-container{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;border-top:1px dashed rgba(200,164,98,0.3);padding-top:15px;}
@@ -116,14 +120,45 @@
     .root-verb{font-family:"Amiri",serif;direction:rtl;font-size:1.3rem;font-weight:700;color:var(--burgundy);margin-bottom:4px;}
     .root-meaning{font-size:0.85rem;font-weight:700;color:var(--burgundy);margin-bottom:2px;line-height:1.4;}
     .root-meaning-es{font-size:0.8rem;color:#888;font-style:italic;}
-    .ar-mic-row{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;margin-bottom:24px;}
-    .ar-mic-row .word-ar{margin-bottom:0;flex:1;text-align:center;direction:rtl;}
-    .ar-mic-row .btn-mic{flex-shrink:0;order:2;margin-left:auto;}
-    /* Icône barrée pour لم يلد */
     .fa-ban-overlay{position:relative;}
     .fc-icon-ban::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);width:110%;height:4px;background:var(--burgundy);border-radius:2px;opacity:0.75;}
     .fc-icon-ban-wrap{position:relative;display:inline-block;}
-    @media(max-width:480px){.flashcard{min-height:440px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.btn-nav{font-size:0.85rem;padding:15px 5px;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}}
+    /* TILAWA FLIP CARD */
+    .tilawa-scene{width:100%;perspective:1400px;margin-bottom:16px;}
+    .tilawa-card-3d{position:relative;width:100%;min-height:480px;transform-style:preserve-3d;transition:transform 0.65s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;}
+    .tilawa-card-3d.flipped{transform:rotateY(180deg);}
+    .tilawa-face{position:absolute;top:0;left:0;width:100%;min-height:480px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-xl);background:var(--white);border:1px solid rgba(200,164,98,0.28);box-shadow:var(--shadow-soft);padding:28px 20px;display:flex;flex-direction:column;align-items:center;}
+    .tilawa-front{position:relative;z-index:2;}
+    .tilawa-back{transform:rotateY(180deg);overflow-y:auto;max-height:600px;}
+    .t-flip-hint{text-align:center;font-size:0.72rem;color:var(--gold);opacity:0.6;font-family:"Cinzel",serif;letter-spacing:1px;margin-top:12px;animation:pulse 2.5s infinite;}
+    /* VERSO styles */
+    .verso-header{text-align:center;width:100%;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(200,164,98,0.3);}
+    .verso-title-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.6rem;color:var(--gold);font-weight:700;margin-bottom:2px;}
+    .verso-title-fr{font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;}
+    .verso-infos{display:flex;justify-content:center;gap:14px;margin-bottom:16px;background:var(--bg-beige);border-radius:12px;padding:10px;border:1px dashed rgba(200,164,98,0.35);width:100%;}
+    .verso-info-item{text-align:center;}
+    .verso-info-val{font-family:"Amiri",serif;direction:rtl;font-size:1.1rem;color:var(--burgundy);font-weight:700;display:block;}
+    .verso-info-lbl{font-size:0.58rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;}
+    .verso-sep{width:1px;background:rgba(200,164,98,0.3);}
+    .verso-block{width:100%;margin-bottom:14px;}
+    .verso-block-title{font-family:"Amiri",serif;direction:rtl;font-size:1rem;color:var(--burgundy);font-weight:700;border-right:3px solid var(--gold);padding-right:10px;margin-bottom:8px;text-align:right;}
+    .verso-text-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.15rem;color:var(--burgundy);line-height:2;text-align:right;margin-bottom:8px;}
+    .verso-text-fr{font-size:0.88rem;color:#555;line-height:1.6;margin-bottom:4px;font-style:italic;}
+    .verso-text-es{font-size:0.82rem;color:#999;line-height:1.55;font-style:italic;}
+    .verso-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,164,98,0.3),transparent);margin:10px 0;}
+    .tilawa-surah-title{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.2rem,3.5vw,1.6rem);color:var(--gold);font-weight:700;text-align:center;line-height:1.4;margin-bottom:4px;}
+    .tilawa-surah-line{width:50px;height:1px;background:var(--gold);opacity:0.4;margin:0 auto 8px;}
+    .tilawa-meta{display:flex;justify-content:center;gap:18px;margin-bottom:6px;}
+    .tilawa-meta-item{display:flex;flex-direction:column;align-items:center;gap:2px;}
+    .tilawa-meta-ar{font-family:"Amiri",serif;direction:rtl;font-size:1rem;color:var(--burgundy);font-weight:700;}
+    .tilawa-meta-fr{font-size:0.62rem;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+    .tilawa-meta-sep{width:1px;height:30px;background:rgba(200,164,98,0.3);align-self:center;}
+    .tilawa-text{direction:rtl;font-family:"Amiri",serif;width:100%;}
+    .tilawa-basmalah{font-size:clamp(1.6rem,5.5vw,2.2rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2;direction:rtl;font-family:"Amiri",serif;padding-bottom:8px;margin-bottom:8px;}
+    .tilawa-flux{font-size:clamp(1.8rem,6vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2.4;direction:rtl;font-family:"Amiri",serif;}
+    .tilawa-text .sep-num{color:#6a9c99;font-size:0.85em;}
+    .tilawa-text .hl-gold{color:var(--gold);}
+    @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.btn-nav{font-size:0.85rem;padding:15px 5px;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}}
   </style>
 </head>
 <body>
@@ -133,19 +168,23 @@
   <header class="menu-header">
     <a href="module7.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
     <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-brand-sub serif">DAR AL-KALIMAH</div>
     <div class="menu-title serif">LEÇON 7 — قِصَارُ السُّوَر</div>
+    <div class="menu-title-sub">Les Sourates Courtes</div>
+    <div class="menu-title-es serif">LECCIÓN 7 — قِصَارُ السُّوَر</div>
+    <div class="menu-title-es-sub">Las Suras Cortas</div>
   </header>
   <div class="theme-list">
     <button class="theme-card" onclick="openModeSelect('kawthar')">
       <i class="fa-solid fa-water theme-icon"></i>
-      <div class="theme-title-ar ar">سُورَةُ الكَوْثَر</div>
+      <div class="theme-title-ar ar">سُورَةُ ٱلْكَوْثَر</div>
       <div class="theme-divider"></div>
       <div class="theme-title-fr">Sourate Al-Kawthar</div>
       <div class="theme-title-es">Sura Al-Kawthar · ورش</div>
     </button>
     <button class="theme-card" onclick="openModeSelect('ikhlas')">
       <i class="fa-solid fa-fingerprint theme-icon"></i>
-      <div class="theme-title-ar ar">سُورَةُ الإِخْلَاص</div>
+      <div class="theme-title-ar ar">سُورَةُ ٱلْإِخْلَاص</div>
       <div class="theme-divider"></div>
       <div class="theme-title-fr">Sourate Al-Ikhlas</div>
       <div class="theme-title-es">Sura Al-Ikhlas · ورش</div>
@@ -158,8 +197,8 @@
   <header class="menu-header">
     <button class="btn-back-menu" onclick="backToSurahs()"><i class="fa-solid fa-arrow-left"></i></button>
     <a href="module7.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
-    <div class="menu-brand-ar ar" id="mode-ar-title"></div>
-    <div class="menu-title serif" id="mode-fr-title"></div>
+    <div class="lecture-title-ar ar" id="mode-ar-title"></div>
+    <div class="lecture-title-fr serif" id="mode-fr-title"></div>
   </header>
   <div class="theme-list">
     <button class="theme-card" onclick="openFlashcards()">
@@ -171,15 +210,22 @@
     </button>
     <button class="theme-card lecture-card" onclick="openLecture()">
       <i class="fa-solid fa-book-open theme-icon"></i>
+      <div class="theme-title-ar ar">قِرَاءَةٌ وَتَحْلِيلٌ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Lecture & Analyse</div>
+      <div class="theme-title-es">Lectura & Análisis</div>
+    </button>
+    <button class="theme-card tilawa-card" onclick="openTilawa()">
+      <i class="fa-solid fa-microphone-lines theme-icon"></i>
       <div class="theme-title-ar ar">تِلَاوَةُ السُّورَةِ</div>
       <div class="theme-divider"></div>
-      <div class="theme-title-fr">Lecture Complète & Vocabulaire</div>
-      <div class="theme-title-es">Lectura Completa & Vocabulario</div>
+      <div class="theme-title-fr">Récitation Complète</div>
+      <div class="theme-title-es">Recitación Completa</div>
     </button>
   </div>
 </main>
 
-<!-- VUE 3 — FLASHCARDS VERSET PAR VERSET -->
+<!-- VUE 3 — FLASHCARDS -->
 <main id="view-cards" class="view hidden" aria-live="polite">
   <div class="lesson-top-bar">
     <div class="pill-counter" id="card-counter">1 / 4</div>
@@ -190,13 +236,12 @@
     <div class="lesson-brand-fr serif" id="fc-brand-fr"></div>
   </div>
   <article class="flashcard">
-    <div id="fc-icon-wrap" style="margin-bottom:30px;font-size:5rem;color:var(--gold);line-height:1;text-align:center;">
-      <i id="fc-icon" class="fa-solid card-icon" style="margin-bottom:0;"></i>
-    </div>
-    <div class="ar-mic-row">
-      <div style="width:50px;flex-shrink:0;"></div>
+    <div class="card-center-stack">
+      <div id="fc-icon-wrap" style="font-size:4.5rem;color:var(--gold);line-height:1;text-align:center;">
+        <i id="fc-icon" class="fa-solid card-icon" style="margin-bottom:0;"></i>
+      </div>
+      <button class="btn-audio" id="btn-audio" type="button" title="Écouter / Escuchar">🎙️</button>
       <div class="word-ar ar" id="fc-ar"></div>
-      <button class="btn-mic" id="btn-audio" type="button" style="order:2;"><i class="fa-solid fa-microphone-lines"></i></button>
     </div>
     <div class="card-divider"></div>
     <div class="trans-fr-block">
@@ -218,7 +263,7 @@
   </div>
 </main>
 
-<!-- VUE 4 — LECTURE COMPLÈTE + VOCABULAIRE -->
+<!-- VUE 4 — LECTURE -->
 <main id="view-lecture" class="view hidden" aria-live="polite">
   <div class="lecture-top-bar">
     <div style="width:38px;"></div>
@@ -255,44 +300,150 @@
   </div>
 </main>
 
+<!-- VUE 5 — TILAWA FLIP CARD -->
+<main id="view-tilawa" class="view hidden" aria-live="polite">
+  <div class="lesson-top-bar">
+    <div style="width:38px;"></div>
+    <div class="lecture-title-block">
+      <div class="lecture-title-ar ar" id="tilawa-brand-ar"></div>
+      <div class="lecture-title-fr serif" id="tilawa-brand-fr"></div>
+    </div>
+    <button class="btn-house-lesson" onclick="goHome()" type="button"><i class="fa-solid fa-house"></i></button>
+  </div>
+
+  <div class="tilawa-scene">
+    <div class="tilawa-card-3d" id="tilawa-card-3d">
+
+      <!-- RECTO : texte sourate -->
+      <div class="tilawa-face tilawa-front" onclick="flipTilawa()">
+        <div class="tilawa-container" style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:8px 0;width:100%;">
+          <div class="tilawa-surah-title ar" id="tilawa-surah-title"></div>
+          <div class="tilawa-surah-line"></div>
+          <button class="btn-audio" id="btn-tilawa-audio" type="button" onclick="event.stopPropagation()" title="Écouter la sourate">🎙️</button>
+          <div class="tilawa-text ar" id="tilawa-full-text"></div>
+        </div>
+        <div class="t-flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Infos sourate</div>
+      </div>
+
+      <!-- VERSO : infos sourate -->
+      <div class="tilawa-face tilawa-back" id="tilawa-back" onclick="flipTilawa()">
+        <button class="t-flip-btn" onclick="event.stopPropagation();flipTilawa()" title="Retour sourate" style="position:absolute;top:14px;right:14px;color:var(--gold);font-size:1.2rem;opacity:0.7;background:none;border:none;cursor:pointer;animation:pulse 2.5s infinite;z-index:5;"><i class="fa-solid fa-rotate"></i></button>
+
+        <div class="verso-header">
+          <div class="verso-title-ar ar" id="verso-title-ar"></div>
+          <div class="verso-title-fr serif" id="verso-title-fr"></div>
+        </div>
+
+        <div class="verso-infos">
+          <div class="verso-info-item">
+            <span class="verso-info-val ar" id="verso-num"></span>
+            <span class="verso-info-lbl">N° Sourate</span>
+          </div>
+          <div class="verso-sep"></div>
+          <div class="verso-info-item">
+            <span class="verso-info-val ar" id="verso-type"></span>
+            <span class="verso-info-lbl" id="verso-type-fr"></span>
+          </div>
+          <div class="verso-sep"></div>
+          <div class="verso-info-item">
+            <span class="verso-info-val ar" id="verso-count"></span>
+            <span class="verso-info-lbl" id="verso-count-fr"></span>
+          </div>
+        </div>
+
+        <!-- ASBAB NOUZOUL -->
+        <div class="verso-block">
+          <div class="verso-block-title ar">سَبَبُ ٱلنُّزُول</div>
+          <div class="verso-text-ar ar" id="verso-asbab-ar"></div>
+          <div class="verso-divider"></div>
+          <div class="verso-text-fr" id="verso-asbab-fr"></div>
+          <div class="verso-text-es" id="verso-asbab-es"></div>
+        </div>
+
+        <div class="verso-divider"></div>
+
+        <!-- FADL -->
+        <div class="verso-block">
+          <div class="verso-block-title ar">فَضْلُ ٱلسُّورَة</div>
+          <div class="verso-text-ar ar" id="verso-fadl-ar"></div>
+          <div class="verso-divider"></div>
+          <div class="verso-text-fr" id="verso-fadl-fr"></div>
+          <div class="verso-text-es" id="verso-fadl-es"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
 <script>
 (() => {
   "use strict";
 
   const SURAHS = {
     kawthar: {
-      titleAr:"سُورَةُ الكَوْثَر",
+      titleAr:"سُورَةُ ٱلْكَوْثَر",
       titleFr:"Sourate Al-Kawthar",
       titleEs:"Sura Al-Kawthar",
+      mainIcon: "fa-water",
+      type:"مَكِّيَّة", typeFr:"Makkiyah",
+      ayahCount:"٣", ayahFr:"3 Versets",
+      surahNum:"١٠٨",
+      asbab:{
+        ar:"نَزَلَتْ هَذِهِ السُّورَةُ لَمَّا قَالَ العَاصُ بنُ وَائِلٍ عَنِ النَّبِيِّ ﷺ إِنَّهُ أَبْتَرُ لَا عَقِبَ لَهُ، فَرَدَّ اللَّهُ عَلَيْهِ بِأَنَّ الأَبْتَرَ هُوَ شَانِئُهُ.",
+        fr:"Révélée quand Al-As ibn Wail traita le Prophète ﷺ d'« Abtar » (sans descendance) après la mort de son fils. Allah répondit : c'est son ennemi qui sera oublié.",
+        es:"Revelada cuando Al-As ibn Wail llamó al Profeta ﷺ «Abtar» (sin descendencia) tras la muerte de su hijo. Alá respondió: será su enemigo el olvidado."
+      },
+      fadl:{
+        ar:"مَنْ قَرَأَ سُورَةَ ٱلْكَوْثَرِ سَقَاهُ اللَّهُ مِنْ أَنْهَارِ الجَنَّةِ، وَأُعْطِيَ مِنَ الأَجْرِ بِعَدَدِ كُلِّ قُرْبَانٍ قَرَّبَهُ العِبَادُ. (الثعلبي)",
+        fr:"Quiconque la récite, Allah l'abreuvera des fleuves du Paradis et lui accordera une récompense égale au nombre de tous les sacrifices offerts par les serviteurs.",
+        es:"Quien la recite, Alá le dará de beber de los ríos del Paraíso y recibirá una recompensa igual al número de todos los sacrificios ofrecidos por los siervos."
+      },
+      fullText: "بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ ۞ إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾ فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾ إِنَّ شَانِئَكَ هُوَ ٱلْأَبْتَرُ ﴿٣﴾",
       ayahs:[
-        {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش"},
-        {ar:"إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ ﴿١﴾", fr:"Nous t'avons certes accordé l'Abondance.", es:"En verdad, te hemos concedido la Abundancia.", icon:"fa-water", emoji:"🏞️", noteFr:"Verset 1 — الكوثر : fleuve du Paradis", noteEs:"Versículo 1 — río del Paraíso"},
+        {ar:"بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش"},
+        {ar:"إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾", fr:"Nous t'avons certes accordé l'Abondance.", es:"En verdad, te hemos concedido la Abundancia.", icon:"fa-water", emoji:"🏞️", noteFr:"Verset 1 — الكوثر : fleuve du Paradis", noteEs:"Versículo 1 — río del Paraíso"},
         {ar:"فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾", fr:"Accomplis la prière pour ton Seigneur et sacrifie.", es:"Reza a tu Señor y sacrifica.", icon:"fa-person-praying", emoji:"🙇🐑", noteFr:"Verset 2 — Prière et Sacrifice 🙇🐑", noteEs:"Versículo 2 — Oración y Sacrificio 🙇🐑"},
-        {ar:"إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ ﴿٣﴾", fr:"Celui qui te hait sera certes sans postérité.", es:"Ciertamente, quien te odia es el que está cortado.", icon:"fa-scissors", emoji:"✂️", noteFr:"Verset 3 — La fin des ennemis", noteEs:"Versículo 3 — El fin de los enemigos"}
+        {ar:"إِنَّ شَانِئَكَ هُوَ ٱلْأَبْتَرُ ﴿٣﴾", fr:"Celui qui te hait sera certes sans postérité.", es:"Ciertamente, quien te odia es el que está cortado.", icon:"fa-scissors", emoji:"✂️", noteFr:"Verset 3 — La fin des ennemis", noteEs:"Versículo 3 — El fin de los enemigos"}
       ],
       vocab:[
-        {ar:"الْكَوْثَرَ", fr:"L'Abondance / Fleuve au Paradis", es:"La Abundancia / Río en el Paraíso", root:"ك و ث ر"},
+        {ar:"ٱلْكَوْثَرَ", fr:"L'Abondance / Fleuve au Paradis", es:"La Abundancia / Río en el Paraíso", root:"ك و ث ر"},
         {ar:"فَصَلِّ", fr:"Prie ! (Impératif)", es:"¡Reza! (Imperativo)", root:"ص ل و"},
         {ar:"وَانْحَرْ 🐑", fr:"Sacrifie ! — النحر : égorger", es:"¡Sacrifica! — النحر : degollar", root:"ن ح ر"},
         {ar:"شَانِئَكَ", fr:"Celui qui te hait / Ton ennemi", es:"El que te odia / Tu enemigo", root:"ش ن أ"},
-        {ar:"الْأَبْتَرُ", fr:"Coupé / Sans descendance", es:"Cortado / Sin descendencia", root:"ب ت ر"}
+        {ar:"ٱلْأَبْتَرُ", fr:"Coupé / Sans descendance", es:"Cortado / Sin descendencia", root:"ب ت ر"}
       ]
     },
     ikhlas: {
-      titleAr:"سُورَةُ الإِخْلَاص",
+      titleAr:"سُورَةُ ٱلْإِخْلَاص",
       titleFr:"Sourate Al-Ikhlas",
       titleEs:"Sura Al-Ikhlas",
+      mainIcon: "fa-fingerprint",
+      type:"مَكِّيَّة", typeFr:"Makkiyah",
+      ayahCount:"٤", ayahFr:"4 Versets",
+      surahNum:"١١٢",
+      asbab:{
+        ar:"سَأَلَ المُشْرِكُونَ النَّبِيَّ ﷺ عَنْ نَسَبِ رَبِّهِ وَصِفَتِهِ، فَأَنْزَلَ اللَّهُ هَذِهِ السُّورَةَ بَيَاناً لِوَحْدَانِيَّتِهِ وَتَنْزِيهِهِ عَنْ كُلِّ نَقْصٍ.",
+        fr:"Les polythéistes demandèrent au Prophète ﷺ de décrire son Seigneur. Allah révéla cette sourate pour proclamer Son Unicité absolue et Se purifier de toute imperfection.",
+        es:"Los politeístas pidieron al Profeta ﷺ que describiera a su Señor. Alá reveló esta sura para proclamar Su Unicidad absoluta y purificarse de toda imperfección."
+      },
+      fadl:{
+        ar:"قَالَ ﷺ: «قُلْ هُوَ اللَّهُ أَحَدٌ تَعْدِلُ ثُلُثَ القُرْآنِ». (رواه البخاري ومسلم)",
+        fr:"Le Prophète ﷺ a dit : « Qul huwa Allahu Ahad équivaut au tiers du Coran. » (Rapporté par Al-Boukhâri et Muslim)",
+        es:"El Profeta ﷺ dijo: «Qul huwa Allahu Ahad equivale a un tercio del Corán.» (Narrado por Al-Bujari y Muslim)"
+      },
+      fullText: "بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ ۞ قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾ ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُ كُفُؤًا أَحَدٌ ﴿٤﴾",
       ayahs:[
-        {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش"},
-        {ar:"قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾", fr:"Dis : Il est Allah, Unique.", es:"Di: Él es Alá, Único.", icon:"fa-infinity", emoji:"☝️", noteFr:"Verset 1 — L'Unicité d'Allah", noteEs:"Versículo 1 — La Unicidad de Alá"},
-        {ar:"اللَّهُ الصَّمَدُ ﴿٢﴾", fr:"Allah, l'Impénétrable, Celui dont tout dépend.", es:"Alá, el Eterno, del que todos dependen.", icon:"fa-mosque", emoji:"🕋", noteFr:"Verset 2 — L'Absolu", noteEs:"Versículo 2 — Lo Absoluto"},
+        {ar:"بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش"},
+        {ar:"قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾", fr:"Dis : Il est Allah, Unique.", es:"Di: Él es Alá, Único.", icon:"fa-infinity", emoji:"☝️", noteFr:"Verset 1 — L'Unicité d'Allah", noteEs:"Versículo 1 — La Unicidad de Alá"},
+        {ar:"ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", fr:"Allah, l'Impénétrable, Celui dont tout dépend.", es:"Alá, el Eterno, del que todos dependen.", icon:"fa-mosque", emoji:"🕋", noteFr:"Verset 2 — L'Absolu", noteEs:"Versículo 2 — Lo Absoluto"},
         {ar:"لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾", fr:"Il n'a pas engendré et n'a pas été engendré.", es:"No engendró ni fue engendrado.", icon:"fa-people-arrows fa-ban-overlay", emoji:"👨‍👦❌", noteFr:"Verset 3 — Ni père ni fils", noteEs:"Versículo 3 — Ni padre ni hijo"},
         {ar:"وَلَمْ يَكُن لَّهُ كُفُؤًا أَحَدٌ ﴿٤﴾", fr:"Et nul n'est égal à Lui.", es:"Y no hay nadie que sea igual a Él.", icon:"fa-scale-unbalanced", emoji:"⚖️❌", noteFr:"Verset 4 — L'Incomparable · ورش : كُفُؤًا", noteEs:"Versículo 4 — El Incomparable · ورش : كُفُؤًا"}
       ],
       vocab:[
         {ar:"قُلْ", fr:"Dis ! (Impératif)", es:"¡Di! (Imperativo)", root:"ق و ل"},
         {ar:"أَحَدٌ", fr:"Unique / Un (attribut divin)", es:"Único / Uno (atributo divino)", root:"أ ح د"},
-        {ar:"الصَّمَدُ", fr:"L'Absolu / Le Seul imploré", es:"El Eterno / El Absoluto", root:"ص م د"},
+        {ar:"ٱلصَّمَدُ", fr:"L'Absolu / Le Seul imploré", es:"El Eterno / El Absoluto", root:"ص م د"},
         {ar:"يَلِدْ / يُولَدْ", fr:"Engendrer / Être engendré", es:"Engendrar / Ser engendrado", root:"و ل د"},
         {ar:"كُفُؤًا ورش", fr:"Égal / Équivalent", es:"Igual / Equivalente", root:"ك ف و"}
       ]
@@ -318,7 +469,7 @@
   };
 
   window.goHome = () => {
-    ["view-cards","view-lecture"].forEach(v => $(v).classList.add("hidden"));
+    ["view-cards","view-lecture","view-tilawa"].forEach(v => $(v).classList.add("hidden"));
     $("view-surah-select").classList.remove("hidden");
   };
 
@@ -332,6 +483,53 @@
     renderCard();
   };
 
+  let tilawFlipped = false;
+  window.flipTilawa = () => {
+    tilawFlipped = !tilawFlipped;
+    $("tilawa-card-3d").classList.toggle("flipped", tilawFlipped);
+  };
+
+  window.openTilawa = () => {
+    const s = SURAHS[currentSurahId];
+    tilawFlipped = false;
+    $("tilawa-card-3d").classList.remove("flipped");
+
+    // Barre haute
+    $("tilawa-brand-ar").textContent = s.titleAr;
+    $("tilawa-brand-fr").textContent = s.titleFr.toUpperCase();
+
+    // RECTO
+    $("tilawa-surah-title").textContent = s.titleAr;
+    const basmalah = s.ayahs[0].ar;
+    const reste = s.ayahs.slice(1).map(a =>
+      a.ar
+        .replace(/(﴿[^﴾]*﴾)/g, '<span class="sep-num">$1</span>')
+        .replace(/ٱللَّهِ|ٱللَّهُ|ٱللَّهَ|اللَّهِ|اللَّهُ|اللَّهَ/g, '<span class="hl-gold">$&</span>')
+        .replace(/رَبِّكَ/g, '<span class="hl-gold">$&</span>')
+    ).join(' ');
+    $("tilawa-full-text").innerHTML =
+      `<div class="tilawa-basmalah">${basmalah}</div>` +
+      `<div class="tilawa-flux ar">${reste}</div>`;
+
+    // VERSO
+    $("verso-title-ar").textContent = s.titleAr;
+    $("verso-title-fr").textContent = s.titleFr;
+    $("verso-num").textContent = s.surahNum;
+    $("verso-type").textContent = s.type;
+    $("verso-type-fr").textContent = s.typeFr;
+    $("verso-count").textContent = s.ayahCount;
+    $("verso-count-fr").textContent = s.ayahFr;
+    $("verso-asbab-ar").textContent = s.asbab.ar;
+    $("verso-asbab-fr").textContent = "🇫🇷 " + s.asbab.fr;
+    $("verso-asbab-es").textContent = "🇪🇸 " + s.asbab.es;
+    $("verso-fadl-ar").textContent = s.fadl.ar;
+    $("verso-fadl-fr").textContent = "🇫🇷 " + s.fadl.fr;
+    $("verso-fadl-es").textContent = "🇪🇸 " + s.fadl.es;
+
+    $("view-mode-select").classList.add("hidden");
+    $("view-tilawa").classList.remove("hidden");
+  };
+
   function renderCard() {
     const s = SURAHS[currentSurahId];
     const c = s.ayahs[cardIndex];
@@ -339,11 +537,8 @@
     $("btn-prev").disabled = (cardIndex === 0);
     $("btn-prev").className = cardIndex === 0 ? "btn-nav btn-prev" : "btn-nav btn-prev active";
     $("btn-next").disabled = (cardIndex === s.ayahs.length - 1);
-    const iconEl = $("fc-icon");
     const iconWrap = $("fc-icon-wrap");
     if (c.icon === "fa-people-arrows fa-ban-overlay") {
-      iconEl.className = "fa-solid fa-people-arrows card-icon";
-      iconWrap.style.position = "relative";
       iconWrap.innerHTML = `<span class="fc-icon-ban-wrap" style="position:relative;display:inline-block;">
         <i id="fc-icon" class="fa-solid fa-people-arrows" style="font-size:4rem;color:var(--gold);"></i>
         <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-40deg);width:120%;height:5px;background:var(--burgundy);border-radius:3px;opacity:0.8;display:block;"></span>
@@ -364,7 +559,6 @@
     if (cardIndex < SURAHS[currentSurahId].ayahs.length - 1){ cardIndex++; renderCard(); }
   });
 
-  // Swipe
   let tx0 = 0;
   $("view-cards").addEventListener("touchstart", e => { tx0 = e.changedTouches[0].clientX; }, {passive:true});
   $("view-cards").addEventListener("touchend", e => {
@@ -391,7 +585,6 @@
           <div class="line-emoji">${a.emoji}</div>
         </div>`;
     });
-
     const vocab = $("lecture-vocab-container");
     vocab.innerHTML = "";
     s.vocab.forEach(v => {
@@ -405,13 +598,11 @@
           <div class="root-block ar">${v.root}</div>
         </div>`;
     });
-
     $("view-mode-select").classList.add("hidden");
     $("view-lecture").classList.remove("hidden");
     isFlipped = false;
     $("flip-card-lect").classList.remove("is-flipped");
     updatePills();
-
     setTimeout(() => {
       const h = Math.max($("face-front").offsetHeight, $("face-back").offsetHeight, 600);
       $("flip-card-lect").style.height = h + "px";
@@ -432,7 +623,6 @@
     $("pill-verso").className = isFlipped ? "side-pill active" : "side-pill inactive";
   }
 
-  // Swipe lecture
   let txL = 0;
   $("view-lecture").addEventListener("touchstart", e => { txL = e.changedTouches[0].clientX; }, {passive:true});
   $("view-lecture").addEventListener("touchend", e => {
