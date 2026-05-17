@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Dar Al-Kalimah – Leçon 8 | الاسم وحروف الجر</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --burgundy:#5D1828;--burgundy-dark:#3a0f19;
+      --gold:#C8A462;--gold-light:#dfc28b;
+      --white:#FFFFFF;--bg-beige:#FAF6F0;
+      --text-dark:#2C3E50;--text-soft:#8c775a;
+      --shadow-soft:0 8px 25px rgba(93,24,40,0.06);
+      --shadow-card:0 20px 50px rgba(93,24,40,0.10);
+      --transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      --radius-xl:28px;--radius-lg:22px;--radius-md:18px;--radius-sm:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+    body{min-height:100vh;min-height:100dvh;background:var(--bg-beige);font-family:"Montserrat",sans-serif;color:var(--text-dark);padding:16px 14px 50px;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
+    button,a{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
+    .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.7;}
+    .serif{font-family:"Cinzel","Georgia",serif;}
+    .hidden{display:none!important;}
+    .view{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;animation:up .38s ease-out;}
+    @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .gold{color:var(--gold);font-weight:700;}
+
+    /* ── HEADER SÉLECTION ── */
+    .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
+    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:2px;line-height:1;}
+    .menu-brand-sub{font-size:0.72rem;letter-spacing:5px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;margin-bottom:12px;font-family:"Cinzel",serif;}
+    .menu-title{font-size:1rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:2px;}
+    .menu-title-sub{font-size:0.82rem;color:var(--burgundy);font-weight:600;margin-bottom:6px;}
+    .menu-title-es{font-size:0.8rem;color:#999;letter-spacing:1.5px;text-transform:uppercase;}
+    .menu-title-es-sub{font-size:0.72rem;color:#bbb;font-style:italic;}
+    .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.8rem;transition:var(--transition);}
+    .btn-house-menu:hover{transform:scale(1.1);}
+
+    /* ── CARTES THÈME ── */
+    .theme-list{width:100%;display:flex;flex-direction:column;gap:22px;}
+    .theme-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:36px 24px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;cursor:pointer;}
+    .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
+    .theme-card:active{transform:scale(0.98);}
+    .theme-card.ism-card{border-top:4px solid var(--burgundy);}
+    .theme-card.huruf-card{border-top:4px solid var(--gold);}
+    .theme-card.qiraa-card{border-top:4px solid var(--text-soft);}
+    .theme-icon{font-size:3.5rem;color:var(--gold);margin-bottom:16px;}
+    .theme-title-ar{font-size:2.4rem;color:var(--burgundy);font-weight:700;margin-bottom:14px;line-height:1.4;}
+    .theme-divider{width:70px;height:2px;background:var(--gold);margin-bottom:12px;opacity:0.5;border-radius:2px;}
+    .theme-title-fr{font-weight:700;font-size:1.1rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+    .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
+
+    /* ── BARRE DU HAUT ── */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;max-width:640px;}
+    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    .btn-house-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
+    .btn-back-lesson{color:var(--burgundy);font-size:1.5rem;transition:var(--transition);}
+
+    /* ── FLIP CARD — AGRANDIE ── */
+    .card-scene{width:100%;max-width:640px;perspective:1800px;margin-bottom:20px;}
+    .card-flip{
+      position:relative;
+      width:100%;
+      transform-style:preserve-3d;
+      transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
+      cursor:pointer;
+      height:420px; /* sera ajusté dynamiquement par JS */
+    }
+    .card-flip.flipped{transform:rotateY(180deg);}
+
+    /* Règle critique skill : position:absolute + top:0 + left:0 + height:100% */
+    .card-face{
+      position:absolute;
+      top:0;left:0;
+      width:100%;height:100%;
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+      background:var(--white);
+      border-radius:var(--radius-xl);
+      border:1px solid rgba(200,164,98,0.35);
+      box-shadow:var(--shadow-card);
+      padding:24px 20px 16px;
+      display:flex;flex-direction:column;
+      overflow-y:auto;
+      /* Scrollbar discrète si besoin */
+      scrollbar-width:thin;
+      scrollbar-color:rgba(200,164,98,0.3) transparent;
+    }
+    .card-face::-webkit-scrollbar{width:4px;}
+    .card-face::-webkit-scrollbar-thumb{background:rgba(200,164,98,0.3);border-radius:2px;}
+    .card-back-face{transform:rotateY(180deg);}
+
+    /* Branding dans la carte */
+    .card-brand{text-align:center;margin-bottom:10px;}
+    .card-brand-ar{font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:2px;}
+    .card-brand-fr{font-size:0.62rem;color:var(--burgundy);letter-spacing:3px;text-transform:uppercase;opacity:0.65;}
+    .card-sep{width:40px;height:1px;background:var(--gold);opacity:0.4;margin:14px auto;}
+
+    /* Contenu recto */
+    .card-title-ar{font-size:clamp(1.8rem,5.5vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;margin-bottom:4px;line-height:1.4;}
+    .card-title-fr{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:2px;}
+    .card-title-es{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.55;font-style:italic;text-align:center;margin-bottom:10px;}
+    .card-rule-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.2rem,3.8vw,1.7rem);color:var(--burgundy);line-height:1.8;text-align:center;margin-bottom:12px;}
+    .card-rule-fr{font-size:0.88rem;color:var(--text-dark);line-height:1.65;margin-bottom:5px;}
+    .card-rule-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.6;}
+    .flip-hint{text-align:center;color:var(--gold);font-size:0.7rem;letter-spacing:1px;opacity:0.55;margin-top:14px;padding-top:8px;border-top:1px solid rgba(200,164,98,0.15);font-family:"Cinzel",serif;animation:pulse 2.5s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:0.35;}50%{opacity:0.8;}}
+
+    /* Template signes */
+    .signs-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:10px 0;}
+    .sign-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .sign-ar{font-family:"Amiri",serif;font-size:2.8rem;color:var(--gold);line-height:1;}
+    .sign-label{font-size:0.66rem;color:var(--burgundy);font-weight:600;text-align:center;max-width:70px;}
+
+    /* حروف الجر overview */
+    .huruf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0;}
+    .harf-pill{background:var(--bg-beige);border:1px solid rgba(200,164,98,0.35);border-radius:14px;padding:10px 6px;text-align:center;}
+    .harf-ar{font-family:"Amiri",serif;direction:rtl;font-size:2rem;color:var(--burgundy);font-weight:700;line-height:1.2;display:block;}
+    .harf-fr{font-size:0.68rem;color:var(--text-soft);font-style:italic;display:block;margin-top:2px;}
+
+    /* harf individuel hero */
+    .harf-hero{text-align:center;margin:14px 0 28px;}
+    .harf-hero-ar{font-family:"Amiri",serif;direction:rtl;font-size:4.5rem;color:var(--burgundy);font-weight:700;line-height:1;}
+    .harf-hero-fr{font-size:0.85rem;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:10px;display:block;text-align:center;}
+    .harf-hero-es{font-size:0.75rem;color:var(--burgundy);opacity:0.55;font-style:italic;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-top:4px;text-align:center;margin-bottom:0;}
+
+    /* Exemples verso */
+    .example-block{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 0;border-bottom:1px solid rgba(200,164,98,0.18);text-align:center;}
+    .example-block:last-child{border-bottom:none;padding-bottom:0;}
+    .example-block:first-child{padding-top:0;}
+    .ex-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.8rem,6.5vw,2.8rem);color:var(--burgundy);font-weight:700;line-height:1.4;}
+    .ex-fr{font-size:0.9rem;color:var(--text-dark);font-weight:500;}
+    .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
+
+    /* ── QUIZ OUI / NON ── */
+    .quiz-num{font-size:0.7rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:2px;text-align:center;margin-bottom:8px;opacity:0.7;}
+    .quiz-q-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.4rem,4.5vw,1.9rem);color:var(--burgundy);font-weight:700;line-height:1.8;text-align:center;margin:10px 0 6px;}
+    .quiz-q-fr{font-size:0.92rem;color:var(--text-dark);text-align:center;margin-bottom:4px;}
+    .quiz-q-es{font-size:0.82rem;color:var(--text-soft);font-style:italic;text-align:center;margin-bottom:20px;}
+    .quiz-btns{display:flex;gap:14px;justify-content:center;margin:0 0 16px;}
+    .quiz-btn{flex:1;max-width:140px;padding:14px 10px;border-radius:999px;font-weight:700;font-size:1rem;letter-spacing:1px;border:2px solid;cursor:pointer;transition:all 0.25s;font-family:"Montserrat",sans-serif;}
+    .quiz-btn-oui{background:rgba(93,24,40,0.06);border-color:var(--burgundy);color:var(--burgundy);}
+    .quiz-btn-non{background:rgba(200,164,98,0.08);border-color:var(--gold);color:#8a6620;}
+    .quiz-btn:disabled{opacity:0.4;pointer-events:none;}
+    .quiz-feedback{border-radius:16px;padding:14px 16px;margin-top:4px;font-size:0.88rem;line-height:1.6;text-align:center;display:none;}
+    .quiz-feedback.correct{background:rgba(34,139,34,0.08);border:1px solid rgba(34,139,34,0.25);color:#1a6b1a;}
+    .quiz-feedback.wrong{background:rgba(200,30,30,0.07);border:1px solid rgba(200,30,30,0.2);color:#9b1a1a;}
+    .quiz-feedback.show{display:block;}
+
+    /* Légende couleurs */
+    .qiraa-legend{
+      display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
+      margin:0 0 10px;
+      padding:8px 14px;
+      background:rgba(200,164,98,0.08);
+      border:1px solid rgba(200,164,98,0.2);
+      border-radius:10px;
+      font-size:0.72rem;
+    }
+    .legend-item{display:flex;align-items:center;gap:5px;font-family:"Cinzel",serif;font-size:0.64rem;letter-spacing:0.5px;}
+    .legend-dot-harf{width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+    .legend-dot-ism{width:10px;height:10px;background:var(--burgundy);border-radius:50%;flex-shrink:0;border:2px solid var(--burgundy);}
+
+    .qiraa-title-fr{font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px;font-family:"Cinzel",serif;}
+
+    /* Texte arabe de lecture */
+    .qiraa-text{
+      font-family:"Amiri",serif;direction:rtl;
+      font-size:clamp(1.4rem,4.5vw,1.9rem);
+      color:var(--text-dark);
+      line-height:2.3;text-align:center;
+      width:100%;margin:6px 0;
+    }
+
+    /* حرف الجر → or */
+    .hl-harf{color:var(--gold);font-weight:700;}
+
+    /* اسم → bordeaux gras + légèrement souligné */
+    .hl-ism{
+      color:var(--burgundy);
+      font-weight:700;
+      text-decoration:underline;
+      text-decoration-color:rgba(93,24,40,0.35);
+      text-underline-offset:4px;
+    }
+
+    /* Section analyse (verso qiraa) */
+    .analyse-block{
+      display:flex;flex-direction:column;gap:10px;
+      padding:0 4px;
+    }
+    .analyse-row{
+      display:flex;align-items:flex-start;gap:10px;
+      padding:10px 12px;
+      background:var(--bg-beige);
+      border-radius:12px;
+      border:1px solid rgba(200,164,98,0.18);
+    }
+    .analyse-ar{
+      font-family:"Amiri",serif;direction:rtl;
+      font-size:1.5rem;color:var(--burgundy);font-weight:700;
+      min-width:80px;text-align:right;flex-shrink:0;
+      line-height:1.3;
+    }
+    .analyse-fr{font-size:0.82rem;color:var(--text-dark);line-height:1.55;padding-top:2px;}
+    .analyse-label{
+      font-size:0.65rem;font-family:"Cinzel",serif;letter-spacing:1px;
+      padding:2px 7px;border-radius:999px;white-space:nowrap;
+      flex-shrink:0;margin-top:4px;
+    }
+    .label-harf{background:rgba(200,164,98,0.18);color:#8a6620;}
+    .label-ism{background:rgba(93,24,40,0.10);color:var(--burgundy);}
+
+    /* ── NAVIGATION ── */
+    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:640px;}
+    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
+    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    .btn-nav:disabled{opacity:0.35;pointer-events:none;}
+
+    @media(max-width:480px){
+      .card-flip{height:clamp(560px, 80dvh, 680px);}
+      .card-face{padding:18px 14px 12px;}
+      .card-brand-ar{font-size:1.5rem;}
+      .btn-nav{font-size:0.8rem;padding:13px 8px;}
+      .harf-hero-ar{font-size:3.8rem;}
+      .analyse-ar{font-size:1.3rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     VUE 1 — SÉLECTION THÈME
+════════════════════════════════════════ -->
+<main id="view-select" class="view">
+  <header class="menu-header">
+    <a href="module8.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-brand-sub serif">DAR AL-KALIMAH</div>
+    <div class="menu-title serif">LEÇON 8 — الاِسْمُ وَحُرُوفُ الْجَرّ</div>
+    <div class="menu-title-sub">Le Nom et les Prépositions</div>
+    <div class="menu-title-es serif">LECCIÓN 8</div>
+    <div class="menu-title-es-sub">El Nombre y las Preposiciones</div>
+  </header>
+  <div class="theme-list">
+    <button class="theme-card ism-card" onclick="openSection('ism')">
+      <i class="fa-solid fa-tag theme-icon"></i>
+      <div class="theme-title-ar ar">الاِسْم</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Le Nom</div>
+      <div class="theme-title-es">El Nombre</div>
+    </button>
+    <button class="theme-card huruf-card" onclick="openSection('huruf')">
+      <i class="fa-solid fa-link theme-icon"></i>
+      <div class="theme-title-ar ar">حُرُوفُ الْجَرّ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Les Prépositions</div>
+      <div class="theme-title-es">Las Preposiciones</div>
+    </button>
+    <button class="theme-card qiraa-card" onclick="openSection('qiraa')">
+      <i class="fa-solid fa-book-open theme-icon" style="color:var(--text-soft);"></i>
+      <div class="theme-title-ar ar" style="font-size:1.8rem;">تَعْزِيزُ الْقِرَاءَة</div>
+      <div class="theme-divider" style="background:var(--text-soft);"></div>
+      <div class="theme-title-fr">Renforcement · Lecture</div>
+      <div class="theme-title-es">Refuerzo · Lectura</div>
+    </button>
+  </div>
+</main>
+
+<!-- ═══════════════════════════════════════
+     VUE 2 — الاسم
+════════════════════════════════════════ -->
+<main id="view-ism" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="ism-curr">1</span> / <span id="ism-tot">2</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-ism" onclick="flipCard('ism')">
+      <div class="card-face" id="ism-front"></div>
+      <div class="card-face card-back-face" id="ism-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="ism-prev" onclick="navigate('ism',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="ism-next" onclick="navigate('ism',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ═══════════════════════════════════════
+     VUE 3 — حروف الجر
+════════════════════════════════════════ -->
+<main id="view-huruf" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="huruf-curr">1</span> / <span id="huruf-tot">7</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-huruf" onclick="flipCard('huruf')">
+      <div class="card-face" id="huruf-front"></div>
+      <div class="card-face card-back-face" id="huruf-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="huruf-prev" onclick="navigate('huruf',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="huruf-next" onclick="navigate('huruf',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ═══════════════════════════════════════
+     VUE 4 — تعزيز القراءة
+════════════════════════════════════════ -->
+<main id="view-qiraa" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="qiraa-curr">1</span> / 3</div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-qiraa" onclick="flipCard('qiraa')">
+      <div class="card-face" id="qiraa-front"></div>
+      <div class="card-face card-back-face" id="qiraa-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<script>
+(() => {
+"use strict";
+
+// ════════════════════════════════════════════
+// DONNÉES
+// ════════════════════════════════════════════
+
+const DATA = {
+
+  ism: [
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar">الاِسْم</div>
+        <div class="card-title-fr serif">LE NOM</div>
+        <div class="card-title-es serif">EL NOMBRE</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">
+          الاِسْمُ كَلِمَةٌ تَدُلُّ عَلَى إِنْسَانٍ أَوْ حَيَوَانٍ أَوْ شَيْءٍ أَوْ مَكَانٍ أَوْ مَعْنًى
+        </div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          Le nom désigne une <strong>personne</strong>, un <strong>animal</strong>, une <strong>chose</strong>, un <strong>lieu</strong> ou un <strong>concept</strong>.
+        </div>
+        <div style="height:6px;"></div>
+        <div class="card-rule-es">
+          El nombre designa a una persona, un animal, una cosa, un lugar o un concepto.
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar">أَحْمَدُ</div>
+          <div class="ex-fr">Un prénom — <strong>personne</strong></div>
+          <div class="ex-es">Un nombre propio — persona</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">مَسْجِدٌ</div>
+          <div class="ex-fr">Une mosquée — <strong>lieu</strong></div>
+          <div class="ex-es">Una mezquita — lugar</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">كِتَابٌ</div>
+          <div class="ex-fr">Un livre — <strong>chose</strong></div>
+          <div class="ex-es">Un libro — cosa</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">رَحْمَةٌ</div>
+          <div class="ex-fr">Miséricorde — <strong>concept</strong></div>
+          <div class="ex-es">Misericordia — concepto</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand" style="margin-bottom:6px;">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep" style="margin:6px auto;"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:2px;">عَلَامَاتُ الاِسْمِ</div>
+        <div class="card-title-fr serif" style="margin-bottom:2px;">LES INDICATEURS DU NOM</div>
+        <div class="card-title-es serif">LOS INDICADORES DEL NOMBRE</div>
+        <div class="card-sep" style="margin:8px auto;"></div>
+        <div class="card-rule-ar ar" style="font-size:clamp(1.05rem,3.2vw,1.35rem);margin-bottom:6px;">لِلاِسْمِ ثَلَاثُ عَلَامَاتٍ تُمَيِّزُهُ</div>
+        <div class="card-sep" style="margin:6px auto;"></div>
+        <div class="signs-row" style="gap:16px;margin:6px 0;">
+          <div class="sign-item">
+            <span class="sign-ar gold" style="font-size:2rem;">◌ٌ ◌ً ◌ٍ</span>
+            <span class="sign-label">التنوين<br><em style="font-size:0.60rem;color:var(--text-soft);">tanwīn</em></span>
+          </div>
+          <div class="sign-item">
+            <span class="sign-ar gold" style="font-size:2rem;">ٱلـ</span>
+            <span class="sign-label">أل التعريف<br><em style="font-size:0.60rem;color:var(--text-soft);">alif-lam</em></span>
+          </div>
+          <div class="sign-item">
+            <span class="sign-ar gold" style="font-size:2rem;">◌ِ</span>
+            <span class="sign-label">بعد حرف جرّ<br><em style="font-size:0.60rem;color:var(--text-soft);">kasra jarr</em></span>
+          </div>
+        </div>
+        <div class="card-sep" style="margin:6px auto;"></div>
+        <div class="card-rule-fr" style="font-size:0.84rem;margin-bottom:4px;">
+          Un nom se reconnaît à 3 signes :<br>
+          <strong>1.</strong> Il accepte le tanwīn (ٌ ً ٍ)<br>
+          <strong>2.</strong> Il accepte l'article ٱلـ<br>
+          <strong>3.</strong> Il se met à la kasra après une préposition
+        </div>
+        <div class="card-rule-es" style="font-size:0.78rem;">
+          Un nombre se reconoce por 3 señales:<br>
+          <strong>1.</strong> Acepta el tanwīn (ٌ ً ٍ)<br>
+          <strong>2.</strong> Acepta el artículo ٱلـ<br>
+          <strong>3.</strong> Toma la kasra después de una preposición
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar">كِتَاب<span class="gold">ٌ</span></div>
+          <div class="ex-fr"><span class="gold">Tanwīn</span> → c'est un nom indéfini</div>
+          <div class="ex-es"><span class="gold">Tanwīn</span> → es un nombre indefinido</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">ٱلْ</span>كِتَابُ</div>
+          <div class="ex-fr"><span class="gold">Alif-Lam</span> → nom défini</div>
+          <div class="ex-es"><span class="gold">Alif-Lam</span> → nombre definido</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">فِي الْبَيْت<span class="gold">ِ</span></div>
+          <div class="ex-fr"><span class="gold">Kasra</span> après فِي → nom en état jarr</div>
+          <div class="ex-es"><span class="gold">Kasra</span> después de فِي → nombre en estado jarr</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    }
+  ],
+
+  huruf: [
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar">حُرُوفُ الْجَرّ</div>
+        <div class="card-title-fr serif">LES PRÉPOSITIONS</div>
+        <div class="card-title-es serif">LAS PREPOSICIONES</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">
+          حُرُوفُ الْجَرِّ تَرْبِطُ الاِسْمَ بِمَا قَبْلَهُ وَتُعْطِيهِ الْكَسْرَة
+        </div>
+        <div class="card-sep"></div>
+        <div class="huruf-grid">
+          <div class="harf-pill"><span class="harf-ar ar">بِـ</span><span class="harf-fr">par / avec<br><em style="font-size:0.62rem;color:#aaa;">por / con</em></span></div>
+          <div class="harf-pill"><span class="harf-ar ar">فِي</span><span class="harf-fr">dans / en<br><em style="font-size:0.62rem;color:#aaa;">en / dentro</em></span></div>
+          <div class="harf-pill"><span class="harf-ar ar">مِن</span><span class="harf-fr">de / depuis<br><em style="font-size:0.62rem;color:#aaa;">de / desde</em></span></div>
+          <div class="harf-pill"><span class="harf-ar ar">إِلَى</span><span class="harf-fr">vers / à<br><em style="font-size:0.62rem;color:#aaa;">hacia / a</em></span></div>
+          <div class="harf-pill"><span class="harf-ar ar">عَلَى</span><span class="harf-fr">sur<br><em style="font-size:0.62rem;color:#aaa;">sobre</em></span></div>
+          <div class="harf-pill"><span class="harf-ar ar">لِـ</span><span class="harf-fr">pour / à<br><em style="font-size:0.62rem;color:#aaa;">para / a</em></span></div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;La règle · La regla</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">La règle · La regla</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar" style="font-size:1.5rem;">كُلُّ اِسْمٍ جَاءَ بَعْدَ حَرْفِ جَرٍّ فَهُوَ مَجْرُور</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          Tout nom qui vient après une préposition reçoit une <strong style="color:var(--gold);">kasra</strong> (ِ) à la fin — on dit qu'il est <strong>majrūr</strong> (مجرور).
+        </div>
+        <div style="height:6px;"></div>
+        <div class="card-rule-es">Todo nombre que sigue a una preposición recibe una <strong style="color:var(--gold);">kasra</strong> (ِ) al final — se llama <strong>majrūr</strong>.</div>
+        <div class="card-sep"></div>
+        <div class="ex-ar ar" style="font-size:1.9rem;text-align:center;">فِي الْبَيْت<span class="gold">ِ</span></div>
+        <div class="ex-fr" style="text-align:center;margin-top:6px;">فِي + البيت → kasra sur le ت</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero">
+          <div class="harf-hero-ar ar">بِـ</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero-fr serif">PAR / AVEC / AU NOM DE</div>
+        <div class="harf-hero-es serif">POR / CON / EN EL NOMBRE DE</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">تَدُلُّ عَلَى الإِلْصَاقِ وَالاِسْتِعَانَةِ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>بِـ</strong> exprime le moyen, l'accompagnement ou l'invocation.<br>
+          Elle se colle directement au mot (pas d'espace).
+        </div>
+        <div class="card-rule-es" style="margin-top:5px;"><strong>بِـ</strong> expresa el medio, la compañía o la invocación. Se une directamente a la palabra.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">بِـ</span>سْمِ اللَّهِ</div>
+          <div class="ex-fr">Au nom d'Allah — <em>coranique</em></div>
+          <div class="ex-es">En el nombre de Alá — <em>coránico</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">كَتَبَ <span class="gold">بِـ</span>الْقَلَمِ</div>
+          <div class="ex-fr">Il a écrit avec le stylo</div>
+          <div class="ex-es">Escribió con el bolígrafo</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">سَافَرَ <span class="gold">بِـ</span>الطَّائِرَةِ</div>
+          <div class="ex-fr">Il a voyagé en avion</div>
+          <div class="ex-es">Viajó en avión</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero">
+          <div class="harf-hero-ar ar">فِي</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero-fr serif">DANS / EN</div>
+        <div class="harf-hero-es serif">EN / DENTRO DE</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">تَدُلُّ عَلَى الظَّرْفِيَّةِ الْمَكَانِيَّةِ وَالزَّمَانِيَّة</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>فِي</strong> indique le lieu (dans, en) ou le temps (en, pendant).
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>فِي</strong> indica el lugar (en, dentro de) o el tiempo (en, durante).</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">فِي</span> الْمَسْجِدِ</div>
+          <div class="ex-fr">Dans la mosquée — <em>lieu</em></div>
+          <div class="ex-es">En la mezquita — <em>lugar</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">فِي</span> الصَّبَاحِ</div>
+          <div class="ex-fr">Dans la matinée — <em>temps</em></div>
+          <div class="ex-es">Por la mañana — <em>tiempo</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">فِي</span> الْبَيْتِ</div>
+          <div class="ex-fr">Dans la maison — <em>lieu quotidien</em></div>
+          <div class="ex-es">En casa — <em>cotidiano</em></div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero">
+          <div class="harf-hero-ar ar">مِن</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero-fr serif">DE / DEPUIS / PARMI</div>
+        <div class="harf-hero-es serif">DE / DESDE / ENTRE</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">تَدُلُّ عَلَى الاِبْتِدَاءِ وَالتَّبْعِيضِ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>مِن</strong> indique le point de départ, l'origine ou la partie d'un tout.
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>مِن</strong> indica el punto de partida, el origen o la parte de un todo.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">مِن</span> الْمَدْرَسَةِ</div>
+          <div class="ex-fr">Depuis l'école — <em>origine</em></div>
+          <div class="ex-es">Desde la escuela — <em>origen</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">مِن</span> الْقُرْآنِ</div>
+          <div class="ex-fr">Du Coran — <em>source</em></div>
+          <div class="ex-es">Del Corán — <em>fuente</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">مِن</span> رَبِّهِ</div>
+          <div class="ex-fr">De son Seigneur — <em>coranique</em></div>
+          <div class="ex-es">De su Señor — <em>coránico</em></div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero">
+          <div class="harf-hero-ar ar">إِلَى</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero-fr serif">VERS / À / JUSQU'À</div>
+        <div class="harf-hero-es serif">HACIA / A / HASTA</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">تَدُلُّ عَلَى الاِنْتِهَاءِ وَالاِتِّجَاه</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>إِلَى</strong> indique la destination, la direction ou la limite.
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>إِلَى</strong> indica el destino, la dirección o el límite.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar">ذَهَبَ <span class="gold">إِلَى</span> الْمَدْرَسَةِ</div>
+          <div class="ex-fr">Il est allé à l'école</div>
+          <div class="ex-es">Fue a la escuela</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">إِلَى</span> رَبِّكَ</div>
+          <div class="ex-fr">Vers ton Seigneur — <em>coranique</em></div>
+          <div class="ex-es">Hacia tu Señor — <em>coránico</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="gold">مِن</span> الْبَيْتِ <span class="gold">إِلَى</span> الْمَسْجِدِ</div>
+          <div class="ex-fr">De la maison jusqu'à la mosquée</div>
+          <div class="ex-es">De la casa hasta la mezquita</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero">
+          <div class="harf-hero-ar ar">عَلَى</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero-fr serif">SUR / AU-DESSUS</div>
+        <div class="harf-hero-es serif">SOBRE / ENCIMA DE</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">تَدُلُّ عَلَى الاِسْتِعْلَاءِ وَالتَّمَكُّن</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>عَلَى</strong> indique la position (sur) ou la responsabilité (il incombe à).
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>عَلَى</strong> indica posición (sobre) o responsabilidad (incumbe a).</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar">الْكِتَابُ <span class="gold">عَلَى</span> الطَّاوِلَةِ</div>
+          <div class="ex-fr">Le livre est sur la table</div>
+          <div class="ex-es">El libro está sobre la mesa</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">الصَّلَاةُ <span class="gold">عَلَى</span> وَقْتِهَا</div>
+          <div class="ex-fr">La prière en son temps — <em>coranique</em></div>
+          <div class="ex-es">La oración en su tiempo — <em>coránico</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">جَلَسَ <span class="gold">عَلَى</span> الْكُرْسِيِّ</div>
+          <div class="ex-fr">Il s'est assis sur la chaise</div>
+          <div class="ex-es">Se sentó en la silla</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    },
+    {
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">DAR AL-KALIMAH</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero">
+          <div class="harf-hero-ar ar">لِـ</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="harf-hero-fr serif">POUR / À / APPARTIENT À</div>
+        <div class="harf-hero-es serif">PARA / A / PERTENECE A</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">تَدُلُّ عَلَى الْمِلْكِ وَالتَّخْصِيصِ وَالتَّعْلِيل</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>لِـ</strong> exprime la possession, la destination ou le but.<br>
+          Elle se colle directement au mot (pas d'espace).
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>لِـ</strong> expresa posesión, destino o propósito. Se une directamente a la palabra.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Exemples · Ejemplos</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar">فَصَلِّ <span class="gold">لِـ</span>رَبِّكَ</div>
+          <div class="ex-fr">Prie pour ton Seigneur — <em>coranique</em></div>
+          <div class="ex-es">Reza a tu Señor — <em>coránico</em></div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">الْكِتَابُ <span class="gold">لِـ</span>أَحْمَدَ</div>
+          <div class="ex-fr">Le livre appartient à Ahmed</div>
+          <div class="ex-es">El libro es de Ahmed</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">ذَهَبَ <span class="gold">لِـ</span>لدِّرَاسَةِ</div>
+          <div class="ex-fr">Il est parti pour étudier</div>
+          <div class="ex-es">Fue a estudiar</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
+    }
+  ],
+
+  qiraa: [
+    /* ── TEXTE : عَزِيزٌ فِي حَدِيقَةِ الْحَيَوَانَاتِ ── */
+    {
+      type: 'text',
+      front: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">تَعْزِيزُ الْقِرَاءَة</div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="qiraa-legend">
+          <div class="legend-item"><div class="legend-dot-harf"></div><span>حرف الجر (or)</span></div>
+          <div class="legend-item"><div class="legend-dot-ism"></div><span>اسم (bordeaux)</span></div>
+        </div>
+        <div class="qiraa-title-fr serif">
+          عَزِيزٌ فِي حَدِيقَةِ الْحَيَوَانَاتِ<br>
+          Aziz au zoo · <em style="font-size:0.72rem;color:var(--text-soft);">Aziz en el zoo</em>
+        </div>
+        <div class="qiraa-text ar">
+          <span class="hl-harf">فِي</span> <span class="hl-ism">الصَّبَاحِ</span>، ذَهَبَ <span class="hl-ism">عَزِيزٌ</span> مَعَ <span class="hl-ism">فَصْلِهِ</span> <span class="hl-harf">مِنَ</span> <span class="hl-ism">مَدْرَسَةِ الْعَرَبِيَّةِ</span> <span class="hl-harf">إِلَى</span> <span class="hl-ism">حَدِيقَةِ الْحَيَوَانَاتِ</span>.
+        </div>
+        <div class="qiraa-text ar">
+          رَكِبُوا <span class="hl-harf">فِي</span> <span class="hl-ism">الْحَافِلَةِ</span> وَوَصَلُوا <span class="hl-harf">إِلَى</span> <span class="hl-ism">الْبَوَّابَةِ</span>. دَخَلَ <span class="hl-ism">عَزِيزٌ</span> <span class="hl-harf">مِنَ</span> <span class="hl-ism">الْبَابِ</span> مَعَ <span class="hl-ism">أُسْتَاذِهِ</span>.
+        </div>
+        <div class="qiraa-text ar">
+          جَلَسَ <span class="hl-ism">عَزِيزٌ</span> <span class="hl-harf">عَلَى</span> <span class="hl-ism">الْعُشْبِ</span> أَمَامَ <span class="hl-ism">الْأَسَدِ</span>. نَظَرَ <span class="hl-harf">إِلَى</span> <span class="hl-ism">الزَّرَافَةِ</span> وَكَتَبَ <span class="hl-harf">بِـ</span><span class="hl-ism">الْقَلَمِ</span> اسْمَهَا <span class="hl-harf">فِي</span> <span class="hl-ism">دَفْتَرِهِ</span>.
+        </div>
+        <div class="qiraa-text ar">
+          أَكَلَ <span class="hl-ism">عَزِيزٌ</span> <span class="hl-harf">مِنَ</span> <span class="hl-ism">الطَّعَامِ</span> مَعَ <span class="hl-ism">أَصْدِقَائِهِ</span> <span class="hl-harf">عَلَى</span> <span class="hl-ism">الطَّاوِلَةِ</span>. قَالَ <span class="hl-harf">لِـ</span><span class="hl-ism">أُسْتَاذِهِ</span>: هَذَا <span class="hl-ism">الْيَوْمُ</span> <span class="hl-harf">مِنَ</span> <span class="hl-ism">أَجْمَلِ الْأَيَّامِ</span>!
+        </div>
+        <div class="qiraa-text ar">
+          <span class="hl-harf">فِي</span> <span class="hl-ism">الْمَسَاءِ</span>، رَجَعُوا <span class="hl-harf">إِلَى</span> <span class="hl-ism">الْمَدْرَسَةِ</span>. قَالَ <span class="hl-ism">الْأُسْتَاذُ</span>: الْعِلْمُ <span class="hl-harf">فِي</span> <span class="hl-ism">كُلِّ مَكَانٍ</span> وَهُوَ <span class="hl-harf">لِـ</span><span class="hl-ism">لْجَمِيعِ</span>.
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Traduction · Traducción</div>`,
+      back: `
+        <div class="card-brand">
+          <div class="card-brand-ar ar">دار الكلمة</div>
+          <div class="card-brand-fr serif">Traduction · Traducción</div>
+        </div>
+        <div class="card-sep"></div>
+        <div style="font-size:0.88rem;color:var(--text-dark);line-height:1.9;padding:0 4px;margin-bottom:10px;">
+          <span class="gold">فِي</span> le matin, <strong>Aziz</strong> est allé avec sa <strong>classe</strong> <span class="gold">مِن</span> l'<strong>école d'arabe</strong> <span class="gold">إِلَى</span> le <strong>zoo</strong>.
+          Ils ont pris le bus <span class="gold">فِي</span> le <strong>bus</strong> et sont arrivés <span class="gold">إِلَى</span> la <strong>porte</strong>.
+          Aziz est entré <span class="gold">مِن</span> la <strong>porte</strong> avec son <strong>professeur</strong>.
+          Il s'est assis <span class="gold">عَلَى</span> l'<strong>herbe</strong> devant le <strong>lion</strong>, a regardé <span class="gold">إِلَى</span> la <strong>girafe</strong> et a écrit <span class="gold">بِـ</span>le <strong>stylo</strong> son nom <span class="gold">فِي</span> le <strong>cahier</strong>.
+          Il a mangé <span class="gold">مِن</span> la <strong>nourriture</strong> avec ses <strong>amis</strong> <span class="gold">عَلَى</span> la <strong>table</strong>.
+          Il a dit <span class="gold">لِـ</span>son <strong>professeur</strong> : cette journée est parmi les plus belles !
+          <span class="gold">فِي</span> le <strong>soir</strong>, ils sont rentrés <span class="gold">إِلَى</span> l'<strong>école</strong>.
+        </div>
+        <div class="card-sep"></div>
+        <div style="font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.8;padding:0 4px;">
+          Por la mañana, Aziz fue con su clase de la escuela de árabe al zoo. Tomaron el autobús y llegaron a la puerta. Aziz entró con su profesor. Se sentó en la hierba frente al león, miró la jirafa y escribió su nombre con el bolígrafo en el cuaderno. Comió con sus amigos en la mesa. Le dijo a su profesor: ¡este día es de los más bonitos! Por la tarde volvieron a la escuela.
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── 10 QUESTIONS OUI / NON ── */
+    { type:'quiz', num:1,
+      ar:'هَلْ ذَهَبَ عَزِيزٌ إِلَى حَدِيقَةِ الْحَيَوَانَاتِ مَعَ فَصْلِهِ؟',
+      fr:'Aziz est-il allé au zoo avec sa classe ?',
+      es:'¿Aziz fue al zoo con su clase?',
+      answer:true,
+      ok_ar:'✓ نعم — ذهب مع فصله من مدرسة العربية',
+      ok_fr:'Oui — Aziz est allé avec sa classe de l\'école d\'arabe',
+      ok_es:'Sí — Aziz fue con su clase de la escuela de árabe',
+      ko_ar:'✗ بلى — ذهب عزيز مع فصله',
+      ko_fr:'Si ! Aziz est bien allé au zoo avec sa classe',
+      ko_es:'¡Sí! Aziz fue al zoo con su clase'
+    },
+    { type:'quiz', num:2,
+      ar:'هَلْ ذَهَبُوا إِلَى الْحَدِيقَةِ بِالسَّيَّارَةِ؟',
+      fr:'Sont-ils allés au zoo en voiture ?',
+      es:'¿Fueron al zoo en coche?',
+      answer:false,
+      ok_ar:'✓ لا — ركبوا في الحافلة، لا السيارة',
+      ok_fr:'Non — ils ont pris le bus, pas la voiture',
+      ok_es:'No — fueron en autobús, no en coche',
+      ko_ar:'✗ لا — ركبوا الحافلة',
+      ko_fr:'Non ! Ils ont pris le bus, pas la voiture',
+      ko_es:'¡No! Fueron en autobús, no en coche'
+    },
+    { type:'quiz', num:3,
+      ar:'هَلْ دَخَلَ عَزِيزٌ مَعَ أُسْتَاذِهِ؟',
+      fr:'Aziz est-il entré avec son professeur ?',
+      es:'¿Aziz entró con su profesor?',
+      answer:true,
+      ok_ar:'✓ نعم — دخل عزيز مع أستاذه من الباب',
+      ok_fr:'Oui — Aziz est entré avec son professeur par la porte',
+      ok_es:'Sí — Aziz entró con su profesor por la puerta',
+      ko_ar:'✗ بلى — دخل عزيز مع أستاذه',
+      ko_fr:'Si ! Aziz est bien entré avec son professeur',
+      ko_es:'¡Sí! Aziz entró con su profesor'
+    },
+    { type:'quiz', num:4,
+      ar:'هَلْ جَلَسَ عَزِيزٌ عَلَى الْعُشْبِ أَمَامَ الزَّرَافَةِ؟',
+      fr:'Aziz s\'est-il assis sur l\'herbe devant la girafe ?',
+      es:'¿Aziz se sentó en la hierba frente a la jirafa?',
+      answer:false,
+      ok_ar:'✓ لا — جلس أمام الأسد، لا الزرافة',
+      ok_fr:'Non — il s\'est assis devant le lion, pas la girafe',
+      ok_es:'No — se sentó frente al león, no a la jirafa',
+      ko_ar:'✗ لا — جلس أمام الأسد',
+      ko_fr:'Non ! Il s\'est assis devant le lion, pas la girafe',
+      ko_es:'¡No! Se sentó frente al león, no a la jirafa'
+    },
+    { type:'quiz', num:5,
+      ar:'هَلْ نَظَرَ عَزِيزٌ إِلَى الزَّرَافَةِ؟',
+      fr:'Aziz a-t-il regardé la girafe ?',
+      es:'¿Aziz miró la jirafa?',
+      answer:true,
+      ok_ar:'✓ نعم — نظر إلى الزرافة وكتب اسمها',
+      ok_fr:'Oui — Aziz a regardé la girafe et écrit son nom',
+      ok_es:'Sí — Aziz miró la jirafa y escribió su nombre',
+      ko_ar:'✗ بلى — نظر عزيز إلى الزرافة',
+      ko_fr:'Si ! Aziz a bien regardé la girafe',
+      ko_es:'¡Sí! Aziz sí miró la jirafa'
+    },
+    { type:'quiz', num:6,
+      ar:'هَلْ كَتَبَ عَزِيزٌ فِي دَفْتَرِهِ بِالْقَلَمِ؟',
+      fr:'Aziz a-t-il écrit dans son cahier avec le stylo ?',
+      es:'¿Aziz escribió en su cuaderno con el bolígrafo?',
+      answer:true,
+      ok_ar:'✓ نعم — كتب اسم الزرافة في دفتره بالقلم',
+      ok_fr:'Oui — Aziz a écrit le nom de la girafe dans son cahier',
+      ok_es:'Sí — Aziz escribió el nombre de la jirafa en su cuaderno',
+      ko_ar:'✗ بلى — كتب في دفتره بالقلم',
+      ko_fr:'Si ! Aziz a bien écrit dans son cahier avec le stylo',
+      ko_es:'¡Sí! Aziz sí escribió en su cuaderno'
+    },
+    { type:'quiz', num:7,
+      ar:'هَلْ أَكَلَ عَزِيزٌ وَحْدَهُ؟',
+      fr:'Aziz a-t-il mangé seul ?',
+      es:'¿Aziz comió solo?',
+      answer:false,
+      ok_ar:'✓ لا — أكل مع أصدقائه على الطاولة',
+      ok_fr:'Non — Aziz a mangé avec ses amis à la table',
+      ok_es:'No — Aziz comió con sus amigos en la mesa',
+      ko_ar:'✗ لا — أكل مع أصدقائه',
+      ko_fr:'Non ! Aziz a mangé avec ses amis, pas seul',
+      ko_es:'¡No! Aziz comió con sus amigos, no solo'
+    },
+    { type:'quiz', num:8,
+      ar:'هَلْ قَالَ عَزِيزٌ لِأُسْتَاذِهِ إِنَّ الْيَوْمَ جَمِيلٌ؟',
+      fr:'Aziz a-t-il dit à son professeur que la journée était belle ?',
+      es:'¿Aziz le dijo a su profesor que el día era bonito?',
+      answer:true,
+      ok_ar:'✓ نعم — قال: هذا اليوم من أجمل الأيام!',
+      ok_fr:'Oui — Aziz a dit : cette journée est parmi les plus belles !',
+      ok_es:'Sí — Aziz dijo: ¡este día es de los más bonitos!',
+      ko_ar:'✗ بلى — قال ذلك لأستاذه',
+      ko_fr:'Si ! Aziz l\'a bien dit à son professeur',
+      ko_es:'¡Sí! Aziz sí lo dijo a su profesor'
+    },
+    { type:'quiz', num:9,
+      ar:'هَلْ رَجَعُوا إِلَى الْبَيْتِ فِي الْمَسَاءِ؟',
+      fr:'Sont-ils rentrés à la maison le soir ?',
+      es:'¿Volvieron a casa por la tarde?',
+      answer:false,
+      ok_ar:'✓ لا — رجعوا إلى المدرسة، لا إلى البيت',
+      ok_fr:'Non — ils sont rentrés à l\'école, pas à la maison',
+      ok_es:'No — volvieron a la escuela, no a casa',
+      ko_ar:'✗ لا — رجعوا إلى المدرسة',
+      ko_fr:'Non ! Ils sont rentrés à l\'école, pas à la maison',
+      ko_es:'¡No! Volvieron a la escuela, no a casa'
+    },
+    { type:'quiz', num:10,
+      ar:'هَلْ قَالَ الْأُسْتَاذُ إِنَّ الْعِلْمَ لِلْجَمِيعِ؟',
+      fr:'Le professeur a-t-il dit que la science est pour tous ?',
+      es:'¿El profesor dijo que el conocimiento es para todos?',
+      answer:true,
+      ok_ar:'✓ نعم — قال: العلم في كل مكان وهو للجميع',
+      ok_fr:'Oui — le professeur a dit : la science est partout et pour tous',
+      ok_es:'Sí — el profesor dijo: el conocimiento está en todas partes y es para todos',
+      ko_ar:'✗ بلى — قال الأستاذ ذلك',
+      ko_fr:'Si ! Le professeur l\'a bien dit',
+      ko_es:'¡Sí! El profesor sí lo dijo'
+    }
+  ]
+};
+
+// ════════════════════════════════
+// STATE
+// ════════════════════════════════
+const State = {
+  ism:   { idx: 0, flipped: false },
+  huruf: { idx: 0, flipped: false },
+  qiraa: { idx: 0, flipped: false }
+};
+
+// ════════════════════════════════
+// UTILS
+// ════════════════════════════════
+const $ = id => document.getElementById(id);
+const views = {
+  select: $("view-select"),
+  ism:    $("view-ism"),
+  huruf:  $("view-huruf"),
+  qiraa:  $("view-qiraa")
+};
+
+function showView(name) {
+  Object.values(views).forEach(v => v.classList.add("hidden"));
+  views[name].classList.remove("hidden");
+}
+
+// ════════════════════════════════
+// RENDU
+// ════════════════════════════════
+function adjustHeight(section) {
+  requestAnimationFrame(() => {
+    const frontEl = $(`${section}-front`);
+    const backEl  = $(`${section}-back`);
+    const h = Math.max(frontEl.scrollHeight, backEl.scrollHeight, 380);
+    $("card-" + section).style.height = h + 32 + "px";
+  });
+}
+
+function renderSection(section) {
+  const s = State[section];
+  const cards = DATA[section];
+  const card = cards[s.idx];
+
+  s.flipped = false;
+  const flip = $("card-" + section);
+  flip.classList.remove("flipped");
+
+  if (card.type === 'quiz') {
+    flip.onclick = null;
+    flip.style.cursor = 'default';
+    $(`${section}-front`).innerHTML = `
+      <div class="card-brand" style="margin-bottom:10px;">
+        <div class="card-brand-ar ar" style="font-size:2rem;">دار الكلمة</div>
+        <div class="card-brand-fr serif" style="font-size:1rem;letter-spacing:3px;color:var(--burgundy);opacity:0.85;font-family:'Amiri',serif;direction:rtl;">تَعْزِيزُ الْقِرَاءَة</div>
+      </div>
+      <div class="card-sep"></div>
+      <div class="quiz-num" style="margin:18px 0 18px;">QUESTION ${card.num} / 10 &nbsp;·&nbsp; PREGUNTA ${card.num} / 10</div>
+      <div class="quiz-q-ar ar" style="margin:0 0 20px;font-size:clamp(1.5rem,5vw,2rem);">${card.ar}</div>
+      <div class="quiz-q-fr" style="margin-bottom:8px;font-size:0.95rem;">${card.fr}</div>
+      <div class="quiz-q-es" style="margin-bottom:32px;">${card.es}</div>
+      <div class="quiz-btns" style="margin-bottom:24px;">
+        <button class="quiz-btn quiz-btn-oui" onclick="answerQuiz('${section}',true)">
+          نعم<br><small>Oui · Sí</small>
+        </button>
+        <button class="quiz-btn quiz-btn-non" onclick="answerQuiz('${section}',false)">
+          لا<br><small>Non · No</small>
+        </button>
+      </div>
+      <div class="quiz-feedback" id="qfb-${section}"></div>
+    `;
+    $(`${section}-back`).innerHTML = '';
+  } else {
+    // Carte texte normale avec flip
+    flip.onclick = () => flipCard(section);
+    flip.style.cursor = 'pointer';
+    $(`${section}-front`).innerHTML = card.front;
+    $(`${section}-back`).innerHTML = card.back;
+  }
+
+  $(`${section}-curr`).textContent = s.idx + 1;
+  if ($(`${section}-tot`)) $(`${section}-tot`).textContent = cards.length;
+
+  $(`${section}-prev`).disabled = s.idx === 0;
+  $(`${section}-next`).disabled = s.idx === cards.length - 1;
+
+  $(`${section}-front`).scrollTop = 0;
+  $(`${section}-back`).scrollTop = 0;
+}
+
+window.answerQuiz = function(section, chosen) {
+  const card = DATA[section][State[section].idx];
+  const fb = $(`qfb-${section}`);
+  const correct = chosen === card.answer;
+  document.querySelectorAll(`#view-${section} .quiz-btn`).forEach(b => b.disabled = true);
+  fb.className = 'quiz-feedback show ' + (correct ? 'correct' : 'wrong');
+  const ar = correct ? card.ok_ar : card.ko_ar;
+  const fr = correct ? card.ok_fr : card.ko_fr;
+  const es = correct ? card.ok_es : card.ko_es;
+  fb.innerHTML = `
+    <div style="font-family:'Amiri',serif;font-size:1.1rem;direction:rtl;margin-bottom:6px;">${ar}</div>
+    <div style="margin-bottom:4px;font-weight:600;">${fr}</div>
+    <em>${es}</em>`;
+};
+
+// ════════════════════════════════
+// ACTIONS
+// ════════════════════════════════
+window.openSection = function(section) {
+  State[section].idx = 0;
+  State[section].flipped = false;
+  renderSection(section);
+  showView(section);
+  adjustHeight(section); // mesure APRÈS que la vue est visible
+};
+
+window.goHome = function() {
+  showView("select");
+};
+
+window.flipCard = function(section) {
+  const card = DATA[section][State[section].idx];
+  if (card.type === 'quiz') return;
+  State[section].flipped = !State[section].flipped;
+  $("card-" + section).classList.toggle("flipped", State[section].flipped);
+};
+
+window.navigate = function(section, dir) {
+  const s = State[section];
+  const len = DATA[section].length;
+  const next = s.idx + dir;
+  if (next < 0 || next >= len) return;
+  s.idx = next;
+  renderSection(section);
+  adjustHeight(section);
+};
+
+// Swipe
+["ism","huruf","qiraa"].forEach(section => {
+  let tx = 0;
+  const el = $("view-" + section);
+  el.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, {passive:true});
+  el.addEventListener("touchend", e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 55) {
+      if (dx > 0) navigate(section, 1);
+      else navigate(section, -1);
+    }
+  }, {passive:true});
+});
+
+})();
+</script>
+</body>
+</html>
