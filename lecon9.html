@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Dar Al-Kalimah – Leçon 9 | الجملة الاسمية وأسماء الإشارة</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --burgundy:#5D1828;--burgundy-dark:#3a0f19;
+      --gold:#C8A462;--gold-light:#dfc28b;
+      --white:#FFFFFF;--bg-beige:#FAF6F0;
+      --text-dark:#2C3E50;--text-soft:#8c775a;
+      --shadow-soft:0 8px 25px rgba(93,24,40,0.06);
+      --shadow-card:0 20px 50px rgba(93,24,40,0.10);
+      --transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      --radius-xl:28px;--radius-lg:22px;--radius-md:18px;--radius-sm:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+    body{min-height:100vh;min-height:100dvh;background:var(--bg-beige);font-family:"Montserrat",sans-serif;color:var(--text-dark);padding:16px 14px 50px;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
+    button,a{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
+    .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.7;}
+    .serif{font-family:"Cinzel","Georgia",serif;}
+    .hidden{display:none!important;}
+    .view{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;animation:up .38s ease-out;}
+    @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .gold{color:var(--gold);font-weight:700;}
+
+    /* ── HEADER MENU ── */
+    .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
+    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:2px;line-height:1;}
+    .menu-brand-sub{font-size:0.72rem;letter-spacing:5px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;margin-bottom:12px;font-family:"Cinzel",serif;}
+    .menu-title{font-size:1rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:2px;}
+    .menu-title-sub{font-size:0.82rem;color:var(--burgundy);font-weight:600;margin-bottom:6px;}
+    .menu-title-es{font-size:0.8rem;color:#999;letter-spacing:1.5px;text-transform:uppercase;}
+    .menu-title-es-sub{font-size:0.72rem;color:#bbb;font-style:italic;}
+    .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.8rem;transition:var(--transition);border-radius:999px;background:transparent;border:none;}
+    .btn-house-menu:hover{transform:scale(1.1);}
+
+    /* ── CARTES THÈME ── */
+    .theme-list{width:100%;display:flex;flex-direction:column;gap:22px;}
+    .theme-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:36px 24px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;cursor:pointer;}
+    .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
+    .theme-card:active{transform:scale(0.98);}
+    .theme-card.jomla-card{border-top:4px solid var(--burgundy);}
+    .theme-card.icharah-card{border-top:4px solid var(--gold);}
+    .theme-card.ensemble-card{border-top:4px solid #7b5ea7;}
+    .theme-card.qiraa-card{border-top:4px solid var(--text-soft);}
+    .theme-icon{font-size:3.5rem;color:var(--gold);margin-bottom:16px;}
+    .theme-title-ar{font-size:2.4rem;color:var(--burgundy);font-weight:700;margin-bottom:14px;line-height:1.4;}
+    .theme-divider{width:70px;height:2px;background:var(--gold);margin-bottom:12px;opacity:0.5;border-radius:2px;}
+    .theme-title-fr{font-weight:700;font-size:1.1rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+    .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
+
+    /* ── TOP BAR ── */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;max-width:640px;}
+    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    .btn-back-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
+
+    /* ── FLIP CARD ── */
+    .card-scene{width:100%;max-width:640px;perspective:1800px;margin-bottom:20px;}
+    .card-flip{position:relative;width:100%;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;height:clamp(560px,80dvh,720px);}
+    .card-flip.flipped{transform:rotateY(180deg);}
+    .card-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(200,164,98,0.35);box-shadow:var(--shadow-card);padding:24px 20px 16px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,164,98,0.3) transparent;}
+    .card-face::-webkit-scrollbar{width:4px;}
+    .card-face::-webkit-scrollbar-thumb{background:rgba(200,164,98,0.3);border-radius:2px;}
+    .card-back-face{transform:rotateY(180deg);}
+
+    /* Branding */
+    .card-brand{text-align:center;margin-bottom:10px;}
+    .card-brand-ar{font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:2px;}
+    .card-brand-fr{font-size:0.62rem;color:var(--burgundy);letter-spacing:3px;text-transform:uppercase;opacity:0.65;}
+    .card-sep{width:40px;height:1px;background:var(--gold);opacity:0.4;margin:10px auto;}
+
+    /* Titres */
+    .card-title-ar{font-size:clamp(1.8rem,5.5vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;margin-bottom:4px;line-height:1.4;}
+    .card-title-fr{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:3px;}
+    .card-title-es{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.55;font-style:italic;text-align:center;margin-bottom:12px;}
+    .card-rule-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.2rem,3.8vw,1.7rem);color:var(--burgundy);line-height:1.8;text-align:center;margin-bottom:12px;}
+    .card-rule-fr{font-size:0.88rem;color:var(--text-dark);line-height:1.65;margin-bottom:5px;}
+    .card-rule-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.6;}
+    .flip-hint{text-align:center;color:var(--gold);font-size:0.7rem;letter-spacing:1px;opacity:0.55;margin-top:14px;padding-top:8px;border-top:1px solid rgba(200,164,98,0.15);font-family:"Cinzel",serif;animation:pulse 2.5s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:0.35;}50%{opacity:0.8;}}
+
+    /* Schéma jomla */
+    .jomla-schema{display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap;margin:14px 0;padding:16px;background:var(--bg-beige);border-radius:var(--radius-md);border:1px dashed rgba(200,164,98,0.4);}
+    .schema-box{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .schema-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.6rem,5vw,2.2rem);color:var(--burgundy);font-weight:700;line-height:1.2;}
+    .schema-label{font-size:0.68rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:"Cinzel",serif;}
+    .schema-label-es{font-size:0.62rem;color:var(--text-soft);font-style:italic;}
+    .schema-plus{font-size:1.8rem;color:var(--gold-light);font-weight:300;align-self:center;}
+    .schema-eq{font-size:1.5rem;color:var(--gold);font-weight:700;align-self:center;}
+
+    /* Table ischarah */
+    .icharah-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.85rem;}
+    .icharah-table th{background:var(--burgundy);color:var(--white);padding:10px 8px;text-align:center;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;font-family:"Cinzel",serif;}
+    .icharah-table th:first-child{border-radius:8px 0 0 0;}
+    .icharah-table th:last-child{border-radius:0 8px 0 0;}
+    .icharah-table td{padding:12px 8px;text-align:center;border-bottom:1px solid rgba(200,164,98,0.18);}
+    .icharah-table tr:last-child td{border-bottom:none;}
+    .icharah-table tr:nth-child(even) td{background:rgba(200,164,98,0.06);}
+    .icharah-table .td-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.6rem;color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .icharah-table .td-fr{font-size:0.78rem;color:var(--text-dark);font-weight:600;}
+    .icharah-table .td-es{font-size:0.72rem;color:var(--text-soft);font-style:italic;}
+
+    /* Exemples flip */
+    .example-block{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 0;border-bottom:1px solid rgba(200,164,98,0.18);text-align:center;}
+    .example-block:last-child{border-bottom:none;padding-bottom:0;}
+    .example-block:first-child{padding-top:0;}
+    .ex-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.8rem,6.5vw,2.6rem);color:var(--burgundy);font-weight:700;line-height:1.4;}
+    .ex-ar .hi{color:var(--gold);}
+    .ex-fr{font-size:0.9rem;color:var(--text-dark);font-weight:500;}
+    .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
+    .ex-analyse{font-size:0.75rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:0.5px;margin-top:2px;}
+
+    /* Lecture */
+    .qiraa-legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:0 0 10px;padding:8px 14px;background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.2);border-radius:10px;font-size:0.72rem;}
+    .legend-item{display:flex;align-items:center;gap:5px;font-family:"Cinzel",serif;font-size:0.64rem;letter-spacing:0.5px;}
+    .legend-dot-ic{width:10px;height:10px;background:#7b5ea7;border-radius:50%;flex-shrink:0;}
+    .legend-dot-mb{width:10px;height:10px;background:var(--burgundy);border-radius:50%;flex-shrink:0;}
+    .legend-dot-kh{width:10px;height:10px;background:var(--gold);border:2px solid var(--gold);border-radius:50%;flex-shrink:0;}
+    .qiraa-title-fr{font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px;font-family:"Cinzel",serif;}
+    .qiraa-text{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.4rem,4.5vw,1.9rem);color:var(--text-dark);line-height:2.3;text-align:center;width:100%;margin:6px 0;}
+    .hl-ic{color:#7b5ea7;font-weight:700;}   /* اسم الإشارة — violet */
+    .hl-mb{color:var(--burgundy);font-weight:700;text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;} /* مبتدأ */
+    .hl-kh{color:#8a6620;font-weight:700;}   /* خبر — doré foncé */
+
+    /* NAV */
+    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:640px;}
+    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
+    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    .btn-nav:disabled{opacity:0.35;pointer-events:none;}
+
+    @media(max-width:480px){
+      .card-flip{height:clamp(520px,78dvh,660px);}
+      .card-face{padding:18px 14px 12px;}
+      .card-brand-ar{font-size:1.5rem;}
+      .btn-nav{font-size:0.8rem;padding:13px 8px;}
+      .icharah-table .td-ar{font-size:1.3rem;}
+    }
+
+    .quiz-num{font-size:.7rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:2px;text-align:center;margin-bottom:8px;opacity:.7;}
+    .quiz-q-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--burgundy);font-weight:700;line-height:1.8;text-align:center;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .quiz-q-fr{font-size:.9rem;color:var(--text-dark);text-align:center;margin-bottom:4px;}
+    .quiz-q-es{font-size:.82rem;color:var(--text-soft);font-style:italic;text-align:center;}
+    .quiz-btns{display:flex;gap:14px;justify-content:center;margin:0 0 16px;}
+    .quiz-btn{flex:1;max-width:140px;padding:14px 10px;border-radius:999px;font-weight:700;font-size:1rem;letter-spacing:1px;border:2px solid;cursor:pointer;transition:all .25s;font-family:"Montserrat",sans-serif;}
+    .quiz-btn-oui{background:rgba(93,24,40,.06);border-color:var(--burgundy);color:var(--burgundy);}
+    .quiz-btn-non{background:rgba(200,164,98,.08);border-color:var(--gold);color:#8a6620;}
+    .quiz-btn:disabled{opacity:.4;pointer-events:none;}
+    .quiz-feedback{border-radius:16px;padding:14px 16px;margin-top:4px;font-size:.88rem;line-height:1.6;text-align:center;display:none;}
+    .quiz-feedback.correct{background:rgba(34,139,34,.08);border:1px solid rgba(34,139,34,.25);color:#1a6b1a;}
+    .quiz-feedback.wrong{background:rgba(200,30,30,.07);border:1px solid rgba(200,30,30,.2);color:#9b1a1a;}
+    .quiz-feedback.show{display:block;}
+
+    /* MCQ buttons */
+    .mcq-btn{width:100%;padding:12px 16px;border-radius:var(--radius-md,18px);font-weight:600;font-size:0.9rem;cursor:pointer;border:2px solid var(--gold-light,#dfc28b);background:#fff;color:var(--burgundy);transition:all .25s;text-align:right;direction:rtl;}
+    .mcq-btn:hover{border-color:var(--gold);background:rgba(200,164,98,0.06);}
+    .mcq-btn:disabled{cursor:default;}
+    .mcq-btn.mcq-correct{border:2px solid #4CAF50!important;background:var(--success-green,#e8f5e9);color:#2e7d32;}
+    .mcq-btn.mcq-wrong{border:2px solid #f44336!important;background:var(--error-red,#ffebee);opacity:0.7;}
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     VUE 1 — MENU
+═══════════════════════════════════════ -->
+<main id="view-select" class="view">
+  <header class="menu-header">
+    <a href="module9.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-brand-sub serif">DAR AL-KALIMAH</div>
+    <div class="menu-title serif">LEÇON 9 — الْجُمْلَةُ الاِسْمِيَّةُ</div>
+    <div class="menu-title-sub">La Phrase Nominale · أسماء الإشارة</div>
+    <div class="menu-title-es serif">LECCIÓN 9</div>
+    <div class="menu-title-es-sub">La Frase Nominal · Demostrativos</div>
+  </header>
+  <div class="theme-list">
+    <button class="theme-card jomla-card" onclick="openSection('jomla')">
+      <i class="fa-solid fa-align-left theme-icon"></i>
+      <div class="theme-title-ar ar">الْجُمْلَةُ الاِسْمِيَّةُ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">La Phrase Nominale</div>
+      <div class="theme-title-es">La Frase Nominal</div>
+    </button>
+    <button class="theme-card icharah-card" onclick="openSection('icharah')">
+      <i class="fa-solid fa-hand-pointer theme-icon"></i>
+      <div class="theme-title-ar ar" style="font-size:1.9rem;">أَسْمَاءُ الإِشَارَةِ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Les Démonstratifs</div>
+      <div class="theme-title-es">Los Demostrativos</div>
+    </button>
+    <button class="theme-card ensemble-card" onclick="openSection('ensemble')">
+      <i class="fa-solid fa-link theme-icon" style="color:#7b5ea7;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.8rem;">الجمع بين الاثنين</div>
+      <div class="theme-divider" style="background:#7b5ea7;"></div>
+      <div class="theme-title-fr">Ensemble · Exemples</div>
+      <div class="theme-title-es">Juntos · Ejemplos</div>
+    </button>
+    <button class="theme-card qiraa-card" onclick="openSection('qiraa')">
+      <i class="fa-solid fa-book-open theme-icon" style="color:var(--text-soft);"></i>
+      <div class="theme-title-ar ar" style="font-size:1.8rem;">تَعْزِيزُ الْقِرَاءَة</div>
+      <div class="theme-divider" style="background:var(--text-soft);"></div>
+      <div class="theme-title-fr">Renforcement · Lecture</div>
+      <div class="theme-title-es">Refuerzo · Lectura</div>
+    </button>
+  </div>
+</main>
+
+<!-- ══════════════════════════════════════
+     VUE 2 — الجملة الاسمية
+═══════════════════════════════════════ -->
+<main id="view-jomla" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="jomla-curr">1</span> / <span id="jomla-tot">3</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-jomla" onclick="flipCard('jomla')">
+      <div class="card-face" id="jomla-front"></div>
+      <div class="card-face card-back-face" id="jomla-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="jomla-prev" onclick="navigate('jomla',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="jomla-next" onclick="navigate('jomla',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══════════════════════════════════════
+     VUE 3 — أسماء الإشارة
+═══════════════════════════════════════ -->
+<main id="view-icharah" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="icharah-curr">1</span> / <span id="icharah-tot">8</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-icharah" onclick="flipCard('icharah')">
+      <div class="card-face" id="icharah-front"></div>
+      <div class="card-face card-back-face" id="icharah-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="icharah-prev" onclick="navigate('icharah',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="icharah-next" onclick="navigate('icharah',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══════════════════════════════════════
+     VUE 4 — Ensemble
+═══════════════════════════════════════ -->
+<main id="view-ensemble" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="ensemble-curr">1</span> / <span id="ensemble-tot">3</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-ensemble" onclick="flipCard('ensemble')">
+      <div class="card-face" id="ensemble-front"></div>
+      <div class="card-face card-back-face" id="ensemble-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="ensemble-prev" onclick="navigate('ensemble',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="ensemble-next" onclick="navigate('ensemble',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══════════════════════════════════════
+     VUE 5 — Lecture
+═══════════════════════════════════════ -->
+<main id="view-qiraa" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="qiraa-curr">1</span> / <span id="qiraa-tot">14</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-qiraa" onclick="flipCard('qiraa')">
+      <div class="card-face" id="qiraa-front"></div>
+      <div class="card-face card-back-face" id="qiraa-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<script>
+(() => {
+"use strict";
+
+const DATA = {
+
+  /* ══ 1. الجملة الاسمية ══ */
+  jomla: [
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar">الْجُمْلَةُ الاِسْمِيَّةُ</div>
+        <div class="card-title-fr serif">LA PHRASE NOMINALE</div>
+        <div class="card-title-es serif">LA FRASE NOMINAL</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">الْجُمْلَةُ الاِسْمِيَّةُ جُمْلَةٌ تَبْدَأُ بِاسْمٍ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">La phrase nominale est une phrase qui <strong>commence par un nom</strong>.<br>Elle est composée de deux éléments :<br>
+        <strong>المبتدأ</strong> (le sujet) + <strong>الخبر</strong> (l’attribut / prédicat)</div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es">La frase nominal <strong>comienza con un nombre</strong>.<br>Se compone de : <strong>مبتدأ</strong> (sujeto) + <strong>خبر</strong> (predicado)</div>
+        <div class="card-sep"></div>
+        <div class="jomla-schema">
+          <div class="schema-box">
+            <span class="schema-ar ar" style="color:var(--gold);">خَبَر</span>
+            <span class="schema-label">Attribut</span>
+            <span class="schema-label-es">Predicado</span>
+          </div>
+          <div class="schema-plus">+</div>
+          <div class="schema-box">
+            <span class="schema-ar ar">مُبْتَدَأ</span>
+            <span class="schema-label">Sujet</span>
+            <span class="schema-label-es">Sujeto</span>
+          </div>
+          <div class="schema-eq">=</div>
+          <div class="schema-box">
+            <span class="schema-ar ar" style="font-size:1.1rem;color:#555;">جُمْلَةٌ اِسْمِيَّةٌ</span>
+            <span class="schema-label">Phrase nominale</span>
+            <span class="schema-label-es">Frase nominal</span>
+          </div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">أَحْمَدُ</span> طَالِبٌ</div>
+          <div class="ex-analyse">مبتدأ : أَحْمَدُ — خبر : طَالِبٌ</div>
+          <div class="ex-fr">Ahmed est un étudiant</div>
+          <div class="ex-es">Ahmed es un estudiante</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">الْبَيْتُ</span> كَبِيرٌ</div>
+          <div class="ex-analyse">مبتدأ : الْبَيْتُ — خبر : كَبِيرٌ</div>
+          <div class="ex-fr">La maison est grande</div>
+          <div class="ex-es">La casa es grande</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">الْعِلْمُ</span> نُورٌ</div>
+          <div class="ex-analyse">مبتدأ : الْعِلْمُ — خبر : نُورٌ</div>
+          <div class="ex-fr">La science est lumière</div>
+          <div class="ex-es">El conocimiento es luz</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar">الْمُبْتَدَأ</div>
+        <div class="card-title-fr serif">LE SUJET — AL-MUBTADA'</div>
+        <div class="card-title-es serif">EL SUJETO — AL-MUBTADA'</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">الْمُبْتَدَأُ اسْمٌ مَرْفُوعٌ يَقَعُ فِي أَوَّلِ الْجُمْلَةِ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          Le مُبتدأ est un <strong>nom au cas sujet</strong> (مرفوع = damma ُ) qui se place <strong>au début</strong> de la phrase.<br><br>
+          <strong>3 formes possibles :</strong><br>
+          <strong>1.</strong> Nom propre : <span style="font-family:'Amiri',serif;font-size:1.1em;direction:rtl;unicode-bidi:isolate;">أَحْمَدُ</span><br>
+          <strong>2.</strong> Nom avec ال : <span style="font-family:'Amiri',serif;font-size:1.1em;direction:rtl;unicode-bidi:isolate;">الْكِتَابُ</span><br>
+          <strong>3.</strong> اسم الإشارة : <span style="font-family:'Amiri',serif;font-size:1.1em;direction:rtl;unicode-bidi:isolate;">هَذَا</span>
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es">
+          El مبتدأ es un <strong>nombre en caso nominativo</strong> (damma ُ) que se coloca <strong>al principio</strong> de la frase.
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">أَحْمَدُ</span> طَيِّبٌ</div>
+          <div class="ex-analyse">Nom propre → مبتدأ</div>
+          <div class="ex-fr">Ahmed est gentil</div>
+          <div class="ex-es">Ahmed es amable</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">الْقَمَرُ</span> جَمِيلٌ</div>
+          <div class="ex-analyse">Nom avec ال → مبتدأ</div>
+          <div class="ex-fr">La lune est belle</div>
+          <div class="ex-es">La luna es hermosa</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذَا</span> كِتَابٌ</div>
+          <div class="ex-analyse">اسم الإشارة → مبتدأ</div>
+          <div class="ex-fr">Ceci est un livre</div>
+          <div class="ex-es">Esto es un libro</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar">الْخَبَر</div>
+        <div class="card-title-fr serif">L’ATTRIBUT — AL-KHABAR</div>
+        <div class="card-title-es serif">EL PREDICADO — AL-KHABAR</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">الْخَبَرُ اسْمٌ مَرْفُوعٌ يُكَمِّلُ مَعْنَى الْمُبْتَدَأ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          Le خبر est un <strong>nom au cas sujet</strong> (damma ُ) qui <strong>complète le sens</strong> du مبتدأ.<br>
+          Il répond à la question : <em>qui / comment est le مبتدأ ?</em><br><br>
+          <strong>Règle :</strong> Le خبر s’accorde en <strong>genre</strong> et en <strong>nombre</strong> avec le مبتدأ.<br>
+          مذكّر مفرد → خبر مذكّر مفرد<br>
+          مؤنّث مفرد → خبر مؤنّث مفرد<br>
+          جمع → خبر جمع
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es">
+          El خبر <strong>concuerda en género y número</strong> con el مبتدأ.<br>
+          Singular masc. → خبر masc. · Singular fém. → خبر fém. · Pluriel → خبر pluriel
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar">الْوَلَدُ <span class="hi">ذَكِيٌّ</span></div>
+          <div class="ex-analyse">مذكّر مفرد → خبر مذكّر مفرد</div>
+          <div class="ex-fr">Le garçon est intelligent</div>
+          <div class="ex-es">El chico es inteligente</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">الْبِنْتُ <span class="hi">ذَكِيَّةٌ</span></div>
+          <div class="ex-analyse">مؤنّث مفرد → خبر مؤنّث مفرد (ة)</div>
+          <div class="ex-fr">La fille est intelligente</div>
+          <div class="ex-es">La chica es inteligente</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">الأَوْلَادُ <span class="hi">ذَكِيُّونَ</span></div>
+          <div class="ex-analyse">جمع مذكّر → خبر جمع مذكّر (ون)</div>
+          <div class="ex-fr">Les garçons sont intelligents</div>
+          <div class="ex-es">Los chicos son inteligentes</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    }
+  ],
+
+  /* ══ 2. أسماء الإشارة ══ */
+  icharah: [
+    /* ── CARTE 1 : Tableau général complet ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">أَسْمَاءُ الإِشَارَةِ — كاملة</div>
+        <div class="card-title-fr serif">TOUS LES DÉMONSTRATIFS</div>
+        <div class="card-title-es serif">TODOS LOS DEMOSTRATIVOS</div>
+        <div class="card-sep"></div>
+        <table class="icharah-table" dir="rtl" style="direction:rtl;">
+          <thead>
+            <tr>
+              <th style="text-align:right;">النوع</th>
+              <th>مفرد مذكّر<br><span style="font-size:0.6rem;font-weight:400;font-family:'Montserrat',sans-serif;">Masc. sg</span></th>
+              <th>مفرد مؤنّث<br><span style="font-size:0.6rem;font-weight:400;font-family:'Montserrat',sans-serif;">Fém. sg</span></th>
+              <th>جمع<br><span style="font-size:0.6rem;font-weight:400;font-family:'Montserrat',sans-serif;">Pluriel</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-size:0.7rem;font-weight:700;color:var(--gold);text-align:right;">قَرِيب<br><em style="color:#aaa;font-weight:400;font-family:'Montserrat',sans-serif;">Proche</em></td>
+              <td><div class="td-ar ar">هَذَا</div><div class="td-fr">Ce / Ceci</div><div class="td-es">este/esto</div></td>
+              <td><div class="td-ar ar">هَذِهِ</div><div class="td-fr">Cette / Ceci</div><div class="td-es">esta/esto</div></td>
+              <td><div class="td-ar ar">هَؤُلَاءِ</div><div class="td-fr">Ces (pers.)</div><div class="td-es">estos/estas</div></td>
+            </tr>
+            <tr>
+              <td style="font-size:0.7rem;font-weight:700;color:var(--text-soft);text-align:right;">بَعِيد<br><em style="color:#aaa;font-weight:400;font-family:'Montserrat',sans-serif;">Loin</em></td>
+              <td><div class="td-ar ar">ذَلِكَ</div><div class="td-fr">Ce / Cela</div><div class="td-es">ese/aquel</div></td>
+              <td><div class="td-ar ar">تِلْكَ</div><div class="td-fr">Cette / Cela</div><div class="td-es">esa/aquella</div></td>
+              <td><div class="td-ar ar">أُولَئِكَ</div><div class="td-fr">Ces (pers.)</div><div class="td-es">esos/aquellos</div></td>
+            </tr>
+            <tr>
+              <td style="font-size:0.7rem;font-weight:700;color:#7b5ea7;text-align:right;">مؤنّث جمع<br><em style="color:#aaa;font-weight:400;font-family:'Montserrat',sans-serif;">Fém. pl</em></td>
+              <td colspan="3" style="text-align:center;">
+                <div class="td-ar ar">اللَّوَاتِي &nbsp;·&nbsp; اللَّائِي</div>
+                <div class="td-fr">Celles qui</div>
+                <div class="td-es">las que / aquellas que</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:0.7rem;font-weight:700;color:#5a8a6a;text-align:right;">مَكَان<br><em style="color:#aaa;font-weight:400;font-family:'Montserrat',sans-serif;">Lieu</em></td>
+              <td>
+                <div class="td-ar ar">هُنَا</div>
+                <div class="td-fr">ici</div>
+                <div class="td-es">aquí</div>
+              </td>
+              <td>
+                <div class="td-ar ar">هُنَاكَ</div>
+                <div class="td-fr">là-bas</div>
+                <div class="td-es">allí</div>
+              </td>
+              <td>
+                <div class="td-ar ar">هُنَالِكَ</div>
+                <div class="td-fr">là (litt.)</div>
+                <div class="td-es">allá</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Règles · Reglas</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Règles · Reglas</div></div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr" style="font-size:0.85rem;line-height:1.8;">
+          <strong>1.</strong> هَذَا / ذَلِكَ → <strong>masculin singulier</strong><br>
+          <strong>2.</strong> هَذِهِ / تِلْكَ → <strong>féminin singulier</strong> + choses au pluriel<br>
+          <strong>3.</strong> هَؤُلَاءِ / أُولَئِكَ → <strong>pluriel personnes</strong> (masc. et fém.)<br>
+          <strong>4.</strong> اللَّوَاتِي → <strong>féminin pluriel</strong> spécifique<br>
+          <strong>5.</strong> هُنَا / هُنَاكَ / هُنَالِكَ → <strong>lieux</strong> — invariables<br>
+        </div>
+        <div class="card-sep"></div>
+        <div class="card-rule-es" style="font-size:0.8rem;line-height:1.7;">
+          1. هَذَا/ذَلِكَ → masc. sg · 2. هَذِهِ/تِلْكَ → fém. sg + cosas pl<br>
+          3. هَؤُلَاءِ/أُولَئِكَ → personas pl · 4. اللَّوَاتِي → mujeres pl<br>
+          5. هُنَا/هُنَاكَ/هُنَالِكَ → lugares (invariables)
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 2 : هَذَا ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:4rem;color:var(--burgundy);">هَذَا</div>
+        <div class="card-sep"></div>
+        <div class="card-title-fr serif">CE / CECI — MASC. SINGULIER PROCHE</div>
+        <div class="card-title-es serif">ESTE / ESTO — MASC. SING. CERCANO</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">لِلْمُفْرَدِ الْمُذَكَّرِ الْقَرِيبِ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr"><strong>هَذَا</strong> s’utilise avec un nom <strong>masculin singulier proche</strong>.<br>Il est toujours مبتدأ et reçoit la damma ُ.</div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>هَذَا</strong> con nombre <strong>masculino singular cercano</strong>.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذَا</span> كِتَابٌ جَدِيدٌ</div>
+          <div class="ex-fr">Ceci est un nouveau livre</div><div class="ex-es">Esto es un libro nuevo</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذَا</span> وَلَدٌ طَيِّبٌ</div>
+          <div class="ex-fr">C’est un bon garçon</div><div class="ex-es">Este es un buen chico</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذَا</span> الْمَسْجِدُ كَبِيرٌ</div>
+          <div class="ex-fr">Cette mosquée est grande</div><div class="ex-es">Esta mezquita es grande</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 3 : هَذِهِ ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:4rem;color:var(--burgundy);">هَذِهِ</div>
+        <div class="card-sep"></div>
+        <div class="card-title-fr serif">CETTE / CECI — FÉM. SINGULIER PROCHE</div>
+        <div class="card-title-es serif">ESTA / ESTO — FÉM. SING. CERCANA</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">لِلْمُفْرَدَةِ الْمُؤَنَّثَةِ الْقَرِيبَةِ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>هَذِهِ</strong> avec un nom <strong>féminin singulier proche</strong>.<br>
+          Aussi pour les <strong>choses au pluriel</strong> (non-personnes).<br>
+          Les noms féminins se reconnaissent souvent à la <strong>tā' marbūṭa ة</strong>.
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>هَذِهِ</strong> con nombre <strong>femenino singular cercano</strong>. También para cosas en plural.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذِهِ</span> مَدْرَسَةٌ كَبِيرَةٌ</div>
+          <div class="ex-fr">C’est une grande école</div><div class="ex-es">Esta es una escuela grande</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذِهِ</span> كُتُبٌ مُفِيدَةٌ</div>
+          <div class="ex-analyse">هَذِهِ pour les choses au pluriel</div>
+          <div class="ex-fr">Ce sont des livres utiles</div><div class="ex-es">Estos son libros útiles</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَذِهِ</span> الْمَدِينَةُ جَمِيلَةٌ</div>
+          <div class="ex-fr">Cette ville est belle</div><div class="ex-es">Esta ciudad es hermosa</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 4 : ذَلِكَ / تِلْكَ ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div style="display:flex;justify-content:center;gap:28px;margin:8px 0;">
+          <div style="text-align:center;">
+            <div style="font-family:'Amiri',serif;font-size:3rem;color:var(--burgundy);direction:rtl;unicode-bidi:isolate;">ذَلِكَ</div>
+            <div style="font-size:0.65rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;">MASC.</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Amiri',serif;font-size:3rem;color:var(--burgundy);direction:rtl;unicode-bidi:isolate;">تِلْكَ</div>
+            <div style="font-size:0.65rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;">FÉM.</div>
+          </div>
+        </div>
+        <div class="card-title-fr serif" style="margin-bottom:3px;">SINGULIER ÉLOIGNÉ</div>
+        <div class="card-title-es serif">SINGULAR LEJANO</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">لِلْمُفْرَدِ الْبَعِيدِ مُذَكَّرًا وَمُؤَنَّثًا</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr"><strong>ذَلِكَ</strong> → masculin singulier éloigné<br><strong>تِلْكَ</strong> → féminin singulier éloigné + choses au pluriel éloignées</div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>ذَلِكَ</strong> masc. sg lejano · <strong>تِلْكَ</strong> fém. sg lejano</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">ذَلِكَ</span> رَجُلٌ كَرِيمٌ</div>
+          <div class="ex-fr">Cet homme là-bas est généreux</div><div class="ex-es">Ese hombre es generoso</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">تِلْكَ</span> مَدْرَسَةٌ قَدِيمَةٌ</div>
+          <div class="ex-fr">C’est une vieille école là-bas</div><div class="ex-es">Esa es una escuela antigua</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">ذَلِكَ</span> الْكِتَابُ نَافِعٌ</div>
+          <div class="ex-fr">Ce livre là-bas est utile</div><div class="ex-es">Ese libro es útil</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 5 : هَؤُلَاءِ ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:3.5rem;color:var(--burgundy);">هَؤُلَاءِ</div>
+        <div class="card-sep"></div>
+        <div class="card-title-fr serif">CES PERSONNES-CI — PLURIEL PROCHE</div>
+        <div class="card-title-es serif">ESTAS PERSONAS — PLURAL CERCANO</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">لِجَمَاعَةِ الْعُقَلَاءِ الْقَرِيبِينَ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>هَؤُلَاءِ</strong> pour un <strong>groupe de personnes proche</strong> (hommes et/ou femmes).<br>
+          ⚠️ Uniquement pour les <strong>personnes</strong> (العاقل) — jamais pour les choses.
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>هَؤُلَاءِ</strong> para un <strong>grupo de personas cercanas</strong> (hombres y/o mujeres). Solo para personas.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَؤُلَاءِ</span> طُلَّابٌ مُجْتَهِدُونَ</div>
+          <div class="ex-fr">Ces étudiants sont appliqués</div><div class="ex-es">Estos estudiantes son aplicados</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَؤُلَاءِ</span> أَصْدِقَائِي</div>
+          <div class="ex-fr">Ce sont mes amis</div><div class="ex-es">Estos son mis amigos</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هَؤُلَاءِ</span> الأَطْفَالُ سُعَدَاءُ</div>
+          <div class="ex-fr">Ces enfants sont heureux</div><div class="ex-es">Estos niños son felices</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 6 : أُولَئِكَ ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:3.5rem;color:var(--burgundy);">أُولَئِكَ</div>
+        <div class="card-sep"></div>
+        <div class="card-title-fr serif">CES PERSONNES-LÀ — PLURIEL LOIN</div>
+        <div class="card-title-es serif">ESAS PERSONAS — PLURAL LEJANO</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">لِجَمَاعَةِ الْعُقَلَاءِ الْبَعِيدِينَ</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>أُولَئِكَ</strong> pour un <strong>groupe de personnes éloignées</strong>.<br>
+          Très fréquent dans le <strong>Coran</strong> pour désigner les croyants / les incroyants.
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>أُولَئِكَ</strong> para un <strong>grupo de personas lejanas</strong>. Muy frecuente en el Corán.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">أُولَئِكَ</span> هُمُ الْمُفْلِحُونَ</div>
+          <div class="ex-analyse">Al-Baqara v.5 — coranique</div>
+          <div class="ex-fr">Ceux-là sont les bienheureux</div><div class="ex-es">Esos son los que triunfan</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">أُولَئِكَ</span> أَسَاتِذَتِي</div>
+          <div class="ex-fr">Ce sont mes professeurs (là-bas)</div><div class="ex-es">Esos son mis profesores</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">أُولَئِكَ</span> الطُّلَّابُ نَجَحُوا</div>
+          <div class="ex-fr">Ces étudiants-là ont réussi</div><div class="ex-es">Esos estudiantes aprobaron</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 7 : اللَّوَاتِي ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:3.5rem;color:var(--burgundy);">اللَّوَاتِي</div>
+        <div class="card-sep"></div>
+        <div class="card-title-fr serif">CES FEMMES / CELLES QUI — FÉM. PLURIEL</div>
+        <div class="card-title-es serif">ESTAS MUJERES / LAS QUE — FEM. PLURAL</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-ar ar">لِجَمَاعَةِ الإِنَاثِ إِشَارَةً وَوَصْلًا</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          <strong>اللَّوَاتِي</strong> désigne un groupe de <strong>femmes</strong> — pluriel féminin.<br>
+          Il peut fonctionner comme <strong>démonstratif</strong> (ces femmes) ou comme <strong>pronom relatif</strong> (celles qui).<br>
+          Variante : <strong>اللَّائِي</strong> (même sens, plus littéraire)
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es"><strong>اللَّوَاتِي</strong> para un grupo de <strong>mujeres</strong>. Puede ser demostrativo (estas mujeres) o relativo (las que).<br>Variante: <strong>اللَّائِي</strong></div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">اللَّوَاتِي</span> يَتَعَلَّمْنَ الْعَرَبِيَّةَ مُجْتَهِدَاتٌ</div>
+          <div class="ex-fr">Celles qui apprennent l’arabe sont appliquées</div>
+          <div class="ex-es">Las que aprenden árabe son aplicadas</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">اللَّوَاتِي</span> فِي الْفَصْلِ طَالِبَاتٌ</div>
+          <div class="ex-fr">Celles qui sont en classe sont des étudiantes</div>
+          <div class="ex-es">Las que están en clase son estudiantes</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar">وَ<span class="hi">اللَّائِي</span> يَئِسْنَ مِنَ الْمَحِيضِ</div>
+          <div class="ex-analyse">Coran — At-Talaq v.4</div>
+          <div class="ex-fr">Et celles qui ont cessé leurs cycles</div>
+          <div class="ex-es">Y aquellas que han cesado sus ciclos</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── CARTE 8 : هُنَا / هُنَاكَ / هُنَالِكَ (lieu) ── */
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.7rem);">أَسْمَاءُ الإِشَارَةِ لِلْمَكَانِ</div>
+        <div class="card-title-fr serif">DÉMONSTRATIFS DE LIEU</div>
+        <div class="card-title-es serif">DEMOSTRATIVOS DE LUGAR</div>
+        <div class="card-sep"></div>
+        <div class="jomla-schema" style="gap:10px;flex-wrap:wrap;direction:rtl;">
+          <div class="schema-box">
+            <span class="schema-ar ar" style="color:var(--gold);font-size:2rem;">هُنَا</span>
+            <span class="schema-label">هنا — ICI</span>
+            <span class="schema-label-es">aquí — proche</span>
+          </div>
+          <div class="schema-plus" style="font-size:1.2rem;">←</div>
+          <div class="schema-box">
+            <span class="schema-ar ar" style="color:var(--text-soft);font-size:2rem;">هُنَاكَ</span>
+            <span class="schema-label">LÀ-BAS</span>
+            <span class="schema-label-es">allí — loin</span>
+          </div>
+          <div class="schema-plus" style="font-size:1.2rem;">←</div>
+          <div class="schema-box">
+            <span class="schema-ar ar" style="color:var(--burgundy);opacity:0.7;font-size:2rem;">هُنَالِكَ</span>
+            <span class="schema-label">TRÈS LOIN</span>
+            <span class="schema-label-es">allá — coranique</span>
+          </div>
+        </div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          Ces trois mots sont <strong>invariables</strong> — pas de genre, pas de nombre.<br>
+          <strong>هُنَالِكَ</strong> est surtout utilisé dans le <strong>Coran</strong> et la littérature classique.
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es">Estos tres son <strong>invariables</strong>. هُنَالِكَ es principalmente coránico.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هُنَا</span> بَيْتُنَا</div>
+          <div class="ex-fr">Notre maison est ici</div><div class="ex-es">Aquí está nuestra casa</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هُنَاكَ</span> مَسْجِدٌ جَمِيلٌ</div>
+          <div class="ex-fr">Il y a une belle mosquée là-bas</div><div class="ex-es">Allí hay una mezquita hermosa</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hi">هُنَالِكَ</span> دَعَا زَكَرِيَّا رَبَّهُ</div>
+          <div class="ex-analyse">Coranique — Āl ʿImrān v.38</div>
+          <div class="ex-fr">C’est là que Zacharie invoqua son Seigneur</div>
+          <div class="ex-es">Allí fue donde Zacarías invocó a su Señor</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    }
+  ],
+  ensemble: [
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">اِسمُ الإِشَارَةِ + الخبر</div>
+        <div class="card-title-fr serif">DÉMONSTRATIF + ATTRIBUT</div>
+        <div class="card-title-es serif">DEMOSTRATIVO + PREDICADO</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          L’اسم الإشارة devient le <strong>مبتدأ</strong>.<br>
+          Le nom qui suit devient le <strong>خبر</strong>.<br>
+          <strong>Formule :</strong> اسم الإشارة + اسم نكرة (tanwīn) = جملة اسمية complète<br><br>
+          <span style="color:var(--gold);font-weight:700;">هَذَا / هَذِهِ / ذَلِكَ / تِلْكَ</span> + <span style="font-family:'Amiri',serif;font-size:1.1em;">اسمٌ</span>
+        </div>
+        <div style="height:6px;"></div>
+        <div class="card-rule-es">El اسم الإشارة es el مبتدأ, el nombre que sigue es el خبر.</div>
+        <div class="card-sep"></div>
+        <div class="jomla-schema">
+          <div class="schema-box">
+            <span class="schema-ar ar" style="color:#8a6620;font-size:1.4rem;">طَالِبٌ</span>
+            <span class="schema-label" style="color:#8a6620;">خبر</span>
+          </div>
+          <div class="schema-plus">+</div>
+          <div class="schema-box">
+            <span class="schema-ar ar" style="color:#7b5ea7;font-size:1.4rem;">هَذَا</span>
+            <span class="schema-label" style="color:#7b5ea7;">مبتدأ</span>
+          </div>
+          <div class="schema-eq">=</div>
+          <div class="schema-box">
+            <span class="schema-ar ar" style="font-size:1.2rem;color:var(--burgundy);">هَذَا طَالِبٌ</span>
+          </div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">هَذَا</span> <span class="hl-kh">كِتَابٌ</span></div>
+          <div class="ex-analyse" style="color:#7b5ea7;">مبتدأ : هَذَا · خبر : كِتَابٌ (مذكّر)</div>
+          <div class="ex-fr">Ceci est un livre</div>
+          <div class="ex-es">Esto es un libro</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">هَذِهِ</span> <span class="hl-kh">مَدْرَسَةٌ</span></div>
+          <div class="ex-analyse" style="color:#7b5ea7;">مبتدأ : هَذِهِ · خبر : مَدْرَسَةٌ (مؤنّث)</div>
+          <div class="ex-fr">Ceci est une école</div>
+          <div class="ex-es">Esto es una escuela</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">ذَلِكَ</span> <span class="hl-kh">مَسْجِدٌ</span> كَبِيرٌ</div>
+          <div class="ex-analyse" style="color:#7b5ea7;">مبتدأ : ذَلِكَ · خبر : مَسْجِدٌ كَبِيرٌ</div>
+          <div class="ex-fr">C’est une grande mosquée (là-bas)</div>
+          <div class="ex-es">Esa es una mezquita grande (lejos)</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">اِسمُ الإِشَارَةِ + ال</div>
+        <div class="card-title-fr serif">DÉMONSTRATIF + ال التعريف</div>
+        <div class="card-title-es serif">DEMOSTRATIVO + ARTÍCULO ال</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr">
+          Quand اسم الإشارة est suivi d’un nom <strong>avec ال</strong>, la phrase devient :<br>
+          <strong>اسم الإشارة + الاسم المعرّف = جملة اسمية</strong><br><br>
+          Le خبر peut être un adjectif ou un nom :<br>
+          <span style="font-family:'Amiri',serif;font-size:1.1em;direction:rtl;unicode-bidi:isolate;">هَذَا الْكِتَابُ جَمِيلٌ</span> — Ceci, le livre, est beau
+        </div>
+        <div style="height:5px;"></div>
+        <div class="card-rule-es">Cuando el اسم الإشارة va seguido de un nombre con ال, el خبر suele ser un adjetivo.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">هَذَا</span> <span class="hl-mb">الْبَيْتُ</span> <span class="hl-kh">كَبِيرٌ</span></div>
+          <div class="ex-analyse" style="color:#7b5ea7;">هَذَا الْبَيْتُ = مبتدأ · كَبِيرٌ = خبر</div>
+          <div class="ex-fr">Cette maison est grande</div>
+          <div class="ex-es">Esta casa es grande</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">هَذِهِ</span> <span class="hl-mb">الْمَدِينَةُ</span> <span class="hl-kh">جَمِيلَةٌ</span></div>
+          <div class="ex-analyse" style="color:#7b5ea7;">هَذِهِ الْمَدِينَةُ = مبتدأ · جَمِيلَةٌ = خبر</div>
+          <div class="ex-fr">Cette ville est belle</div>
+          <div class="ex-es">Esta ciudad es hermosa</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">ذَلِكَ</span> <span class="hl-mb">الطَّالِبُ</span> <span class="hl-kh">مُجْتَهِدٌ</span></div>
+          <div class="ex-analyse" style="color:#7b5ea7;">ذَلِكَ الطَّالِبُ = مبتدأ · مُجْتَهِدٌ = خبر</div>
+          <div class="ex-fr">Cet étudiant là-bas est appliqué</div>
+          <div class="ex-es">Ese estudiante de allá es aplicado</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.7rem);">الْجِنْسُ وَالإِشَارَةُ</div>
+        <div class="card-title-fr serif">GENRE ET DÉMONSTRATIF</div>
+        <div class="card-title-es serif">GÉNERO Y DEMOSTRATIVO</div>
+        <div class="card-sep"></div>
+        <div class="card-rule-fr" style="margin-bottom:10px;">
+          <strong>Récapitulatif des accords :</strong>
+        </div>
+        <table class="icharah-table" dir="rtl" style="direction:rtl;width:100%;">
+          <thead>
+            <tr>
+              <th style="text-align:right;">الاسم</th>
+              <th style="text-align:right;">الجنس</th>
+              <th>قريب<br><small style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:0.58rem;">Proche</small></th>
+              <th>بعيد<br><small style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:0.58rem;">Loin</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-ar ar" style="font-size:1.1rem;text-align:right;">كِتَابٌ</td>
+              <td style="font-size:0.75rem;color:var(--burgundy);text-align:right;">مذكّر<br><em style="color:#aaa;font-family:'Montserrat',sans-serif;">masc.</em></td>
+              <td class="td-ar ar">هَذَا</td>
+              <td class="td-ar ar">ذَلِكَ</td>
+            </tr>
+            <tr>
+              <td class="td-ar ar" style="font-size:1.1rem;text-align:right;">مَدْرَسَةٌ</td>
+              <td style="font-size:0.75rem;color:var(--burgundy);text-align:right;">مؤنّث<br><em style="color:#aaa;font-family:'Montserrat',sans-serif;">fém.</em></td>
+              <td class="td-ar ar">هَذِهِ</td>
+              <td class="td-ar ar">تِلْكَ</td>
+            </tr>
+            <tr>
+              <td class="td-ar ar" style="font-size:1.1rem;text-align:right;">وَلَدٌ</td>
+              <td style="font-size:0.75rem;color:var(--burgundy);text-align:right;">مذكّر<br><em style="color:#aaa;font-family:'Montserrat',sans-serif;">masc.</em></td>
+              <td class="td-ar ar">هَذَا</td>
+              <td class="td-ar ar">ذَلِكَ</td>
+            </tr>
+            <tr>
+              <td class="td-ar ar" style="font-size:1.1rem;text-align:right;">بِنْتٌ</td>
+              <td style="font-size:0.75rem;color:var(--burgundy);text-align:right;">مؤنّث<br><em style="color:#aaa;font-family:'Montserrat',sans-serif;">fém.</em></td>
+              <td class="td-ar ar">هَذِهِ</td>
+              <td class="td-ar ar">تِلْكَ</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-rule-es" style="margin-top:8px;direction:rtl;text-align:right;">مذكّر ← هَذَا / ذَلِكَ &nbsp;·&nbsp; مؤنّث ← هَذِهِ / تِلْكَ</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:`
+        <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div>
+        <div class="card-sep"></div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">هَذَا</span> وَلَدٌ — <span class="hl-ic">هَذِهِ</span> بِنْتٌ</div>
+          <div class="ex-fr">C’est un garçon — C’est une fille</div>
+          <div class="ex-es">Este es un chico — Esta es una chica</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">ذَلِكَ</span> قَلَمٌ — <span class="hl-ic">تِلْكَ</span> حَقِيبَةٌ</div>
+          <div class="ex-fr">C’est un stylo — C’est un sac (loin)</div>
+          <div class="ex-es">Ese es un bolígrafo — Esa es una mochila</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-ar ar"><span class="hl-ic">هَذِهِ</span> الْقِطَّةُ <span class="hl-kh">صَغِيرَةٌ</span></div>
+          <div class="ex-fr">Ce chat est petit</div>
+          <div class="ex-es">Este gato es pequeño</div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    }
+  ],
+
+  /* ══ 4. Lecture ══ */
+  qiraa: [
+
+    /* ── TEXTE 1 ── */
+    { type:'text',
+      front:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">تَعْزِيزُ الْقِرَاءَة · TEXTE 1</div></div>
+        <div class="card-sep"></div>
+        <div class="qiraa-legend">
+          <div class="legend-item"><div class="legend-dot-ic"></div><span>اسم الإشارة</span></div>
+          <div class="legend-item"><div class="legend-dot-mb"></div><span>مبتدأ</span></div>
+          <div class="legend-item"><div class="legend-dot-kh"></div><span>خبر</span></div>
+        </div>
+        <div class="qiraa-title-fr serif">فِي غُرْفَةِ عَزِيز · Dans la chambre d’Aziz</div>
+        <div class="qiraa-text ar"><span class="hl-mb">غُرْفَةُ عَزِيزٍ</span> <span class="hl-kh">نَظِيفَةٌ</span>. <span class="hl-ic">هَذَا</span> <span class="hl-kh">كِتَابٌ</span> جَدِيدٌ وَ<span class="hl-ic">هَذِهِ</span> <span class="hl-kh">حَقِيبَتُهُ</span>.</div>
+        <div class="qiraa-text ar"><span class="hl-ic">ذَلِكَ</span> <span class="hl-kh">قَلَمُ</span> أَخِيهِ وَ<span class="hl-ic">تِلْكَ</span> <span class="hl-kh">صُورَةُ</span> جَدِّهِ عَلَى الْجِدَارِ.</div>
+        <div class="qiraa-text ar">قَالَ <span class="hl-mb">عَزِيزٌ</span> لِأُمِّهِ : <span class="hl-ic">هَذَا</span> <span class="hl-kh">يَوْمٌ</span> جَمِيلٌ!</div>
+        <div class="qiraa-text ar">قَالَتِ <span class="hl-mb">الأُمُّ</span> : <span class="hl-mb">غُرْفَتُكَ</span> <span class="hl-kh">نَظِيفَةٌ</span> يَا عَزِيز!</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Traduction · Traducción</div>`,
+      back:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Traduction · Traducción</div></div>
+        <div class="card-sep"></div>
+        <div style="font-size:0.88rem;color:var(--text-dark);line-height:2;padding:0 4px;">
+          <strong>La chambre d’Aziz</strong> est <span class="gold">propre</span>.<br>
+          <span class="gold">هَذَا</span> est un <strong>livre neuf</strong> et <span class="gold">هَذِهِ</span> est <strong>son sac</strong>.<br>
+          <span class="gold">ذَلِكَ</span> est le <strong>stylo de son frère</strong> et <span class="gold">تِلْكَ</span> est la <strong>photo de son grand-père</strong> sur le mur.<br>
+          <strong>Aziz</strong> dit à sa mère : <span class="gold">هَذَا</span> est une <strong>belle journée</strong> !<br>
+          <strong>La mère</strong> dit : <strong>Ta chambre</strong> est <strong>propre</strong>, Aziz !
+        </div>
+        <div class="card-sep"></div>
+        <div style="font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.8;padding:0 4px;">La habitación de Aziz está limpia. Esto es un libro nuevo y esta es su mochila. Ese es el bolígrafo de su hermano. Esa es la foto de su abuelo en la pared. Aziz dijo: ¡Este es un día bonito! La madre dijo: ¡Tu habitación está limpia, Aziz!</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── QUESTIONS TEXTE 1 ── */
+    { type:'quiz', num:1,
+      adat:'هَلْ', adat_fr:'Oui / Non', adat_es:'Sí / No',
+      ar:'هَلْ غُرْفَةُ عَزِيزٍ نَظِيفَةٌ؟',
+      fr:'La chambre d’Aziz est-elle propre ?',
+      es:'¿La habitación de Aziz está limpia?',
+      answer:true,
+      ok_ar:'✓ نعم — غُرْفَةُ عَزِيزٍ نَظِيفَةٌ. المبتدأ = غُرْفَةُ عَزِيزٍ · الخبر = نَظِيفَةٌ',
+      ok_fr:'Oui — غُرْفَةُ عَزِيزٍ نَظِيفَةٌ · مبتدأ + خبر = جملة اسمية',
+      ok_es:'Sí — غُرْفَةُ عَزِيزٍ نَظِيفَةٌ · مبتدأ + خبر = frase nominal',
+      ko_ar:'✗ بلى — غُرْفَةُ عَزِيزٍ نَظِيفَةٌ · الخبر نَظِيفَةٌ مؤنّث لأن الغرفة مؤنّث',
+      ko_fr:'Si ! غُرْفَةُ عَزِيزٍ نَظِيفَةٌ — c’est une جملة اسمية',
+      ko_es:'¡Sí! La habitación está limpia — جملة اسمية'
+    },
+    { type:'mcq',
+      adat:'مَنْ', adat_fr:'Qui ?', adat_es:'¿Quién?',
+      ar:'مَنْ قَالَ «هَذَا يَوْمٌ جَمِيلٌ» ؟',
+      fr:'Qui a dit «هَذَا يَوْمٌ جَمِيلٌ» ?',
+      es:'¿Quién dijo «هَذَا يَوْمٌ جَمِيلٌ»?',
+      opts:['عَزِيزٌ','الأُمُّ','الأَبُ'],
+      correct:0,
+      fb_ok_ar:'✓ عَزِيزٌ — قال لأمّه: هَذَا يَوْمٌ جَمِيلٌ! هَذَا = مبتدأ · يَوْمٌ جَمِيلٌ = خبر',
+      fb_ok_fr:'Aziz — il a dit à sa mère : هَذَا يَوْمٌ جَمِيلٌ ! هَذَا = مبتدأ · يَوْمٌ جَمِيلٌ = خبر',
+      fb_ok_es:'Aziz — le dijo a su madre: هَذَا يَوْمٌ جَمِيلٌ · مبتدأ + خبر',
+      fb_ko_ar:'✗ ليس صحيحاً — عَزِيزٌ هو من قال ذلك لأمّه',
+      fb_ko_fr:'Non — c’est Aziz qui a dit ça à sa mère',
+      fb_ko_es:'No — fue Aziz quien lo dijo a su madre'
+    },
+    { type:'mcq',
+      adat:'مَا', adat_fr:'Qu’est-ce que ?', adat_es:'¿Qué es?',
+      ar:'مَا الَّذِي عَلَى الْجِدَارِ فِي غُرْفَةِ عَزِيز؟',
+      fr:'Qu’est-ce qui est sur le mur dans la chambre d’Aziz ?',
+      es:'¿Qué hay en la pared en la habitación de Aziz?',
+      opts:['صُورَةُ الْجَدِّ','كِتَابٌ جَدِيدٌ','حَقِيبَةٌ'],
+      correct:0,
+      fb_ok_ar:'✓ صُورَةُ الْجَدِّ — تِلْكَ صُورَةُ جَدِّهِ عَلَى الْجِدَارِ · تِلْكَ = اسم إشارة مؤنّث',
+      fb_ok_fr:'La photo du grand-père — تِلْكَ صُورَةُ جَدِّهِ · تِلْكَ = اسم إشارة féminin',
+      fb_ok_es:'La foto del abuelo — تِلْكَ = اسم إشارة femenino',
+      fb_ko_ar:'✗ ليس صحيحاً — الجواب هو: تِلْكَ صُورَةُ جَدِّهِ عَلَى الْجِدَارِ',
+      fb_ko_fr:'Non — la réponse est : تِلْكَ صُورَةُ جَدِّهِ (la photo du grand-père)',
+      fb_ko_es:'No — la respuesta es: تِلْكَ صُورَةُ جَدِّهِ (la foto del abuelo)'
+    },
+    { type:'mcq',
+      adat:'أَيْنَ', adat_fr:'Où ?', adat_es:'¿Dónde?',
+      ar:'أَيْنَ قَلَمُ أَخِي عَزِيز؟',
+      fr:'Où est le stylo du frère d’Aziz ?',
+      es:'¿Dónde está el bolígrafo del hermano de Aziz?',
+      opts:['فِي الْحَقِيبَةِ','فِي الْغُرْفَةِ (ذَلِكَ)','عَلَى الْجِدَارِ'],
+      correct:1,
+      fb_ok_ar:'✓ فِي الْغُرْفَةِ — ذَلِكَ قَلَمُ أَخِيهِ · ذَلِكَ = اسم إشارة مذكّر بعيد ✓',
+      fb_ok_fr:'Dans la chambre — ذَلِكَ قَلَمُ أَخِيهِ · ذَلِكَ = aسم إشارة masc. éloigné ✓',
+      fb_ok_es:'En la habitación — ذَلِكَ قَلَمُ أَخِيهِ · ذَلِكَ = demostrativo masc. lejano ✓',
+      fb_ko_ar:'✗ ليس صحيحاً — الجواب: ذَلِكَ قَلَمُ أَخِيهِ (في الغرفة)',
+      fb_ko_fr:'Non — la réponse : ذَلِكَ قَلَمُ أَخِيهِ (dans la chambre)',
+      fb_ko_es:'No — la respuesta: ذَلِكَ قَلَمُ أَخِيهِ (en la habitación)'
+    },
+    { type:'quiz', num:5,
+      adat:'هَلْ', adat_fr:'Oui / Non', adat_es:'Sí / No',
+      ar:'هَلْ «هَذِهِ» تُشِيرُ إِلَى شَيْءٍ بَعِيدٍ؟',
+      fr:'«هَذِهِ» désigne-t-elle quelque chose d’éloigné ?',
+      es:'¿«هَذِهِ» indica algo lejano?',
+      answer:false,
+      ok_ar:'✓ لا — هَذِهِ للمفرد المؤنّث القريب · البعيد = تِلْكَ',
+      ok_fr:'Non — هَذِهِ est pour le féminin PROCHE · Pour loin : تِلْكَ',
+      ok_es:'No — هَذِهِ es para el femenino CERCANO · Para lejos: تِلْكَ',
+      ko_ar:'✗ لا — هَذِهِ للقريب · تِلْكَ للبعيد',
+      ko_fr:'Non ! هَذِهِ = proche · تِلْكَ = loin',
+      ko_es:'¡No! هَذِهِ = cercano · تِلْكَ = lejano'
+    },
+
+    /* ── TEXTE 2 ── */
+    { type:'text',
+      front:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">تَعْزِيزُ الْقِرَاءَة · TEXTE 2</div></div>
+        <div class="card-sep"></div>
+        <div class="qiraa-legend">
+          <div class="legend-item"><div class="legend-dot-ic"></div><span>اسم الإشارة</span></div>
+          <div class="legend-item"><div class="legend-dot-mb"></div><span>مبتدأ</span></div>
+          <div class="legend-item"><div class="legend-dot-kh"></div><span>خبر</span></div>
+        </div>
+        <div class="qiraa-title-fr serif">فِي السُّوقِ · Au marché</div>
+        <div class="qiraa-text ar">ذَهَبَ <span class="hl-mb">عَزِيزٌ</span> مَعَ أَبِيهِ إِلَى السُّوقِ.</div>
+        <div class="qiraa-text ar">قَالَ <span class="hl-mb">الأَبُ</span> : <span class="hl-ic">هَذَا</span> <span class="hl-kh">تُفَّاحٌ</span> طَازَجٌ! <span class="hl-ic">هَذِهِ</span> <span class="hl-kh">مَوْزَةٌ</span> حُلْوَةٌ!</div>
+        <div class="qiraa-text ar">قَالَ <span class="hl-mb">عَزِيزٌ</span> : <span class="hl-ic">تِلْكَ</span> <span class="hl-kh">حَقِيبَةٌ</span> كَبِيرَةٌ يَا أَبِي!</div>
+        <div class="qiraa-text ar"><span class="hl-mb">الأَبُ</span> <span class="hl-kh">كَرِيمٌ</span> وَ<span class="hl-mb">السُّوقُ</span> <span class="hl-kh">قَرِيبٌ</span>.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Traduction · Traducción</div>`,
+      back:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Traduction · Traducción</div></div>
+        <div class="card-sep"></div>
+        <div style="font-size:0.88rem;color:var(--text-dark);line-height:2;padding:0 4px;">
+          <strong>Aziz</strong> est allé avec son père au marché.<br>
+          <strong>Le père</strong> dit : <span class="gold">هَذَا</span> est une <strong>pomme fraîche</strong> ! <span class="gold">هَذِهِ</span> est une <strong>banane sucrée</strong> !<br>
+          <strong>Aziz</strong> dit : <span class="gold">تِلْكَ</span> est un <strong>grand sac</strong>, papa !<br>
+          <strong>Le père</strong> est <strong>généreux</strong> et <strong>le marché</strong> est <strong>proche</strong>.
+        </div>
+        <div class="card-sep"></div>
+        <div style="font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.8;padding:0 4px;">Aziz fue con su padre al mercado. El padre dijo: ¡Esta manzana es fresca! ¡Este plátano es dulce! Aziz dijo: ¡Esa es una bolsa grande, papá! El padre es generoso y el mercado está cerca.</div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── QUESTIONS TEXTE 2 ── */
+    { type:'quiz', num:1,
+      adat:'هَلْ', adat_fr:'Oui / Non', adat_es:'Sí / No',
+      ar:'هَلْ ذَهَبَ عَزِيزٌ مَعَ أَبِيهِ إِلَى السُّوقِ؟',
+      fr:'Aziz est-il allé au marché avec son père ?',
+      es:'¿Aziz fue al mercado con su padre?',
+      answer:true,
+      ok_ar:'✓ نعم — ذَهَبَ عَزِيزٌ مَعَ أَبِيهِ إِلَى السُّوقِ ✓',
+      ok_fr:'Oui — Aziz est bien allé avec son père ✓',
+      ok_es:'Sí — Aziz fue con su padre ✓',
+      ko_ar:'✗ بلى — ذَهَبَ مَعَ أَبِيهِ إِلَى السُّوقِ',
+      ko_fr:'Si ! Il est allé avec son père',
+      ko_es:'¡Sí! Fue con su padre'
+    },
+    { type:'mcq',
+      adat:'مَاذَا', adat_fr:'Qu’est-ce que ?', adat_es:'¿Qué?',
+      ar:'مَاذَا قَالَ الأَبُ عَنِ التُّفَّاحِ؟',
+      fr:'Qu’est-ce que le père a dit sur la pomme ?',
+      es:'¿Qué dijo el padre sobre la manzana?',
+      opts:['هَذَا تُفَّاحٌ طَازَجٌ','هَذَا تُفَّاحٌ قَدِيمٌ','هَذَا تُفَّاحٌ بَعِيدٌ'],
+      correct:0,
+      fb_ok_ar:'✓ هَذَا تُفَّاحٌ طَازَجٌ · هَذَا = مبتدأ · تُفَّاحٌ طَازَجٌ = خبر · جملة اسمية ✓',
+      fb_ok_fr:'هَذَا تُفَّاحٌ طَازَجٌ — هَذَا = مبتدأ · تُفَّاحٌ طَازَجٌ = خبر ✓',
+      fb_ok_es:'هَذَا تُفَّاحٌ طَازَجٌ — مبتدأ + خبر = فраза номинальная ✓',
+      fb_ko_ar:'✗ ليس صحيحاً — قال: هَذَا تُفَّاحٌ طَازَجٌ (frais, pas vieux)',
+      fb_ko_fr:'Non — il a dit : هَذَا تُفَّاحٌ طَازَجٌ (fraîche)',
+      fb_ko_es:'No — dijo: هَذَا تُفَّاحٌ طَازَجٌ (fresca)'
+    },
+    { type:'mcq',
+      adat:'مَنْ', adat_fr:'Qui ?', adat_es:'¿Quién?',
+      ar:'مَنْ قَالَ «تِلْكَ حَقِيبَةٌ كَبِيرَةٌ»؟',
+      fr:'Qui a dit «تِلْكَ حَقِيبَةٌ كَبِيرَةٌ» ?',
+      es:'¿Quién dijo «تِلْكَ حَقِيبَةٌ كَبِيرَةٌ»?',
+      opts:['عَزِيزٌ','الأَبُ','الأُمُّ'],
+      correct:0,
+      fb_ok_ar:'✓ عَزِيزٌ — قال: تِلْكَ حَقِيبَةٌ كَبِيرَةٌ · تِلْكَ مبتدأ (مؤنّث بعيد) · الخبر = حَقِيبَةٌ كَبِيرَةٌ',
+      fb_ok_fr:'Aziz — تِلْكَ = مبتدأ (fém. éloigné) · حَقِيبَةٌ كَبِيرَةٌ = خبر ✓',
+      fb_ok_es:'Aziz — تِلْكَ = مبتدأ (fem. lejano) · حَقِيبَةٌ كَبِيرَةٌ = خبر ✓',
+      fb_ko_ar:'✗ ليس صحيحاً — عَزِيزٌ هو من قال ذلك',
+      fb_ko_fr:'Non — c’est Aziz qui a dit ça',
+      fb_ko_es:'No — fue Aziz quien lo dijo'
+    },
+    { type:'mcq',
+      adat:'كَيْفَ', adat_fr:'Comment est ?', adat_es:'¿Cómo es?',
+      ar:'كَيْفَ الأَبُ؟',
+      fr:'Comment est le père ?',
+      es:'¿Cómo es el padre?',
+      opts:['كَرِيمٌ','بَخِيلٌ','حَزِينٌ'],
+      correct:0,
+      fb_ok_ar:'✓ الأَبُ كَرِيمٌ — جملة اسمية : المبتدأ = الأَبُ · الخبر = كَرِيمٌ (سخيّ/généreux) ✓',
+      fb_ok_fr:'الأَبُ كَرِيمٌ — جملة اسمية : الأَبُ = مبتدأ · كَرِيمٌ = خبر (généreux) ✓',
+      fb_ok_es:'الأَبُ كَرِيمٌ — مبتدأ + خبر · كَرِيمٌ = generoso ✓',
+      fb_ko_ar:'✗ ليس صحيحاً — الأَبُ كَرِيمٌ (سخيّ) في النص',
+      fb_ko_fr:'Non — الأَبُ كَرِيمٌ (généreux) dans le texte',
+      fb_ko_es:'No — الأَبُ كَرِيمٌ (generoso) en el texto'
+    },
+    { type:'quiz', num:5,
+      adat:'هَلْ', adat_fr:'Oui / Non', adat_es:'Sí / No',
+      ar:'هَلِ السُّوقُ بَعِيدٌ؟',
+      fr:'Le marché est-il éloigné ?',
+      es:'¿El mercado está lejos?',
+      answer:false,
+      ok_ar:'✓ لا — السُّوقُ قَرِيبٌ · جملة اسمية : المبتدأ = السُّوقُ · الخبر = قَرِيبٌ (مذكّر لأن السوق مذكّر)',
+      ok_fr:'Non — السُّوقُ قَرِيبٌ · مبتدأ + خبر · قَرِيبٌ masculin car السُّوق est masculin',
+      ok_es:'No — السُّوقُ قَرِيبٌ · خبر masculino porque السُّوق es masculino',
+      ko_ar:'✗ لا — السُّوقُ قَرِيبٌ · البعيد هو ضد القريب',
+      ko_fr:'Non ! السُّوقُ قَرِيبٌ — le marché est proche',
+      ko_es:'¡No! السُّوقُ قَرِيبٌ — el mercado está cerca'
+    },
+
+    /* ── VERSETS CORANIQUES ── */
+    { type:'text',
+      front:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">مِنَ الْقُرْآنِ الْكَرِيمِ</div></div>
+        <div class="card-sep"></div>
+        <div class="qiraa-legend">
+          <div class="legend-item"><div class="legend-dot-ic"></div><span>اسم الإشارة</span></div>
+          <div class="legend-item"><div class="legend-dot-mb"></div><span>مبتدأ</span></div>
+          <div class="legend-item"><div class="legend-dot-kh"></div><span>خبر</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;width:100%;margin-top:6px;">
+          <div style="background:rgba(93,24,40,0.04);border-right:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;">
+            <div class="qiraa-text ar" style="margin:0 0 4px;font-size:clamp(1.35rem,4.3vw,1.8rem);"><span class="hl-ic">ذَلِكَ</span> <span class="hl-mb">الْكِتَابُ</span> لَا رَيْبَ فِيهِ ۛ <span class="hl-kh">هُدًى</span> لِلْمُتَّقِينَ</div>
+            <div style="font-size:0.68rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">البقرة · Al-Baqara v.2</div>
+          </div>
+          <div style="background:rgba(93,24,40,0.04);border-right:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;">
+            <div class="qiraa-text ar" style="margin:0 0 4px;font-size:clamp(1.35rem,4.3vw,1.8rem);"><span class="hl-ic">أُولَٰئِكَ</span> <span class="hl-mb">هُمُ</span> <span class="hl-kh">الْمُفْلِحُونَ</span></div>
+            <div style="font-size:0.68rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">البقرة · Al-Baqara v.5</div>
+          </div>
+          <div style="background:rgba(93,24,40,0.04);border-right:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;">
+            <div class="qiraa-text ar" style="margin:0 0 4px;font-size:clamp(1.35rem,4.3vw,1.8rem);"><span class="hl-ic">هَذَا</span> <span class="hl-kh">بَيَانٌ</span> لِلنَّاسِ</div>
+            <div style="font-size:0.68rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">آل عمران · Āl ʿImrān v.138</div>
+          </div>
+          <div style="background:rgba(93,24,40,0.04);border-right:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;">
+            <div class="qiraa-text ar" style="margin:0 0 4px;font-size:clamp(1.35rem,4.3vw,1.8rem);"><span class="hl-ic">تِلْكَ</span> <span class="hl-kh">حُدُودُ</span> اللَّهِ</div>
+            <div style="font-size:0.68rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">البقرة · Al-Baqara v.187</div>
+          </div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Analyse · Análisis</div>`,
+      back:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Analyse · Análisis</div></div>
+        <div class="card-sep"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:0 2px;">
+          <div style="background:var(--bg-beige);border-radius:10px;padding:10px 12px;border:1px solid rgba(200,164,98,0.2);">
+            <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;color:var(--burgundy);font-weight:700;text-align:right;margin-bottom:5px;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ذَلِكَ الْكِتَابُ لَا رَيْبَ فِيهِ هُدًى لِلْمُتَّقِينَ</div>
+            <div style="font-size:0.76rem;color:var(--text-dark);">اسم إشارة : <span style="color:#7b5ea7;font-weight:700;">ذَلِكَ</span> · مبتدأ : الْكِتَابُ · خبر : هُدًى</div>
+            <div style="font-size:0.72rem;color:var(--text-soft);font-style:italic;margin-top:3px;">Ce Livre — sans aucun doute — est un guide pour les pieux · Este Libro es una guía para los temerosos de Dios</div>
+          </div>
+          <div style="background:var(--bg-beige);border-radius:10px;padding:10px 12px;border:1px solid rgba(200,164,98,0.2);">
+            <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;color:var(--burgundy);font-weight:700;text-align:right;margin-bottom:5px;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">أُولَٰئِكَ هُمُ الْمُفْلِحُونَ</div>
+            <div style="font-size:0.76rem;color:var(--text-dark);">اسم إشارة : <span style="color:#7b5ea7;font-weight:700;">أُولَئِكَ</span> (جمع بعيد) · خبر : الْمُفْلِحُونَ</div>
+            <div style="font-size:0.72rem;color:var(--text-soft);font-style:italic;margin-top:3px;">Ceux-là sont les bienheureux · Esos son los que triunfan</div>
+          </div>
+          <div style="background:var(--bg-beige);border-radius:10px;padding:10px 12px;border:1px solid rgba(200,164,98,0.2);">
+            <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;color:var(--burgundy);font-weight:700;text-align:right;margin-bottom:5px;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">هَذَا بَيَانٌ لِلنَّاسِ</div>
+            <div style="font-size:0.76rem;color:var(--text-dark);"><span style="color:#7b5ea7;font-weight:700;">هَذَا</span> مبتدأ · <span style="color:#8a6620;font-weight:700;">بَيَانٌ</span> خبر · Ceci est une clarification pour les gens</div>
+            <div style="font-size:0.72rem;color:var(--text-soft);font-style:italic;margin-top:3px;">Esto es una declaración para la gente</div>
+          </div>
+          <div style="background:var(--bg-beige);border-radius:10px;padding:10px 12px;border:1px solid rgba(200,164,98,0.2);">
+            <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;color:var(--burgundy);font-weight:700;text-align:right;margin-bottom:5px;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">تِلْكَ حُدُودُ اللَّهِ</div>
+            <div style="font-size:0.76rem;color:var(--text-dark);"><span style="color:#7b5ea7;font-weight:700;">تِلْكَ</span> مبتدأ · <span style="color:#8a6620;font-weight:700;">حُدُودُ اللَّهِ</span> خبر · Ce sont les limites d’Allah</div>
+            <div style="font-size:0.72rem;color:var(--text-soft);font-style:italic;margin-top:3px;">Estos son los límites de Alá</div>
+          </div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── BONUS : أَدَوَاتُ الاِسْتِفْهَام ── */
+    { type:'text',
+      front:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">BONUS · بونوس</div></div>
+        <div class="card-sep"></div>
+        <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">أَدَوَاتُ الاِسْتِفْهَام</div>
+        <div class="card-title-fr serif">LES MOTS INTERROGATIFS</div>
+        <div class="card-title-es serif">LAS PALABRAS INTERROGATIVAS</div>
+        <div class="card-sep"></div>
+        <table class="icharah-table" dir="rtl" style="direction:rtl;font-size:0.85rem;">
+          <thead><tr><th style="text-align:right;">الأداة</th><th>يُسأل به عن</th><th style="direction:ltr;text-align:left;">FR · ES</th></tr></thead>
+          <tbody>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">هَلْ</td><td style="font-size:0.75rem;">الصحة والخطأ<br><em style="color:#aaa;">oui ou non</em></td><td style="font-size:0.75rem;direction:ltr;">Est-ce que ? · ¿Acaso?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">مَنْ</td><td style="font-size:0.75rem;">العاقل (شخص)<br><em style="color:#aaa;">personne</em></td><td style="font-size:0.75rem;direction:ltr;">Qui ? · ¿Quién?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">مَا / مَاذَا</td><td style="font-size:0.75rem;">غير العاقل (شيء)<br><em style="color:#aaa;">chose</em></td><td style="font-size:0.75rem;direction:ltr;">Quoi ? · ¿Qué?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">أَيْنَ</td><td style="font-size:0.75rem;">المكان<br><em style="color:#aaa;">lieu</em></td><td style="font-size:0.75rem;direction:ltr;">Où ? · ¿Dónde?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">كَيْفَ</td><td style="font-size:0.75rem;">الحال والوصف<br><em style="color:#aaa;">état</em></td><td style="font-size:0.75rem;direction:ltr;">Comment ? · ¿Cómo?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">مَتَى</td><td style="font-size:0.75rem;">الزمان<br><em style="color:#aaa;">temps</em></td><td style="font-size:0.75rem;direction:ltr;">Quand ? · ¿Cuándo?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">لِمَاذَا</td><td style="font-size:0.75rem;">السبب<br><em style="color:#aaa;">cause</em></td><td style="font-size:0.75rem;direction:ltr;">Pourquoi ? · ¿Por qué?</td></tr>
+            <tr><td class="td-ar ar" style="font-size:1.5rem;text-align:right;color:var(--gold);">كَمْ</td><td style="font-size:0.75rem;">العدد<br><em style="color:#aaa;">nombre</em></td><td style="font-size:0.75rem;direction:ltr;">Combien ? · ¿Cuánto?</td></tr>
+          </tbody>
+        </table>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples du texte · Ejemplos</div>`,
+      back:`<div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples du texte · Ejemplos del texto</div></div>
+        <div class="card-sep"></div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:rgba(200,164,98,0.08);border-radius:10px;padding:9px 12px;border-right:3px solid var(--gold);direction:rtl;text-align:right;">
+            <div style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">هَلْ غُرْفَةُ عَزِيزٍ نَظِيفَةٌ؟</div>
+            <div style="font-size:0.75rem;color:var(--text-soft);direction:ltr;text-align:left;margin-top:3px;">هَلْ → oui/non · Est-ce que la chambre est propre ? · ¿Está limpia la habitación?</div>
+          </div>
+          <div style="background:rgba(200,164,98,0.08);border-radius:10px;padding:9px 12px;border-right:3px solid var(--gold);direction:rtl;text-align:right;">
+            <div style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">مَنْ قَالَ «هَذَا يَوْمٌ جَمِيلٌ»؟</div>
+            <div style="font-size:0.75rem;color:var(--text-soft);direction:ltr;text-align:left;margin-top:3px;">مَنْ → personne · Qui a dit ça ? · ¿Quién lo dijo? → عَزِيزٌ</div>
+          </div>
+          <div style="background:rgba(200,164,98,0.08);border-radius:10px;padding:9px 12px;border-right:3px solid var(--gold);direction:rtl;text-align:right;">
+            <div style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">مَاذَا قَالَ الأَبُ عَنِ التُّفَّاحِ؟</div>
+            <div style="font-size:0.75rem;color:var(--text-soft);direction:ltr;text-align:left;margin-top:3px;">مَاذَا → chose · Qu’a dit le père ? · ¿Qué dijo el padre? → طَازَجٌ</div>
+          </div>
+          <div style="background:rgba(200,164,98,0.08);border-radius:10px;padding:9px 12px;border-right:3px solid var(--gold);direction:rtl;text-align:right;">
+            <div style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">أَيْنَ صُورَةُ الْجَدِّ؟</div>
+            <div style="font-size:0.75rem;color:var(--text-soft);direction:ltr;text-align:left;margin-top:3px;">أَيْنَ → lieu · Où est la photo ? · ¿Dónde está la foto? → عَلَى الْجِدَارِ</div>
+          </div>
+          <div style="background:rgba(200,164,98,0.08);border-radius:10px;padding:9px 12px;border-right:3px solid var(--gold);direction:rtl;text-align:right;">
+            <div style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">كَيْفَ الأَبُ؟</div>
+            <div style="font-size:0.75rem;color:var(--text-soft);direction:ltr;text-align:left;margin-top:3px;">كَيْفَ → description · Comment est-il ? · ¿Cómo es? → كَرِيمٌ (généreux)</div>
+          </div>
+        </div>
+        <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    }
+  ]
+};
+
+
+
+/* ══ STATE & UTILS ══ */
+const State = {
+  jomla:    {idx:0, flipped:false},
+  icharah:  {idx:0, flipped:false},
+  ensemble: {idx:0, flipped:false},
+  qiraa:    {idx:0, flipped:false}
+};
+
+const $=id=>document.getElementById(id);
+const views={
+  select:   $("view-select"),
+  jomla:    $("view-jomla"),
+  icharah:  $("view-icharah"),
+  ensemble: $("view-ensemble"),
+  qiraa:    $("view-qiraa")
+};
+
+function showView(name){
+  Object.values(views).forEach(v=>v.classList.add("hidden"));
+  views[name].classList.remove("hidden");
+}
+
+function renderSection(section){
+  const s=State[section];
+  const cards=DATA[section];
+  const card=cards[s.idx];
+  s.flipped=false;
+  const flip=$("card-"+section);
+  flip.classList.remove("flipped");
+
+  if(card.type==='mcq'){
+    flip.onclick=null;
+    flip.style.cursor='default';
+    var adat=card.adat||'';
+    var html='<div class="card-brand" style="margin-bottom:8px;">';
+    html+='<div class="card-brand-ar ar" style="font-size:2rem;">\u062f\u0627\u0631 \u0627\u0644\u0643\u0644\u0645\u0629</div>';
+    html+='<div class="card-brand-fr serif" style="font-size:0.85rem;letter-spacing:2px;color:var(--burgundy);opacity:0.8;">\u062a\u064e\u0639\u0652\u0632\u064a\u0632\u064f \u0627\u0644\u0652\u0642\u0650\u0631\u064e\u0627\u0621\u064e\u0629</div>';
+    html+='</div><div class="card-sep"></div>';
+    html+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0 14px;">';
+    html+='<span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);direction:rtl;font-weight:700;">'+adat+'</span>';
+    html+='<span style="font-size:0.7rem;color:#aaa;font-family:Cinzel,serif;letter-spacing:1px;">'+(card.adat_fr||'')+'</span>';
+    html+='</div>';
+    html+='<div class="quiz-q-ar ar" style="margin:0 0 14px;">'+card.ar+'</div>';
+    html+='<div class="quiz-q-fr" style="margin-bottom:4px;">'+card.fr+'</div>';
+    html+='<div class="quiz-q-es" style="margin-bottom:18px;">'+card.es+'</div>';
+    html+='<div style="display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:14px;">';
+    card.opts.forEach(function(opt,i){
+      html+='<button class="mcq-btn" onclick="answerMCQ(\''+section+'\','+i+')" data-idx="'+i+'">';
+      html+='<span style="font-family:Amiri,serif;direction:rtl;font-size:clamp(1rem,3.5vw,1.3rem);font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+opt+'</span>';
+      html+='</button>';
+    });
+    html+='</div>';
+    html+='<div class="quiz-feedback" id="qfb-'+section+'"></div>';
+    $(section+"-front").innerHTML=html;
+    $(section+"-back").innerHTML='';
+  } else if(card.type==='quiz'){
+    flip.onclick=null;
+    flip.style.cursor='default';
+    var html='<div class="card-brand" style="margin-bottom:10px;">';
+    html+='<div class="card-brand-ar ar" style="font-size:2rem;">\u062f\u0627\u0631 \u0627\u0644\u0643\u0644\u0645\u0629</div>';
+    html+='<div class="card-brand-fr serif" style="font-size:0.85rem;letter-spacing:2px;color:var(--burgundy);opacity:0.8;">\u062a\u064e\u0639\u0652\u0632\u064a\u0632\u064f \u0627\u0644\u0652\u0642\u0650\u0631\u064e\u0627\u0621\u064e\u0629</div>';
+    html+='</div><div class="card-sep"></div>';
+    html+='<div class="quiz-num" style="margin:18px 0 18px;">QUESTION '+card.num+' / 10 &nbsp;&middot;&nbsp; PREGUNTA '+card.num+' / 10</div>';
+    html+='<div class="quiz-q-ar ar" style="margin:0 0 20px;">'+card.ar+'</div>';
+    html+='<div class="quiz-q-fr" style="margin-bottom:8px;">'+card.fr+'</div>';
+    html+='<div class="quiz-q-es" style="margin-bottom:28px;">'+card.es+'</div>';
+    html+='<div class="quiz-btns" style="margin-bottom:20px;">';
+    html+='<button class="quiz-btn quiz-btn-oui" onclick="answerQuiz(\''+section+'\',true)">\u0646\u064e\u0639\u0645<br><small>Oui &middot; S&iacute;</small></button>';
+    html+='<button class="quiz-btn quiz-btn-non" onclick="answerQuiz(\''+section+'\',false)">\u0644\u064e\u0627<br><small>Non &middot; No</small></button>';
+    html+='</div><div class="quiz-feedback" id="qfb-'+section+'"></div>';
+    $(section+"-front").innerHTML=html;
+    $(section+"-back").innerHTML='';
+  } else {
+    flip.onclick=function(){flipCard(section);};
+    flip.style.cursor='pointer';
+    $(section+"-front").innerHTML=card.front;
+    $(section+"-back").innerHTML=card.back;
+  }
+
+  $(section+"-curr").textContent=s.idx+1;
+  if($(section+"-tot"))$(section+"-tot").textContent=cards.length;
+  $(section+"-prev").disabled=(s.idx===0);
+  $(section+"-next").disabled=(s.idx===cards.length-1);
+  $(section+"-front").scrollTop=0;
+  $(section+"-back").scrollTop=0;
+}
+
+
+
+window.answerMCQ=function(section,chosen){
+  var card=DATA[section][State[section].idx];
+  var fb=document.getElementById('qfb-'+section);
+  var correct=(chosen===card.correct);
+  document.querySelectorAll('#view-'+section+' .mcq-btn').forEach(function(b){b.disabled=true;});
+  var chosenBtn=document.querySelector('#view-'+section+' .mcq-btn[data-idx="'+chosen+'"]');
+  var correctBtn=document.querySelector('#view-'+section+' .mcq-btn[data-idx="'+card.correct+'"]');
+  if(correct){
+    chosenBtn.classList.add('mcq-correct');
+  } else {
+    chosenBtn.classList.add('mcq-wrong');
+    if(correctBtn)correctBtn.classList.add('mcq-correct');
+  }
+  fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+  var ar=correct?card.fb_ok_ar:card.fb_ko_ar;
+  var fr=correct?card.fb_ok_fr:card.fb_ko_fr;
+  var es=correct?card.fb_ok_es:card.fb_ko_es;
+  fb.innerHTML='<div style="font-family:Amiri,serif;font-size:1.05rem;direction:rtl;margin-bottom:6px;">'+ar+'</div><div style="margin-bottom:4px;font-weight:600;">'+fr+'</div><em>'+es+'</em>';
+};
+window.answerQuiz=function(section,chosen){
+  var card=DATA[section][State[section].idx];
+  var fb=document.getElementById('qfb-'+section);
+  var correct=(chosen===card.answer);
+  document.querySelectorAll('#view-'+section+' .quiz-btn').forEach(function(b){b.disabled=true;});
+  fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+  var ar=correct?card.ok_ar:card.ko_ar;
+  var fr=correct?card.ok_fr:card.ko_fr;
+  var es=correct?card.ok_es:card.ko_es;
+  fb.innerHTML='<div style="font-family:Amiri,serif;font-size:1.05rem;direction:rtl;margin-bottom:6px;">'+ar+'</div><div style="margin-bottom:4px;font-weight:600;">'+fr+'</div><em>'+es+'</em>';
+};
+window.openSection=function(section){
+  State[section].idx=0;
+  State[section].flipped=false;
+  renderSection(section);
+  showView(section);
+};
+
+window.goHome=function(){showView("select");};
+
+window.flipCard=function(section){
+  State[section].flipped=!State[section].flipped;
+  $("card-"+section).classList.toggle("flipped",State[section].flipped);
+};
+
+window.navigate=function(section,dir){
+  const s=State[section];
+  const next=s.idx+dir;
+  if(next<0||next>=DATA[section].length)return;
+  s.idx=next;
+  renderSection(section);
+};
+
+/* Swipe */
+["jomla","icharah","ensemble","qiraa"].forEach(section=>{
+  let tx=0;
+  const el=$("view-"+section);
+  el.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;},{passive:true});
+  el.addEventListener("touchend",e=>{
+    const dx=tx-e.changedTouches[0].clientX;
+    if(Math.abs(dx)>55){dx>0?navigate(section,1):navigate(section,-1);}
+  },{passive:true});
+});
+
+})();
+</script>
+</body>
+</html>
