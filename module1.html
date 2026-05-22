@@ -117,9 +117,13 @@
       text-transform: uppercase;
       transition: all 0.2s ease;
     }
-    .menu-btn:hover, .menu-btn:active {
+    /* AJOUT DU CORRECTIF :FOCUS ET OUTLINE:NONE */
+    .menu-btn:hover, 
+    .menu-btn:active,
+    .menu-btn:focus {
       background-color: var(--gold);
       color: var(--burgundy);
+      outline: none;
     }
     @media (max-width: 480px) {
       .menu-card { padding: 45px 20px; }
@@ -129,7 +133,7 @@
     }
   </style>
 </head>
-<body>
+<body ontouchstart="">
   <div class="menu-card">
     <a href="index.html" class="home-icon" aria-label="Accueil"><i class="fa-solid fa-house"></i></a>
     <h1 class="brand-ar">دار الكلمة</h1>
