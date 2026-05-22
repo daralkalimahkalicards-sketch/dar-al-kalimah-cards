@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Dar Al-Kalimah – Leçon 10 | الفِعْل</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --burgundy:#5D1828;--burgundy-dark:#3a0f19;
+      --gold:#C8A462;--gold-light:#dfc28b;
+      --green:#2d7a3a;--green-light:#e8f5e9;
+      --white:#FFFFFF;--bg-beige:#FAF6F0;
+      --text-dark:#2C3E50;--text-soft:#8c775a;
+      --shadow-soft:0 8px 25px rgba(93,24,40,0.06);
+      --shadow-card:0 20px 50px rgba(93,24,40,0.10);
+      --transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      --radius-xl:28px;--radius-lg:22px;--radius-md:18px;--radius-sm:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+    body{min-height:100vh;min-height:100dvh;background:var(--bg-beige);font-family:"Montserrat",sans-serif;color:var(--text-dark);padding:16px 14px 50px;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
+    button,a{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
+    .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.7;}
+    .serif{font-family:"Cinzel","Georgia",serif;}
+    .hidden{display:none!important;}
+    .view{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;animation:up .38s ease-out;}
+    @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .gold{color:var(--gold);font-weight:700;}
+    .green{color:var(--green);font-weight:700;}
+
+    /* ── HEADER MENU ── */
+    .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
+    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:2px;line-height:1;}
+    .menu-brand-sub{font-size:0.72rem;letter-spacing:5px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;margin-bottom:12px;font-family:"Cinzel",serif;}
+    .menu-title{font-size:1rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:2px;}
+    .menu-title-sub{font-size:0.82rem;color:var(--burgundy);font-weight:600;margin-bottom:6px;}
+    .menu-title-es{font-size:0.8rem;color:#999;letter-spacing:1.5px;text-transform:uppercase;}
+    .menu-title-es-sub{font-size:0.72rem;color:#bbb;font-style:italic;}
+    .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.8rem;transition:var(--transition);border-radius:999px;background:transparent;border:none;}
+
+    /* ── CARTES THÈME ── */
+    .theme-list{width:100%;display:flex;flex-direction:column;gap:22px;}
+    .theme-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:36px 24px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;cursor:pointer;}
+    .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
+    .theme-card:active{transform:scale(0.98);}
+    .theme-card.fil-card{border-top:4px solid var(--green);}
+    .theme-card.madhi-card{border-top:4px solid var(--burgundy);}
+    .theme-card.mudhari-card{border-top:4px solid var(--gold);}
+    .theme-card.amr-card{border-top:4px solid #7b5ea7;}
+    .theme-card.qiraa-card{border-top:4px solid var(--text-soft);}
+    .theme-icon{font-size:3.5rem;color:var(--gold);margin-bottom:16px;}
+    .theme-title-ar{font-size:2.4rem;color:var(--burgundy);font-weight:700;margin-bottom:14px;line-height:1.4;}
+    .theme-divider{width:70px;height:2px;background:var(--gold);margin-bottom:12px;opacity:0.5;border-radius:2px;}
+    .theme-title-fr{font-weight:700;font-size:1.1rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+    .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
+
+    /* ── TOP BAR ── */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;max-width:640px;}
+    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    .btn-back-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
+
+    /* ── FLIP CARD ── */
+    .card-scene{width:100%;max-width:640px;perspective:1800px;margin-bottom:20px;}
+    .card-flip{position:relative;width:100%;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;height:clamp(560px,80dvh,720px);}
+    .card-flip.flipped{transform:rotateY(180deg);}
+    .card-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(200,164,98,0.35);box-shadow:var(--shadow-card);padding:24px 20px 16px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,164,98,0.3) transparent;}
+    .card-face::-webkit-scrollbar{width:4px;}
+    .card-face::-webkit-scrollbar-thumb{background:rgba(200,164,98,0.3);border-radius:2px;}
+    .card-back-face{transform:rotateY(180deg);}
+
+    /* Branding */
+    .card-brand{text-align:center;margin-bottom:10px;}
+    .card-brand-ar{font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:2px;}
+    .card-brand-fr{font-size:0.62rem;color:var(--burgundy);letter-spacing:3px;text-transform:uppercase;opacity:0.65;}
+    .card-sep{width:40px;height:1px;background:var(--gold);opacity:0.4;margin:10px auto;}
+
+    /* Titres carte */
+    .card-title-ar{font-size:clamp(1.8rem,5.5vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;margin-bottom:4px;line-height:1.4;}
+    .card-title-fr{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:2px;}
+    .card-title-es{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.55;font-style:italic;text-align:center;margin-bottom:12px;}
+    .card-rule-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.1rem,3.8vw,1.6rem);color:var(--burgundy);line-height:1.8;text-align:center;margin-bottom:12px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .card-rule-fr{font-size:0.88rem;color:var(--text-dark);line-height:1.65;margin-bottom:5px;}
+    .card-rule-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.6;}
+    .flip-hint{text-align:center;color:var(--gold);font-size:0.7rem;letter-spacing:1px;opacity:0.55;margin-top:14px;padding-top:8px;border-top:1px solid rgba(200,164,98,0.15);font-family:"Cinzel",serif;animation:pulse 2.5s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:0.35;}50%{opacity:0.8;}}
+
+    /* Tableau contraste اسم / فعل */
+    .contrast-table{width:100%;border-collapse:collapse;margin:12px 0;}
+    .contrast-table th{padding:10px 8px;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;font-family:"Cinzel",serif;}
+    .contrast-table th.th-ism{background:var(--burgundy);color:var(--white);border-radius:8px 0 0 0;}
+    .contrast-table th.th-fil{background:var(--green);color:var(--white);border-radius:0 8px 0 0;}
+    .contrast-table td{padding:10px 8px;text-align:center;border-bottom:1px solid rgba(200,164,98,0.18);}
+    .contrast-table tr:last-child td{border-bottom:none;}
+    .contrast-table tr:nth-child(even) td{background:rgba(200,164,98,0.05);}
+    .td-ar-ism{font-family:"Amiri",serif;direction:rtl;font-size:1.5rem;color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .td-ar-fil{font-family:"Amiri",serif;direction:rtl;font-size:1.5rem;color:var(--green);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .td-fr{font-size:0.72rem;color:var(--text-soft);font-style:italic;}
+
+    /* Gabarit visuel */
+    .gabarit-box{background:var(--bg-beige);border:1px dashed rgba(200,164,98,0.5);border-radius:var(--radius-md);padding:14px 16px;margin:10px 0;text-align:center;}
+    .gabarit-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(2rem,6vw,2.8rem);color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.3;}
+    .gabarit-label{font-size:0.68rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+
+    /* Famille de racine */
+    .root-family{display:flex;flex-direction:row-reverse;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 0;}
+    .root-item{background:var(--white);border:1.5px solid rgba(200,164,98,0.4);border-radius:var(--radius-sm);padding:8px 10px;text-align:center;min-width:70px;}
+    .root-item .ri-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.4rem;color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;display:block;line-height:1.2;}
+    .root-item .ri-fr{font-size:0.58rem;color:#aaa;font-style:italic;display:block;margin-top:2px;}
+    .root-item.fil-item{border-color:var(--green);background:rgba(45,122,58,0.04);}
+    .root-item.fil-item .ri-ar{color:var(--green);}
+    .root-root{display:flex;flex-direction:row;direction:rtl;justify-content:center;align-items:baseline;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+    .root-root-ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:embed;font-size:1.8rem;color:var(--gold);font-weight:700;letter-spacing:8px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;display:block;text-align:center;}
+    .root-root-fr{font-size:0.7rem;color:var(--text-soft);font-family:"Cinzel",serif;letter-spacing:1px;direction:ltr;}
+
+    /* Tableau conjugaison */
+    .conj-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:0.82rem;}
+    .conj-table th{background:var(--burgundy);color:var(--white);padding:8px;text-align:center;font-size:0.68rem;font-family:"Cinzel",serif;letter-spacing:0.5px;}
+    .conj-table th:first-child{border-radius:8px 0 0 0;}
+    .conj-table th:last-child{border-radius:0 8px 0 0;}
+    .conj-table.green-header th{background:var(--green);}
+    .conj-table.purple-header th{background:#7b5ea7;}
+    .conj-table td{padding:9px 6px;text-align:center;border-bottom:1px solid rgba(200,164,98,0.15);}
+    .conj-table tr:last-child td{border-bottom:none;}
+    .conj-table tr:nth-child(even) td{background:rgba(200,164,98,0.04);}
+    .ct-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.4rem;font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .ct-ar.fil{color:var(--green);}
+    .ct-ar.ism{color:var(--burgundy);}
+    .ct-pron{font-family:"Amiri",serif;direction:rtl;font-size:1rem;color:#888;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .ct-fr{font-size:0.72rem;color:var(--text-soft);font-style:italic;}
+    .marker-badge{display:inline-block;padding:2px 7px;border-radius:999px;font-size:0.62rem;font-weight:700;font-family:"Amiri",serif;direction:rtl;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .mb-green{background:rgba(45,122,58,0.1);color:var(--green);border:1px solid rgba(45,122,58,0.2);}
+    .mb-gold{background:rgba(200,164,98,0.15);color:#8a6620;border:1px solid rgba(200,164,98,0.3);}
+    .mb-purple{background:rgba(123,94,167,0.1);color:#7b5ea7;border:1px solid rgba(123,94,167,0.2);}
+
+    /* Exemples verso */
+    .example-block{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 0;border-bottom:1px solid rgba(200,164,98,0.18);text-align:center;}
+    .example-block:last-child{border-bottom:none;padding-bottom:0;}
+    .example-block:first-child{padding-top:0;}
+    .ex-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.6rem,5.5vw,2.4rem);color:var(--text-dark);font-weight:700;line-height:1.4;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;padding-bottom:8px;border-bottom:1px solid rgba(200,164,98,0.3);width:100%;}
+    .ex-ar .hv{color:var(--green);} /* فعل */
+    .ex-ar .hn{color:var(--burgundy);} /* اسم */
+    .ex-ar .hr{color:var(--gold);font-size:0.8em;vertical-align:super;} /* racine */
+    .ex-analyse{font-size:0.72rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:0.5px;}
+    .ex-fr{font-size:0.88rem;color:var(--text-dark);font-weight:500;}
+    .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
+
+    /* Lecture */
+    .qiraa-legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:0 0 10px;padding:8px 12px;background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.2);border-radius:10px;font-size:0.68rem;}
+    .legend-item{display:flex;align-items:center;gap:5px;font-family:"Cinzel",serif;font-size:0.62rem;letter-spacing:0.5px;}
+    .legend-dot-v{width:10px;height:10px;background:var(--green);border-radius:50%;flex-shrink:0;}
+    .legend-dot-n{width:10px;height:10px;background:var(--burgundy);border-radius:50%;flex-shrink:0;}
+    .legend-dot-r{width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+    .qiraa-title-fr{font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px;font-family:"Cinzel",serif;}
+    .qiraa-text{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--text-dark);line-height:2.3;text-align:center;width:100%;margin:6px 0;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .hl-v{color:var(--green);font-weight:700;} /* فعل */
+    .hl-n{color:var(--burgundy);font-weight:700;text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;} /* اسم */
+    .hl-r{color:var(--gold);font-weight:700;} /* racine */
+
+    /* Quiz نعم/لا */
+    .quiz-num{font-size:0.7rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:2px;text-align:center;margin-bottom:8px;opacity:0.7;}
+    .quiz-q-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--burgundy);font-weight:700;line-height:1.8;text-align:center;margin:10px 0 6px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .quiz-q-fr{font-size:0.88rem;color:var(--text-dark);text-align:center;margin-bottom:4px;}
+    .quiz-q-es{font-size:0.78rem;color:var(--text-soft);font-style:italic;text-align:center;margin-bottom:16px;}
+    .quiz-btns{display:flex;gap:14px;justify-content:center;margin:0 0 14px;}
+    .quiz-btn{flex:1;max-width:140px;padding:12px 10px;border-radius:999px;font-weight:700;font-size:0.95rem;letter-spacing:1px;border:2px solid;cursor:pointer;transition:all 0.25s;font-family:"Montserrat",sans-serif;}
+    .quiz-btn-oui{background:rgba(45,122,58,0.06);border-color:var(--green);color:var(--green);}
+    .quiz-btn-non{background:rgba(200,164,98,0.08);border-color:var(--gold);color:#8a6620;}
+    .quiz-btn:disabled{opacity:0.4;pointer-events:none;}
+    .quiz-feedback{border-radius:14px;padding:12px 14px;margin-top:4px;font-size:0.82rem;line-height:1.6;text-align:center;display:none;}
+    .quiz-feedback.correct{background:rgba(45,122,58,0.07);border:1px solid rgba(45,122,58,0.25);color:#1a5c28;}
+    .quiz-feedback.wrong{background:rgba(200,30,30,0.06);border:1px solid rgba(200,30,30,0.18);color:#9b1a1a;}
+    .quiz-feedback.show{display:block;}
+
+    /* MCQ */
+    .mcq-btn{width:100%;padding:10px 14px;border-radius:var(--radius-md);font-weight:600;font-size:0.88rem;cursor:pointer;border:2px solid rgba(200,164,98,0.4);background:#fff;color:var(--burgundy);transition:all .22s;text-align:right;direction:rtl;margin-bottom:8px;}
+    .mcq-btn:hover{border-color:var(--gold);background:rgba(200,164,98,0.05);}
+    .mcq-btn:disabled{cursor:default;}
+    .mcq-btn.mcq-correct{border:2px solid var(--green)!important;background:var(--green-light);color:var(--green);}
+    .mcq-btn.mcq-wrong{border:2px solid #f44336!important;background:#ffebee;opacity:0.7;}
+
+    /* NAV */
+    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:640px;}
+    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
+    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    .btn-nav:disabled{opacity:0.35;pointer-events:none;}
+
+    @media(max-width:480px){
+      .card-flip{height:clamp(520px,78dvh,660px);}
+      .card-face{padding:18px 14px 12px;}
+      .card-brand-ar{font-size:1.5rem;}
+      .btn-nav{font-size:0.8rem;padding:13px 8px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ VUE MENU ══ -->
+<main id="view-select" class="view">
+  <header class="menu-header">
+    <a href="module10.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-brand-sub serif">DAR AL-KALIMAH</div>
+    <div class="menu-title serif">LEÇON 10 — الْفِعْل</div>
+    <div class="menu-title-sub">Le Verbe Arabe · El Verbo Árabe</div>
+    <div class="menu-title-es serif">LECCIÓN 10</div>
+    <div class="menu-title-es-sub">El Verbo Árabe</div>
+  </header>
+  <div class="theme-list">
+    <button class="theme-card fil-card" onclick="openSection('fil')">
+      <i class="fa-solid fa-bolt theme-icon" style="color:var(--green);"></i>
+      <div class="theme-title-ar ar" style="color:var(--green);">مَا هُوَ الْفِعْل؟</div>
+      <div class="theme-divider" style="background:var(--green);"></div>
+      <div class="theme-title-fr">Le Verbe · Définition</div>
+      <div class="theme-title-es">El Verbo · Definición</div>
+    </button>
+    <button class="theme-card madhi-card" onclick="openSection('madhi')">
+      <i class="fa-solid fa-clock-rotate-left theme-icon"></i>
+      <div class="theme-title-ar ar">الْفِعْلُ الْمَاضِي</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Le Passé</div>
+      <div class="theme-title-es">El Pasado</div>
+    </button>
+    <button class="theme-card mudhari-card" onclick="openSection('mudhari')">
+      <i class="fa-solid fa-rotate theme-icon" style="color:var(--gold);"></i>
+      <div class="theme-title-ar ar">الْفِعْلُ الْمُضَارِع</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Le Présent / Futur</div>
+      <div class="theme-title-es">El Presente / Futuro</div>
+    </button>
+    <button class="theme-card amr-card" onclick="openSection('amr')">
+      <i class="fa-solid fa-arrow-right theme-icon" style="color:#7b5ea7;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.9rem;">فِعْلُ الأَمْر</div>
+      <div class="theme-divider" style="background:#7b5ea7;"></div>
+      <div class="theme-title-fr">L’Impératif</div>
+      <div class="theme-title-es">El Imperativo</div>
+    </button>
+    <button class="theme-card qiraa-card" onclick="openSection('qiraa')">
+      <i class="fa-solid fa-book-open theme-icon" style="color:var(--text-soft);"></i>
+      <div class="theme-title-ar ar" style="font-size:1.8rem;">تَعْزِيزُ الْقِرَاءَة</div>
+      <div class="theme-divider" style="background:var(--text-soft);"></div>
+      <div class="theme-title-fr">Renforcement · Lecture</div>
+      <div class="theme-title-es">Refuerzo · Lectura</div>
+    </button>
+  </div>
+</main>
+
+<!-- ══ VUE FIL ══ -->
+<main id="view-fil" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="fil-curr">1</span> / <span id="fil-tot">3</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-fil" onclick="flipCard('fil')">
+      <div class="card-face" id="fil-front"></div>
+      <div class="card-face card-back-face" id="fil-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="fil-prev" onclick="navigate('fil',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="fil-next" onclick="navigate('fil',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══ VUE MADHI ══ -->
+<main id="view-madhi" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="madhi-curr">1</span> / <span id="madhi-tot">3</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-madhi" onclick="flipCard('madhi')">
+      <div class="card-face" id="madhi-front"></div>
+      <div class="card-face card-back-face" id="madhi-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="madhi-prev" onclick="navigate('madhi',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="madhi-next" onclick="navigate('madhi',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══ VUE MUDHARI ══ -->
+<main id="view-mudhari" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="mudhari-curr">1</span> / <span id="mudhari-tot">3</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-mudhari" onclick="flipCard('mudhari')">
+      <div class="card-face" id="mudhari-front"></div>
+      <div class="card-face card-back-face" id="mudhari-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="mudhari-prev" onclick="navigate('mudhari',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="mudhari-next" onclick="navigate('mudhari',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══ VUE AMR ══ -->
+<main id="view-amr" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="amr-curr">1</span> / <span id="amr-tot">2</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-amr" onclick="flipCard('amr')">
+      <div class="card-face" id="amr-front"></div>
+      <div class="card-face card-back-face" id="amr-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="amr-prev" onclick="navigate('amr',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="amr-next" onclick="navigate('amr',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══ VUE QIRAA ══ -->
+<main id="view-qiraa" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="qiraa-curr">1</span> / <span id="qiraa-tot">13</span></div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-qiraa" onclick="flipCard('qiraa')">
+      <div class="card-face" id="qiraa-front"></div>
+      <div class="card-face card-back-face" id="qiraa-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<script>
+(()=>{
+"use strict";
+
+const DATA = {
+
+  /* ══════════════════════════════════ 1. ما هو الفعل؟ ══════════════════════════════════ */ fil: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="color:var(--green);">الْفِعْل</div> <div class="card-title-fr serif">LE VERBE</div> <div class="card-title-es serif">EL VERBO</div> <div class="card-sep"></div> <div class="card-rule-ar ar">الْفِعْلُ كَلِمَةٌ تَدُلُّ عَلَى حَدَثٍ فِي زَمَنٍ مُعَيَّن</div> <div class="card-sep"></div> <div class="card-rule-fr"> Le <strong style="color:var(--green);">فِعْل</strong> est un mot qui exprime une <strong>action</strong> ou un <strong>état</strong> dans un temps précis.<br><br> Il se distingue du <strong>اسم</strong> (nom) — le nom est statique, le verbe est dynamique. </div> <div style="height:6px;"></div> <div class="card-rule-es"> El <strong style="color:var(--green);">فِعْل</strong> expresa una <strong>acción</strong> o <strong>estado</strong> en un tiempo determinado.<br> Es dinámico, a diferencia del <strong>اسم</strong> (nombre) que es estático. </div> <div class="card-sep"></div> <table class="contrast-table"> <thead><tr><th class="th-ism">اِسْم · Nom</th><th class="th-fil">فِعْل · Verbe</th></tr></thead> <tbody> <tr><td><span class="td-ar-ism ar">كِتَابٌ</span><br><span class="td-fr">un livre</span></td><td><span class="td-ar-fil ar">كَتَبَ</span><br><span class="td-fr">il a écrit</span></td></tr> <tr><td><span class="td-ar-ism ar">صَلَاةٌ</span><br><span class="td-fr">la prière</span></td><td><span class="td-ar-fil ar">صَلَّى</span><br><span class="td-fr">il a prié</span></td></tr> <tr><td><span class="td-ar-ism ar">ذَهَابٌ</span><br><span class="td-fr">un départ</span></td><td><span class="td-ar-fil ar">ذَهَبَ</span><br><span class="td-fr">il est parti</span></td></tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Indicateurs · Indicadores</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Comment reconnaître le فعل ?</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="margin-bottom:6px;"> <strong>3 indices pour reconnaître le فِعْل :</strong><br> <em style="color:var(--text-soft);font-size:0.85rem;">3 indicadores para reconocer el فِعْل :</em> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.6rem;color:var(--green);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">لَا تَنْوِين</div> <div class="ex-fr"><strong>Pas de tanwīn</strong> — le verbe ne prend jamais ً ٌ ٍ</div> <div class="ex-es"><strong>Sin tanwīn</strong> — el verbo nunca lleva ً ٌ ٍ</div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.6rem;color:var(--green);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">لَا ال تَعْرِيف</div> <div class="ex-fr"><strong>Pas d’article ال</strong> — on ne dit jamais الكَتَبَ</div> <div class="ex-es"><strong>Sin artículo ال</strong> — nunca decimos الكَتَبَ</div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.6rem;color:var(--green);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">يَقْبَلُ قَدْ · لَمْ · لَنْ</div> <div class="ex-fr">Il accepte les particules <strong>قَدْ / لَمْ / لَنْ</strong></div> <div class="ex-es">Acepta las partículas <strong>قَدْ / لَمْ / لَنْ</strong></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);color:var(--green);">الْجَذْرُ الثُّلَاثِيُّ</div> <div class="card-title-fr serif">LA RACINE TRILATÉRALE</div> <div class="card-title-es serif">LA RAÍZ TRILÍTERA</div> <div class="card-sep"></div> <div class="card-rule-ar ar">كُلُّ فِعْلٍ عَرَبِيٍّ مَبْنِيٌّ عَلَى ثَلَاثَةِ أَحْرُفٍ</div> <div class="card-sep"></div> <div class="card-rule-fr"> Chaque verbe arabe est construit sur <strong>3 consonnes racines</strong> (الجذر الثلاثي).<br> La même racine produit des <strong>noms ET des verbes</strong> — c’est le génie de l’arabe ! </div> <div style="height:6px;"></div> <div class="card-rule-es">Cada verbo árabe se construye sobre <strong>3 consonantes raíz</strong>. La misma raíz produce nombres Y verbos.</div> <div class="card-sep"></div> <div class="root-root"><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ك</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ت</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ب</span><div style="width:100%;text-align:center;font-size:0.7rem;color:var(--text-soft);font-family:Cinzel,serif;letter-spacing:1px;margin-top:2px;">Racine K-T-B</div></div> <div class="root-family"> <div class="root-item fil-item"><span class="ri-ar ar">كَتَبَ</span><span class="ri-fr">il a écrit · escribió</span></div> <div class="root-item"><span class="ri-ar ar">كِتَابٌ</span><span class="ri-fr">livre · libro</span></div> <div class="root-item"><span class="ri-ar ar">كَاتِبٌ</span><span class="ri-fr">écrivain · escritor</span></div> <div class="root-item"><span class="ri-ar ar">مَكْتَبٌ</span><span class="ri-fr">bureau · oficina</span></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Autres racines · Otras raíces</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Autres racines · Otras raíces</div></div> <div class="card-sep"></div> <div class="root-root"><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ذ</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ه</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ب</span><div style="width:100%;text-align:center;font-size:0.7rem;color:var(--text-soft);font-family:Cinzel,serif;letter-spacing:1px;margin-top:2px;">Racine Dh-H-B</div></div> <div class="root-family" style="margin-bottom:14px;"> <div class="root-item fil-item"><span class="ri-ar ar">ذَهَبَ</span><span class="ri-fr">il est parti · se fue</span></div> <div class="root-item"><span class="ri-ar ar">ذَهَبٌ</span><span class="ri-fr">or · oro</span></div> <div class="root-item"><span class="ri-ar ar">مَذْهَبٌ</span><span class="ri-fr">doctrine · doctrina</span></div> </div> <div class="root-root"><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ق</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ر</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">أ</span><div style="width:100%;text-align:center;font-size:0.7rem;color:var(--text-soft);font-family:Cinzel,serif;letter-spacing:1px;margin-top:2px;">Racine Q-R-'</div></div> <div class="root-family" style="margin-bottom:14px;"> <div class="root-item fil-item"><span class="ri-ar ar">قَرَأَ</span><span class="ri-fr">il a lu · leyó</span></div> <div class="root-item"><span class="ri-ar ar">قِرَاءَةٌ</span><span class="ri-fr">lecture · lectura</span></div> <div class="root-item"><span class="ri-ar ar">قُرْآنٌ</span><span class="ri-fr">Coran · Corán</span></div> </div> <div class="root-root"><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ع</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">ل</span><span style="color:rgba(200,164,98,0.4);font-size:1.5rem;">·</span><span style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">م</span><div style="width:100%;text-align:center;font-size:0.7rem;color:var(--text-soft);font-family:Cinzel,serif;letter-spacing:1px;margin-top:2px;">Racine 'A-L-M</div></div> <div class="root-family"> <div class="root-item fil-item"><span class="ri-ar ar">عَلِمَ</span><span class="ri-fr">il a su · supo</span></div> <div class="root-item"><span class="ri-ar ar">عِلْمٌ</span><span class="ri-fr">science · ciencia</span></div> <div class="root-item"><span class="ri-ar ar">مُعَلِّمٌ</span><span class="ri-fr">professeur · profesor</span></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.8rem);color:var(--green);">أَزْمِنَةُ الْفِعْل</div> <div class="card-title-fr serif">LES 3 TEMPS DU VERBE</div> <div class="card-title-es serif">LOS 3 TIEMPOS DEL VERBO</div> <div class="card-sep"></div> <div class="card-rule-fr" style="margin-bottom:10px;">Le verbe arabe a <strong>3 temps</strong> — 3 faces d’une même action :<br><em style="color:var(--text-soft);font-size:0.85rem;">El verbo árabe tiene <strong>3 tiempos</strong> — 3 caras de una misma acción :</em></div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">الْمَاضِي</div> <div class="ex-analyse" style="color:var(--burgundy);">Action ACCOMPLIE · <em style="font-style:italic;">Acción CUMPLIDA · pasado</em></div> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.5rem;color:var(--green);font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">كَتَبَ</div> <div class="ex-fr">Il a écrit — passé · Gabarit : <strong>فَعَلَ</strong></div><div class="ex-es">Escribió — pasado · Patrón : <strong>فَعَلَ</strong></div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">الْمُضَارِع</div> <div class="ex-analyse" style="color:#8a6620;">Action EN COURS / à venir · <em style="font-style:italic;">Acción EN CURSO · presente/futuro</em></div> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.5rem;color:var(--green);font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">يَكْتُبُ</div> <div class="ex-fr">Il écrit / écrira — Gabarit : <strong>يَفْعَلُ</strong></div><div class="ex-es">Escribe / escribirá — Patrón : <strong>يَفْعَلُ</strong></div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2rem;color:#7b5ea7;font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">الأَمْر</div> <div class="ex-analyse" style="color:#7b5ea7;">Action DEMANDÉE · <em style="font-style:italic;">Acción PEDIDA · imperativo</em></div> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.5rem;color:var(--green);font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">اُكْتُبْ</div> <div class="ex-fr">Écris ! — Gabarit : <strong>اُفْعُلْ</strong></div><div class="ex-es">¡Escribe! — Patrón : <strong>اُفْعُلْ</strong></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Les 3 temps en un coup d’œil</div></div> <div class="card-sep"></div> <table class="conj-table" style="font-size:0.78rem;"> <thead><tr><th>الزمن</th><th>الاسم FR</th><th>الغابط</th><th>مثال (ك-ت-ب)</th></tr></thead> <tbody> <tr> <td style="color:var(--burgundy);font-weight:700;">الماضي</td> <td class="ct-fr">Passé<br><em style="color:#888;font-size:0.65rem;">Pasado</em></td> <td><span class="marker-badge mb-gold ar">فَعَلَ</span></td> <td><span class="ct-ar fil ar">كَتَبَ</span></td> </tr> <tr> <td style="color:#8a6620;font-weight:700;">المضارع</td> <td class="ct-fr">Présent/Futur<br><em style="color:#888;font-size:0.65rem;">Presente/Futuro</em></td> <td><span class="marker-badge mb-gold ar">يَفْعَلُ</span></td> <td><span class="ct-ar fil ar">يَكْتُبُ</span></td> </tr> <tr> <td style="color:#7b5ea7;font-weight:700;">الأمر</td> <td class="ct-fr">Impératif<br><em style="color:#888;font-size:0.65rem;">Imperativo</em></td> <td><span class="marker-badge mb-purple ar">اُفْعُلْ</span></td> <td><span class="ct-ar fil ar">اُكْتُبْ</span></td> </tr> </tbody> </table> <div class="card-sep"></div> <div class="card-rule-fr" style="font-size:0.82rem;"> 💡 <strong>Astuce psycholinguistique · Truco psicolingüístico :</strong><br> Le cerveau stocke le verbe à partir du <strong>ماضي · هو</strong> (3ème personne masc. sg.).<br> C’est la forme de base — la plus neutre, sans préfixe ni suffixe · la forma base, sin prefijo ni sufijo.<br> <em style="color:var(--text-soft);">El cerebro almacena el verbo a partir del <strong>ماضي · هو</strong> (3ª persona masc. sg.). Es la forma base — la más neutra, sin prefijo ni sufijo.</em> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    } ],
+
+  /* ══════════════════════════════════ 2. الماضي ══════════════════════════════════ */ madhi: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar">الْفِعْلُ الْمَاضِي</div> <div class="card-title-fr serif">LE PASSÉ · AL-MĀḌĪ</div> <div class="card-title-es serif">EL PASADO · AL-MĀḌĪ</div> <div class="card-sep"></div> <div class="card-rule-ar ar">الْفِعْلُ الْمَاضِي يَدُلُّ عَلَى حَدَثٍ قَدِ انْتَهَى</div> <div class="card-rule-fr">Le passé exprime une action <strong>accomplie</strong></div> <div class="card-rule-es">El pasado expresa una acción <strong>cumplida</strong></div> <div class="card-sep"></div> <div class="gabarit-box"> <div class="gabarit-ar ar">فَعَلَ</div> <div class="gabarit-label serif">GABARIT DU PASSÉ · PATRÓN DEL PASADO</div> </div> <div class="card-rule-fr"> Le passé suit le gabarit <strong>فَعَلَ</strong> (3ème masc. sg.).<br> Les 4 personnes prioritaires :<br> <em style="color:var(--text-soft);font-size:0.85rem;">El pasado sigue el patrón <strong>فَعَلَ</strong> (3ª masc. sg.) · Las 4 personas prioritarias :</em> </div> <table class="conj-table" dir="rtl" style="margin-top:10px;direction:rtl;"> <thead><tr> <th style="text-align:right;border-radius:0 8px 0 0;">ذ-ه-ب</th> <th>ك-ت-ب</th> <th>الضمير</th> <th style="direction:ltr;border-radius:8px 0 0 0;">FR · ES</th> </tr></thead> <tbody> <tr> <td class="ct-ar fil ar">ذَهَبَ</td> <td class="ct-ar fil ar">كَتَبَ</td> <td class="ct-pron ar">هُوَ</td> <td class="ct-fr" style="direction:ltr;">il est parti · se fue</td> </tr> <tr> <td class="ct-ar fil ar">ذَهَبَتْ</td> <td class="ct-ar fil ar">كَتَبَتْ</td> <td class="ct-pron ar">هِيَ</td> <td class="ct-fr" style="direction:ltr;">elle est partie · se fue <span class="marker-badge mb-green">+ تْ</span></td> </tr> <tr> <td class="ct-ar fil ar">ذَهَبْتَ</td> <td class="ct-ar fil ar">كَتَبْتَ</td> <td class="ct-pron ar">أَنْتَ</td> <td class="ct-fr" style="direction:ltr;">tu es parti · fuiste <span class="marker-badge mb-gold">+ تَ</span></td> </tr> <tr> <td class="ct-ar fil ar">ذَهَبْتُ</td> <td class="ct-ar fil ar">كَتَبْتُ</td> <td class="ct-pron ar">أَنَا</td> <td class="ct-fr" style="direction:ltr;">je suis parti · me fui <span class="marker-badge mb-purple">+ تُ</span></td> </tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">قَامَ</span> <span class="hn">عَزِيزٌ</span> مِنَ النَّوْمِ</div> <div class="ex-analyse" style="color:var(--green);">فعل ماضي : قَامَ (ق-و-م) · اسم : عَزِيزٌ</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">فعل ماضي: قَامَ · اسم: عَزِيزٌ</div> <div class="ex-fr">Aziz s’est levé du sommeil</div><div class="ex-es">Aziz se levantó del sueño</div> </div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">شَرِبَتِ</span> <span class="hn">الْبِنْتُ</span> الْحَلِيبَ</div> <div class="ex-analyse" style="color:var(--green);">فعل ماضي مؤنّث : شَرِبَتِ (تِ devant ال) · اسم : الْبِنْتُ</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">فعل ماضي fém.: شَرِبَتِ (تِ devant ال)</div> <div class="ex-fr">La fille a bu le lait</div><div class="ex-es">La niña bebió la leche</div> </div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">أَخَذْتُ</span> <span class="hn">حَقِيبَتِي</span></div> <div class="ex-analyse" style="color:var(--green);">فعل ماضي — أنا : أَخَذْتُ (+ تُ)</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">فعل ماضي — yo: أَخَذْتُ (+ تُ)</div> <div class="ex-fr">J’ai pris mon sac</div><div class="ex-es">Cogí mi mochila</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.8rem);">أَدَوَاتُ الْفِعْلِ الْمَاضِي</div> <div class="card-title-fr serif">MARQUEURS DU PASSÉ</div> <div class="card-title-es serif">MARCADORES DEL PASADO</div> <div class="card-sep"></div> <div class="card-rule-fr" style="margin-bottom:10px;"> Les particules qui accompagnent le <strong>ماضي</strong> :<br> <em style="color:var(--text-soft);font-size:0.85rem;">Las partículas que acompañan al <strong>ماضي</strong> :</em> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2.2rem;color:var(--green);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">قَدْ</div> <div class="ex-fr"><strong>قَدْ</strong> + ماضي = insistance sur l’accomplissement<br>قَدْ كَتَبَ = il a bel et bien écrit</div><div class="ex-es"><strong>قَدْ</strong> + pasado = énfasis en la acción completada<br>قَدْ كَتَبَ = él de verdad escribió</div> <div class="ex-es"><strong>قَدْ</strong> + pasado = énfasis en la acción completada</div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2.2rem;color:var(--green);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">لَمْ</div> <div class="ex-fr"><strong>لَمْ</strong> + مضارع = négation du passé<br>لَمْ يَكْتُبْ = il n’a pas écrit</div><div class="ex-es"><strong>لَمْ</strong> + presente = negación del pasado<br>لَمْ يَكْتُبْ = él no escribió</div> <div class="ex-es"><strong>لَمْ</strong> + presente = negación del pasado</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;10 verbes clés · 10 verbos clave</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">10 verbes clés · 10 verbos clave</div></div> <div class="card-sep"></div> <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;"> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">قَامَ</span><span class="ri-fr">il s’est levé · se levantó</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">شَرِبَ</span><span class="ri-fr">il a bu · bebió</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">أَخَذَ</span><span class="ri-fr">il a pris · tomó</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">تَوَضَّأَ</span><span class="ri-fr">il s’est purifié · se purificó</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">صَلَّى</span><span class="ri-fr">il a prié · rezó</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">نَظَرَ</span><span class="ri-fr">il a regardé · miró</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">طَارَ</span><span class="ri-fr">il a volé · voló</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">سَبَّحَ</span><span class="ri-fr">il a glorifié · glorificó</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">خَلَقَ</span><span class="ri-fr">il a créé · creó</span></div> <div class="root-item fil-item" style="text-align:center;"><span class="ri-ar ar">قَرَأَ</span><span class="ri-fr">il a lu · leyó</span></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.8rem);">فِعْل + فَاعِل</div> <div class="card-title-fr serif">VERBE + SUJET</div> <div class="card-title-es serif">VERBO + SUJETO</div> <div class="card-sep"></div> <div class="card-rule-ar ar">الْفَاعِلُ هُوَ مَنْ قَامَ بِالْفِعْلِ</div> <div class="card-sep"></div> <div class="card-rule-fr"> En arabe, le <strong>فَاعِل</strong> (celui qui fait l’action) est toujours au <strong>cas nominatif</strong> (damma ُ).<br><br> Le verbe s’accorde avec le فَاعِل en <strong>genre</strong> :<br> فَاعِل مذكّر → فعل مذكّر<br> فَاعِل مؤنّث → فعل مؤنّث (+ تْ) </div> <div style="height:6px;"></div> <div class="card-rule-es">El <strong>فَاعِل</strong> siempre lleva damma ُ.<br>El verbo concuerda en <strong>género</strong> con el فَاعِل.<br>فاعل masc. → verbo masc. · فاعل fem. → verbo fem. (+ تْ)</div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">كَتَبَ</span> <span class="hn">الطَّالِبُ</span></div> <div class="ex-analyse" style="color:var(--green);">فعل مذكّر + فاعل مذكّر ✓</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">verbo masc. + فاعل masc. ✓</div> <div class="ex-fr">L’étudiant a écrit</div><div class="ex-es">El estudiante escribió</div> </div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">كَتَبَتِ</span> <span class="hn">الطَّالِبَةُ</span></div> <div class="ex-analyse" style="color:var(--green);">فعل مؤنّث (+ تْ) + فاعل مؤنّث ✓</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">verbo fem. (+ تْ) + فاعل fem. ✓</div> <div class="ex-fr">L’étudiante a écrit</div><div class="ex-es">La estudiante escribió</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Récap · Resumen</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="font-size:0.85rem;line-height:2;"> <strong>الفعل الماضي — à retenir · recordar :</strong><br> ✅ Gabarit · Patrón : <span style="font-family:'Amiri',serif;direction:rtl;font-size:1.1em;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">فَعَلَ</span><br> ✅ هي → + <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">تْ</span> à la fin · añadir تْ al final<br> ✅ أنت → + <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">تَ</span> à la fin · añadir تَ al final<br> ✅ أنا → + <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">تُ</span> à la fin · añadir تُ al final<br> ✅ Pas de tanwīn, pas de ال · sin tanwīn, sin ال<br> ✅ S’accorde en genre avec le فَاعِل · concuerda en género con el فَاعِل </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    } ],
+
+  /* ══════════════════════════════════ 3. المضارع ══════════════════════════════════ */ mudhari: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar">الْفِعْلُ الْمُضَارِع</div> <div class="card-title-fr serif">LE PRÉSENT / FUTUR</div> <div class="card-title-es serif">EL PRESENTE / FUTURO</div> <div class="card-sep"></div> <div class="card-rule-ar ar">يَدُلُّ عَلَى حَدَثٍ يَقَعُ الآنَ أَوْ سَيَقَع</div> <div class="card-sep"></div> <div class="gabarit-box"> <div class="gabarit-ar ar">يَفْعَلُ</div> <div class="gabarit-label serif">GABARIT DU PRÉSENT · PATRÓN DEL PRESENTE</div> </div> <div class="card-rule-fr" style="margin-bottom:8px;"> Le المضارع commence par une des <strong>4 lettres mudāri’a</strong><br> <em style="color:var(--text-soft);font-size:0.85rem;">El مضارع empieza por una de las <strong>4 letras mudāri’a</strong></em><br> <span style="font-family:'Amiri',serif;direction:rtl;font-size:1.4rem;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;color:var(--gold);">أَ · نَ · يَ · تَ</span><br>
+(mémo · recuerda : <strong>أَنَيْتُ</strong>) </div> <table class="conj-table green-header" dir="rtl" style="margin-top:6px;direction:rtl;"> <thead><tr> <th style="text-align:right;border-radius:0 8px 0 0;">ذ-ه-ب</th> <th>ك-ت-ب</th> <th>الضمير</th> <th style="direction:ltr;border-radius:8px 0 0 0;">FR · ES</th> </tr></thead> <tbody> <tr> <td class="ct-ar fil ar">يَذْهَبُ</td> <td class="ct-ar fil ar">يَكْتُبُ</td> <td class="ct-pron ar">هُوَ</td> <td class="ct-fr" style="direction:ltr;">il va · él va <span class="marker-badge mb-green">يَ</span></td> </tr> <tr> <td class="ct-ar fil ar">تَذْهَبُ</td> <td class="ct-ar fil ar">تَكْتُبُ</td> <td class="ct-pron ar">هِيَ</td> <td class="ct-fr" style="direction:ltr;">elle va · ella va <span class="marker-badge mb-green">تَ</span></td> </tr> <tr> <td class="ct-ar fil ar">تَذْهَبُ</td> <td class="ct-ar fil ar">تَكْتُبُ</td> <td class="ct-pron ar">أَنْتَ</td> <td class="ct-fr" style="direction:ltr;">tu vas · tú vas <span class="marker-badge mb-gold">تَ</span></td> </tr> <tr> <td class="ct-ar fil ar">أَذْهَبُ</td> <td class="ct-ar fil ar">أَكْتُبُ</td> <td class="ct-pron ar">أَنَا</td> <td class="ct-fr" style="direction:ltr;">je vais · yo voy <span class="marker-badge mb-purple">أَ</span></td> </tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples · Ejemplos</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples · Ejemplos</div></div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">يَقْرَأُ</span> <span class="hn">الْوَلَدُ</span> كُلَّ يَوْمٍ</div> <div class="ex-analyse" style="color:var(--green);">يَفْعَلُ — هو يقرأ (ق-ر-أ)</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">يَفْعَلُ — هو: él lee (ق-ر-أ)</div> <div class="ex-fr">Le garçon lit chaque jour</div><div class="ex-es">El niño lee cada día</div> </div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">تُصَلِّي</span> <span class="hn">الأُمُّ</span> فَجْراً</div> <div class="ex-analyse" style="color:var(--green);">تَفْعَلُ — هي تُصَلِّي</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">تَفْعَلُ — هي: ella reza</div> <div class="ex-fr">La mère prie le fajr</div><div class="ex-es">La madre reza el fajr</div> </div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">أَكْتُبُ</span> فِي <span class="hn">الدَّفْتَرِ</span></div> <div class="ex-analyse" style="color:var(--green);">أَفْعَلُ — أنا أَكْتُبُ</div><div class="ex-es" style="font-size:0.68rem;color:#7b5ea7;font-style:italic;">أَفْعَلُ — أنا: yo escribo</div> <div class="ex-fr">J’écris dans le cahier</div><div class="ex-es">Escribo en el cuaderno</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.8rem);">سَوْفَ · لَنْ · لَمْ</div> <div class="card-title-fr serif">PARTICULES DU PRÉSENT</div> <div class="card-title-es serif">PARTÍCULAS DEL PRESENTE</div> <div class="card-sep"></div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2rem;color:var(--gold);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">سَوْفَ / سَـ</div> <div class="ex-fr"><strong>سَوْفَ / سَـ</strong> + مضارع = futur<br>سَيَكْتُبُ = il va écrire</div><div class="ex-es"><strong>سَوْفَ / سَـ</strong> + مضارع = futuro<br>سَيَكْتُبُ = él va a escribir</div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">لَنْ</div> <div class="ex-fr"><strong>لَنْ</strong> + مضارع = futur négatif<br>لَنْ يَكْتُبَ = il n’écrira pas</div><div class="ex-es"><strong>لَنْ</strong> + مضارع = futuro negativo<br>لَنْ يَكْتُبَ = él no escribirá</div> </div> <div class="example-block"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:2rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">لَمْ</div> <div class="ex-fr"><strong>لَمْ</strong> + مضارع = passé négatif<br>لَمْ يَكْتُبْ = il n’a pas écrit</div><div class="ex-es"><strong>لَمْ</strong> + مضارع = pasado negativo<br>لَمْ يَكْتُبْ = él no escribió</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Récap المضارع</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="font-size:0.85rem;line-height:2;"> <strong>الفعل المضارع — à retenir (recordar):</strong><br> ✅ Gabarit : <span style="font-family:'Amiri',serif;direction:rtl;font-size:1.1em;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">يَفْعَلُ</span><br> ✅ Commence · Empieza siempre por : <span style="font-family:'Amiri',serif;direction:rtl;font-size:1.1em;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">أَ · نَ · يَ · تَ</span><br> ✅ هو/أنت/هي → préfixe · prefijo <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">يَ</span> ou <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">تَ</span><br> ✅ أنا → préfixe · prefijo <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;">أَ</span><br> ✅ سَـ/سَوْفَ = futur · لَنْ = futur négatif · لَمْ = passé négatif<br> <em style="color:var(--text-soft);font-size:0.82rem;">سَـ/سَوْفَ = futuro · لَنْ = futuro neg. · لَمْ = pasado neg.<br> ✅ Patrón يَفْعَلُ · Prefijos: يَ/تَ/أَ/نَ</em> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.2rem,3.8vw,1.7rem);">الفرق بين الماضي والمضارع</div> <div class="card-title-fr serif">PASSÉ VS PRÉSENT</div> <div class="card-title-es serif">PASADO VS PRESENTE</div> <div class="card-sep"></div> <table class="conj-table" dir="rtl" style="font-size:0.78rem;direction:rtl;"> <thead><tr> <th style="text-align:right;border-radius:0 8px 0 0;">الفعل</th> <th>النوع</th> <th style="direction:ltr;text-align:left;border-radius:8px 0 0 0;">FR · ES</th> </tr></thead> <tbody> <tr><td class="ct-ar fil ar" style="text-align:right;">كَتَبَ</td><td style="color:var(--burgundy);font-size:0.72rem;">ماضي</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">gabarit فَعَلَ · sin prefijo</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">يَكْتُبُ</td><td style="color:#8a6620;font-size:0.72rem;">مضارع</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">préfixe يَ · prefijo يَ</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">ذَهَبَ</td><td style="color:var(--burgundy);font-size:0.72rem;">ماضي</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">gabarit فَعَلَ · patrón فَعَلَ</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">يَذْهَبُ</td><td style="color:#8a6620;font-size:0.72rem;">مضارع</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">préfixe يَ · prefijo يَ</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">قَرَأَ</td><td style="color:var(--burgundy);font-size:0.72rem;">ماضي</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">gabarit فَعَلَ · patrón فَعَلَ</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">يَقْرَأُ</td><td style="color:#8a6620;font-size:0.72rem;">مضارع</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">préfixe يَ · prefijo يَ</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">صَلَّى</td><td style="color:var(--burgundy);font-size:0.72rem;">ماضي</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">gabarit فَعَّلَ · patrón فَعَّلَ</td></tr> <tr><td class="ct-ar fil ar" style="text-align:right;">يُصَلِّي</td><td style="color:#8a6620;font-size:0.72rem;">مضارع</td><td style="font-size:0.7rem;direction:ltr;text-align:left;">préfixe يُ · prefijo يُ</td></tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Astuce · Truco</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="font-size:0.88rem;line-height:2;margin-bottom:14px;"> 💡 <strong>Règle rapide · Regla rápida :</strong><br> Si le verbe commence par <span style="color:var(--gold);font-weight:700;">يَ/تَ/أَ/نَ</span> → c’est le <strong>مضارع</strong><br> Si le verbe commence par une <strong>consonne racine</strong> → c’est le <strong>ماضي</strong><br> <em style="color:var(--text-soft);">Si el verbo empieza por يَ/تَ/أَ/نَ → es مضارع · Si empieza por consonante raíz → es ماضي</em><br><br><em style="color:var(--text-soft);">Si el verbo empieza por يَ/تَ/أَ/نَ → es مضارع · Si empieza por consonante raíz → es ماضي</em> </div> <div class="example-block"> <div class="ex-ar ar" style="font-size:1.4rem;"><span style="color:var(--burgundy);">خَلَقَ</span> = ماضي · <span style="color:#8a6620;">يَخْلُقُ</span> = مضارع</div> <div class="ex-fr">Il a créé · Il crée</div><div class="ex-es">Creó · Crea</div> </div> <div class="example-block"> <div class="ex-ar ar" style="font-size:1.4rem;"><span style="color:var(--burgundy);">سَبَّحَ</span> = ماضي · <span style="color:#8a6620;">يُسَبِّحُ</span> = مضارع</div> <div class="ex-fr">Il a glorifié · Il glorifie</div><div class="ex-es">Glorificó · Glorifica</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    } ],
+
+  /* ══════════════════════════════════ 4. الأمر ══════════════════════════════════ */ amr: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar">فِعْلُ الأَمْر</div> <div class="card-title-fr serif">L’IMPÉRATIF · FI’L AL-AMR</div> <div class="card-title-es serif">EL IMPERATIVO · FI’L AL-AMR</div> <div class="card-sep"></div> <div class="card-rule-ar ar">فِعْلُ الأَمْرِ يَدُلُّ عَلَى طَلَبِ الْقِيَامِ بِفِعْلٍ</div> <div class="card-sep"></div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="color:#7b5ea7;">اُفْعُلْ</div> <div class="gabarit-label serif" style="color:#7b5ea7;">GABARIT DE L’IMPÉRATIF · PATRÓN DEL IMPERATIVO</div> </div> <div class="card-rule-fr"> L’impératif se forme à partir du <strong>مضارع · أنت</strong> :<br> <em style="color:var(--text-soft);font-size:0.85rem;">El imperativo se forma a partir del <strong>مضارع · أنت</strong> :</em><br> 1. On enlève le préfixe <strong>تَ</strong> · Se elimina el prefijo <strong>تَ</strong><br> 2. On ajoute une <strong>همزة الوصل</strong> si nécessaire · Se añade <strong>همزة الوصل</strong> si es necesario<br> 3. La dernière voyelle devient <strong>سكون</strong> · La última vocal se convierte en <strong>سكون</strong> </div> <div style="height:6px;"></div> <div class="card-rule-es">El imperativo se forma a partir del <strong>مضارع · أنت</strong>.</div> <div class="card-sep"></div> <table class="conj-table purple-header" dir="rtl" style="margin-top:4px;direction:rtl;"> <thead><tr> <th style="text-align:right;border-radius:0 8px 0 0;">الأمر</th> <th>المضارع (أنت)</th> <th style="direction:ltr;text-align:left;border-radius:8px 0 0 0;">FR · ES</th> </tr></thead> <tbody> <tr><td class="ct-ar ar" style="color:#7b5ea7;text-align:right;">اُكْتُبْ</td><td class="ct-ar ar" style="color:#8a6620;">تَكْتُبُ</td><td style="font-size:0.78rem;direction:ltr;text-align:left;">Écris ! · ¡Escribe!</td></tr> <tr><td class="ct-ar ar" style="color:#7b5ea7;text-align:right;">اِذْهَبْ</td><td class="ct-ar ar" style="color:#8a6620;">تَذْهَبُ</td><td style="font-size:0.78rem;direction:ltr;text-align:left;">Va ! · ¡Ve!</td></tr> <tr><td class="ct-ar ar" style="color:#7b5ea7;text-align:right;">اِقْرَأْ</td><td class="ct-ar ar" style="color:#8a6620;">تَقْرَأُ</td><td style="font-size:0.78rem;direction:ltr;text-align:left;">Lis ! · ¡Lee!</td></tr> <tr><td class="ct-ar ar" style="color:#7b5ea7;text-align:right;">صَلِّ</td><td class="ct-ar ar" style="color:#8a6620;">تُصَلِّي</td><td style="font-size:0.78rem;direction:ltr;text-align:left;">Prie ! · ¡Reza!</td></tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Exemples coraniques · Ejemplos</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Exemples coraniques · Ejemplos coránicos</div></div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar" style="font-size:clamp(1.6rem,5vw,2.2rem);"><span style="color:#7b5ea7;font-weight:700;">اِقْرَأْ</span> بِاسْمِ رَبِّكَ</div> <div class="ex-analyse" style="color:#7b5ea7;">فعل الأمر : اِقْرَأْ (ق-ر-أ) — Al-Alaq v.1</div> <div class="ex-fr">Lis au nom de ton Seigneur !</div><div class="ex-es">¡Lee en el nombre de tu Señor!</div> </div> <div class="example-block"> <div class="ex-ar ar" style="font-size:clamp(1.6rem,5vw,2.2rem);"><span style="color:#7b5ea7;font-weight:700;">قُلْ</span> هُوَ اللَّهُ أَحَدٌ</div> <div class="ex-analyse" style="color:#7b5ea7;">فعل الأمر : قُلْ (ق-و-ل) — Al-Ikhlas v.1</div> <div class="ex-fr">Dis : Allah est Un !</div><div class="ex-es">¡Di: Alá es Uno!</div> </div> <div class="example-block"> <div class="ex-ar ar" style="font-size:clamp(1.6rem,5vw,2.2rem);">فَ<span style="color:#7b5ea7;font-weight:700;">صَلِّ</span> لِرَبِّكَ وَ<span style="color:#7b5ea7;font-weight:700;">انْحَرْ</span></div> <div class="ex-analyse" style="color:#7b5ea7;">فعل الأمر : صَلِّ + انْحَرْ — Al-Kawthar v.2</div> <div class="ex-fr">Prie pour ton Seigneur et sacrifie !</div><div class="ex-es">¡Reza a tu Señor y sacrifica!</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.8rem);">تَلْخِيصُ الأَفْعَال</div> <div class="card-title-fr serif">RÉCAP DES 3 TEMPS</div> <div class="card-title-es serif">RESUMEN DE LOS 3 TIEMPOS</div> <div class="card-sep"></div> <table class="conj-table" style="font-size:0.75rem;"> <thead><tr><th>الزمن</th><th>ك-ت-ب</th><th>ق-ر-أ</th><th>ذ-ه-ب</th></tr></thead> <tbody> <tr> <td style="font-size:0.68rem;color:var(--burgundy);font-weight:700;">ماضي<br><em style="color:#aaa;font-weight:400;">passé · pasado</em></td> <td class="ct-ar fil ar" style="font-size:1.2rem;">كَتَبَ</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">قَرَأَ</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">ذَهَبَ</td> </tr> <tr> <td style="font-size:0.68rem;color:#8a6620;font-weight:700;">مضارع<br><em style="color:#aaa;font-weight:400;">présent · presente</em></td> <td class="ct-ar fil ar" style="font-size:1.2rem;">يَكْتُبُ</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">يَقْرَأُ</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">يَذْهَبُ</td> </tr> <tr> <td style="font-size:0.68rem;color:#7b5ea7;font-weight:700;">أمر<br><em style="color:#aaa;font-weight:400;">impér. · imper.</em></td> <td class="ct-ar ar" style="font-size:1.2rem;color:#7b5ea7;">اُكْتُبْ</td> <td class="ct-ar ar" style="font-size:1.2rem;color:#7b5ea7;">اِقْرَأْ</td> <td class="ct-ar ar" style="font-size:1.2rem;color:#7b5ea7;">اِذْهَبْ</td> </tr> </tbody> </table> <div class="card-sep"></div> <table class="conj-table" style="font-size:0.75rem;margin-top:0;"> <thead><tr><th>الزمن</th><th>ص-ل-و</th><th>خ-ل-ق</th><th>ق-و-ل</th></tr></thead> <tbody> <tr> <td style="font-size:0.68rem;color:var(--burgundy);font-weight:700;">ماضي</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">صَلَّى</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">خَلَقَ</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">قَالَ</td> </tr> <tr> <td style="font-size:0.68rem;color:#8a6620;font-weight:700;">مضارع</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">يُصَلِّي</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">يَخْلُقُ</td> <td class="ct-ar fil ar" style="font-size:1.2rem;">يَقُولُ</td> </tr> <tr> <td style="font-size:0.68rem;color:#7b5ea7;font-weight:700;">أمر</td> <td class="ct-ar ar" style="font-size:1.2rem;color:#7b5ea7;">صَلِّ</td> <td class="ct-ar ar" style="font-size:1.2rem;color:#7b5ea7;">اُخْلُقْ</td> <td class="ct-ar ar" style="font-size:1.2rem;color:#7b5ea7;">قُلْ</td> </tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">المفتاح الذهبي · La clé d’or</div></div> <div class="card-sep"></div> <div style="background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.3);border-radius:14px;padding:16px;margin-bottom:14px;text-align:center;"> <div style="font-size:0.72rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;margin-bottom:8px;">LA CLÉ D’OR</div> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.4rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga’ 1,'calt’ 1,'mark’ 1,'mkmk’ 1;line-height:1.8;">الفعل الماضي = بدون بادئة<br>الفعل المضارع = يَ · تَ · أَ · نَ<br>فعل الأمر = سكون في الآخر</div> </div> <div class="card-rule-fr" style="font-size:0.82rem;line-height:1.9;"> 🔑 <strong>Passé · Pasado</strong> = pas de préfixe · sin prefijo · gabarit فَعَلَ<br> 🔑 <strong>Présent · Presente</strong> = préfixe يَ/تَ/أَ/نَ · gabarit يَفْعَلُ<br> 🔑 <strong>Impératif · Imperativo</strong> = sukūn final · gabarit اُفْعُلْ<br><br> <em style="color:var(--text-soft);">🔑 Pasado = sin prefijo · patrón فَعَلَ<br>🔑 Presente = prefijo يَ/تَ/أَ/نَ · patrón يَفْعَلُ<br>🔑 Imperativo = sukūn final · patrón اُفْعُلْ</em> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    } ],
+
+  /* ══════════════════════════════════ 5. تعزيز القراءة ══════════════════════════════════ */ qiraa: [
+
+    /* ── TEXTE 1 : فِي الْمَائِدَة ── */
+    { type:'text',
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">تَعْزِيزُ الْقِرَاءَة · TEXTE 1</div></div> <div class="card-sep"></div> <div class="qiraa-legend"> <div class="legend-item"><div class="legend-dot-v"></div><span>فِعْل ماضي (vert foncé)</span></div> <div class="legend-item"><div class="legend-dot-r"></div><span>فِعْل مضارع (or)</span></div> <div class="legend-item"><div class="legend-dot-n"></div><span>فِعْل أمر (violet)</span></div> </div> <div class="qiraa-title-fr serif">فِي الْمَائِدَة · Le repas de famille · La cena familiar</div> <div class="qiraa-text ar"><span class="hl-v">جَلَسَتِ</span> <span style="color:var(--burgundy);font-weight:700;">الأُسْرَةُ</span> حَوْلَ <span style="color:var(--burgundy);font-weight:700;">الْمَائِدَةِ</span>.</div> <div class="qiraa-text ar"><span class="hl-v">قَالَتِ</span> <span style="color:var(--burgundy);font-weight:700;">الأُمُّ</span> : <span style="color:#7b5ea7;font-weight:700;font-family:'Amiri',serif;">كُلُوا</span> بِسْمِ اللَّهِ!</div> <div class="qiraa-text ar"><span class="hl-v">أَكَلَ</span> <span style="color:var(--burgundy);font-weight:700;">الأَبُ</span> وَ<span class="hl-v">شَرِبَ</span> <span style="color:var(--burgundy);font-weight:700;">الْعَصِيرَ</span>.</div> <div class="qiraa-text ar"><span style="color:var(--gold);font-weight:700;font-family:'Amiri',serif;">يُحِبُّ</span> <span style="color:var(--burgundy);font-weight:700;">عَزِيزٌ</span> <span style="color:var(--burgundy);font-weight:700;">الْخُبْزَ</span> وَ<span style="color:var(--gold);font-weight:700;font-family:'Amiri',serif;">يَأْكُلُ</span> كَثِيراً.</div> <div class="qiraa-text ar"><span class="hl-v">قَالَ</span> <span style="color:var(--burgundy);font-weight:700;">الأَبُ</span> : <span style="color:#7b5ea7;font-weight:700;font-family:'Amiri',serif;">كُلْ</span> بِيَمِينِكَ يَا عَزِيز!</div> <div class="qiraa-text ar"><span class="hl-v">قَالَ</span> <span style="color:var(--burgundy);font-weight:700;">عَزِيزٌ</span> : <span style="color:var(--burgundy);font-weight:700;">الطَّعَامُ</span> <span style="color:var(--burgundy);font-weight:700;">لَذِيذٌ</span> يَا أَبِي!</div> <div class="qiraa-text ar"><span class="hl-v">قَالَتِ</span> <span style="color:var(--burgundy);font-weight:700;">الأُمُّ</span> : <span style="color:#7b5ea7;font-weight:700;font-family:'Amiri',serif;">اشْكُرُوا</span> اللَّهَ عَلَى نِعَمِهِ!</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Traduction · Traducción</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Traduction · Traducción</div></div> <div style="font-size:0.86rem;line-height:1.5;padding:0 2px;"> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">جَلَسَتِ</span> La famille s’est <strong>assise</strong> autour de la table.</div> <div style="color:var(--text-soft);font-style:italic;">La familia se sentó alrededor de la mesa.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">قَالَتِ</span> La mère a dit : <span style="color:#7b5ea7;font-weight:700;">كُلُوا</span> Mangez au nom d’Allah ! <small style="color:#7b5ea7;">(أمر)</small></div> <div style="color:var(--text-soft);font-style:italic;">La madre dijo : <span style="color:#7b5ea7;">¡Comed</span> en el nombre de Alá ! <small style="color:#7b5ea7;">(imperativo)</small></div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">أَكَلَ</span> Le père a <strong>mangé</strong> et <span class="green">شَرِبَ</span> <strong>bu</strong> le jus.</div> <div style="color:var(--text-soft);font-style:italic;">El padre comió y bebió el zumo.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span style="color:var(--gold);font-weight:700;">يُحِبُّ</span> Aziz <strong>aime</strong> le pain et <span style="color:var(--gold);font-weight:700;">يَأْكُلُ</span> <strong>mange</strong> beaucoup. <small style="color:var(--gold);">(مضارع)</small></div> <div style="color:var(--text-soft);font-style:italic;">Aziz ama el pan y come mucho. <small style="color:var(--gold);">(presente)</small></div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">قَالَ</span> Le père dit : <span style="color:#7b5ea7;font-weight:700;">كُلْ</span> Mange de ta main droite ! <small style="color:#7b5ea7;">(أمر)</small></div> <div style="color:var(--text-soft);font-style:italic;">El padre dijo : <span style="color:#7b5ea7;">¡Come</span> con la mano derecha ! <small style="color:#7b5ea7;">(imperativo)</small></div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);font-family:Amiri,serif;direction:rtl;">الطَّعَامُ لَذِيذٌ <span style="font-family:Montserrat,sans-serif;font-size:0.7rem;direction:ltr;color:var(--burgundy);">← جملة اسمية !</span></div> <div style="color:var(--text-soft);font-style:italic;">La comida está deliciosa. ← جملة اسمية (¡sin verbo!)</div> </div> <div style="padding:6px 0;"> <div style="color:var(--text-dark);"><span style="color:#7b5ea7;font-weight:700;">اشْكُرُوا</span> Remerciez Allah pour ses bienfaits ! <small style="color:#7b5ea7;">(أمر)</small></div> <div style="color:var(--text-soft);font-style:italic;"><span style="color:#7b5ea7;">¡Dad gracias</span> a Alá por sus bendiciones ! <small style="color:#7b5ea7;">(imperativo)</small></div> </div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── QUESTIONS TEXTE 1 : فِي الْمَائِدَة ── */
+
+    { type:'mcq', adat:'مَاذَا',
+      ar:'مَاذَا قَالَتِ الأُمُّ قَبْلَ الطَّعَامِ؟',
+      fr:'Qu’a dit la mère avant le repas ?', es:'¿Qué dijo la madre antes de comer?',
+      opts:['كُلُوا بِسْمِ اللَّهِ','اجْلِسُوا','اشْكُرُوا اللَّهَ'],
+      correct:0,
+      fb_ok_ar:'✓ كُلُوا بِسْمِ اللَّهِ — كُلُوا = فعل أمر جمع (ك-ل-و) ✓',
+      fb_ok_fr:'كُلُوا بِسْمِ اللَّهِ — كُلُوا = فعل أمر pluriel ✓',
+      fb_ok_es:'كُلُوا بِسْمِ اللَّهِ — كُلُوا = فعل أمر plural ✓',
+      fb_ko_ar:'✗ قالت: كُلُوا بِسْمِ اللَّهِ — فعل الأمر',
+      fb_ko_fr:'Non — la mère a dit: كُلُوا بِسْمِ اللَّهِ (impératif)',
+      fb_ko_es:'No — la madre dijo: كُلُوا بِسْمِ اللَّهِ (imperativo)'
+    },
+    { type:'mcq', adat:'مَنْ',
+      ar:'مَنْ أَكَلَ وَشَرِبَ الْعَصِيرَ؟',
+      fr:'Qui a mangé et bu le jus ?', es:'¿Quién comió y bebió el zumo?',
+      opts:['الأَبُ','عَزِيزٌ','الأُمُّ'],
+      correct:0,
+      fb_ok_ar:'✓ الأَبُ — أَكَلَ وَشَرِبَ = فعلان ماضيان ✔',
+      fb_ok_fr:'Le père — أَكَلَ et شَرِبَ = deux فعل ماضي ✓',
+      fb_ok_es:'El padre — أَكَلَ y شَرِبَ = dos فعل ماضي ✓',
+      fb_ko_ar:'✗ الأَبُ هو من أكل وشرب',
+      fb_ko_fr:'Non — c’est le père',
+      fb_ko_es:'No — fue el padre'
+    },
+    { type:'mcq', adat:'كَيْفَ',
+      ar:'كَيْفَ كَانَ الطَّعَامُ؟',
+      fr:'Comment était la nourriture ?', es:'¿Cómo estaba la comida?',
+      opts:['لَذِيذٌ — جملة اسمية','بَارِدٌ — جملة اسمية','كَثِيرٌ — جملة اسمية'],
+      correct:0,
+      fb_ok_ar:'✓ الطَّعَامُ لَذِيذٌ — مبتدأ + خبر = جملة اسمية ✔',
+      fb_ok_fr:'لَذِيذٌ — الطَّعَامُ لَذِيذٌ = جملة اسمية sans verbe ✓',
+      fb_ok_es:'لَذِيذٌ — الطَّعَامُ لَذِيذٌ = جملة اسمية sin verbo ✓',
+      fb_ko_ar:'✗ الطَّعَامُ لَذِيذٌ في النص',
+      fb_ko_fr:'Non — Aziz a dit: الطَّعَامُ لَذِيذٌ',
+      fb_ko_es:'No — Aziz dijo: الطَّعَامُ لَذِيذٌ'
+    },
+    { type:'mcq', adat:'مَنْ',
+      ar:'مَنْ قَالَ «كُلْ بِيَمِينِكَ»؟',
+      fr:'Qui a dit «كُلْ بِيَمِينِكَ» ?', es:'¿Quién dijo «كُلْ بِيَمِينِكَ»?',
+      opts:['الأَبُ','الأُمُّ','عَزِيزٌ'],
+      correct:0,
+      fb_ok_ar:'✓ الأَبُ — كُلْ = فعل أمر (ك-ل-و) ✓',
+      fb_ok_fr:'Le père — كُلْ = فعل أمر ✓',
+      fb_ok_es:'El padre — كُلْ = فعل أمر ✓',
+      fb_ko_ar:'✗ الأَبُ قال ذلك',
+      fb_ko_fr:'Non — c’est le père',
+      fb_ko_es:'No — fue el padre'
+    },
+    { type:'mcq', adat:'',
+      ar:'أَيُّ هَذِهِ الأَفْعَالِ فِعْلٌ مَاضٍ؟',
+      fr:'Lequel de ces verbes est un فعل ماضي ?', es:'¿Cuál de estos verbos es فعل ماضي?',
+      opts:['جَلَسَتِ','يُحِبُّ','كُلُوا'],
+      correct:0,
+      fb_ok_ar:'✓ جَلَسَتِ = فعل ماضي مؤنّث — gabarit فَعَلَت · يُحِبُّ = مضارع · كُلُوا = أمر',
+      fb_ok_es:'جَلَسَتِ = فعل ماضي fem. — يُحِبُّ = مضارع · كُلُوا = أمر ✓',
+      fb_ko_ar:'✗ جَلَسَتِ هو الماضي · يُحِبُّ = مضارع · كُلُوا = أمر',
+      fb_ko_fr:'Non — جَلَسَتِ est le ماضي · يُحِبُّ = مضارع · كُلُوا = أمر',
+      fb_ko_es:'No — جَلَسَتِ es el ماضي · يُحِبُّ = مضارع · كُلُوا = أمر'
+    },
+    { type:'mcq', adat:'',
+      ar:'أَيُّ هَذِهِ الأَفْعَالِ فِعْلٌ مُضَارِع؟',
+      fr:'Lequel de ces verbes est un فعل مضارع ?', es:'¿Cuál de estos verbos es فعل مضارع?',
+      opts:['يَأْكُلُ','أَكَلَ','اشْكُرُوا'],
+      correct:0,
+      fb_ok_ar:'✓ يَأْكُلُ = فعل مضارع — يبدأ بـ يَ · أَكَلَ = ماضي · اشْكُرُوا = أمر',
+      fb_ok_es:'يَأْكُلُ = فعل مضارع — empieza por يَ ✓ · أَكَلَ = ماضي · اشْكُرُوا = أمر',
+      fb_ko_fr:'Non — يَأْكُلُ est le مضارع · أَكَلَ = ماضي · اشْكُرُوا = أمر',
+      fb_ko_es:'No — يَأْكُلُ es el مضارع · أَكَلَ = ماضي · اشْكُرُوا = أمر'
+    },
+    { type:'mcq', adat:'',
+      ar:'أَيُّ هَذِهِ الأَفْعَالِ فِعْلُ أَمْر؟',
+      fr:'Lequel de ces verbes est un فعل أمر ?', es:'¿Cuál de estos verbos es فعل أمر?',
+      opts:['اشْكُرُوا','قَالَ','يُحِبُّ'],
+      correct:0,
+      fb_ok_ar:'✓ اشْكُرُوا = فعل أمر جمع — السكون في الآخر · قَالَ = ماضي · يُحِبُّ = مضارع',
+      fb_ok_es:'اشْكُرُوا = فعل أمر plural — sukūn final ✓ · قَالَ = ماضي · يُحِبُّ = مضارع',
+      fb_ko_fr:'Non — اشْكُرُوا est l’أمر · قَالَ = ماضي · يُحِبُّ = مضارع',
+      fb_ko_es:'No — اشْكُرُوا es el أمر · قَالَ = ماضي · يُحِبُّ = مضارع'
+    },
+    { type:'mcq', adat:'',
+      ar:'مَا زَمَنُ الْفِعْلِ «يُحِبُّ»؟',
+      fr:'Quel est le temps du verbe «يُحِبُّ» ?', es:'¿Cuál es el tiempo del verbo «يُحِبُّ»?',
+      opts:['مضارع — يبدأ بـ يُ','ماضي — gabarit فَعَلَ','أمر — سكون في الآخر'],
+      correct:0,
+      fb_ok_ar:'✓ مضارع — يُحِبُّ يبدأ بـ يُ (حرف المضارعة) + يدل على الحال ✔',
+      fb_ok_fr:'مضارع — يُحِبُّ commence par يُ (lettre mudāri’a) ✓',
+      fb_ok_es:'مضارع — يُحِبُّ empieza por يُ (letra mudāri’a) ✓',
+      fb_ko_ar:'✗ يُحِبُّ مضارع — يبدأ بـ يُ',
+      fb_ko_fr:'Non — يُحِبُّ est مضارع car il commence par يُ',
+      fb_ko_es:'No — يُحِبُّ es مضارع porque empieza por يُ'
+    },
+    { type:'quiz', num:9, adat:'هَلْ',
+      ar:'هَلْ «جَلَسَتِ» تَأْخُذُ كَسْرَةً لأَنَّ التَّالِيَ هو «الأُسْرَةُ»؟',
+      fr:'«جَلَسَتِ» prend-il la kasra car il est suivi de «الأُسْرَةُ» ?', es:'¿«جَلَسَتِ» toma kasra porque va seguido de «الأُسْرَةُ»?',
+      answer:true,
+      ok_ar:'✓ نعم — التقاء الساكنين : تْ + ال → تِ · لا يمكن نطق ساكنين متتاليين ✓',
+      ok_fr:'Oui — التقاء الساكنين : تْ + ال → تِ · deux sukūn consécutifs impossibles ✓',
+      ok_es:'Sí — التقاء الساكنين : تْ + ال → تِ · dos sukūn consecutivos imposibles ✓',
+      ko_ar:'✗ بلى — تِ أمام ال لمنع التقاء الساكنين',
+      ko_fr:'Si ! تِ devant ال pour éviter التقاء الساكنين',
+      ko_es:'¡Sí! تِ delante de ال para evitar التقاء الساكنين'
+    },
+    { type:'quiz', num:10, adat:'هَلْ',
+      ar:'هَلْ «الطَّعَامُ لَذِيذٌ» جُمْلَةٌ اسْمِيَّةٌ بِدُونِ فِعْل؟',
+      fr:'«الطَّعَامُ لَذِيذٌ» est-elle une جملة اسمية sans verbe ?', es:'¿«الطَّعَامُ لَذِيذٌ» es una جملة اسمية sin verbo?',
+      answer:true,
+      ok_ar:'✓ نعم — مبتدأ: الطَّعَامُ · خبر: لَذِيذٌ · لا فعل = جملة اسمية ✓',
+      ok_fr:'Oui — مبتدأ: الطَّعَامُ · خبر: لَذِيذٌ · sans verbe = جملة اسمية ✓',
+      ok_es:'Sí — مبتدأ: الطَّعَامُ · خبر: لَذِيذٌ · sin verbo = جملة اسمية ✓',
+      ko_ar:'✗ بلى — مبتدأ + خبر بدون فعل = جملة اسمية',
+      ko_fr:'Si ! مبتدأ + خبر sans verbe = جملة اسمية',
+      ko_es:'¡Sí! مبتدأ + خبر sin verbo = جملة اسمية'
+    },
+
+    /* ── TEXTE 2 : فِي غَارِ حِرَاء ── */
+    { type:'text',
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">تَعْزِيزُ الْقِرَاءَة · TEXTE 2</div></div> <div class="card-sep"></div> <div class="qiraa-legend"> <div class="legend-item"><div class="legend-dot-v"></div><span>فِعْل ماضي (vert)</span></div> <div class="legend-item"><div class="legend-dot-r"></div><span>فِعْل مضارع (or)</span></div> <div class="legend-item"><div class="legend-dot-n"></div><span>فِعْل أمر (violet)</span></div> </div> <div class="qiraa-title-fr serif">فِي غَارِ حِرَاءٍ · Dans la grotte de Hirâ · En la cueva de Hirá</div> <div class="qiraa-text ar"><span class="hl-v">كَانَ</span> <span style="color:var(--burgundy);font-weight:700;">النَّبِيُّ ﷺ</span> <span style="color:var(--gold);font-weight:700;font-family:'Amiri',serif;">يَتَعَبَّدُ</span> فِي <span style="color:var(--burgundy);font-weight:700;">غَارِ حِرَاءٍ</span>.</div> <div class="qiraa-text ar"><span class="hl-v">نَزَلَ</span> <span style="color:var(--burgundy);font-weight:700;">جِبْرِيلُ</span> وَ<span class="hl-v">ضَمَّ</span> <span style="color:var(--burgundy);font-weight:700;">النَّبِيَّ</span> وَ<span class="hl-v">قَالَ</span> : <span style="color:#7b5ea7;font-weight:700;font-family:'Amiri',serif;">اِقْرَأْ</span>!</div> <div class="qiraa-text ar"><span class="hl-v">قَالَ</span> <span style="color:var(--burgundy);font-weight:700;">النَّبِيُّ ﷺ</span> : مَا أَنَا بِقَارِئٍ.</div> <div class="qiraa-text ar"><span class="hl-v">ضَمَّهُ</span> <span style="color:var(--burgundy);font-weight:700;">جِبْرِيلُ</span> ثَانِيَةً وَ<span class="hl-v">قَالَ</span> : <span style="color:#7b5ea7;font-weight:700;font-family:'Amiri',serif;">اِقْرَأْ</span> بِاسْمِ رَبِّكَ الَّذِي <span class="hl-v">خَلَقَ</span>!</div> <div class="qiraa-text ar"><span class="hl-v">رَجَعَ</span> <span style="color:var(--burgundy);font-weight:700;">النَّبِيُّ ﷺ</span> إِلَى <span style="color:var(--burgundy);font-weight:700;">بَيْتِهِ</span> وَهُوَ <span style="color:var(--gold);font-weight:700;font-family:'Amiri',serif;">يَرْتَجِفُ</span>.</div> <div class="qiraa-text ar"><span class="hl-v">قَالَتْ</span> <span style="color:var(--burgundy);font-weight:700;">خَدِيجَةُ</span> : <span style="color:#7b5ea7;font-weight:700;font-family:'Amiri',serif;">لَا تَخَفْ</span>! <span style="color:var(--burgundy);font-weight:700;">اللَّهُ</span> <span style="color:var(--gold);font-weight:700;font-family:'Amiri',serif;">يَحْمِيكَ</span>.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Traduction · Traducción</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Traduction · Traducción</div></div> <div style="font-size:0.86rem;line-height:1.5;padding:0 2px;"> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">كَانَ</span> Le Prophète ﷺ était en adoration dans la grotte de Hirâ. <span style="color:var(--gold);font-size:0.75rem;">يَتَعَبَّدُ = مضارع</span></div> <div style="color:var(--text-soft);font-style:italic;">El Profeta ﷺ estaba adorando a Alá en la cueva de Hirá. <span style="color:var(--gold);font-size:0.75rem;">يَتَعَبَّدُ = مضارع</span></div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">نَزَلَ</span> Jibrîl descendit, <span class="green">ضَمَّ</span> enlaça le Prophète et dit : <span style="color:#7b5ea7;font-weight:700;">اِقْرَأْ</span> Lis ! <small style="color:#7b5ea7;">(أمر)</small></div> <div style="color:var(--text-soft);font-style:italic;">Jibrîl bajó, abrazó al Profeta y dijo : <span style="color:#7b5ea7;">¡Lee!</span> <small style="color:#7b5ea7;">(imperativo)</small></div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">قَالَ</span> Le Prophète ﷺ dit : Je ne sais pas lire.</div> <div style="color:var(--text-soft);font-style:italic;">El Profeta ﷺ dijo : No sé leer.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);">Jibrîl <span class="green">ضَمَّهُ</span> enlaça à nouveau et dit : <span style="color:#7b5ea7;font-weight:700;">اِقْرَأْ</span> au nom de ton Seigneur qui <span class="green">خَلَقَ</span> a créé !</div> <div style="color:var(--text-soft);font-style:italic;">Jibrîl lo abrazó de nuevo y dijo : <span style="color:#7b5ea7;">¡Lee</span> en el nombre de tu Señor que creó!</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);"><span class="green">رَجَعَ</span> Le Prophète ﷺ rentra chez lui en <span style="color:var(--gold);font-weight:700;">يَرْتَجِفُ</span> tremblant. <small style="color:var(--gold);">(مضارع)</small></div> <div style="color:var(--text-soft);font-style:italic;">El Profeta ﷺ volvió a casa temblando. <small style="color:var(--gold);">(presente)</small></div> </div> <div style="padding:6px 0;"> <div style="color:var(--text-dark);"><span class="green">قَالَتْ</span> Khadîja dit : <span style="color:#7b5ea7;font-weight:700;">لَا تَخَفْ</span> N’aie pas peur ! Allah <span style="color:var(--gold);font-weight:700;">يَحْمِيكَ</span> te protège.</div> <div style="color:var(--text-soft);font-style:italic;">Jadiya dijo : <span style="color:#7b5ea7;">¡No temas!</span> Alá <span style="color:var(--gold);">te protege</span>.</div> </div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    },
+
+    /* ── QUESTIONS TEXTE 2 : فِي غَارِ حِرَاءٍ ── */
+
+    { type:'mcq', adat:'أَيْنَ',
+      ar:'أَيْنَ كَانَ النَّبِيُّ ﷺ؟',
+      fr:'Où était le Prophète ﷺ ?', es:'¿Dónde estaba el Profeta ﷺ?',
+      opts:['فِي غَارِ حِرَاءٍ','فِي الْمَسْجِدِ','فِي بَيْتِهِ'],
+      correct:0,
+      fb_ok_ar:'✓ فِي غَارِ حِرَاءٍ — كَانَ = فعل ماضي · يَتَعَبَّدُ = مضارع ✓',
+      fb_ok_fr:'في غار حراء — كَانَ = فعل ماضي · يَتَعَبَّدُ = مضارع ✓',
+      fb_ok_es:'في غار حراء — كَانَ = فعل ماضي · يَتَعَبَّدُ = مضارع ✓',
+      fb_ko_ar:'✗ كان في غار حراء يتعبّد',
+      fb_ko_fr:'Non — il était في غار حراء',
+      fb_ko_es:'No — estaba في غار حراء'
+    },
+    { type:'mcq', adat:'مَاذَا',
+      ar:'مَاذَا قَالَ جِبْرِيلُ لِلنَّبِيِّ؟ وَمَا نَوْعُ هَذَا الْفِعْل؟',
+      fr:'Que dit Jibrîl au Prophète ? Quel type de فعل ?', es:'¿Qué dijo Jibrîl al Profeta? ¿Qué tipo de فعل?',
+      opts:['اِقْرَأْ — فعل أمر','اِقْرَأْ — فعل ماضي','اِقْرَأْ — فعل مضارع'],
+      correct:0,
+      fb_ok_ar:'✓ اِقْرَأْ = فعل أمر (ق-ر-أ) · السكون في الآخر · أول وحي ✓',
+      fb_ok_fr:'اِقْرَأْ = فعل أمر (ق-ر-أ) · sukūn final · premier verset révélé ✓',
+      fb_ok_es:'اِقْرَأْ = فعل أمر (ق-ر-أ) · sukūn final · primer versículo revelado ✓',
+      fb_ko_ar:'✗ اِقْرَأْ = فعل أمر — السكون علامة الأمر',
+      fb_ko_fr:'Non — اِقْرَأْ = فعل أمر (sukūn final)',
+      fb_ko_es:'No — اِقْرَأْ = فعل أمر (sukūn final)'
+    },
+    { type:'mcq', adat:'كَيْفَ',
+      ar:'كَيْفَ رَجَعَ النَّبِيُّ ﷺ إِلَى بَيْتِهِ؟',
+      fr:'Comment le Prophète ﷺ est-il rentré ?', es:'¿Cómo regresó el Profeta ﷺ?',
+      opts:['وَهُوَ يَرْتَجِفُ — مضارع','وَهُوَ يَضْحَكُ','وَهُوَ يَنَامُ'],
+      correct:0,
+      fb_ok_ar:'✓ يَرْتَجِفُ = فعل مضارع يصف الحال ✔',
+      fb_ok_fr:'يَرْتَجِفُ = فعل مضارع décrivant l’état ✓',
+      fb_ok_es:'يَرْتَجِفُ = فعل مضارع que describe el estado ✓',
+      fb_ko_ar:'✗ رَجَعَ وَهُوَ يَرْتَجِفُ',
+      fb_ko_fr:'Non — يَرْتَجِفُ = فعل مضارع',
+      fb_ko_es:'No — يَرْتَجِفُ = فعل مضارع'
+    },
+    { type:'mcq', adat:'مَنْ',
+      ar:'مَنْ قَالَتْ «لَا تَخَفْ» لِلنَّبِيِّ؟',
+      fr:'Qui a dit «lَا تَخَفْ» au Prophète ?', es:'¿Quién dijo «لَا تَخَفْ» al Profeta?',
+      opts:['خَدِيجَةُ','جِبْرِيلُ','الأُمُّ'],
+      correct:0,
+      fb_ok_ar:'✓ خَدِيجَةُ — قَالَتْ = فعل ماضي مؤنّث (+ تْ) ✓',
+      fb_ok_fr:'Khadîja — قَالَتْ = فعل ماضي féminin (+ تْ) ✓',
+      fb_ok_es:'Jadiya — قَالَتْ = فعل ماضي femenino (+ تْ) ✓',
+      fb_ko_ar:'✗ خَدِيجَةُ هي من قالت ذلك',
+      fb_ko_fr:'Non — c’est Khadîja',
+      fb_ko_es:'No — fue Jadiya'
+    },
+    { type:'mcq', adat:'',
+      ar:'أَيُّ هَذِهِ الأَفْعَالِ فِعْلٌ مَاضٍ؟',
+      fr:'Lequel de ces verbes est un فعل ماضي ?', es:'¿Cuál de estos verbos es فعل ماضي?',
+      opts:['نَزَلَ','يَتَعَبَّدُ','اِقْرَأْ'],
+      correct:0,
+      fb_ok_ar:'✓ نَزَلَ = فعل ماضي (ن-ز-ل) — gabarit فَعَلَ · يَتَعَبَّدُ = مضارع · اِقْرَأْ = أمر',
+      fb_ok_fr:'نَزَلَ = فعل ماضي — يَتَعَبَّدُ = مضارع · اِقْرَأْ = أمر ✓',
+      fb_ok_es:'نَزَلَ = فعل ماضي — يَتَعَبَّدُ = مضارع · اِقْرَأْ = أمر ✓',
+      fb_ko_ar:'✗ نَزَلَ هو الماضي · يَتَعَبَّدُ مضارع · اِقْرَأْ أمر',
+      fb_ko_fr:'Non — نَزَلَ est le ماضي · يَتَعَبَّدُ = مضارع · اِقْرَأْ = أمر',
+      fb_ko_es:'No — نَزَلَ es el ماضي · يَتَعَبَّدُ = مضارع · اِقْرَأْ = أمر'
+    },
+    { type:'mcq', adat:'',
+      ar:'أَيُّ هَذِهِ الأَفْعَالِ فِعْلٌ مُضَارِع؟',
+      fr:'Lequel de ces verbes est un فعل مضارع ?', es:'¿Cuál de estos verbos es فعل مضارع?',
+      opts:['يَرْتَجِفُ','ضَمَّ','اِقْرَأْ'],
+      correct:0,
+      fb_ok_ar:'✓ يَرْتَجِفُ = فعل مضارع — يبدأ بـ يَ · ضَمَّ = ماضي · اِقْرَأْ = أمر',
+      fb_ok_es:'يَرْتَجِفُ = فعل مضارع — empieza por يَ ✓ · ضَمَّ = ماضي · اِقْرَأْ = أمر',
+      fb_ko_fr:'Non — يَرْتَجِفُ est le مضارع · ضَمَّ = ماضي · اِقْرَأْ = أمر',
+      fb_ko_es:'No — يَرْتَجِفُ es el مضارع · ضَمَّ = ماضي · اِقْرَأْ = أمر'
+    },
+    { type:'mcq', adat:'',
+      ar:'أَيُّ هَذِهِ الأَفْعَالِ فِعْلُ أَمْر؟',
+      fr:'Lequel de ces verbes est un فعل أمر ?', es:'¿Cuál de estos verbos es فعل أمر?',
+      opts:['اِقْرَأْ','خَلَقَ','يَحْمِيكَ'],
+      correct:0,
+      fb_ok_ar:'✓ اِقْرَأْ = فعل أمر (ق-ر-أ) — السكون في الآخر · خَلَقَ = ماضي · يَحْمِيكَ = مضارع',
+      fb_ok_es:'اِقْرَأْ = فعل أمر — sukūn final ✓ · خَلَقَ = ماضي · يَحْمِيكَ = مضارع',
+      fb_ko_fr:'Non — اِقْرَأْ est l’أمر · خَلَقَ = ماضي · يَحْمِيكَ = مضارع',
+      fb_ko_es:'No — اِقْرَأْ es el أمر · خَلَقَ = ماضي · يَحْمِيكَ = مضارع'
+    },
+    { type:'mcq', adat:'',
+      ar:'مَا زَمَنُ الْفِعْلِ «يَحْمِيكَ»؟',
+      fr:'Quel est le temps du verbe «يَحْمِيكَ» ?', es:'¿Cuál es el tiempo de «يَحْمِيكَ»?',
+      opts:['مضارع — يبدأ بـ يَ','ماضي — gabarit فَعَلَ','أمر — سكون في الآخر'],
+      correct:0,
+      fb_ok_ar:'✓ مضارع — يَحْمِيكَ يبدأ بـ يَ · يدل على الحال/المستقبل ✔',
+      fb_ok_fr:'مضارع — يَحْمِيكَ commence par يَ ✓',
+      fb_ok_es:'مضارع — يَحْمِيكَ empieza por يَ ✓',
+      fb_ko_ar:'✗ يَحْمِيكَ مضارع لأنه يبدأ بـ يَ',
+      fb_ko_fr:'Non — يَحْمِيكَ est مضارع (commence par يَ)',
+      fb_ko_es:'No — يَحْمِيكَ es مضارع (empieza por يَ)'
+    },
+    { type:'quiz', num:9, adat:'هَلْ',
+      ar:'هَلْ «يَتَعَبَّدُ» فِعْلٌ مُضَارِع؟',
+      fr:'«يَتَعَبَّدُ» est-il un فعل مضارع ?', es:'¿«يَتَعَبَّدُ» es un فعل مضارع?',
+      answer:true,
+      ok_ar:'✓ نعم — يَتَعَبَّدُ يبدأ بـ يَ (حرف المضارعة) · وزنه يَتَفَعَّلُ ✔',
+      ok_fr:'Oui — يَتَعَبَّدُ commence par يَ (lettre mudāri’a) ✓',
+      ok_es:'Sí — يَتَعَبَّدُ empieza por يَ (letra mudāri’a) ✓',
+      ko_ar:'✗ بلى — يَتَعَبَّدُ مضارع · يبدأ بـ يَ',
+      ko_fr:'Si ! يَتَعَبَّدُ commence par يَ → فعل مضارع',
+      ko_es:'¡Sí! يَتَعَبَّدُ empieza por يَ → فعل مضارع'
+    },
+    { type:'quiz', num:10, adat:'هَلْ',
+      ar:'هَلْ «لَا تَخَفْ» = لَا النَّهْيِ + فِعْلٌ مُضَارِع؟',
+      fr:'«لَا تَخَفْ» = لَا de défense + فعل مضارع ?', es:'¿«لَا تَخَفْ» = لَا de prohibición + فعل مضارع?',
+      answer:true,
+      ok_ar:'✓ نعم — لَا النهي + مضارع = أمر سلبي (نهي) · يَخَافُ (يَخَفْ) = مضارع مجزوم ✔',
+      ok_fr:'Oui — لَا + مضارع = impératif négatif (défense) · يَخَفْ = مضارع majzūm ✓',
+      ok_es:'Sí — لَا + مضارع = imperativo negativo · يَخَفْ = مضارع majzūm ✓',
+      ko_ar:'✗ بلى — لَا تَخَفْ = لَا النهي + مضارع = نهي',
+      ko_fr:'Si ! لَا + مضارع = défense (impératif négatif)',
+      ko_es:'¡Sí! لَا + مضارع = prohibición (imperativo negativo)'
+    },
+
+    /* ── VERSETS CORANIQUES ── */
+    { type:'text',
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">مِنَ الْقُرْآنِ الْكَرِيمِ</div></div> <div class="card-sep"></div> <div class="qiraa-legend"> <div class="legend-item"><div class="legend-dot-v"></div><span>فِعْل (vert)</span></div> <div class="legend-item"><div class="legend-dot-n"></div><span>اسم (bordeaux)</span></div> </div> <div style="display:flex;flex-direction:column;gap:11px;width:100%;margin-top:4px;"> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">اِقْرَأْ</span> بِاسْمِ <span class="hl-n">رَبِّكَ</span> الَّذِي <span class="hl-v">خَلَقَ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">العلق v.1 — فعل أمر + فعل ماضي</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">خَلَقَ</span> <span class="hl-n">الإِنسَانَ</span> مِنْ <span class="hl-n">عَلَقٍ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">العلق v.2 — فعل ماضي</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">سَبَّحَ</span> لِلَّهِ مَا فِي <span class="hl-n">السَّمَاوَاتِ</span> وَ<span class="hl-n">الْأَرْضِ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الحديد v.1 — فعل ماضي</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">قُلْ</span> هُوَ <span class="hl-n">اللَّهُ</span> أَحَدٌ</div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الإخلاص v.1 — فعل أمر</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);">أَلَمْ <span class="hl-v">تَرَ</span> كَيْفَ <span class="hl-v">فَعَلَ</span> <span class="hl-n">رَبُّكَ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الفيل v.1 — فعل مضارع + فعل ماضي</div> </div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;5 autres versets · Analyse</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">5 autres versets · Analyse</div></div> <div class="card-sep"></div> <div style="display:flex;flex-direction:column;gap:10px;width:100%;"> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);">فَ<span class="hl-v">صَلِّ</span> لِرَبِّكَ وَ<span class="hl-v">انْحَرْ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الكوثر v.2 — 2 أفعال أمر · Prie et sacrifie !</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">يُسَبِّحُ</span> لِلَّهِ مَا فِي <span class="hl-n">السَّمَاوَاتِ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الجمعة v.1 — فعل مضارع · glorifie Allah</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);">إِنَّا <span class="hl-v">أَعْطَيْنَاكَ</span> <span class="hl-n">الْكَوْثَرَ</span></div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الكوثر v.1 — فعل ماضي (نحن) · We gave you al-Kawthar</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">وَعَلَّمَ</span> <span class="hl-n">آدَمَ</span> <span class="hl-n">الأَسْمَاءَ</span> كُلَّهَا</div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">البقرة v.31 — فعل ماضي · Il enseigna à Adam les noms</div> </div> <div style="background:rgba(45,122,58,0.04);border-right:3px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0;direction:rtl;text-align:right;"> <div class="qiraa-text ar" style="margin:0 0 3px;font-size:clamp(1.2rem,3.8vw,1.6rem);"><span class="hl-v">خَلَقَ</span> كُلَّ شَيْءٍ فَ<span class="hl-v">قَدَّرَهُ</span> تَقْدِيراً</div> <div style="font-size:0.65rem;color:var(--text-soft);font-style:italic;direction:ltr;text-align:left;">الفرقان v.2 — 2 أفعال ماضي · Il créa et mesura tout</div> </div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+    } ]
+};
+
+/* ══ STATE & RENDU ══ */
+const State = { fil:     {idx:0,flipped:false}, madhi:   {idx:0,flipped:false}, mudhari: {idx:0,flipped:false}, amr:     {idx:0,flipped:false}, qiraa:   {idx:0,flipped:false}
+};
+
+const $=id=>document.getElementById(id);
+const views={select:$("view-select"),fil:$("view-fil"),madhi:$("view-madhi"),mudhari:$("view-mudhari"),amr:$("view-amr"),qiraa:$("view-qiraa")};
+
+function showView(n){Object.values(views).forEach(v=>v.classList.add("hidden"));views[n].classList.remove("hidden");}
+
+function renderSection(section){
+const s=State[section];
+const cards=DATA[section];
+const card=cards[s.idx]; s.flipped=false;
+const flip=$("card-"+section); flip.classList.remove("flipped");
+
+if(card.type==='quiz'){ flip.onclick=null;flip.style.cursor='default';
+var adat=card.adat?'<span class="ar" style="font-family:Amiri,serif;font-size:1.8rem;color:var(--gold);direction:rtl;font-weight:700;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+card.adat+'</span> ':''; $(section+"-front").innerHTML= '<div class="card-brand" style="margin-bottom:8px;"><div class="card-brand-ar ar" style="font-size:2rem;">دار الكلمة</div>' +'<div class="card-brand-fr serif" style="font-size:0.8rem;letter-spacing:2px;color:var(--burgundy);opacity:0.8;">تَعْزِيزُ الْقِرَاءَة</div></div>' +'<div class="card-sep"></div>' +'<div class="quiz-num">QUESTION '+card.num+' / 3 &nbsp;·&nbsp; PREGUNTA '+card.num+' / 3</div>' +'<div style="text-align:center;margin:6px 0 10px;">'+adat+'</div>' +'<div class="quiz-q-ar ar">'+card.ar+'</div>' +'<div class="quiz-q-fr">'+card.fr+'</div>' +'<div class="quiz-q-es">'+card.es+'</div>' +'<div class="quiz-btns">' +'<button class="quiz-btn quiz-btn-oui" onclick="answerQuiz(\''+section+'\',true)">نعم<br><small>Oui · Sí</small></button>' +'<button class="quiz-btn quiz-btn-non" onclick="answerQuiz(\''+section+'\',false)">لا<br><small>Non · No</small></button>' +'</div><div class="quiz-feedback" id="qfb-'+section+'"></div>'; $(section+"-back").innerHTML='';
+  } else if(card.type==='mcq'){ flip.onclick=null;flip.style.cursor='default';
+var adat2=card.adat?'<span class="ar" style="font-family:Amiri,serif;font-size:1.8rem;color:var(--gold);direction:rtl;font-weight:700;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+card.adat+'</span> ':'';
+var optsHtml=''; card.opts.forEach(function(opt,i){ optsHtml+='<button class="mcq-btn" onclick="answerMCQ(\''+section+'\','+i+')" data-idx="'+i+'">' +'<span class="ar" style="font-family:Amiri,serif;font-size:clamp(1rem,3.5vw,1.3rem);direction:rtl;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+opt+'</span></button>';
+    }); $(section+"-front").innerHTML= '<div class="card-brand" style="margin-bottom:8px;"><div class="card-brand-ar ar" style="font-size:2rem;">دار الكلمة</div>' +'<div class="card-brand-fr serif" style="font-size:0.8rem;letter-spacing:2px;color:var(--burgundy);opacity:0.8;">تَعْزِيزُ الْقِرَاءَة</div></div>' +'<div class="card-sep"></div>' +'<div style="text-align:center;margin:6px 0 10px;">'+adat2+'</div>' +'<div class="quiz-q-ar ar">'+card.ar+'</div>' +'<div class="quiz-q-fr">'+card.fr+'</div>' +'<div class="quiz-q-es" style="margin-bottom:12px;">'+card.es+'</div>' +'<div style="width:100%;margin-bottom:10px;">'+optsHtml+'</div>' +'<div class="quiz-feedback" id="qfb-'+section+'"></div>'; $(section+"-back").innerHTML='';
+  } else { flip.onclick=function(){flipCard(section);}; flip.style.cursor='pointer'; $(section+"-front").innerHTML=card.front; $(section+"-back").innerHTML=card.back;
+  }
+ $(section+"-curr").textContent=s.idx+1;
+if($(section+"-tot"))$(section+"-tot").textContent=cards.length; $(section+"-prev").disabled=(s.idx===0); $(section+"-next").disabled=(s.idx===cards.length-1); $(section+"-front").scrollTop=0; $(section+"-back").scrollTop=0;
+}
+
+window.answerQuiz=function(section,chosen){
+var card=DATA[section][State[section].idx];
+var fb=document.getElementById('qfb-'+section);
+var correct=(chosen===card.answer); document.querySelectorAll('#view-'+section+' .quiz-btn').forEach(function(b){b.disabled=true;}); fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+var ar=correct?card.ok_ar:card.ko_ar;
+var fr=correct?card.ok_fr:card.ko_fr;
+var es=correct?card.ok_es:card.ko_es; fb.innerHTML='<div style="font-family:Amiri,serif;font-size:1rem;direction:rtl;margin-bottom:5px;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+ar+'</div><div style="margin-bottom:3px;font-weight:600;">'+fr+'</div><em>'+es+'</em>';
+};
+
+window.answerMCQ=function(section,chosen){
+var card=DATA[section][State[section].idx];
+var fb=document.getElementById('qfb-'+section);
+var correct=(chosen===card.correct); document.querySelectorAll('#view-'+section+' .mcq-btn').forEach(function(b){b.disabled=true;});
+var chosenBtn=document.querySelector('#view-'+section+' .mcq-btn[data-idx="'+chosen+'"]');
+var correctBtn=document.querySelector('#view-'+section+' .mcq-btn[data-idx="'+card.correct+'"]');
+if(correct){chosenBtn.classList.add('mcq-correct');} else{chosenBtn.classList.add('mcq-wrong');if(correctBtn)correctBtn.classList.add('mcq-correct');} fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+var ar=correct?card.fb_ok_ar:card.fb_ko_ar;
+var fr=correct?card.fb_ok_fr:card.fb_ko_fr;
+var es=correct?card.fb_ok_es:card.fb_ko_es; fb.innerHTML='<div style="font-family:Amiri,serif;font-size:1rem;direction:rtl;margin-bottom:5px;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+ar+'</div><div style="margin-bottom:3px;font-weight:600;">'+fr+'</div><em>'+es+'</em>';
+};
+
+window.openSection=function(section){
+State[section].idx=0;State[section].flipped=false; renderSection(section);showView(section);
+};
+window.goHome=function(){showView("select");};
+window.flipCard=function(section){
+State[section].flipped=!State[section].flipped; $("card-"+section).classList.toggle("flipped",State[section].flipped);
+};
+window.navigate=function(section,dir){
+var s=State[section];
+var next=s.idx+dir;
+if(next<0||next>=DATA[section].length)return; s.idx=next;renderSection(section);
+};
+
+["fil","madhi","mudhari","amr","qiraa"].forEach(function(section){
+var tx=0;
+var el=$("view-"+section); el.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},{passive:true}); el.addEventListener("touchend",function(e){
+var dx=tx-e.changedTouches[0].clientX;
+if(Math.abs(dx)>55){dx>0?navigate(section,1):navigate(section,-1);}
+  },{passive:true});
+});
+
+})();
+</script>
+</body>
+</html>
