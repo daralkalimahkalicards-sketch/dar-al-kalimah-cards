@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Dar Al-Kalimah – Leçon 11 | الجُمْلَةُ الفِعْلِيَّة · الْمُعَوِّذَتَان</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --burgundy:#5D1828;--burgundy-dark:#3a0f19;
+      --gold:#C8A462;--gold-light:#dfc28b;
+      --green:#2d7a3a;--green-light:#e8f5e9;
+      --blue:#2a5fa8;
+      --white:#FFFFFF;--bg-beige:#FAF6F0;
+      --text-dark:#2C3E50;--text-soft:#8c775a;
+      --shadow-soft:0 8px 25px rgba(93,24,40,0.06);
+      --shadow-card:0 20px 50px rgba(93,24,40,0.10);
+      --transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      --radius-xl:28px;--radius-lg:22px;--radius-md:18px;--radius-sm:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+    body{min-height:100vh;min-height:100dvh;background:var(--bg-beige);font-family:"Montserrat",sans-serif;color:var(--text-dark);padding:16px 14px 50px;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
+    button,a{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
+    .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.7;}
+    .serif{font-family:"Cinzel","Georgia",serif;}
+    .hidden{display:none!important;}
+    .view{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;animation:up .38s ease-out;}
+    @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+    /* ── HEADER MENU ── */
+    .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
+    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:2px;line-height:1;}
+    .menu-brand-sub{font-size:0.72rem;letter-spacing:5px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;margin-bottom:12px;font-family:"Cinzel",serif;}
+    .menu-title{font-size:1rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:2px;}
+    .menu-title-sub{font-size:0.82rem;color:var(--burgundy);font-weight:600;margin-bottom:6px;}
+    .menu-title-es{font-size:0.78rem;color:#999;letter-spacing:1.5px;text-transform:uppercase;}
+    .menu-title-es-sub{font-size:0.7rem;color:#bbb;font-style:italic;}
+    .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.8rem;border-radius:999px;background:transparent;border:none;}
+
+    /* ── CARTES THÈME ── */
+    .theme-list{width:100%;display:flex;flex-direction:column;gap:22px;}
+    .theme-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:36px 24px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;cursor:pointer;}
+    .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
+    .theme-card:active{transform:scale(0.98);}
+    .theme-card.jomla-card{border-top:4px solid var(--burgundy);}
+    .theme-card.muawwidh-card{border-top:4px solid var(--gold);}
+    .theme-icon-wrap{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 20px rgba(0,0,0,0.14);}
+    .theme-title-ar{font-size:clamp(1.6rem,5vw,2.2rem);color:var(--burgundy);font-weight:700;margin-bottom:14px;line-height:1.4;}
+    .theme-divider{width:70px;height:2px;background:var(--gold);margin-bottom:12px;opacity:0.5;border-radius:2px;}
+    .theme-title-fr{font-weight:700;font-size:1.1rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+    .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
+
+    /* ── SOUS-MENU المعوذتان ── */
+    .submenu-list{width:100%;display:flex;flex-direction:column;gap:22px;}
+    .sub-back{color:var(--gold);font-size:1.5rem;position:absolute;top:8px;left:0;padding:4px;}
+    .mode-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:32px 22px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;cursor:pointer;}
+    .mode-card:hover{transform:translateY(-3px);border-color:var(--gold);}
+    .mode-card:active{transform:scale(0.98);}
+
+    /* ── TOP BAR ── */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;max-width:640px;}
+    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    .btn-back-lesson{color:var(--gold);font-size:1.8rem;}
+
+    /* ── FLIP CARD ── */
+    .card-scene{width:100%;max-width:640px;perspective:1800px;margin-bottom:20px;}
+    .card-flip{position:relative;width:100%;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;height:clamp(560px,80dvh,720px);}
+    .card-flip.flipped{transform:rotateY(180deg);}
+    .card-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(200,164,98,0.35);box-shadow:var(--shadow-card);padding:24px 20px 16px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,164,98,0.3) transparent;}
+    .card-face::-webkit-scrollbar{width:4px;}
+    .card-face::-webkit-scrollbar-thumb{background:rgba(200,164,98,0.3);border-radius:2px;}
+    .card-back-face{transform:rotateY(180deg);}
+
+    /* Brand */
+    .card-brand{text-align:center;margin-bottom:10px;}
+    .card-brand-ar{font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:2px;}
+    .card-brand-fr{font-size:0.62rem;color:var(--burgundy);letter-spacing:3px;text-transform:uppercase;opacity:0.65;}
+    .card-sep{width:40px;height:1px;background:var(--gold);opacity:0.4;margin:10px auto;}
+
+    /* Titres */
+    .card-title-ar{font-size:clamp(1.6rem,5vw,2.4rem);color:var(--burgundy);font-weight:700;text-align:center;margin-bottom:4px;line-height:1.4;}
+    .card-title-fr{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:2px;}
+    .card-title-es{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.55;font-style:italic;text-align:center;margin-bottom:12px;}
+    .card-rule-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.1rem,3.8vw,1.5rem);color:var(--burgundy);line-height:1.9;text-align:center;margin-bottom:12px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .card-rule-fr{font-size:0.88rem;color:var(--text-dark);line-height:1.65;margin-bottom:5px;}
+    .card-rule-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.6;}
+    .flip-hint{text-align:center;color:var(--gold);font-size:0.7rem;letter-spacing:1px;opacity:0.55;margin-top:14px;padding-top:8px;border-top:1px solid rgba(200,164,98,0.15);font-family:"Cinzel",serif;animation:pulse 2.5s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:0.35;}50%{opacity:0.8;}}
+
+    /* Exemples */
+    .example-block{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 0;border-bottom:1px solid rgba(200,164,98,0.18);text-align:center;}
+    .example-block:last-child{border-bottom:none;padding-bottom:0;}
+    .example-block:first-child{padding-top:0;}
+    .ex-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.5rem,5vw,2.2rem);color:var(--text-dark);font-weight:700;line-height:1.6;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;padding-bottom:6px;border-bottom:1px solid rgba(200,164,98,0.28);width:100%;}
+    .ex-analyse{font-size:0.72rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:0.5px;}
+    .ex-fr{font-size:0.88rem;color:var(--text-dark);font-weight:500;}
+    .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
+
+    /* Couleurs grammaticales */
+    .hl-v{color:var(--green);font-weight:700;}
+    .hl-f{color:var(--burgundy);font-weight:700;text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;}
+    .hl-m{color:var(--gold);font-weight:700;}
+    .hl-n{color:var(--blue);font-weight:700;}
+
+    /* Légende couleurs */
+    .color-legend{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:0 0 10px;padding:8px 12px;background:rgba(200,164,98,0.06);border:1px solid rgba(200,164,98,0.18);border-radius:10px;}
+    .legend-item{display:flex;align-items:center;gap:4px;font-size:0.64rem;font-family:"Cinzel",serif;letter-spacing:0.4px;}
+    .leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+    /* Tableau VSO */
+    .vso-table{width:100%;border-collapse:collapse;margin:10px 0;direction:rtl;}
+    .vso-table th{padding:9px 6px;font-size:0.68rem;font-family:"Cinzel",serif;letter-spacing:0.5px;text-align:center;border-bottom:2px solid var(--gold);}
+    .vso-table td{padding:9px 6px;text-align:center;border-bottom:1px solid rgba(200,164,98,0.15);}
+    .vso-table tr:last-child td{border-bottom:none;}
+    .vso-table tr:nth-child(even) td{background:rgba(200,164,98,0.04);}
+    .vso-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.4rem;font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .vso-label{font-size:0.6rem;color:#aaa;font-family:"Cinzel",serif;display:block;margin-top:2px;}
+
+    /* Contraste اسمية/فعلية */
+    .contrast-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+    .contrast-box{padding:12px 10px;border-radius:var(--radius-md);text-align:center;}
+    .contrast-box.ism{background:rgba(93,24,40,0.05);border:1px solid rgba(93,24,40,0.2);}
+    .contrast-box.fil{background:rgba(45,122,58,0.05);border:1px solid rgba(45,122,58,0.2);}
+    .contrast-label{font-size:0.65rem;font-weight:700;font-family:"Cinzel",serif;letter-spacing:0.5px;margin-bottom:6px;display:block;}
+    .contrast-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.2rem;font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.6;}
+
+    /* Badge cas */
+    .case-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.62rem;font-weight:700;font-family:"Amiri",serif;direction:rtl;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;margin:0 3px;}
+    .case-raf{background:rgba(93,24,40,0.1);color:var(--burgundy);border:1px solid rgba(93,24,40,0.2);}
+    .case-nas{background:rgba(200,164,98,0.15);color:#8a6620;border:1px solid rgba(200,164,98,0.3);}
+
+    /* Quiz */
+    .quiz-num{font-size:0.7rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:2px;text-align:center;margin-bottom:8px;opacity:0.7;}
+    .quiz-q-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.2rem,4vw,1.7rem);color:var(--burgundy);font-weight:700;line-height:1.9;text-align:center;margin:8px 0 6px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .quiz-q-fr{font-size:0.88rem;color:var(--text-dark);text-align:center;margin-bottom:3px;}
+    .quiz-q-es{font-size:0.78rem;color:var(--text-soft);font-style:italic;text-align:center;margin-bottom:14px;}
+    .quiz-btns{display:flex;gap:14px;justify-content:center;margin:0 0 12px;}
+    .quiz-btn{flex:1;max-width:140px;padding:11px 10px;border-radius:999px;font-weight:700;font-size:0.92rem;letter-spacing:1px;border:2px solid;cursor:pointer;transition:all 0.25s;font-family:"Montserrat",sans-serif;}
+    .quiz-btn-oui{background:rgba(45,122,58,0.06);border-color:var(--green);color:var(--green);}
+    .quiz-btn-non{background:rgba(200,164,98,0.08);border-color:var(--gold);color:#8a6620;}
+    .quiz-btn:disabled{opacity:0.4;pointer-events:none;}
+    .mcq-btn{width:100%;padding:10px 14px;border-radius:var(--radius-md);font-weight:600;font-size:0.88rem;cursor:pointer;border:2px solid rgba(200,164,98,0.4);background:#fff;color:var(--burgundy);transition:all .22s;text-align:right;direction:rtl;margin-bottom:8px;}
+    .mcq-btn:hover{border-color:var(--gold);background:rgba(200,164,98,0.05);}
+    .mcq-btn:disabled{cursor:default;}
+    .mcq-btn.mcq-correct{border:2px solid var(--green)!important;background:var(--green-light);color:var(--green);}
+    .mcq-btn.mcq-wrong{border:2px solid #f44336!important;background:#ffebee;opacity:0.7;}
+    .quiz-feedback{border-radius:14px;padding:10px 12px;margin-top:4px;font-size:0.8rem;line-height:1.6;text-align:center;display:none;}
+    .quiz-feedback.correct{background:rgba(45,122,58,0.07);border:1px solid rgba(45,122,58,0.25);color:#1a5c28;}
+    .quiz-feedback.wrong{background:rgba(200,30,30,0.06);border:1px solid rgba(200,30,30,0.18);color:#9b1a1a;}
+    .quiz-feedback.show{display:block;}
+
+    /* Texte lecture */
+    .qiraa-legend{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:0 0 8px;padding:6px 10px;background:rgba(200,164,98,0.06);border:1px solid rgba(200,164,98,0.18);border-radius:10px;font-size:0.64rem;}
+    .qiraa-title-fr{font-size:0.76rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:8px;font-family:"Cinzel",serif;}
+    .qiraa-text{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--text-dark);line-height:2.4;text-align:center;width:100%;margin:4px 0;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+
+    /* NAV */
+    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:640px;}
+    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
+    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    .btn-nav:disabled{opacity:0.35;pointer-events:none;}
+
+    /* ══ STYLES المعوذتان (hérités de leçon 7) ══ */
+    .side-indicator{display:flex;align-items:center;gap:10px;width:100%;justify-content:center;margin-bottom:16px;}
+    .side-pill{padding:8px 18px;border-radius:999px;font-size:0.74rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:var(--transition);}
+    .side-pill.active{background:var(--burgundy);color:var(--white);box-shadow:0 4px 14px rgba(93,24,40,0.22);}
+    .side-pill.inactive{background:var(--white);color:#bbb;border:1px solid #e8e8e8;}
+    .side-pill.inactive:hover{border-color:var(--gold-light);color:var(--burgundy);}
+    .side-sep{font-size:0.9rem;color:var(--gold-light);}
+
+    /* Flip lecture leçon 7 */
+    .flip-scene7{width:100%;max-width:640px;perspective:1400px;margin-bottom:20px;}
+    .flip-card-7{position:relative;width:100%;transform-style:preserve-3d;transition:transform 0.62s cubic-bezier(0.4,0.2,0.2,1);}
+    .flip-card-7.is-flipped{transform:rotateY(180deg);}
+    .flip-face7{position:absolute;top:0;left:0;width:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-xl);padding:26px 20px;box-shadow:var(--shadow-card);}
+    .face7-front{background:var(--white);border:1px solid rgba(200,164,98,0.32);border-top:5px solid var(--burgundy);z-index:2;}
+    .face7-back{background:var(--white);border:1px solid rgba(200,164,98,0.32);border-bottom:5px solid var(--gold);transform:rotateY(180deg);display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:700px;}
+
+    /* Recto flip texte */
+    .text-line{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid rgba(200,164,98,0.1);}
+    .text-line:last-child{border-bottom:none;}
+    .line-texts{flex:1;display:flex;flex-direction:column;}
+    .line-ar{align-self:flex-end;direction:rtl;text-align:right;font-family:"Amiri",serif;font-size:clamp(1.3rem,4vw,1.7rem);color:var(--burgundy);font-weight:700;line-height:1.8;margin-bottom:6px;}
+    .line-fr{align-self:flex-start;text-align:left;font-size:0.84rem;color:var(--burgundy);font-style:italic;line-height:1.4;margin-bottom:3px;font-weight:600;}
+    .line-es{align-self:flex-start;text-align:left;font-size:0.78rem;color:#888;font-style:italic;}
+    .line-emoji{order:2;font-size:1.5rem;flex-shrink:0;padding-top:4px;}
+    .flip-hint7{position:absolute;top:14px;right:14px;color:var(--gold-light);font-size:1.2rem;opacity:0.7;animation:pulse 2.5s infinite;cursor:pointer;}
+
+    /* Verso vocab */
+    .back-header7{text-align:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid rgba(200,164,98,0.3);}
+    .back-header-ar{font-size:1.8rem;color:var(--burgundy);direction:rtl;margin-bottom:4px;}
+    .back-header-fr{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
+    .root-row{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#fff;border-radius:var(--radius-md);border:1px solid rgba(200,164,98,0.22);border-right:4px solid var(--gold);box-shadow:0 2px 8px rgba(93,24,40,0.05);}
+    .root-block{flex-shrink:0;order:2;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dark));color:var(--white);font-family:"Amiri",serif;font-size:1.2rem;font-weight:700;direction:rtl;padding:10px 14px;border-radius:var(--radius-md);border:1.5px solid var(--gold);line-height:1.3;text-align:center;min-width:90px;}
+    .root-content{flex:1;order:1;}
+    .root-verb{font-family:"Amiri",serif;direction:rtl;font-size:1.2rem;font-weight:700;color:var(--burgundy);margin-bottom:3px;}
+    .root-meaning{font-size:0.83rem;font-weight:700;color:var(--burgundy);margin-bottom:2px;}
+    .root-meaning-es{font-size:0.78rem;color:#888;font-style:italic;}
+
+    /* Tilawa */
+    .tilawa-scene7{width:100%;max-width:640px;perspective:1400px;margin-bottom:16px;}
+    .tilawa-card-7{position:relative;width:100%;min-height:500px;transform-style:preserve-3d;transition:transform 0.65s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;}
+    .tilawa-card-7.flipped{transform:rotateY(180deg);}
+    .tilawa-face7{position:absolute;top:0;left:0;width:100%;min-height:500px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-xl);background:var(--white);border:1px solid rgba(200,164,98,0.28);box-shadow:var(--shadow-soft);padding:26px 18px;display:flex;flex-direction:column;align-items:center;}
+    .tilawa-front7{z-index:2;}
+    .tilawa-back7{transform:rotateY(180deg);overflow-y:auto;max-height:650px;}
+    .tilawa-surah-title{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.2rem,3.5vw,1.6rem);color:var(--gold);font-weight:700;text-align:center;line-height:1.4;margin-bottom:4px;}
+    .tilawa-surah-line{width:50px;height:1px;background:var(--gold);opacity:0.4;margin:0 auto 10px;}
+    .tilawa-basmalah{font-size:clamp(1.4rem,4.5vw,1.9rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2.2;direction:rtl;font-family:"Amiri",serif;margin-bottom:8px;}
+    .tilawa-flux{font-size:clamp(1.7rem,5.5vw,2.4rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2.6;direction:rtl;font-family:"Amiri",serif;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .sep-num{color:#6a9c99;font-size:0.85em;}
+    .hl-gold{color:var(--gold);}
+    .t-flip-hint{text-align:center;font-size:0.7rem;color:var(--gold);opacity:0.6;font-family:"Cinzel",serif;letter-spacing:1px;margin-top:12px;animation:pulse 2.5s infinite;}
+    .btn-audio7{background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 15px rgba(200,164,98,0.2);transition:all 0.3s ease;flex-shrink:0;margin:8px auto;}
+    .btn-audio7:hover{transform:scale(1.08);background:var(--gold);color:var(--white);}
+
+    /* Verso tilawa */
+    .verso-header{text-align:center;width:100%;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(200,164,98,0.3);}
+    .verso-title-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.5rem;color:var(--gold);font-weight:700;margin-bottom:2px;}
+    .verso-title-fr{font-size:0.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;}
+    .verso-infos{display:flex;justify-content:center;gap:12px;margin-bottom:14px;background:var(--bg-beige);border-radius:12px;padding:9px;border:1px dashed rgba(200,164,98,0.35);width:100%;}
+    .verso-info-item{text-align:center;}
+    .verso-info-val{font-family:"Amiri",serif;direction:rtl;font-size:1rem;color:var(--burgundy);font-weight:700;display:block;}
+    .verso-info-lbl{font-size:0.56rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;}
+    .verso-sep{width:1px;background:rgba(200,164,98,0.3);}
+    .verso-block{width:100%;margin-bottom:12px;}
+    .verso-block-title{font-family:"Amiri",serif;direction:rtl;font-size:0.95rem;color:var(--burgundy);font-weight:700;border-right:3px solid var(--gold);padding-right:10px;margin-bottom:7px;text-align:right;}
+    .verso-text-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.05rem;color:var(--burgundy);line-height:2;text-align:right;margin-bottom:6px;}
+    .verso-text-fr{font-size:0.85rem;color:#555;line-height:1.6;margin-bottom:4px;font-style:italic;}
+    .verso-text-es{font-size:0.8rem;color:#999;line-height:1.55;font-style:italic;}
+    .verso-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,164,98,0.3),transparent);margin:8px 0;}
+
+    /* Flashcards المعوذتان */
+    .fc7-card{background:var(--white);width:100%;min-height:520px;border:1px solid rgba(200,164,98,0.28);border-radius:var(--radius-xl);padding:40px 22px 32px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:28px;position:relative;}
+    .fc7-icon{font-size:4rem;color:var(--gold);line-height:1;text-align:center;margin-bottom:16px;}
+    .fc7-btn-audio{background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);width:52px;height:52px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.4rem;cursor:pointer;margin-bottom:16px;}
+    .fc7-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.5rem,5vw,2.2rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:1.9;width:100%;margin-bottom:18px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .fc7-divider{width:85%;height:1px;background-color:rgba(200,164,98,0.4);margin-bottom:18px;}
+    .fc7-fr{font-size:1rem;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:1px;line-height:1.4;margin-bottom:6px;}
+    .fc7-es{font-size:0.92rem;color:#888;font-style:italic;margin-bottom:14px;}
+    .fc7-note-fr{font-size:0.88rem;color:var(--burgundy);font-weight:600;margin-bottom:3px;}
+    .fc7-note-es{font-size:0.82rem;color:#888;font-style:italic;}
+
+    @media(max-width:480px){
+      .card-flip{height:clamp(520px,78dvh,660px);}
+      .card-face{padding:16px 12px 10px;}
+      .btn-nav{font-size:0.78rem;padding:12px 6px;}
+      .tilawa-flux{font-size:clamp(1.4rem,4.5vw,1.9rem);}
+      .fc7-card{min-height:460px;padding:28px 14px 22px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ VUE MENU PRINCIPAL ══ -->
+<main id="view-main" class="view">
+  <header class="menu-header">
+    <a href="module11.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-brand-sub serif">DAR AL-KALIMAH</div>
+    <div class="menu-title serif">LEÇON 11</div>
+    <div class="menu-title-sub">الجُمْلَةُ الفِعْلِيَّة · الْمُعَوِّذَتَان</div>
+    <div class="menu-title-es serif">LECCIÓN 11</div>
+    <div class="menu-title-es-sub">La Frase Verbal · Las Dos Protectoras</div>
+  </header>
+  <div class="theme-list">
+    <button class="theme-card jomla-card" onclick="openSection('jomla')">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#5D1828,#3a0f19);">
+        <i class="fa-solid fa-diagram-project" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">الجُمْلَةُ الفِعْلِيَّة</div>
+      <div class="theme-divider" style="background:var(--green);"></div>
+      <div class="theme-title-fr">La Phrase Verbale</div>
+      <div class="theme-title-es">La Frase Verbal · VSO</div>
+    </button>
+    <button class="theme-card muawwidh-card" onclick="openSurahSelect()">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#C8A462,#a07830);">
+        <i class="fa-solid fa-shield-halved" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">الْمُعَوِّذَتَان</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Les Deux Protectrices</div>
+      <div class="theme-title-es">Las Dos Protectoras · رواية ورش</div>
+    </button>
+  </div>
+</main>
+
+<!-- ══ VUE JOMLA (flip cards grammaire) ══ -->
+<main id="view-jomla" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter"><span id="jomla-curr">1</span> / <span id="jomla-tot">4</span></div>
+    <button class="btn-back-lesson" onclick="goMain()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-jomla" onclick="flipCard('jomla')">
+      <div class="card-face" id="jomla-front"></div>
+      <div class="card-face card-back-face" id="jomla-back"></div>
+    </div>
+  </div>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="jomla-prev" onclick="navigate('jomla',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="jomla-next" onclick="navigate('jomla',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══ VUE SÉLECTION SOURATE ══ -->
+<main id="view-surah-select" class="view hidden">
+  <header class="menu-header">
+    <button class="sub-back" onclick="goMain()"><i class="fa-solid fa-arrow-left"></i></button>
+    <a href="module11.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar">الْمُعَوِّذَتَان</div>
+    <div class="menu-brand-sub serif">LES DEUX PROTECTRICES · رواية ورش</div>
+  </header>
+  <div class="submenu-list">
+    <button class="theme-card" onclick="openModeSelect('falaq')">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#e8994a,#c45e0d);margin-bottom:14px;">
+        <i class="fa-solid fa-sun" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">سُورَةُ الْفَلَق</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Sourate Al-Falaq · 113</div>
+      <div class="theme-title-es">Sura Al-Falaq · رواية ورش</div>
+    </button>
+    <button class="theme-card" onclick="openModeSelect('nas')">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#2a5fa8,#1a3d6e);margin-bottom:14px;">
+        <i class="fa-solid fa-people-group" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">سُورَةُ النَّاس</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Sourate An-Nas · 114</div>
+      <div class="theme-title-es">Sura An-Nas · رواية ورش</div>
+    </button>
+  </div>
+</main>
+
+<!-- ══ VUE SÉLECTION MODE ══ -->
+<main id="view-mode-select" class="view hidden">
+  <header class="menu-header">
+    <button class="sub-back" onclick="backToSurahs()"><i class="fa-solid fa-arrow-left"></i></button>
+    <a href="module11.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar" id="mode-ar-title"></div>
+    <div class="menu-brand-sub serif" id="mode-fr-title"></div>
+  </header>
+  <div class="submenu-list">
+    <button class="theme-card" onclick="openFlashcards7()">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#5D1828,#3a0f19);margin-bottom:14px;">
+        <i class="fa-solid fa-layer-group" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">آيَةً بِآيَةٍ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Apprentissage — Verset par verset</div>
+      <div class="theme-title-es">Aprendizaje — Versículo por versículo</div>
+    </button>
+    <button class="theme-card" onclick="openLecture7()">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#C8A462,#a07830);margin-bottom:14px;">
+        <i class="fa-solid fa-book-open" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">قِرَاءَةٌ وَتَحْلِيلٌ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Lecture & Analyse</div>
+      <div class="theme-title-es">Lectura & Análisis</div>
+    </button>
+    <button class="theme-card" onclick="openTilawa7()">
+      <div class="theme-icon-wrap" style="background:linear-gradient(135deg,#2d7a3a,#1a5c28);margin-bottom:14px;">
+        <i class="fa-solid fa-microphone-lines" style="font-size:1.8rem;color:#fff;"></i>
+      </div>
+      <div class="theme-title-ar ar">تِلَاوَةُ السُّورَةِ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Récitation Complète</div>
+      <div class="theme-title-es">Recitación Completa</div>
+    </button>
+  </div>
+</main>
+
+<!-- ══ VUE FLASHCARDS ══ -->
+<main id="view-fc7" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="pill-counter" id="fc7-counter">1 / 5</div>
+    <button class="btn-back-lesson" onclick="goMain()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div style="text-align:center;margin-bottom:20px;">
+    <div style="font-size:1.8rem;color:var(--gold);font-family:'Amiri',serif;" id="fc7-brand-ar"></div>
+    <div style="font-size:0.7rem;color:var(--burgundy);letter-spacing:2px;font-family:'Cinzel',serif;" id="fc7-brand-fr"></div>
+  </div>
+  <article class="fc7-card">
+    <div id="fc7-icon-wrap" class="fc7-icon"></div>
+    <button class="fc7-btn-audio" id="btn-fc7-audio" type="button">🎙️</button>
+    <div class="fc7-ar ar" id="fc7-ar"></div>
+    <div class="fc7-divider"></div>
+    <div style="width:100%;margin-bottom:6px;display:flex;gap:5px;align-items:flex-start;">
+      <span style="color:var(--gold);font-weight:700;font-size:0.95rem;">FR :</span>
+      <span class="fc7-fr" id="fc7-fr"></span>
+    </div>
+    <div style="width:100%;margin-bottom:16px;display:flex;gap:5px;align-items:flex-start;">
+      <span style="color:var(--gold);font-weight:700;font-size:0.95rem;">ES :</span>
+      <span class="fc7-es" id="fc7-es"></span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;border-top:1px dashed rgba(200,164,98,0.3);padding-top:12px;">
+      <div class="fc7-note-fr" id="fc7-note-fr"></div>
+      <div class="fc7-note-es" id="fc7-note-es"></div>
+    </div>
+  </article>
+  <nav class="nav-controls">
+    <button class="btn-nav" id="fc7-prev" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
+    <button class="btn-nav" id="fc7-next">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
+  </nav>
+</main>
+
+<!-- ══ VUE LECTURE ══ -->
+<main id="view-lecture7" class="view hidden">
+  <div class="lesson-top-bar">
+    <div style="width:38px;"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Amiri',serif;font-size:1.6rem;color:var(--burgundy);" id="lect7-brand-ar"></div>
+      <div style="font-size:0.7rem;font-family:'Cinzel',serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);" id="lect7-brand-fr"></div>
+    </div>
+    <button class="btn-back-lesson" onclick="goMain()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="side-indicator">
+    <div class="side-pill active" id="pill-recto">📖 TEXTE</div>
+    <div class="side-sep">⟷</div>
+    <div class="side-pill inactive" id="pill-verso">🌿 VOCABULAIRE</div>
+  </div>
+  <div class="flip-scene7">
+    <div class="flip-card-7" id="flip-card-lect7" style="height:720px;">
+      <div class="flip-face7 face7-front" id="face7-front">
+        <i class="fa-solid fa-rotate flip-hint7" onclick="flipLecture7()"></i>
+        <div style="text-align:center;margin-bottom:14px;">
+          <div style="font-size:1.6rem;color:var(--gold);font-family:'Amiri',serif;">دار الكلمة</div>
+          <div style="font-size:0.6rem;color:var(--burgundy);letter-spacing:3px;font-family:'Cinzel',serif;opacity:0.65;">DAR AL-KALIMAH</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;"><div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(200,164,98,0.45),transparent);"></div><span style="color:var(--gold);font-size:0.55rem;">✦</span><div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,164,98,0.45),transparent);"></div></div>
+        <div id="lecture7-verses-container"></div>
+      </div>
+      <div class="flip-face7 face7-back" id="face7-back">
+        <div class="back-header7">
+          <div class="back-header-ar ar">الْمُفْرَدَاتُ</div>
+          <div class="back-header-fr">Vocabulaire & Racines · Vocabulario y Raíces</div>
+        </div>
+        <div id="lecture7-vocab-container"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ VUE TILAWA ══ -->
+<main id="view-tilawa7" class="view hidden">
+  <div class="lesson-top-bar">
+    <div style="width:38px;"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Amiri',serif;font-size:1.6rem;color:var(--burgundy);" id="tilawa7-brand-ar"></div>
+      <div style="font-size:0.7rem;font-family:'Cinzel',serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);" id="tilawa7-brand-fr"></div>
+    </div>
+    <button class="btn-back-lesson" onclick="goMain()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="tilawa-scene7">
+    <div class="tilawa-card-7" id="tilawa-card-7" onclick="flipTilawa7()">
+      <div class="tilawa-face7 tilawa-front7">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 0;width:100%;">
+          <div class="tilawa-surah-title ar" id="tilawa7-surah-title"></div>
+          <div class="tilawa-surah-line"></div>
+          <button class="btn-audio7" id="btn-tilawa7-audio" type="button" onclick="event.stopPropagation()">🎙️</button>
+          <div id="tilawa7-full-text" style="width:100%;text-align:center;"></div>
+        </div>
+        <div class="t-flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Infos sourate · Info de sura</div>
+      </div>
+      <div class="tilawa-face7 tilawa-back7" id="tilawa7-back" onclick="event.stopPropagation();flipTilawa7()">
+        <button onclick="event.stopPropagation();flipTilawa7()" style="position:absolute;top:14px;right:14px;color:var(--gold);font-size:1.2rem;opacity:0.7;background:none;border:none;cursor:pointer;animation:pulse 2.5s infinite;z-index:5;"><i class="fa-solid fa-rotate"></i></button>
+        <div class="verso-header">
+          <div class="verso-title-ar ar" id="verso7-title-ar"></div>
+          <div class="verso-title-fr serif" id="verso7-title-fr"></div>
+        </div>
+        <div class="verso-infos">
+          <div class="verso-info-item"><span class="verso-info-val ar" id="verso7-num"></span><span class="verso-info-lbl">N° Sourate</span></div>
+          <div class="verso-sep"></div>
+          <div class="verso-info-item"><span class="verso-info-val ar" id="verso7-type"></span><span class="verso-info-lbl" id="verso7-type-fr"></span></div>
+          <div class="verso-sep"></div>
+          <div class="verso-info-item"><span class="verso-info-val ar" id="verso7-count"></span><span class="verso-info-lbl" id="verso7-count-fr"></span></div>
+        </div>
+        <div class="verso-block">
+          <div class="verso-block-title ar">سَبَبُ النُّزُول</div>
+          <div class="verso-text-ar ar" id="verso7-asbab-ar"></div>
+          <div class="verso-divider"></div>
+          <div class="verso-text-fr" id="verso7-asbab-fr"></div>
+          <div class="verso-text-es" id="verso7-asbab-es"></div>
+        </div>
+        <div class="verso-divider"></div>
+        <div class="verso-block">
+          <div class="verso-block-title ar">فَضْلُ السُّورَة</div>
+          <div class="verso-text-ar ar" id="verso7-fadl-ar"></div>
+          <div class="verso-divider"></div>
+          <div class="verso-text-fr" id="verso7-fadl-fr"></div>
+          <div class="verso-text-es" id="verso7-fadl-es"></div>
+        </div>
+        <div class="verso-divider"></div>
+        <div class="verso-block">
+          <div class="verso-block-title ar">رِوَايَةُ وَرْش — خَصَائِصُ</div>
+          <div class="verso-text-ar ar" id="verso7-warsh-ar"></div>
+          <div class="verso-divider"></div>
+          <div class="verso-text-fr" id="verso7-warsh-fr"></div>
+          <div class="verso-text-es" id="verso7-warsh-es"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(()=>{
+"use strict";
+
+/* ══════════════════════════════════════════════════════
+   DATA — الجملة الفعلية
+══════════════════════════════════════════════════════ */
+const JOMLA_DATA = [
+  /* ── Carte 1 : ما هي الجملة الفعلية ── */
+  {
+    front:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+      <div class="card-sep"></div>
+      <div class="card-title-ar ar">الجُمْلَةُ الفِعْلِيَّة</div>
+      <div class="card-title-fr serif">LA PHRASE VERBALE</div>
+      <div class="card-title-es serif">LA FRASE VERBAL</div>
+      <div class="card-sep"></div>
+      <div class="card-rule-ar ar" style="color:var(--burgundy);">كُلُّ جُمْلَةٍ تَبْدَأُ بِفِعْلٍ</div>
+      <div class="card-sep"></div>
+      <div class="card-rule-fr">La <strong>جُمْلَة فِعْلِيَّة</strong> est toute phrase qui <strong>commence par un verbe</strong>.<br><br>Elle s'oppose à la <strong>جُمْلَة اسْمِيَّة</strong> qui commence par un nom.</div>
+      <div style="height:6px;"></div>
+      <div class="card-rule-es">La <strong>جُمْلَة فِعْلِيَّة</strong> es toda frase que <strong>empieza por un verbo</strong>.<br>Se opone a la <strong>جُمْلَة اسْمِيَّة</strong> que empieza por un nombre.</div>
+      <div class="card-sep"></div>
+      <div class="contrast-row">
+        <div class="contrast-box ism">
+          <span class="contrast-label" style="color:var(--burgundy);">جُمْلَة اِسْمِيَّة</span>
+          <div class="contrast-ar ar" style="color:var(--burgundy);">الطَّعَامُ لَذِيذٌ</div>
+          <div style="font-size:0.68rem;color:#888;font-style:italic;margin-top:4px;">La nourriture est délicieuse<br><em>La comida está deliciosa</em></div>
+        </div>
+        <div class="contrast-box fil">
+          <span class="contrast-label" style="color:var(--burgundy);">جُمْلَة فِعْلِيَّة</span>
+          <div class="contrast-ar ar" style="color:var(--burgundy);">أَكَلَ عَزِيزٌ الطَّعَامَ</div>
+          <div style="font-size:0.68rem;color:#888;font-style:italic;margin-top:4px;">Aziz a mangé la nourriture<br><em>Aziz comió la comida</em></div>
+        </div>
+      </div>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;3 indices · 3 indicadores</div>`,
+    back:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Comment reconnaître la جملة فعلية ?</div></div>
+      <div class="card-sep"></div>
+      <div class="card-rule-fr" style="margin-bottom:10px;"><strong>3 indices pour la reconnaître · 3 indicadores :</strong></div>
+      <div class="example-block">
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.5rem;color:var(--green);font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;">يَبْدَأُ بِفِعْلٍ</div>
+        <div class="ex-fr"><strong>1. Elle commence par un فعل</strong> — ماضي · مضارع · أمر</div>
+        <div class="ex-es">Empieza por un فعل — pasado · presente · imperativo</div>
+      </div>
+      <div class="example-block">
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.5rem;color:var(--burgundy);font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;">الفَاعِلُ مَرْفُوع</div>
+        <div class="ex-fr"><strong>2. Le فَاعِل (sujet) est au nominatif</strong> — damma ُ</div>
+        <div class="ex-es">El فَاعِل (sujeto) está en nominativo — damma ُ</div>
+      </div>
+      <div class="example-block">
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.5rem;color:var(--gold);font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;">الْمَفْعُولُ مَنْصُوب</div>
+        <div class="ex-fr"><strong>3. Le مَفْعُول به (objet) est à l'accusatif</strong> — fatha َ</div>
+        <div class="ex-es">El مَفْعُول به (objeto) está en acusativo — fatha َ</div>
+      </div>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+  },
+
+  /* ── Carte 2 : نظام VSO ── */
+  {
+    front:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+      <div class="card-sep"></div>
+      <div class="card-title-ar ar" style="font-size:clamp(1.3rem,4vw,1.8rem);">نِظَامُ الجُمْلَةِ الفِعْلِيَّة</div>
+      <div class="card-title-fr serif">ORDRE VSO — VERBE · SUJET · OBJET</div>
+      <div class="card-title-es serif">ORDEN VSO — VERBO · SUJETO · OBJETO</div>
+      <div class="card-sep"></div>
+      <div class="color-legend">
+        <div class="legend-item"><div class="leg-dot" style="background:var(--green);"></div>فِعْل (vert)</div>
+        <div class="legend-item"><div class="leg-dot" style="background:var(--burgundy);"></div>فَاعِل (bordeaux)</div>
+        <div class="legend-item"><div class="leg-dot" style="background:var(--gold);"></div>مَفْعُول به (or)</div>
+      </div>
+      <div class="card-rule-fr" style="margin-bottom:8px;">
+        En arabe, l'ordre naturel est <strong>Verbe → Sujet → Objet</strong> (VSO).<br>
+        C'est l'inverse du français/espagnol (SVO) !<br>
+        <em style="color:var(--text-soft);">En árabe, el orden natural es Verbo → Sujeto → Objeto (VSO).</em>
+      </div>
+      <table class="vso-table">
+        <thead><tr><th style="color:var(--green);">فِعْل<span class="vso-label">Verbe · Verbo</span></th><th style="color:var(--burgundy);">فَاعِل<span class="vso-label">Sujet · Sujeto</span></th><th style="color:var(--gold);">مَفْعُول به<span class="vso-label">Objet · Objeto</span></th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="vso-ar ar hl-v">أَكَلَ</span><span class="vso-label">a mangé · comió</span></td>
+            <td><span class="vso-ar ar hl-f">عَزِيزٌ</span><span class="vso-label">Aziz (مرفوع ُ)</span></td>
+            <td><span class="vso-ar ar hl-m">الطَّعَامَ</span><span class="vso-label">la nourriture (منصوب َ)</span></td>
+          </tr>
+          <tr>
+            <td><span class="vso-ar ar hl-v">كَتَبَتِ</span><span class="vso-label">a écrit · escribió</span></td>
+            <td><span class="vso-ar ar hl-f">الطَّالِبَةُ</span><span class="vso-label">l'étudiante (مرفوع ُ)</span></td>
+            <td><span class="vso-ar ar hl-m">الدَّرْسَ</span><span class="vso-label">la leçon (منصوب َ)</span></td>
+          </tr>
+          <tr>
+            <td><span class="vso-ar ar hl-v">قَرَأَ</span><span class="vso-label">a lu · leyó</span></td>
+            <td><span class="vso-ar ar hl-f">النَّبِيُّ</span><span class="vso-label">le Prophète (مرفوع ُ)</span></td>
+            <td><span class="vso-ar ar hl-m">الْوَحْيَ</span><span class="vso-label">la Révélation (منصوب َ)</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Pourquoi VSO ? · ¿Por qué VSO?</div>`,
+    back:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Pourquoi VSO en arabe ?</div></div>
+      <div class="card-sep"></div>
+      <div class="card-rule-fr" style="margin-bottom:10px;"><strong>Psycholinguistique — L'arabe met l'ACTION en premier :</strong><br><em style="color:var(--text-soft);">Psicolingüística — el árabe pone la ACCIÓN primero :</em></div>
+      <div class="example-block">
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.3rem;color:var(--text-dark);font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;"><span class="hl-v">نَزَلَ</span> <span class="hl-f">جِبْرِيلُ</span> <span class="hl-m">الْوَحْيَ</span></div>
+        <div class="ex-fr">Jibrîl <strong>fit descendre</strong> la Révélation</div>
+        <div class="ex-es">Jibrîl <strong>hizo descender</strong> la Revelación</div>
+      </div>
+      <div class="card-rule-fr" style="margin:10px 0 6px;">
+        💡 <strong>La clé :</strong> les <strong>terminaisons grammaticales</strong> (حركات) indiquent la fonction — pas l'ordre !<br>
+        <em style="color:var(--text-soft);">Las terminaciones gramaticales indican la función, ¡no el orden!</em>
+      </div>
+      <div style="background:rgba(45,122,58,0.05);border:1px solid rgba(45,122,58,0.2);border-radius:12px;padding:12px;margin:8px 0;text-align:center;">
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;margin-bottom:6px;"><span class="hl-f">عَزِيزٌ</span> <span class="hl-v">أَكَلَ</span> <span class="hl-m">الطَّعَامَ</span> = <span class="hl-v">أَكَلَ</span> <span class="hl-f">عَزِيزٌ</span> <span class="hl-m">الطَّعَامَ</span></div>
+        <div style="font-size:0.78rem;color:var(--text-soft);">Même sens ! Les harakat définissent la fonction · ¡El mismo sentido! Las harakat definen la función.</div>
+      </div>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+  },
+
+  /* ── Carte 3 : الفاعل ── */
+  {
+    front:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+      <div class="card-sep"></div>
+      <div class="card-title-ar ar" style="color:var(--burgundy);">الفَاعِل</div>
+      <div class="card-title-fr serif">LE SUJET — AL-FĀ'IL</div>
+      <div class="card-title-es serif">EL SUJETO — AL-FĀ'IL</div>
+      <div class="card-sep"></div>
+      <div class="card-rule-ar ar">الفَاعِلُ هُوَ مَنْ قَامَ بِالفِعْلِ وَهُوَ مَرْفُوع</div>
+      <div class="card-sep"></div>
+      <div class="card-rule-fr">
+        Le <strong>فَاعِل</strong> est celui qui fait l'action. Il est toujours au <strong>cas nominatif</strong> (مَرْفُوع) — damma ُ.<br><br>
+        Le verbe s'accorde en <strong>genre</strong> avec le فَاعِل quand il le <strong>précède</strong> :<br>
+        فَاعِل مُذَكَّر → فعل مُذَكَّر<br>
+        فَاعِل مُؤَنَّث → فعل مُؤَنَّث (+ تْ)
+      </div>
+      <div style="height:6px;"></div>
+      <div class="card-rule-es">
+        El <strong>فَاعِل</strong> es quien hace la acción. Siempre en caso <strong>nominativo</strong> (مَرْفُوع) — damma ُ.<br>
+        El verbo concuerda en <strong>género</strong> con el فَاعِل cuando lo <strong>precede</strong>.
+      </div>
+      <div class="card-sep"></div>
+      <div class="example-block">
+        <div class="ex-ar ar"><span class="hl-v">كَتَبَ</span> <span class="hl-f">الطَّالِبُ</span></div>
+        <div class="ex-analyse" style="color:var(--burgundy);">فعل مذكّر + فاعل مذكّر · الطَّالِبُ = مرفوع (ُ)</div>
+        <div class="ex-fr">L'étudiant a écrit</div>
+        <div class="ex-es">El estudiante escribió</div>
+      </div>
+      <div class="example-block">
+        <div class="ex-ar ar"><span class="hl-v">كَتَبَتِ</span> <span class="hl-f">الطَّالِبَةُ</span></div>
+        <div class="ex-analyse" style="color:var(--burgundy);">فعل مؤنّث (+ تِ) + فاعل مؤنّث · التقاء الساكنين ✓</div>
+        <div class="ex-fr">L'étudiante a écrit</div>
+        <div class="ex-es">La estudiante escribió</div>
+      </div>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Règle du nombre · Regla del número</div>`,
+    back:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Règle clé du nombre · Regla clave</div></div>
+      <div class="card-sep"></div>
+      <div style="background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.3);border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;">
+        <div style="font-size:0.72rem;font-family:'Cinzel',serif;color:var(--gold);margin-bottom:8px;letter-spacing:1px;">RÈGLE D'OR · REGLA DE ORO</div>
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.3rem;color:var(--burgundy);font-weight:700;line-height:2;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;">الفِعْلُ قَبْلَ الفَاعِلِ = يُفْرَدُ دَائِماً</div>
+        <div style="font-size:0.8rem;color:var(--text-soft);margin-top:6px;">Quand le verbe <strong>précède</strong> le sujet → verbe au <strong>singulier</strong> même si le sujet est pluriel !<br><em>Cuando el verbo precede al sujeto → ¡verbo en singular aunque el sujeto sea plural!</em></div>
+      </div>
+      <div class="example-block">
+        <div class="ex-ar ar"><span class="hl-v">قَامَ</span> <span class="hl-f">الطُّلَّابُ</span></div>
+        <div class="ex-analyse" style="color:var(--burgundy);">✓ قَامَ (singulier) — PAS قَامُوا ! · ¡NO قَامُوا!</div>
+        <div class="ex-fr">Les étudiants se sont levés</div>
+        <div class="ex-es">Los estudiantes se levantaron</div>
+      </div>
+      <div class="example-block">
+        <div class="ex-ar ar"><span class="hl-f">الطُّلَّابُ</span> <span class="hl-v">قَامُوا</span></div>
+        <div class="ex-analyse" style="color:var(--green);">✓ قَامُوا — فاعل AVANT le verbe = accord en nombre</div>
+        <div class="ex-fr">Les étudiants, ils se sont levés (جملة اسمية ثم فعل)</div>
+        <div class="ex-es">Los estudiantes se levantaron (sujeto antes)</div>
+      </div>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+  },
+
+  /* ── Carte 4 : المفعول به ── */
+  {
+    front:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div>
+      <div class="card-sep"></div>
+      <div class="card-title-ar ar" style="color:var(--gold);font-size:clamp(1.3rem,4vw,1.9rem);">الْمَفْعُولُ بِهِ</div>
+      <div class="card-title-fr serif">L'OBJET DIRECT — AL-MAF'ŪL BIH</div>
+      <div class="card-title-es serif">EL COMPLEMENTO DIRECTO</div>
+      <div class="card-sep"></div>
+      <div class="card-rule-ar ar">الْمَفْعُولُ بِهِ مَنْ وَقَعَ عَلَيْهِ الفِعْلُ وَهُوَ مَنْصُوب</div>
+      <div class="card-sep"></div>
+      <div class="card-rule-fr">
+        Le <strong>مَفْعُول به</strong> est ce qui reçoit l'action. Il est toujours au <strong>cas accusatif</strong> (مَنْصُوب) — fatha َ (ou tanwīn fatha ً).<br><br>
+        Comment le trouver ? Poser la question :<br>
+        <strong>مَاذَا ؟ · مَنْ ؟</strong> après le verbe et le sujet.
+      </div>
+      <div style="height:6px;"></div>
+      <div class="card-rule-es">
+        El <strong>مَفْعُول به</strong> es lo que recibe la acción. Siempre en <strong>acusativo</strong> (مَنْصُوب) — fatha َ. Para encontrarlo: ¿مَاذَا? · ¿مَنْ? después del verbo.
+      </div>
+      <div class="card-sep"></div>
+      <table class="vso-table">
+        <thead><tr><th style="color:var(--green);">فِعْل</th><th style="color:var(--burgundy);">فَاعِل ُ</th><th style="color:var(--gold);">مَفْعُول به َ</th></tr></thead>
+        <tbody>
+          <tr><td class="vso-ar ar hl-v">خَلَقَ</td><td class="vso-ar ar hl-f">اللَّهُ</td><td><span class="vso-ar ar hl-m">الإِنسَانَ</span><span class="vso-label" style="color:var(--gold);">Al-Alaq v.2</span></td></tr>
+          <tr><td class="vso-ar ar hl-v">عَلَّمَ</td><td class="vso-ar ar hl-f">اللَّهُ</td><td><span class="vso-ar ar hl-m">آدَمَ الأَسْمَاءَ</span><span class="vso-label" style="color:var(--gold);">Al-Baqara v.31</span></td></tr>
+          <tr><td class="vso-ar ar hl-v">يَقْرَأُ</td><td class="vso-ar ar hl-f">عَزِيزٌ</td><td><span class="vso-ar ar hl-m">الْقُرْآنَ</span><span class="vso-label" style="color:var(--gold);">مَاذَا يَقْرَأُ ؟</span></td></tr>
+        </tbody>
+      </table>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Résumé · Resumen</div>`,
+    back:`
+      <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Récap الجملة الفعلية · Resumen</div></div>
+      <div class="card-sep"></div>
+      <div class="card-rule-fr" style="font-size:0.85rem;line-height:2.1;">
+        <strong>الجُمْلَة الفِعْلِيَّة — à retenir · recordar :</strong><br>
+        ✅ Commence par un <strong>فِعْل</strong> · Empieza por un فِعْل<br>
+        ✅ Ordre naturel : <strong>فِعْل + فَاعِل + مَفْعُول به</strong> (VSO)<br>
+        ✅ الفَاعِل = <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;">مَرْفُوع ُ</span> — damma ُ<br>
+        ✅ المَفْعُول به = <span style="font-family:'Amiri',serif;direction:rtl;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;">مَنْصُوب َ</span> — fatha َ<br>
+        ✅ Verbe avant sujet = <strong>singulier</strong> · Verbo antes sujeto = singular<br>
+        ✅ Accord en <strong>genre</strong> toujours · Concordancia de género siempre
+      </div>
+      <div class="card-sep"></div>
+      <div class="example-block">
+        <div class="ex-ar ar"><span class="hl-v">نَزَلَ</span> <span class="hl-f">جِبْرِيلُ</span> <span class="hl-m">الْوَحْيَ</span> عَلَى <span class="hl-f">النَّبِيِّ</span> ﷺ</div>
+        <div class="ex-analyse" style="color:var(--green);">فعل + فاعل (مرفوع) + مفعول به (منصوب) ← النَّبِيّ = جار ومجرور</div>
+        <div class="ex-fr">Jibrîl fit descendre la Révélation sur le Prophète ﷺ</div>
+        <div class="ex-es">Jibrîl hizo descender la Revelación sobre el Profeta ﷺ</div>
+      </div>
+      <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
+  }
+];
+
+/* ══════════════════════════════════════════════════════
+   DATA — المعوذتان
+══════════════════════════════════════════════════════ */
+const SURAHS = {
+  falaq:{
+    titleAr:"سُورَةُ الْفَلَق",
+    titleFr:"Sourate Al-Falaq",
+    titleEs:"Sura Al-Falaq",
+    mainIcon:"fa-sun",
+    type:"\u0645\u064e\u0643\u0651\u0650\u064a\u0651\u064e\u0629",typeFr:"Makkiyah",
+    ayahCount:"\u06f5",ayahFr:"5 Versets · 5 Versículos",
+    surahNum:"\u06f1\u06f1\u06f3",
+    asbab:{
+      ar:"\u0646\u064e\u0632\u064e\u0644\u064e\u062a\u0652 \u0647\u0627\u062a\u0627\u0646 \u0627\u0644\u0633\u0651\u064f\u0648\u0631\u064e\u062a\u0627\u0646 \u062d\u064a\u0646 \u0633\u064e\u062d\u064e\u0631\u064e \u0644\u064f\u0628\u064e\u064a\u062f\u064c \u0628\u0646\u064f \u0627\u0644\u0623\u064e\u0639\u0652\u0635\u064e\u0645 \u0627\u0644\u064a\u064e\u0647\u064f\u0648\u062f\u064a\u0651\u064f \u0639\u0644\u0649 \u0627\u0644\u0646\u0651\u064e\u0628\u064a\u0651 \u0635\u0644\u0651\u0649 \u0627\u0644\u0644\u0647\u064f \u0639\u0644\u064a\u0647 \u0648\u0633\u0644\u0651\u0645\u060c \u0641\u0646\u064e\u0632\u064e\u0644\u064e \u062c\u0650\u0628\u0652\u0631\u064a\u0644\u064f \u0628\u0650\u0647\u0627\u062a\u064a\u0646 \u0627\u0644\u0633\u0651\u064f\u0648\u0631\u064e\u062a\u064a\u0646\u060c \u0648\u0643\u064f\u0644\u0651\u064e\u0645\u064e\u0627 \u0642\u064e\u0631\u064e\u0623\u064e \u0622\u064a\u064e\u0629\u064b \u0627\u0646\u062d\u0644\u0651\u062a \u0639\u064f\u0642\u062f\u064e\u0629\u064c \u062d\u062a\u064a\u0651 \u0628\u0631\u0626 \u0635\u0644\u0651\u0649 \u0627\u0644\u0644\u0647 \u0639\u0644\u064a\u0647 \u0648\u0633\u0644\u0651\u0645.",
+      fr:"R\u00e9v\u00e9l\u00e9es quand Lab\u00eed ibn Al-A\u2019sam l'Juif jeta un sort au Proph\u00e8te \u0635\u0644\u0651\u0649 \u0627\u0644\u0644\u0647 \u0639\u0644\u064a\u0647 \u0648\u0633\u0644\u0651\u0645. Jibr\u00eel descendit avec ces deux sourates; \u00e0 chaque verset r\u00e9cit\u00e9, un n\u0153ud se d\u00e9faisait jusqu\u2019\u00e0 sa gu\u00e9rison compl\u00e8te.",
+      es:"Reveladas cuando Lab\u00eed ibn Al-A\u2019sam el jud\u00edo hizo un hechizo al Profeta \ufdfa. Jibr\u00eel descendi\u00f3 con estas dos suras; con cada vers\u00edculo recitado, un nudo se deshac\u00eda hasta su completa curaci\u00f3n."
+    },
+    fadl:{
+      ar:"\u0639\u064e\u0646 \u0639\u064f\u0642\u0652\u0628\u064e\u0629\u064e \u0628\u0646 \u0639\u0627\u0645\u0631 \u0642\u0627\u0644 \u0631\u0633\u0648\u0644 \u0627\u0644\u0644\u0647 \u0635\u0644\u0651\u0649 \u0627\u0644\u0644\u0647 \u0639\u0644\u064a\u0647 \u0648\u0633\u0644\u0651\u0645: \u00ab\u0623\u064e\u0644\u064e\u0645\u0652 \u062a\u064e\u0631\u064e \u0622\u064a\u064e\u0627\u062a\u064d \u0623\u064f\u0646\u0652\u0632\u0650\u0644\u064e\u062a\u0652 \u0647\u0630\u0647 \u0627\u0644\u0644\u064e\u0651\u064a\u0652\u0644\u064e\u0629\u060c \u0644\u064e\u0645\u0652 \u064a\u064f\u0631\u064e \u0645\u0650\u062b\u0652\u0644\u064f\u0647\u064f\u0646\u0651 \u0642\u064e\u0637\u0651\u064f\u00bb. (\u0631\u0648\u0627\u0647 \u0645\u0633\u0644\u0645)",
+      fr:"D\u2019apr\u00e8s \u2018Uqba ibn \u2018\u0100mir, le Proph\u00e8te \ufdfa a dit: \u00ab N\u2019as-tu pas vu les versets r\u00e9v\u00e9l\u00e9s cette nuit ? On n\u2019a jamais rien vu de tel. \u00bb (Muslim)",
+      es:"Seg\u00fan \u2018Uqba ibn \u2018\u0100mir, el Profeta \ufdfa dijo: \u00abNo has visto los vers\u00edculos revelados esta noche? Jam\u00e1s se ha visto algo parecido.\u00bb (Muslim)"
+    },
+    warsh:{
+      ar:"\u0631\u0648\u0627\u064a\u0629 \u0648\u064e\u0631\u0652\u0634 \u0639\u0646 \u0646\u064e\u0627\u0641\u0650\u0639\u060c \u062a\u064e\u062a\u0645\u064a\u0651\u0632 \u0628\u062a\u064e\u0631\u0642\u064a\u0642 \u0627\u0644\u0631\u0651\u064e\u0627\u0621\u060c \u0648\u0627\u0644\u0635\u0651\u0650\u0644\u064e\u0629 \u0648\u0627\u0644\u0641\u064e\u062a\u062d\u0650 \u0641\u064a \u0628\u0639\u0636 \u0627\u0644\u0645\u0648\u0627\u0636\u0639\u060c \u0648\u0627\u0644\u0646\u0651\u064e\u0642\u0652\u0644 \u0641\u064a \u0647\u0645\u0632\u0629 \u0627\u0644\u0648\u0635\u0644.",
+      fr:"Riwāyat Warsh \u2018an N\u0101fi\u2019 se distingue par: le tafkhīm (mise en relief) du r\u0101', la ṣila et le fat\u1e25 dans certains cas, et le naql (transfert) de la hamzat al-waṣl.",
+      es:"Riwāyat Warsh \u2018an N\u0101fi\u2019 se distingue por: el tafkhīm de la r\u0101', la ṣila y fat\u1e25 en ciertos casos, y el naql de la hamzat al-waṣl."
+    },
+    fullText:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ۞ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",
+    ayahs:[
+      {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",fr:"Au nom d'Allah, le Tout Mis\u00e9ricordieux, le Tr\u00e8s Mis\u00e9ricordieux.",es:"En el nombre de Al\u00e1, el Clemente, el Misericordioso.",icon:"fa-hands-praying",emoji:"\uD83E\uDD32",noteFr:"La Basmalah — رواية ورش",noteEs:"La Basmalah — riwāyat Warsh"},
+      {ar:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾",fr:"Dis : Je cherche refuge aupr\u00e8s du Seigneur de l\u2019Aube.",es:"Di: Me refugio en el Se\u00f1or del Amanecer.",icon:"fa-sun",emoji:"\uD83C\uDF05",noteFr:"Verset 1 — الفَلَق = l'aurore / l'aube · ورش",noteEs:"Versículo 1 — الفَلَق = el amanecer · ورش"},
+      {ar:"مِن شَرِّ مَا خَلَقَ ﴿٢﴾",fr:"Contre le mal de ce qu'Il a cr\u00e9\u00e9.",es:"Contra el mal de lo que \u00e9l ha creado.",icon:"fa-shield",emoji:"\uD83D\uDEE1\uFE0F",noteFr:"Verset 2 — شَرّ = mal · خَلَقَ = فعل ماضي (ق-ل-خ)",noteEs:"Versículo 2 — شَرّ = mal · خَلَقَ = verbo pasado"},
+      {ar:"وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾",fr:"Et contre le mal de l\u2019obscurit\u00e9 quand elle s\u2019\u00e9tend.",es:"Y contra el mal de la oscuridad cuando cae.",icon:"fa-moon",emoji:"\uD83C\uDF11",noteFr:"Verset 3 — غَاسِق = nuit sombre · وَقَبَ = envelopper",noteEs:"Versículo 3 — غَاسِق = noche oscura · وَقَبَ = envolver"},
+      {ar:"وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾",fr:"Et contre le mal des sorcières qui soufflent sur les n\u0153uds.",es:"Y contra el mal de las que soplan sobre los nudos.",icon:"fa-wind",emoji:"\uD83E\uDEA2\uD83E\uDEA2",noteFr:"Verset 4 — النَّفَّاثَات = celles qui soufflent (sorcières) · العُقَد = les n\u0153uds",noteEs:"Versículo 4 — النَّفَّاثَات = las que soplan · العُقَد = los nudos"},
+      {ar:"وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",fr:"Et contre le mal de l\u2019envieux quand il envi\u0001e.",es:"Y contra el mal del envidioso cuando envidia.",icon:"fa-eye",emoji:"\uD83D\uDC41\uFE0F",noteFr:"Verset 5 — حَاسِد = l'envieux · حَسَدَ = envier (ح-س-د)",noteEs:"Versículo 5 — حَاسِد = el envidioso · حَسَدَ = envidiar"}
+    ],
+    vocab:[
+      {ar:"الْفَلَقِ",fr:"L'Aube / L'Aurore",es:"El Amanecer / La Aurora",root:"\u0641 \u0644 \u0642"},
+      {ar:"شَرّ",fr:"Le Mal / Le Tort",es:"El Mal / El Da\u00f1o",root:"\u0634 \u0631 \u0631"},
+      {ar:"خَلَقَ",fr:"Il a cr\u00e9\u00e9 — فعل ماضي",es:"Cre\u00f3 — verbo pasado",root:"\u062e \u0644 \u0642"},
+      {ar:"غَاسِقٍ",fr:"Obscurit\u00e9 / Nuit sombre",es:"Oscuridad / Noche oscura",root:"\u063a \u0633 \u0642"},
+      {ar:"النَّفَّاثَات",fr:"Celles qui soufflent (sorcières)",es:"Las que soplan (brujas)",root:"\u0646 \u0641 \u062b"},
+      {ar:"الْعُقَدِ",fr:"Les n\u0153uds / Les liens",es:"Los nudos / Los lazos",root:"\u0639 \u0642 \u062f"},
+      {ar:"حَاسِدٍ",fr:"L'envieux / Celui qui envie",es:"El envidioso",root:"\u062d \u0633 \u062f"}
+    ]
+  },
+  nas:{
+    titleAr:"سُورَةُ النَّاس",
+    titleFr:"Sourate An-Nas",
+    titleEs:"Sura An-Nas",
+    mainIcon:"fa-people-group",
+    type:"\u0645\u064e\u0643\u0651\u0650\u064a\u0651\u064e\u0629",typeFr:"Makkiyah",
+    ayahCount:"\u06f6",ayahFr:"6 Versets · 6 Versículos",
+    surahNum:"\u06f1\u06f1\u06f4",
+    asbab:{
+      ar:"\u0646\u064e\u0632\u064e\u0644\u064e\u062a\u0652 \u0645\u064e\u0639 \u0633\u064f\u0648\u0631\u064e\u0629 \u0627\u0644\u0641\u064e\u0644\u064e\u0642 \u0641\u064a \u0646\u064e\u0641\u0633 \u0627\u0644\u0633\u0651\u0650\u064a\u064e\u0627\u0642 \u0644\u0650\u0639\u0644\u0627\u062c \u0633\u0650\u062d\u0652\u0631 \u0644\u064f\u0628\u064e\u064a\u062f. \u0647\u0627\u062a\u0627\u0646 \u0627\u0644\u0633\u0651\u064f\u0648\u0631\u064e\u062a\u0627\u0646 \u062a\u064f\u0633\u064e\u0645\u0651\u064e\u0649 \u00ab\u0627\u0644\u0645\u064f\u0639\u064e\u0648\u0651\u0650\u0630\u064e\u062a\u0627\u0646\u00bb \u0623\u064e\u064a\u0652 \u0627\u0644\u0633\u0651\u064f\u0648\u0631\u064e\u062a\u064a\u0646 \u0627\u0644\u0644\u0651\u064e\u062a\u064e\u064a\u0646 \u064a\u064f\u0633\u062a\u064e\u0639\u0627\u0630 \u0628\u0647\u0645\u0627.",
+      fr:"R\u00e9v\u00e9l\u00e9e avec Al-Falaq dans le m\u00eame contexte du sort jet\u00e9 par Lab\u00eed. Ces deux sourates sont appel\u00e9es \u00ab Al-Mu\u2018awwidhat\u0101n \u00bb — les Deux Protectrices — car on cherche refuge en elles.",
+      es:"Revelada junto a Al-Falaq en el mismo contexto del hechizo de Lab\u00eed. Estas dos suras se llaman \u00abAl-Mu\u2018awwidhat\u0101n\u00bb — las Dos Protectoras — pues en ellas se busca refugio."
+    },
+    fadl:{
+      ar:"\u0639\u064e\u0646 \u0639\u064f\u0642\u0652\u0628\u064e\u0629\u064e \u0628\u0646 \u0639\u0627\u0645\u0631 \u0642\u0627\u0644 \u0631\u0633\u0648\u0644 \u0627\u0644\u0644\u0647 \u0635\u0644\u0651\u0649 \u0627\u0644\u0644\u0647 \u0639\u0644\u064a\u0647 \u0648\u0633\u0644\u0651\u0645: \u00ab\u0627\u0642\u0652\u0631\u064e\u0623\u0652 \u0628\u0650\u0627\u0644\u0645\u064f\u0639\u064e\u0648\u0651\u0650\u0630\u064e\u062a\u064e\u064a\u0652\u0646\u0650 \u0641\u0643\u0623\u0646\u0651\u064e\u0643\u064e \u0644\u064e\u0645\u0652 \u062a\u064e\u062a\u0639\u064e\u0648\u0651\u064e\u0630\u0652 \u0628\u0650\u0645\u0650\u062b\u0652\u0644\u0650\u0647\u0650\u0646\u0651\u064e\u00bb. (\u0631\u0648\u0627\u0647 \u0627\u0644\u0646\u0633\u0627\u0626\u064a)",
+      fr:"D\u2019apr\u00e8s \u2018Uqba ibn \u2018\u0100mir, le Proph\u00e8te \ufdfa a dit: \u00ab R\u00e9cite les Deux Protectrices car tu ne t\u2019es jamais prot\u00e9g\u00e9 par leur \u00e9quivalent. \u00bb (An-Nas\u0101\u2019\u012b)",
+      es:"Seg\u00fan \u2018Uqba ibn \u2018\u0100mir, el Profeta \ufdfa dijo: \u00abRecita las Dos Protectoras pues nunca te has refugiado en algo semejante.\u00bb (An-Nas\u0101\u2019\u012b)"
+    },
+    warsh:{
+      ar:"\u0641\u064a \u0631\u0648\u0627\u064a\u0629 \u0648\u064e\u0631\u0652\u0634: \u0628\u0650\u0627\u0644\u0646\u0651\u064e\u0627\u0633\u0650 \u0641\u064a \u0622\u062e\u0631 \u0627\u0644\u0633\u0651\u064f\u0648\u0631\u0629 \u062f\u0648\u0646 \u062a\u0646\u0648\u064a\u0646\u060c \u0648\u064a\u064f\u0631\u0627\u0639\u0649 \u062a\u0641\u062e\u064a\u0645 \u0627\u0644\u0631\u0651\u064e\u0627\u0621 \u0648\u0641\u0642 \u0642\u0648\u0627\u0639\u062f \u0648\u064e\u0631\u0652\u0634 \u0627\u0644\u0645\u0639\u0631\u0648\u0641\u0629.",
+      fr:"Dans Warsh : الناسِ en fin de sourate sans tanw\u012bn, et le tafkh\u012bm du r\u0101\u2019 selon les r\u00e8gles de Warsh.",
+      es:"En Warsh: الناسِ al final de la sura sin tanw\u012bn, y el tafkh\u012bm de la r\u0101\u2019 seg\u00fan las reglas de Warsh."
+    },
+    fullText:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ۞ قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾ مَلِكِ النَّاسِ ﴿٢﴾ إِلَهِ النَّاسِ ﴿٣﴾ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾ مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",
+    ayahs:[
+      {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",fr:"Au nom d'Allah, le Tout Mis\u00e9ricordieux, le Tr\u00e8s Mis\u00e9ricordieux.",es:"En el nombre de Al\u00e1, el Clemente, el Misericordioso.",icon:"fa-hands-praying",emoji:"\uD83E\uDD32",noteFr:"La Basmalah — رواية ورش",noteEs:"La Basmalah — riwāyat Warsh"},
+      {ar:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾",fr:"Dis : Je cherche refuge aupr\u00e8s du Seigneur des hommes.",es:"Di: Me refugio en el Se\u00f1or de la humanidad.",icon:"fa-people-group",emoji:"\uD83D\uDC65",noteFr:"Verset 1 — النَّاس = les gens / les hommes · رَبّ = Seigneur",noteEs:"Versículo 1 — النَّاس = la gente · رَبّ = Señor"},
+      {ar:"مَلِكِ النَّاسِ ﴿٢﴾",fr:"Le Roi des hommes.",es:"El Rey de la humanidad.",icon:"fa-crown",emoji:"\uD83D\uDC51",noteFr:"Verset 2 — مَلِك = Roi · attribut d'Allah",noteEs:"Versículo 2 — مَلِك = Rey · atributo de Alá"},
+      {ar:"إِلَهِ النَّاسِ ﴿٣﴾",fr:"Le Dieu des hommes.",es:"El Dios de la humanidad.",icon:"fa-infinity",emoji:"\u2605",noteFr:"Verset 3 — إِلَه = Dieu · 3 noms d'Allah en 3 versets",noteEs:"Versículo 3 — إِلَه = Dios · 3 nombres de Alá en 3 versículos"},
+      {ar:"مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾",fr:"Contre le mal du Tentateur, le Furtif.",es:"Contra el mal del Susurrador Furtivo.",icon:"fa-ghost",emoji:"\uD83D\uDC7B",noteFr:"Verset 4 — الوَسْوَاس = le murmure tentateur · الخَنَّاس = qui se recroqueville",noteEs:"Versículo 4 — الوَسْوَاس = susurrador · الخَنَّاس = que se encoge"},
+      {ar:"الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾",fr:"Celui qui murmure dans les poitrines des hommes.",es:"Que susurra en los pechos de la humanidad.",icon:"fa-heart",emoji:"\uD83E\uDEC0",noteFr:"Verset 5 — يُوَسْوِسُ = فعل مضارع · يبدأ بـ يُ · صُدُور = poitrines",noteEs:"Versículo 5 — يُوَسْوِسُ = verbo presente · صُدُور = pechos"},
+      {ar:"مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",fr:"Issu des djinns et des hommes.",es:"Proveniente de los genios y de los hombres.",icon:"fa-fire",emoji:"\uD83D\uDD25\uD83D\uDC64",noteFr:"Verset 6 — الجِنَّة = les djinns · وَالنَّاس = et les hommes",noteEs:"Versículo 6 — الجِنَّة = los genios · وَالنَّاس = y los hombres"}
+    ],
+    vocab:[
+      {ar:"النَّاسِ",fr:"Les gens / Les hommes",es:"La gente / Los hombres",root:"\u0646 \u0648 \u0633"},
+      {ar:"مَلِكِ",fr:"Le Roi / Le Souverain",es:"El Rey / El Soberano",root:"\u0645 \u0644 \u0643"},
+      {ar:"إِلَهِ",fr:"Le Dieu / La Divinit\u00e9",es:"El Dios / La Divinidad",root:"\u0623 \u0644 \u0647"},
+      {ar:"الْوَسْوَاسِ",fr:"Le Tentateur / Le Susurreur",es:"El Tentador / El Susurrador",root:"\u0648 \u0633 \u0633"},
+      {ar:"الْخَنَّاسِ",fr:"Le Furtif / Qui se cache",es:"El Furtivo / Que se oculta",root:"\u062e \u0646 \u0633"},
+      {ar:"يُوَسْوِسُ",fr:"Il murmure / Il souffle des tentations",es:"Susurra / Sopla tentaciones",root:"\u0648 \u0633 \u0633"},
+      {ar:"صُدُورِ",fr:"Les poitrines / Les c\u0153urs",es:"Los pechos / Los corazones",root:"\u0635 \u062f \u0631"},
+      {ar:"الْجِنَّةِ",fr:"Les djinns / Les g\u00e9nies",es:"Los genios / Los djinns",root:"\u062c \u0646 \u0646"}
+    ]
+  }
+};
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+const State={
+  jomla:{idx:0,flipped:false},
+  fc7:{idx:0},
+  lect7:{flipped:false},
+  tilawa7:{flipped:false},
+  currentSurah:null
+};
+
+const $=id=>document.getElementById(id);
+
+function showView(n){
+  ['main','jomla','surah-select','mode-select','fc7','lecture7','tilawa7']
+    .forEach(v=>$('view-'+v).classList.add('hidden'));
+  $('view-'+n).classList.remove('hidden');
+}
+
+/* ── Jomla navigation ── */
+function renderJomla(){
+  const s=State.jomla;
+  const card=JOMLA_DATA[s.idx];
+  s.flipped=false;
+  $('card-jomla').classList.remove('flipped');
+  $('card-jomla').onclick=()=>flipCard('jomla');
+  $('card-jomla').style.cursor='pointer';
+  $('jomla-front').innerHTML=card.front;
+  $('jomla-back').innerHTML=card.back;
+  $('jomla-curr').textContent=s.idx+1;
+  $('jomla-tot').textContent=JOMLA_DATA.length;
+  $('jomla-prev').disabled=(s.idx===0);
+  $('jomla-next').disabled=(s.idx===JOMLA_DATA.length-1);
+  $('jomla-front').scrollTop=0;$('jomla-back').scrollTop=0;
+}
+
+window.openSection=function(sec){
+  if(sec==='jomla'){State.jomla.idx=0;renderJomla();showView('jomla');}
+};
+window.flipCard=function(sec){
+  State[sec].flipped=!State[sec].flipped;
+  $('card-'+sec).classList.toggle('flipped',State[sec].flipped);
+};
+window.navigate=function(sec,dir){
+  const s=State[sec];
+  const next=s.idx+dir;
+  if(next<0||next>=JOMLA_DATA.length)return;
+  s.idx=next;renderJomla();
+};
+
+/* ── Swipe jomla ── */
+let tx0=0;
+$('view-jomla').addEventListener('touchstart',e=>{tx0=e.touches[0].clientX;},{passive:true});
+$('view-jomla').addEventListener('touchend',e=>{
+  const dx=tx0-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>55){dx>0?navigate('jomla',1):navigate('jomla',-1);}
+},{passive:true});
+
+/* ── Navigation menu المعوذتان ── */
+window.openSurahSelect=function(){showView('surah-select');};
+window.backToSurahs=function(){showView('surah-select');};
+window.goMain=function(){showView('main');};
+window.openModeSelect=function(surahId){
+  State.currentSurah=surahId;
+  const s=SURAHS[surahId];
+  $('mode-ar-title').textContent=s.titleAr;
+  $('mode-fr-title').textContent=s.titleFr+' · رواية ورش';
+  showView('mode-select');
+};
+
+/* ── Flashcards المعوذتان ── */
+window.openFlashcards7=function(){
+  const s=SURAHS[State.currentSurah];
+  $('fc7-brand-ar').textContent=s.titleAr;
+  $('fc7-brand-fr').textContent=s.titleFr.toUpperCase()+' · WARSH';
+  State.fc7.idx=0;
+  showView('fc7');
+  renderFC7();
+};
+function renderFC7(){
+  const s=SURAHS[State.currentSurah];
+  const c=s.ayahs[State.fc7.idx];
+  $('fc7-counter').textContent=(State.fc7.idx+1)+' / '+s.ayahs.length;
+  $('fc7-icon-wrap').innerHTML='<i class="fa-solid '+c.icon+'" style="font-size:3.8rem;color:var(--gold);"></i>';
+  $('fc7-ar').textContent=c.ar;
+  $('fc7-fr').textContent=c.fr;
+  $('fc7-es').textContent=c.es;
+  $('fc7-note-fr').textContent=c.noteFr;
+  $('fc7-note-es').textContent=c.noteEs;
+  $('fc7-prev').disabled=(State.fc7.idx===0);
+  $('fc7-next').disabled=(State.fc7.idx===s.ayahs.length-1);
+}
+$('fc7-prev').addEventListener('click',()=>{if(State.fc7.idx>0){State.fc7.idx--;renderFC7();}});
+$('fc7-next').addEventListener('click',()=>{
+  const s=SURAHS[State.currentSurah];
+  if(State.fc7.idx<s.ayahs.length-1){State.fc7.idx++;renderFC7();}
+});
+let txFC=0;
+$('view-fc7').addEventListener('touchstart',e=>{txFC=e.touches[0].clientX;},{passive:true});
+$('view-fc7').addEventListener('touchend',e=>{
+  const dx=txFC-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>55){dx>0?$('fc7-next').click():$('fc7-prev').click();}
+},{passive:true});
+
+/* ── Lecture & Analyse ── */
+window.openLecture7=function(){
+  const s=SURAHS[State.currentSurah];
+  $('lect7-brand-ar').textContent=s.titleAr;
+  $('lect7-brand-fr').textContent=s.titleFr+' · WARSH';
+  const vc=$('lecture7-verses-container');vc.innerHTML='';
+  s.ayahs.forEach(a=>{
+    vc.innerHTML+=`<div class="text-line">
+      <div class="line-texts">
+        <div class="line-ar ar">${a.ar}</div>
+        <div class="line-fr">${a.fr}</div>
+        <div class="line-es">${a.es}</div>
+      </div>
+      <div class="line-emoji">${a.emoji}</div>
+    </div>`;
+  });
+  const vocab=$('lecture7-vocab-container');vocab.innerHTML='';
+  s.vocab.forEach(v=>{
+    vocab.innerHTML+=`<div class="root-row">
+      <div class="root-content">
+        <div class="root-verb ar">${v.ar}</div>
+        <div class="root-meaning">${v.fr}</div>
+        <div class="root-meaning-es">${v.es}</div>
+      </div>
+      <div class="root-block ar">${v.root}</div>
+    </div>`;
+  });
+  State.lect7.flipped=false;
+  $('flip-card-lect7').classList.remove('is-flipped');
+  updatePills7();
+  showView('lecture7');
+  setTimeout(()=>{
+    const h=Math.max($('face7-front').offsetHeight,$('face7-back').offsetHeight,660);
+    $('flip-card-lect7').style.height=h+'px';
+  },120);
+};
+window.flipLecture7=function(){
+  State.lect7.flipped=!State.lect7.flipped;
+  $('flip-card-lect7').classList.toggle('is-flipped',State.lect7.flipped);
+  updatePills7();
+};
+function updatePills7(){
+  $('pill-recto').className=State.lect7.flipped?'side-pill inactive':'side-pill active';
+  $('pill-verso').className=State.lect7.flipped?'side-pill active':'side-pill inactive';
+}
+$('pill-recto').addEventListener('click',()=>{if(State.lect7.flipped)flipLecture7();});
+$('pill-verso').addEventListener('click',()=>{if(!State.lect7.flipped)flipLecture7();});
+let txL=0;
+$('view-lecture7').addEventListener('touchstart',e=>{txL=e.touches[0].clientX;},{passive:true});
+$('view-lecture7').addEventListener('touchend',e=>{
+  if(Math.abs(txL-e.changedTouches[0].clientX)>60)flipLecture7();
+},{passive:true});
+
+/* ── Tilawa ── */
+window.openTilawa7=function(){
+  const s=SURAHS[State.currentSurah];
+  State.tilawa7.flipped=false;
+  $('tilawa-card-7').classList.remove('flipped');
+  $('tilawa7-brand-ar').textContent=s.titleAr;
+  $('tilawa7-brand-fr').textContent=s.titleFr+' · WARSH';
+  $('tilawa7-surah-title').textContent=s.titleAr;
+  const basmalah=s.ayahs[0].ar;
+  const reste=s.ayahs.slice(1).map(a=>
+    a.ar
+      .replace(/(﴿[^﴾]*﴾)/g,'<span class="sep-num">$1</span>')
+      .replace(/اللَّهِ|اللَّهُ|اللَّهَ/g,'<span class="hl-gold">$&</span>')
+      .replace(/رَبِّ/g,'<span class="hl-gold">$&</span>')
+  ).join(' ');
+  $('tilawa7-full-text').innerHTML=
+    '<div class="tilawa-basmalah ar">'+basmalah+'</div>'+
+    '<div class="tilawa-flux ar">'+reste+'</div>';
+  // verso
+  $('verso7-title-ar').textContent=s.titleAr;
+  $('verso7-title-fr').textContent=s.titleFr+' · Warsh';
+  $('verso7-num').textContent=s.surahNum;
+  $('verso7-type').textContent=s.type;
+  $('verso7-type-fr').textContent=s.typeFr;
+  $('verso7-count').textContent=s.ayahCount;
+  $('verso7-count-fr').textContent=s.ayahFr;
+  $('verso7-asbab-ar').textContent=s.asbab.ar;
+  $('verso7-asbab-fr').textContent='\uD83C\uDDEB\uD83C\uDDF7 '+s.asbab.fr;
+  $('verso7-asbab-es').textContent='\uD83C\uDDEA\uD83C\uDDF8 '+s.asbab.es;
+  $('verso7-fadl-ar').textContent=s.fadl.ar;
+  $('verso7-fadl-fr').textContent='\uD83C\uDDEB\uD83C\uDDF7 '+s.fadl.fr;
+  $('verso7-fadl-es').textContent='\uD83C\uDDEA\uD83C\uDDF8 '+s.fadl.es;
+  $('verso7-warsh-ar').textContent=s.warsh.ar;
+  $('verso7-warsh-fr').textContent='\uD83C\uDDEB\uD83C\uDDF7 '+s.warsh.fr;
+  $('verso7-warsh-es').textContent='\uD83C\uDDEA\uD83C\uDDF8 '+s.warsh.es;
+  showView('tilawa7');
+};
+window.flipTilawa7=function(){
+  State.tilawa7.flipped=!State.tilawa7.flipped;
+  $('tilawa-card-7').classList.toggle('flipped',State.tilawa7.flipped);
+};
+
+})();
+</script>
+</body>
+</html>
