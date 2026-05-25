@@ -102,7 +102,7 @@
   <main id="vw" class="view">
     <section class="mc">
       <a href="module11.html" class="bh np"><i class="fa-solid fa-house"></i></a>
-      <div class="ba ar">جُمْلَة فِعْلِيَّة · جُمْلَة اسْمِيَّة</div>
+      <div class="ba ar">جُمْلَة فِعْلِيَّة · جُمْلَة اسْمِيَّة</div>
       <div class="at sf">Kalicards · Leçon 11</div>
       <div class="as">Quiz 1 — Discrimination الجملة الفعلية</div>
       <div class="dv"></div>
@@ -120,7 +120,10 @@
       <div class="pbc" id="pb" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="pf" class="pbf"></div></div>
     </header>
     <section class="qc">
-      <div class="it">Laquelle est une جملة فعلية ?<small>¿Cuál es una جملة فعلية? — commence par un فعل · 1 correcte + 3 اسمية</small></div>
+      <div class="it">Laquelle est une جملة فعلية ?<small>¿Cuál es una جملة فعلية? — 1 فعلية commence par un فِعْل · 3 اسمية</small></div>
+      <div id="catbadge" class="cat-badge"></div>
+      <div id="sar" class="sar ar"></div>
+      <div id="sfr" class="sfr"></div>
       <div id="og" class="og"></div>
       <div id="fb" class="fdbk mt"></div>
     </section>
@@ -144,56 +147,58 @@
 <script>
 (()=>{
 "use strict";
-// c = جملة فعلية · cfr = traduction · t = 3 جملة اسمية distracteurs
+// c = جملة فعلية · cfr = traduction · t = 3 جملة اسمية
 const DATA=[
-  {c:"أَكَلَ عَزيزٌ الطَّعامَ",cfr:"Aziz a mangé la nourriture",t:["الطَّعامُ لَذيذٌ","عَزيزٌ طَالِبٌ","الْبَيْتُ كَبيرٌ"]},
-  {c:"كَتَبَتِ الطَّالِبَةُ الدَّرْسَ",cfr:"l’étudiante a écrit la leçon",t:["الدَّرْسُ سَهْلٌ","الطَّالِبَةُ مُجْتَهِدَةٌ","الْمَدْرَسَةُ قَريبَةٌ"]},
-  {c:"نَزَلَ جِبْريلُ بِالْوَحْيِ",cfr:"Jibrîl descendit avec la Révélation",t:["جِبْريلُ أَمينٌ","الْوَحْيُ عَظيمٌ","النَّبِيُّ رَسُولٌ"]},
-  {c:"يَقْرَأُ عَزيزٌ الْقُرْآنَ",cfr:"Aziz lit le Coran",t:["الْقُرْآنُ كَريمٌ","عَزيزٌ مُسْلِمٌ","الدَّرْسُ طَويلٌ"]},
-  {c:"خَلَقَ اللَّهُ الإِنْسَانَ",cfr:"Allah a créé l’homme",t:["الإِنْسَانُ ضَعيفٌ","اللَّهُ أَحَدٌ","الْخَلْقُ عَجيبٌ"]},
-  {c:"ذَهَبَ الأَبُ إِلَى الْمَسْجِدِ",cfr:"le père alla à la mosquée",t:["الْمَسْجِدُ قَريبٌ","الأَبُ كَريمٌ","الصَّلَاةُ وَاجِبَةٌ"]},
-  {c:"تُصَلِّي الأُمُّ فَجْرًا",cfr:"la mère prie le fajr",t:["الْفَجْرُ جَميلٌ","الأُمُّ طَيِّبَةٌ","الصَّلَاةُ نُورٌ"]},
-  {c:"شَرِبَتِ الْبِنْتُ الْحَليبَ",cfr:"la fille a bu le lait",t:["الْحَليبُ بَارِدٌ","الْبِنْتُ صَغيرَةٌ","الْبَيْتُ جَميلٌ"]},
-  {c:"عَلَّمَ اللَّهُ آدَمَ الأَسْمَاءَ",cfr:"Allah enseigna à Adam les noms",t:["آدَمُ أَبُ الْبَشَرِ","الأَسْمَاءُ كَثيرَةٌ","اللَّهُ عَليمٌ"]},
-  {c:"جَلَسَتِ الأُسْرَةُ حَوْلَ الْمَائِدَةِ",cfr:"la famille s’assit autour de la table",t:["الْمَائِدَةُ كَبيرَةٌ","الأُسْرَةُ سَعيدَةٌ","الطَّعَامُ جَاهِزٌ"]},
-  {c:"يُسَبِّحُ كُلُّ شَيْءْ لِللَّهِ",cfr:"toute chose glorifie Allah",t:["اللَّهُ عَظيمٌ","التَّسْبيحُ عِبَادَةٌ","كُلُّ شَيْءْ مَخْلُوقٌ"]},
-  {c:"طَارَتِ الطُّيُورُ فَوْقَ الشَّجَرَةِ",cfr:"les oiseaux volèrent au-dessus de l’arbre",t:["الطُّيُورُ جَميلَةٌ","الشَّجَرَةُ عَالِيَةٌ","السَّمَاءُ صَافِيَةٌ"]},
-  {c:"ضَمَّ جِبْريلُ النَّبِيَّ ﷺ",cfr:"Jibrîl enlaça le Prophète",t:["النَّبِيُّ رَحِيمٌ","جِبْريلُ أَمينٌ","الْغَارُ بَعيدٌ"]},
-  {c:"قَالَتْ خَدِيجَةُ لَا تَخَفْ",cfr:"Khadîja dit : n’aie pas peur",t:["خَدِيجَةُ صَابِرَةٌ","الصَّبْرُ جَميلٌ","الْخَوْفُ لَيْسَ جَيِّدًا"]},
-  {c:"يَحْمِيكَ اللَّهُ",cfr:"Allah te protège",t:["اللَّهُ حَافِظٌ","الْحِمَايَةُ ضَرُورَيَّةٌ","أَنْتَ آمِنٌ"]},
-  {c:"رَجَعَ النَّبِيُّ ﷺ إِلَى بَيْتِهِ",cfr:"le Prophète rentra chez lui",t:["بَيْتُ النَّبِيّ صَغيرٌ","النَّبِيُّ رَسُولٌ","الرُجُوعُ سَريعٌ"]},
-  {c:"قَرَأَ النَّبِيُّ ﷺ الْوَحْيَ",cfr:"le Prophète lut la Révélation",t:["الْوَحْيُ نُورٌ","الْقِرَاءَةُ مُهِمَّةٌ","النَّبِيُّ أَمينٌ"]},
-  {c:"نَظَرَ الْجَدُّ إِلَى السَّمَاءِ",cfr:"le grand-père regarda le ciel",t:["الْجَدُّ طَيِّبٌ","السَّمَاءُ صَافِيَةٌ","النَّظَرُ عِبَادَةٌ"]},
-  {c:"صَلَّى الأَبُ مَعَ عَزيزُ",cfr:"le père pria avec Aziz",t:["الصَّلَاةُ عِمَادُ الدِّينِ","الأَبُ مُدَرِّسٌ","عَزيزٌ بَارِعٌ"]},
-  {c:"تَوَضَّأَ عَزيزٌ بِالْمَاءِ",cfr:"Aziz fit ses ablutions",t:["الْمَاءُ بَارِدٌ","الْوُضُوءُ وَاجِبٌ","عَزيزٌ نَظيفٌ"]},
-  {c:"يُوَسْوِسُ الشَّيْطَانُ فِي الصُّدُورِ",cfr:"le diable murmure dans les poitrines",t:["الشَّيْطَانُ عَدُوٌ","الصُّدُورُ ضَيِّقَةٌ","الْوَسْوَاسُ خَطِيرٌ"]},
-  {c:"قَامَ عَزيزٌ مِنَ النَّوْمِ",cfr:"Aziz se leva du sommeil",t:["النَّوْمُ ضَرُورَيٌّ","عَزيزٌ نَشيطٌ","الصَّبَاحُ بَاكِرٌ"]},
-  {c:"أَعْطَيْنَاكَ الْكَوْثَرَ",cfr:"Nous t’avons accordé Al-Kawthar",t:["الْكَوْثَرُ نَهْرٌ","الْعَطَاءُ كَثيرٌ","الْجَنَّةُ جَميلَةٌ"]},
-  {c:"أَعُوذُ بِرَبِّ الْفَلَقِ",cfr:"je cherche refuge auprès du Seigneur de l’Aube",t:["الْفَلَقُ نُورٌ","الرَّبُّ عَظيمٌ","الْعِيَاذُ ضَرُورَيٌّ"]},
-  {c:"يَرْتَجِفُ النَّبِيُّ ﷺ",cfr:"le Prophète tremble",t:["النَّبِيُّ فَائِزٌ","الْاِرْتِجَافُ شَديدٌ","الْغَارُ بَعيدٌ"]},
-  {c:"خَلَقَ الإِنْسَانَ مِنْ عَلَقٍ",cfr:"il créa l’homme d’une cellule",t:["الإِنْسَانُ مَخْلُوقٌ","الْعَلَقُ صَغيرٌ","الْخَلْقُ عَجيبٌ"]},
-  {c:"يَذْهَبُ عَزيزٌ إِلَى الْمَدْرَسَةِ",cfr:"Aziz va à l’école",t:["الْمَدْرَسَةُ كَبيرَةٌ","عَزيزٌ مُجتَهِدٌ","الدِّرَاسَةُ مُفيدَةٌ"]},
-  {c:"يُحِبُّ عَزيزٌ الْقُرْآنَ",cfr:"Aziz aime le Coran",t:["الْقُرْآنُ عَظيمٌ","عَزيزٌ مُؤمِنٌ","الْحُبُّ عَظيمٌ"]},
-  {c:"فَصَلِّ لِرَبِّكَ وَانْحَرْ",cfr:"prie pour ton Seigneur et sacrifie",t:["الصَّلَاةُ لِلرَّبِّ","الأُضْحِيَةُ سُنَّةٌ","الرَّبُّ كَريمٌ"]}
+  {c:"\u0623\u064e\u0643\u064e\u0644\u064e \u0639\u064e\u0632\u064a\u0632\u064c \u0627\u0644\u0637\u064e\u0651\u0639\u064e\u0627\u0645\u064e",cfr:"Aziz a mang\u00e9 la nourriture",t:["\u0627\u0644\u0637\u064e\u0651\u0639\u064e\u0627\u0645\u064f \u0644\u064e\u0630\u064a\u0630\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0637\u064e\u0627\u0644\u0650\u0628\u064c","\u0627\u0644\u0652\u0628\u064e\u064a\u0652\u062a\u064f \u0643\u064e\u0628\u064a\u0631\u064c"]},
+  {c:"\u0643\u064e\u062a\u064e\u0628\u064e\u062a\u0650 \u0627\u0644\u0637\u064e\u0651\u0627\u0644\u0650\u0628\u064e\u0629\u064f \u0627\u0644\u062f\u064e\u0651\u0631\u0652\u0633\u064e",cfr:"l\u2019\u00e9tudiante a \u00e9crit la le\u00e7on",t:["\u0627\u0644\u062f\u064e\u0651\u0631\u0652\u0633\u064f \u0633\u064e\u0647\u0652\u0644\u064c","\u0627\u0644\u0637\u064e\u0651\u0627\u0644\u0650\u0628\u064e\u0629\u064f \u0645\u064f\u062c\u0652\u062a\u064e\u0647\u0650\u062f\u064e\u0629\u064c","\u0627\u0644\u0652\u0645\u064e\u062f\u0652\u0631\u064e\u0633\u064e\u0629\u064f \u0642\u064e\u0631\u064a\u0628\u064e\u0629\u064c"]},
+  {c:"\u0646\u064e\u0632\u064e\u0644\u064e \u062c\u0650\u0628\u0652\u0631\u064a\u0644\u064f \u0628\u0650\u0627\u0644\u0652\u0648\u064e\u062d\u0652\u064a\u0650",cfr:"Jibr\u00eel descendit avec la R\u00e9v\u00e9lation",t:["\u062c\u0650\u0628\u0652\u0631\u064a\u0644\u064f \u0623\u064e\u0645\u064a\u0646\u064c","\u0627\u0644\u0652\u0648\u064e\u062d\u0652\u064a\u064f \u0639\u064e\u0638\u064a\u0645\u064c","\u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \u0631\u064e\u0633\u064f\u0648\u0644\u064c"]},
+  {c:"\u064a\u064e\u0642\u0652\u0631\u064e\u0623\u064f \u0639\u064e\u0632\u064a\u0632\u064c \u0627\u0644\u0652\u0642\u064f\u0631\u0652\u0622\u0646\u064e",cfr:"Aziz lit le Coran",t:["\u0627\u0644\u0652\u0642\u064f\u0631\u0652\u0622\u0646\u064f \u0643\u064e\u0631\u064a\u0645\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0645\u064f\u0633\u0652\u0644\u0650\u0645\u064c","\u0627\u0644\u062f\u064e\u0651\u0631\u0652\u0633\u064f \u0637\u064e\u0648\u064a\u0644\u064c"]},
+  {c:"\u062e\u064e\u0644\u064e\u0642\u064e \u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0627\u0644\u0625\u0650\u0646\u0652\u0633\u064e\u0627\u0646\u064e",cfr:"Allah a cr\u00e9\u00e9 l\u2019homme",t:["\u0627\u0644\u0625\u0650\u0646\u0652\u0633\u064e\u0627\u0646\u064f \u0636\u064e\u0639\u064a\u0641\u064c","\u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0623\u064e\u062d\u064e\u062f\u064c","\u0627\u0644\u0652\u062e\u064e\u0644\u0652\u0642\u064f \u0639\u064e\u062c\u064a\u0628\u064c"]},
+  {c:"\u0630\u064e\u0647\u064e\u0628\u064e \u0627\u0644\u0623\u064e\u0628\u064f \u0625\u0650\u0644\u064e\u0649 \u0627\u0644\u0652\u0645\u064e\u0633\u0652\u062c\u0650\u062f\u0650",cfr:"le p\u00e8re alla \u00e0 la mosqu\u00e9e",t:["\u0627\u0644\u0652\u0645\u064e\u0633\u0652\u062c\u0650\u062f\u064f \u0642\u064e\u0631\u064a\u0628\u064c","\u0627\u0644\u0623\u064e\u0628\u064f \u0643\u064e\u0631\u064a\u0645\u064c","\u0627\u0644\u0635\u064e\u0651\u0644\u064e\u0627\u0629\u064f \u0648\u064e\u0627\u062c\u0650\u0628\u064e\u0629\u064c"]},
+  {c:"\u062a\u064f\u0635\u064e\u0644\u0650\u0651\u064a \u0627\u0644\u0623\u064f\u0645\u064f\u0651 \u0641\u064e\u062c\u0652\u0631\u064b\u0627",cfr:"la m\u00e8re prie le fajr",t:["\u0627\u0644\u0652\u0641\u064e\u062c\u0652\u0631\u064f \u062c\u064e\u0645\u064a\u0644\u064c","\u0627\u0644\u0623\u064f\u0645\u064f\u0651 \u0637\u064e\u064a\u0651\u0650\u0628\u064e\u0629\u064c","\u0627\u0644\u0635\u064e\u0651\u0644\u064e\u0627\u0629\u064f \u0646\u064f\u0648\u0631\u064c"]},
+  {c:"\u0634\u064e\u0631\u0650\u0628\u064e\u062a\u0650 \u0627\u0644\u0652\u0628\u0650\u0646\u0652\u062a\u064f \u0627\u0644\u0652\u062d\u064e\u0644\u064a\u0628\u064e",cfr:"la fille a bu le lait",t:["\u0627\u0644\u0652\u062d\u064e\u0644\u064a\u0628\u064f \u0628\u064e\u0627\u0631\u0650\u062f\u064c","\u0627\u0644\u0652\u0628\u0650\u0646\u0652\u062a\u064f \u0635\u064e\u063a\u064a\u0631\u064e\u0629\u064c","\u0627\u0644\u0652\u0628\u064e\u064a\u0652\u062a\u064f \u062c\u064e\u0645\u064a\u0644\u064c"]},
+  {c:"\u0639\u064e\u0644\u064e\u0651\u0645\u064e \u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0622\u062f\u064e\u0645\u064e \u0627\u0644\u0623\u064e\u0633\u0652\u0645\u064e\u0627\u0621\u064e",cfr:"Allah enseigna \u00e0 Adam les noms",t:["\u0622\u062f\u064e\u0645\u064f \u0623\u064e\u0628\u064f \u0627\u0644\u0652\u0628\u064e\u0634\u064e\u0631\u0650","\u0627\u0644\u0623\u064e\u0633\u0652\u0645\u064e\u0627\u0621\u064f \u0643\u064e\u062b\u064a\u0631\u064e\u0629\u064c","\u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0639\u064e\u0644\u064a\u0645\u064c"]},
+  {c:"\u062c\u064e\u0644\u064e\u0633\u064e\u062a\u0650 \u0627\u0644\u0623\u064f\u0633\u0652\u0631\u064e\u0629\u064f \u062d\u064e\u0648\u0652\u0644\u064e \u0627\u0644\u0652\u0645\u064e\u0627\u0626\u0650\u062f\u064e\u0629\u0650",cfr:"la famille s\u2019assit autour de la table",t:["\u0627\u0644\u0652\u0645\u064e\u0627\u0626\u0650\u062f\u064e\u0629\u064f \u0643\u064e\u0628\u064a\u0631\u064e\u0629\u064c","\u0627\u0644\u0623\u064f\u0633\u0652\u0631\u064e\u0629\u064f \u0633\u064e\u0639\u064a\u062f\u064e\u0629\u064c","\u0627\u0644\u0637\u064e\u0651\u0639\u064e\u0627\u0645\u064f \u062c\u064e\u0627\u0647\u0650\u0632\u064c"]},
+  {c:"\u064a\u064f\u0633\u064e\u0628\u0651\u0650\u062d\u064f \u0643\u064f\u0644\u064f\u0651 \u0634\u064e\u064a\u0652\u0621\u0652 \u0644\u0650\u0644\u0644\u064e\u0651\u0647\u0650",cfr:"toute chose glorifie Allah",t:["\u0627\u0644\u0644\u064e\u0651\u0647\u064f \u0639\u064e\u0638\u064a\u0645\u064c","\u0627\u0644\u062a\u064e\u0651\u0633\u0652\u0628\u064a\u062d\u064f \u0639\u0650\u0628\u064e\u0627\u062f\u064e\u0629\u064c","\u0643\u064f\u0644\u064f\u0651 \u0634\u064e\u064a\u0652\u0621\u0652 \u0645\u064e\u062e\u0652\u0644\u064f\u0648\u0642\u064c"]},
+  {c:"\u0637\u064e\u0627\u0631\u064e\u062a\u0650 \u0627\u0644\u0637\u064f\u0651\u064a\u064f\u0648\u0631\u064f \u0641\u064e\u0648\u0652\u0642\u064e \u0627\u0644\u0634\u064e\u0651\u062c\u064e\u0631\u064e\u0629\u0650",cfr:"les oiseaux vol\u00e8rent au-dessus de l\u2019arbre",t:["\u0627\u0644\u0637\u064f\u0651\u064a\u064f\u0648\u0631\u064f \u062c\u064e\u0645\u064a\u0644\u064e\u0629\u064c","\u0627\u0644\u0634\u064e\u0651\u062c\u064e\u0631\u064e\u0629\u064f \u0639\u064e\u0627\u0644\u0650\u064a\u064e\u0629\u064c","\u0627\u0644\u0633\u064e\u0651\u0645\u064e\u0627\u0621\u064f \u0635\u064e\u0627\u0641\u0650\u064a\u064e\u0629\u064c"]},
+  {c:"\u0636\u064e\u0645\u064e\u0651 \u062c\u0650\u0628\u0652\u0631\u064a\u0644\u064f \u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u064e\u0651 \ufdfa",cfr:"Jibr\u00eel enla\u00e7a le Proph\u00e8te",t:["\u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \u0631\u064e\u062d\u0650\u064a\u0645\u064c","\u062c\u0650\u0628\u0652\u0631\u064a\u0644\u064f \u0623\u064e\u0645\u064a\u0646\u064c","\u0627\u0644\u0652\u063a\u064e\u0627\u0631\u064f \u0628\u064e\u0639\u064a\u062f\u064c"]},
+  {c:"\u0642\u064e\u0627\u0644\u064e\u062a\u0652 \u062e\u064e\u062f\u0650\u064a\u062c\u064e\u0629\u064f \u0644\u064e\u0627 \u062a\u064e\u062e\u064e\u0641\u0652",cfr:"Khad\u00eeja dit n\u2019aie pas peur",t:["\u062e\u064e\u062f\u0650\u064a\u062c\u064e\u0629\u064f \u0635\u064e\u0627\u0628\u0650\u0631\u064e\u0629\u064c","\u0627\u0644\u0635\u064e\u0651\u0628\u0652\u0631\u064f \u062c\u064e\u0645\u064a\u0644\u064c","\u0627\u0644\u0652\u062e\u064e\u0648\u0652\u0641\u064f \u0644\u064e\u064a\u0652\u0633\u064e \u062c\u064e\u064a\u0651\u0650\u062f\u064b\u0627"]},
+  {c:"\u064a\u064e\u062d\u0652\u0645\u0650\u064a\u0643\u064e \u0627\u0644\u0644\u064e\u0651\u0647\u064f",cfr:"Allah te prot\u00e8ge",t:["\u0627\u0644\u0644\u064e\u0651\u0647\u064f \u062d\u064e\u0627\u0641\u0650\u0638\u064c","\u0627\u0644\u0652\u062d\u0650\u0645\u064e\u0627\u064a\u064e\u0629\u064f \u0636\u064e\u0631\u064f\u0648\u0631\u064e\u064a\u0651\u064e\u0629\u064c","\u0623\u064e\u0646\u0652\u062a\u064e \u0622\u0645\u0650\u0646\u064c"]},
+  {c:"\u0631\u064e\u062c\u064e\u0639\u064e \u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \ufdfa \u0625\u0650\u0644\u064e\u0649 \u0628\u064e\u064a\u0652\u062a\u0650\u0647\u0650",cfr:"le Proph\u00e8te rentra chez lui",t:["\u0628\u064e\u064a\u0652\u062a\u064f \u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651 \u0635\u064e\u063a\u064a\u0631\u064c","\u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \u0631\u064e\u0633\u064f\u0648\u0644\u064c","\u0627\u0644\u0631\u064f\u062c\u064f\u0648\u0639\u064f \u0633\u064e\u0631\u064a\u0639\u064c"]},
+  {c:"\u0642\u064e\u0631\u064e\u0623\u064e \u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \ufdfa \u0627\u0644\u0652\u0648\u064e\u062d\u0652\u064a\u064e",cfr:"le Proph\u00e8te lut la R\u00e9v\u00e9lation",t:["\u0627\u0644\u0652\u0648\u064e\u062d\u0652\u064a\u064f \u0646\u064f\u0648\u0631\u064c","\u0627\u0644\u0652\u0642\u0650\u0631\u064e\u0627\u0621\u064e\u0629\u064f \u0645\u064f\u0647\u0650\u0645\u064e\u0651\u0629\u064c","\u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \u0623\u064e\u0645\u064a\u0646\u064c"]},
+  {c:"\u0646\u064e\u0638\u064e\u0631\u064e \u0627\u0644\u0652\u062c\u064e\u062f\u064f\u0651 \u0625\u0650\u0644\u064e\u0649 \u0627\u0644\u0633\u064e\u0651\u0645\u064e\u0627\u0621\u0650",cfr:"le grand-p\u00e8re regarda le ciel",t:["\u0627\u0644\u0652\u062c\u064e\u062f\u064f\u0651 \u0637\u064e\u064a\u0651\u0650\u0628\u064c","\u0627\u0644\u0633\u064e\u0651\u0645\u064e\u0627\u0621\u064f \u0635\u064e\u0627\u0641\u0650\u064a\u064e\u0629\u064c","\u0627\u0644\u0646\u064e\u0651\u0638\u064e\u0631\u064f \u0639\u0650\u0628\u064e\u0627\u062f\u064e\u0629\u064c"]},
+  {c:"\u0635\u064e\u0644\u064e\u0651\u0649 \u0627\u0644\u0623\u064e\u0628\u064f \u0645\u064e\u0639\u064e \u0639\u064e\u0632\u064a\u0632\u064f",cfr:"le p\u00e8re pria avec Aziz",t:["\u0627\u0644\u0635\u064e\u0651\u0644\u064e\u0627\u0629\u064f \u0639\u0650\u0645\u064e\u0627\u062f\u064f \u0627\u0644\u062f\u0651\u0650\u064a\u0646\u0650","\u0627\u0644\u0623\u064e\u0628\u064f \u0645\u064f\u062f\u064e\u0631\u0650\u0651\u0633\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0628\u064e\u0627\u0631\u0650\u0639\u064c"]},
+  {c:"\u062a\u064e\u0648\u064e\u0636\u064e\u0651\u0623\u064e \u0639\u064e\u0632\u064a\u0632\u064c \u0628\u0650\u0627\u0644\u0652\u0645\u064e\u0627\u0621\u0650",cfr:"Aziz fit ses ablutions",t:["\u0627\u0644\u0652\u0645\u064e\u0627\u0621\u064f \u0628\u064e\u0627\u0631\u0650\u062f\u064c","\u0627\u0644\u0652\u0648\u064f\u0636\u064f\u0648\u0621\u064f \u0648\u064e\u0627\u062c\u0650\u0628\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0646\u064e\u0638\u064a\u0641\u064c"]},
+  {c:"\u064a\u064f\u0648\u064e\u0633\u0652\u0648\u0650\u0633\u064f \u0627\u0644\u0634\u064e\u0651\u064a\u0652\u0637\u064e\u0627\u0646\u064f \u0641\u0650\u064a \u0627\u0644\u0635\u064f\u0651\u062f\u064f\u0648\u0631\u0650",cfr:"le diable murmure dans les poitrines",t:["\u0627\u0644\u0634\u064e\u0651\u064a\u0652\u0637\u064e\u0627\u0646\u064f \u0639\u064e\u062f\u064f\u0648\u064c","\u0627\u0644\u0635\u064f\u0651\u062f\u064f\u0648\u0631\u064f \u0636\u064e\u064a\u0651\u0650\u0642\u064e\u0629\u064c","\u0627\u0644\u0652\u0648\u064e\u0633\u0652\u0648\u064e\u0627\u0633\u064f \u062e\u064e\u0637\u0650\u064a\u0631\u064c"]},
+  {c:"\u0642\u064e\u0627\u0645\u064e \u0639\u064e\u0632\u064a\u0632\u064c \u0645\u0650\u0646\u064e \u0627\u0644\u0646\u064e\u0651\u0648\u0652\u0645\u0650",cfr:"Aziz se leva du sommeil",t:["\u0627\u0644\u0646\u064e\u0651\u0648\u0652\u0645\u064f \u0636\u064e\u0631\u064f\u0648\u0631\u064e\u064a\u0651\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0646\u064e\u0634\u064a\u0637\u064c","\u0627\u0644\u0635\u064e\u0651\u0628\u064e\u0627\u062d\u064f \u0628\u064e\u0627\u0643\u0650\u0631\u064c"]},
+  {c:"\u0623\u064e\u0639\u0652\u0637\u064e\u064a\u0652\u0646\u064e\u0627\u0643\u064e \u0627\u0644\u0652\u0643\u064e\u0648\u0652\u062b\u064e\u0631\u064e",cfr:"Nous t\u2019avons accord\u00e9 Al-Kawthar",t:["\u0627\u0644\u0652\u0643\u064e\u0648\u0652\u062b\u064e\u0631\u064f \u0646\u064e\u0647\u0652\u0631\u064c","\u0627\u0644\u0652\u0639\u064e\u0637\u064e\u0627\u0621\u064f \u0643\u064e\u062b\u064a\u0631\u064c","\u0627\u0644\u0652\u062c\u064e\u0646\u064e\u0651\u0629\u064f \u062c\u064e\u0645\u064a\u0644\u064e\u0629\u064c"]},
+  {c:"\u0623\u064e\u0639\u064f\u0648\u0630\u064f \u0628\u0650\u0631\u064e\u0628\u0651\u0650 \u0627\u0644\u0652\u0641\u064e\u0644\u064e\u0642\u0650",cfr:"je cherche refuge aupr\u00e8s du Seigneur de l\u2019Aube",t:["\u0627\u0644\u0652\u0641\u064e\u0644\u064e\u0642\u064f \u0646\u064f\u0648\u0631\u064c","\u0627\u0644\u0631\u064e\u0651\u0628\u064f\u0651 \u0639\u064e\u0638\u064a\u0645\u064c","\u0627\u0644\u0652\u0639\u0650\u064a\u064e\u0627\u0630\u064f \u0636\u064e\u0631\u064f\u0648\u0631\u064e\u064a\u0651\u064c"]},
+  {c:"\u064a\u064e\u0631\u0652\u062a\u064e\u062c\u0650\u0641\u064f \u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \ufdfa",cfr:"le Proph\u00e8te tremble",t:["\u0627\u0644\u0646\u064e\u0651\u0628\u0650\u064a\u0651\u064f \u0641\u064e\u0627\u0626\u0650\u0632\u064c","\u0627\u0644\u0652\u0627\u0650\u0631\u0652\u062a\u0650\u062c\u064e\u0627\u0641\u064f \u0634\u064e\u062f\u064a\u062f\u064c","\u0627\u0644\u0652\u063a\u064e\u0627\u0631\u064f \u0628\u064e\u0639\u064a\u062f\u064c"]},
+  {c:"\u062e\u064e\u0644\u064e\u0642\u064e \u0627\u0644\u0625\u0650\u0646\u0652\u0633\u064e\u0627\u0646\u064e \u0645\u0650\u0646\u0652 \u0639\u064e\u0644\u064e\u0642\u064d",cfr:"il cr\u00e9a l\u2019homme d\u2019une cellule",t:["\u0627\u0644\u0625\u0650\u0646\u0652\u0633\u064e\u0627\u0646\u064f \u0645\u064e\u062e\u0652\u0644\u064f\u0648\u0642\u064c","\u0627\u0644\u0652\u0639\u064e\u0644\u064e\u0642\u064f \u0635\u064e\u063a\u064a\u0631\u064c","\u0627\u0644\u0652\u062e\u064e\u0644\u0652\u0642\u064f \u0639\u064e\u062c\u064a\u0628\u064c"]},
+  {c:"\u064a\u064e\u0630\u0652\u0647\u064e\u0628\u064f \u0639\u064e\u0632\u064a\u0632\u064c \u0625\u0650\u0644\u064e\u0649 \u0627\u0644\u0652\u0645\u064e\u062f\u0652\u0631\u064e\u0633\u064e\u0629\u0650",cfr:"Aziz va \u00e0 l\u2019\u00e9cole",t:["\u0627\u0644\u0652\u0645\u064e\u062f\u0652\u0631\u064e\u0633\u064e\u0629\u064f \u0643\u064e\u0628\u064a\u0631\u064e\u0629\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0645\u064f\u062c\u062a\u064e\u0647\u0650\u062f\u064c","\u0627\u0644\u062f\u0651\u0650\u0631\u064e\u0627\u0633\u064e\u0629\u064f \u0645\u064f\u0641\u064a\u062f\u064e\u0629\u064c"]},
+  {c:"\u064a\u064f\u062d\u0650\u0628\u064f\u0651 \u0639\u064e\u0632\u064a\u0632\u064c \u0627\u0644\u0652\u0642\u064f\u0631\u0652\u0622\u0646\u064e",cfr:"Aziz aime le Coran",t:["\u0627\u0644\u0652\u0642\u064f\u0631\u0652\u0622\u0646\u064f \u0639\u064e\u0638\u064a\u0645\u064c","\u0639\u064e\u0632\u064a\u0632\u064c \u0645\u064f\u0624\u0645\u0650\u0646\u064c","\u0627\u0644\u0652\u062d\u064f\u0628\u064f\u0651 \u0639\u064e\u0638\u064a\u0645\u064c"]},
+  {c:"\u0641\u064e\u0635\u064e\u0644\u0650\u0651 \u0644\u0650\u0631\u064e\u0628\u0651\u0650\u0643\u064e \u0648\u064e\u0627\u0646\u0652\u062d\u064e\u0631\u0652",cfr:"prie pour ton Seigneur et sacrifie",t:["\u0627\u0644\u0635\u064e\u0651\u0644\u064e\u0627\u0629\u064f \u0644\u0650\u0644\u0631\u064e\u0651\u0628\u0651\u0650","\u0627\u0644\u0623\u064f\u0636\u0652\u062d\u0650\u064a\u064e\u0629\u064f \u0633\u064f\u0646\u064e\u0651\u0629\u064c","\u0627\u0644\u0631\u064e\u0651\u0628\u064f\u0651 \u0643\u064e\u0631\u064a\u0645\u064c"]}
 ];
 const U={sh(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=0|Math.random()*(i+1);[r[i],r[j]]=[r[j],r[i]];}return r;},dt(){return new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});}};
 const $=id=>document.getElementById(id);
-const D={vw:$("vw"),vq:$("vq"),vc:$("vc"),pn:$("pn"),bst:$("bst"),bpr:$("bpr"),brs:$("brs"),ptx:$("ptx"),pf:$("pf"),pb:$("pb"),slv:$("slv"),og:$("og"),fb:$("fb"),cname:$("cname"),cscore:$("cscore"),cdate:$("cdate")};
+const D={vw:$("vw"),vq:$("vq"),vc:$("vc"),pn:$("pn"),bst:$("bst"),bpr:$("bpr"),brs:$("brs"),ptx:$("ptx"),pf:$("pf"),pb:$("pb"),slv:$("slv"),og:$("og"),sar:$("sar"),sfr:$("sfr"),cat:$("catbadge"),fb:$("fb"),cname:$("cname"),cscore:$("cscore"),cdate:$("cdate")};
 const A={
   s:{name:"",qs:[],idx:0,score:0,starting:false,proc:false,done:false,timer:null},
   ct(){if(this.s.timer){clearTimeout(this.s.timer);this.s.timer=null;}},
   sv(n){[D.vw,D.vq,D.vc].forEach(v=>v.classList.add("h"));$("v"+n).classList.remove("h");},
-  bq(){return U.sh(DATA).map(d=>({...d,opts:U.sh([{w:d.c,type:"V",fr:d.cfr},...d.t.map(w=>({w:w,type:"N",fr:""}))])}));},
-  us(){D.slv.textContent="✓ "+this.s.score;D.slv.classList.remove("bump");void D.slv.offsetWidth;D.slv.classList.add("bump");},
+  bq(){return U.sh(DATA).map(d=>({...d,opts:U.sh([{w:d.c,type:"V"},...d.t.map(w=>({w:w,type:"N"}))])}));},
+  us(){D.slv.textContent="\u2713 "+this.s.score;D.slv.classList.remove("bump");void D.slv.offsetWidth;D.slv.classList.add("bump");},
   up(){const tot=this.s.qs.length||1;const p=Math.min((this.s.idx/tot)*100,100);D.ptx.textContent=(this.s.idx+1)+" / "+tot;D.pf.style.width=p+"%";D.pb.setAttribute("aria-valuenow",Math.round(p));},
   start(){if(this.s.starting)return;this.s.starting=true;this.ct();this.s.name=D.pn.value.trim()||"Participant";this.s.qs=this.bq();this.s.idx=0;this.s.score=0;this.s.proc=false;this.s.done=false;this.sv("q");this.us();this.rq();this.s.starting=false;},
   rq(){
     this.ct();this.s.proc=false;
     const q=this.s.qs[this.s.idx];if(!q)return;
     this.up();D.fb.className="fdbk mt";D.fb.textContent="";
+    D.cat.textContent=q.cfr;D.cat.className="cat-badge cat-fa";
+    D.sar.textContent="";D.sfr.textContent="";
     D.og.innerHTML="";
     q.opts.forEach(opt=>{
-      const b=document.createElement("button");b.type="button";b.className="oc";b.dataset.type=opt.type;
+      const b=document.createElement("button");b.type="button";b.className="oc";b.dataset.v=opt.type;
       b.innerHTML='<span class="oar ar">'+opt.w+'</span>';
       b.addEventListener("click",()=>this.ans(opt,b,q));
       D.og.appendChild(b);
@@ -206,13 +211,13 @@ const A={
     if(opt.type==="V"){
       this.s.score++;btnEl.classList.add("correct");
       D.fb.className="fdbk ok";
-      D.fb.innerHTML="✓ <span dir='rtl' style='font-family:Amiri,serif;'>"+opt.w+"</span> = جملة فعلية · commence par un فعل ✓";
+      D.fb.innerHTML="\u2713 <span dir='rtl' style='font-family:Amiri,serif;'>"+opt.w+"</span> = \u062c\u0645\u0644\u0629 \u0641\u0639\u0644\u064a\u0629 \u00b7 commence par un \u0641\u0639\u0644 \u2713";
       this.us();
     }else{
       btnEl.classList.add("wrong");
-      Array.from(D.og.children).forEach(b=>{if(b.dataset.type==="V")b.classList.add("correct");});
+      Array.from(D.og.children).forEach(b=>{if(b.dataset.v==="V")b.classList.add("correct");});
       D.fb.className="fdbk ko";
-      D.fb.innerHTML="✗ <span dir='rtl' style='font-family:Amiri,serif;'>"+opt.w+"</span> = جملة اسمية · commence par un اسم";
+      D.fb.innerHTML="\u2717 <span dir='rtl' style='font-family:Amiri,serif;'>"+opt.w+"</span> = \u062c\u0645\u0644\u0629 \u0627\u0633\u0645\u064a\u0629 \u00b7 \u0627\u0644\u062c\u0648\u0627\u0628: <span dir='rtl' style='font-family:Amiri,serif;'>"+q.c+"</span>";
     }
     this.s.timer=setTimeout(()=>{this.s.idx++;if(this.s.idx<this.s.qs.length)this.rq();else this.end();},1500);
   },
