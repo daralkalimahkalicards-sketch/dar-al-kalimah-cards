@@ -93,7 +93,10 @@
     .cert-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;width:100%;}
     @media(max-width:480px){body{padding:14px;}.menu-container,.quiz-container{padding:46px 18px 30px;}.opt-fr{font-size:0.95rem;}.cert-actions{flex-direction:column;max-width:300px;margin:0 auto;}.btn-main,.btn-secondary{width:100%;}}
     @media print{body *{visibility:hidden;}#view-certificate,#view-certificate *{visibility:visible;}#view-certificate{position:absolute;left:0;top:0;width:100%;display:flex;justify-content:center;align-items:center;background:white;}.no-print{display:none!important;}}
+  
+    #view-welcome { visibility: hidden; }
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -320,12 +323,31 @@
       const end=Date.now()+3000;
       (function frame(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<end)requestAnimationFrame(frame);})();
       vibrate([120,50,120,50,180]);Audio_.play("audio/mabruk.mp3");
+
+      // DAK Tracker
+      if (window.DAK_enregistrerScore) {
+          window.DAK_enregistrerScore({ module: "Module 6", quiz: "Quiz 2", score: S.score, total: S.questions.length });
+      }
     },50);
   };
 
   const restartQuiz=()=>{clearTimer();Audio_.stop();S.isStarting=false;S.isProcessing=false;S.hasFinished=false;S.hasPlayedSuccess=false;S.currentAudio="";switchView("welcome");DOM.nameInput.focus();};
 
   DOM.startBtn.addEventListener("click",startQuiz);
+
+  // Guard auth — attendre confirmation connexion
+  (function checkAuth() {
+    var maxWait = 10, waited = 0;
+    var interval = setInterval(function() {
+      waited++;
+      if (window.DAK_isConnected && window.DAK_isConnected()) {
+        document.getElementById('view-welcome').style.visibility = 'visible';
+        clearInterval(interval);
+      } else if (waited >= maxWait) {
+        clearInterval(interval);
+      }
+    }, 100);
+  })();
   DOM.audioBtn.addEventListener("click",()=>{if(!S.hasFinished&&S.currentAudio)Audio_.play(S.currentAudio);});
   DOM.exitBtn.addEventListener("click",()=>{clearTimer();Audio_.stop();switchView("welcome");});
   DOM.printBtn.addEventListener("click",()=>window.print());

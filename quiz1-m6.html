@@ -149,7 +149,10 @@
       .no-print{display:none!important;}
       .diploma-paper{border:10px double var(--gold);box-shadow:none;max-width:100%;}
     }
+  
+    #view-welcome { visibility: hidden; }
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -501,6 +504,11 @@
       })();
       vibrate([120,50,120,50,180]);
       Audio_.play("audio/mabruk.mp3");
+
+      // DAK Tracker
+      if (window.DAK_enregistrerScore) {
+          window.DAK_enregistrerScore({ module: "Module 6", quiz: "Quiz 1", score: S.score, total: S.questions.length });
+      }
     }, 50);
   };
 
@@ -514,6 +522,20 @@
 
   // ── EVENTS ─────────────────────────────────────────────────
   DOM.startBtn.addEventListener("click", startQuiz);
+
+  // Guard auth — attendre confirmation connexion
+  (function checkAuth() {
+    var maxWait = 10, waited = 0;
+    var interval = setInterval(function() {
+      waited++;
+      if (window.DAK_isConnected && window.DAK_isConnected()) {
+        document.getElementById('view-welcome').style.visibility = 'visible';
+        clearInterval(interval);
+      } else if (waited >= maxWait) {
+        clearInterval(interval);
+      }
+    }, 100);
+  })();
   DOM.audioBtn.addEventListener("click", () => { if(!S.hasFinished && S.currentAudio) Audio_.play(S.currentAudio); });
   DOM.exitBtn.addEventListener("click",  () => { clearTimer(); Audio_.stop(); switchView("welcome"); });
   DOM.printBtn.addEventListener("click", () => window.print());
