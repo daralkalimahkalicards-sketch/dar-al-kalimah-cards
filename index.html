@@ -116,6 +116,21 @@
         /* =========================================
            RESPONSIVE MOBILE
            ========================================= */
+        /* Carte prof discrète */
+        .prof-card {
+            border: 1px solid rgba(200, 164, 98, 0.25);
+            background: rgba(93, 24, 40, 0.03);
+            padding: 20px;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+        .prof-card .icon-wrapper { width: 44px; height: 44px; margin-bottom: 12px; }
+        .prof-card .visual-main { font-size: 1.2rem; }
+        .prof-card .word-ar-title { font-size: 1.4rem; margin-bottom: 10px; }
+        .prof-card .lang-fr { font-size: 0.75rem; margin-bottom: 3px; }
+        .prof-card .lang-es { font-size: 0.72rem; margin-bottom: 16px; }
+        .prof-card .btn-open { font-size: 0.75rem; padding: 10px 0; }
+
         @media (max-width: 768px) {
             .nav-grid { grid-template-columns: 1fr; gap: 20px; }
             .header-container { padding: 30px 20px; }
@@ -197,6 +212,16 @@
         </div>
 
     </div>
+
+        <a href="dashboard.html" class="nav-card prof-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-chart-line visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">لوحة المتابعة</div>
+            <div class="lang-fr">Suivi pédagogique</div>
+            <div class="lang-es">Seguimiento pedagógico</div>
+            <button class="btn-open">Espace prof / Profesor</button>
+        </a>
 
 </body>
 </html>
