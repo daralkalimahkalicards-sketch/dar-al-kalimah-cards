@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Prof — Dar Al-Kalimah</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --burgundy: #5D1828; --gold: #C8A462; --white: #FFFFFF; --bg: #f8f5f0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); font-family: 'Montserrat', sans-serif; color: var(--burgundy); }
+
+.header { background: linear-gradient(135deg, var(--burgundy), #3d0f1a); padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(93,24,40,0.3); }
+.header-brand { display: flex; flex-direction: column; }
+.header-ar { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--gold); }
+.header-en { font-family: 'Cinzel', serif; font-size: 0.7rem; color: rgba(200,164,98,0.7); letter-spacing: 3px; }
+.header-sub { color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.prof-name { color: var(--gold); font-size: 0.85rem; }
+.btn-logout { background: rgba(200,164,98,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 8px 20px; border-radius: 50px; cursor: pointer; font-size: 0.8rem; font-family: 'Montserrat', sans-serif; }
+.live-dot { display: inline-block; width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; margin-right: 6px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 30px; }
+.stat-card { background: var(--white); border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(93,24,40,0.08); border: 1px solid rgba(200,164,98,0.2); }
+.stat-number { font-size: 2.5rem; font-weight: 700; color: var(--burgundy); }
+.stat-label { font-size: 0.8rem; color: rgba(93,24,40,0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+.section { padding: 0 30px 30px; }
+.section-title { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--burgundy); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--gold); display: flex; align-items: center; gap: 10px; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(93,24,40,0.08); }
+th { background: var(--burgundy); color: var(--gold); padding: 14px 16px; text-align: left; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+td { padding: 14px 16px; border-bottom: 1px solid rgba(93,24,40,0.06); font-size: 0.88rem; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(200,164,98,0.05); }
+
+.badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+.badge-green { background: rgba(80,200,80,0.15); color: #2d7a2d; }
+.badge-orange { background: rgba(255,165,0,0.15); color: #b8750a; }
+.badge-red { background: rgba(255,80,80,0.15); color: #cc3333; }
+
+.results-grid { display: grid; gap: 12px; }
+.result-card { background: var(--white); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 10px rgba(93,24,40,0.06); border-left: 4px solid var(--gold); }
+.result-score { font-size: 1.5rem; font-weight: 700; color: var(--burgundy); min-width: 60px; }
+.result-info { flex: 1; }
+.result-name { font-weight: 600; font-size: 0.9rem; }
+.result-detail { font-size: 0.78rem; color: rgba(93,24,40,0.5); margin-top: 2px; }
+.result-date { font-size: 0.75rem; color: rgba(93,24,40,0.4); text-align: right; }
+.loading { text-align: center; padding: 40px; color: rgba(93,24,40,0.4); }
+.empty { text-align: center; padding: 30px; color: rgba(93,24,40,0.4); font-size: 0.9rem; }
+
+/* LOGIN PROF — via Firebase Auth */
+.login-overlay { position: fixed; inset: 0; background: linear-gradient(135deg, var(--burgundy), #3d0f1a); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.login-box { background: rgba(255,255,255,0.08); border: 1px solid rgba(200,164,98,0.4); border-radius: 20px; padding: 50px 40px; width: 360px; text-align: center; }
+.login-box h2 { font-family: 'Amiri', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 4px; }
+.login-box p { color: rgba(255,255,255,0.5); font-size: 0.82rem; margin-bottom: 24px; }
+.login-box input { width: 100%; padding: 14px; border: 1.5px solid rgba(200,164,98,0.3); border-radius: 50px; background: rgba(255,255,255,0.08); color: white; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; outline: none; text-align: center; margin-bottom: 12px; }
+.login-box button { width: 100%; padding: 14px; background: var(--gold); color: var(--burgundy); border: none; border-radius: 50px; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
+.login-error { color: #ff9999; font-size: 0.85rem; margin-top: 10px; display: none; }
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; padding: 20px; }
+  .section { padding: 0 16px 24px; }
+  .header { padding: 16px 20px; flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PROF — Firebase Auth -->
+<div class="login-overlay" id="prof-login">
+  <div class="login-box">
+    <h2>دار الكلمة</h2>
+    <p>Espace professeur — accès sécurisé</p>
+    <input type="email" id="prof-email" placeholder="Email professeur">
+    <input type="password" id="prof-password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')profLogin()">
+    <button onclick="profLogin()">ACCÉDER</button>
+    <div class="login-error" id="login-error">❌ Email ou mot de passe incorrect</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none">
+  <div class="header">
+    <div class="header-brand">
+      <span class="header-ar">دار الكلمة</span>
+      <span class="header-en">DAR AL-KALIMAH</span>
+      <span class="header-sub">Tableau de bord professeur</span>
+    </div>
+    <div class="header-right">
+      <span class="prof-name" id="prof-display"></span>
+      <span style="color:rgba(255,255,255,0.5);font-size:0.75rem"><span class="live-dot"></span>Temps réel</span>
+      <button class="btn-logout" onclick="profLogout()">🔒 Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-number" id="stat-eleves">—</div><div class="stat-label">Élèves inscrits</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-quiz">—</div><div class="stat-label">Quiz complétés</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-moyenne">—%</div><div class="stat-label">Score moyen</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-actifs">—</div><div class="stat-label">Actifs cette semaine</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">👥 Élèves</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Moy. score</th></tr></thead>
+        <tbody id="eleves-tbody"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📊 <span class="live-dot"></span>Résultats en temps réel</div>
+    <div class="results-grid" id="results-grid"><div class="loading">Chargement...</div></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, query, orderBy, limit, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// LISTE DES EMAILS AUTORISÉS COMME PROF
+// Ajoute ton email ici
+const EMAILS_PROF = ["sunfertity2080@gmail.com"];
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+  authDomain: "dar-al-kalimah.firebaseapp.com",
+  projectId: "dar-al-kalimah",
+  storageBucket: "dar-al-kalimah.firebasestorage.app",
+  messagingSenderId: "472629258",
+  appId: "1:472629258:web:29b755d38efe89421f1ff3"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let unsubEleves = null;
+let unsubResults = null;
+
+// Vérifier si déjà connecté comme prof
+onAuthStateChanged(auth, (user) => {
+  if (user && EMAILS_PROF.includes(user.email)) {
+    ouvrirDashboard(user);
+  }
+});
+
+window.profLogin = async () => {
+  const email = document.getElementById('prof-email').value.trim();
+  const password = document.getElementById('prof-password').value;
+  const errDiv = document.getElementById('login-error');
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    if (!EMAILS_PROF.includes(cred.user.email)) {
+      await signOut(auth);
+      errDiv.style.display = 'block';
+      errDiv.textContent = '❌ Accès non autorisé.';
+      return;
+    }
+    ouvrirDashboard(cred.user);
+  } catch(e) {
+    errDiv.style.display = 'block';
+  }
+};
+
+window.profLogout = async () => {
+  if (unsubEleves) unsubEleves();
+  if (unsubResults) unsubResults();
+  await signOut(auth);
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('prof-login').style.display = 'flex';
+};
+
+function ouvrirDashboard(user) {
+  document.getElementById('prof-login').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('prof-display').textContent = user.email;
+  chargerDonnees();
+}
+
+function formatDate(ts) {
+  if (!ts) return '—';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric' });
+}
+
+function formatHeure(ts) {
+  if (!ts) return '—';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+}
+
+function badgeScore(pct) {
+  if (pct >= 80) return `<span class="badge badge-green">${pct}%</span>`;
+  if (pct >= 60) return `<span class="badge badge-orange">${pct}%</span>`;
+  return `<span class="badge badge-red">${pct}%</span>`;
+}
+
+async function chargerDonnees() {
+  // Élèves — snapshot unique
+  const elevesSnap = await getDocs(collection(db, 'eleves'));
+  const eleves = [];
+  elevesSnap.forEach(d => eleves.push({ id: d.id, ...d.data() }));
+
+  // Résultats — TEMPS RÉEL avec onSnapshot
+  const q = query(collection(db, 'resultats'), orderBy('date', 'desc'), limit(50));
+  
+  unsubResults = onSnapshot(q, (snap) => {
+    const resultats = [];
+    snap.forEach(d => resultats.push({ id: d.id, ...d.data() }));
+
+    // Stats
+    document.getElementById('stat-eleves').textContent = eleves.length;
+    document.getElementById('stat-quiz').textContent = resultats.length;
+    const scores = resultats.map(r => r.pourcentage).filter(Boolean);
+    const moy = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
+    document.getElementById('stat-moyenne').textContent = moy + '%';
+
+    const semaine = new Date(); semaine.setDate(semaine.getDate()-7);
+    const actifs = eleves.filter(e => {
+      if (!e.dernierAcces) return false;
+      const d = e.dernierAcces.toDate ? e.dernierAcces.toDate() : new Date(e.dernierAcces);
+      return d > semaine;
+    }).length;
+    document.getElementById('stat-actifs').textContent = actifs;
+
+    // Tableau élèves
+    const tbody = document.getElementById('eleves-tbody');
+    if (eleves.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun élève inscrit</td></tr>';
+    } else {
+      tbody.innerHTML = eleves.map(e => {
+        const er = resultats.filter(r => r.eleveId === e.id);
+        const me = er.length ? Math.round(er.reduce((a,r)=>a+(r.pourcentage||0),0)/er.length) : null;
+        return `<tr>
+          <td><strong>${e.nom||'—'}</strong></td>
+          <td>${e.email||'—'}</td>
+          <td>${formatDate(e.dateInscription)}</td>
+          <td>${formatDate(e.dernierAcces)}</td>
+          <td>${er.length}</td>
+          <td>${me!==null?badgeScore(me):'—'}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    // Derniers résultats
+    const grid = document.getElementById('results-grid');
+    if (resultats.length === 0) {
+      grid.innerHTML = '<div class="empty">Aucun résultat encore enregistré</div>';
+    } else {
+      grid.innerHTML = resultats.slice(0,20).map(r => `
+        <div class="result-card">
+          <div class="result-score">${r.score}/${r.total}</div>
+          <div class="result-info">
+            <div class="result-name">👤 ${r.eleveNom||r.eleveEmail||'—'}</div>
+            <div class="result-detail">📚 ${r.module||'—'} — ${r.quiz||'—'} ${r.dureeSecondes?`⏱️ ${Math.round(r.dureeSecondes/60)} min`:''}</div>
+          </div>
+          <div>
+            ${badgeScore(r.pourcentage||0)}
+            <div class="result-date">${formatHeure(r.date)}</div>
+          </div>
+        </div>`).join('');
+    }
+  });
+}
+</script>
+</body>
+</html>
