@@ -113,7 +113,10 @@
     @media(max-width:768px){.menu-container,.quiz-container{padding:46px 24px 36px;}.diploma-paper{padding:36px 24px 36px;}.option-card{font-size:2rem;}}
     @media(max-width:480px){body{padding:16px;}.btn-house{top:15px;right:15px;font-size:1.4rem;}.menu-container,.quiz-container{padding:46px 18px 30px;}.option-card{font-size:1.7rem;aspect-ratio:1.8;}.cert-actions{flex-direction:column;max-width:300px;margin:0 auto;}.btn-main,.btn-secondary{width:100%;}}
     @media print{body *{visibility:hidden;}#view-certificate,#view-certificate *{visibility:visible;}#view-certificate{position:absolute;left:0;top:0;width:100%;display:flex;justify-content:center;align-items:center;background:white;}.no-print{display:none!important;}.diploma-paper{border:10px double var(--gold);box-shadow:none;max-width:100%;}}
+  
+    #view-welcome { visibility: hidden; }
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -366,6 +369,11 @@
         })();
         
         Utils.vibrate([120,50,120,50,180]);
+
+        // DAK Tracker
+        if (window.DAK_enregistrerScore) {
+            window.DAK_enregistrerScore({ module: "Module 7", quiz: "Quiz 1", score: this.state.score, total: this.state.questions.length });
+        }
       },
       
       restartQuiz(){
@@ -389,6 +397,20 @@
     
     App.init();
     window.AppEngine=App;
+
+  // Guard auth
+  (function checkAuth() {
+    var maxWait = 10, waited = 0;
+    var interval = setInterval(function() {
+      waited++;
+      if (window.DAK_isConnected && window.DAK_isConnected()) {
+        document.getElementById('view-welcome').style.visibility = 'visible';
+        clearInterval(interval);
+      } else if (waited >= maxWait) {
+        clearInterval(interval);
+      }
+    }, 100);
+  })();
   })();
   </script>
 </body>
