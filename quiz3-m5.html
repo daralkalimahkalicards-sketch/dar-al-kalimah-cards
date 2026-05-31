@@ -106,6 +106,7 @@
     @media(max-width:360px){.option-card{font-size:1.5rem;}}
     @media print{body *{visibility:hidden;}#view-certificate,#view-certificate *{visibility:visible;}#view-certificate{position:absolute;left:0;top:0;width:100%;display:flex;justify-content:center;align-items:center;background:white;}.no-print{display:none!important;}.diploma-paper{border:10px double var(--gold);box-shadow:none;max-width:100%;}}
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -320,6 +321,11 @@
         Utils.vibrate([120,50,120,50,180]);
         if(this.state.hasPlayedSuccess)return;
         this.state.hasPlayedSuccess=true;AudioController.playEffect("mabruk.mp3");
+
+        // DAK Tracker
+        if (window.DAK_enregistrerScore) {
+            window.DAK_enregistrerScore({ module: "Module 5", quiz: "Quiz 3", score: this.state.score, total: this.state.questions.length });
+        }
       },
       restartQuiz(){this.clearTimer();AudioController.stopAll();this.state.isStarting=false;this.state.isProcessing=false;this.state.hasFinished=false;this.state.hasPlayedSuccess=false;this.state.questionToken+=1;this.switchView("welcome");DOM.playerName.focus();},
       init(){
