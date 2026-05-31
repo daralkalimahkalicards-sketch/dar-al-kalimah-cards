@@ -90,7 +90,10 @@
     .ca{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%;}
     @media(max-width:480px){body{padding:12px;}.mc,.qc{padding:36px 16px 28px;}.oc{min-height:140px;height:140px;}.oc .oar{font-size:1rem;}.ca{flex-direction:column;max-width:280px;margin:0 auto;}.bm,.bs{width:100%;}}
     @media print{body *{visibility:hidden;}#vc,#vc *{visibility:visible;}#vc{position:absolute;left:0;top:0;width:100%;display:flex;justify-content:center;align-items:center;background:white;}.np{display:none!important;}}
+  
+    #vw { visibility: hidden; }
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -224,11 +227,29 @@ const A={
     }
     this.s.timer=setTimeout(()=>{this.s.idx++;if(this.s.idx<this.s.qs.length)this.rq();else this.end();},1500);
   },
-  end(){if(this.s.done)return;this.ct();this.s.done=true;D.pf.style.width="100%";D.cname.textContent=this.s.name;D.cscore.textContent=`${this.s.score} / ${this.s.qs.length}`;D.cdate.textContent=`Fait le ${U.dt()}`;this.sv("c");const e=Date.now()+3000;(function f(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<e)requestAnimationFrame(f);})();},
+  end(){if(this.s.done)return;this.ct();this.s.done=true;D.pf.style.width="100%";D.cname.textContent=this.s.name;D.cscore.textContent=`${this.s.score} / ${this.s.qs.length}`;D.cdate.textContent=`Fait le ${U.dt()}`;this.sv("c");const e=Date.now()+3000;(function f(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<e)requestAnimationFrame(f);}())();
+    // DAK Tracker
+    if(window.DAK_enregistrerScore){window.DAK_enregistrerScore({module:"Module 9",quiz:"Quiz 1",score:this.s.score,total:this.s.qs.length});}
+  },
   restart(){this.ct();this.s.starting=false;this.s.proc=false;this.s.done=false;this.sv("w");D.pn.focus();},
   init(){D.bst.addEventListener("click",()=>this.start());D.bpr.addEventListener("click",()=>window.print());D.brs.addEventListener("click",()=>this.restart());D.pn.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();this.start();}});}
 };
 A.init();
+
+  // Guard auth
+  (function checkAuth() {
+    var maxWait = 10, waited = 0;
+    var interval = setInterval(function() {
+      waited++;
+      if (window.DAK_isConnected && window.DAK_isConnected()) {
+        document.getElementById('vw').style.visibility = 'visible';
+        clearInterval(interval);
+      } else if (waited >= maxWait) {
+        clearInterval(interval);
+      }
+    }, 100);
+  })();
+
 })();
 </script>
 </body>
