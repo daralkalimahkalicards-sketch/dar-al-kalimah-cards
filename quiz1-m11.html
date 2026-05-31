@@ -99,6 +99,27 @@
     #vw { visibility: hidden; }
   </style>
     <script type="module" src="tracker.js"></script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.getElementById('vw').style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
 </head>
 <body>
 <div class="shell">
@@ -233,17 +254,6 @@ const A={
 };
 A.init();
 
-  // Guard auth
-  (function checkAuth() {
-    var maxWait = 10, waited = 0;
-    var interval = setInterval(function() {
-      waited++;
-      if (window.DAK_isConnected && window.DAK_isConnected()) {
-        document.getElementById('vw').style.visibility = 'visible';
-        clearInterval(interval);
-      } else if (waited >= maxWait) { clearInterval(interval); }
-    }, 100);
-  })();
 })();
 </script>
 </body>
