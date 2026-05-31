@@ -154,6 +154,7 @@
             .diploma-paper { border: 2px solid var(--gold); box-shadow: none; max-width: 100%; margin: 0; padding: 20px; } 
         }
     </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
 
@@ -363,6 +364,12 @@
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
+            }
+
+            // DAK Tracker
+            let masteredCount = totalWordsCount - remainingQuestions.length;
+            if (window.DAK_enregistrerScore) {
+                window.DAK_enregistrerScore({ module: "Module 3", quiz: "Quiz 3", score: masteredCount, total: totalWordsCount });
             }
         }
 

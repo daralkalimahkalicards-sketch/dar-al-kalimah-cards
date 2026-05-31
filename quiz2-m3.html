@@ -164,6 +164,7 @@
       .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; }
     }
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -420,6 +421,11 @@
         if (this.state.hasPlayedSuccess) return;
         this.state.hasPlayedSuccess = true;
         AudioController.playEffect("mabruk.mp3");
+
+        // DAK Tracker
+        if (window.DAK_enregistrerScore) {
+            window.DAK_enregistrerScore({ module: "Module 3", quiz: "Quiz 2", score: this.state.score, total: this.state.questions.length });
+        }
       },
 
       restartQuiz() {
