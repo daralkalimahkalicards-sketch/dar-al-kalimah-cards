@@ -93,8 +93,31 @@
     @media(max-width:768px){.menu-container,.quiz-container{padding:46px 24px 36px;}.diploma-paper{padding:36px 24px 36px;}}
     @media(max-width:480px){body{padding:16px;}.btn-house{top:15px;right:15px;font-size:1.4rem;}.menu-container,.quiz-container{padding:46px 18px 30px;}.btn-audio{width:65px;height:65px;font-size:2rem;}.option-card{font-size:clamp(2.6rem,14vw,4rem);aspect-ratio:1.1;}.cert-actions{flex-direction:column;max-width:300px;margin:0 auto;}.btn-main,.btn-secondary{width:100%;}}
     @media print{body *{visibility:hidden;}#view-certificate,#view-certificate *{visibility:visible;}#view-certificate{position:absolute;left:0;top:0;width:100%;display:flex;justify-content:center;align-items:center;background:white;}.no-print{display:none!important;}.diploma-paper{border:10px double var(--gold);box-shadow:none;max-width:100%;}}
+  
+    #view-welcome { visibility: hidden; }
   </style>
     <script type="module" src="tracker.js"></script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.getElementById('view-welcome').style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
 </head>
 <body>
   <div class="app-shell">

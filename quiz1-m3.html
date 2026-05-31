@@ -115,8 +115,31 @@
         @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 3rem; } .diploma-paper { padding: 30px 20px; } }
         @media (max-width: 480px) { .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 2.8rem; aspect-ratio: 1.3; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } }
         @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
-    </style>
+    
+    #view-welcome { visibility: hidden; }
+  </style>
     <script type="module" src="tracker.js"></script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.getElementById('view-welcome').style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
 </head>
 <body>
 
