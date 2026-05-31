@@ -727,6 +727,7 @@
       }
     }
   </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -1330,6 +1331,11 @@
 
           if (DATA.settings.enableCertificateAudio) {
             AudioController.playEffect(DATA.settings.successAudio);
+          }
+
+          // DAK Tracker
+          if (window.DAK_enregistrerScore) {
+              window.DAK_enregistrerScore({ module: "Module 4", quiz: "Quiz 2", score: this.state.score, total: this.state.questions.length });
           }
         },
 

@@ -120,6 +120,7 @@
         @media (max-width: 480px) { .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 1.8rem; aspect-ratio: 1.8; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } }
         @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
     </style>
+    <script type="module" src="tracker.js"></script>
 </head>
 <body>
 
@@ -361,6 +362,11 @@
             let playPromise = mabrukAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
+            }
+
+            // DAK Tracker
+            if (window.DAK_enregistrerScore) {
+                window.DAK_enregistrerScore({ module: "Module 4", quiz: "Quiz 1", score: score, total: questions.length });
             }
         }
 
