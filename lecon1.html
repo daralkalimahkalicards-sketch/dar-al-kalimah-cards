@@ -903,8 +903,12 @@
       document.getElementById("final-es").textContent = card.finalEs;
 
       letterCounter.textContent = `${currentIndex + 1} / ${cards.length}`;
+      console.log('DAK DEBUG renderCard — currentIndex:', currentIndex, '/ cards.length-1:', cards.length - 1);
       // DAK Tracker — dernière carte (navigation circulaire)
-      if (currentIndex === cards.length - 1) { enregistrerLecon1(); }
+      if (currentIndex === cards.length - 1) {
+          console.log('DAK DEBUG — DERNIERE CARTE atteinte ✅');
+          enregistrerLecon1();
+      }
       flashcard.classList.remove("flipped");
       stopAudio();
     }
@@ -913,9 +917,12 @@
     // DAK Tracker — anti-doublon navigation circulaire
     var _lecon1Enregistree = false;
     function enregistrerLecon1() {
+        console.log('DAK DEBUG — enregistrerLecon1() démarré — déjà enregistrée:', _lecon1Enregistree);
+        console.log('DAK DEBUG — type DAK_enregistrerLecon:', typeof window.DAK_enregistrerLecon);
         if (_lecon1Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _lecon1Enregistree = true;
+            console.log('DAK DEBUG — appel IMMEDIAT DAK_enregistrerLecon');
             window.DAK_enregistrerLecon({ module: 'Module 1', lecon: 'Leçon 1', total: cards.length });
             return;
         }
@@ -925,6 +932,7 @@
             if (window.DAK_enregistrerLecon && !_lecon1Enregistree) {
                 _lecon1Enregistree = true;
                 clearInterval(interval);
+                console.log('DAK DEBUG — appel RETRY DAK_enregistrerLecon — tentative:', tentatives);
                 window.DAK_enregistrerLecon({ module: 'Module 1', lecon: 'Leçon 1', total: cards.length });
             } else if (tentatives >= 15) {
                 clearInterval(interval);
