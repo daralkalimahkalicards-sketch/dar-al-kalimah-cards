@@ -1412,8 +1412,8 @@ function renderSection(section){
   // DAK Tracker — dernière section 'qiraa'
   console.log("DAK DEBUG L9 renderSection — section:", section, "| idx:", s.idx, "| last:", cards.length-1, "| DAK:", typeof window.DAK_enregistrerLecon);
   if(section==='qiraa'&&s.idx===cards.length-1){
-    console.log("DAK DEBUG L9 — DERNIERE CARTE QIRAA ✅");
-    enrLecon9();
+    console.log("DAK DEBUG L9 — DERNIERE CARTE QIRAA ✅ — total cards:", cards.length);
+    enrLecon9(cards.length);
   }
   $(section+"-front").scrollTop=0;
   $(section+"-back").scrollTop=0;
@@ -1468,12 +1468,12 @@ window.flipCard=function(section){
 
     // DAK Tracker — anti-doublon
     var _enrLecon9Enregistree = false;
-    function enrLecon9() {
+    function enrLecon9(cartesTotal) {
         if (_enrLecon9Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon9Enregistree = true;
-            console.log('DAK DEBUG L9 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
-            window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: DATA['qiraa'].length });
+            console.log('DAK DEBUG L9 — total envoyé:', cartesTotal);
+            window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: cartesTotal });
             return;
         }
         var _t = 0;
@@ -1482,8 +1482,8 @@ window.flipCard=function(section){
             if (window.DAK_enregistrerLecon && !_enrLecon9Enregistree) {
                 _enrLecon9Enregistree = true;
                 clearInterval(_iv);
-                console.log('DAK DEBUG L9 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
-            window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: DATA['qiraa'].length });
+                console.log('DAK DEBUG L9 RETRY interval — total:', cartesTotal);
+                window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: cartesTotal });
             } else if (_t >= 15) { clearInterval(_iv); }
         }, 200);
     }

@@ -708,8 +708,8 @@ if($(section+"-tot"))$(section+"-tot").textContent=cards.length; $(section+"-pre
 // DAK Tracker — dernière section 'qiraa'
 console.log("DAK DEBUG L10 — section:", section, "| idx:", s.idx, "| last:", cards.length-1, "| DAK:", typeof window.DAK_enregistrerLecon);
 if(section==='qiraa'&&s.idx===cards.length-1){
-console.log("DAK DEBUG L10 — DERNIERE CARTE QIRAA ✅");
-enrLecon10();
+console.log("DAK DEBUG L10 — DERNIERE CARTE QIRAA ✅ — total cards:", cards.length);
+enrLecon10(cards.length);
 }
 }
 
@@ -744,12 +744,12 @@ State[section].flipped=!State[section].flipped; $("card-"+section).classList.tog
 
     // DAK Tracker — anti-doublon
     var _enrLecon10Enregistree = false;
-    function enrLecon10() {
+    function enrLecon10(cartesTotal) {
         if (_enrLecon10Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon10Enregistree = true;
-            console.log('DAK DEBUG L10 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
-            window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: DATA['qiraa'].length });
+            console.log('DAK DEBUG L10 — total envoyé:', cartesTotal);
+            window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: cartesTotal });
             return;
         }
         var _t = 0;
@@ -758,8 +758,8 @@ State[section].flipped=!State[section].flipped; $("card-"+section).classList.tog
             if (window.DAK_enregistrerLecon && !_enrLecon10Enregistree) {
                 _enrLecon10Enregistree = true;
                 clearInterval(_iv);
-                console.log('DAK DEBUG L10 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
-            window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: DATA['qiraa'].length });
+                console.log('DAK DEBUG L10 RETRY interval — total:', cartesTotal);
+                window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: cartesTotal });
             } else if (_t >= 15) { clearInterval(_iv); }
         }, 200);
     }
