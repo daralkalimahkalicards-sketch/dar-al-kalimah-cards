@@ -1023,6 +1023,7 @@ function adjustHeight(section) {
 }
 
 function renderSection(section) {
+  console.log("DAK DEBUG L8 renderSection — section:", section, "| s.idx:", State[section].idx, "| cards.length:", DATA[section].length);
   const s = State[section];
   const cards = DATA[section];
   const card = cards[s.idx];
@@ -1069,7 +1070,11 @@ function renderSection(section) {
   $(`${section}-prev`).disabled = s.idx === 0;
   $(`${section}-next`).disabled = s.idx === cards.length - 1;
   // DAK Tracker — dernière section 'qiraa'
-  if (section === 'qiraa' && s.idx === cards.length - 1) { enrLecon8(); }
+  console.log("DAK DEBUG L8 — section:", section, "| s.idx:", s.idx, "| last:", cards.length - 1, "| DAK type:", typeof window.DAK_enregistrerLecon);
+  if (section === 'qiraa' && s.idx === cards.length - 1) {
+    console.log("DAK DEBUG L8 — DERNIERE CARTE QIRAA ✅ — appel enrLecon8()");
+    enrLecon8();
+  }
 
   $(`${section}-front`).scrollTop = 0;
   $(`${section}-back`).scrollTop = 0;
@@ -1133,6 +1138,7 @@ window.flipCard = function(section) {
         }, 200);
     }
     window.navigate = function(section, dir) {
+  console.log("DAK DEBUG L8 navigate — section:", section, "dir:", dir);
   const s = State[section];
   const len = DATA[section].length;
   const next = s.idx + dir;
