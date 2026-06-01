@@ -321,6 +321,7 @@
             .card-back .ex-word { font-size: 1.8rem; }
         }
     </style>
+    <script type="module" src="tracker-lecons.js"></script>
 </head>
 <body>
 
@@ -521,6 +522,10 @@
             
             document.getElementById('btn-prev').disabled = (index === 0);
             document.getElementById('btn-next').disabled = (index === alphabetData.length - 1);
+            // DAK Tracker Leçon
+            if (index === alphabetData.length - 1 && window.DAK_enregistrerLecon) {
+                window.DAK_enregistrerLecon({ module: 'Module 3', lecon: 'Leçon 3', total: alphabetData.length });
+            }
         }
 
         function updateDOM(data) {

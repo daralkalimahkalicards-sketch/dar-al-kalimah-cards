@@ -257,6 +257,7 @@
       .line-ar{font-size:1.05rem;}
     }
   </style>
+    <script type="module" src="tracker-lecons.js"></script>
 </head>
 <body>
 
@@ -596,6 +597,10 @@
     DOM.btnPrev.disabled = (cardIndex === 0);
     DOM.btnPrev.className = cardIndex === 0 ? "btn-nav btn-prev" : "btn-nav btn-prev active";
     DOM.btnNext.disabled  = (cardIndex === total - 1);
+    // DAK Tracker Leçon
+    if (cardIndex === total - 1 && window.DAK_enregistrerLecon) {
+        window.DAK_enregistrerLecon({ module: "Module 6", lecon: "Leçon 6", total: total });
+    }
 
     // Reset flip
     vocabFlipped = false;

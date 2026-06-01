@@ -525,6 +525,7 @@
       .node-bottom-row { gap: 15px; }
     }
   </style>
+    <script type="module" src="tracker-lecons.js"></script>
 </head>
 <body>
 
@@ -647,6 +648,10 @@
 
       document.getElementById("btn-prev").disabled = (index === 0);
       document.getElementById("btn-next").disabled = (index === lessonData.length - 1);
+      // DAK Tracker Leçon
+      if (index === lessonData.length - 1 && window.DAK_enregistrerLecon) {
+          window.DAK_enregistrerLecon({ module: "Module 5", lecon: "Leçon 5", total: lessonData.length });
+      }
     }
 
     function updateFront(data) {

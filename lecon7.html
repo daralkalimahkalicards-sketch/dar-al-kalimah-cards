@@ -160,6 +160,7 @@
     .tilawa-text .hl-gold{color:var(--gold);}
     @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.btn-nav{font-size:0.85rem;padding:15px 5px;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}}
   </style>
+    <script type="module" src="tracker-lecons.js"></script>
 </head>
 <body>
 
@@ -537,6 +538,10 @@
     $("btn-prev").disabled = (cardIndex === 0);
     $("btn-prev").className = cardIndex === 0 ? "btn-nav btn-prev" : "btn-nav btn-prev active";
     $("btn-next").disabled = (cardIndex === s.ayahs.length - 1);
+    // DAK Tracker Leçon
+    if (cardIndex === s.ayahs.length - 1 && window.DAK_enregistrerLecon) {
+        window.DAK_enregistrerLecon({ module: "Module 7", lecon: "Leçon 7", total: s.ayahs.length });
+    }
     const iconWrap = $("fc-icon-wrap");
     if (c.icon === "fa-people-arrows fa-ban-overlay") {
       iconWrap.innerHTML = `<span class="fc-icon-ban-wrap" style="position:relative;display:inline-block;">
