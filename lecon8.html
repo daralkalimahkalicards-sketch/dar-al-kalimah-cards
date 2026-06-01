@@ -1124,7 +1124,7 @@ window.flipCard = function(section) {
         if (_enrLecon8Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon8Enregistree = true;
-            window.DAK_enregistrerLecon({ module: 'Module 8', lecon: 'Leçon 8', total: undefined });
+            window.DAK_enregistrerLecon({ module: 'Module 8', lecon: 'Leçon 8', total: DATA['qiraa'].length });
             return;
         }
         var _t = 0;
@@ -1133,7 +1133,7 @@ window.flipCard = function(section) {
             if (window.DAK_enregistrerLecon && !_enrLecon8Enregistree) {
                 _enrLecon8Enregistree = true;
                 clearInterval(_iv);
-                window.DAK_enregistrerLecon({ module: 'Module 8', lecon: 'Leçon 8', total: undefined });
+                window.DAK_enregistrerLecon({ module: 'Module 8', lecon: 'Leçon 8', total: DATA['qiraa'].length });
             } else if (_t >= 15) { clearInterval(_iv); }
         }, 200);
     }
