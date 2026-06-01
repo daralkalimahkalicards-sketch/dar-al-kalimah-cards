@@ -748,6 +748,7 @@ State[section].flipped=!State[section].flipped; $("card-"+section).classList.tog
         if (_enrLecon10Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon10Enregistree = true;
+            console.log('DAK DEBUG L10 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
             window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: DATA['qiraa'].length });
             return;
         }
@@ -757,7 +758,8 @@ State[section].flipped=!State[section].flipped; $("card-"+section).classList.tog
             if (window.DAK_enregistrerLecon && !_enrLecon10Enregistree) {
                 _enrLecon10Enregistree = true;
                 clearInterval(_iv);
-                window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: DATA['qiraa'].length });
+                console.log('DAK DEBUG L10 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
+            window.DAK_enregistrerLecon({ module: 'Module 10', lecon: 'Leçon 10', total: DATA['qiraa'].length });
             } else if (_t >= 15) { clearInterval(_iv); }
         }, 200);
     }

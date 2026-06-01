@@ -1472,6 +1472,7 @@ window.flipCard=function(section){
         if (_enrLecon9Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon9Enregistree = true;
+            console.log('DAK DEBUG L9 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
             window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: DATA['qiraa'].length });
             return;
         }
@@ -1481,7 +1482,8 @@ window.flipCard=function(section){
             if (window.DAK_enregistrerLecon && !_enrLecon9Enregistree) {
                 _enrLecon9Enregistree = true;
                 clearInterval(_iv);
-                window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: DATA['qiraa'].length });
+                console.log('DAK DEBUG L9 — total envoyé:', DATA['qiraa'].length, '| DATA qiraa existe:', !!DATA['qiraa']);
+            window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: DATA['qiraa'].length });
             } else if (_t >= 15) { clearInterval(_iv); }
         }, 200);
     }
