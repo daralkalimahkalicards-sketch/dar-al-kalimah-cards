@@ -175,6 +175,7 @@
             .col-footer-row { flex-direction: column; gap: 6px; }
         }
     </style>
+    <script type="module" src="tracker-lecons.js"></script>
 </head>
 <body>
 
@@ -506,6 +507,10 @@
             document.querySelectorAll('.harakat-col, .verso-col').forEach(c => c.classList.remove('active'));
             document.getElementById('btn-prev').disabled = (index === 0);
             document.getElementById('btn-next').disabled = (index === alphabetData.length - 1);
+            // DAK Tracker Leçon
+            if (index === alphabetData.length - 1 && window.DAK_enregistrerLecon) {
+                window.DAK_enregistrerLecon({ module: 'Module 2', lecon: 'Leçon 2', total: alphabetData.length });
+            }
         }
 
         function toggleFlip(event) {
