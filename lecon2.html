@@ -532,8 +532,8 @@
             document.getElementById('btn-prev').disabled = (index === 0);
             document.getElementById('btn-next').disabled = (index === alphabetData.length - 1);
             // DAK Tracker Leçon
-            if (index === alphabetData.length - 1 && window.DAK_enregistrerLecon) {
-                window.DAK_enregistrerLecon({ module: 'Module 2', lecon: 'Leçon 2', total: alphabetData.length });
+            if (index === alphabetData.length - 1) {
+                enregistrerLeconQuandPret();
             }
         }
 
@@ -556,7 +556,30 @@
         function playHarakatAudio(h, e) { e.stopPropagation(); playAudio(alphabetData[currentIndex][h].audio); }
         function playAudio(src) { currentAudio.src = src; currentAudio.play().catch(err => console.log(err)); }
 
-        function nextCard() { if (currentIndex < alphabetData.length - 1) { currentIndex++; renderCard(currentIndex); } }
+        // DAK Tracker — attend que tracker-lecons.js soit prêt
+        var _leconEnregistree = false;
+        function enregistrerLeconQuandPret() {
+            if (_leconEnregistree) return;
+            if (window.DAK_enregistrerLecon) {
+                _leconEnregistree = true;
+                window.DAK_enregistrerLecon({ module: 'Module 2', lecon: 'Leçon 2', total: alphabetData.length });
+                return;
+            }
+            var tentatives = 0;
+            var interval = setInterval(function() {
+                tentatives++;
+                if (window.DAK_enregistrerLecon && !_leconEnregistree) {
+                    _leconEnregistree = true;
+                    clearInterval(interval);
+                    window.DAK_enregistrerLecon({ module: 'Module 2', lecon: 'Leçon 2', total: alphabetData.length });
+                } else if (tentatives >= 15) {
+                    clearInterval(interval);
+                    console.warn('DAK: tracker-lecons.js non disponible après 3s');
+                }
+            }, 200);
+        }
+
+                function nextCard() { if (currentIndex < alphabetData.length - 1) { currentIndex++; renderCard(currentIndex); } }
         function prevCard() { if (currentIndex > 0) { currentIndex--; renderCard(currentIndex); } }
 
         document.addEventListener('DOMContentLoaded', () => renderCard(0));
