@@ -188,8 +188,32 @@
     .mhk-mn-fr{font-size:0.88rem;font-weight:700;color:var(--burgundy);margin-bottom:3px;}
     .mhk-mn-es{font-size:0.82rem;color:#888;font-style:italic;}
     @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.btn-nav{font-size:0.85rem;padding:15px 5px;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}.mhk-wb{font-size:1rem;padding:8px 10px;}}
+
+        /* Guard auth */
+        body { visibility: hidden; }
   </style>
     <script type="module" src="tracker-lecons.js"></script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.body.style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
 </head>
 <body>
 
