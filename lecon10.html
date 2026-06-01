@@ -708,7 +708,7 @@ if($(section+"-tot"))$(section+"-tot").textContent=cards.length; $(section+"-pre
 // DAK Tracker — dernière section 'qiraa'
 console.log("DAK DEBUG L10 — section:", section, "| idx:", s.idx, "| last:", cards.length-1, "| DAK:", typeof window.DAK_enregistrerLecon);
 if(section==='qiraa'&&s.idx===cards.length-1){
-console.log("DAK DEBUG L10 — DERNIERE CARTE QIRAA ✅ — total cards:", cards.length);
+console.log('DAK L10 TRIGGER EXECUTE — cards.length:', cards.length);
 enrLecon10(cards.length);
 }
 }
@@ -745,6 +745,7 @@ State[section].flipped=!State[section].flipped; $("card-"+section).classList.tog
     // DAK Tracker — anti-doublon
     var _enrLecon10Enregistree = false;
     function enrLecon10(cartesTotal) {
+        console.log('DAK L10 ENREGISTREMENT APPELÉ — cartesTotal:', cartesTotal);
         if (_enrLecon10Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon10Enregistree = true;

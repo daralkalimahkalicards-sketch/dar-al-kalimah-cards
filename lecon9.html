@@ -1412,7 +1412,7 @@ function renderSection(section){
   // DAK Tracker — dernière section 'qiraa'
   console.log("DAK DEBUG L9 renderSection — section:", section, "| idx:", s.idx, "| last:", cards.length-1, "| DAK:", typeof window.DAK_enregistrerLecon);
   if(section==='qiraa'&&s.idx===cards.length-1){
-    console.log("DAK DEBUG L9 — DERNIERE CARTE QIRAA ✅ — total cards:", cards.length);
+    console.log('DAK L9 TRIGGER EXECUTE — cards.length:', cards.length);
     enrLecon9(cards.length);
   }
   $(section+"-front").scrollTop=0;
@@ -1469,6 +1469,7 @@ window.flipCard=function(section){
     // DAK Tracker — anti-doublon
     var _enrLecon9Enregistree = false;
     function enrLecon9(cartesTotal) {
+        console.log('DAK L9 ENREGISTREMENT APPELÉ — cartesTotal:', cartesTotal);
         if (_enrLecon9Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon9Enregistree = true;
