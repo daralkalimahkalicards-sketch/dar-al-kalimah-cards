@@ -511,6 +511,7 @@
         }
 
         function renderCard(index) {
+            console.log("DAK DEBUG renderCard — index:", index, "/ total:", alphabetData.length);
             const data = alphabetData[index];
             document.getElementById('current-index').innerText = index + 1;
             document.getElementById('front-letter').innerText = data.letter;
@@ -533,6 +534,8 @@
             document.getElementById('btn-next').disabled = (index === alphabetData.length - 1);
             // DAK Tracker Leçon
             if (index === alphabetData.length - 1) {
+                console.log("DAK DEBUG — DERNIERE CARTE atteinte");
+                console.log("DAK DEBUG — type DAK_enregistrerLecon:", typeof window.DAK_enregistrerLecon);
                 enregistrerLeconQuandPret();
             }
         }
@@ -559,9 +562,11 @@
         // DAK Tracker — attend que tracker-lecons.js soit prêt
         var _leconEnregistree = false;
         function enregistrerLeconQuandPret() {
+            console.log("DAK DEBUG — enregistrerLeconQuandPret() démarré — déjà enregistrée:", _leconEnregistree);
             if (_leconEnregistree) return;
             if (window.DAK_enregistrerLecon) {
                 _leconEnregistree = true;
+                console.log("DAK DEBUG — appel immédiat DAK_enregistrerLecon");
                 window.DAK_enregistrerLecon({ module: 'Module 2', lecon: 'Leçon 2', total: alphabetData.length });
                 return;
             }
@@ -571,6 +576,7 @@
                 if (window.DAK_enregistrerLecon && !_leconEnregistree) {
                     _leconEnregistree = true;
                     clearInterval(interval);
+                    console.log("DAK DEBUG — appel RETRY DAK_enregistrerLecon — tentative:", tentatives);
                     window.DAK_enregistrerLecon({ module: 'Module 2', lecon: 'Leçon 2', total: alphabetData.length });
                 } else if (tentatives >= 15) {
                     clearInterval(interval);
