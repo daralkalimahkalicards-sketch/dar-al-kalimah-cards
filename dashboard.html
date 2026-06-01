@@ -21,7 +21,7 @@ body { background: var(--bg); font-family: 'Montserrat', sans-serif; color: var(
 .live-dot { display: inline-block; width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; margin-right: 6px; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 30px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; padding: 30px; }
 .stat-card { background: var(--white); border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(93,24,40,0.08); border: 1px solid rgba(200,164,98,0.2); }
 .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--burgundy); }
 .stat-label { font-size: 0.8rem; color: rgba(93,24,40,0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
@@ -40,6 +40,7 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .badge-green { background: rgba(80,200,80,0.15); color: #2d7a2d; }
 .badge-orange { background: rgba(255,165,0,0.15); color: #b8750a; }
 .badge-red { background: rgba(255,80,80,0.15); color: #cc3333; }
+.badge-blue { background: rgba(80,120,255,0.15); color: #1a3a99; }
 
 .results-grid { display: grid; gap: 12px; }
 .result-card { background: var(--white); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 10px rgba(93,24,40,0.06); border-left: 4px solid var(--gold); }
@@ -48,10 +49,14 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .result-name { font-weight: 600; font-size: 0.9rem; }
 .result-detail { font-size: 0.78rem; color: rgba(93,24,40,0.5); margin-top: 2px; }
 .result-date { font-size: 0.75rem; color: rgba(93,24,40,0.4); text-align: right; }
+
+/* Cartes leçons — bordure verte pour distinguer des quiz */
+.lecon-card { border-left-color: #4CAF50; }
+.lecon-icon { font-size: 1.5rem; min-width: 40px; text-align: center; }
+
 .loading { text-align: center; padding: 40px; color: rgba(93,24,40,0.4); }
 .empty { text-align: center; padding: 30px; color: rgba(93,24,40,0.4); font-size: 0.9rem; }
 
-/* LOGIN PROF — via Firebase Auth */
 .login-overlay { position: fixed; inset: 0; background: linear-gradient(135deg, var(--burgundy), #3d0f1a); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .login-box { background: rgba(255,255,255,0.08); border: 1px solid rgba(200,164,98,0.4); border-radius: 20px; padding: 50px 40px; width: 360px; text-align: center; }
 .login-box h2 { font-family: 'Amiri', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 4px; }
@@ -69,7 +74,7 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 </head>
 <body>
 
-<!-- LOGIN PROF — Firebase Auth -->
+<!-- LOGIN PROF -->
 <div class="login-overlay" id="prof-login">
   <div class="login-box">
     <h2>دار الكلمة</h2>
@@ -96,27 +101,38 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     </div>
   </div>
 
+  <!-- STATS — 5 cartes dont leçons terminées -->
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-number" id="stat-eleves">—</div><div class="stat-label">Élèves inscrits</div></div>
     <div class="stat-card"><div class="stat-number" id="stat-quiz">—</div><div class="stat-label">Quiz complétés</div></div>
-    <div class="stat-card"><div class="stat-number" id="stat-moyenne">—%</div><div class="stat-label">Score moyen</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-lecons">—</div><div class="stat-label">Leçons terminées</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-moyenne">—%</div><div class="stat-label">Score moyen quiz</div></div>
     <div class="stat-card"><div class="stat-number" id="stat-actifs">—</div><div class="stat-label">Actifs cette semaine</div></div>
   </div>
 
+  <!-- ÉLÈVES -->
   <div class="section">
     <div class="section-title">👥 Élèves</div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Moy. score</th></tr></thead>
-        <tbody id="eleves-tbody"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
+        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th></tr></thead>
+        <tbody id="eleves-tbody"><tr><td colspan="7" class="loading">Chargement...</td></tr></tbody>
       </table>
     </div>
   </div>
 
+  <!-- RÉSULTATS QUIZ -->
   <div class="section">
-    <div class="section-title">📊 <span class="live-dot"></span>Résultats en temps réel</div>
+    <div class="section-title">📊 <span class="live-dot"></span>Résultats quiz en temps réel</div>
     <div class="results-grid" id="results-grid"><div class="loading">Chargement...</div></div>
   </div>
+
+  <!-- LEÇONS TERMINÉES -->
+  <div class="section">
+    <div class="section-title">📚 <span class="live-dot"></span>Leçons terminées en temps réel</div>
+    <div class="results-grid" id="lecons-grid"><div class="loading">Chargement...</div></div>
+  </div>
+
 </div>
 
 <script type="module">
@@ -124,8 +140,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, query, orderBy, limit, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// LISTE DES EMAILS AUTORISÉS COMME PROF
-// Ajoute ton email ici
 const EMAILS_PROF = ["sunfertity2080@gmail.com"];
 
 const firebaseConfig = {
@@ -141,10 +155,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let unsubEleves = null;
 let unsubResults = null;
+let unsubLecons  = null;
 
-// Vérifier si déjà connecté comme prof
 onAuthStateChanged(auth, (user) => {
   if (user && EMAILS_PROF.includes(user.email)) {
     ouvrirDashboard(user);
@@ -170,8 +183,8 @@ window.profLogin = async () => {
 };
 
 window.profLogout = async () => {
-  if (unsubEleves) unsubEleves();
   if (unsubResults) unsubResults();
+  if (unsubLecons)  unsubLecons();
   await signOut(auth);
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('prof-login').style.display = 'flex';
@@ -208,66 +221,110 @@ async function chargerDonnees() {
   const eleves = [];
   elevesSnap.forEach(d => eleves.push({ id: d.id, ...d.data() }));
 
-  // Résultats — TEMPS RÉEL avec onSnapshot
-  const q = query(collection(db, 'resultats'), orderBy('date', 'desc'), limit(50));
-  
-  unsubResults = onSnapshot(q, (snap) => {
+  // Résultats quiz — temps réel
+  const qResultats = query(collection(db, 'resultats'), orderBy('date', 'desc'), limit(50));
+  unsubResults = onSnapshot(qResultats, (snap) => {
     const resultats = [];
     snap.forEach(d => resultats.push({ id: d.id, ...d.data() }));
-
-    // Stats
-    document.getElementById('stat-eleves').textContent = eleves.length;
-    document.getElementById('stat-quiz').textContent = resultats.length;
-    const scores = resultats.map(r => r.pourcentage).filter(Boolean);
-    const moy = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
-    document.getElementById('stat-moyenne').textContent = moy + '%';
-
-    const semaine = new Date(); semaine.setDate(semaine.getDate()-7);
-    const actifs = eleves.filter(e => {
-      if (!e.dernierAcces) return false;
-      const d = e.dernierAcces.toDate ? e.dernierAcces.toDate() : new Date(e.dernierAcces);
-      return d > semaine;
-    }).length;
-    document.getElementById('stat-actifs').textContent = actifs;
-
-    // Tableau élèves
-    const tbody = document.getElementById('eleves-tbody');
-    if (eleves.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun élève inscrit</td></tr>';
-    } else {
-      tbody.innerHTML = eleves.map(e => {
-        const er = resultats.filter(r => r.eleveId === e.id);
-        const me = er.length ? Math.round(er.reduce((a,r)=>a+(r.pourcentage||0),0)/er.length) : null;
-        return `<tr>
-          <td><strong>${e.nom||'—'}</strong></td>
-          <td>${e.email||'—'}</td>
-          <td>${formatDate(e.dateInscription)}</td>
-          <td>${formatDate(e.dernierAcces)}</td>
-          <td>${er.length}</td>
-          <td>${me!==null?badgeScore(me):'—'}</td>
-        </tr>`;
-      }).join('');
-    }
-
-    // Derniers résultats
-    const grid = document.getElementById('results-grid');
-    if (resultats.length === 0) {
-      grid.innerHTML = '<div class="empty">Aucun résultat encore enregistré</div>';
-    } else {
-      grid.innerHTML = resultats.slice(0,20).map(r => `
-        <div class="result-card">
-          <div class="result-score">${r.score}/${r.total}</div>
-          <div class="result-info">
-            <div class="result-name">👤 ${r.eleveNom||r.eleveEmail||'—'}</div>
-            <div class="result-detail">📚 ${r.module||'—'} — ${r.quiz||'—'} ${r.dureeSecondes?`⏱️ ${Math.round(r.dureeSecondes/60)} min`:''}</div>
-          </div>
-          <div>
-            ${badgeScore(r.pourcentage||0)}
-            <div class="result-date">${formatHeure(r.date)}</div>
-          </div>
-        </div>`).join('');
-    }
+    afficherResultats(resultats, eleves);
   });
+
+  // Leçons terminées — temps réel
+  const qLecons = query(collection(db, 'lecons'), orderBy('date', 'desc'), limit(50));
+  unsubLecons = onSnapshot(qLecons, (snap) => {
+    const lecons = [];
+    snap.forEach(d => lecons.push({ id: d.id, ...d.data() }));
+    afficherLecons(lecons, eleves);
+    // Mettre à jour stat leçons
+    document.getElementById('stat-lecons').textContent = lecons.length;
+  });
+}
+
+function afficherResultats(resultats, eleves) {
+  // Stats
+  document.getElementById('stat-eleves').textContent = eleves.length;
+  document.getElementById('stat-quiz').textContent = resultats.length;
+  const scores = resultats.map(r => r.pourcentage).filter(Boolean);
+  const moy = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
+  document.getElementById('stat-moyenne').textContent = moy + '%';
+  const semaine = new Date(); semaine.setDate(semaine.getDate()-7);
+  const actifs = eleves.filter(e => {
+    if (!e.dernierAcces) return false;
+    const d = e.dernierAcces.toDate ? e.dernierAcces.toDate() : new Date(e.dernierAcces);
+    return d > semaine;
+  }).length;
+  document.getElementById('stat-actifs').textContent = actifs;
+
+  // Tableau élèves — ajout colonne leçons (placeholder —)
+  const tbody = document.getElementById('eleves-tbody');
+  if (eleves.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty">Aucun élève inscrit</td></tr>';
+  } else {
+    tbody.innerHTML = eleves.map(e => {
+      const er = resultats.filter(r => r.eleveId === e.id);
+      const me = er.length ? Math.round(er.reduce((a,r)=>a+(r.pourcentage||0),0)/er.length) : null;
+      return `<tr>
+        <td><strong>${e.nom||'—'}</strong></td>
+        <td>${e.email||'—'}</td>
+        <td>${formatDate(e.dateInscription)}</td>
+        <td>${formatDate(e.dernierAcces)}</td>
+        <td>${er.length}</td>
+        <td id="lecons-eleve-${e.id}">—</td>
+        <td>${me!==null?badgeScore(me):'—'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Derniers résultats quiz
+  const grid = document.getElementById('results-grid');
+  if (resultats.length === 0) {
+    grid.innerHTML = '<div class="empty">Aucun résultat encore enregistré</div>';
+  } else {
+    grid.innerHTML = resultats.slice(0,20).map(r => `
+      <div class="result-card">
+        <div class="result-score">${r.score}/${r.total}</div>
+        <div class="result-info">
+          <div class="result-name">👤 ${r.eleveNom||r.eleveEmail||'—'}</div>
+          <div class="result-detail">📚 ${r.module||'—'} — ${r.quiz||'—'} ${r.dureeSecondes?`⏱️ ${Math.round(r.dureeSecondes/60)} min`:''}</div>
+        </div>
+        <div>
+          ${badgeScore(r.pourcentage||0)}
+          <div class="result-date">${formatHeure(r.date)}</div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+function afficherLecons(lecons, eleves) {
+  // Mettre à jour le nombre de leçons par élève dans le tableau
+  eleves.forEach(e => {
+    const nb = lecons.filter(l => l.eleveId === e.id).length;
+    const cell = document.getElementById('lecons-eleve-' + e.id);
+    if (cell) cell.textContent = nb > 0 ? nb : '—';
+  });
+
+  // Section leçons terminées
+  const grid = document.getElementById('lecons-grid');
+  if (lecons.length === 0) {
+    grid.innerHTML = '<div class="empty">Aucune leçon enregistrée</div>';
+    return;
+  }
+  grid.innerHTML = lecons.slice(0,20).map(l => `
+    <div class="result-card lecon-card">
+      <div class="lecon-icon">📖</div>
+      <div class="result-info">
+        <div class="result-name">👤 ${l.eleveNom||l.eleveEmail||'—'}</div>
+        <div class="result-detail">
+          ${l.module||'—'} — ${l.lecon||'—'}
+          ${l.cartesTotal ? `· ${l.cartesTotal} cartes` : ''}
+          ${l.dureeSecondes ? `⏱️ ${Math.round(l.dureeSecondes/60)} min` : ''}
+        </div>
+      </div>
+      <div>
+        <span class="badge badge-blue">✅ terminée</span>
+        <div class="result-date">${formatHeure(l.date)}</div>
+      </div>
+    </div>`).join('');
 }
 </script>
 </body>
