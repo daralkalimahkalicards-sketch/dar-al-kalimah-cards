@@ -946,7 +946,7 @@ window.openFlashcards7=function(){
         if (_enrLecon11Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _enrLecon11Enregistree = true;
-            window.DAK_enregistrerLecon({ module: 'Module 11', lecon: 'Leçon 11', total: undefined });
+            window.DAK_enregistrerLecon({ module: 'Module 11', lecon: 'Leçon 11', total: SURAHS[State.currentSurah].ayahs.length });
             return;
         }
         var _t = 0;
@@ -955,7 +955,7 @@ window.openFlashcards7=function(){
             if (window.DAK_enregistrerLecon && !_enrLecon11Enregistree) {
                 _enrLecon11Enregistree = true;
                 clearInterval(_iv);
-                window.DAK_enregistrerLecon({ module: 'Module 11', lecon: 'Leçon 11', total: undefined });
+                window.DAK_enregistrerLecon({ module: 'Module 11', lecon: 'Leçon 11', total: SURAHS[State.currentSurah].ayahs.length });
             } else if (_t >= 15) { clearInterval(_iv); }
         }, 200);
     }
@@ -972,7 +972,11 @@ window.openFlashcards7=function(){
   $('fc7-prev').disabled=(State.fc7.idx===0);
   $('fc7-next').disabled=(State.fc7.idx===s.ayahs.length-1);
   // DAK Tracker — dernière carte fc7
-  if(State.fc7.idx===s.ayahs.length-1){enrLecon11();}
+  console.log("DAK DEBUG L11 renderFC7 — idx:", State.fc7.idx, "| last:", s.ayahs.length-1, "| DAK:", typeof window.DAK_enregistrerLecon);
+  if(State.fc7.idx===s.ayahs.length-1){
+    console.log("DAK DEBUG L11 — DERNIERE CARTE FC7 ✅");
+    enrLecon11();
+  }
 }
 $('fc7-prev').addEventListener('click',()=>{if(State.fc7.idx>0){State.fc7.idx--;renderFC7();}});
 $('fc7-next').addEventListener('click',()=>{
