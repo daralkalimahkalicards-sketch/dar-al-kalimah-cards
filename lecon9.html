@@ -167,7 +167,32 @@
     .mcq-btn:disabled{cursor:default;}
     .mcq-btn.mcq-correct{border:2px solid #4CAF50!important;background:var(--success-green,#e8f5e9);color:#2e7d32;}
     .mcq-btn.mcq-wrong{border:2px solid #f44336!important;background:var(--error-red,#ffebee);opacity:0.7;}
+
+        /* Guard auth */
+        body { visibility: hidden; }
   </style>
+    <script type="module" src="tracker-lecons.js"></script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.body.style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
 </head>
 <body>
 
@@ -1384,6 +1409,8 @@ function renderSection(section){
   if($(section+"-tot"))$(section+"-tot").textContent=cards.length;
   $(section+"-prev").disabled=(s.idx===0);
   $(section+"-next").disabled=(s.idx===cards.length-1);
+  // DAK Tracker — dernière section 'qiraa'
+  if(section==='qiraa'&&s.idx===cards.length-1){enrLecon9();}
   $(section+"-front").scrollTop=0;
   $(section+"-back").scrollTop=0;
 }
@@ -1434,7 +1461,27 @@ window.flipCard=function(section){
   $("card-"+section).classList.toggle("flipped",State[section].flipped);
 };
 
-window.navigate=function(section,dir){
+
+    // DAK Tracker — anti-doublon
+    var _enrLecon9Enregistree = false;
+    function enrLecon9() {
+        if (_enrLecon9Enregistree) return;
+        if (window.DAK_enregistrerLecon) {
+            _enrLecon9Enregistree = true;
+            window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: undefined });
+            return;
+        }
+        var _t = 0;
+        var _iv = setInterval(function() {
+            _t++;
+            if (window.DAK_enregistrerLecon && !_enrLecon9Enregistree) {
+                _enrLecon9Enregistree = true;
+                clearInterval(_iv);
+                window.DAK_enregistrerLecon({ module: 'Module 9', lecon: 'Leçon 9', total: undefined });
+            } else if (_t >= 15) { clearInterval(_iv); }
+        }, 200);
+    }
+    window.navigate=function(section,dir){
   const s=State[section];
   const next=s.idx+dir;
   if(next<0||next>=DATA[section].length)return;

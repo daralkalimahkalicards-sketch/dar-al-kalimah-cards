@@ -256,7 +256,32 @@
       .tilawa-flux{font-size:clamp(1.4rem,4.5vw,1.9rem);}
       .fc7-card{min-height:460px;padding:28px 14px 22px;}
     }
+
+        /* Guard auth */
+        body { visibility: hidden; }
   </style>
+    <script type="module" src="tracker-lecons.js"></script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.body.style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
 </head>
 <body>
 
@@ -914,7 +939,27 @@ window.openFlashcards7=function(){
   showView('fc7');
   renderFC7();
 };
-function renderFC7(){
+
+    // DAK Tracker — anti-doublon
+    var _enrLecon11Enregistree = false;
+    function enrLecon11() {
+        if (_enrLecon11Enregistree) return;
+        if (window.DAK_enregistrerLecon) {
+            _enrLecon11Enregistree = true;
+            window.DAK_enregistrerLecon({ module: 'Module 11', lecon: 'Leçon 11', total: undefined });
+            return;
+        }
+        var _t = 0;
+        var _iv = setInterval(function() {
+            _t++;
+            if (window.DAK_enregistrerLecon && !_enrLecon11Enregistree) {
+                _enrLecon11Enregistree = true;
+                clearInterval(_iv);
+                window.DAK_enregistrerLecon({ module: 'Module 11', lecon: 'Leçon 11', total: undefined });
+            } else if (_t >= 15) { clearInterval(_iv); }
+        }, 200);
+    }
+    function renderFC7(){
   const s=SURAHS[State.currentSurah];
   const c=s.ayahs[State.fc7.idx];
   $('fc7-counter').textContent=(State.fc7.idx+1)+' / '+s.ayahs.length;
@@ -926,6 +971,8 @@ function renderFC7(){
   $('fc7-note-es').textContent=c.noteEs;
   $('fc7-prev').disabled=(State.fc7.idx===0);
   $('fc7-next').disabled=(State.fc7.idx===s.ayahs.length-1);
+  // DAK Tracker — dernière carte fc7
+  if(State.fc7.idx===s.ayahs.length-1){enrLecon11();}
 }
 $('fc7-prev').addEventListener('click',()=>{if(State.fc7.idx>0){State.fc7.idx--;renderFC7();}});
 $('fc7-next').addEventListener('click',()=>{
