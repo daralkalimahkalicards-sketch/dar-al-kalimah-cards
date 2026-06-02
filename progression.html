@@ -392,6 +392,7 @@ body::before {
       <div class="tl-resume-item"><div class="tl-resume-val" id="tl-total-act">—</div><div class="tl-resume-lbl">Activités</div></div>
       <div class="tl-resume-item"><div class="tl-resume-val" id="tl-derniere">—</div><div class="tl-resume-lbl">Dernière activité</div></div>
     </div>
+    <div class="section-title" style="margin-top:10px">🎯 Maîtrise des quiz dans le temps</div>
       <div class="chart-wrap" id="chart-wrap">
         <div class="chart-empty">Chargement du graphique...</div>
       </div>
@@ -650,102 +651,116 @@ function afficherObjectif(moyJour) {
 // ── GRAPHIQUE DE PROGRESSION ────────────────────────────────────
 function afficherGraphique(toutesActivites) {
   const wrap = document.getElementById('chart-wrap');
-  if (toutesActivites.length < 2) {
-    wrap.innerHTML = '<div class="chart-empty">Pas encore assez de données pour afficher un graphique.</div>';
+
+  // Utiliser UNIQUEMENT les quiz (pas les leçons)
+  const quizOnly = toutesActivites
+    .filter(a => a._type === 'quiz' && a.score != null && a.total > 0)
+    .sort((a, b) => tsToMs(a.date) - tsToMs(b.date));
+
+  if (quizOnly.length < 2) {
+    wrap.innerHTML = '<div class="chart-empty">Pas encore assez de résultats de quiz pour afficher le graphique.</div>';
     return;
   }
 
-  // Trier par date croissante
-  const chrono = [...toutesActivites].sort((a, b) => tsToMs(a.date) - tsToMs(b.date));
-  // Dénominateur = total réel des activités de l'élève
-  // → la courbe monte de 0% à 100% de sa progression actuelle
-  const totalActs = chrono.length;
-
-  // Construire les points : pour chaque jour, compter le cumulé
+  // Construire les points jour par jour — moyenne cumulée des scores
   const points = [];
-  let compteur = 0;
-  chrono.forEach(a => {
-    compteur++;
+  let sommePct = 0;
+  let nbQuiz   = 0;
+
+  quizOnly.forEach(a => {
+    nbQuiz++;
+    const scorePct = Math.round((a.score / a.total) * 100);
+    sommePct += scorePct;
+    const moyenneCumulee = Math.round(sommePct / nbQuiz);
+
     const d = a.date?.toDate ? a.date.toDate() : new Date(a.date);
     const jourKey = d.toLocaleDateString('fr-FR');
-    const pct = Math.round((compteur / totalActs) * 100);
+
     const existing = points.findIndex(p => p.jourKey === jourKey);
     if (existing >= 0) {
-      points[existing].pct = pct;
-      points[existing].count = compteur;
+      points[existing].pct   = moyenneCumulee;
+      points[existing].count = nbQuiz;
     } else {
-      points.push({ jourKey, date: d, pct, count: compteur });
+      points.push({ jourKey, date: d, pct: moyenneCumulee, count: nbQuiz });
     }
   });
 
   if (points.length < 2) {
-    wrap.innerHTML = '<div class="chart-empty">Pas encore assez de jours d\'étude pour le graphique.</div>';
+    wrap.innerHTML = '<div class="chart-empty">Pas encore assez de jours avec des quiz pour le graphique.</div>';
     return;
   }
 
-  // Dimensions SVG
-  const W = 800, H = 220;
-  const PL = 46, PR = 20, PT = 20, PB = 36;
+  // ── SVG ──────────────────────────────────────────────────────
+  const W = 800, H = 260;
+  const PL = 54, PR = 24, PT = 28, PB = 44;
   const chartW = W - PL - PR;
   const chartH = H - PT - PB;
-
-  // Coordonnées des points
   const n = points.length;
+
   const pts = points.map((p, i) => ({
-    x: PL + (i / (n - 1)) * chartW,
+    x: PL + (n === 1 ? chartW / 2 : (i / (n - 1)) * chartW),
     y: PT + chartH - (p.pct / 100) * chartH,
     pct: p.pct,
     label: p.date.toLocaleDateString('fr-FR', { day:'2-digit', month:'short' })
   }));
 
-  // Chemin de la courbe (lissé avec bezier)
+  // Courbe bezier
   let path = `M ${pts[0].x} ${pts[0].y}`;
   for (let i = 1; i < pts.length; i++) {
     const cx = (pts[i-1].x + pts[i].x) / 2;
     path += ` C ${cx} ${pts[i-1].y} ${cx} ${pts[i].y} ${pts[i].x} ${pts[i].y}`;
   }
+  const area = path + ` L ${pts[pts.length-1].x} ${PT+chartH} L ${pts[0].x} ${PT+chartH} Z`;
 
-  // Zone de remplissage
-  const area = path + ` L ${pts[pts.length-1].x} ${PT + chartH} L ${pts[0].x} ${PT + chartH} Z`;
-
-  // Grille horizontale (0%, 25%, 50%, 75%, 100%)
+  // Grille horizontale
   const grilles = [0, 25, 50, 75, 100].map(v => {
-    const y = PT + chartH - (v / 100) * chartH;
-    return `<line x1="${PL}" y1="${y}" x2="${W - PR}" y2="${y}" stroke="rgba(93,24,40,0.07)" stroke-width="1"/>
-            <text x="${PL - 6}" y="${y + 4}" text-anchor="end" font-size="10" fill="rgba(93,24,40,0.35)">${v}%</text>`;
+    const y = PT + chartH - (v/100)*chartH;
+    return `<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="rgba(93,24,40,0.12)" stroke-width="1" stroke-dasharray="${v===0||v===100?'none':'4,3'}"/>
+            <text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="12" font-weight="600" fill="rgba(93,24,40,0.5)">${v}%</text>`;
   }).join('');
 
-  // Labels axe X (max 6)
-  const step = Math.max(1, Math.floor(pts.length / 5));
-  const labelsX = pts.filter((_, i) => i === 0 || i === pts.length - 1 || i % step === 0)
-    .map(p => `<text x="${p.x}" y="${PT + chartH + 20}" text-anchor="middle" font-size="9" fill="rgba(93,24,40,0.4)">${p.label}</text>`)
+  // Axes
+  const axes = `
+    <line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+chartH}" stroke="rgba(93,24,40,0.25)" stroke-width="1.5"/>
+    <line x1="${PL}" y1="${PT+chartH}" x2="${W-PR}" y2="${PT+chartH}" stroke="rgba(93,24,40,0.25)" stroke-width="1.5"/>`;
+
+  // Labels axe X
+  const step = Math.max(1, Math.floor(pts.length / 6));
+  const labelsX = pts
+    .filter((_, i) => i === 0 || i === pts.length-1 || i % step === 0)
+    .map(p => `<text x="${p.x}" y="${PT+chartH+22}" text-anchor="middle" font-size="12" font-weight="500" fill="rgba(93,24,40,0.6)">${p.label}</text>`)
     .join('');
 
-  // Points actifs
-  const circles = pts.map(p =>
-    `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#5D1828" stroke="white" stroke-width="1.5" class="chart-dot"/>
-     <title>${p.label} — ${p.pct}%</title>`
-  ).join('');
-
-  // Dernier point mis en valeur
-  const last = pts[pts.length - 1];
+  // Points + pourcentage au-dessus
+  const circles = pts.map((p, i) => {
+    const isLast = i === pts.length - 1;
+    const r = isLast ? 7 : 5;
+    const fill = isLast ? '#5D1828' : '#C8A462';
+    const stroke = isLast ? '#C8A462' : 'white';
+    const sw = isLast ? 2.5 : 2;
+    // Afficher % au-dessus — décaler si trop à gauche ou à droite
+    const tx = p.x < PL+30 ? p.x+14 : p.x > W-PR-30 ? p.x-14 : p.x;
+    const anchor = p.x < PL+30 ? 'start' : p.x > W-PR-30 ? 'end' : 'middle';
+    return `<circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>
+            <text x="${tx}" y="${p.y-10}" text-anchor="${anchor}" font-size="11" font-weight="700" fill="#5D1828">${p.pct}%</text>`;
+  }).join('');
 
   wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" style="stop-color:rgba(200,164,98,0.35)"/>
-        <stop offset="100%" style="stop-color:rgba(200,164,98,0.02)"/>
+      <linearGradient id="chartGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:rgba(200,164,98,0.4)"/>
+        <stop offset="100%" style="stop-color:rgba(200,164,98,0.03)"/>
       </linearGradient>
     </defs>
     ${grilles}
-    <path d="${area}" fill="url(#chartGrad)"/>
-    <path d="${path}" fill="none" stroke="#C8A462" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${axes}
+    <path d="${area}" fill="url(#chartGrad2)"/>
+    <path d="${path}" fill="none" stroke="#C8A462" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     ${labelsX}
     ${circles}
-    <circle cx="${last.x}" cy="${last.y}" r="6" fill="#5D1828" stroke="#C8A462" stroke-width="2"/>
-    <text x="${last.x}" y="${last.y - 12}" text-anchor="middle" font-size="11" font-weight="bold" fill="#5D1828">${last.pct}%</text>
   </svg>`;
 }
+
 // ── MON PARCOURS ─────────────────────────────────
 function afficherParcours(toutesActivites) {
   if (toutesActivites.length === 0) {
