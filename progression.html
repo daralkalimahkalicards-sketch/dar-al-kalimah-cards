@@ -223,6 +223,44 @@ body::before {
 .tl-resume-item { text-align: center; }
 .tl-resume-val { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
 .tl-resume-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+/* ── MODULES ── */
+.modules-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+.module-row {
+  background: var(--white); border-radius: var(--radius-md);
+  padding: 16px 20px; box-shadow: 0 2px 10px rgba(93,24,40,0.06);
+  border: 1px solid rgba(200,164,98,0.15);
+}
+.module-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.module-nom { font-weight: 700; font-size: 0.88rem; }
+.module-pct { font-weight: 700; font-size: 0.88rem; color: var(--gold); }
+.module-bar-bg { height: 8px; background: rgba(93,24,40,0.08); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+.module-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold-light), var(--gold)); transition: width 0.6s ease; }
+.module-bar-fill.terminé { background: linear-gradient(90deg, #66bb6a, #43a047); }
+.module-meta { display: flex; gap: 16px; }
+.module-meta-item { font-size: 0.72rem; color: rgba(93,24,40,0.5); display: flex; align-items: center; gap: 4px; }
+.badge-statut { font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; }
+.badge-nc    { background: rgba(93,24,40,0.06); color: rgba(93,24,40,0.5); }
+.badge-cours { background: rgba(200,164,98,0.2); color: #8a6620; }
+.badge-done  { background: rgba(76,175,80,0.15); color: #2d7a2d; }
+
+/* ── OBJECTIF ── */
+.objectif-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 24px 24px 20px; margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(93,24,40,0.08);
+  border: 1px solid rgba(200,164,98,0.2);
+}
+.objectif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+.objectif-stat { text-align: center; min-width: 90px; }
+.objectif-val { font-size: 1.4rem; font-weight: 700; color: var(--burgundy); }
+.objectif-lbl { font-size: 0.7rem; color: rgba(93,24,40,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.objectif-sep { font-size: 1.4rem; color: rgba(93,24,40,0.2); }
+.objectif-bar-bg { height: 10px; background: rgba(93,24,40,0.08); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+.objectif-bar-fill { height: 100%; border-radius: 999px; transition: width 0.8s ease; background: linear-gradient(90deg, #ef9a9a, var(--burgundy)); }
+.objectif-bar-fill.ok   { background: linear-gradient(90deg, var(--gold-light), var(--gold)); }
+.objectif-bar-fill.top  { background: linear-gradient(90deg, #66bb6a, #2e7d32); }
+.objectif-msg { font-size: 0.8rem; font-style: italic; color: rgba(93,24,40,0.7); line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -297,6 +335,38 @@ body::before {
     <div class="msg-pedagogique" id="msg-peda">Chargement de ton bilan...</div>
 
     <!-- ACTIVITÉS RÉCENTES -->
+
+    <!-- PROGRESSION PAR MODULE -->
+    <div class="section-title">📚 Progression par module</div>
+    <div class="modules-grid" id="modules-grid">
+      <div class="loading">Chargement...</div>
+    </div>
+
+    <!-- OBJECTIF 15 MIN/JOUR -->
+    <div class="section-title">🎯 Objectif recommandé</div>
+    <div class="objectif-card">
+      <div class="objectif-row">
+        <div class="objectif-stat">
+          <div class="objectif-val" id="obj-actuel">—</div>
+          <div class="objectif-lbl">Ton temps moy.</div>
+        </div>
+        <div class="objectif-sep">→</div>
+        <div class="objectif-stat">
+          <div class="objectif-val" style="color:var(--gold)">15 min</div>
+          <div class="objectif-lbl">Objectif /jour</div>
+        </div>
+        <div class="objectif-sep">→</div>
+        <div class="objectif-stat">
+          <div class="objectif-val" id="obj-pct">—%</div>
+          <div class="objectif-lbl">Atteinte</div>
+        </div>
+      </div>
+      <div class="objectif-bar-bg">
+        <div class="objectif-bar-fill" id="obj-bar" style="width:0%"></div>
+      </div>
+      <div class="objectif-msg" id="obj-msg">Chargement...</div>
+    </div>
+
     <div class="section-title">🕐 Dernières activités</div>
     <div class="activites-list" id="activites-list">
       <div class="loading">Chargement...</div>
@@ -466,6 +536,8 @@ function afficherTout(user, eleve, lecons, quiz) {
     return;
   }
 
+  afficherModules(lecons, quiz);
+  afficherObjectif(moyJour);
   afficherParcours(toutesActivites);
 
   list.innerHTML = toutesActivites.slice(0, 20).map(a => {
@@ -489,6 +561,75 @@ function afficherTout(user, eleve, lecons, quiz) {
       <div class="activite-date">${formatDateCourt(a.date)}</div>
     </div>`;
   }).join('');
+}
+
+// ── PROGRESSION PAR MODULE ──────────────────────────────────────
+function afficherModules(lecons, quiz) {
+  const grid = document.getElementById('modules-grid');
+  const rows = [];
+
+  for (let i = 1; i <= 12; i++) {
+    const modKey = 'Module ' + i;
+    const leconsMod = lecons.filter(l => l.module === modKey);
+    const quizMod   = quiz.filter(q => q.module === modKey);
+    const nbLecons  = Math.min(leconsMod.length, 1); // max 1 leçon par module
+    const nbQuiz    = Math.min(quizMod.length, 3);    // max 3 quiz par module
+    const total     = nbLecons + nbQuiz;              // sur 4
+    const pct       = Math.round((total / 4) * 100);
+
+    let statut, badgeCls, badgeTxt;
+    if (total === 0)      { statut = '⚪'; badgeCls = 'badge-nc';    badgeTxt = 'Non commencé'; }
+    else if (total < 4)   { statut = '🟡'; badgeCls = 'badge-cours'; badgeTxt = 'En cours'; }
+    else                  { statut = '🟢'; badgeCls = 'badge-done';  badgeTxt = 'Terminé'; }
+
+    const barCls = total === 4 ? 'module-bar-fill terminé' : 'module-bar-fill';
+
+    rows.push(`<div class="module-row">
+      <div class="module-header">
+        <span class="module-nom">${statut} Module ${i}</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="badge-statut ${badgeCls}">${badgeTxt}</span>
+          <span class="module-pct">${pct}%</span>
+        </div>
+      </div>
+      <div class="module-bar-bg">
+        <div class="${barCls}" style="width:${pct}%"></div>
+      </div>
+      <div class="module-meta">
+        <div class="module-meta-item">📖 ${nbLecons}/1 leçon</div>
+        <div class="module-meta-item">📝 ${nbQuiz}/3 quiz</div>
+      </div>
+    </div>`);
+  }
+
+  grid.innerHTML = rows.join('');
+}
+
+// ── OBJECTIF 15 MIN/JOUR ────────────────────────────────────────
+function afficherObjectif(moyJour) {
+  const objectifSec = 15 * 60;
+  const pctBrut = Math.round((moyJour / objectifSec) * 100);
+  const pctAff  = Math.min(pctBrut, 100);
+  const moyMin  = Math.round(moyJour / 60);
+
+  document.getElementById('obj-actuel').textContent = formatDuree(moyJour) + '/j';
+  document.getElementById('obj-pct').textContent = pctBrut + '%';
+
+  const bar = document.getElementById('obj-bar');
+  bar.style.width = pctAff + '%';
+  if (pctBrut >= 100) bar.className = 'objectif-bar-fill top';
+  else if (pctBrut >= 50) bar.className = 'objectif-bar-fill ok';
+  else bar.className = 'objectif-bar-fill';
+
+  let msg;
+  if (pctBrut < 50) {
+    msg = '⚠️ Effort insuffisant. Tu es à ' + pctBrut + '% de l\'objectif. Essaie de consacrer au moins 15 min par jour à l\'arabe.';
+  } else if (pctBrut < 100) {
+    msg = '👍 Bon rythme ! Tu es à ' + pctBrut + '% de l\'objectif. Encore un peu d\'effort pour atteindre les 15 min / jour.';
+  } else {
+    msg = '🌟 Excellent engagement ! Tu dépasses l\'objectif avec ' + moyMin + ' min / jour en moyenne. Continue !';
+  }
+  document.getElementById('obj-msg').textContent = msg;
 }
 // ── MON PARCOURS ─────────────────────────────────
 function afficherParcours(toutesActivites) {
