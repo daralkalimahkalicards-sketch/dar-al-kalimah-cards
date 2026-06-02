@@ -657,19 +657,19 @@ function afficherGraphique(toutesActivites) {
 
   // Trier par date croissante
   const chrono = [...toutesActivites].sort((a, b) => tsToMs(a.date) - tsToMs(b.date));
-  const total48 = 48;
+  // Dénominateur = total réel des activités de l'élève
+  // → la courbe monte de 0% à 100% de sa progression actuelle
+  const totalActs = chrono.length;
 
-  // Construire les points : pour chaque jour unique, calculer le % cumulé
+  // Construire les points : pour chaque jour, compter le cumulé
   const points = [];
-  const joursSeen = new Set();
   let compteur = 0;
   chrono.forEach(a => {
     compteur++;
     const d = a.date?.toDate ? a.date.toDate() : new Date(a.date);
     const jourKey = d.toLocaleDateString('fr-FR');
-    // Garder le dernier point de chaque jour
+    const pct = Math.round((compteur / totalActs) * 100);
     const existing = points.findIndex(p => p.jourKey === jourKey);
-    const pct = Math.min(100, Math.round((compteur / total48) * 100));
     if (existing >= 0) {
       points[existing].pct = pct;
       points[existing].count = compteur;
