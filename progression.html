@@ -179,6 +179,50 @@ body::before {
   .activite-card { flex-wrap: wrap; }
   .activite-date { width: 100%; text-align: left; }
 }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 28px; margin-top: 8px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(to bottom, var(--gold), rgba(200,164,98,0.1));
+  border-radius: 2px;
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-dot {
+  position: absolute; left: -24px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--gold); background: var(--white);
+  box-shadow: 0 0 0 3px rgba(200,164,98,0.15);
+}
+.tl-dot.lecon { background: #4CAF50; border-color: #4CAF50; }
+.tl-dot.quiz  { background: var(--gold); border-color: var(--gold); }
+.tl-dot.day   { background: var(--white); border-color: var(--burgundy); width: 14px; height: 14px; left: -25px; }
+.tl-day-label {
+  font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
+  color: var(--burgundy); margin-bottom: 10px; margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+.tl-activite {
+  background: var(--white); border-radius: var(--radius-sm);
+  padding: 10px 14px; margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(93,24,40,0.06);
+  border-left: 3px solid var(--gold);
+  display: flex; align-items: center; gap: 10px;
+}
+.tl-activite.lecon { border-left-color: #4CAF50; }
+.tl-activite.quiz  { border-left-color: var(--gold); }
+.tl-act-info { flex: 1; }
+.tl-act-titre { font-size: 0.83rem; font-weight: 600; }
+.tl-act-detail { font-size: 0.72rem; color: rgba(93,24,40,0.5); margin-top: 2px; }
+.tl-act-heure { font-size: 0.7rem; color: rgba(93,24,40,0.4); white-space: nowrap; }
+.tl-resume {
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+  border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 20px;
+  display: flex; gap: 20px; flex-wrap: wrap;
+}
+.tl-resume-item { text-align: center; }
+.tl-resume-val { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+.tl-resume-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -255,6 +299,19 @@ body::before {
     <!-- ACTIVITÉS RÉCENTES -->
     <div class="section-title">🕐 Dernières activités</div>
     <div class="activites-list" id="activites-list">
+      <div class="loading">Chargement...</div>
+    </div>
+
+
+    <!-- MON PARCOURS -->
+    <div class="section-title" style="margin-top:10px">🗓️ Mon parcours</div>
+    <div id="parcours-resume" class="tl-resume" style="display:none">
+      <div class="tl-resume-item"><div class="tl-resume-val" id="tl-premiere">—</div><div class="tl-resume-lbl">1ère activité</div></div>
+      <div class="tl-resume-item"><div class="tl-resume-val" id="tl-jours">—</div><div class="tl-resume-lbl">Jours d'étude</div></div>
+      <div class="tl-resume-item"><div class="tl-resume-val" id="tl-total-act">—</div><div class="tl-resume-lbl">Activités</div></div>
+      <div class="tl-resume-item"><div class="tl-resume-val" id="tl-derniere">—</div><div class="tl-resume-lbl">Dernière activité</div></div>
+    </div>
+    <div class="timeline" id="parcours-timeline">
       <div class="loading">Chargement...</div>
     </div>
 
@@ -409,6 +466,8 @@ function afficherTout(user, eleve, lecons, quiz) {
     return;
   }
 
+  afficherParcours(toutesActivites);
+
   list.innerHTML = toutesActivites.slice(0, 20).map(a => {
     const isLecon = a._type === 'lecon';
     const icone   = isLecon ? '📖' : '📝';
@@ -431,6 +490,73 @@ function afficherTout(user, eleve, lecons, quiz) {
     </div>`;
   }).join('');
 }
+// ── MON PARCOURS ─────────────────────────────────
+function afficherParcours(toutesActivites) {
+  if (toutesActivites.length === 0) {
+    document.getElementById('parcours-timeline').innerHTML =
+      '<div class="empty">Aucune activité enregistrée pour l\'instant.</div>';
+    return;
+  }
+
+  // Trier chronologique (plus ancien en premier)
+  const chrono = [...toutesActivites].sort((a, b) => tsToMs(a.date) - tsToMs(b.date));
+
+  // Résumé
+  const premiere = chrono[0];
+  const derniere = chrono[chrono.length - 1];
+  const joursEtude = new Set(chrono.map(a => {
+    const d = a.date?.toDate ? a.date.toDate() : new Date(a.date);
+    return d.toLocaleDateString('fr-FR');
+  })).size;
+
+  document.getElementById('parcours-resume').style.display = 'flex';
+  document.getElementById('tl-premiere').textContent = formatDate(premiere.date);
+  document.getElementById('tl-jours').textContent = joursEtude;
+  document.getElementById('tl-total-act').textContent = toutesActivites.length;
+  document.getElementById('tl-derniere').textContent = formatDate(derniere.date);
+
+  // Grouper par jour
+  const parJour = {};
+  chrono.forEach(a => {
+    const d = a.date?.toDate ? a.date.toDate() : new Date(a.date);
+    const key = d.toLocaleDateString('fr-FR', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+    if (!parJour[key]) parJour[key] = [];
+    parJour[key].push(a);
+  });
+
+  const tl = document.getElementById('parcours-timeline');
+  tl.innerHTML = Object.entries(parJour).map(([jour, acts]) => {
+    const tempsJour = acts.reduce((s, a) => s + (a.dureeSecondes || 0), 0);
+    const activitesHTML = acts.map(a => {
+      const isLecon = a._type === 'lecon';
+      const badge = isLecon ? '📖' : '📝';
+      const titre = isLecon ? (a.lecon || '—') : (a.quiz || '—');
+      const module = a.module || '';
+      const duree = a.dureeSecondes ? '⏱ ' + formatDuree(a.dureeSecondes) : '';
+      const score = !isLecon && a.score != null ? ` · ${a.score}/${a.total}` : '';
+      const heure = a.date?.toDate ? a.date.toDate().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}) : '';
+      return `<div class="tl-activite ${a._type}">
+        <span style="font-size:1rem">${badge}</span>
+        <div class="tl-act-info">
+          <div class="tl-act-titre">${titre}${score}</div>
+          <div class="tl-act-detail">${[module, duree].filter(Boolean).join(' · ')}</div>
+        </div>
+        <div class="tl-act-heure">${heure}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="tl-item">
+      <div class="tl-dot day"></div>
+      <div class="tl-day-label">${capitaliser(jour)} ${tempsJour > 0 ? '· ' + formatDuree(tempsJour) : ''}</div>
+      ${activitesHTML}
+    </div>`;
+  }).join('');
+}
+
+function capitaliser(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 </script>
 </body>
 </html>
