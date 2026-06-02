@@ -261,6 +261,17 @@ body::before {
 .objectif-bar-fill.ok   { background: linear-gradient(90deg, var(--gold-light), var(--gold)); }
 .objectif-bar-fill.top  { background: linear-gradient(90deg, #66bb6a, #2e7d32); }
 .objectif-msg { font-size: 0.8rem; font-style: italic; color: rgba(93,24,40,0.7); line-height: 1.5; }
+
+/* ── GRAPHIQUE ── */
+.chart-wrap {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 24px 20px 16px; margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(93,24,40,0.08);
+  border: 1px solid rgba(200,164,98,0.2);
+  overflow: hidden;
+}
+.chart-wrap svg { display: block; width: 100%; }
+.chart-empty { text-align: center; padding: 30px; color: rgba(93,24,40,0.4); font-size: 0.85rem; }
 </style>
 </head>
 <body>
@@ -381,6 +392,10 @@ body::before {
       <div class="tl-resume-item"><div class="tl-resume-val" id="tl-total-act">—</div><div class="tl-resume-lbl">Activités</div></div>
       <div class="tl-resume-item"><div class="tl-resume-val" id="tl-derniere">—</div><div class="tl-resume-lbl">Dernière activité</div></div>
     </div>
+      <div class="chart-wrap" id="chart-wrap">
+        <div class="chart-empty">Chargement du graphique...</div>
+      </div>
+
     <div class="timeline" id="parcours-timeline">
       <div class="loading">Chargement...</div>
     </div>
@@ -631,6 +646,106 @@ function afficherObjectif(moyJour) {
   }
   document.getElementById('obj-msg').textContent = msg;
 }
+
+// ── GRAPHIQUE DE PROGRESSION ────────────────────────────────────
+function afficherGraphique(toutesActivites) {
+  const wrap = document.getElementById('chart-wrap');
+  if (toutesActivites.length < 2) {
+    wrap.innerHTML = '<div class="chart-empty">Pas encore assez de données pour afficher un graphique.</div>';
+    return;
+  }
+
+  // Trier par date croissante
+  const chrono = [...toutesActivites].sort((a, b) => tsToMs(a.date) - tsToMs(b.date));
+  const total48 = 48;
+
+  // Construire les points : pour chaque jour unique, calculer le % cumulé
+  const points = [];
+  const joursSeen = new Set();
+  let compteur = 0;
+  chrono.forEach(a => {
+    compteur++;
+    const d = a.date?.toDate ? a.date.toDate() : new Date(a.date);
+    const jourKey = d.toLocaleDateString('fr-FR');
+    // Garder le dernier point de chaque jour
+    const existing = points.findIndex(p => p.jourKey === jourKey);
+    const pct = Math.min(100, Math.round((compteur / total48) * 100));
+    if (existing >= 0) {
+      points[existing].pct = pct;
+      points[existing].count = compteur;
+    } else {
+      points.push({ jourKey, date: d, pct, count: compteur });
+    }
+  });
+
+  if (points.length < 2) {
+    wrap.innerHTML = '<div class="chart-empty">Pas encore assez de jours d\'étude pour le graphique.</div>';
+    return;
+  }
+
+  // Dimensions SVG
+  const W = 800, H = 220;
+  const PL = 46, PR = 20, PT = 20, PB = 36;
+  const chartW = W - PL - PR;
+  const chartH = H - PT - PB;
+
+  // Coordonnées des points
+  const n = points.length;
+  const pts = points.map((p, i) => ({
+    x: PL + (i / (n - 1)) * chartW,
+    y: PT + chartH - (p.pct / 100) * chartH,
+    pct: p.pct,
+    label: p.date.toLocaleDateString('fr-FR', { day:'2-digit', month:'short' })
+  }));
+
+  // Chemin de la courbe (lissé avec bezier)
+  let path = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 1; i < pts.length; i++) {
+    const cx = (pts[i-1].x + pts[i].x) / 2;
+    path += ` C ${cx} ${pts[i-1].y} ${cx} ${pts[i].y} ${pts[i].x} ${pts[i].y}`;
+  }
+
+  // Zone de remplissage
+  const area = path + ` L ${pts[pts.length-1].x} ${PT + chartH} L ${pts[0].x} ${PT + chartH} Z`;
+
+  // Grille horizontale (0%, 25%, 50%, 75%, 100%)
+  const grilles = [0, 25, 50, 75, 100].map(v => {
+    const y = PT + chartH - (v / 100) * chartH;
+    return `<line x1="${PL}" y1="${y}" x2="${W - PR}" y2="${y}" stroke="rgba(93,24,40,0.07)" stroke-width="1"/>
+            <text x="${PL - 6}" y="${y + 4}" text-anchor="end" font-size="10" fill="rgba(93,24,40,0.35)">${v}%</text>`;
+  }).join('');
+
+  // Labels axe X (max 6)
+  const step = Math.max(1, Math.floor(pts.length / 5));
+  const labelsX = pts.filter((_, i) => i === 0 || i === pts.length - 1 || i % step === 0)
+    .map(p => `<text x="${p.x}" y="${PT + chartH + 20}" text-anchor="middle" font-size="9" fill="rgba(93,24,40,0.4)">${p.label}</text>`)
+    .join('');
+
+  // Points actifs
+  const circles = pts.map(p =>
+    `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#5D1828" stroke="white" stroke-width="1.5" class="chart-dot"/>
+     <title>${p.label} — ${p.pct}%</title>`
+  ).join('');
+
+  // Dernier point mis en valeur
+  const last = pts[pts.length - 1];
+
+  wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:rgba(200,164,98,0.35)"/>
+        <stop offset="100%" style="stop-color:rgba(200,164,98,0.02)"/>
+      </linearGradient>
+    </defs>
+    ${grilles}
+    <path d="${area}" fill="url(#chartGrad)"/>
+    <path d="${path}" fill="none" stroke="#C8A462" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${labelsX}
+    ${circles}
+    <circle cx="${last.x}" cy="${last.y}" r="6" fill="#5D1828" stroke="#C8A462" stroke-width="2"/>
+    <text x="${last.x}" y="${last.y - 12}" text-anchor="middle" font-size="11" font-weight="bold" fill="#5D1828">${last.pct}%</text>
+  </svg>`;
+}
 // ── MON PARCOURS ─────────────────────────────────
 function afficherParcours(toutesActivites) {
   if (toutesActivites.length === 0) {
@@ -657,6 +772,8 @@ function afficherParcours(toutesActivites) {
   document.getElementById('tl-derniere').textContent = formatDate(derniere.date);
 
   // Grouper par jour
+  afficherGraphique(toutesActivites);
+
   const parJour = {};
   chrono.forEach(a => {
     const d = a.date?.toDate ? a.date.toDate() : new Date(a.date);
