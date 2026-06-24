@@ -233,8 +233,13 @@
   };
   const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
   const _auth = getAuth(_app);
+  const PROF_EMAIL = "sunfertity2080@gmail.com";
   onAuthStateChanged(_auth, (user) => {
-    if (!user) window.location.href = 'auth.html';
+    if (!user) { window.location.href = 'auth.html'; return; }
+    if (user.email !== PROF_EMAIL) {
+      const profCard = document.querySelector('a[href="dashboard.html"]');
+      if (profCard) profCard.style.display = 'none';
+    }
   });
 </script>
 </body>
