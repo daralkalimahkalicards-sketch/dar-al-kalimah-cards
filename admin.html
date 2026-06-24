@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dar Al-Kalimah — Gestion des élèves</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --burgundy: #5D1828; --gold: #C8A462; --white: #FFFFFF; --bg: #FAF6F0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { min-height: 100vh; background: var(--bg); font-family: 'Montserrat', sans-serif; padding: 40px 20px; }
+
+  .header {
+    background: var(--burgundy);
+    border-radius: 16px;
+    padding: 30px 40px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+  .brand-ar { font-family: 'Amiri', serif; font-size: 2rem; color: var(--gold); }
+  .brand-sub { font-family: 'Cinzel', serif; font-size: 0.75rem; color: rgba(200,164,98,0.7); letter-spacing: 3px; margin-top: 4px; }
+  .badge { display: inline-block; background: rgba(200,164,98,0.2); color: var(--gold); border: 1px solid rgba(200,164,98,0.4); border-radius: 50px; padding: 4px 14px; font-size: 0.7rem; letter-spacing: 2px; margin-top: 10px; }
+
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 700px;
+    margin: 0 auto 24px;
+    box-shadow: 0 4px 20px rgba(93,24,40,0.07);
+    border: 1px solid rgba(200,164,98,0.2);
+  }
+  .card h2 { color: var(--burgundy); font-size: 1rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+
+  /* Login */
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; color: #888; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+  .form-group input { width: 100%; padding: 12px 16px; border: 1.5px solid #e0d5c5; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
+  .form-group input:focus { border-color: var(--gold); }
+  .btn { padding: 13px 28px; border: none; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+  .btn-primary { background: var(--gold); color: var(--burgundy); }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-danger { background: #fff0f0; color: #c0392b; border: 1px solid #f5c6c6; font-size: 0.78rem; padding: 7px 16px; }
+  .btn-danger:hover { background: #fde; }
+  .btn-logout { background: transparent; color: #999; border: 1px solid #ddd; font-size: 0.78rem; padding: 7px 16px; }
+
+  .msg { margin-top: 12px; padding: 10px 16px; border-radius: 10px; font-size: 0.83rem; display: none; }
+  .msg.error { background: #fff0f0; color: #c0392b; display: block; }
+  .msg.success { background: #f0fff4; color: #27ae60; display: block; }
+
+  /* Add email form */
+  .add-row { display: flex; gap: 12px; align-items: flex-end; }
+  .add-row .form-group { flex: 1; margin: 0; }
+  .add-row input { border-radius: 50px; }
+
+  /* Email list */
+  .email-list { margin-top: 20px; }
+  .email-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 8px;
+    background: #faf6f0; border: 1px solid rgba(200,164,98,0.15);
+    transition: background 0.2s;
+  }
+  .email-item:hover { background: #f5ede0; }
+  .email-text { font-size: 0.88rem; color: #333; }
+  .email-date { font-size: 0.72rem; color: #aaa; margin-top: 2px; }
+
+  .empty { text-align: center; color: #bbb; padding: 30px; font-size: 0.88rem; }
+
+  /* Stats */
+  .stat { text-align: center; }
+  .stat-num { font-size: 2.5rem; font-weight: 700; color: var(--burgundy); line-height: 1; }
+  .stat-label { font-size: 0.72rem; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+  .user-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .user-email-display { font-size: 0.8rem; color: #888; }
+
+  /* Hidden sections */
+  #section-login { display: block; }
+  #section-app { display: none; }
+
+  .divider { width: 40px; height: 2px; background: var(--gold); margin: 0 auto 20px; opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand-ar">دار الكلمة</div>
+  <div class="brand-sub">DAR AL-KALIMAH</div>
+  <div class="badge">ESPACE ADMINISTRATION</div>
+</div>
+
+<!-- LOGIN -->
+<div id="section-login">
+  <div class="card">
+    <h2>Connexion administratrice</h2>
+    <div class="divider"></div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="ton@email.com">
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <button class="btn btn-primary" onclick="adminLogin()">Se connecter</button>
+    <div id="login-msg" class="msg"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="section-app">
+
+  <!-- Stat -->
+  <div class="card" style="max-width:700px;">
+    <div class="user-bar">
+      <div class="stat-label">Élèves autorisées</div>
+      <button class="btn btn-logout" onclick="adminLogout()">Déconnexion</button>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="count">—</div>
+      <div class="stat-label">emails dans la liste</div>
+    </div>
+  </div>
+
+  <!-- Ajouter une élève -->
+  <div class="card">
+    <h2>Ajouter une élève</h2>
+    <div class="add-row">
+      <div class="form-group">
+        <label>Adresse email</label>
+        <input type="email" id="new-email" placeholder="eleve@email.com" onkeydown="if(event.key==='Enter')addEmail()">
+      </div>
+      <button class="btn btn-primary" onclick="addEmail()" style="margin-bottom:1px;">Ajouter</button>
+    </div>
+    <div id="add-msg" class="msg"></div>
+  </div>
+
+  <!-- Liste des élèves -->
+  <div class="card">
+    <h2>Liste des élèves autorisées</h2>
+    <div id="email-list" class="email-list">
+      <div class="empty">Chargement...</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const ADMIN_EMAIL = "sunfertity2080@gmail.com";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+  authDomain: "dar-al-kalimah.firebaseapp.com",
+  projectId: "dar-al-kalimah",
+  storageBucket: "dar-al-kalimah.firebasestorage.app",
+  messagingSenderId: "472629258",
+  appId: "1:472629258:web:29b755d38efe89421f1ff3"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (user && user.email === ADMIN_EMAIL) {
+    document.getElementById('section-login').style.display = 'none';
+    document.getElementById('section-app').style.display = 'block';
+    loadEmails();
+  } else if (user && user.email !== ADMIN_EMAIL) {
+    signOut(auth);
+    showMsg('login-msg', 'error', '❌ Accès réservé à l\'administratrice.');
+  } else {
+    document.getElementById('section-login').style.display = 'block';
+    document.getElementById('section-app').style.display = 'none';
+  }
+});
+
+async function loadEmails() {
+  const list = document.getElementById('email-list');
+  list.innerHTML = '<div class="empty">Chargement...</div>';
+  try {
+    const snap = await getDocs(collection(db, 'emails_autorises'));
+    const docs = [];
+    snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+    document.getElementById('count').textContent = docs.length;
+    if (docs.length === 0) {
+      list.innerHTML = '<div class="empty">Aucune élève ajoutée pour l\'instant.</div>';
+      return;
+    }
+    list.innerHTML = docs.map(d => `
+      <div class="email-item">
+        <div>
+          <div class="email-text">📧 ${d.email}</div>
+          ${d.addedAt ? `<div class="email-date">Ajoutée le ${new Date(d.addedAt.toDate()).toLocaleDateString('fr-FR')}</div>` : ''}
+        </div>
+        <button class="btn btn-danger" onclick="removeEmail('${d.id}', '${d.email}')">Supprimer</button>
+      </div>
+    `).join('');
+  } catch(e) {
+    list.innerHTML = `<div class="empty" style="color:#c0392b;">Erreur : ${e.message}<br><br>⚠️ Vérifie les règles Firestore (voir instructions ci-dessous).</div>`;
+    document.getElementById('count').textContent = '!';
+  }
+}
+
+window.adminLogin = async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const msg = document.getElementById('login-msg');
+  if (email !== ADMIN_EMAIL) { showMsg('login-msg', 'error', '❌ Accès réservé à l\'administratrice.'); return; }
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch(e) {
+    showMsg('login-msg', 'error', '❌ Email ou mot de passe incorrect.');
+  }
+};
+
+window.adminLogout = async () => {
+  await signOut(auth);
+};
+
+window.addEmail = async () => {
+  const email = document.getElementById('new-email').value.trim().toLowerCase();
+  if (!email || !email.includes('@')) { showMsg('add-msg', 'error', '❌ Entre un email valide.'); return; }
+  try {
+    // Vérifie si déjà dans la liste
+    const q = query(collection(db, 'emails_autorises'), where('email', '==', email));
+    const existing = await getDocs(q);
+    if (!existing.empty) { showMsg('add-msg', 'error', '⚠️ Cet email est déjà dans la liste.'); return; }
+    await addDoc(collection(db, 'emails_autorises'), { email, addedAt: serverTimestamp() });
+    document.getElementById('new-email').value = '';
+    showMsg('add-msg', 'success', `✅ ${email} ajoutée avec succès.`);
+    loadEmails();
+  } catch(e) {
+    showMsg('add-msg', 'error', `❌ Erreur : ${e.message}`);
+  }
+};
+
+window.removeEmail = async (id, email) => {
+  if (!confirm(`Supprimer ${email} de la liste ?`)) return;
+  try {
+    await deleteDoc(doc(db, 'emails_autorises', id));
+    showMsg('add-msg', 'success', `✅ ${email} supprimée.`);
+    loadEmails();
+  } catch(e) {
+    showMsg('add-msg', 'error', `❌ Erreur : ${e.message}`);
+  }
+};
+
+function showMsg(id, type, text) {
+  const el = document.getElementById(id);
+  el.className = `msg ${type}`;
+  el.textContent = text;
+  setTimeout(() => { el.style.display = 'none'; el.className = 'msg'; }, 4000);
+}
+</script>
+
+</body>
+</html>

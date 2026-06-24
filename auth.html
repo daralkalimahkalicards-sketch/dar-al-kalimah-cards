@@ -120,8 +120,8 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged, browserLocalPersistence, setPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, deleteUser, onAuthStateChanged, browserLocalPersistence, setPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
@@ -180,8 +180,31 @@ window.register = async () => {
   const msg = document.getElementById('reg-msg');
   if (!name) { msg.className='msg error'; msg.textContent='❌ Entre ton prénom.'; return; }
   if (password.length < 6) { msg.className='msg error'; msg.textContent='❌ Mot de passe trop court (6 caractères minimum).'; return; }
+
   try {
+    // 1. Créer le compte Firebase Auth
     const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+    // 2. Vérifier (en tant qu'utilisateur connecté) si l'email est autorisé
+    let autorise = false;
+    try {
+      const q = query(collection(db, 'emails_autorises'), where('email', '==', email));
+      const snap = await getDocs(q);
+      autorise = !snap.empty;
+    } catch(e) {
+      // Si erreur de lecture (règles restrictives), on bloque par sécurité
+      autorise = false;
+    }
+
+    if (!autorise) {
+      // Email non autorisé → supprimer le compte créé
+      await deleteUser(cred.user);
+      await signOut(auth);
+      msg.className = 'msg error';
+      msg.textContent = '❌ Ton email n\'est pas encore autorisé. Contacte Houda pour accéder à la plateforme.';
+      return;
+    }
+
     await updateProfile(cred.user, { displayName: name });
     await setDoc(doc(db, 'eleves', cred.user.uid), {
       nom: name,
