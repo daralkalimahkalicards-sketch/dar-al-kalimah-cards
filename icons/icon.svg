@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fond bordeaux -->
+  <circle cx="256" cy="256" r="256" fill="#5D1828"/>
+  <!-- Bordure or -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#C8A462" stroke-width="8"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#C8A462" stroke-width="2" stroke-dasharray="8,4"/>
+  <!-- Livre ouvert stylisé -->
+  <g transform="translate(256,270)" fill="none" stroke="#C8A462" stroke-width="6" stroke-linecap="round">
+    <line x1="-110" y1="20" x2="0" y2="-10"/>
+    <line x1="110" y1="20" x2="0" y2="-10"/>
+    <line x1="-110" y1="30" x2="-110" y2="20"/>
+    <line x1="110" y1="30" x2="110" y2="20"/>
+    <line x1="-110" y1="30" x2="0" y2="0"/>
+    <line x1="110" y1="30" x2="0" y2="0"/>
+    <!-- Pages gauche -->
+    <line x1="-90" y1="15" x2="-5" y2="-8"/>
+    <line x1="-70" y1="10" x2="-5" y2="-6"/>
+    <!-- Pages droite -->
+    <line x1="90" y1="15" x2="5" y2="-8"/>
+    <line x1="70" y1="10" x2="5" y2="-6"/>
+  </g>
+  <!-- Plume stylisée -->
+  <ellipse cx="256" cy="210" rx="22" ry="70" fill="#C8A462" opacity="0.9" transform="rotate(-15,256,210)"/>
+  <ellipse cx="256" cy="210" rx="12" ry="60" fill="#5D1828" opacity="0.6" transform="rotate(-15,256,210)"/>
+  <!-- Texte arabe دار الكلمة -->
+  <text x="256" y="360" text-anchor="middle" font-size="52" font-family="serif" fill="#C8A462" letter-spacing="2">دار الكلمة</text>
+  <!-- Texte latin -->
+  <text x="256" y="130" text-anchor="middle" font-size="34" font-family="serif" fill="#C8A462" font-weight="bold" letter-spacing="4">DAR AL-KALIMAH</text>
+</svg>

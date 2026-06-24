@@ -1,7 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
+  <link rel="manifest" href="/dar-al-kalimah-cards/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/dar-al-kalimah-cards/icons/icon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
   <title>Dar Al-Kalimah – Quiz 3 M6 | Compréhension</title>
   <meta name="theme-color" content="#5D1828">
@@ -166,7 +169,7 @@
         <div class="phrase-ar ar" id="q-phrase"></div>
       </div>
       <div class="audio-row">
-        <button type="button" id="btn-audio" class="btn-audio"><i class="fa-solid fa-microphone-lines"></i></button>
+        <button type="button" id="btn-audio" class="btn-audio">🎙️</button>
       </div>
       <div id="options-grid" class="options-grid"></div>
     </section>
@@ -624,5 +627,6 @@
   Audio_.init();
 })();
 </script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js');}</script>
 </body>
 </html>

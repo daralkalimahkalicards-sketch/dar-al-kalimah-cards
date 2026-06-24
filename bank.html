@@ -1,7 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr" dir="rtl">
 <head>
     <meta charset="UTF-8">
+  <link rel="manifest" href="/dar-al-kalimah-cards/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/dar-al-kalimah-cards/icons/icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dar Al-Kalimah - Bank Premium</title>
     
@@ -136,7 +139,7 @@
                 <span style="font-size: 0.85rem; opacity: 0.8;">Selecciona una carta para abrir el espacio de estudio.</span>
             </p>
             <div class="search-bar">
-                <i class="fa-solid fa-search"></i>
+                <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="searchInput" placeholder="Rechercher / Buscar..." onkeyup="filterWords()" />
             </div>
         </div>
@@ -300,5 +303,6 @@
             renderWords(wordsDatabase);
         });
     </script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js');}</script>
 </body>
 </html>
