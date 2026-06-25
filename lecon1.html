@@ -75,7 +75,10 @@
       max-width: 620px;
       width: 100%;
       color: var(--white);
+      position: relative;
     }
+    .btn-house{position:absolute;top:18px;right:18px;color:var(--gold);font-size:1.6rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;z-index:10;padding:5px;}
+    .btn-house:hover{transform:scale(1.1);color:var(--gold-light);}
 
     .home-brand-ar {
       font-size: 3.5rem;
@@ -556,9 +559,7 @@
       <div class="home-subtitle es">Escucha, observa y descubre las letras árabes.</div>
       <button class="btn-start" onclick="showFlashcard()">Commencer / Empezar</button>
       
-      <a href="module1.html" style="display: block; margin-top: 25px; color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-style: italic; transition: color 0.3s;">
-          &larr; Retour au menu / Volver al menú
-      </a>
+      <a href="module1.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
   </div>
 
