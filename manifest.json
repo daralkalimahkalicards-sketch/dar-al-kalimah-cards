@@ -2,7 +2,7 @@
   "name": "Dar Al-Kalimah",
   "short_name": "دار الكلمة",
   "description": "Plateforme d'apprentissage de l'arabe — Kalicards",
-  "start_url": "/dar-al-kalimah-cards/auth.html",
+  "start_url": "/dar-al-kalimah-cards/splash.html",
   "scope": "/dar-al-kalimah-cards/",
   "display": "standalone",
   "orientation": "portrait",
