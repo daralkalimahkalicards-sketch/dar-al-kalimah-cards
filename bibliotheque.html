@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/dar-al-kalimah-cards/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/dar-al-kalimah-cards/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - La Bibliothèque</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #7F8C8D;
+            --border-soft: #E5E7EB;
+            --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            padding: 30px 15px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        .ar-text { font-family: "Amiri", serif; direction: rtl; unicode-bidi: isolate; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        .header-container {
+            background: var(--burgundy); padding: 40px 30px; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); width: 100%; max-width: 900px; margin-bottom: 40px;
+            position: relative; text-align: center;
+        }
+        .btn-back-home {
+            position: absolute; top: 25px; left: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;
+        }
+        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+        .brand-ar { font-size: 3.2rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.2; }
+        .app-title { font-size: 1.1rem; color: #d09470; letter-spacing: 4px; text-transform: uppercase; font-weight: 600;}
+        .divider { width: 50px; height: 1px; background-color: var(--gold); margin: 25px auto; opacity: 0.5; }
+        .header-desc { font-size: 0.95rem; color: var(--gold-light); font-weight: 500; line-height: 1.6; opacity: 0.9; }
+        .header-desc .es-line { font-size: 0.85rem; opacity: 0.8; }
+
+        .resource-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px; width: 100%; max-width: 950px;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 35px 25px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease;
+            text-decoration: none; color: inherit; position: relative;
+        }
+        .resource-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+
+        .resource-badge {
+            position: absolute; top: 16px; right: 16px;
+            border: 1px solid var(--gold); color: var(--burgundy); background: var(--bg-beige);
+            font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            padding: 4px 10px; border-radius: 50px;
+        }
+
+        .icon-wrapper {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: transparent; border: 1.5px solid var(--gold);
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 22px; transition: all 0.3s ease;
+        }
+        .resource-card:hover .icon-wrapper { background: var(--bg-beige); transform: scale(1.05); }
+        .visual-main { font-size: 2rem; color: var(--gold); }
+
+        .resource-title-ar { font-size: 1.7rem; font-weight: 700; color: var(--burgundy); line-height: 1.3; margin-bottom: 6px; min-height: 1.3em; }
+        .resource-title-fr { font-size: 1.05rem; font-weight: 600; color: var(--text-dark); font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 0.5px; }
+        .resource-subtitle-fr { font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .resource-desc-fr { font-size: 0.88rem; color: var(--text-dark); margin-bottom: 6px; line-height: 1.5; }
+        .resource-desc-es { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-bottom: 25px; line-height: 1.5; }
+
+        .btn-open {
+            margin-top: auto; background: var(--burgundy); color: var(--white);
+            padding: 12px 0; width: 90%; border-radius: 50px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .resource-card:hover .btn-open { background: var(--burgundy-dark); }
+
+        .empty-state, .error-state {
+            color: var(--text-muted); font-size: 0.95rem; text-align: center; padding: 40px 20px;
+        }
+
+        @media (max-width: 600px) {
+            .header-container { padding: 30px 20px; }
+            .btn-back-home { position: static; margin-bottom: 20px; display: inline-flex; justify-content: center; }
+            .resource-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-left"></i> Menu / Menú</a>
+        <div class="brand-ar ar-text">دار الكلمة</div>
+        <div class="app-title serif-text">La Bibliothèque</div>
+        <div class="divider"></div>
+        <p class="header-desc">
+            Livrets, cahiers et guides téléchargeables.<br>
+            <span class="es-line">Folletos, cuadernos y guías descargables.</span>
+        </p>
+    </div>
+
+    <div class="resource-grid" id="resource-grid">
+        <div class="empty-state">Chargement... / Cargando...</div>
+    </div>
+
+    <script>
+        const PUBLIC_LABELS = {
+            enfant: 'Enfant / Niño',
+            adulte: 'Adulte / Adulto',
+            tous: 'Tous / Todos'
+        };
+
+        async function loadBibliotheque() {
+            const grid = document.getElementById('resource-grid');
+            try {
+                const res = await fetch('bibliotheque-data.json');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                const resources = Array.isArray(data.resources) ? data.resources : [];
+
+                if (resources.length === 0) {
+                    grid.innerHTML = '<div class="empty-state">Aucune ressource disponible pour le moment.<br>Ninguna ressource disponible por el momento.</div>';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                resources.forEach((r) => {
+                    const isExternal = /^https?:\/\//i.test(r.lien || '');
+                    const card = document.createElement('a');
+                    card.className = 'resource-card';
+                    card.href = r.lien || '#';
+                    if (isExternal) {
+                        card.target = '_blank';
+                        card.rel = 'noopener noreferrer';
+                    }
+
+                    const badgeLabel = PUBLIC_LABELS[r.public] || '';
+                    const titreAr = r.titre_ar ? `<div class="resource-title-ar ar-text">${r.titre_ar}</div>` : '';
+
+                    card.innerHTML = `
+                        ${badgeLabel ? `<div class="resource-badge">${badgeLabel}</div>` : ''}
+                        <div class="icon-wrapper">
+                            <i class="${r.icone || 'fa-solid fa-book'} visual-main"></i>
+                        </div>
+                        ${titreAr}
+                        <div class="resource-title-fr">${r.titre_fr || ''}</div>
+                        <div class="resource-subtitle-fr">${r.sous_titre_fr || ''}</div>
+                        <p class="resource-desc-fr">${r.description_fr || ''}</p>
+                        <p class="resource-desc-es">${r.description_es || ''}</p>
+                        <button class="btn-open">Ouvrir / Abrir <i class="fa-solid ${isExternal ? 'fa-arrow-up-right-from-square' : 'fa-chevron-right'}"></i></button>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                grid.innerHTML = '<div class="error-state">Impossible de charger la bibliothèque.<br>No se pudo cargar la biblioteca.</div>';
+                console.error('Bibliotheque load error:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadBibliotheque);
+    </script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js');}</script>
+</body>
+</html>

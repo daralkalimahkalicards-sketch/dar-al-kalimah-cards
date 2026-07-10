@@ -1,0 +1,52 @@
+{
+  "resources": [
+    {
+      "id": "livret-regles-adulte",
+      "titre_fr": "Livret de Règles",
+      "sous_titre_fr": "Version Adulte",
+      "titre_ar": "كُتَيِّبُ القَوَاعِد",
+      "description_fr": "Le livret complet des règles de lecture et d'écriture de l'arabe.",
+      "description_es": "El folleto completo de las reglas de lectura y escritura del árabe.",
+      "type": "livret",
+      "public": "adulte",
+      "icone": "fa-solid fa-book",
+      "lien": "https://daralkalimahkalicards-sketch.github.io/dar-al-kalimah-livret-regles/"
+    },
+    {
+      "id": "livret-regles-enfant",
+      "titre_fr": "Livret de Règles",
+      "sous_titre_fr": "Version Enfant",
+      "titre_ar": "كُتَيِّبِي",
+      "description_fr": "Mon livret d'arabe : les règles expliquées simplement pour les enfants.",
+      "description_es": "Mi folleto de árabe: las reglas explicadas de forma sencilla para niños.",
+      "type": "livret",
+      "public": "enfant",
+      "icone": "fa-solid fa-child",
+      "lien": "https://daralkalimahkalicards-sketch.github.io/livret-regles-enfant-schema-index.html/"
+    },
+    {
+      "id": "workbook",
+      "titre_fr": "Workbook",
+      "sous_titre_fr": "Cahier d'Exercices",
+      "titre_ar": "كُتَيِّبُ التَّدْرِيبَات",
+      "description_fr": "Exercices pratiques pour s'entraîner à écrire et consolider chaque leçon.",
+      "description_es": "Ejercicios prácticos para practicar la escritura y consolidar cada lección.",
+      "type": "workbook",
+      "public": "tous",
+      "icone": "fa-solid fa-pen-to-square",
+      "lien": "https://daralkalimahkalicards-sketch.github.io/Workbook-daralkalimah.html/"
+    },
+    {
+      "id": "guide-offert-7-etapes",
+      "titre_fr": "Guide Offert",
+      "sous_titre_fr": "7 Étapes & Défi 28 Jours",
+      "titre_ar": null,
+      "description_fr": "Les 7 étapes pour lire, écrire et comprendre la structure de l'arabe.",
+      "description_es": "Los 7 pasos para leer, escribir y comprender la estructura del árabe.",
+      "type": "guide",
+      "public": "tous",
+      "icone": "fa-solid fa-gift",
+      "lien": "pdf.html"
+    }
+  ]
+}
