@@ -1,6 +1,18 @@
 {
   "resources": [
     {
+      "id": "guide-offert-7-etapes",
+      "titre_fr": "Guide Offert",
+      "sous_titre_fr": "7 Étapes & Défi 28 Jours",
+      "titre_ar": null,
+      "description_fr": "Les 7 étapes pour lire, écrire et comprendre la structure de l'arabe.",
+      "description_es": "Los 7 pasos para leer, escribir y comprender la estructura del árabe.",
+      "type": "guide",
+      "public": "tous",
+      "icone": "fa-solid fa-gift",
+      "lien": "guide-offert/index.html"
+    },
+    {
       "id": "livret-regles-adulte",
       "titre_fr": "Livret de Règles",
       "sous_titre_fr": "Version Adulte",
@@ -35,18 +47,6 @@
       "public": "tous",
       "icone": "fa-solid fa-pen-to-square",
       "lien": "https://daralkalimahkalicards-sketch.github.io/Workbook-daralkalimah.html/"
-    },
-    {
-      "id": "guide-offert-7-etapes",
-      "titre_fr": "Guide Offert",
-      "sous_titre_fr": "7 Étapes & Défi 28 Jours",
-      "titre_ar": null,
-      "description_fr": "Les 7 étapes pour lire, écrire et comprendre la structure de l'arabe.",
-      "description_es": "Los 7 pasos para leer, escribir y comprender la estructura del árabe.",
-      "type": "guide",
-      "public": "tous",
-      "icone": "fa-solid fa-gift",
-      "lien": "guide-offert/index.html"
     }
   ]
 }
