@@ -263,6 +263,16 @@ function showMsg(id, type, text) {
 }
 </script>
 
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js');}</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
 </body>
 </html>

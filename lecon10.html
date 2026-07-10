@@ -784,6 +784,16 @@ if(Math.abs(dx)>55){dx>0?navigate(section,1):navigate(section,-1);}
 
 })();
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js');}</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
 </body>
 </html>
