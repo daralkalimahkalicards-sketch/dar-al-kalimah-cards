@@ -15,7 +15,9 @@ const STATIC_ASSETS = [
   '/dar-al-kalimah-cards/tracker.js',
   '/dar-al-kalimah-cards/tracker-lecons.js',
   '/dar-al-kalimah-cards/icons/icon-192.png',
-  '/dar-al-kalimah-cards/icons/icon-512.png'
+  '/dar-al-kalimah-cards/icons/icon-512.png',
+  '/dar-al-kalimah-cards/icons/icon-192-maskable.png',
+  '/dar-al-kalimah-cards/icons/icon-512-maskable.png'
 ];
 
 // Extensions considerees comme des gros fichiers statiques qui changent rarement
