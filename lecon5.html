@@ -2,9 +2,9 @@
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <link rel="manifest" href="/dar-al-kalimah-cards/manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#5D1828">
-  <link rel="apple-touch-icon" href="/dar-al-kalimah-cards/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Dar Al-Kalimah - Leçon 5 (Module 5) | ال الشمسية - ال القمرية - الشدة</title>
   
@@ -810,7 +810,7 @@
   </script>
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/dar-al-kalimah-cards/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
   let dakSwRefreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (dakSwRefreshing) return;

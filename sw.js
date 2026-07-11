@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dar-al-kalimah-v4';
+const CACHE_NAME = 'dar-al-kalimah-v5';
 const RUNTIME_CACHE = 'dar-al-kalimah-runtime';
 
 // Precache uniquement le strict minimum pour un premier chargement hors-ligne.
@@ -6,18 +6,18 @@ const RUNTIME_CACHE = 'dar-al-kalimah-runtime';
 // en priorite (voir strategie fetch plus bas) : ce precache n'est qu'un filet
 // de secours si l'appareil est hors-ligne.
 const STATIC_ASSETS = [
-  '/dar-al-kalimah-cards/',
-  '/dar-al-kalimah-cards/index.html',
-  '/dar-al-kalimah-cards/auth.html',
-  '/dar-al-kalimah-cards/modules.html',
-  '/dar-al-kalimah-cards/manifest.json',
-  '/dar-al-kalimah-cards/database.js',
-  '/dar-al-kalimah-cards/tracker.js',
-  '/dar-al-kalimah-cards/tracker-lecons.js',
-  '/dar-al-kalimah-cards/icons/icon-192.png',
-  '/dar-al-kalimah-cards/icons/icon-512.png',
-  '/dar-al-kalimah-cards/icons/icon-192-maskable.png',
-  '/dar-al-kalimah-cards/icons/icon-512-maskable.png'
+  '/',
+  '/index.html',
+  '/auth.html',
+  '/modules.html',
+  '/manifest.json',
+  '/database.js',
+  '/tracker.js',
+  '/tracker-lecons.js',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/icon-192-maskable.png',
+  '/icons/icon-512-maskable.png'
 ];
 
 // Extensions considerees comme des gros fichiers statiques qui changent rarement
@@ -91,7 +91,7 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() =>
-        caches.match(event.request).then((cached) => cached || caches.match('/dar-al-kalimah-cards/index.html'))
+        caches.match(event.request).then((cached) => cached || caches.match('/index.html'))
       )
   );
 });
