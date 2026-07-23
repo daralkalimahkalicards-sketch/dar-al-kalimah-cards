@@ -18,7 +18,7 @@
     :root{--burgundy:#5D1828;--burgundy-dark:#3a0f19;--gold:#C8A462;--gold-light:#dfc28b;--white:#FFFFFF;--bg-beige:#FAF6F0;--mic-color:#6a9c99;--shadow-card:0 26px 70px rgba(93,24,40,0.15);--shadow-soft:0 8px 28px rgba(93,24,40,0.08);--transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);--radius-xl:28px;--radius-lg:22px;--radius-md:16px;--radius-sm:12px;}
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
     html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
-    body{min-height:100vh;background:var(--bg-beige);font-family:"Montserrat",system-ui,sans-serif;color:var(--burgundy);display:flex;flex-direction:column;align-items:center;padding:16px 10px 50px;overflow-x:hidden;}
+    body{min-height:100vh;background:var(--bg-beige);font-family:"Montserrat",system-ui,sans-serif;color:var(--burgundy);display:flex;flex-direction:column;align-items:center;padding:16px 10px 20px;overflow-x:hidden;}
     body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
     a,button{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
     .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.6;}
@@ -54,10 +54,14 @@
     .lesson-top-bar{width:100%;max-width:1000px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
     .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
     .btn-house-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
+    .nav-inline-group{display:flex;align-items:center;gap:10px;}
+    .btn-nav-inline{font-size:1.4rem;transition:var(--transition);}
+    .btn-nav-inline:hover{transform:scale(1.1);}
+    .btn-nav-inline:disabled{opacity:0.35;pointer-events:none;}
     .lesson-branding{text-align:center;margin-bottom:30px;}
     .lesson-brand-ar{font-size:3rem;color:var(--gold);line-height:1;margin-bottom:5px;font-weight:normal;}
     .lesson-brand-fr{font-size:0.9rem;color:var(--burgundy);letter-spacing:3px;font-weight:700;text-transform:uppercase;}
-    .flashcard{background:var(--white);width:100%;min-height:580px;border:1px solid rgba(200,164,98,0.28);border-radius:var(--radius-xl);padding:50px 28px 40px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:30px;position:relative;}
+    .flashcard{background:var(--white);width:100%;min-height:580px;border:1px solid rgba(200,164,98,0.28);border-radius:var(--radius-xl);padding:50px 28px 40px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:0;position:relative;}
     .card-center-stack{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;margin-bottom:25px;}
     .card-icon{font-size:5rem;color:var(--gold);line-height:1;display:block;margin-bottom:0;}
     .btn-audio{background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);width:55px;height:55px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 15px rgba(200,164,98,0.2);transition:all 0.3s ease;flex-shrink:0;}
@@ -72,8 +76,6 @@
     .notes-container{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;border-top:1px dashed rgba(200,164,98,0.3);padding-top:15px;}
     .fc-note-fr{font-size:0.9rem;color:var(--burgundy);font-weight:600;}
     .fc-note-es{font-size:0.85rem;color:#888;font-style:italic;}
-    .controls-container{width:100%;display:flex;justify-content:space-between;gap:15px;}
-    .btn-nav{flex:1;padding:18px 10px;border-radius:999px;font-weight:700;font-size:0.95rem;text-transform:uppercase;letter-spacing:1px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;border:1.5px solid var(--gold);}
     .btn-prev{background:transparent;color:#aaa;border-color:#ddd;}
     .btn-prev.active{color:var(--burgundy);border-color:var(--gold);}
     .btn-prev.active:hover{background:rgba(200,164,98,0.1);}
@@ -161,7 +163,7 @@
     .tilawa-flux{font-size:clamp(1.8rem,6vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2.4;direction:rtl;font-family:"Amiri",serif;}
     .tilawa-text .sep-num{color:#6a9c99;font-size:0.85em;}
     .tilawa-text .hl-gold{color:var(--gold);}
-    @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.btn-nav{font-size:0.85rem;padding:15px 5px;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}}
+    @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}}
 
         /* Guard auth */
         body { visibility: hidden; }
@@ -256,14 +258,18 @@
 <!-- VUE 3 — FLASHCARDS -->
 <main id="view-cards" class="view hidden" aria-live="polite">
   <div class="lesson-top-bar">
-    <div class="pill-counter" id="card-counter">1 / 4</div>
+    <div class="nav-inline-group">
+      <button class="btn-nav-inline btn-prev" id="btn-prev" type="button" aria-label="Précédent / Anterior"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="pill-counter" id="card-counter">1 / 4</div>
+      <button class="btn-nav-inline btn-next" id="btn-next" type="button" aria-label="Suivant / Siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
     <button class="btn-house-lesson" onclick="goHome()" type="button"><i class="fa-solid fa-house"></i></button>
   </div>
-  <div class="lesson-branding">
-    <div class="lesson-brand-ar ar" id="fc-brand-ar"></div>
-    <div class="lesson-brand-fr serif" id="fc-brand-fr"></div>
-  </div>
   <article class="flashcard">
+    <div class="lesson-branding">
+      <div class="lesson-brand-ar ar" id="fc-brand-ar"></div>
+      <div class="lesson-brand-fr serif" id="fc-brand-fr"></div>
+    </div>
     <div class="card-center-stack">
       <div id="fc-icon-wrap" style="font-size:4.5rem;color:var(--gold);line-height:1;text-align:center;">
         <i id="fc-icon" class="fa-solid card-icon" style="margin-bottom:0;"></i>
@@ -285,10 +291,6 @@
       <div class="fc-note-es" id="fc-note-es"></div>
     </div>
   </article>
-  <div class="controls-container">
-    <button class="btn-nav btn-prev" id="btn-prev" type="button"><i class="fa-solid fa-arrow-left"></i> Préc. / Ant.</button>
-    <button class="btn-nav btn-next" id="btn-next" type="button">Suiv. / Sig. <i class="fa-solid fa-arrow-right"></i></button>
-  </div>
 </main>
 
 <!-- VUE 4 — LECTURE -->
@@ -563,7 +565,7 @@
     const c = s.ayahs[cardIndex];
     $("card-counter").textContent = `${cardIndex + 1} / ${s.ayahs.length}`;
     $("btn-prev").disabled = (cardIndex === 0);
-    $("btn-prev").className = cardIndex === 0 ? "btn-nav btn-prev" : "btn-nav btn-prev active";
+    $("btn-prev").className = cardIndex === 0 ? "btn-nav-inline btn-prev" : "btn-nav-inline btn-prev active";
     $("btn-next").disabled = (cardIndex === s.ayahs.length - 1);
     // DAK Tracker Leçon
     if (cardIndex === s.ayahs.length - 1 && window.DAK_enregistrerLecon) {
