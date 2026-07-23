@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dar Al-Kalimah - Kalicards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --burgundy: #5D1828;
@@ -192,6 +194,15 @@
       opacity: 0.8;
       min-width: 95px;
       text-align: center;
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    #card-view {
+      position: relative;
     }
 
     /* FLASHCARD */
@@ -564,15 +575,16 @@
   </div>
 
   <div id="card-view" class="view hidden">
+    <a href="module1.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     <div class="card-view-header">
       <button class="btn-back" onclick="showHome()">
         <span>&larr;</span> Retour / Volver
       </button>
 
       <div class="nav-group">
-        <button class="btn-nav" onclick="prevCard(event)">&larr; Préc.</button>
+        <button class="btn-nav" id="btn-prev" onclick="prevCard(event)">&larr; Préc.</button>
         <div class="letter-counter" id="letter-counter">1 / 28</div>
-        <button class="btn-nav" onclick="nextCard(event)">Suiv. &rarr;</button>
+        <button class="btn-nav" id="btn-next" onclick="nextCard(event)">Suiv. &rarr;</button>
       </div>
     </div>
 
@@ -904,10 +916,10 @@
       document.getElementById("final-es").textContent = card.finalEs;
 
       letterCounter.textContent = `${currentIndex + 1} / ${cards.length}`;
-      console.log('DAK DEBUG renderCard — currentIndex:', currentIndex, '/ cards.length-1:', cards.length - 1);
-      // DAK Tracker — dernière carte (navigation circulaire)
+      document.getElementById("btn-prev").disabled = currentIndex === 0;
+      document.getElementById("btn-next").disabled = currentIndex === cards.length - 1;
+      // DAK Tracker — dernière carte
       if (currentIndex === cards.length - 1) {
-          console.log('DAK DEBUG — DERNIERE CARTE atteinte ✅');
           enregistrerLecon1();
       }
       flashcard.classList.remove("flipped");
@@ -918,12 +930,9 @@
     // DAK Tracker — anti-doublon navigation circulaire
     var _lecon1Enregistree = false;
     function enregistrerLecon1() {
-        console.log('DAK DEBUG — enregistrerLecon1() démarré — déjà enregistrée:', _lecon1Enregistree);
-        console.log('DAK DEBUG — type DAK_enregistrerLecon:', typeof window.DAK_enregistrerLecon);
         if (_lecon1Enregistree) return;
         if (window.DAK_enregistrerLecon) {
             _lecon1Enregistree = true;
-            console.log('DAK DEBUG — appel IMMEDIAT DAK_enregistrerLecon');
             window.DAK_enregistrerLecon({ module: 'Module 1', lecon: 'Leçon 1', total: cards.length });
             return;
         }
@@ -933,7 +942,6 @@
             if (window.DAK_enregistrerLecon && !_lecon1Enregistree) {
                 _lecon1Enregistree = true;
                 clearInterval(interval);
-                console.log('DAK DEBUG — appel RETRY DAK_enregistrerLecon — tentative:', tentatives);
                 window.DAK_enregistrerLecon({ module: 'Module 1', lecon: 'Leçon 1', total: cards.length });
             } else if (tentatives >= 15) {
                 clearInterval(interval);
@@ -943,14 +951,18 @@
 
         function nextCard(event) {
       event.stopPropagation();
-      currentIndex = (currentIndex + 1) % cards.length;
-      renderCard();
+      if (currentIndex < cards.length - 1) {
+        currentIndex++;
+        renderCard();
+      }
     }
 
     function prevCard(event) {
       event.stopPropagation();
-      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-      renderCard();
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderCard();
+      }
     }
 
     function playAudio(event) {
