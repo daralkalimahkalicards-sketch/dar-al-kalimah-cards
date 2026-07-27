@@ -442,6 +442,20 @@
     <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
     <script src="audio-controller.js"></script>
+    <script>
+      /* Filet de securite : les lecons ne dependent jamais du systeme audio.
+         Si audio-controller.js est absent/en echec, DAKAudio devient un stub
+         inoffensif afin qu'aucun appel audio ne puisse casser une lecon. */
+      if (typeof DAKAudio === "undefined") {
+        window.DAKAudio = {
+          play: function () {},
+          playEffect: function () {},
+          stopAll: function () {},
+          unlock: function () { return Promise.resolve(false); },
+          showToast: function () {}
+        };
+      }
+    </script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
