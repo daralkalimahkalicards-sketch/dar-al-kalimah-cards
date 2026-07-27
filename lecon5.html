@@ -75,44 +75,11 @@
       align-items: center;
     }
 
-    .app-header {
-      width: 100%;
-      max-width: 1000px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      padding: 0 10px;
-    }
-
-    .progress-counter {
-      background: var(--burgundy);
-      color: var(--white);
-      padding: 10px 25px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--gold);
-      letter-spacing: 1.5px;
-    }
-
-    .btn-home {
-      color: var(--gold);
-      font-size: 2rem;
-      text-decoration: none;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.3s ease;
-      background: transparent;
-      border: none;
-    }
-
-    .btn-home:hover {
-      transform: scale(1.08);
-      color: var(--gold-light);
-    }
+    .card-view-header { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .nav-group { display: flex; align-items: center; gap: 8px; }
+    .letter-counter { font-size: 0.95rem; color: var(--burgundy); opacity: 0.8; min-width: 95px; text-align: center; }
+    .btn-house-inline { color: var(--gold); font-size: 1.3rem; text-decoration: none; transition: transform 0.3s ease, color 0.3s ease; padding: 5px; display: flex; align-items: center; }
+    .btn-house-inline:hover { transform: scale(1.1); color: var(--gold-light); }
 
     .card-container {
       width: 100%;
@@ -456,50 +423,10 @@
     .latin-example-trans .trans-fr { margin-bottom: 4px; }
     .latin-example-trans .trans-es { color: var(--text-soft); font-style: italic; font-weight: normal; font-size: 1rem; }
 
-    /* BOUTONS DE NAVIGATION */
-    .nav-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 950px;
-      gap: 20px;
-    }
-
-    .btn-nav {
-      background: var(--white);
-      border: 2px solid var(--gold);
-      color: var(--burgundy);
-      padding: 18px 35px;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: var(--shadow-soft);
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-nav:hover {
-      background: var(--gold);
-      color: var(--white);
-      transform: translateY(-3px);
-    }
-
-    .btn-nav:disabled {
-      opacity: 0.5;
-      pointer-events: none;
-      border-color: #ddd;
-      background: #f5f5f5;
-      color: #aaa;
-      box-shadow: none;
-    }
+    /* NAVIGATION (harmonisé Leçon 1) */
+    .btn-nav { background: none; border: none; color: var(--gold); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 300; padding: 6px 8px; transition: color 0.3s ease; }
+    .btn-nav:hover { color: var(--gold); }
+    .btn-nav:disabled { opacity: 0.35; pointer-events: none; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -519,7 +446,7 @@
       .main-rule-fr, .main-rule-es { font-size: 1rem; }
       .letters-bank .letters { font-size: 1.8rem; word-spacing: 6px;}
       .example-word-ar { font-size: 3.5rem; }
-      .btn-nav { font-size: 0.95rem; padding: 15px; }
+      .card-view-header { justify-content: center; }
       .content-wrap { padding: 10px 15px 0px; }
       .letters-bank, .shadda-box { margin-top: 15px; margin-bottom: 20px;}
       .card-face { padding-bottom: 60px; }
@@ -559,9 +486,13 @@
 
   <div class="page-shell">
     
-    <div class="app-header">
-      <div class="progress-counter"><span id="current-index">1</span> / 3</div>
-      <a href="module5.html" class="btn-home" title="Retour au menu"><i class="fa-solid fa-house"></i></a>
+    <div class="card-view-header">
+      <div class="nav-group">
+        <button class="btn-nav" id="btn-prev" onclick="prevCard(event)" aria-label="Précédent">&larr;</button>
+        <div class="letter-counter" id="letter-counter">1 / 3</div>
+        <button class="btn-nav" id="btn-next" onclick="nextCard(event)" aria-label="Suivant">&rarr;</button>
+      </div>
+      <a href="module5.html" class="btn-house-inline" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
 
     <div class="card-container">
@@ -569,15 +500,6 @@
         <div class="card-face card-front theme-solar" id="front-face"></div>
         <div class="card-face card-back theme-solar" id="back-face"></div>
       </div>
-    </div>
-
-    <div class="nav-controls">
-      <button class="btn-nav" id="btn-prev" onclick="prevCard(event)">
-        <i class="fa-solid fa-arrow-left"></i> Précédent
-      </button>
-      <button class="btn-nav" id="btn-next" onclick="nextCard(event)">
-        Suivant <i class="fa-solid fa-arrow-right"></i>
-      </button>
     </div>
 
   </div>
@@ -623,7 +545,7 @@
         examples: [
           { word: "ال<span class='gold-mark'>ْ</span>قَمَر", transFr: "La lune", transEs: "La luna" },
           { word: "ال<span class='gold-mark'>ْ</span>بَيْت", transFr: "La maison", transEs: "La casa" },
-          { word: "ال<span class='gold-mark'>ْ</span>كِتَاب", transFr: "Le livre", transEs: "El livre" }
+          { word: "ال<span class='gold-mark'>ْ</span>كِتَاب", transFr: "Le livre", transEs: "El libro" }
         ]
       },
       {
@@ -638,7 +560,7 @@
         diagram: true, 
         examples: [
           { word: "مُعَل<span class='gold-mark'>ِّ</span>م", transFr: "Professeur", transEs: "Profesor" },
-          { word: "قِط<span class='gold-mark'>َّ</span>ة", transFr: "Chat", transEs: "Gato" },
+          { word: "قِط<span class='gold-mark'>َّ</span>ة", transFr: "Une chatte", transEs: "Una gata" },
           { word: "سَي<span class='gold-mark'>َّ</span>ارَة", transFr: "Voiture", transEs: "Coche" }
         ]
       }
@@ -657,7 +579,7 @@
 
     function renderCard(index) {
       const data = lessonData[index];
-      document.getElementById("current-index").innerText = index + 1;
+      document.getElementById("letter-counter").textContent = `${index + 1} / ${lessonData.length}`;
 
       frontFace.className = "card-face card-front theme-" + data.theme;
       backFace.className = "card-face card-back theme-" + data.theme;

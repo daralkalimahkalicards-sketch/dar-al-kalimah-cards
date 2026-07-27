@@ -63,10 +63,12 @@
     .theme-title-fr{font-weight:700;font-size:1.1rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
     .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
 
-    /* ── TOP BAR ── */
-    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;max-width:1000px;}
-    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
-    .btn-back-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
+    /* ── TOP BAR (harmonisé Leçon 1) ── */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;max-width:950px;flex-wrap:wrap;}
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .pill-counter{font-size:0.95rem;color:var(--burgundy);opacity:0.8;min-width:95px;text-align:center;}
+    .btn-back-lesson{color:var(--gold);font-size:1.3rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;padding:5px;display:flex;align-items:center;background:none;border:none;}
+    .btn-back-lesson:hover{transform:scale(1.1);color:var(--gold-light);}
 
     /* ── FLIP CARD ── */
     .card-scene{width:100%;max-width:950px;perspective:1800px;margin-bottom:20px;}
@@ -136,17 +138,16 @@
     .hl-mb{color:var(--burgundy);font-weight:700;text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;} /* مبتدأ */
     .hl-kh{color:#8a6620;font-weight:700;}   /* خبر — doré foncé */
 
-    /* NAV */
-    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:950px;}
-    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
-    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    /* NAV (harmonisé Leçon 1) */
+    .btn-nav{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav:hover{color:var(--gold);}
     .btn-nav:disabled{opacity:0.35;pointer-events:none;}
 
     @media(max-width:480px){
       .card-flip{height:clamp(520px,78dvh,660px);}
       .card-face{padding:18px 14px 12px;}
       .card-brand-ar{font-size:1.5rem;}
-      .btn-nav{font-size:0.8rem;padding:13px 8px;}
+      .lesson-top-bar{justify-content:center;}
       .icharah-table .td-ar{font-size:1.3rem;}
     }
 
@@ -249,7 +250,11 @@
 ═══════════════════════════════════════ -->
 <main id="view-jomla" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="jomla-curr">1</span> / <span id="jomla-tot">3</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="jomla-prev" onclick="navigate('jomla',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="jomla-curr">1</span> / <span id="jomla-tot">3</span></div>
+      <button class="btn-nav" id="jomla-next" onclick="navigate('jomla',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -258,10 +263,6 @@
       <div class="card-face card-back-face" id="jomla-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="jomla-prev" onclick="navigate('jomla',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="jomla-next" onclick="navigate('jomla',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <!-- ══════════════════════════════════════
@@ -269,7 +270,11 @@
 ═══════════════════════════════════════ -->
 <main id="view-icharah" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="icharah-curr">1</span> / <span id="icharah-tot">8</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="icharah-prev" onclick="navigate('icharah',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="icharah-curr">1</span> / <span id="icharah-tot">8</span></div>
+      <button class="btn-nav" id="icharah-next" onclick="navigate('icharah',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -278,10 +283,6 @@
       <div class="card-face card-back-face" id="icharah-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="icharah-prev" onclick="navigate('icharah',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="icharah-next" onclick="navigate('icharah',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <!-- ══════════════════════════════════════
@@ -289,7 +290,11 @@
 ═══════════════════════════════════════ -->
 <main id="view-ensemble" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="ensemble-curr">1</span> / <span id="ensemble-tot">3</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="ensemble-prev" onclick="navigate('ensemble',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="ensemble-curr">1</span> / <span id="ensemble-tot">3</span></div>
+      <button class="btn-nav" id="ensemble-next" onclick="navigate('ensemble',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -298,10 +303,6 @@
       <div class="card-face card-back-face" id="ensemble-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="ensemble-prev" onclick="navigate('ensemble',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="ensemble-next" onclick="navigate('ensemble',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <!-- ══════════════════════════════════════
@@ -309,7 +310,11 @@
 ═══════════════════════════════════════ -->
 <main id="view-qiraa" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="qiraa-curr">1</span> / <span id="qiraa-tot">14</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="qiraa-curr">1</span> / <span id="qiraa-tot">14</span></div>
+      <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -318,10 +323,6 @@
       <div class="card-face card-back-face" id="qiraa-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <script>

@@ -52,11 +52,11 @@
 
     /* FLASHCARDS */
     .lesson-top-bar{width:100%;max-width:1000px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    #view-cards .pill-counter{background:none;color:var(--burgundy);opacity:0.8;padding:0;border-radius:0;font-weight:400;font-size:0.95rem;letter-spacing:normal;min-width:95px;text-align:center;}
     .btn-house-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
-    .nav-inline-group{display:flex;align-items:center;gap:10px;}
-    .btn-nav-inline{font-size:1.4rem;transition:var(--transition);}
-    .btn-nav-inline:hover{transform:scale(1.1);}
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .btn-nav-inline{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav-inline:hover{color:var(--gold);}
     .btn-nav-inline:disabled{opacity:0.35;pointer-events:none;}
     .lesson-branding{text-align:center;margin-bottom:30px;}
     .lesson-brand-ar{font-size:3rem;color:var(--gold);line-height:1;margin-bottom:5px;font-weight:normal;}
@@ -76,12 +76,6 @@
     .notes-container{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;border-top:1px dashed rgba(200,164,98,0.3);padding-top:15px;}
     .fc-note-fr{font-size:0.9rem;color:var(--burgundy);font-weight:600;}
     .fc-note-es{font-size:0.85rem;color:#888;font-style:italic;}
-    .btn-prev{background:transparent;color:#aaa;border-color:#ddd;}
-    .btn-prev.active{color:var(--burgundy);border-color:var(--gold);}
-    .btn-prev.active:hover{background:rgba(200,164,98,0.1);}
-    .btn-next{background:var(--white);color:var(--burgundy);box-shadow:var(--shadow-soft);}
-    .btn-next:hover{background:rgba(200,164,98,0.1);}
-    .btn-next:disabled{opacity:0.35;border-color:#eee;color:#ccc;pointer-events:none;background:transparent;box-shadow:none;}
 
     /* LECTURE FLIP CARD */
     .lecture-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
@@ -168,6 +162,8 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
     <script type="module" src="tracker-lecons.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -259,9 +255,9 @@
 <main id="view-cards" class="view hidden" aria-live="polite">
   <div class="lesson-top-bar">
     <div class="nav-inline-group">
-      <button class="btn-nav-inline btn-prev" id="btn-prev" type="button" aria-label="Précédent / Anterior"><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="btn-nav-inline btn-prev" id="btn-prev" type="button" aria-label="Précédent / Anterior">&larr;</button>
       <div class="pill-counter" id="card-counter">1 / 4</div>
-      <button class="btn-nav-inline btn-next" id="btn-next" type="button" aria-label="Suivant / Siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-nav-inline btn-next" id="btn-next" type="button" aria-label="Suivant / Siguiente">&rarr;</button>
     </div>
     <button class="btn-house-lesson" onclick="goHome()" type="button"><i class="fa-solid fa-house"></i></button>
   </div>
@@ -430,11 +426,12 @@
         es:"Quien la recite, Alá le dará de beber de los ríos del Paraíso y recibirá una recompensa igual al número de todos los sacrificios ofrecidos por los siervos."
       },
       fullText: "بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ ۞ إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾ فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾ اِنَّ شَانِئَكَ هُوَ ٱلاَبْتَرُ ﴿٣﴾",
+      audioFull:"audio/sourates/kawthar-complete.mp3",
       ayahs:[
-        {ar:"بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش"},
-        {ar:"إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾", fr:"Nous t'avons certes accordé l'Abondance.", es:"En verdad, te hemos concedido la Abundancia.", icon:"fa-water", emoji:"🏞️", noteFr:"Verset 1 — الكوثر : fleuve du Paradis", noteEs:"Versículo 1 — río del Paraíso"},
-        {ar:"فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾", fr:"Accomplis la prière pour ton Seigneur et sacrifie.", es:"Reza a tu Señor y sacrifica.", icon:"fa-person-praying", emoji:"🙇🐑", noteFr:"Verset 2 — Prière et Sacrifice 🙇🐑", noteEs:"Versículo 2 — Oración y Sacrificio 🙇🐑"},
-        {ar:"اِنَّ شَانِئَكَ هُوَ ٱلاَبْتَرُ ﴿٣﴾", fr:"Celui qui te hait sera certes sans postérité.", es:"Ciertamente, quien te odia es el que está cortado.", icon:"fa-scissors", emoji:"✂️", noteFr:"Verset 3 — La fin des ennemis", noteEs:"Versículo 3 — El fin de los enemigos"}
+        {ar:"بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش", aud:"audio/sourates/basmalah.mp3"},
+        {ar:"إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾", fr:"Nous t'avons certes accordé l'Abondance.", es:"En verdad, te hemos concedido la Abundancia.", icon:"fa-water", emoji:"🏞️", noteFr:"Verset 1 — الكوثر : fleuve du Paradis", noteEs:"Versículo 1 — río del Paraíso", aud:"audio/sourates/kawthar-v1.mp3"},
+        {ar:"فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾", fr:"Accomplis la prière pour ton Seigneur et sacrifie.", es:"Reza a tu Señor y sacrifica.", icon:"fa-person-praying", emoji:"🙇🐑", noteFr:"Verset 2 — Prière et Sacrifice 🙇🐑", noteEs:"Versículo 2 — Oración y Sacrificio 🙇🐑", aud:"audio/sourates/kawthar-v2.mp3"},
+        {ar:"اِنَّ شَانِئَكَ هُوَ ٱلاَبْتَرُ ﴿٣﴾", fr:"Celui qui te hait sera certes sans postérité.", es:"Ciertamente, quien te odia es el que está cortado.", icon:"fa-scissors", emoji:"✂️", noteFr:"Verset 3 — La fin des ennemis", noteEs:"Versículo 3 — El fin de los enemigos", aud:"audio/sourates/kawthar-v3.mp3"}
       ],
       vocab:[
         {ar:"ٱلْكَوْثَرَ", fr:"L'Abondance / Fleuve au Paradis", es:"La Abundancia / Río en el Paraíso", root:"ك و ث ر"},
@@ -463,12 +460,13 @@
         es:"El Profeta ﷺ dijo: «Qul huwa Allahu Ahad equivale a un tercio del Corán.» (Narrado por Al-Bujari y Muslim)"
       },
       fullText: "بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ ۞ قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾ ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُ كُفُؤًا أَحَدٌ ﴿٤﴾",
+      audioFull:"audio/sourates/ikhlas-complete.mp3",
       ayahs:[
-        {ar:"بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش"},
-        {ar:"قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾", fr:"Dis : Il est Allah, Unique.", es:"Di: Él es Alá, Único.", icon:"fa-infinity", emoji:"☝️", noteFr:"Verset 1 — L'Unicité d'Allah", noteEs:"Versículo 1 — La Unicidad de Alá"},
-        {ar:"ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", fr:"Allah, l'Impénétrable, Celui dont tout dépend.", es:"Alá, el Eterno, del que todos dependen.", icon:"fa-mosque", emoji:"🕋", noteFr:"Verset 2 — L'Absolu", noteEs:"Versículo 2 — Lo Absoluto"},
-        {ar:"لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾", fr:"Il n'a pas engendré et n'a pas été engendré.", es:"No engendró ni fue engendrado.", icon:"fa-people-arrows fa-ban-overlay", emoji:"👨‍👦❌", noteFr:"Verset 3 — Ni père ni fils", noteEs:"Versículo 3 — Ni padre ni hijo"},
-        {ar:"وَلَمْ يَكُن لَّهُ كُفُؤًا أَحَدٌ ﴿٤﴾", fr:"Et nul n'est égal à Lui.", es:"Y no hay nadie que sea igual a Él.", icon:"fa-scale-unbalanced", emoji:"⚖️❌", noteFr:"Verset 4 — L'Incomparable · ورش : كُفُؤًا", noteEs:"Versículo 4 — El Incomparable · ورش : كُفُؤًا"}
+        {ar:"بِسْمِ ٱللَّهِ ٱلرَّحْمَنِ ٱلرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"🤲", noteFr:"La Basmalah — ورش", noteEs:"La Basmalah — ورش", aud:"audio/sourates/basmalah.mp3"},
+        {ar:"قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾", fr:"Dis : Il est Allah, Unique.", es:"Di: Él es Alá, Único.", icon:"fa-infinity", emoji:"☝️", noteFr:"Verset 1 — L'Unicité d'Allah", noteEs:"Versículo 1 — La Unicidad de Alá", aud:"audio/sourates/ikhlas-v1.mp3"},
+        {ar:"ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", fr:"Allah, l'Impénétrable, Celui dont tout dépend.", es:"Alá, el Eterno, del que todos dependen.", icon:"fa-mosque", emoji:"🕋", noteFr:"Verset 2 — L'Absolu", noteEs:"Versículo 2 — Lo Absoluto", aud:"audio/sourates/ikhlas-v2.mp3"},
+        {ar:"لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾", fr:"Il n'a pas engendré et n'a pas été engendré.", es:"No engendró ni fue engendrado.", icon:"fa-people-arrows fa-ban-overlay", emoji:"👨‍👦❌", noteFr:"Verset 3 — Ni père ni fils", noteEs:"Versículo 3 — Ni padre ni hijo", aud:"audio/sourates/ikhlas-v3.mp3"},
+        {ar:"وَلَمْ يَكُن لَّهُ كُفُؤًا أَحَدٌ ﴿٤﴾", fr:"Et nul n'est égal à Lui.", es:"Y no hay nadie que sea igual a Él.", icon:"fa-scale-unbalanced", emoji:"⚖️❌", noteFr:"Verset 4 — L'Incomparable · ورش : كُفُؤًا", noteEs:"Versículo 4 — El Incomparable · ورش : كُفُؤًا", aud:"audio/sourates/ikhlas-v4.mp3"}
       ],
       vocab:[
         {ar:"قُلْ", fr:"Dis ! (Impératif)", es:"¡Di! (Imperativo)", root:"ق و ل"},
@@ -499,11 +497,13 @@
   };
 
   window.goHome = () => {
+    DAKAudio.stopAll();
     ["view-cards","view-lecture","view-tilawa"].forEach(v => $(v).classList.add("hidden"));
     $("view-surah-select").classList.remove("hidden");
   };
 
   window.openFlashcards = () => {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     $("fc-brand-ar").textContent = s.titleAr;
     $("fc-brand-fr").textContent = s.titleFr.toUpperCase();
@@ -519,7 +519,12 @@
     $("tilawa-card-3d").classList.toggle("flipped", tilawFlipped);
   };
 
+  $("btn-tilawa-audio").addEventListener("click", () => {
+    DAKAudio.play(SURAHS[currentSurahId].audioFull, $("btn-tilawa-audio"));
+  });
+
   window.openTilawa = () => {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     tilawFlipped = false;
     $("tilawa-card-3d").classList.remove("flipped");
@@ -561,11 +566,11 @@
   };
 
   function renderCard() {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     const c = s.ayahs[cardIndex];
     $("card-counter").textContent = `${cardIndex + 1} / ${s.ayahs.length}`;
     $("btn-prev").disabled = (cardIndex === 0);
-    $("btn-prev").className = cardIndex === 0 ? "btn-nav-inline btn-prev" : "btn-nav-inline btn-prev active";
     $("btn-next").disabled = (cardIndex === s.ayahs.length - 1);
     // DAK Tracker Leçon
     if (cardIndex === s.ayahs.length - 1 && window.DAK_enregistrerLecon) {
@@ -588,6 +593,11 @@
     $("fc-note-es").textContent = c.noteEs;
   }
 
+  $("btn-audio").addEventListener("click", () => {
+    const c = SURAHS[currentSurahId].ayahs[cardIndex];
+    DAKAudio.play(c.aud, $("btn-audio"));
+  });
+
   $("btn-prev").addEventListener("click", () => { if (cardIndex > 0){ cardIndex--; renderCard(); } });
   $("btn-next").addEventListener("click", () => {
     if (cardIndex < SURAHS[currentSurahId].ayahs.length - 1){ cardIndex++; renderCard(); }
@@ -603,6 +613,7 @@
   let isFlipped = false;
 
   window.openLecture = () => {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     $("lect-brand-ar").textContent = s.titleAr;
     $("lect-brand-fr").textContent = s.titleFr;

@@ -63,10 +63,12 @@
     .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
 
     /* ── BARRE DU HAUT ── */
-    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;max-width:1000px;}
-    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;max-width:950px;flex-wrap:wrap;}
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .pill-counter{font-size:0.95rem;color:var(--burgundy);opacity:0.8;min-width:95px;text-align:center;}
     .btn-house-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
-    .btn-back-lesson{color:var(--gold);font-size:1.5rem;transition:var(--transition);}
+    .btn-back-lesson{color:var(--gold);font-size:1.3rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;padding:5px;display:flex;align-items:center;background:none;border:none;}
+    .btn-back-lesson:hover{transform:scale(1.1);color:var(--gold-light);}
 
     /* ── FLIP CARD — AGRANDIE ── */
     .card-scene{width:100%;max-width:950px;perspective:1800px;margin-bottom:20px;}
@@ -223,17 +225,16 @@
     .label-harf{background:rgba(200,164,98,0.18);color:#8a6620;}
     .label-ism{background:rgba(93,24,40,0.10);color:var(--burgundy);}
 
-    /* ── NAVIGATION ── */
-    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:950px;}
-    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
-    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    /* ── NAVIGATION (harmonisé Leçon 1) ── */
+    .btn-nav{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav:hover{color:var(--gold);}
     .btn-nav:disabled{opacity:0.35;pointer-events:none;}
 
     @media(max-width:480px){
       .card-flip{height:clamp(560px, 80dvh, 680px);}
       .card-face{padding:18px 14px 12px;}
       .card-brand-ar{font-size:1.5rem;}
-      .btn-nav{font-size:0.8rem;padding:13px 8px;}
+      .lesson-top-bar{justify-content:center;}
       .harf-hero-ar{font-size:3.8rem;}
       .analyse-ar{font-size:1.3rem;}
     }
@@ -309,7 +310,11 @@
 ════════════════════════════════════════ -->
 <main id="view-ism" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="ism-curr">1</span> / <span id="ism-tot">2</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="ism-prev" onclick="navigate('ism',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="ism-curr">1</span> / <span id="ism-tot">2</span></div>
+      <button class="btn-nav" id="ism-next" onclick="navigate('ism',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -318,10 +323,6 @@
       <div class="card-face card-back-face" id="ism-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="ism-prev" onclick="navigate('ism',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="ism-next" onclick="navigate('ism',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <!-- ═══════════════════════════════════════
@@ -329,7 +330,11 @@
 ════════════════════════════════════════ -->
 <main id="view-huruf" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="huruf-curr">1</span> / <span id="huruf-tot">7</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="huruf-prev" onclick="navigate('huruf',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="huruf-curr">1</span> / <span id="huruf-tot">7</span></div>
+      <button class="btn-nav" id="huruf-next" onclick="navigate('huruf',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -338,10 +343,6 @@
       <div class="card-face card-back-face" id="huruf-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="huruf-prev" onclick="navigate('huruf',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="huruf-next" onclick="navigate('huruf',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <!-- ═══════════════════════════════════════
@@ -349,7 +350,11 @@
 ════════════════════════════════════════ -->
 <main id="view-qiraa" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="qiraa-curr">1</span> / 3</div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="qiraa-curr">1</span> / 3</div>
+      <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -358,10 +363,6 @@
       <div class="card-face card-back-face" id="qiraa-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <script>

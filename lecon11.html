@@ -1,4 +1,3 @@
-﻿<!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
@@ -165,11 +164,14 @@
     .qiraa-title-fr{font-size:0.76rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:8px;font-family:"Cinzel",serif;}
     .qiraa-text{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--text-dark);line-height:2.4;text-align:center;width:100%;margin:4px 0;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
 
-    /* NAV */
-    .nav-controls{display:flex;justify-content:space-between;gap:14px;width:100%;max-width:950px;}
-    .btn-nav{flex:1;padding:16px 14px;border-radius:999px;font-weight:700;font-size:0.92rem;text-transform:uppercase;letter-spacing:1.5px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;background:var(--white);border:1px solid rgba(200,164,98,0.45);color:var(--burgundy);box-shadow:var(--shadow-soft);min-height:50px;}
-    .btn-nav:hover{background:var(--burgundy);color:var(--white);border-color:var(--burgundy);transform:translateY(-2px);}
+    /* NAV (harmonisé Leçon 1) */
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .btn-nav{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav:hover{color:var(--gold);}
     .btn-nav:disabled{opacity:0.35;pointer-events:none;}
+    #view-jomla .lesson-top-bar,#view-fc7 .lesson-top-bar{max-width:950px;}
+    #view-jomla .pill-counter,#view-fc7 .pill-counter{background:none;color:var(--burgundy);opacity:0.8;padding:0;border-radius:0;font-weight:400;font-size:0.95rem;letter-spacing:normal;min-width:95px;text-align:center;}
+    #view-jomla .btn-back-lesson,#view-fc7 .btn-back-lesson{font-size:1.3rem;}
 
     /* ══ STYLES المعوذتان (hérités de leçon 7) ══ */
     .side-indicator{display:flex;align-items:center;gap:10px;width:100%;justify-content:center;margin-bottom:16px;}
@@ -255,7 +257,7 @@
     @media(max-width:480px){
       .card-flip{height:clamp(520px,78dvh,660px);}
       .card-face{padding:16px 12px 10px;}
-      .btn-nav{font-size:0.78rem;padding:12px 6px;}
+      #view-jomla .lesson-top-bar,#view-fc7 .lesson-top-bar{justify-content:center;}
       .tilawa-flux{font-size:clamp(1.4rem,4.5vw,1.9rem);}
       .fc7-card{min-height:460px;padding:28px 14px 22px;}
     }
@@ -263,6 +265,8 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
     <script type="module" src="tracker-lecons.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -320,7 +324,11 @@
 <!-- ══ VUE JOMLA (flip cards grammaire) ══ -->
 <main id="view-jomla" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter"><span id="jomla-curr">1</span> / <span id="jomla-tot">4</span></div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="jomla-prev" onclick="navigate('jomla',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="jomla-curr">1</span> / <span id="jomla-tot">4</span></div>
+      <button class="btn-nav" id="jomla-next" onclick="navigate('jomla',1)" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goMain()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div class="card-scene">
@@ -329,10 +337,6 @@
       <div class="card-face card-back-face" id="jomla-back"></div>
     </div>
   </div>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="jomla-prev" onclick="navigate('jomla',-1)" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="jomla-next" onclick="navigate('jomla',1)">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
 </main>
 
 <!-- ══ VUE SÉLECTION SOURATE ══ -->
@@ -397,7 +401,11 @@
 <!-- ══ VUE FLASHCARDS ══ -->
 <main id="view-fc7" class="view hidden">
   <div class="lesson-top-bar">
-    <div class="pill-counter" id="fc7-counter">1 / 5</div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="fc7-prev" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter" id="fc7-counter">1 / 5</div>
+      <button class="btn-nav" id="fc7-next" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-back-lesson" onclick="goMain()"><i class="fa-solid fa-house"></i></button>
   </div>
   <div style="text-align:center;margin-bottom:20px;">
@@ -422,10 +430,7 @@
       <div class="fc7-note-es" id="fc7-note-es"></div>
     </div>
   </article>
-  <nav class="nav-controls">
-    <button class="btn-nav" id="fc7-prev" disabled><i class="fa-solid fa-arrow-left"></i> Préc.</button>
-    <button class="btn-nav" id="fc7-next">Suiv. <i class="fa-solid fa-arrow-right"></i></button>
-  </nav>
+
 </main>
 
 <!-- ══ VUE LECTURE ══ -->
@@ -785,13 +790,14 @@ const SURAHS = {
       es:"Riwāyat Warsh \u2018an N\u0101fi\u2019 se distingue por: el tafkhīm de la r\u0101', la ṣila y fat\u1e25 en ciertos casos, y el naql de la hamzat al-waṣl."
     },
     fullText:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ۞ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",
+    audioFull:"audio/sourates/falaq-complete.mp3",
     ayahs:[
-      {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",fr:"Au nom d'Allah, le Tout Mis\u00e9ricordieux, le Tr\u00e8s Mis\u00e9ricordieux.",es:"En el nombre de Al\u00e1, el Clemente, el Misericordioso.",icon:"fa-hands-praying",emoji:"\uD83E\uDD32",noteFr:"La Basmalah — رواية ورش",noteEs:"La Basmalah — riwāyat Warsh"},
-      {ar:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾",fr:"Dis : Je cherche refuge aupr\u00e8s du Seigneur de l\u2019Aube.",es:"Di: Me refugio en el Se\u00f1or del Amanecer.",icon:"fa-sun",emoji:"\uD83C\uDF05",noteFr:"Verset 1 — الفَلَق = l'aurore / l'aube · ورش",noteEs:"Versículo 1 — الفَلَق = el amanecer · ورش"},
-      {ar:"مِن شَرِّ مَا خَلَقَ ﴿٢﴾",fr:"Contre le mal de ce qu'Il a cr\u00e9\u00e9.",es:"Contra el mal de lo que \u00e9l ha creado.",icon:"fa-shield",emoji:"\uD83D\uDEE1\uFE0F",noteFr:"Verset 2 — شَرّ = mal · خَلَقَ = فعل ماضي (ق-ل-خ)",noteEs:"Versículo 2 — شَرّ = mal · خَلَقَ = verbo pasado"},
-      {ar:"وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾",fr:"Et contre le mal de l\u2019obscurit\u00e9 quand elle s\u2019\u00e9tend.",es:"Y contra el mal de la oscuridad cuando cae.",icon:"fa-moon",emoji:"\uD83C\uDF11",noteFr:"Verset 3 — غَاسِق = nuit sombre · وَقَبَ = envelopper",noteEs:"Versículo 3 — غَاسِق = noche oscura · وَقَبَ = envolver"},
-      {ar:"وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾",fr:"Et contre le mal des sorcières qui soufflent sur les n\u0153uds.",es:"Y contra el mal de las que soplan sobre los nudos.",icon:"fa-wind",emoji:"\uD83E\uDEA2\uD83E\uDEA2",noteFr:"Verset 4 — النَّفَّاثَات = celles qui soufflent (sorcières) · العُقَد = les n\u0153uds",noteEs:"Versículo 4 — النَّفَّاثَات = las que soplan · العُقَد = los nudos"},
-      {ar:"وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",fr:"Et contre le mal de l\u2019envieux quand il envi\u0001e.",es:"Y contra el mal del envidioso cuando envidia.",icon:"fa-eye",emoji:"\uD83D\uDC41\uFE0F",noteFr:"Verset 5 — حَاسِد = l'envieux · حَسَدَ = envier (ح-س-د)",noteEs:"Versículo 5 — حَاسِد = el envidioso · حَسَدَ = envidiar"}
+      {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",fr:"Au nom d'Allah, le Tout Mis\u00e9ricordieux, le Tr\u00e8s Mis\u00e9ricordieux.",es:"En el nombre de Al\u00e1, el Clemente, el Misericordioso.",icon:"fa-hands-praying",emoji:"\uD83E\uDD32",noteFr:"La Basmalah — رواية ورش",noteEs:"La Basmalah — riwāyat Warsh",aud:"audio/sourates/basmalah.mp3"},
+      {ar:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾",fr:"Dis : Je cherche refuge aupr\u00e8s du Seigneur de l\u2019Aube.",es:"Di: Me refugio en el Se\u00f1or del Amanecer.",icon:"fa-sun",emoji:"\uD83C\uDF05",noteFr:"Verset 1 — الفَلَق = l'aurore / l'aube · ورش",noteEs:"Versículo 1 — الفَلَق = el amanecer · ورش",aud:"audio/sourates/falaq-v1.mp3"},
+      {ar:"مِن شَرِّ مَا خَلَقَ ﴿٢﴾",fr:"Contre le mal de ce qu'Il a cr\u00e9\u00e9.",es:"Contra el mal de lo que \u00e9l ha creado.",icon:"fa-shield",emoji:"\uD83D\uDEE1\uFE0F",noteFr:"Verset 2 — شَرّ = mal · خَلَقَ = فعل ماضي (ق-ل-خ)",noteEs:"Versículo 2 — شَرّ = mal · خَلَقَ = verbo pasado",aud:"audio/sourates/falaq-v2.mp3"},
+      {ar:"وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾",fr:"Et contre le mal de l\u2019obscurit\u00e9 quand elle s\u2019\u00e9tend.",es:"Y contra el mal de la oscuridad cuando cae.",icon:"fa-moon",emoji:"\uD83C\uDF11",noteFr:"Verset 3 — غَاسِق = nuit sombre · وَقَبَ = envelopper",noteEs:"Versículo 3 — غَاسِق = noche oscura · وَقَبَ = envolver",aud:"audio/sourates/falaq-v3.mp3"},
+      {ar:"وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾",fr:"Et contre le mal des sorcières qui soufflent sur les n\u0153uds.",es:"Y contra el mal de las que soplan sobre los nudos.",icon:"fa-wind",emoji:"\uD83E\uDEA2\uD83E\uDEA2",noteFr:"Verset 4 — النَّفَّاثَات = celles qui soufflent (sorcières) · العُقَد = les n\u0153uds",noteEs:"Versículo 4 — النَّفَّاثَات = las que soplan · العُقَد = los nudos",aud:"audio/sourates/falaq-v4.mp3"},
+      {ar:"وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",fr:"Et contre le mal de l\u2019envieux quand il envie.",es:"Y contra el mal del envidioso cuando envidia.",icon:"fa-eye",emoji:"\uD83D\uDC41\uFE0F",noteFr:"Verset 5 — حَاسِد = l'envieux · حَسَدَ = envier (ح-س-د)",noteEs:"Versículo 5 — حَاسِد = el envidioso · حَسَدَ = envidiar",aud:"audio/sourates/falaq-v5.mp3"}
     ],
     vocab:[
       {ar:"الْفَلَقِ",fr:"L'Aube / L'Aurore",es:"El Amanecer / La Aurora",root:"\u0641 \u0644 \u0642"},
@@ -827,14 +833,15 @@ const SURAHS = {
       es:"En Warsh: الناسِ al final de la sura sin tanw\u012bn, y el tafkh\u012bm de la r\u0101\u2019 seg\u00fan las reglas de Warsh."
     },
     fullText:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ۞ قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾ مَلِكِ النَّاسِ ﴿٢﴾ إِلَهِ النَّاسِ ﴿٣﴾ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾ مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",
+    audioFull:"audio/sourates/nas-complete.mp3",
     ayahs:[
-      {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",fr:"Au nom d'Allah, le Tout Mis\u00e9ricordieux, le Tr\u00e8s Mis\u00e9ricordieux.",es:"En el nombre de Al\u00e1, el Clemente, el Misericordioso.",icon:"fa-hands-praying",emoji:"\uD83E\uDD32",noteFr:"La Basmalah — رواية ورش",noteEs:"La Basmalah — riwāyat Warsh"},
-      {ar:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾",fr:"Dis : Je cherche refuge aupr\u00e8s du Seigneur des hommes.",es:"Di: Me refugio en el Se\u00f1or de la humanidad.",icon:"fa-people-group",emoji:"\uD83D\uDC65",noteFr:"Verset 1 — النَّاس = les gens / les hommes · رَبّ = Seigneur",noteEs:"Versículo 1 — النَّاس = la gente · رَبّ = Señor"},
-      {ar:"مَلِكِ النَّاسِ ﴿٢﴾",fr:"Le Roi des hommes.",es:"El Rey de la humanidad.",icon:"fa-crown",emoji:"\uD83D\uDC51",noteFr:"Verset 2 — مَلِك = Roi · attribut d'Allah",noteEs:"Versículo 2 — مَلِك = Rey · atributo de Alá"},
-      {ar:"إِلَهِ النَّاسِ ﴿٣﴾",fr:"Le Dieu des hommes.",es:"El Dios de la humanidad.",icon:"fa-infinity",emoji:"\u2605",noteFr:"Verset 3 — إِلَه = Dieu · 3 noms d'Allah en 3 versets",noteEs:"Versículo 3 — إِلَه = Dios · 3 nombres de Alá en 3 versículos"},
-      {ar:"مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾",fr:"Contre le mal du Tentateur, le Furtif.",es:"Contra el mal del Susurrador Furtivo.",icon:"fa-ghost",emoji:"\uD83D\uDC7B",noteFr:"Verset 4 — الوَسْوَاس = le murmure tentateur · الخَنَّاس = qui se recroqueville",noteEs:"Versículo 4 — الوَسْوَاس = susurrador · الخَنَّاس = que se encoge"},
-      {ar:"الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾",fr:"Celui qui murmure dans les poitrines des hommes.",es:"Que susurra en los pechos de la humanidad.",icon:"fa-heart",emoji:"\uD83E\uDEC0",noteFr:"Verset 5 — يُوَسْوِسُ = فعل مضارع · يبدأ بـ يُ · صُدُور = poitrines",noteEs:"Versículo 5 — يُوَسْوِسُ = verbo presente · صُدُور = pechos"},
-      {ar:"مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",fr:"Issu des djinns et des hommes.",es:"Proveniente de los genios y de los hombres.",icon:"fa-fire",emoji:"\uD83D\uDD25\uD83D\uDC64",noteFr:"Verset 6 — الجِنَّة = les djinns · وَالنَّاس = et les hommes",noteEs:"Versículo 6 — الجِنَّة = los genios · وَالنَّاس = y los hombres"}
+      {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",fr:"Au nom d'Allah, le Tout Mis\u00e9ricordieux, le Tr\u00e8s Mis\u00e9ricordieux.",es:"En el nombre de Al\u00e1, el Clemente, el Misericordioso.",icon:"fa-hands-praying",emoji:"\uD83E\uDD32",noteFr:"La Basmalah — رواية ورش",noteEs:"La Basmalah — riwāyat Warsh",aud:"audio/sourates/basmalah.mp3"},
+      {ar:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾",fr:"Dis : Je cherche refuge aupr\u00e8s du Seigneur des hommes.",es:"Di: Me refugio en el Se\u00f1or de la humanidad.",icon:"fa-people-group",emoji:"\uD83D\uDC65",noteFr:"Verset 1 — النَّاس = les gens / les hommes · رَبّ = Seigneur",noteEs:"Versículo 1 — النَّاس = la gente · رَبّ = Señor",aud:"audio/sourates/nas-v1.mp3"},
+      {ar:"مَلِكِ النَّاسِ ﴿٢﴾",fr:"Le Roi des hommes.",es:"El Rey de la humanidad.",icon:"fa-crown",emoji:"\uD83D\uDC51",noteFr:"Verset 2 — مَلِك = Roi · attribut d'Allah",noteEs:"Versículo 2 — مَلِك = Rey · atributo de Alá",aud:"audio/sourates/nas-v2.mp3"},
+      {ar:"إِلَهِ النَّاسِ ﴿٣﴾",fr:"Le Dieu des hommes.",es:"El Dios de la humanidad.",icon:"fa-infinity",emoji:"\u2605",noteFr:"Verset 3 — إِلَه = Dieu · 3 noms d'Allah en 3 versets",noteEs:"Versículo 3 — إِلَه = Dios · 3 nombres de Alá en 3 versículos",aud:"audio/sourates/nas-v3.mp3"},
+      {ar:"مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾",fr:"Contre le mal du Tentateur, le Furtif.",es:"Contra el mal del Susurrador Furtivo.",icon:"fa-ghost",emoji:"\uD83D\uDC7B",noteFr:"Verset 4 — الوَسْوَاس = le murmure tentateur · الخَنَّاس = qui se recroqueville",noteEs:"Versículo 4 — الوَسْوَاس = susurrador · الخَنَّاس = que se encoge",aud:"audio/sourates/nas-v4.mp3"},
+      {ar:"الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾",fr:"Celui qui murmure dans les poitrines des hommes.",es:"Que susurra en los pechos de la humanidad.",icon:"fa-heart",emoji:"\uD83E\uDEC0",noteFr:"Verset 5 — يُوَسْوِسُ = فعل مضارع · يبدأ بـ يُ · صُدُور = poitrines",noteEs:"Versículo 5 — يُوَسْوِسُ = verbo presente · صُدُور = pechos",aud:"audio/sourates/nas-v5.mp3"},
+      {ar:"مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",fr:"Issu des djinns et des hommes.",es:"Proveniente de los genios y de los hombres.",icon:"fa-fire",emoji:"\uD83D\uDD25\uD83D\uDC64",noteFr:"Verset 6 — الجِنَّة = les djinns · وَالنَّاس = et les hommes",noteEs:"Versículo 6 — الجِنَّة = los genios · وَالنَّاس = y los hombres",aud:"audio/sourates/nas-v6.mp3"}
     ],
     vocab:[
       {ar:"النَّاسِ",fr:"Les gens / Les hommes",es:"La gente / Los hombres",root:"\u0646 \u0648 \u0633"},
@@ -886,6 +893,7 @@ function renderJomla(){
 }
 
 window.openSection=function(sec){
+  DAKAudio.stopAll();
   if(sec==='jomla'){State.jomla.idx=0;renderJomla();showView('jomla');}
 };
 window.flipCard=function(sec){
@@ -908,10 +916,11 @@ $('view-jomla').addEventListener('touchend',e=>{
 },{passive:true});
 
 /* ── Navigation menu المعوذتان ── */
-window.openSurahSelect=function(){showView('surah-select');};
-window.backToSurahs=function(){showView('surah-select');};
-window.goMain=function(){showView('main');};
+window.openSurahSelect=function(){DAKAudio.stopAll();showView('surah-select');};
+window.backToSurahs=function(){DAKAudio.stopAll();showView('surah-select');};
+window.goMain=function(){DAKAudio.stopAll();showView('main');};
 window.openModeSelect=function(surahId){
+  DAKAudio.stopAll();
   State.currentSurah=surahId;
   const s=SURAHS[surahId];
   $('mode-ar-title').textContent=s.titleAr;
@@ -921,6 +930,7 @@ window.openModeSelect=function(surahId){
 
 /* ── Flashcards المعوذتان ── */
 window.openFlashcards7=function(){
+  DAKAudio.stopAll();
   const s=SURAHS[State.currentSurah];
   $('fc7-brand-ar').textContent=s.titleAr;
   $('fc7-brand-fr').textContent=s.titleFr.toUpperCase()+' · WARSH';
@@ -928,6 +938,12 @@ window.openFlashcards7=function(){
   showView('fc7');
   renderFC7();
 };
+
+$('btn-fc7-audio').addEventListener('click',()=>{
+  const s=SURAHS[State.currentSurah];
+  const c=s.ayahs[State.fc7.idx];
+  DAKAudio.play(c.aud,$('btn-fc7-audio'));
+});
 
     // DAK Tracker — anti-doublon
     var _enrLecon11Enregistree = false;
@@ -949,6 +965,7 @@ window.openFlashcards7=function(){
         }, 200);
     }
     function renderFC7(){
+  DAKAudio.stopAll();
   const s=SURAHS[State.currentSurah];
   const c=s.ayahs[State.fc7.idx];
   $('fc7-counter').textContent=(State.fc7.idx+1)+' / '+s.ayahs.length;
@@ -981,6 +998,7 @@ $('view-fc7').addEventListener('touchend',e=>{
 
 /* ── Lecture & Analyse ── */
 window.openLecture7=function(){
+  DAKAudio.stopAll();
   const s=SURAHS[State.currentSurah];
   $('lect7-brand-ar').textContent=s.titleAr;
   $('lect7-brand-fr').textContent=s.titleFr+' · WARSH';
@@ -1034,6 +1052,7 @@ $('view-lecture7').addEventListener('touchend',e=>{
 
 /* ── Tilawa ── */
 window.openTilawa7=function(){
+  DAKAudio.stopAll();
   const s=SURAHS[State.currentSurah];
   State.tilawa7.flipped=false;
   $('tilawa-card-7').classList.remove('flipped');
@@ -1073,6 +1092,10 @@ window.flipTilawa7=function(){
   State.tilawa7.flipped=!State.tilawa7.flipped;
   $('tilawa-card-7').classList.toggle('flipped',State.tilawa7.flipped);
 };
+
+$('btn-tilawa7-audio').addEventListener('click',()=>{
+  DAKAudio.play(SURAHS[State.currentSurah].audioFull,$('btn-tilawa7-audio'));
+});
 
 })();
 </script>

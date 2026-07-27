@@ -62,25 +62,11 @@
         /* =========================================
            HEADER GLOBAL
            ========================================= */
-        .app-header {
-            width: 100%; max-width: 1000px;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; padding: 0 10px;
-        }
-        
-        .progress-counter {
-            background: var(--burgundy); color: var(--white);
-            padding: 8px 20px; border-radius: 30px; font-weight: 600; font-size: 1.05rem;
-            box-shadow: var(--shadow-soft); border: 1px solid var(--gold);
-            letter-spacing: 1px;
-        }
-
-        .btn-home {
-            color: var(--gold); font-size: 1.8rem; text-decoration: none;
-            display: flex; justify-content: center; align-items: center;
-            transition: all 0.3s ease; background: transparent; border: none;
-        }
-        .btn-home:hover { transform: scale(1.1); color: var(--gold-light); }
+        .card-view-header { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+        .nav-group { display: flex; align-items: center; gap: 8px; }
+        .letter-counter { font-size: 0.95rem; color: var(--burgundy); opacity: 0.8; min-width: 95px; text-align: center; }
+        .btn-house-inline { color: var(--gold); font-size: 1.3rem; text-decoration: none; transition: transform 0.3s ease, color 0.3s ease; padding: 5px; display: flex; align-items: center; }
+        .btn-house-inline:hover { transform: scale(1.1); color: var(--gold-light); }
 
         /* =========================================
            CONTENEUR DE LA CARTE UNIQUE 3D
@@ -254,16 +240,9 @@
         /* =========================================
            CONTRÔLES DE NAVIGATION
            ========================================= */
-        .nav-controls {
-            display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 950px; gap: 20px;
-        }
-        .btn-nav {
-            background: var(--white); border: 2px solid var(--gold); color: var(--burgundy);
-            padding: 15px 30px; border-radius: 50px; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-soft); flex: 1; display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-nav:hover { background: var(--gold); color: var(--white); transform: translateY(-3px); }
-        .btn-nav:disabled { opacity: 0.5; pointer-events: none; border-color: #ddd; background: #f5f5f5; color: #aaa; box-shadow: none; }
+        .btn-nav { background: none; border: none; color: var(--gold); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 300; padding: 6px 8px; transition: color 0.3s ease; }
+        .btn-nav:hover { color: var(--gold); }
+        .btn-nav:disabled { opacity: 0.35; pointer-events: none; }
 
         /* =========================================
            RESPONSIVE MOBILE
@@ -299,14 +278,12 @@
         }
         
         @media (max-width: 480px) {
-            .app-header { margin-bottom: 15px; }
-            .btn-home { width: 40px; height: 40px; font-size: 1.1rem; }
+            .card-view-header { justify-content: center; }
             .brand-ar-top { font-size: 1.8rem; margin-bottom: 0;}
             .brand-fr { font-size: 0.85rem; letter-spacing: 3px; }
-            
+
             .col-title-ar { font-size: 0.9rem; }
             .col-t-fr, .col-t-es { font-size: 0.6rem; }
-            .btn-nav { padding: 12px; font-size: 0.9rem; }
             
             /* Responsive Recto */
             .card-front .main-letter { font-size: 4.8rem; margin-bottom: 15px;} 
@@ -327,7 +304,9 @@
         /* Guard auth */
         body { visibility: hidden; }
     </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -352,9 +331,13 @@
 </head>
 <body>
 
-    <div class="app-header">
-        <div class="progress-counter"><span id="current-index">1</span> / 28</div>
-        <a href="modules.html" class="btn-home" title="Retour au menu"><i class="fa-solid fa-house"></i></a>
+    <div class="card-view-header">
+      <div class="nav-group">
+        <button class="btn-nav" id="btn-prev" onclick="prevCard()" aria-label="Précédent">&larr;</button>
+        <div class="letter-counter" id="letter-counter">1 / 28</div>
+        <button class="btn-nav" id="btn-next" onclick="nextCard()" aria-label="Suivant">&rarr;</button>
+      </div>
+      <a href="module3.html" class="btn-house-inline" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
 
     <div class="card-container">
@@ -510,19 +493,13 @@
         </div>
     </div>
 
-    <div class="nav-controls">
-        <button class="btn-nav" id="btn-prev" onclick="prevCard()"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-        <button class="btn-nav" id="btn-next" onclick="nextCard()">Suivant <i class="fa-solid fa-arrow-right"></i></button>
-    </div>
-
     <script>
         // Les données sont maintenant récupérées depuis database.js
         // Assurez-vous que l'array `alphabetData` s'y trouve bien.
         
         let currentIndex = 0;
         let isFlipped = false;
-        let currentAudio = new Audio();
-        
+
         const flashcard = document.getElementById('flashcard');
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -537,8 +514,8 @@
 
         function renderCard(index) {
             const data = alphabetData[index];
-            document.getElementById('current-index').innerText = index + 1;
-            
+            document.getElementById('letter-counter').textContent = `${index + 1} / ${alphabetData.length}`;
+
             if (isFlipped) {
                 flashcard.classList.remove('is-flipped');
                 isFlipped = false;
@@ -628,7 +605,7 @@
 
         function playMainAudio(event) {
             if (event) event.stopPropagation();
-            playAudio(alphabetData[currentIndex].audioMain);
+            DAKAudio.play(alphabetData[currentIndex].audioMain, event ? event.currentTarget : null);
         }
 
         function playModoudAudio(type, event) {
@@ -638,19 +615,7 @@
             if (type === 'alif') audioPath = data.alif.audio;
             if (type === 'waw') audioPath = data.waw.audio;
             if (type === 'yaa') audioPath = data.yaa.audio;
-            playAudio(audioPath);
-        }
-
-        function playAudio(audioPath) {
-            if (!audioPath || audioPath === "") return;
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
-            
-            let playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Audio bloqué :", error); });
-            }
+            DAKAudio.play(audioPath, event ? event.currentTarget : null);
         }
     </script>
 <script>

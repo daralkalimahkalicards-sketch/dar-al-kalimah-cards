@@ -76,8 +76,9 @@
     /* ════════════════════════════════════════
        VUE 2 — FLASHCARDS VOCABULAIRE
     ════════════════════════════════════════ */
-    .lesson-top-bar{width:100%;max-width:1000px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-    .pill-counter{background:var(--burgundy);color:var(--white);padding:9px 22px;border-radius:999px;font-weight:700;font-size:1rem;letter-spacing:1px;box-shadow:0 4px 12px rgba(93,24,40,0.2);}
+    .lesson-top-bar{width:100%;max-width:950px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .pill-counter{font-size:0.95rem;color:var(--burgundy);opacity:0.8;min-width:95px;text-align:center;}
     .btn-house-lesson{color:var(--gold);font-size:1.7rem;transition:var(--transition);}
     .btn-house-lesson:hover{transform:scale(1.1);}
 
@@ -166,14 +167,9 @@
     .trans-es{font-size:1rem;color:#999;font-style:italic;}
     .fc-note{margin-top:20px;font-size:0.78rem;color:#bbb;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;}
 
-    .controls-container{width:100%;display:flex;justify-content:space-between;gap:14px;}
-    .btn-nav{flex:1;padding:16px 10px;border-radius:999px;font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;transition:var(--transition);display:flex;justify-content:center;align-items:center;gap:10px;border:1.5px solid var(--gold);min-height:52px;}
-    .btn-prev{background:transparent;color:#ccc;border-color:#e0e0e0;}
-    .btn-prev.active{color:var(--burgundy);border-color:rgba(200,164,98,0.5);}
-    .btn-prev.active:hover{background:rgba(200,164,98,0.08);}
-    .btn-next{background:var(--white);color:var(--burgundy);}
-    .btn-next:hover{background:rgba(200,164,98,0.1);}
-    .btn-next:disabled{opacity:0.35;border-color:#eee;color:#ccc;pointer-events:none;background:transparent;}
+    .btn-nav{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav:hover{color:var(--gold);}
+    .btn-nav:disabled{opacity:0.35;pointer-events:none;}
 
     /* ════════════════════════════════════════
        VUE 3 — RENFORCEMENT LECTURE
@@ -263,7 +259,9 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -308,7 +306,11 @@
 ════════════════════════════════════════════════ -->
 <main id="view-cards" class="view hidden" aria-live="polite">
   <div class="lesson-top-bar">
-    <div class="pill-counter" id="card-counter">1 / 1</div>
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="btn-prev" type="button" aria-label="Précédent">&larr;</button>
+      <div class="pill-counter" id="card-counter">1 / 1</div>
+      <button class="btn-nav" id="btn-next" type="button" aria-label="Suivant">&rarr;</button>
+    </div>
     <button class="btn-house-lesson" id="btn-back-menu" type="button">
       <i class="fa-solid fa-house"></i>
     </button>
@@ -342,14 +344,7 @@
       </div>
     </div>
   </div>
-  <div class="controls-container">
-    <button class="btn-nav btn-prev" id="btn-prev" type="button">
-      <i class="fa-solid fa-arrow-left"></i> Préc. / Ant.
-    </button>
-    <button class="btn-nav btn-next" id="btn-next" type="button">
-      Suiv. / Sig. <i class="fa-solid fa-arrow-right"></i>
-    </button>
-  </div>
+
 </main>
 
 <!-- ════════════════════════════════════════════════
@@ -438,107 +433,107 @@
   const THEMES = [
     { id:"jours", icon:"fa-calendar-week", nameFr:"Les Jours de la Semaine", nameEs:"Los Días de la Semana", nameAr:"أَيَّامُ الأُسْبُوع",
       cards:[
-        {ar:"الإثْنَيْن",  fr:"Lundi",    es:"Lunes",    icon:"fa-calendar-day"},
-        {ar:"الثُّلَاثَاء",fr:"Mardi",    es:"Martes",   icon:"fa-calendar-day"},
-        {ar:"الأَرْبِعَاء",fr:"Mercredi", es:"Miércoles",icon:"fa-calendar-day"},
-        {ar:"الخَمِيس",   fr:"Jeudi",    es:"Jueves",   icon:"fa-calendar-day"},
-        {ar:"الجُمُعَة",  fr:"Vendredi", es:"Viernes",  icon:"fa-mosque", note:"يَوْمُ الجُمُعَة — صَلَاةُ الجُمُعَة · Jour de la Prière · Día de la Oración"},
-        {ar:"السَّبْت",   fr:"Samedi",   es:"Sábado",   icon:"fa-calendar-day"},
-        {ar:"الأَحَد",    fr:"Dimanche", es:"Domingo",  icon:"fa-calendar-day"}
+        {ar:"الاثْنَيْن",  fr:"Lundi",    es:"Lunes",    icon:"fa-calendar-day", aud:"audio/module6/al-ithnayn.mp3"},
+        {ar:"الثُّلَاثَاء",fr:"Mardi",    es:"Martes",   icon:"fa-calendar-day", aud:"audio/module6/ath-thulatha.mp3"},
+        {ar:"الأَرْبِعَاء",fr:"Mercredi", es:"Miércoles",icon:"fa-calendar-day", aud:"audio/module6/al-arbia.mp3"},
+        {ar:"الخَمِيس",   fr:"Jeudi",    es:"Jueves",   icon:"fa-calendar-day", aud:"audio/module6/al-khamis.mp3"},
+        {ar:"الجُمُعَة",  fr:"Vendredi", es:"Viernes",  icon:"fa-mosque", note:"يَوْمُ الجُمُعَة — صَلَاةُ الجُمُعَة · Jour de la Prière · Día de la Oración", aud:"audio/module6/al-jumua.mp3"},
+        {ar:"السَّبْت",   fr:"Samedi",   es:"Sábado",   icon:"fa-calendar-day", aud:"audio/module6/as-sabt.mp3"},
+        {ar:"الأَحَد",    fr:"Dimanche", es:"Domingo",  icon:"fa-calendar-day", aud:"audio/module6/al-ahad.mp3"}
       ]},
     { id:"horaires", icon:"fa-mosque", nameFr:"Horaires & Prières", nameEs:"Horarios y Oraciones", nameAr:"أَوْقَاتُ الصَّلَاة",
       cards:[
-        {ar:"الفَجْر",  fr:"L'Aube",      es:"El Amanecer",  icon:"fa-cloud-sun",    note:"Prière du Fajr"},
-        {ar:"الصُّبْح", fr:"Le Matin",     es:"La Mañana",    icon:"fa-sun"},
-        {ar:"الضُّحَى", fr:"La Matinée",   es:"Media Mañana", icon:"fa-sun"},
-        {ar:"الصَّبَاح",fr:"Le Matin",     es:"La Mañana",    icon:"fa-mug-hot"},
-        {ar:"الظُّهْر", fr:"Midi",         es:"El Mediodía",  icon:"fa-sun",          note:"Prière du Dhohr"},
-        {ar:"العَصْر",  fr:"L'Après-midi", es:"La Tarde",     icon:"fa-cloud-sun",    note:"Prière du Asr"},
-        {ar:"المَسَاء", fr:"Le Soir",      es:"La Tarde",     icon:"fa-cloud-moon"},
-        {ar:"المَغْرِب",fr:"Le Coucher",   es:"El Atardecer", icon:"fa-moon",         note:"Prière du Maghrib"},
-        {ar:"العِشَاء", fr:"La Nuit",      es:"La Noche",     icon:"fa-moon",         note:"Prière du Isha"},
-        {ar:"اللَّيْل", fr:"La Nuit",      es:"La Noche",     icon:"fa-star"}
+        {ar:"الفَجْر",  fr:"L'Aube",      es:"El Amanecer",  icon:"fa-cloud-sun",    note:"Prière du Fajr", aud:"audio/module6/al-fajr.mp3"},
+        {ar:"الصُّبْح", fr:"Le Matin",     es:"La Mañana",    icon:"fa-sun", aud:"audio/module6/as-subh.mp3"},
+        {ar:"الضُّحَى", fr:"La Matinée",   es:"Media Mañana", icon:"fa-sun", aud:"audio/module6/ad-duha.mp3"},
+        {ar:"الصَّبَاح",fr:"Le Matin",     es:"La Mañana",    icon:"fa-mug-hot", aud:"audio/module6/as-sabah.mp3"},
+        {ar:"الظُّهْر", fr:"Midi",         es:"El Mediodía",  icon:"fa-sun",          note:"Prière du Dhohr", aud:"audio/module6/az-zuhr.mp3"},
+        {ar:"العَصْر",  fr:"L'Après-midi", es:"La Tarde",     icon:"fa-cloud-sun",    note:"Prière du Asr", aud:"audio/module6/al-asr.mp3"},
+        {ar:"المَسَاء", fr:"Le Soir",      es:"La Tarde",     icon:"fa-cloud-moon", aud:"audio/module6/al-masa.mp3"},
+        {ar:"المَغْرِب",fr:"Le Coucher",   es:"El Atardecer", icon:"fa-moon",         note:"Prière du Maghrib", aud:"audio/module6/al-maghrib.mp3"},
+        {ar:"العِشَاء", fr:"La Nuit",      es:"La Noche",     icon:"fa-moon",         note:"Prière du Isha", aud:"audio/module6/al-isha.mp3"},
+        {ar:"اللَّيْل", fr:"La Nuit",      es:"La Noche",     icon:"fa-star", aud:"audio/module6/al-layl.mp3"}
       ]},
     { id:"famille", icon:"fa-people-roof", nameFr:"La Famille", nameEs:"La Familia", nameAr:"العَائِلَة",
       cards:[
-        {ar:"أَب",              fr:"Père",         es:"Padre",   icon:"fa-user-tie"},
-        {ar:"أُمّ",             fr:"Mère",         es:"Madre",   icon:"fa-person-dress"},
-        {ar:"أَخ",              fr:"Frère",        es:"Hermano", icon:"fa-child"},
-        {ar:"أُخْت",            fr:"Sœur",         es:"Hermana", icon:"fa-child-dress"},
-        {ar:"اِبْن",            fr:"Fils",         es:"Hijo",    icon:"fa-baby"},
-        {ar:"بِنْت",            fr:"Fille",        es:"Hija",    icon:"fa-baby"},
-        {ar:"جَدّ",             fr:"Grand-père",   es:"Abuelo",  icon:"fa-person-cane"},
-        {ar:"جَدَّة",           fr:"Grand-mère",   es:"Abuela",  icon:"fa-person-cane"},
-        {ar:"حَفِيد",           fr:"Petit-fils",   es:"Nieto",   icon:"fa-child"},
-        {ar:"حَفِيدَة",         fr:"Petite-fille", es:"Nieta",   icon:"fa-child-dress"},
-        {ar:"عَمّ",             fr:"Oncle (côté père)",  es:"Tío (lado paterno)",  icon:"fa-user-tie"},
-        {ar:"عَمَّة",           fr:"Tante (côté père)",  es:"Tía (lado paterno)",  icon:"fa-user-tie"},
-        {ar:"خَال",             fr:"Oncle (côté mère)",  es:"Tío (lado materno)",  icon:"fa-user-tie"},
-        {ar:"خَالَة",           fr:"Tante (côté mère)",  es:"Tía (lado materno)",  icon:"fa-user-tie"},
-        {ar:"اِبْنُ العَمّ",    fr:"Cousin (oncle pat.)",   es:"Primo (tío paterno)",   icon:"fa-people-arrows"},
-        {ar:"اِبْنُ العَمَّة",  fr:"Cousin (tante pat.)",   es:"Primo (tía paterna)",   icon:"fa-people-arrows"},
-        {ar:"اِبْنُ الخَال",    fr:"Cousin (oncle mat.)",   es:"Primo (tío materno)",   icon:"fa-people-arrows"},
-        {ar:"اِبْنُ الخَالَة",  fr:"Cousin (tante mat.)",   es:"Primo (tía materna)",   icon:"fa-people-arrows"}
+        {ar:"أَب",              fr:"Père",         es:"Padre",   icon:"fa-user-tie", aud:"audio/module6/ab.mp3"},
+        {ar:"أُمّ",             fr:"Mère",         es:"Madre",   icon:"fa-person-dress", aud:"audio/quiz-qat/umm.mp3"},
+        {ar:"أَخ",              fr:"Frère",        es:"Hermano", icon:"fa-child", aud:"audio/module6/akh.mp3"},
+        {ar:"أُخْت",            fr:"Sœur",         es:"Hermana", icon:"fa-child-dress", aud:"audio/module6/ukht.mp3"},
+        {ar:"اِبْن",            fr:"Fils",         es:"Hijo",    icon:"fa-baby", aud:"audio/module6/ibn.mp3"},
+        {ar:"بِنْت",            fr:"Fille",        es:"Hija",    icon:"fa-baby", aud:"audio/module2/bint.mp3"},
+        {ar:"جَدّ",             fr:"Grand-père",   es:"Abuelo",  icon:"fa-person-cane", aud:"audio/shadda/jadd.mp3"},
+        {ar:"جَدَّة",           fr:"Grand-mère",   es:"Abuela",  icon:"fa-person-cane", aud:"audio/shadda/jadda.mp3"},
+        {ar:"حَفِيد",           fr:"Petit-fils",   es:"Nieto",   icon:"fa-child", aud:"audio/module6/hafid.mp3"},
+        {ar:"حَفِيدَة",         fr:"Petite-fille", es:"Nieta",   icon:"fa-child-dress", aud:"audio/module6/hafida.mp3"},
+        {ar:"عَمّ",             fr:"Oncle (côté père)",  es:"Tío (lado paterno)",  icon:"fa-user-tie", aud:"audio/module6/amm.mp3"},
+        {ar:"عَمَّة",           fr:"Tante (côté père)",  es:"Tía (lado paterno)",  icon:"fa-user-tie", aud:"audio/module6/amma.mp3"},
+        {ar:"خَال",             fr:"Oncle (côté mère)",  es:"Tío (lado materno)",  icon:"fa-user-tie", aud:"audio/module6/khal.mp3"},
+        {ar:"خَالَة",           fr:"Tante (côté mère)",  es:"Tía (lado materno)",  icon:"fa-user-tie", aud:"audio/module6/khala.mp3"},
+        {ar:"اِبْنُ العَمّ",    fr:"Cousin (oncle pat.)",   es:"Primo (tío paterno)",   icon:"fa-people-arrows", aud:"audio/module6/ibn-al-amm.mp3"},
+        {ar:"اِبْنُ العَمَّة",  fr:"Cousin (tante pat.)",   es:"Primo (tía paterna)",   icon:"fa-people-arrows", aud:"audio/module6/ibn-al-amma.mp3"},
+        {ar:"اِبْنُ الخَال",    fr:"Cousin (oncle mat.)",   es:"Primo (tío materno)",   icon:"fa-people-arrows", aud:"audio/module6/ibn-al-khal.mp3"},
+        {ar:"اِبْنُ الخَالَة",  fr:"Cousin (tante mat.)",   es:"Primo (tía materna)",   icon:"fa-people-arrows", aud:"audio/module6/ibn-al-khala.mp3"}
       ]},
     { id:"nombres", icon:"fa-list-ol", nameFr:"Les Nombres", nameEs:"Los Números", nameAr:"الأَعْدَاد",
       cards:[
-        {ar:"صِفْر",              fr:"Zéro",            es:"Cero",         num:"0"},
-        {ar:"وَاحِد",             fr:"Un",              es:"Uno",          num:"1"},
-        {ar:"اِثْنَان",           fr:"Deux",            es:"Dos",          num:"2"},
-        {ar:"ثَلَاثَة",           fr:"Trois",           es:"Tres",         num:"3"},
-        {ar:"أَرْبَعَة",          fr:"Quatre",          es:"Cuatro",       num:"4"},
-        {ar:"خَمْسَة",            fr:"Cinq",            es:"Cinco",        num:"5"},
-        {ar:"سِتَّة",             fr:"Six",             es:"Seis",         num:"6"},
-        {ar:"سَبْعَة",            fr:"Sept",            es:"Siete",        num:"7"},
-        {ar:"ثَمَانِيَة",         fr:"Huit",            es:"Ocho",         num:"8"},
-        {ar:"تِسْعَة",            fr:"Neuf",            es:"Nueve",        num:"9"},
-        {ar:"عَشَرَة",            fr:"Dix",             es:"Diez",         num:"10"},
-        {ar:"أَحَدَ عَشَر",       fr:"Onze",            es:"Once",         num:"11"},
-        {ar:"اثْنَا عَشَر",       fr:"Douze",           es:"Doce",         num:"12"},
-        {ar:"ثَلَاثَةَ عَشَر",    fr:"Treize",          es:"Trece",        num:"13"},
-        {ar:"أَرْبَعَةَ عَشَر",   fr:"Quatorze",        es:"Catorce",      num:"14"},
-        {ar:"خَمْسَةَ عَشَر",     fr:"Quinze",          es:"Quince",       num:"15"},
-        {ar:"سِتَّةَ عَشَر",      fr:"Seize",           es:"Dieciséis",    num:"16"},
-        {ar:"سَبْعَةَ عَشَر",     fr:"Dix-sept",        es:"Diecisiete",   num:"17"},
-        {ar:"ثَمَانِيَةَ عَشَر",  fr:"Dix-huit",        es:"Dieciocho",    num:"18"},
-        {ar:"تِسْعَةَ عَشَر",     fr:"Dix-neuf",        es:"Diecinueve",   num:"19"},
-        {ar:"عِشْرُون",           fr:"Vingt",           es:"Veinte",       num:"20"},
-        {ar:"ثَلَاثُون",          fr:"Trente",          es:"Treinta",      num:"30"},
-        {ar:"أَرْبَعُون",         fr:"Quarante",        es:"Cuarenta",     num:"40"},
-        {ar:"خَمْسُون",           fr:"Cinquante",       es:"Cincuenta",    num:"50"},
-        {ar:"سِتُّون",            fr:"Soixante",        es:"Sesenta",      num:"60"},
-        {ar:"سَبْعُون",           fr:"Soixante-dix",    es:"Setenta",      num:"70"},
-        {ar:"ثَمَانُون",          fr:"Quatre-vingts",   es:"Ochenta",      num:"80"},
-        {ar:"مِئَة",              fr:"Cent",            es:"Cien",         num:"100"},
-        {ar:"أَلْف",              fr:"Mille",           es:"Mil",          num:"1000"}
+        {ar:"صِفْر",              fr:"Zéro",            es:"Cero",         num:"0", aud:"audio/module6/sifr.mp3"},
+        {ar:"وَاحِد",             fr:"Un",              es:"Uno",          num:"1", aud:"audio/module6/wahid.mp3"},
+        {ar:"اِثْنَان",           fr:"Deux",            es:"Dos",          num:"2", aud:"audio/module6/ithnan.mp3"},
+        {ar:"ثَلَاثَة",           fr:"Trois",           es:"Tres",         num:"3", aud:"audio/module6/thalatha.mp3"},
+        {ar:"أَرْبَعَة",          fr:"Quatre",          es:"Cuatro",       num:"4", aud:"audio/module6/arbaa.mp3"},
+        {ar:"خَمْسَة",            fr:"Cinq",            es:"Cinco",        num:"5", aud:"audio/module6/khamsa.mp3"},
+        {ar:"سِتَّة",             fr:"Six",             es:"Seis",         num:"6", aud:"audio/module6/sitta.mp3"},
+        {ar:"سَبْعَة",            fr:"Sept",            es:"Siete",        num:"7", aud:"audio/module6/sabaa.mp3"},
+        {ar:"ثَمَانِيَة",         fr:"Huit",            es:"Ocho",         num:"8", aud:"audio/module6/thamaniya.mp3"},
+        {ar:"تِسْعَة",            fr:"Neuf",            es:"Nueve",        num:"9", aud:"audio/module6/tisaa.mp3"},
+        {ar:"عَشَرَة",            fr:"Dix",             es:"Diez",         num:"10", aud:"audio/module6/ashara.mp3"},
+        {ar:"أَحَدَ عَشَر",       fr:"Onze",            es:"Once",         num:"11", aud:"audio/module6/ahada-ashar.mp3"},
+        {ar:"اثْنَا عَشَر",       fr:"Douze",           es:"Doce",         num:"12", aud:"audio/module6/ithna-ashar.mp3"},
+        {ar:"ثَلَاثَةَ عَشَر",    fr:"Treize",          es:"Trece",        num:"13", aud:"audio/module6/thalathata-ashar.mp3"},
+        {ar:"أَرْبَعَةَ عَشَر",   fr:"Quatorze",        es:"Catorce",      num:"14", aud:"audio/module6/arbaata-ashar.mp3"},
+        {ar:"خَمْسَةَ عَشَر",     fr:"Quinze",          es:"Quince",       num:"15", aud:"audio/module6/khamsata-ashar.mp3"},
+        {ar:"سِتَّةَ عَشَر",      fr:"Seize",           es:"Dieciséis",    num:"16", aud:"audio/module6/sittata-ashar.mp3"},
+        {ar:"سَبْعَةَ عَشَر",     fr:"Dix-sept",        es:"Diecisiete",   num:"17", aud:"audio/module6/sabaata-ashar.mp3"},
+        {ar:"ثَمَانِيَةَ عَشَر",  fr:"Dix-huit",        es:"Dieciocho",    num:"18", aud:"audio/module6/thamaniyata-ashar.mp3"},
+        {ar:"تِسْعَةَ عَشَر",     fr:"Dix-neuf",        es:"Diecinueve",   num:"19", aud:"audio/module6/tisaata-ashar.mp3"},
+        {ar:"عِشْرُون",           fr:"Vingt",           es:"Veinte",       num:"20", aud:"audio/module6/ishrun.mp3"},
+        {ar:"ثَلَاثُون",          fr:"Trente",          es:"Treinta",      num:"30", aud:"audio/module6/thalathun.mp3"},
+        {ar:"أَرْبَعُون",         fr:"Quarante",        es:"Cuarenta",     num:"40", aud:"audio/module6/arbaun.mp3"},
+        {ar:"خَمْسُون",           fr:"Cinquante",       es:"Cincuenta",    num:"50", aud:"audio/module6/khamsun.mp3"},
+        {ar:"سِتُّون",            fr:"Soixante",        es:"Sesenta",      num:"60", aud:"audio/module6/sittun.mp3"},
+        {ar:"سَبْعُون",           fr:"Soixante-dix",    es:"Setenta",      num:"70", aud:"audio/module6/sabuun.mp3"},
+        {ar:"ثَمَانُون",          fr:"Quatre-vingts",   es:"Ochenta",      num:"80", aud:"audio/module6/thamanun.mp3"},
+        {ar:"مِئَة",              fr:"Cent",            es:"Cien",         num:"100", aud:"audio/module6/miah.mp3"},
+        {ar:"أَلْف",              fr:"Mille",           es:"Mil",          num:"1000", aud:"audio/module6/alf.mp3"}
       ]},
     { id:"transports", icon:"fa-car", nameFr:"Les Transports", nameEs:"Los Transportes", nameAr:"المُوَاصَلَات",
       cards:[
-        {ar:"سَيَّارَة",              fr:"Voiture",     es:"Coche",      icon:"fa-car-side"},
-        {ar:"طَائِرَة",              fr:"Avion",       es:"Avión",      icon:"fa-plane"},
-        {ar:"دَرَّاجَة هَوَائِيَّة",  fr:"Vélo",        es:"Bicicleta",  icon:"fa-bicycle"},
-        {ar:"دَرَّاجَة نَارِيَّة",    fr:"Moto",        es:"Moto",       icon:"fa-motorcycle"},
-        {ar:"قِطَار",                fr:"Train",       es:"Tren",       icon:"fa-train"},
-        {ar:"حَافِلَة",              fr:"Bus",         es:"Autobús",    icon:"fa-bus"},
-        {ar:"سَفِينَة",              fr:"Bateau",      es:"Barco",      icon:"fa-ship"},
-        {ar:"قَارِب",                fr:"Barque",      es:"Barca",      icon:"fa-anchor"},
-        {ar:"قِطَارٌ سَرِيع",         fr:"TGV",         es:"Tren de alta velocidad", icon:"fa-train"},
-        {ar:"تَاكْسِي",              fr:"Taxi",        es:"Taxi",       icon:"fa-taxi"},
-        {ar:"مِتْرُو",               fr:"Métro",       es:"Metro",      icon:"fa-train-subway"},
-        {ar:"سْكُوتَر",              fr:"Scooter",     es:"Scooter",    icon:"fa-motorcycle"}
+        {ar:"سَيَّارَة",              fr:"Voiture",     es:"Coche",      icon:"fa-car-side", aud:"audio/shadda/sayyara.mp3"},
+        {ar:"طَائِرَة",              fr:"Avion",       es:"Avión",      icon:"fa-plane", aud:"audio/module3/taira.mp3"},
+        {ar:"دَرَّاجَة هَوَائِيَّة",  fr:"Vélo",        es:"Bicicleta",  icon:"fa-bicycle", aud:"audio/module6/darraja-hawaiya.mp3"},
+        {ar:"دَرَّاجَة نَارِيَّة",    fr:"Moto",        es:"Moto",       icon:"fa-motorcycle", aud:"audio/module6/darraja-nariya.mp3"},
+        {ar:"قِطَار",                fr:"Train",       es:"Tren",       icon:"fa-train", aud:"audio/module6/qitar.mp3"},
+        {ar:"حَافِلَة",              fr:"Bus",         es:"Autobús",    icon:"fa-bus", aud:"audio/module6/hafila.mp3"},
+        {ar:"سَفِينَة",              fr:"Bateau",      es:"Barco",      icon:"fa-ship", aud:"audio/module6/safina.mp3"},
+        {ar:"قَارِب",                fr:"Barque",      es:"Barca",      icon:"fa-anchor", aud:"audio/module6/qarib.mp3"},
+        {ar:"قِطَارٌ سَرِيع",         fr:"TGV",         es:"Tren de alta velocidad", icon:"fa-train", aud:"audio/module6/qitar-sari.mp3"},
+        {ar:"تَاكْسِي",              fr:"Taxi",        es:"Taxi",       icon:"fa-taxi", aud:"audio/module6/taxi.mp3"},
+        {ar:"مِتْرُو",               fr:"Métro",       es:"Metro",      icon:"fa-train-subway", aud:"audio/module6/metro.mp3"},
+        {ar:"سْكُوتَر",              fr:"Scooter",     es:"Scooter",    icon:"fa-motorcycle", aud:"audio/module6/scooter.mp3"}
       ]},
     { id:"couleurs", icon:"fa-palette", nameFr:"Les Couleurs", nameEs:"Los Colores", nameAr:"الأَلْوَان",
       cards:[
-        {ar:"أَحْمَر",     fr:"Rouge",   es:"Rojo",     color:"#E53935"},
-        {ar:"أَزْرَق",     fr:"Bleu",    es:"Azul",     color:"#1E88E5"},
-        {ar:"أَخْضَر",     fr:"Vert",    es:"Verde",    color:"#43A047"},
-        {ar:"أَسْوَد",     fr:"Noir",    es:"Negro",    color:"#212121"},
-        {ar:"أَبْيَض",     fr:"Blanc",   es:"Blanco",   color:"#F5F5F5", border:"1.5px solid #ddd"},
-        {ar:"بُنِّي",      fr:"Marron",  es:"Marrón",   color:"#795548"},
-        {ar:"بَنَفْسَجِي", fr:"Violet",  es:"Violeta",  color:"#8E24AA"},
-        {ar:"أَصْفَر",     fr:"Jaune",   es:"Amarillo", color:"#FDD835"},
-        {ar:"بُرْتُقَالِي",fr:"Orange",  es:"Naranja",  color:"#FB8C00"},
-        {ar:"نِيلِي",      fr:"Indigo",  es:"Índigo",   color:"#3949AB"}
+        {ar:"أَحْمَر",     fr:"Rouge",   es:"Rojo",     color:"#E53935", aud:"audio/module6/ahmar.mp3"},
+        {ar:"أَزْرَق",     fr:"Bleu",    es:"Azul",     color:"#1E88E5", aud:"audio/module6/azraq.mp3"},
+        {ar:"أَخْضَر",     fr:"Vert",    es:"Verde",    color:"#43A047", aud:"audio/module6/akhdar.mp3"},
+        {ar:"أَسْوَد",     fr:"Noir",    es:"Negro",    color:"#212121", aud:"audio/module6/aswad.mp3"},
+        {ar:"أَبْيَض",     fr:"Blanc",   es:"Blanco",   color:"#F5F5F5", border:"1.5px solid #ddd", aud:"audio/module6/abyad.mp3"},
+        {ar:"بُنِّي",      fr:"Marron",  es:"Marrón",   color:"#795548", aud:"audio/module6/bunni.mp3"},
+        {ar:"بَنَفْسَجِي", fr:"Violet",  es:"Violeta",  color:"#8E24AA", aud:"audio/module6/banafsaji.mp3"},
+        {ar:"أَصْفَر",     fr:"Jaune",   es:"Amarillo", color:"#FDD835", aud:"audio/module6/asfar.mp3"},
+        {ar:"بُرْتُقَالِي",fr:"Orange",  es:"Naranja",  color:"#FB8C00", aud:"audio/module6/burtuqali.mp3"},
+        {ar:"نِيلِي",      fr:"Indigo",  es:"Índigo",   color:"#3949AB", aud:"audio/module6/nili.mp3"}
       ]}
   ];
 
@@ -618,11 +613,11 @@
 
   function renderCard() {
     if (!activeTheme) return;
+    DAKAudio.stopAll();
     const c = activeTheme.cards[cardIndex];
     const total = activeTheme.cards.length;
     DOM.cardCounter.textContent = `${cardIndex + 1} / ${total}`;
     DOM.btnPrev.disabled = (cardIndex === 0);
-    DOM.btnPrev.className = cardIndex === 0 ? "btn-nav btn-prev" : "btn-nav btn-prev active";
     DOM.btnNext.disabled  = (cardIndex === total - 1);
     // DAK Tracker Leçon
     if (cardIndex === total - 1 && window.DAK_enregistrerLecon) {
@@ -671,11 +666,17 @@
   });
 
   DOM.btnBackMenu.addEventListener("click", () => {
+    DAKAudio.stopAll();
     DOM.viewCards.classList.add("hidden");
     DOM.viewMenu.classList.remove("hidden");
   });
   DOM.btnPrev.addEventListener("click", () => { if (cardIndex > 0){ cardIndex--; renderCard(); } });
   DOM.btnNext.addEventListener("click", () => { if (activeTheme && cardIndex < activeTheme.cards.length - 1){ cardIndex++; renderCard(); } });
+  DOM.btnAudio.addEventListener("click", () => {
+    if (!activeTheme) return;
+    const c = activeTheme.cards[cardIndex];
+    if (c) DAKAudio.play(c.aud, DOM.btnAudio);
+  });
 
   // Swipe flashcards
   let tx0 = 0;

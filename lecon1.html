@@ -82,6 +82,9 @@
     .btn-house{position:absolute;top:18px;right:18px;color:var(--gold);font-size:1.6rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;z-index:10;padding:5px;}
     .btn-house:hover{transform:scale(1.1);color:var(--gold-light);}
 
+    .btn-house-inline{color:var(--gold);font-size:1.3rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;padding:5px;display:flex;align-items:center;}
+    .btn-house-inline:hover{transform:scale(1.1);color:var(--gold-light);}
+
     .home-brand-ar {
       font-size: 3.5rem;
       font-weight: bold;
@@ -153,31 +156,29 @@
        ========================================= */
     .card-view-header {
       width: 100%;
-      max-width: 1000px;
+      max-width: 950px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
 
-    .btn-back,
     .btn-nav {
       background: none;
       border: none;
       color: var(--gold);
-      font-size: 1.05rem;
+      font-size: 1.3rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-weight: 600;
-      padding: 10px;
+      font-weight: 300;
+      padding: 6px 8px;
       transition: color 0.3s ease;
     }
 
-    .btn-back:hover,
     .btn-nav:hover {
       color: var(--gold);
     }
@@ -238,7 +239,7 @@
       box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold), var(--shadow);
       display: flex;
       flex-direction: column;
-      padding: 40px 50px;
+      padding: 15px 50px;
       overflow: hidden;
     }
 
@@ -283,17 +284,25 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-bottom: 95px;
+      padding-bottom: 44px;
       position: relative;
     }
 
     .main-letter {
-      font-size: 16rem;
+      font-size: 14.5rem;
       color: var(--burgundy);
       font-weight: normal;
       text-align: center;
-      line-height: 1;
+      line-height: 1.61;
       direction: rtl;
+    }
+
+    /* Groupes optiques (prototype) : nudge vertical partagé, aucun réglage par lettre */
+    .main-letter.letter-optic-high {
+      transform: translateY(30px);
+    }
+    .main-letter.letter-optic-low {
+      transform: translateY(-30px);
     }
 
     .btn-audio {
@@ -505,7 +514,7 @@
       .scene { height: 690px; }
       .face { padding: 30px 20px; }
       .front-center { padding-bottom: 110px; }
-      .main-letter { font-size: 13rem; }
+      .main-letter { font-size: 13rem; line-height: 1; }
       .btn-audio { bottom: -6px; }
       .pedagogical-grid { gap: 10px; padding: 0; }
       .ar-word { font-size: 2.7rem; height: 65px; margin-bottom: 14px; }
@@ -575,17 +584,13 @@
   </div>
 
   <div id="card-view" class="view hidden">
-    <a href="module1.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     <div class="card-view-header">
-      <button class="btn-back" onclick="showHome()">
-        <span>&larr;</span> Retour / Volver
-      </button>
-
       <div class="nav-group">
-        <button class="btn-nav" id="btn-prev" onclick="prevCard(event)">&larr; Préc.</button>
+        <button class="btn-nav" id="btn-prev" onclick="prevCard(event)" aria-label="Précédent">&larr;</button>
         <div class="letter-counter" id="letter-counter">1 / 28</div>
-        <button class="btn-nav" id="btn-next" onclick="nextCard(event)">Suiv. &rarr;</button>
+        <button class="btn-nav" id="btn-next" onclick="nextCard(event)" aria-label="Suivant">&rarr;</button>
       </div>
+      <a href="module1.html" class="btn-house-inline" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
 
     <div class="scene">
@@ -893,10 +898,21 @@
       }
     }
 
+      // Groupes optiques (prototype) : indices dans le tableau cards[]
+      // Groupe 1 - hautes (collées au titre) : Alif
+      // Groupe 2 - descendantes (collées au micro) : Jim, Haa, Khaa, Miim, Ayn, Ghayn, Yaa
+      // Groupe 3 - équilibrées : toutes les autres (aucune classe)
+      const OPTIC_GROUPS = { 0: "high", 4: "low", 5: "low", 6: "low", 17: "low", 18: "low", 23: "low", 27: "low" };
+
     function renderCard() {
       const card = cards[currentIndex];
 
-      document.getElementById("main-letter").textContent = card.letter;
+      const mainLetterEl = document.getElementById("main-letter");
+      mainLetterEl.textContent = card.letter;
+      mainLetterEl.classList.remove("letter-optic-high", "letter-optic-low");
+      const opticGroup = OPTIC_GROUPS[currentIndex];
+      if (opticGroup === "high") mainLetterEl.classList.add("letter-optic-high");
+      else if (opticGroup === "low") mainLetterEl.classList.add("letter-optic-low");
       document.getElementById("front-fr").textContent = card.fr;
       document.getElementById("front-es").textContent = card.es;
 

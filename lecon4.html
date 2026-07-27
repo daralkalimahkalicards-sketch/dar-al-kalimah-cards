@@ -104,56 +104,11 @@
       align-items: center;
     }
 
-    .app-header {
-      width: 100%;
-      max-width: 1000px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      padding: 0 10px;
-      gap: 16px;
-    }
-
-    .progress-counter {
-      background: var(--white);
-      color: var(--burgundy);
-      padding: 10px 25px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(200, 164, 98, 0.3);
-      letter-spacing: 1.5px;
-      min-height: var(--tap-size);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-home {
-      color: var(--gold);
-      font-size: 2rem;
-      text-decoration: none;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      transition: var(--transition-smooth);
-      background: transparent;
-      border: none;
-      min-width: var(--tap-size);
-      min-height: var(--tap-size);
-      cursor: pointer;
-      outline: none;
-      flex-shrink: 0;
-    }
-
-    .btn-home:hover,
-    .btn-home:focus-visible {
-      transform: scale(1.1);
-      color: var(--burgundy);
-      outline: none;
-    }
+    .card-view-header { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .nav-group { display: flex; align-items: center; gap: 8px; }
+    .letter-counter { font-size: 0.95rem; color: var(--burgundy); opacity: 0.8; min-width: 95px; text-align: center; }
+    .btn-house-inline { color: var(--gold); font-size: 1.3rem; text-decoration: none; transition: transform 0.3s ease, color 0.3s ease; padding: 5px; display: flex; align-items: center; }
+    .btn-house-inline:hover { transform: scale(1.1); color: var(--gold-light); }
 
     .card-container {
       width: 100%;
@@ -389,8 +344,7 @@
     }
 
     .btn-audio-small:hover,
-    .btn-audio-small:focus-visible,
-    .btn-audio-small.is-playing {
+    .btn-audio-small:focus-visible {
       transform: scale(1.08);
       background: var(--gold);
       color: var(--white);
@@ -420,56 +374,9 @@
       font-style: italic;
     }
 
-    .nav-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 950px;
-      gap: 20px;
-    }
-
-    .btn-nav {
-      background: var(--white);
-      border: 1px solid rgba(200, 164, 98, 0.5);
-      color: var(--burgundy);
-      padding: 20px 40px;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      box-shadow: var(--shadow-soft);
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      min-height: 52px;
-      font-family: "Montserrat", sans-serif;
-      outline: none;
-      touch-action: manipulation;
-    }
-
-    .btn-nav:hover,
-    .btn-nav:focus-visible {
-      background: var(--burgundy);
-      color: var(--white);
-      border-color: var(--burgundy);
-      transform: translateY(-3px);
-      outline: none;
-    }
-
-    .btn-nav:disabled {
-      opacity: 0.4;
-      pointer-events: none;
-      background: transparent;
-      border-color: #ccc;
-      color: #999;
-      box-shadow: none;
-    }
+    .btn-nav { background: none; border: none; color: var(--gold); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 300; padding: 6px 8px; transition: color 0.3s ease; }
+    .btn-nav:hover { color: var(--gold); }
+    .btn-nav:disabled { opacity: 0.35; pointer-events: none; }
 
     @media (max-width: 768px) {
       .content-wrap {
@@ -498,10 +405,7 @@
           calc(12px + var(--safe-left));
       }
 
-      .app-header {
-        padding: 0 2px;
-        margin-bottom: 20px;
-      }
+      .card-view-header { justify-content: center; }
 
       .brand-ar-top {
         font-size: 2rem;
@@ -510,11 +414,6 @@
       .brand-fr {
         font-size: 0.82rem;
         letter-spacing: 4px;
-      }
-
-      .btn-nav {
-        font-size: 0.95rem;
-        padding: 15px 20px;
       }
 
       .rules-stack {
@@ -536,23 +435,13 @@
       }
     }
 
-    @media (max-width: 360px) {
-      .btn-nav {
-        font-size: 0.85rem;
-        padding: 12px 15px;
-        letter-spacing: 1px;
-      }
-
-      .progress-counter {
-        font-size: 0.95rem;
-        padding: 8px 18px;
-      }
-    }
 
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -578,14 +467,16 @@
 <body>
   <div class="page-shell">
 
-    <header class="app-header">
-      <div class="progress-counter">
-        <span id="current-index">1</span> / <span id="total-cards">8</span>
+    <div class="card-view-header">
+      <div class="nav-group">
+        <button class="btn-nav" id="btn-prev" type="button" aria-label="Carte précédente">&larr;</button>
+        <div class="letter-counter" id="letter-counter"><span id="current-index">1</span> / <span id="total-cards">8</span></div>
+        <button class="btn-nav" id="btn-next" type="button" aria-label="Carte suivante">&rarr;</button>
       </div>
-      <a id="btn-home" href="module4.html" class="btn-home" title="Retour au menu" aria-label="Retour au menu">
+      <a id="btn-home" href="module4.html" class="btn-house-inline" aria-label="Retour au menu">
         <i class="fa-solid fa-house" aria-hidden="true"></i>
       </a>
-    </header>
+    </div>
 
     <div class="card-container" role="region" aria-label="Carte de leçon">
       <div class="card-flip" id="flashcard" role="button" aria-label="Cliquer pour retourner la carte" tabindex="0">
@@ -593,15 +484,6 @@
         <div class="card-face card-back" id="back-face"></div>
       </div>
     </div>
-
-    <nav class="nav-controls" aria-label="Navigation entre les cartes">
-      <button class="btn-nav" id="btn-prev" type="button" aria-label="Carte précédente">
-        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Précédent
-      </button>
-      <button class="btn-nav" id="btn-next" type="button" aria-label="Carte suivante">
-        Suivant <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-      </button>
-    </nav>
 
   </div>
 
@@ -630,26 +512,26 @@
       "autoPlayOnFlip": false
     },
     "audioMap": {
-      "tanwin-fath": "",
-      "tanwin-damm": "",
-      "tanwin-kasr": "",
-      "hamza-alif": "",
-      "hamza-under-alif": "",
-      "hamza-waw": "",
-      "hamza-ya": "",
-      "hamza-line": "",
-      "kasra": "",
-      "damma": "",
-      "fatha": "",
-      "sukoun": "",
-      "chair-ya": "",
-      "chair-waw": "",
-      "chair-alif": "",
-      "wasl-sign": "",
-      "wasl-al": "",
-      "wasl-ism-ibn": "",
-      "wasl-verbs-i": "",
-      "wasl-verbs-u": ""
+      "tanwin-fath": "audio/module4/tanwin-fath.mp3",
+      "tanwin-damm": "audio/module4/tanwin-damm.mp3",
+      "tanwin-kasr": "audio/module4/tanwin-kasr.mp3",
+      "hamza-alif": "audio/module4/hamza-alif.mp3",
+      "hamza-under-alif": "audio/module4/hamza-under-alif.mp3",
+      "hamza-waw": "audio/module4/hamza-waw.mp3",
+      "hamza-ya": "audio/module4/hamza-ya.mp3",
+      "hamza-line": "audio/module4/hamza-line.mp3",
+      "kasra": "audio/module4/kasra.mp3",
+      "damma": "audio/module4/damma.mp3",
+      "fatha": "audio/module4/fatha.mp3",
+      "sukoun": "audio/module4/sukoun.mp3",
+      "chair-ya": "audio/module4/hamza-ya.mp3",
+      "chair-waw": "audio/module4/hamza-waw.mp3",
+      "chair-alif": "audio/module4/hamza-alif.mp3",
+      "wasl-sign": "audio/module4/wasl-sign.mp3",
+      "wasl-al": "audio/module4/wasl-al.mp3",
+      "wasl-ism-ibn": "audio/module4/wasl-ism-ibn.mp3",
+      "wasl-verbs-i": "audio/module4/wasl-verbs-i.mp3",
+      "wasl-verbs-u": "audio/module4/wasl-verbs-u.mp3"
     },
     "lessonData": [
       {
@@ -801,68 +683,6 @@
         btnHome: $("btn-home")
       };
 
-      const AudioController = {
-        player: new Audio(),
-        currentBtn: null,
-        isUnlocked: false,
-
-        init() {
-          this.player.preload = "auto";
-          this.player.playsInline = true;
-          this.player.volume = 1;
-          this.player.addEventListener("ended", () => this.resetPlayingState());
-          this.player.addEventListener("pause", () => this.resetPlayingState());
-        },
-
-        async unlock() {
-          if (this.isUnlocked) return true;
-          try {
-            this.player.muted = true;
-            await this.player.play().catch(() => {});
-            this.player.pause();
-            this.player.currentTime = 0;
-            this.player.muted = false;
-            this.isUnlocked = true;
-            return true;
-          } catch (_) {
-            this.player.muted = false;
-            return false;
-          }
-        },
-
-        async play(src, btn = null) {
-          if (!src) return false;
-          try {
-            await this.unlock();
-            this.resetPlayingState();
-            this.currentBtn = btn;
-            if (this.currentBtn) this.currentBtn.classList.add("is-playing");
-            this.player.pause();
-            this.player.currentTime = 0;
-            this.player.src = src;
-            this.player.load();
-            await this.player.play();
-            return true;
-          } catch (err) {
-            console.warn("Audio non lu :", src, err);
-            this.resetPlayingState();
-            return false;
-          }
-        },
-
-        pause() {
-          this.player.pause();
-          this.resetPlayingState();
-        },
-
-        resetPlayingState() {
-          if (this.currentBtn) {
-            this.currentBtn.classList.remove("is-playing");
-            this.currentBtn = null;
-          }
-        }
-      };
-
       const PWAController = {
         ensureManifest() {
           if (document.querySelector('link[rel="manifest"]')) return;
@@ -1009,7 +829,6 @@
         },
 
         init() {
-          AudioController.init();
           PWAController.ensureManifest();
           document.title = DATA.meta.pageTitle;
           DOM.btnHome.href = DATA.meta.homeHref;
@@ -1114,7 +933,7 @@
         renderCard(index) {
           const data = DATA.lessonData[index];
           DOM.currentIndex.textContent = index + 1;
-          AudioController.pause();
+          DAKAudio.stopAll();
 
           const doRender = () => {
             this.updateFront(data);
@@ -1195,7 +1014,7 @@
           if (!DATA.settings.enableFlip) return;
           this.state.isFlipped = !this.state.isFlipped;
           DOM.flashcard.classList.toggle("is-flipped");
-          if (!this.state.isFlipped) AudioController.pause();
+          if (!this.state.isFlipped) DAKAudio.stopAll();
         },
 
         handleAudioBtn(event, btn) {
@@ -1204,7 +1023,7 @@
           const audioKey = btn.dataset.audioKey || "";
           const src = DATA.audioMap[audioKey] || "";
           if (!src) return;
-          AudioController.play(src, btn);
+          DAKAudio.play(src, btn);
         },
 
         nextCard() {
@@ -1259,7 +1078,7 @@
           }, { passive: true });
 
           document.addEventListener("visibilitychange", () => {
-            if (document.hidden) AudioController.pause();
+            if (document.hidden) DAKAudio.stopAll();
           });
         }
       };

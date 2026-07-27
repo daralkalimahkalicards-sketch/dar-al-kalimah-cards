@@ -54,11 +54,11 @@
     .theme-title-es{font-size:1rem;color:#888;font-style:italic;}
     /* FLASHCARDS */
     .lesson-top-bar{width:100%;max-width:1000px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-    .pill-counter{background:var(--burgundy);color:var(--white);padding:8px 22px;border-radius:999px;font-weight:700;font-size:1.1rem;letter-spacing:1px;}
+    #view-cards .pill-counter{background:none;color:var(--burgundy);opacity:0.8;padding:0;border-radius:0;font-weight:400;font-size:0.95rem;letter-spacing:normal;min-width:95px;text-align:center;}
     .btn-house-lesson{color:var(--gold);font-size:1.8rem;transition:var(--transition);}
-    .nav-inline-group{display:flex;align-items:center;gap:10px;}
-    .btn-nav-inline{font-size:1.4rem;transition:var(--transition);}
-    .btn-nav-inline:hover{transform:scale(1.1);}
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .btn-nav-inline{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav-inline:hover{color:var(--gold);}
     .btn-nav-inline:disabled{opacity:0.35;pointer-events:none;}
     .lesson-branding{text-align:center;margin-bottom:30px;}
     .lesson-brand-ar{font-size:3rem;color:var(--gold);line-height:1;margin-bottom:5px;font-weight:normal;}
@@ -77,12 +77,6 @@
     .notes-container{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;border-top:1px dashed rgba(200,164,98,0.3);padding-top:15px;}
     .fc-note-fr{font-size:0.9rem;color:var(--burgundy);font-weight:600;}
     .fc-note-es{font-size:0.85rem;color:#888;font-style:italic;}
-    .btn-prev{background:transparent;color:#aaa;border-color:#ddd;}
-    .btn-prev.active{color:var(--burgundy);border-color:var(--gold);}
-    .btn-prev.active:hover{background:rgba(200,164,98,0.1);}
-    .btn-next{background:var(--white);color:var(--burgundy);box-shadow:var(--shadow-soft);}
-    .btn-next:hover{background:rgba(200,164,98,0.1);}
-    .btn-next:disabled{opacity:0.35;border-color:#eee;color:#ccc;pointer-events:none;background:transparent;box-shadow:none;}
     /* LECTURE */
     .lecture-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
     .lecture-title-block{text-align:center;}
@@ -197,6 +191,8 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
     <script type="module" src="tracker-lecons.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -290,9 +286,9 @@
 <main id="view-cards" class="view hidden" aria-live="polite">
   <div class="lesson-top-bar">
     <div class="nav-inline-group">
-      <button class="btn-nav-inline btn-prev" id="btn-prev" type="button" aria-label="Précédent / Anterior"><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="btn-nav-inline btn-prev" id="btn-prev" type="button" aria-label="Précédent / Anterior">&larr;</button>
       <div class="pill-counter" id="card-counter">1 / 7</div>
-      <button class="btn-nav-inline btn-next" id="btn-next" type="button" aria-label="Suivant / Siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-nav-inline btn-next" id="btn-next" type="button" aria-label="Suivant / Siguiente">&rarr;</button>
     </div>
     <button class="btn-house-lesson" onclick="goHome()" type="button"><i class="fa-solid fa-house"></i></button>
   </div>
@@ -472,7 +468,8 @@
       mainIcon: "fa-star-and-crescent",
       type: "مَكِّيَّة", typeFr: "Makkiyah",
       ayahCount: "٧", ayahFr: "7 Versets",
-      surahNum: "٠١",
+      surahNum: "١",
+      audioFull: "audio/sourates/fatiha-complete.mp3",
       asbab: {
         ar: "سُورَةُ الْفَاتِحَةِ أُمُّ الْكِتَابِ وَالسَّبْعُ الْمَثَانِي. نَزَلَتْ بِمَكَّةَ قَبْلَ الْهِجْرَةِ. هِيَ أَوَّلُ سُورَةٍ نَزَلَتْ كَامِلَةً مِنَ الْقُرْآنِ الْكَرِيمِ.",
         fr: "Al-Fatiha est la Mère du Livre et les Sept Doubles. Révélée à La Mecque avant l'hégire. C'est la première sourate révélée intégralement.",
@@ -489,13 +486,13 @@
         es: "الصِّرَاط con صاد · tafkhîm de la lâm tras ص y ط · مَلِكِ (riwayat Warsh) · غَيْرِ = majrûr (kasra)"
       },
       ayahs: [
-        {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"*", noteFr:"La Basmalah — رِوَايَةُ وَرْش", noteEs:"La Basmalah — riwayat Warsh"},
-        {ar:"الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿١﴾", fr:"Louange à Allah, Seigneur des mondes.", es:"La alabanza pertenece a Alá, Señor de los mundos.", icon:"fa-earth-africa", emoji:"1", noteFr:"V.1 — جملة اسمية · لِلَّهِ = 2 lams (لِ + لَّهِ)", noteEs:"V.1 — Frase nominal · لِلَّهِ = 2 lams"},
-        {ar:"الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾", fr:"Le Tout Miséricordieux, le Très Miséricordieux.", es:"El Clemente, el Misericordioso.", icon:"fa-heart", emoji:"2", noteFr:"V.2 — Racine commune ر ح م · فَعْلَان vs فَعِيل", noteEs:"V.2 — Raíz común ر ح م"},
-        {ar:"مَلِكِ يَوْمِ الدِّينِ ﴿٣﴾", fr:"Souverain du Jour du Jugement.", es:"Soberano del Día del Juicio.", icon:"fa-scale-balanced", emoji:"3", noteFr:"V.3 — مَلِكِ = riwayat Warsh (فَعِل)", noteEs:"V.3 — مَلِكِ = riwayat Warsh"},
-        {ar:"إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٤﴾", fr:"C'est Toi seul que nous adorons et dont nous implorons le secours.", es:"Solo a Ti adoramos y solo a Ti pedimos ayuda.", icon:"fa-person-praying", emoji:"4", noteFr:"V.4 — Pivot ! Du خَبَر (Il) au خِطَاب (Tu)", noteEs:"V.4 — Pivote ! Del خَبَر al خِطَاب"},
-        {ar:"اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٥﴾", fr:"Guide-nous vers le droit chemin.", es:"Guíanos por el camino recto.", icon:"fa-road", emoji:"5", noteFr:"V.5 — فعل أمر · الصِّرَاط بِالصَّاد", noteEs:"V.5 — Imperativo · الصِّرَاط بِالصَّاد"},
-        {ar:"صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٦﴾", fr:"Le chemin de ceux qu'Allah a comblés de bienfaits, non des irrités ni des égarés.", es:"El camino de quienes has agraciado, no el de los iracundos ni el de los extraviados.", icon:"fa-arrows-split-up-and-left", emoji:"6", noteFr:"V.6 — غَيْرِ = مجرور (kasra) · 3 chemins : élus / irrités / égarés", noteEs:"V.6 — غَيْرِ = majrûr (kasra) · 3 caminos"}
+        {ar:"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ", fr:"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.", es:"En el nombre de Alá, el Clemente, el Misericordioso.", icon:"fa-hands-praying", emoji:"*", noteFr:"La Basmalah — رِوَايَةُ وَرْش", noteEs:"La Basmalah — riwayat Warsh", aud:"audio/sourates/basmalah.mp3"},
+        {ar:"الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿١﴾", fr:"Louange à Allah, Seigneur des mondes.", es:"La alabanza pertenece a Alá, Señor de los mundos.", icon:"fa-earth-africa", emoji:"1", noteFr:"V.1 — جملة اسمية · لِلَّهِ = 2 lams (لِ + لَّهِ)", noteEs:"V.1 — Frase nominal · لِلَّهِ = 2 lams", aud:"audio/sourates/fatiha-v1.mp3"},
+        {ar:"الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾", fr:"Le Tout Miséricordieux, le Très Miséricordieux.", es:"El Clemente, el Misericordioso.", icon:"fa-heart", emoji:"2", noteFr:"V.2 — Racine commune ر ح م · فَعْلَان vs فَعِيل", noteEs:"V.2 — Raíz común ر ح م", aud:"audio/sourates/fatiha-v2.mp3"},
+        {ar:"مَلِكِ يَوْمِ الدِّينِ ﴿٣﴾", fr:"Souverain du Jour du Jugement.", es:"Soberano del Día del Juicio.", icon:"fa-scale-balanced", emoji:"3", noteFr:"V.3 — مَلِكِ = riwayat Warsh (فَعِل)", noteEs:"V.3 — مَلِكِ = riwayat Warsh", aud:"audio/sourates/fatiha-v3.mp3"},
+        {ar:"إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٤﴾", fr:"C'est Toi seul que nous adorons et dont nous implorons le secours.", es:"Solo a Ti adoramos y solo a Ti pedimos ayuda.", icon:"fa-person-praying", emoji:"4", noteFr:"V.4 — Pivot ! Du خَبَر (Il) au خِطَاب (Tu)", noteEs:"V.4 — Pivote ! Del خَبَر al خِطَاب", aud:"audio/sourates/fatiha-v4.mp3"},
+        {ar:"اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٥﴾", fr:"Guide-nous vers le droit chemin.", es:"Guíanos por el camino recto.", icon:"fa-road", emoji:"5", noteFr:"V.5 — فعل أمر · الصِّرَاط بِالصَّاد", noteEs:"V.5 — Imperativo · الصِّرَاط بِالصَّاد", aud:"audio/sourates/fatiha-v5.mp3"},
+        {ar:"صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٦﴾", fr:"Le chemin de ceux qu'Allah a comblés de bienfaits, non des irrités ni des égarés.", es:"El camino de quienes has agraciado, no el de los iracundos ni el de los extraviados.", icon:"fa-arrows-split-up-and-left", emoji:"6", noteFr:"V.6 — غَيْرِ = مجرور (kasra) · 3 chemins : élus / irrités / égarés", noteEs:"V.6 — غَيْرِ = majrûr (kasra) · 3 caminos", aud:"audio/sourates/fatiha-v6.mp3"}
       ],
       vocab: [
         {ar:"الْحَمْدُ", fr:"La louange / L'action de grâces", es:"La alabanza", root:"ح م د"},
@@ -588,11 +585,12 @@
     showOnly("view-mode-select");
   };
 
-  window.backToSurahs = () => showOnly("view-surah-select");
+  window.backToSurahs = () => { DAKAudio.stopAll(); showOnly("view-surah-select"); };
 
-  window.goHome = () => showOnly("view-surah-select");
+  window.goHome = () => { DAKAudio.stopAll(); showOnly("view-surah-select"); };
 
   window.openFlashcards = () => {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     $("fc-brand-ar").textContent = s.titleAr;
     $("fc-brand-fr").textContent = s.titleFr.toUpperCase();
@@ -608,6 +606,7 @@
   };
 
   window.openTilawa = () => {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     tilawFlipped = false;
     $("tilawa-card-3d").classList.remove("flipped");
@@ -643,11 +642,11 @@
   };
 
   function renderCard() {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     const c = s.ayahs[cardIndex];
     $("card-counter").textContent = (cardIndex + 1) + " / " + s.ayahs.length;
     $("btn-prev").disabled = (cardIndex === 0);
-    $("btn-prev").className = cardIndex === 0 ? "btn-nav-inline btn-prev" : "btn-nav-inline btn-prev active";
     $("btn-next").disabled = (cardIndex === s.ayahs.length - 1);
   // DAK Tracker Leçon
   if (cardIndex === s.ayahs.length - 1 && window.DAK_enregistrerLecon) {
@@ -660,6 +659,11 @@
     $("fc-note-fr").textContent = c.noteFr;
     $("fc-note-es").textContent = c.noteEs;
   }
+
+  $("btn-audio").addEventListener("click", () => {
+    const c = SURAHS[currentSurahId].ayahs[cardIndex];
+    DAKAudio.play(c.aud, $("btn-audio"));
+  });
 
   $("btn-prev").addEventListener("click", () => { if (cardIndex > 0){ cardIndex--; renderCard(); } });
   $("btn-next").addEventListener("click", () => {
@@ -676,6 +680,7 @@
   let isFlipped = false;
 
   window.openLecture = () => {
+    DAKAudio.stopAll();
     const s = SURAHS[currentSurahId];
     $("lect-brand-ar").textContent = s.titleAr;
     $("lect-brand-fr").textContent = s.titleFr;
@@ -771,9 +776,14 @@
   };
 
   window.openMhk = () => {
+    DAKAudio.stopAll();
     showOnly("view-mhk");
     MHK_S.init();
   };
+
+  $("btn-tilawa-audio").addEventListener("click", () => {
+    DAKAudio.play(SURAHS[currentSurahId].audioFull, $("btn-tilawa-audio"));
+  });
 
 })();
 </script>

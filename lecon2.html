@@ -53,11 +53,12 @@
         }
         .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
 
-        /* HEADER */
-        .app-header { width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 10px; }
-        .progress-counter { background: var(--burgundy); color: var(--white); padding: 8px 20px; border-radius: 30px; font-weight: 600; font-size: 1.05rem; box-shadow: var(--shadow-soft); border: 1px solid var(--gold); }
-        .btn-home { color: var(--gold); font-size: 1.8rem; text-decoration: none; transition: 0.3s; }
-        .btn-home:hover { transform: scale(1.1); color: var(--gold-light); }
+        /* HEADER (harmonisé Leçon 1) */
+        .card-view-header { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+        .nav-group { display: flex; align-items: center; gap: 8px; }
+        .letter-counter { font-size: 0.95rem; color: var(--burgundy); opacity: 0.8; min-width: 95px; text-align: center; }
+        .btn-house-inline { color: var(--gold); font-size: 1.3rem; text-decoration: none; transition: transform 0.3s ease, color 0.3s ease; padding: 5px; display: flex; align-items: center; }
+        .btn-house-inline:hover { transform: scale(1.1); color: var(--gold-light); }
 
         /* CARTE 3D */
         .card-container { width: 100%; max-width: 950px; margin-bottom: 30px; perspective: 2000px; }
@@ -151,10 +152,9 @@
         
         .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 4px; width: 100%; margin-top: auto; padding-top: 10px;}
         
-        .nav-controls { display: flex; justify-content: space-between; width: 100%; max-width: 950px; gap: 20px; }
-        .btn-nav { flex: 1; background: var(--white); border: 2px solid var(--gold); color: var(--burgundy); padding: 15px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; text-transform: uppercase; text-align: center;}
-        .btn-nav:hover { background: var(--gold); color: var(--white); transform: translateY(-3px); }
-        .btn-nav:disabled { opacity: 0.3; pointer-events: none; }
+        .btn-nav { background: none; border: none; color: var(--gold); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 300; padding: 6px 8px; transition: color 0.3s ease; }
+        .btn-nav:hover { color: var(--gold); }
+        .btn-nav:disabled { opacity: 0.35; pointer-events: none; }
 
         /* =========================================
            RESPONSIVE MOBILE (GRILLE 2x2 POUR 4 COLONNES)
@@ -181,7 +181,9 @@
         /* Guard auth */
         body { visibility: hidden; }
     </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -206,9 +208,13 @@
 </head>
 <body>
 
-    <div class="app-header">
-        <div class="progress-counter"><span id="current-index">1</span> / 28</div>
-        <a href="module2.html" class="btn-home" title="Retour au menu"><i class="fa-solid fa-house"></i></a>
+    <div class="card-view-header">
+      <div class="nav-group">
+        <button class="btn-nav" id="btn-prev" onclick="prevCard()" aria-label="Précédent">&larr;</button>
+        <div class="letter-counter" id="letter-counter">1 / 28</div>
+        <button class="btn-nav" id="btn-next" onclick="nextCard()" aria-label="Suivant">&rarr;</button>
+      </div>
+      <a href="module2.html" class="btn-house-inline" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
 
     <div class="card-container">
@@ -329,11 +335,6 @@
         </div>
     </div>
 
-    <div class="nav-controls">
-        <button class="btn-nav" id="btn-prev" onclick="prevCard()"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-        <button class="btn-nav" id="btn-next" onclick="nextCard()">Suivant <i class="fa-solid fa-arrow-right"></i></button>
-    </div>
-
     <script>
         const alphabetData = [
             { letter: "أ", nameFr: "Alif", nameEs: "Álif", audioMain: "audio/01-alif.mp3",
@@ -394,7 +395,7 @@
               fathah: { form: "رَ", audio: "audio/harakat/raa-fathah.mp3", exAr: "رَجُل", exFr: "Homme", exEs: "Hombre" },
               dammah: { form: "رُ", audio: "audio/harakat/raa-dammah.mp3", exAr: "رُمَّان", exFr: "Grenade", exEs: "Granada" },
               kasrah: { form: "رِ", audio: "audio/harakat/raa-kasrah.mp3", exAr: "رِيشَة", exFr: "Plume", exEs: "Pluma" },
-              soukoun:{ form: "رْ", audio: "audio/harakat/raa-soukoun.mp3", exAr: "قَرْية", exFr: "Village", exEs: "Pueblo" } },
+              soukoun:{ form: "رْ", audio: "audio/harakat/raa-soukoun.mp3", exAr: "قَرْيَة", exFr: "Village", exEs: "Pueblo" } },
               
             { letter: "ز", nameFr: "Zây", nameEs: "Zây", audioMain: "audio/11-zay.mp3",
               fathah: { form: "زَ", audio: "audio/harakat/zay-fathah.mp3", exAr: "زَرَافَة", exFr: "Girafe", exEs: "Jirafa" },
@@ -404,7 +405,7 @@
               
             { letter: "س", nameFr: "Sîn", nameEs: "Sîn", audioMain: "audio/12-siin.mp3",
               fathah: { form: "سَ", audio: "audio/harakat/siin-fathah.mp3", exAr: "سَمَكَة", exFr: "Poisson", exEs: "Pez" },
-              dammah: { form: "سُ", audio: "audio/harakat/siin-dammah.mp3", exAr: "سُلْحَفَاة", exFr: "Tortue", exEs: "Tortuga" },
+              dammah: { form: "سُ", audio: "audio/harakat/siin-dammah.mp3", exAr: "سُلَحْفَاة", exFr: "Tortue", exEs: "Tortuga" },
               kasrah: { form: "سِ", audio: "audio/harakat/siin-kasrah.mp3", exAr: "سِتَّار", exFr: "Rideau", exEs: "Cortina" },
               soukoun:{ form: "سْ", audio: "audio/harakat/siin-soukoun.mp3", exAr: "مَسْجِد", exFr: "Mosquée", exEs: "Mezquita" } },
               
@@ -477,7 +478,7 @@
             { letter: "م", nameFr: "Mîm", nameEs: "Mîm", audioMain: "audio/24-miim.mp3",
               fathah: { form: "مَ", audio: "audio/harakat/miim-fathah.mp3", exAr: "مَطَر", exFr: "Pluie", exEs: "Lluvia" },
               dammah: { form: "مُ", audio: "audio/harakat/miim-dammah.mp3", exAr: "مُعَلِّم", exFr: "Professeur", exEs: "Profesor" },
-              kasrah: { form: "مِ", audio: "audio/harakat/miim-kasrah.mp3", exAr: "مِقَص", exFr: "Ciseaux", exEs: "Tijeras" },
+              kasrah: { form: "مِ", audio: "audio/harakat/miim-kasrah.mp3", exAr: "مِقَصّ", exFr: "Ciseaux", exEs: "Tijeras" },
               soukoun:{ form: "مْ", audio: "audio/harakat/miim-soukoun.mp3", exAr: "شَمْس", exFr: "Soleil", exEs: "Sol" } },
               
             { letter: "ن", nameFr: "Nûn", nameEs: "Nûn", audioMain: "audio/25-nuun.mp3",
@@ -489,7 +490,7 @@
             { letter: "ه", nameFr: "Hâ'", nameEs: "Hâ'", audioMain: "audio/26-haaa.mp3",
               fathah: { form: "هَ", audio: "audio/harakat/haaa-fathah.mp3", exAr: "هَرَم", exFr: "Pyramide", exEs: "Pirámide" },
               dammah: { form: "هُ", audio: "audio/harakat/haaa-dammah.mp3", exAr: "هُدْهُد", exFr: "Huppe", exEs: "Abubilla" },
-              kasrah: { form: "هِ", audio: "audio/harakat/haaa-kasrah.mp3", exAr: "هِلال", exFr: "Croissant", exEs: "Media luna" },
+              kasrah: { form: "هِ", audio: "audio/harakat/haaa-kasrah.mp3", exAr: "هِلَال", exFr: "Croissant", exEs: "Media luna" },
               soukoun:{ form: "هْ", audio: "audio/harakat/haaa-soukoun.mp3", exAr: "فَهْد", exFr: "Guépard", exEs: "Guepardo" } },
               
             { letter: "و", nameFr: "Wâw", nameEs: "Wâw", audioMain: "audio/27-waaw.mp3",
@@ -505,7 +506,7 @@
               soukoun:{ form: "يْ", audio: "audio/harakat/yaa-soukoun.mp3", exAr: "بَيْت", exFr: "Maison", exEs: "Casa" } }
         ];
 
-        let currentIndex = 0; let isFlipped = false; let currentAudio = new Audio();
+        let currentIndex = 0; let isFlipped = false;
 
         // FONCTION MAGIQUE POUR COLORER UNIQUEMENT LA LETTRE CIBLÉE
         function highlightHarakah(word, form) {
@@ -516,7 +517,9 @@
         function renderCard(index) {
             console.log("DAK DEBUG renderCard — index:", index, "/ total:", alphabetData.length);
             const data = alphabetData[index];
-            document.getElementById('current-index').innerText = index + 1;
+            document.getElementById('letter-counter').textContent = `${index + 1} / ${alphabetData.length}`;
+            document.getElementById('btn-prev').disabled = (index === 0);
+            document.getElementById('btn-next').disabled = (index === alphabetData.length - 1);
             document.getElementById('front-letter').innerText = data.letter;
             document.getElementById('front-ph-fr').innerText = data.nameFr;
             document.getElementById('front-ph-es').innerText = data.nameEs;
@@ -558,9 +561,8 @@
             el.classList.add('active');
         }
 
-        function playMainAudio(e) { e.stopPropagation(); playAudio(alphabetData[currentIndex].audioMain); }
-        function playHarakatAudio(h, e) { e.stopPropagation(); playAudio(alphabetData[currentIndex][h].audio); }
-        function playAudio(src) { currentAudio.src = src; currentAudio.play().catch(err => console.log(err)); }
+        function playMainAudio(e) { e.stopPropagation(); DAKAudio.play(alphabetData[currentIndex].audioMain, e.currentTarget); }
+        function playHarakatAudio(h, e) { e.stopPropagation(); DAKAudio.play(alphabetData[currentIndex][h].audio, e.currentTarget); }
 
         // DAK Tracker — attend que tracker-lecons.js soit prêt
         var _leconEnregistree = false;
