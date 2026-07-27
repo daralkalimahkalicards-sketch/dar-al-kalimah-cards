@@ -7,11 +7,13 @@
   <meta name="theme-color" content="#5D1828">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dar Al-Kalima - Ardoise de Dictée</title>
+    <title>Dar Al-Kalimah - Ardoise de Dictée</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="slate-tools.css">
+    <script src="slate-tools.js"></script>
+
     <style>
         /* =========================================
            LE COFFRE-FORT : VARIABLES PREMIUM
@@ -101,7 +103,7 @@
         <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-right"></i> القائمة / Menu</a>
         <div class="brand-ar ar-text">اللوح الحر</div>
         <div class="brand-fr-es serif-text">L'Ardoise Libre | La Pizarra Libre</div>
-        <div class="app-title serif-text">Dar Al-Kalima</div>
+        <div class="app-title serif-text">Dar Al-Kalimah</div>
         <div class="trilingual-title">
             <span>إملاء وتدريب</span> | <span>Dictée & Entraînement</span> | <span>Dictado & Práctica</span>
         </div>
@@ -112,11 +114,10 @@
             <div class="slate-title ar-text">
                 مساحة الإملاء <span>Espace Dictée / Espacio de Dictado</span>
             </div>
-            <div class="slate-controls">
-                <button class="btn-slate" onclick="clearSlate()"><i class="fa-solid fa-eraser"></i> مسح / Effacer / Borrar</button>
-            </div>
         </div>
-        
+
+        <div id="pen-toolbar-mount"></div>
+
         <div class="slate-container">
             <canvas id="slate-canvas" class="slate-canvas"></canvas>
         </div>
@@ -132,16 +133,15 @@
         let lastX = 0; 
         let lastY = 0;
 
+        const slateTools = SlateTools.createController({ penWidth: 6, eraserWidth: 22 });
+
         function resizeCanvas() {
             // Ajuste la taille du canvas à la taille de son conteneur
-            canvas.width = canvas.offsetWidth; 
+            canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
-            
-            // Style du stylo (Bordeaux premium Dar Al-Kalima)
-            ctx.lineWidth = 6; 
-            ctx.lineCap = "round"; 
-            ctx.lineJoin = "round"; 
-            ctx.strokeStyle = "#5D1828";
+
+            // Style du stylo (couleur/gomme géré par le composant partagé slate-tools.js)
+            slateTools.applyStyle(ctx);
         }
 
         function getPos(e) {
@@ -195,6 +195,9 @@
         
         // Redimensionnement de la fenêtre
         window.addEventListener("resize", resizeCanvas);
+
+        // Palette de stylo + gomme + tout effacer (composant partagé)
+        slateTools.mount(document.getElementById("pen-toolbar-mount"), ctx, clearSlate);
 
         // Lancement au démarrage
         window.onload = () => {

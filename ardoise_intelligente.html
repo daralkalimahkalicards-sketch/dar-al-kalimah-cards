@@ -19,6 +19,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="slate-tools.css" />
+  <script src="slate-tools.js"></script>
 
   <style>
     :root {
@@ -1340,12 +1342,10 @@
                 <i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i>
                 <span>إعادة التوجيه</span>
               </button>
-              <button id="btn-clear-slate" class="btn-slate" type="button">
-                <i class="fa-solid fa-eraser" aria-hidden="true"></i>
-                <span>مسح / Effacer</span>
-              </button>
             </div>
           </div>
+
+          <div id="pen-toolbar-mount"></div>
 
           <div class="slate-container">
             <div id="slate-watermark" class="slate-watermark"></div>
@@ -1809,7 +1809,6 @@
         promptValue: $("prompt-value"),
 
         btnReplayArrow: $("btn-replay-arrow"),
-        btnClearSlate: $("btn-clear-slate"),
         slateWatermark: $("slate-watermark"),
         arrowOverlay: $("arrow-overlay"),
         slateCanvas: $("slate-canvas"),
@@ -2049,6 +2048,11 @@
         }
       };
 
+      const slateTools = SlateTools.createController({
+        penWidth: window.innerWidth <= 480 ? 4.5 : 6,
+        eraserWidth: 22
+      });
+
       const SlateController = {
         canvas: null,
         ctx: null,
@@ -2071,6 +2075,11 @@
           this.canvas.addEventListener("touchmove", (e) => this.draw(e), { passive: false });
 
           window.addEventListener("resize", () => this.resizeCanvas());
+
+          slateTools.mount(document.getElementById("pen-toolbar-mount"), this.ctx, () => {
+            this.clear();
+            Utils.setStatus(DOM.slateStatus, "warning", "تم مسح اللوح. / L’ardoise a été effacée. / La pizarra ha sido borrada.");
+          });
         },
 
         resizeCanvas() {
@@ -2079,10 +2088,8 @@
           this.canvas.width = width;
           this.canvas.height = height;
 
-          this.ctx.lineWidth = window.innerWidth <= 480 ? 4.5 : 6;
-          this.ctx.lineCap = "round";
-          this.ctx.lineJoin = "round";
-          this.ctx.strokeStyle = "#5D1828";
+          slateTools.setPenWidth(window.innerWidth <= 480 ? 4.5 : 6);
+          slateTools.applyStyle(this.ctx);
         },
 
         getPos(e) {
@@ -2190,11 +2197,6 @@
           DOM.btnRandomLetter.addEventListener("click", () => this.pickRandomLetter());
           DOM.btnRandomWord.addEventListener("click", () => this.pickRandomWord());
           DOM.btnNextPrompt.addEventListener("click", () => this.updatePrompt("random"));
-
-          DOM.btnClearSlate.addEventListener("click", () => {
-            SlateController.clear();
-            Utils.setStatus(DOM.slateStatus, "warning", "تم مسح اللوح. / L’ardoise a été effacée. / La pizarra ha sido borrada.");
-          });
 
           DOM.btnReplayArrow.addEventListener("click", () => {
             this.replayGuide();
