@@ -36,13 +36,15 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
+        html { overflow-x: hidden; }
+
         body {
             background-color: var(--bg-beige);
             background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
             font-family: 'Montserrat', sans-serif;
             color: var(--text-dark);
             display: flex; flex-direction: column; align-items: center; 
-            min-height: 100vh; padding: 20px 15px; overflow-x: hidden;
+            min-height: 100vh; padding: 20px 15px; overflow-x: hidden; overflow-y: hidden;
         }
 
         /* TYPO ARABE PARFAITE ET CORRECTION HARAKATES */
@@ -61,10 +63,10 @@
         .btn-house-inline:hover { transform: scale(1.1); color: var(--gold-light); }
 
         /* CARTE 3D */
-        .card-container { width: 100%; max-width: 950px; margin-bottom: 30px; perspective: 2000px; }
-        .card-flip { position: relative; width: 100%; min-height: 720px; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
-        .card-flip.is-flipped { transform: rotateY(180deg); }
-        .card-face { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; background: var(--white); border-radius: 24px; box-shadow: var(--shadow-card); border: 1px solid rgba(200, 164, 98, 0.4); display: flex; flex-direction: column; overflow: hidden; }
+        .scene { width: 100%; max-width: 950px; height: 720px; margin-bottom: 30px; perspective: 2000px; cursor: pointer; }
+        .card-container { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .card-container.flipped { transform: rotateY(180deg); }
+        .face { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; background: var(--white); border-radius: 24px; box-shadow: var(--shadow-card); border: 1px solid rgba(200, 164, 98, 0.4); display: flex; flex-direction: column; overflow: hidden; }
 
         /* BRANDING */
         .card-branding { text-align: center; padding: 25px 20px 5px 20px; flex: 0 0 auto; z-index: 5;}
@@ -77,7 +79,6 @@
         /* =========================================
            FACE RECTO
            ========================================= */
-        .card-front { z-index: 2; transform: rotateY(0deg); background: var(--white); }
         .front-center-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; padding: 10px 20px; }
         
         /* CORRECTION CHIRURGICALE HARAKATES TRÈS PROCHES ET ÉLOIGNEMENT MICRO */
@@ -112,9 +113,9 @@
         /* =========================================
            FACE VERSO
            ========================================= */
-        .card-back { transform: rotateY(180deg); }
+        .back { transform: rotateY(180deg); }
 
-        .card-back .harakat-container {
+        .back .harakat-container {
             flex-grow: 1; align-items: center; border-top: none; padding-top: 0;
         }
 
@@ -160,15 +161,11 @@
            RESPONSIVE MOBILE (GRILLE 2x2 POUR 4 COLONNES)
            ========================================= */
         @media (max-width: 768px) {
-            .card-flip { min-height: auto; }
-            .card-face { position: relative; height: auto; display: none; }
-            .card-flip:not(.is-flipped) .card-front { display: flex; }
-            .card-flip.is-flipped .card-back { display: flex; transform: rotateY(0); }
-            
+            .scene { height: 860px; }
             .main-letter { font-size: 5rem !important; margin-bottom: 60px !important; }
-            
+
             .harakat-container { display: grid !important; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px 10px 25px 10px; flex-shrink: 0; }
-            .card-back .harakat-container { align-items: stretch; }
+            .back .harakat-container { align-items: stretch; }
             .harakat-col, .verso-col { margin: 0; padding: 20px 5px; }
             
             .col-form, .verso-form { font-size: 2.8rem !important; margin-bottom: 10px; }
@@ -231,10 +228,10 @@
       <a href="module2.html" class="btn-house-inline" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
 
-    <div class="card-container">
-        <div class="card-flip" id="flashcard" onclick="toggleFlip(event)">
-            
-            <div class="card-face card-front">
+    <div class="scene">
+        <div class="card-container" id="flashcard">
+
+            <div class="face front">
                 <i class="fa-solid fa-rotate flip-hint"></i>
                 <div class="card-branding">
                     <div class="brand-ar-top ar-text">دار الكلمة</div>
@@ -291,7 +288,7 @@
                 </div>
             </div>
 
-            <div class="card-face card-back">
+            <div class="face back">
                 <i class="fa-solid fa-rotate flip-hint"></i>
                 <div class="card-branding">
                     <div class="brand-ar-top ar-text">دار الكلمة</div>
@@ -520,7 +517,7 @@
               soukoun:{ form: "يْ", audio: "audio/harakat/yaa-soukoun.mp3", exAr: "بَيْت", exFr: "Maison", exEs: "Casa" } }
         ];
 
-        let currentIndex = 0; let isFlipped = false;
+        let currentIndex = 0;
 
         // FONCTION MAGIQUE POUR COLORER UNIQUEMENT LA LETTRE CIBLÉE
         function highlightHarakah(word, form) {
@@ -530,6 +527,7 @@
 
         function renderCard(index) {
             console.log("DAK DEBUG renderCard — index:", index, "/ total:", alphabetData.length);
+            document.getElementById('flashcard').classList.remove('flipped');
             const data = alphabetData[index];
             document.getElementById('letter-counter').textContent = `${index + 1} / ${alphabetData.length}`;
             document.getElementById('btn-prev').disabled = (index === 0);
@@ -560,17 +558,9 @@
             }
         }
 
-        function toggleFlip(event) {
-            if (event.target.closest('button')) return;
-            if (event.target.closest('.harakat-col') && !isFlipped) return;
-            if (event.target.closest('.verso-col') && isFlipped) return;
-            isFlipped = !isFlipped;
-            document.getElementById('flashcard').classList.toggle('is-flipped');
-        }
-
         function activateColumn(el, event) {
             event.stopPropagation();
-            const parent = el.closest('.card-face');
+            const parent = el.closest('.face');
             parent.querySelectorAll('.harakat-col, .verso-col').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
         }
@@ -607,6 +597,10 @@
                 function nextCard() { if (currentIndex < alphabetData.length - 1) { currentIndex++; renderCard(currentIndex); } }
         function prevCard() { if (currentIndex > 0) { currentIndex--; renderCard(currentIndex); } }
 
+        document.getElementById('flashcard').addEventListener('click', () => {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        });
+
         document.addEventListener('DOMContentLoaded', () => renderCard(0));
     </script>
 <script>
@@ -619,6 +613,96 @@ if ('serviceWorker' in navigator) {
     window.location.reload();
   });
 }
+</script>
+<script>
+/* ===== INSTRUMENTATION TEMPORAIRE DE DIAGNOSTIC — A SUPPRIMER APRES AUDIT ===== */
+(function(){
+  var LOG_URL = 'http://192.168.1.138:8000/__log';
+  var t0 = performance.now();
+  var clickCount = 0;
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:2147483647;background:rgba(0,0,0,0.85);color:#0f0;font:10px monospace;padding:6px;max-height:40vh;overflow:auto;white-space:pre-wrap;pointer-events:none;';
+  overlay.id = '__diag_overlay';
+  document.documentElement.appendChild(overlay);
+
+  function describe(el){
+    if (!el) return { exists:false };
+    var r = el.getBoundingClientRect();
+    var cs = getComputedStyle(el);
+    var cx = r.left + r.width/2, cy = r.top + r.height/2;
+    var topEl = null;
+    try { topEl = document.elementFromPoint(cx, cy); } catch(e){}
+    var topDesc = topEl ? (topEl.id ? ('#'+topEl.id) : (topEl.className ? ('.'+String(topEl.className).split(' ').join('.')) : topEl.tagName)) : null;
+    return {
+      exists: true,
+      inDom: document.documentElement.contains(el),
+      rect: { x:+r.x.toFixed(1), y:+r.y.toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1), top:+r.top.toFixed(1), left:+r.left.toFixed(1), right:+r.right.toFixed(1), bottom:+r.bottom.toFixed(1) },
+      display: cs.display,
+      visibility: cs.visibility,
+      opacity: cs.opacity,
+      transform: cs.transform,
+      position: cs.position,
+      zIndex: cs.zIndex,
+      overflow: cs.overflow,
+      overflowX: cs.overflowX,
+      overflowY: cs.overflowY,
+      elementAtCenter: topDesc,
+      isSelfAtCenter: topEl === el || (el.contains && topEl && el.contains(topEl))
+    };
+  }
+
+  function snapshot(label){
+    var scene = document.querySelector('.scene');
+    var card = document.getElementById('flashcard');
+    var front = card ? card.querySelector('.face.front') : null;
+    var back = card ? card.querySelector('.face.back') : null;
+    var data = {
+      label: label,
+      t: +(performance.now() - t0).toFixed(1),
+      clickCount: clickCount,
+      viewport: { w: window.innerWidth, h: window.innerHeight },
+      scrollX: window.scrollX, scrollY: window.scrollY,
+      flippedClass: card ? card.className : null,
+      scene: describe(scene),
+      card: describe(card),
+      front: describe(front),
+      back: describe(back)
+    };
+    try {
+      fetch(LOG_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify(data), keepalive:true }).catch(function(){});
+    } catch(e){}
+    overlay.textContent = '[' + label + ' t=' + data.t + 'ms click#' + clickCount + ']\n' +
+      'scene: ' + (data.scene.exists ? (data.scene.w0h0?'':'' ) : 'ABSENT') + ' w=' + (data.scene.rect?data.scene.rect.w:'-') + ' h=' + (data.scene.rect?data.scene.rect.h:'-') + ' disp=' + data.scene.display + ' vis=' + data.scene.visibility + ' op=' + data.scene.opacity + '\n' +
+      'card:  ' + (data.card.exists ? '' : 'ABSENT') + ' w=' + (data.card.rect?data.card.rect.w:'-') + ' h=' + (data.card.rect?data.card.rect.h:'-') + ' disp=' + data.card.display + ' vis=' + data.card.visibility + ' op=' + data.card.opacity + ' z=' + data.card.zIndex + ' top=' + data.card.elementAtCenter + '\n' +
+      'front: ' + (data.front.exists ? '' : 'ABSENT') + ' w=' + (data.front.rect?data.front.rect.w:'-') + ' h=' + (data.front.rect?data.front.rect.h:'-') + ' disp=' + data.front.display + '\n' +
+      'back:  ' + (data.back.exists ? '' : 'ABSENT') + ' w=' + (data.back.rect?data.back.rect.w:'-') + ' h=' + (data.back.rect?data.back.rect.h:'-') + ' disp=' + data.back.display;
+    return data;
+  }
+
+  function burst(label, durationMs, intervalMs){
+    var start = performance.now();
+    function tick(){
+      snapshot(label);
+      if (performance.now() - start < durationMs) setTimeout(tick, intervalMs);
+    }
+    tick();
+  }
+
+  // Heartbeat au chargement
+  burst('load', 3000, 200);
+
+  // Capture a chaque clic sur la carte, en continu pendant 3s apres
+  document.addEventListener('click', function(e){
+    var card = document.getElementById('flashcard');
+    if (card && (e.target === card || card.contains(e.target))) {
+      clickCount++;
+      burst('click' + clickCount, 3000, 80);
+    }
+  }, true);
+
+  // Heartbeat permanent lent en fond (detecte une disparition sans clic)
+  setInterval(function(){ snapshot('heartbeat'); }, 2000);
+})();
 </script>
 </body>
 </html>

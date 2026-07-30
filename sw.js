@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dar-al-kalimah-v5';
+const CACHE_NAME = 'dar-al-kalimah-v6';
 const RUNTIME_CACHE = 'dar-al-kalimah-runtime';
 
 // Precache uniquement le strict minimum pour un premier chargement hors-ligne.
