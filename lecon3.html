@@ -71,21 +71,21 @@
         /* =========================================
            CONTENEUR DE LA CARTE UNIQUE 3D
            ========================================= */
-        .card-container {
-            width: 100%; max-width: 950px; margin-bottom: 30px;
+        .scene {
+            width: 100%; max-width: 950px; height: 720px; margin-bottom: 30px;
             perspective: 2000px;
-        }
-
-        .card-flip {
-            position: relative; width: 100%; 
-            min-height: 720px; 
-            transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
         }
-        .card-flip.is-flipped { transform: rotateY(180deg); }
-        
-        .card-face {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden;
+
+        .card-container {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card-container.flipped { transform: rotateY(180deg); }
+
+        .face {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             background: var(--white); border-radius: 24px; box-shadow: var(--shadow-card);
             border: 1px solid rgba(200, 164, 98, 0.4);
             display: flex; flex-direction: column; overflow: hidden;
@@ -142,71 +142,67 @@
         /* =========================================
            STYLES SPÉCIFIQUES : FACE RECTO
            ========================================= */
-        .card-front {
-            z-index: 2; transform: rotateY(0deg); background: var(--white);
-        }
-
-        .card-front .front-center-wrapper {
+        .front .front-center-wrapper {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             flex-grow: 1; padding: 10px 20px;
         }
 
-        .card-front .main-letter {
+        .front .main-letter {
             font-size: 8rem; color: var(--burgundy); font-weight: bold;
             text-shadow: 0 5px 15px rgba(93, 24, 40, 0.08); 
             margin-bottom: 25px; /* ÉLOIGNE LES LETTRES DU MICRO */
             line-height: 1.2;
         }
 
-        .card-front .main-audio-row {
+        .front .main-audio-row {
             display: flex; flex-direction: row; align-items: center; justify-content: center;
             gap: 20px; margin-top: 0px; z-index: 2;
         }
 
-        .card-front .main-ph-fr, .card-front .main-ph-es { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
-        .card-front .main-ph-es { font-size: 0.95rem; font-style: italic; font-weight: 500; text-transform: none;}
+        .front .main-ph-fr, .front .main-ph-es { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        .front .main-ph-es { font-size: 0.95rem; font-style: italic; font-weight: 500; text-transform: none;}
 
-        .card-front .btn-audio-main {
+        .front .btn-audio-main {
             background: var(--white); border: 1px solid var(--gold); color: var(--burgundy);
             width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem;
             cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(200, 164, 98, 0.15); margin: 0;
         }
-        .card-front .btn-audio-main:hover { transform: scale(1.1); background: var(--gold); color: var(--white); }
+        .front .btn-audio-main:hover { transform: scale(1.1); background: var(--gold); color: var(--white); }
 
-        .card-front .recto-modoud-container {
+        .front .recto-modoud-container {
             display: flex; flex-direction: row; justify-content: center; align-items: stretch;
             width: 100%; border-top: 1px solid rgba(200, 164, 98, 0.2); padding: 25px 15px 35px 15px; direction: rtl; 
         }
 
-        .card-front .modoud-col {
+        .front .modoud-col {
             flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
             padding: 20px 10px; border-radius: 16px; border: 1px solid rgba(200, 164, 98, 0.2);
             transition: all 0.3s ease; position: relative; margin: 0 8px; background: var(--white);
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
         
-        .card-front .modoud-col.active[data-type="alif"] { border-color: var(--color-alif); background-color: rgba(229,57,53,0.02); box-shadow: 0 6px 20px rgba(229,57,53,0.08); transform: translateY(-3px);}
-        .card-front .modoud-col.active[data-type="waw"]  { border-color: var(--color-waw); background-color: rgba(30,136,229,0.02); box-shadow: 0 6px 20px rgba(30,136,229,0.08); transform: translateY(-3px);}
-        .card-front .modoud-col.active[data-type="yaa"]  { border-color: var(--color-yaa); background-color: rgba(67,160,71,0.02); box-shadow: 0 6px 20px rgba(67,160,71,0.08); transform: translateY(-3px);}
+        .front .modoud-col.active[data-type="alif"] { border-color: var(--color-alif); background-color: rgba(229,57,53,0.02); box-shadow: 0 6px 20px rgba(229,57,53,0.08); transform: translateY(-3px);}
+        .front .modoud-col.active[data-type="waw"]  { border-color: var(--color-waw); background-color: rgba(30,136,229,0.02); box-shadow: 0 6px 20px rgba(30,136,229,0.08); transform: translateY(-3px);}
+        .front .modoud-col.active[data-type="yaa"]  { border-color: var(--color-yaa); background-color: rgba(67,160,71,0.02); box-shadow: 0 6px 20px rgba(67,160,71,0.08); transform: translateY(-3px);}
 
-        .card-front .col-title-trans { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; }
-        .card-front .col-madd-form { font-size: 3.5rem; color: var(--burgundy); font-weight: bold; margin-bottom: 15px; line-height: 1; }
-        .card-front .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: auto; border-top: 1px dashed rgba(200, 164, 98, 0.3); padding-top: 15px; }
+        .front .col-title-trans { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; }
+        .front .col-madd-form { font-size: 3.5rem; color: var(--burgundy); font-weight: bold; margin-bottom: 15px; line-height: 1; }
+        .front .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: auto; border-top: 1px dashed rgba(200, 164, 98, 0.3); padding-top: 15px; }
 
         /* =========================================
            STYLES SPÉCIFIQUES : FACE VERSO
            ========================================= */
-        .card-back {
+        .back {
             transform: rotateY(180deg);
         }
 
-        .card-back .verso-modoud-container {
+        .back .verso-modoud-container {
             display: flex; flex-direction: row; justify-content: center; align-items: stretch;
             width: 100%; padding: 10px 20px 30px 20px; flex-grow: 1; direction: rtl; 
         }
 
-        .card-back .verso-col {
+        .back .verso-col {
             flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
             background: var(--white); border-radius: 16px; padding: 20px 10px; margin: 0 8px;
             border: 1px solid rgba(200, 164, 98, 0.3); transition: all 0.3s ease; cursor: pointer;
@@ -214,28 +210,28 @@
         }
 
         /* EFFET ACTIVE SUR LE VERSO */
-        .card-back .verso-col.active[data-type="alif"] { border-color: var(--color-alif); background-color: rgba(229,57,53,0.02); box-shadow: 0 6px 20px rgba(229,57,53,0.08); transform: translateY(-3px);}
-        .card-back .verso-col.active[data-type="waw"]  { border-color: var(--color-waw); background-color: rgba(30,136,229,0.02); box-shadow: 0 6px 20px rgba(30,136,229,0.08); transform: translateY(-3px);}
-        .card-back .verso-col.active[data-type="yaa"]  { border-color: var(--color-yaa); background-color: rgba(67,160,71,0.02); box-shadow: 0 6px 20px rgba(67,160,71,0.08); transform: translateY(-3px);}
+        .back .verso-col.active[data-type="alif"] { border-color: var(--color-alif); background-color: rgba(229,57,53,0.02); box-shadow: 0 6px 20px rgba(229,57,53,0.08); transform: translateY(-3px);}
+        .back .verso-col.active[data-type="waw"]  { border-color: var(--color-waw); background-color: rgba(30,136,229,0.02); box-shadow: 0 6px 20px rgba(30,136,229,0.08); transform: translateY(-3px);}
+        .back .verso-col.active[data-type="yaa"]  { border-color: var(--color-yaa); background-color: rgba(67,160,71,0.02); box-shadow: 0 6px 20px rgba(67,160,71,0.08); transform: translateY(-3px);}
 
-        .card-back .col-alif { border-top: 5px solid var(--color-alif); }
-        .card-back .col-waw  { border-top: 5px solid var(--color-waw);  }
-        .card-back .col-yaa  { border-top: 5px solid var(--color-yaa);  }
+        .back .col-alif { border-top: 5px solid var(--color-alif); }
+        .back .col-waw  { border-top: 5px solid var(--color-waw);  }
+        .back .col-yaa  { border-top: 5px solid var(--color-yaa);  }
 
-        .card-back .vc-header { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .back .vc-header { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
-        .card-back .col-title-trans { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
+        .back .col-title-trans { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
         
         /* ALIGNEMENT VERTICAL PARFAIT DU VERSO */
-        .card-back .col-madd-form { font-size: 3.2rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; line-height: normal; }
-        .card-back .verso-madd-form { margin-top: auto; margin-bottom: 25px; } 
+        .back .col-madd-form { font-size: 3.2rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; line-height: normal; }
+        .back .verso-madd-form { margin-top: auto; margin-bottom: 25px; } 
         
-        .card-back .verso-separator { width: 40px; height: 1px; background-color: var(--gold-light); opacity: 0.5; margin: 0 auto 20px auto; }
+        .back .verso-separator { width: 40px; height: 1px; background-color: var(--gold-light); opacity: 0.5; margin: 0 auto 20px auto; }
 
-        .card-back .col-example { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: auto; border-top: none; padding: 5px 0;}
-        .card-back .ex-word { font-size: 3rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; text-align: center; line-height: normal; }
+        .back .col-example { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: auto; border-top: none; padding: 5px 0;}
+        .back .ex-word { font-size: 3rem; color: var(--burgundy); font-weight: bold; margin-bottom: 5px; text-align: center; line-height: normal; }
         
-        .card-back .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 0; border-top: none; padding-top: 5px; }
+        .back .col-footer-row { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 0; border-top: none; padding-top: 5px; }
 
         /* =========================================
            CONTRÔLES DE NAVIGATION
@@ -248,12 +244,8 @@
            RESPONSIVE MOBILE
            ========================================= */
         @media (max-width: 768px) {
-            .card-flip { min-height: auto; }
-            .card-face { position: relative; height: auto; display: none; }
-            .card-flip:not(.is-flipped) .card-front { display: flex; }
-            .card-flip.is-flipped .card-back { display: flex; transform: rotateY(0); }
-            
-            .card-front .main-letter { font-size: 5.5rem; margin-bottom: 20px; } 
+            .scene { height: 860px; }
+            .front .main-letter { font-size: 5.5rem; margin-bottom: 20px; }
             
             .recto-modoud-container, .verso-modoud-container { flex-direction: row; padding: 10px 5px 25px 5px; gap: 2px; }
             .modoud-col, .verso-col { padding: 15px 5px; margin: 0 4px; }
@@ -263,18 +255,18 @@
             .btn-audio-micro { width: 28px; height: 28px; font-size: 0.85rem; }
             
             /* Responsive Recto */
-            .card-front .col-title-trans { margin-bottom: 15px; }
-            .card-front .col-madd-form { font-size: 2.5rem; margin-bottom: 10px; }
-            .card-front .col-footer-row { flex-direction: column; gap: 6px; padding-top: 10px;}
+            .front .col-title-trans { margin-bottom: 15px; }
+            .front .col-madd-form { font-size: 2.5rem; margin-bottom: 10px; }
+            .front .col-footer-row { flex-direction: column; gap: 6px; padding-top: 10px;}
             
             /* Responsive Verso */
-            .card-back .col-title-trans { margin-bottom: 10px; }
-            .card-back .col-madd-form { font-size: 2.5rem; margin-bottom: 10px; }
-            .card-back .verso-madd-form { margin-top: auto; margin-bottom: 15px; } 
-            .card-back .verso-separator { margin-bottom: 15px; }
-            .card-back .col-footer-row { flex-direction: column; gap: 6px; padding-top: 10px;}
-            .card-back .col-example { padding: 0; }
-            .card-back .ex-word { font-size: 2.2rem; margin-bottom: 5px; }
+            .back .col-title-trans { margin-bottom: 10px; }
+            .back .col-madd-form { font-size: 2.5rem; margin-bottom: 10px; }
+            .back .verso-madd-form { margin-top: auto; margin-bottom: 15px; } 
+            .back .verso-separator { margin-bottom: 15px; }
+            .back .col-footer-row { flex-direction: column; gap: 6px; padding-top: 10px;}
+            .back .col-example { padding: 0; }
+            .back .ex-word { font-size: 2.2rem; margin-bottom: 5px; }
         }
         
         @media (max-width: 480px) {
@@ -286,19 +278,19 @@
             .col-t-fr, .col-t-es { font-size: 0.6rem; }
             
             /* Responsive Recto */
-            .card-front .main-letter { font-size: 4.8rem; margin-bottom: 15px;} 
-            .card-front .main-audio-row { gap: 12px; margin-bottom: 0px; }
-            .card-front .main-ph-fr, .card-front .main-ph-es { font-size: 0.9rem; }
-            .card-front .btn-audio-main { width: 35px; height: 35px; font-size: 0.9rem; }
-            .card-front .col-title-trans { margin-bottom: 10px; }
-            .card-front .col-madd-form { font-size: 2rem; margin-bottom: 5px; }
+            .front .main-letter { font-size: 4.8rem; margin-bottom: 15px;} 
+            .front .main-audio-row { gap: 12px; margin-bottom: 0px; }
+            .front .main-ph-fr, .front .main-ph-es { font-size: 0.9rem; }
+            .front .btn-audio-main { width: 35px; height: 35px; font-size: 0.9rem; }
+            .front .col-title-trans { margin-bottom: 10px; }
+            .front .col-madd-form { font-size: 2rem; margin-bottom: 5px; }
             
             /* Responsive Verso */
-            .card-back .col-title-trans { margin-bottom: 5px; }
-            .card-back .col-madd-form { font-size: 2rem; margin-bottom: 5px; }
-            .card-back .verso-madd-form { margin-top: auto; margin-bottom: 10px; } 
-            .card-back .verso-separator { margin-bottom: 10px; width: 30px; }
-            .card-back .ex-word { font-size: 1.8rem; }
+            .back .col-title-trans { margin-bottom: 5px; }
+            .back .col-madd-form { font-size: 2rem; margin-bottom: 5px; }
+            .back .verso-madd-form { margin-top: auto; margin-bottom: 10px; } 
+            .back .verso-separator { margin-bottom: 10px; width: 30px; }
+            .back .ex-word { font-size: 1.8rem; }
         }
 
         /* Guard auth */
@@ -354,10 +346,10 @@
       <a href="module3.html" class="btn-house-inline" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
     </div>
 
-    <div class="card-container">
-        <div class="card-flip" id="flashcard" onclick="toggleFlip(event)">
-            
-            <div class="card-face card-front">
+    <div class="scene">
+        <div class="card-container" id="flashcard">
+
+            <div class="face front">
                 <i class="fa-solid fa-rotate flip-hint"></i>
                 
                 <div class="card-branding">
@@ -424,7 +416,7 @@
                 </div>
             </div>
 
-            <div class="card-face card-back">
+            <div class="face back">
                 <i class="fa-solid fa-rotate flip-hint"></i>
 
                 <div class="card-branding">
@@ -512,7 +504,6 @@
         // Assurez-vous que l'array `alphabetData` s'y trouve bien.
         
         let currentIndex = 0;
-        let isFlipped = false;
 
         const flashcard = document.getElementById('flashcard');
 
@@ -530,9 +521,8 @@
             const data = alphabetData[index];
             document.getElementById('letter-counter').textContent = `${index + 1} / ${alphabetData.length}`;
 
-            if (isFlipped) {
-                flashcard.classList.remove('is-flipped');
-                isFlipped = false;
+            if (flashcard.classList.contains('flipped')) {
+                flashcard.classList.remove('flipped');
                 setTimeout(() => updateDOM(data), 350);
             } else {
                 updateDOM(data);
@@ -584,22 +574,14 @@
             document.querySelectorAll('.verso-col').forEach(col => col.classList.remove('active'));
         }
 
-        function toggleFlip(event) {
-            if (event.target.tagName.toLowerCase() === 'button' || event.target.closest('button')) return;
-            if (event.target.closest('.modoud-col') && !isFlipped) return; 
-            if (event.target.closest('.verso-col') && isFlipped) return;  
-            
-            isFlipped = !isFlipped;
-            flashcard.classList.toggle('is-flipped');
-        }
-
         function activateColumn(element, event) {
+            event.stopPropagation();
             if (event.target.tagName.toLowerCase() === 'button' || event.target.closest('button')) return;
-            
+
             const isRecto = element.classList.contains('modoud-col');
             const selector = isRecto ? '.modoud-col' : '.verso-col';
             
-            element.closest('.card-face').querySelectorAll(selector).forEach(col => col.classList.remove('active'));
+            element.closest('.face').querySelectorAll(selector).forEach(col => col.classList.remove('active'));
             element.classList.add('active');
         }
 
@@ -631,6 +613,10 @@
             if (type === 'yaa') audioPath = data.yaa.audio;
             DAKAudio.play(audioPath, event ? event.currentTarget : null);
         }
+
+        flashcard.addEventListener('click', () => {
+            flashcard.classList.toggle('flipped');
+        });
     </script>
 <script>
 if ('serviceWorker' in navigator) {
