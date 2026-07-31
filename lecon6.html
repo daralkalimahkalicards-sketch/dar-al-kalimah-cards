@@ -25,12 +25,12 @@
       --radius-xl:28px; --radius-lg:22px; --radius-md:18px; --radius-sm:12px;
     }
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-    html{-webkit-text-size-adjust:100%;}
+    html{-webkit-text-size-adjust:100%;overflow-x:hidden;}
     body{
       min-height:100vh;background:var(--bg-beige);
       font-family:"Montserrat",system-ui,sans-serif;
       color:var(--burgundy);display:flex;flex-direction:column;align-items:center;
-      padding:20px 16px 50px;overflow-x:hidden;
+      padding:20px 16px 50px;overflow-x:hidden;overflow-y:hidden;
     }
     body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
       background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),
@@ -87,14 +87,14 @@
     .lesson-brand-fr{font-family:"Cinzel",serif;font-size:0.78rem;color:var(--burgundy);letter-spacing:3px;font-weight:700;text-transform:uppercase;}
 
     /* ── FLIP CARD 3D vocab ── */
-    .flip-scene{width:100%;perspective:1400px;margin-bottom:22px;}
-    .flip-card-3d{position:relative;width:100%;height:480px;transform-style:preserve-3d;transition:transform 0.62s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;}
-    .flip-card-3d.is-flipped{transform:rotateY(180deg);}
-    .flip-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 26px 36px;box-shadow:var(--shadow-soft);overflow:hidden;}
-    .flip-front{background:var(--white);border:1px solid rgba(200,164,98,0.28);border-top:5px solid var(--burgundy);}
-    .flip-front::before{content:"";position:absolute;inset:12px;border:1px dashed rgba(200,164,98,0.2);border-radius:18px;pointer-events:none;}
-    .flip-back{background:linear-gradient(145deg,var(--burgundy),var(--burgundy-dark));border:1px solid rgba(200,164,98,0.4);border-bottom:5px solid var(--gold);transform:rotateY(180deg);}
-    .flip-back::before{content:"";position:absolute;inset:12px;border:1px dashed rgba(200,164,98,0.2);border-radius:18px;pointer-events:none;}
+    .scene{width:100%;perspective:2000px;margin-bottom:22px;}
+    .card-container{position:relative;width:100%;height:480px;transform-style:preserve-3d;transition:transform 0.9s cubic-bezier(0.25,0.8,0.25,1);cursor:pointer;}
+    .card-container.flipped{transform:rotateY(180deg);}
+    .face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 26px 36px;box-shadow:var(--shadow-soft);overflow:hidden;}
+    .front{background:var(--white);border:1px solid rgba(200,164,98,0.28);border-top:5px solid var(--burgundy);}
+    .front::before{content:"";position:absolute;inset:12px;border:1px dashed rgba(200,164,98,0.2);border-radius:18px;pointer-events:none;}
+    .back{background:linear-gradient(145deg,var(--burgundy),var(--burgundy-dark));border:1px solid rgba(200,164,98,0.4);border-bottom:5px solid var(--gold);transform:rotateY(180deg);}
+    .back::before{content:"";position:absolute;inset:12px;border:1px dashed rgba(200,164,98,0.2);border-radius:18px;pointer-events:none;}
     /* ── RECTO DESIGN ── */
     .front-word-ar{
       font-family:"Amiri",serif;direction:rtl;
@@ -187,15 +187,6 @@
     .side-pill.inactive:hover{border-color:var(--gold-light);color:var(--burgundy);}
     .side-sep{font-size:0.9rem;color:var(--gold-light);}
 
-    /* Card wrapper fade */
-    .card-wrapper{width:100%;}
-    .face{
-      width:100%;border-radius:var(--radius-xl);
-      box-shadow:var(--shadow-card);padding:28px 22px 24px;
-      transition:opacity 0.28s ease,transform 0.28s ease;
-    }
-    .face.is-hidden{display:none;}
-
     /* Recto texte */
     .face-front{background:var(--white);border:1px solid rgba(200,164,98,0.32);border-top:5px solid var(--burgundy);}
     .face-front-brand{text-align:center;margin-bottom:16px;}
@@ -246,12 +237,11 @@
     /* ── RESPONSIVE ── */
     @media(max-width:480px){
       body{padding:14px 12px 40px;}
-      .flip-card-3d{height:460px;}
+      .card-container{height:460px;}
       .flashcard{min-height:480px;padding:36px 16px 30px;}
       .word-ar{font-size:clamp(3rem,11vw,4.2rem);}
       .card-icon,.card-number{font-size:4rem;margin-bottom:22px;}
       .card-color-circle{width:76px;height:76px;margin-bottom:22px;}
-      .face{padding:20px 14px 18px;}
       .root-block{font-size:0.95rem;min-width:76px;letter-spacing:3px;}
       .line-ar{font-size:1.05rem;}
     }
@@ -333,10 +323,10 @@
     <div class="lesson-brand-ar ar">دار الكلمة</div>
     <div class="lesson-brand-fr serif">DAR AL-KALIMAH</div>
   </div>
-  <div class="flip-scene">
-    <div class="flip-card-3d" id="flip-card-vocab" role="button" tabindex="0" aria-label="Retourner la carte">
+  <div class="scene">
+    <div class="card-container" id="flip-card-vocab" role="button" tabindex="0" aria-label="Retourner la carte">
       <!-- RECTO : icône → arabe → divider → mic -->
-      <div class="flip-face flip-front">
+      <div class="face front">
         <i class="fa-solid fa-rotate flip-hint"></i>
         <div id="fc-visual"></div>
         <div class="front-word-ar ar" id="fc-ar"></div>
@@ -348,7 +338,7 @@
         </div>
       </div>
       <!-- VERSO : couleur/num + FR + ES + note + arabe discret -->
-      <div class="flip-face flip-back">
+      <div class="face back">
         <div id="fc-color-back"></div>
         <div id="fc-num-back"></div>
         <div class="back-trans-fr" id="fc-fr"></div>
@@ -378,11 +368,11 @@
   </div>
 
   <!-- Flip card يوم عزيز -->
-  <div class="flip-scene" id="lect-scene">
-    <div class="flip-card-3d" id="flip-card-lect" style="height:auto;min-height:400px;">
+  <div class="scene" id="lect-scene">
+    <div class="card-container" id="flip-card-lect" style="height:auto;min-height:400px;">
 
     <!-- RECTO — texte -->
-      <div class="flip-face flip-front" id="face-front" style="position:relative;height:auto;min-height:400px;justify-content:flex-start;padding:28px 22px 24px;cursor:pointer;background:var(--white);border:1px solid rgba(200,164,98,0.32);border-top:5px solid var(--burgundy);border-radius:var(--radius-xl);">
+      <div class="face front" id="face-front" style="position:relative;height:auto;min-height:400px;justify-content:flex-start;padding:28px 22px 24px;cursor:pointer;background:var(--white);border:1px solid rgba(200,164,98,0.32);border-top:5px solid var(--burgundy);border-radius:var(--radius-xl);">
       <i class="fa-solid fa-rotate flip-hint" style="position:absolute;top:14px;right:14px;"></i>
       <div class="face-front-brand">
         <div class="face-brand-ar ar">دار الكلمة</div>
@@ -410,7 +400,7 @@
     </div>
 
     <!-- VERSO — racines -->
-      <div class="flip-face flip-back" id="face-back" style="position:absolute;top:0;left:0;height:100%;overflow-y:auto;cursor:pointer;padding:24px 18px 30px;justify-content:flex-start;background:var(--white);border:1px solid rgba(200,164,98,0.32);border-bottom:5px solid var(--gold);border-radius:var(--radius-xl);">
+      <div class="face back" id="face-back" style="position:absolute;top:0;left:0;height:100%;overflow-y:auto;cursor:pointer;padding:24px 18px 30px;justify-content:flex-start;background:var(--white);border:1px solid rgba(200,164,98,0.32);border-bottom:5px solid var(--gold);border-radius:var(--radius-xl);">
       <div class="back-header">
         <div class="back-header-ar ar">الجُذُور — كُلُّ الأَفْعَال</div>
         <div class="back-header-fr">Racines · Raíces</div>
@@ -433,8 +423,8 @@
       <!-- ن و م --><div class="root-row"><div class="root-content"><div class="root-verb ar">يَنَامُ — نَامَ</div><div class="root-meaning">Dormir <span style="color:#aaa;font-style:italic;font-weight:400;">/ Dormir</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">يَنَامُ</span><span class="chip-sep">→</span><span class="chip-fr">il dort</span><span class="chip-dot">·</span><span class="chip-es">duerme</span></div><div class="chip"><span class="chip-ar">نَائِم</span><span class="chip-sep">→</span><span class="chip-fr">endormi (m.)</span><span class="chip-dot">·</span><span class="chip-es">dormido</span></div><div class="chip fem"><span class="chip-ar">نَائِمَة</span><span class="chip-sep">→</span><span class="chip-fr">endormie (f.)</span><span class="chip-dot">·</span><span class="chip-es">dormida</span></div><div class="chip"><span class="chip-ar">نَوْم</span><span class="chip-sep">→</span><span class="chip-fr">sommeil</span><span class="chip-dot">·</span><span class="chip-es">sueño</span></div><div class="chip"><span class="chip-ar">مَنَام</span><span class="chip-sep">→</span><span class="chip-fr">dortoir / songe</span><span class="chip-dot">·</span><span class="chip-es">dormitorio</span></div></div></div><div class="root-block ar">ن – <span class="wl">و</span> – م</div></div>
       <!-- ب ي ض --><div class="root-row"><div class="root-content"><div class="root-verb ar">أَبْيَض — بَيَّضَ</div><div class="root-meaning">Blanc — blanchir <span style="color:#aaa;font-style:italic;font-weight:400;">/ Blanco — blanquear</span></div><div class="chips"><div class="chip in-text"><span class="chip-ar">أَبْيَض</span><span class="chip-sep">→</span><span class="chip-fr">blanc (m.)</span><span class="chip-dot">·</span><span class="chip-es">blanco</span></div><div class="chip fem"><span class="chip-ar">بَيْضَاء</span><span class="chip-sep">→</span><span class="chip-fr">blanche (f.)</span><span class="chip-dot">·</span><span class="chip-es">blanca</span></div><div class="chip"><span class="chip-ar">بَيَاض</span><span class="chip-sep">→</span><span class="chip-fr">blancheur</span><span class="chip-dot">·</span><span class="chip-es">blancura</span></div><div class="chip"><span class="chip-ar">بَيْضَة</span><span class="chip-sep">→</span><span class="chip-fr">œuf 🥚</span><span class="chip-dot">·</span><span class="chip-es">huevo 🥚</span></div></div></div><div class="root-block ar">ب – <span class="wl">ي</span> – ض</div></div>
       </div><!-- /face-back -->
-    </div><!-- /flip-card-3d -->
-  </div><!-- /flip-scene -->
+    </div><!-- /card-container -->
+  </div><!-- /scene -->
 </main>
 
 <script>
@@ -640,7 +630,7 @@
 
     // Reset flip
     vocabFlipped = false;
-    document.getElementById("flip-card-vocab").classList.remove("is-flipped");
+    document.getElementById("flip-card-vocab").classList.remove("flipped");
 
     // RECTO — icône en premier puis arabe
     DOM.fcAr.textContent = c.ar;
@@ -676,7 +666,7 @@
   // Flip vocab card
   document.getElementById("flip-card-vocab").addEventListener("click", () => {
     vocabFlipped = !vocabFlipped;
-    document.getElementById("flip-card-vocab").classList.toggle("is-flipped", vocabFlipped);
+    document.getElementById("flip-card-vocab").classList.toggle("flipped", vocabFlipped);
   });
 
   DOM.btnBackMenu.addEventListener("click", () => {
@@ -712,7 +702,7 @@
     DOM.viewLecture.classList.remove("hidden");
     // Reset
     lectFlipped = false;
-    document.getElementById("flip-card-lect").classList.remove("is-flipped");
+    document.getElementById("flip-card-lect").classList.remove("flipped");
     syncLectHeight();
   }
 
@@ -734,11 +724,11 @@
   // Flip card lecture au clic
   document.getElementById("face-front").addEventListener("click", () => {
     lectFlipped = true;
-    document.getElementById("flip-card-lect").classList.add("is-flipped");
+    document.getElementById("flip-card-lect").classList.add("flipped");
   });
   document.getElementById("face-back").addEventListener("click", () => {
     lectFlipped = false;
-    document.getElementById("flip-card-lect").classList.remove("is-flipped");
+    document.getElementById("flip-card-lect").classList.remove("flipped");
   });
 
   // Swipe lecture
@@ -748,7 +738,7 @@
     const dx = e.changedTouches[0].clientX - txL;
     if (Math.abs(dx) > 60) {
       lectFlipped = !lectFlipped;
-      document.getElementById("flip-card-lect").classList.toggle("is-flipped", lectFlipped);
+      document.getElementById("flip-card-lect").classList.toggle("flipped", lectFlipped);
     }
   }, {passive:true});
 

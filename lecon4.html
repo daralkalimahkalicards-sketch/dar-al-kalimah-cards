@@ -110,29 +110,32 @@
     .btn-house-inline { color: var(--gold); font-size: 1.3rem; text-decoration: none; transition: transform 0.3s ease, color 0.3s ease; padding: 5px; display: flex; align-items: center; }
     .btn-house-inline:hover { transform: scale(1.1); color: var(--gold-light); }
 
-    .card-container {
+    .scene {
       width: 100%;
       perspective: 2000px;
       margin-bottom: 40px;
+      cursor: pointer;
     }
 
-    .card-flip {
-      position: relative;
+    .card-container {
       width: 100%;
+      height: 100%;
+      position: relative;
       transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
+      transition: transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
       outline: none;
       height: 420px;
     }
 
-    .card-flip.is-flipped {
+    .card-container.flipped {
       transform: rotateY(180deg);
     }
 
-    .card-face {
+    .face {
+      position: absolute;
       width: 100%;
       height: 100%;
+      -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
       background: #FFFFFF;
       border-radius: var(--card-radius);
@@ -144,14 +147,7 @@
       overflow: hidden;
     }
 
-    .card-front {
-      position: relative;
-      z-index: 2;
-    }
-
-    .card-back {
-      position: absolute;
-      inset: 0;
+    .face.back {
       transform: rotateY(180deg);
     }
 
@@ -387,7 +383,7 @@
         padding: 10px 15px;
       }
 
-      .card-face {
+      .face {
         padding: 30px 15px 50px;
       }
 
@@ -426,7 +422,7 @@
         font-size: 1.1rem;
       }
 
-      .card-face {
+      .face {
         border-radius: 20px;
       }
 
@@ -492,10 +488,10 @@
       </a>
     </div>
 
-    <div class="card-container" role="region" aria-label="Carte de leçon">
-      <div class="card-flip" id="flashcard" role="button" aria-label="Cliquer pour retourner la carte" tabindex="0">
-        <div class="card-face card-front" id="front-face"></div>
-        <div class="card-face card-back" id="back-face"></div>
+    <div class="scene" role="region" aria-label="Carte de leçon">
+      <div class="card-container" id="flashcard" role="button" aria-label="Cliquer pour retourner la carte" tabindex="0">
+        <div class="face front" id="front-face"></div>
+        <div class="face back" id="back-face"></div>
       </div>
     </div>
 
@@ -887,7 +883,7 @@
             const nounRuleHtml = Templates.render(data.nounRuleTemplate);
 
             const front = document.createElement("div");
-            front.className = "card-face";
+            front.className = "face";
             front.style.cssText = "position:relative;transform:none;height:auto;";
             front.innerHTML = `
               <div class="card-branding">
@@ -914,7 +910,7 @@
               </div>`;
 
             const back = document.createElement("div");
-            back.className = "card-face";
+            back.className = "face";
             back.style.cssText = "position:relative;transform:none;height:auto;";
             const examplesHtml = data.examples.map(ex => `
               <div class="example-block">
@@ -956,7 +952,7 @@
           };
 
           if (this.state.isFlipped) {
-            DOM.flashcard.classList.remove("is-flipped");
+            DOM.flashcard.classList.remove("flipped");
             this.state.isFlipped = false;
             setTimeout(doRender, 350);
           } else {
@@ -1027,7 +1023,7 @@
         toggleFlip() {
           if (!DATA.settings.enableFlip) return;
           this.state.isFlipped = !this.state.isFlipped;
-          DOM.flashcard.classList.toggle("is-flipped");
+          DOM.flashcard.classList.toggle("flipped");
           if (!this.state.isFlipped) DAKAudio.stopAll();
         },
 
