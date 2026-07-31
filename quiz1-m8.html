@@ -135,6 +135,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -373,7 +376,7 @@ const A = {
     D.cname.textContent=this.s.name;
     D.cscore.textContent=`${this.s.score} / ${this.s.qs.length}`;
     D.cdate.textContent=`Fait le ${U.dt()}`;
-    this.sv("c");
+    this.sv("c");DAKAudio.playEffect("mabruk.mp3");
     const e=Date.now()+3000;
     (function f(){
       if(typeof confetti==="function"){

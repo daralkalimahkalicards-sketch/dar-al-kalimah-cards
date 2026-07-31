@@ -1,0 +1,237 @@
+/* ==========================================================================
+   Dar Al-Kalimah — Harmonisation visuelle des quiz
+   Référence absolue : Quiz 1 du Module 1 (quiz1-m1.html)
+
+   Cette feuille est chargée APRÈS le <style> propre à chaque quiz, et ses
+   règles utilisent !important : elle prime volontairement sur les anciennes
+   valeurs de mise en page (carte, titres, boutons, certificat, responsive),
+   quelle que soit la façon dont chaque fichier nommait ses variables/classes.
+
+   Elle ne touche à AUCUNE classe propre à un exercice (grille d'options,
+   plateau, mots, harakat, audio, etc.) — uniquement la carte, les titres
+   génériques d'accueil, les boutons communs et le certificat. Le texte de
+   chaque quiz (titres, consignes, messages, prénom, score) n'est jamais
+   modifié : seule sa présentation (police/taille/couleur/espacement) l'est.
+
+   Trois familles de noms de classes coexistent dans le projet et sont
+   toutes couvertes ici :
+   - noms complets (référence)            : .menu-container, .quiz-container,
+     .btn-main, .btn-secondary, .btn-house, .diploma-paper, .brand-ar,
+     .app-title, .divider, .subtitle, .cert-ar, .cert-title, .cert-messages,
+     .cert-msg, .cert-name, .cert-score-box, .score-label, .score-value,
+     .cert-date, .cert-icon, .cert-actions
+   - noms abrégés (gabarit "Modules 8-12"): .mc, .qc, .bm, .bs, .bh, .dp,
+     .ba, .at, .dv, .st, .car, .ct, .cm, .cmsg, .cn, .csb, .slb, .sv, .cd,
+     .ci, .ca
+   ========================================================================== */
+
+/* quiz3-m3.html seul : une icône Maison de page (.btn-back-home) était
+   partagée entre l'accueil et le certificat via un simple show/hide JS,
+   et rendue HORS de la carte. On ajoute une icône dédiée à l'intérieur
+   de .menu-container (voir HTML) et on masque l'ancienne UNIQUEMENT
+   pendant l'écran d'accueil, pour ne rien changer au certificat (hors
+   périmètre de cette passe) ni au JavaScript qui la pilote. */
+body:has(#view-welcome:not(.hidden)) .btn-back-home { display: none !important; }
+
+/* ---------------------------------------------------------------------- */
+/* Cartes : accueil / question / certificat                               */
+/* ---------------------------------------------------------------------- */
+.menu-container, .mc {
+  background: #5D1828 !important;
+  padding: 50px 40px !important;
+  border-radius: 24px !important;
+  box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25) !important;
+  border: none !important;
+  max-width: 600px !important;
+  width: 100%;
+  position: relative !important;
+}
+.menu-container::before, .mc::before { display: none !important; }
+
+.quiz-container, .qc {
+  background: #ffffff !important;
+  padding: 50px 40px !important;
+  border-radius: 24px !important;
+  border: 1px solid #C8A462 !important;
+  box-shadow: inset 0 0 0 5px #ffffff, inset 0 0 0 6px #dfc28b, 0 15px 35px rgba(93, 24, 40, 0.08) !important;
+  max-width: 600px !important;
+  width: 100%;
+}
+
+.diploma-paper, .dp {
+  background: linear-gradient(145deg, #ffffff, #fcfcfc) !important;
+  border: 8px double #C8A462 !important;
+  padding: 40px !important;
+  border-radius: 16px !important;
+  max-width: 500px !important;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+}
+.diploma-paper::before, .dp::before { display: none !important; }
+
+/* ---------------------------------------------------------------------- */
+/* Titres génériques de l'écran d'accueil (le texte reste celui du fichier) */
+/* ---------------------------------------------------------------------- */
+.menu-container .brand-ar, .mc .brand-ar, .menu-container .ba, .mc .ba {
+  font-size: clamp(2.3rem, 6.5vw, 3.2rem) !important;
+  font-weight: bold !important;
+  color: #C8A462 !important;
+  margin: 22px auto 16px !important;
+  line-height: 1.3 !important;
+  max-width: 82% !important;
+  overflow-wrap: break-word !important;
+}
+.menu-container .app-title, .mc .app-title, .menu-container .at, .mc .at {
+  font-size: 1.6rem !important;
+  color: #d09470 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
+.menu-container .divider, .mc .divider, .menu-container .dv, .mc .dv {
+  width: 60px !important;
+  height: 2px !important;
+  background: #C8A462 !important;
+  margin: 25px auto !important;
+  border-radius: 2px !important;
+  opacity: 0.5 !important;
+}
+.menu-container .subtitle, .mc .subtitle,
+.menu-container .subtitle-fr, .mc .subtitle-fr,
+.menu-container .st, .mc .st {
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 5px !important;
+  color: #ffffff !important;
+}
+.menu-container .subtitle.es, .mc .subtitle.es,
+.menu-container .subtitle-es, .mc .subtitle-es,
+.menu-container .st.es, .mc .st.es {
+  font-size: 0.95rem !important;
+  opacity: 0.9 !important;
+  color: #dfc28b !important;
+  font-style: italic !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Boutons communs                                                        */
+/* ---------------------------------------------------------------------- */
+.btn-main, .bm, .btn-secondary, .bs {
+  border-radius: 50px !important;
+  padding: 16px 45px !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  display: inline-block !important;
+  min-height: 0 !important;
+  gap: 0 !important;
+}
+
+/* Ligne espagnole du bouton "Commencer" : toujours sur sa propre ligne,
+   quel que soit le balisage (span après un <br>, ou span seul) — display:block
+   force le saut de ligne, indépendamment du display:inline-block du bouton. */
+.btn-es, .bes {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 4px !important;
+  font-size: 0.85em !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0.3px !important;
+  opacity: 0.95 !important;
+}
+
+.btn-main, .bm {
+  background: linear-gradient(135deg, #5D1828, #3a0f19) !important;
+  color: #ffffff !important;
+  border: 2px solid #5D1828 !important;
+  box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25) !important;
+}
+.btn-main:hover, .bm:hover,
+.btn-main:focus-visible, .bm:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35) !important;
+  border-color: #C8A462 !important;
+}
+.btn-main:active, .bm:active { transform: translateY(1px); }
+
+.btn-secondary, .bs {
+  background: #FAF6F0 !important;
+  color: #5D1828 !important;
+  border: 2px solid #C8A462 !important;
+  box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2) !important;
+}
+.btn-secondary:hover, .bs:hover,
+.btn-secondary:focus-visible, .bs:focus-visible {
+  background: #C8A462 !important;
+  color: #ffffff !important;
+}
+
+/* Bouton "Commencer" transparent sur fond bordeaux (variante du bouton principal) */
+.menu-container .btn-main.start-btn, .mc .bm.start-btn,
+.menu-container .btn-main.sb, .mc .bm.sb,
+.menu-container .bm.start-btn, .mc .btn-main.sb {
+  background: transparent !important;
+  color: #C8A462 !important;
+  border: 2px solid #C8A462 !important;
+  box-shadow: none !important;
+}
+.menu-container .btn-main.start-btn:hover, .mc .bm.start-btn:hover,
+.menu-container .btn-main.sb:hover, .mc .bm.sb:hover {
+  background-color: rgba(200, 164, 98, 0.1) !important;
+  border-color: #dfc28b !important;
+  color: #dfc28b !important;
+  transform: translateY(-3px);
+}
+
+.btn-house, .bh {
+  position: absolute !important;
+  top: 25px !important;
+  right: 25px !important;
+  font-size: 1.6rem !important;
+  padding: 5px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #C8A462 !important;
+}
+.btn-house:hover, .bh:hover,
+.btn-house:focus-visible, .bh:focus-visible {
+  transform: scale(1.1);
+  color: #dfc28b !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Certificat (texte propre à chaque quiz conservé — présentation seule)   */
+/* ---------------------------------------------------------------------- */
+.cert-ar, .car { font-size: 4.5rem !important; color: #C8A462 !important; line-height: 1 !important; margin-bottom: 10px !important; }
+.cert-title, .ct { color: #5D1828 !important; font-size: 2rem !important; margin-bottom: 20px !important; }
+.cert-messages, .cm { margin-bottom: 25px !important; }
+.cert-msg, .cmsg { font-weight: 600 !important; color: #444 !important; }
+.cert-msg.es, .cmsg.es { font-size: 0.9rem !important; color: #777 !important; margin-top: 5px !important; }
+.cert-name, .cn { font-size: 3rem !important; color: #5D1828 !important; }
+.cert-score-box, .csb { background: #FAF6F0 !important; border: 2px solid #C8A462 !important; border-radius: 12px !important; padding: 15px !important; }
+.score-label, .slb { font-size: 0.85rem !important; color: #C8A462 !important; }
+.score-value, .sv { font-size: 1.8rem !important; font-weight: bold !important; color: #5D1828 !important; }
+.cert-date, .cd { font-size: 0.95rem !important; color: #888 !important; font-weight: 500 !important; }
+.cert-icon, .ci { bottom: -25px !important; font-size: 2.5rem !important; background: #FAF6F0 !important; }
+.cert-actions, .ca { gap: 15px !important; }
+
+/* ---------------------------------------------------------------------- */
+/* Responsive commun — mêmes seuils que la référence (768px / 480px)      */
+/* ---------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .menu-container, .mc, .quiz-container, .qc { padding: 40px 20px !important; }
+  .diploma-paper, .dp { padding: 30px 20px !important; }
+}
+
+@media (max-width: 480px) {
+  .menu-container .brand-ar, .mc .brand-ar, .menu-container .ba, .mc .ba { margin-top: 32px !important; }
+  .menu-container .app-title, .mc .app-title, .menu-container .at, .mc .at { font-size: 1.3rem !important; }
+  .btn-house, .bh { top: 25px !important; right: 25px !important; font-size: 1.6rem !important; }
+  .cert-ar, .car { font-size: 3.5rem !important; }
+  .cert-title, .ct { font-size: 1.5rem !important; }
+  .cert-name, .cn { font-size: 2.5rem !important; }
+  .btn-main, .bm, .btn-secondary, .bs { width: 100%; text-align: center; }
+}

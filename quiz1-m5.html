@@ -133,6 +133,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -153,7 +156,7 @@
         </div>
         <button class="btn-main start-btn" id="btn-start" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
       </section>
     </main>
@@ -261,26 +264,6 @@
       formatDateFr(d=new Date()){return d.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});},
       vibrate(p){if(navigator.vibrate)navigator.vibrate(p);}
     };
-    const AudioController = {
-      player:new Audio(),effectPlayer:new Audio(),isUnlocked:false,
-      SILENT:"data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=",
-      init(){this.player.preload="none";this.effectPlayer.preload="none";this.player.playsInline=true;this.effectPlayer.playsInline=true;},
-      async unlock(){
-        if(this.isUnlocked)return;
-        try{
-          this.player.src=this.SILENT;this.effectPlayer.src=this.SILENT;
-          this.player.muted=true;this.effectPlayer.muted=true;
-          await this.player.play().catch(()=>{});this.player.pause();this.player.currentTime=0;
-          await this.effectPlayer.play().catch(()=>{});this.effectPlayer.pause();this.effectPlayer.currentTime=0;
-          this.player.muted=false;this.effectPlayer.muted=false;
-          this.player.removeAttribute("src");this.effectPlayer.removeAttribute("src");
-          this.player.load();this.effectPlayer.load();this.isUnlocked=true;
-        }catch(_){this.player.muted=false;this.effectPlayer.muted=false;}
-      },
-      async playMain(src){if(!src)return;try{this.player.pause();this.player.currentTime=0;this.player.src=src;this.player.load();await this.player.play();}catch(_){}},
-      async playEffect(src){if(!src)return;try{this.effectPlayer.pause();this.effectPlayer.currentTime=0;this.effectPlayer.src=src;this.effectPlayer.load();await this.effectPlayer.play();}catch(_){}},
-      stopAll(){this.player.pause();this.effectPlayer.pause();this.player.currentTime=0;this.effectPlayer.currentTime=0;}
-    };
     const App = {
       state:{playerName:"Participant",questions:[],currentIndex:0,score:0,isStarting:false,isProcessing:false,hasFinished:false,hasPlayedSuccess:false,pendingTimer:null,questionToken:0},
       clearTimer(){if(this.state.pendingTimer){clearTimeout(this.state.pendingTimer);this.state.pendingTimer=null;}},
@@ -297,7 +280,7 @@
       async startQuiz(){
         if(this.state.isStarting)return;
         this.state.isStarting=true;this.clearTimer();
-        await AudioController.unlock();
+        await DAKAudio.unlock();
         this.state.playerName=DOM.playerName.value.trim()||"Participant";
         this.state.questions=this.buildQuestions();
         this.state.currentIndex=0;this.state.score=0;this.state.isProcessing=false;
@@ -321,7 +304,7 @@
           btn.addEventListener("click",()=>this.handleAnswer(word,btn,q.targetArabic));
           DOM.optionsGrid.appendChild(btn);
         });
-        this.state.pendingTimer=setTimeout(()=>{if(token===this.state.questionToken&&!this.state.hasFinished)AudioController.playMain(q.targetAudio);},400);
+        this.state.pendingTimer=setTimeout(()=>{if(token===this.state.questionToken&&!this.state.hasFinished)DAKAudio.play(q.targetAudio, DOM.audioBtn);},400);
       },
       handleAnswer(selected,btnEl,target){
         if(this.state.isProcessing||this.state.hasFinished)return;
@@ -332,11 +315,11 @@
         else{btnEl.classList.add("wrong");Utils.vibrate([120,50,120]);allBtns.forEach(b=>{if(b.textContent===target)b.classList.add("correct");});}
         this.state.pendingTimer=setTimeout(()=>{this.state.currentIndex++;if(this.state.currentIndex<this.state.questions.length)this.renderQuestion();else this.endQuiz();},1200);
       },
-      playAudio(){if(this.state.hasFinished||this.state.currentIndex>=this.state.questions.length)return;AudioController.playMain(this.state.questions[this.state.currentIndex].targetAudio);},
+      playAudio(){if(this.state.hasFinished||this.state.currentIndex>=this.state.questions.length)return;DAKAudio.play(this.state.questions[this.state.currentIndex].targetAudio, DOM.audioBtn);},
       endQuiz(){
         if(this.state.hasFinished)return;
         this.clearTimer();this.state.hasFinished=true;this.state.questionToken+=1;
-        AudioController.stopAll();
+        DAKAudio.stopAll();
         DOM.progressFill.style.width="100%";DOM.progressBar.setAttribute("aria-valuenow","100");
         DOM.certName.textContent=this.state.playerName;
         DOM.certScore.textContent=`${this.state.score} / ${this.state.questions.length}`;
@@ -346,22 +329,20 @@
         (function frame(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<end)requestAnimationFrame(frame);})();
         Utils.vibrate([120,50,120,50,180]);
         if(this.state.hasPlayedSuccess)return;
-        this.state.hasPlayedSuccess=true;AudioController.playEffect("mabruk.mp3");
+        this.state.hasPlayedSuccess=true;DAKAudio.playEffect("mabruk.mp3");
 
         // DAK Tracker
         if (window.DAK_enregistrerScore) {
             window.DAK_enregistrerScore({ module: "Module 5", quiz: "Quiz 1", score: this.state.score, total: this.state.questions.length });
         }
       },
-      restartQuiz(){this.clearTimer();AudioController.stopAll();this.state.isStarting=false;this.state.isProcessing=false;this.state.hasFinished=false;this.state.hasPlayedSuccess=false;this.state.questionToken+=1;this.switchView("welcome");DOM.playerName.focus();},
+      restartQuiz(){this.clearTimer();DAKAudio.stopAll();this.state.isStarting=false;this.state.isProcessing=false;this.state.hasFinished=false;this.state.hasPlayedSuccess=false;this.state.questionToken+=1;this.switchView("welcome");DOM.playerName.focus();},
       init(){
-        AudioController.init();
         DOM.startBtn.addEventListener("click",()=>this.startQuiz());
         DOM.audioBtn.addEventListener("click",()=>this.playAudio());
         DOM.printBtn.addEventListener("click",()=>window.print());
         DOM.restartBtn.addEventListener("click",()=>this.restartQuiz());
         DOM.playerName.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();this.startQuiz();}});
-        document.addEventListener("visibilitychange",()=>{if(document.hidden)AudioController.stopAll();});
       }
     };
     App.init();window.AppEngine=App;

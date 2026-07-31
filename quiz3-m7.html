@@ -142,6 +142,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -162,7 +165,7 @@
         </div>
         <button class="btn-main start-btn" id="btn-start" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
       </section>
     </main>
@@ -387,6 +390,7 @@
         DOM.certDate.textContent=`Fait le ${Utils.formatDateFr()}`;
         
         this.switchView("certificate");
+        DAKAudio.playEffect("mabruk.mp3");
         
         const end=Date.now()+3000;
         (function frame(){

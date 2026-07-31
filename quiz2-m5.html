@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#5D1828">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <title>Dar Al-Kalimah - Quiz 1 (Al-Shamsiyya)</title>
+  <title>Dar Al-Kalimah - Quiz 2 (Al-Qamariyya)</title>
   <meta name="theme-color" content="#5D1828">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -133,15 +133,18 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
     <main id="view-welcome" class="view" role="main">
       <section class="menu-container" aria-labelledby="welcome-title">
         <a href="module5.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
-        <h1 id="welcome-title" class="brand-ar ar-text">ال الشَّمْسِيَّة</h1>
+        <h1 id="welcome-title" class="brand-ar ar-text">ال القَمَرِيَّة</h1>
         <div class="app-title serif-text">Kalicards – Module 5</div>
-        <div class="app-subtitle">Quiz 1 : Al-Shamsiyya</div>
+        <div class="app-subtitle">Quiz 2 : Al-Qamariyya</div>
         <div class="divider"></div>
         <div class="subtitle-group">
           <p class="subtitle fr">Écoute l'audio et trouve le bon mot.</p>
@@ -153,7 +156,7 @@
         </div>
         <button class="btn-main start-btn" id="btn-start" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
       </section>
     </main>
@@ -190,8 +193,8 @@
         <div class="cert-ar ar-text">مبروك</div>
         <h2 class="cert-title serif-text">Certificat de réussite</h2>
         <div class="cert-messages">
-          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 1 (Al-Shamsiyya).</p>
-          <p class="cert-msg es">Felicidades, has completado el quiz 1 (Al-Shamsiyya).</p>
+          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Al-Qamariyya).</p>
+          <p class="cert-msg es">Felicidades, has completado el quiz 2 (Al-Qamariyya).</p>
         </div>
         <div id="cert-name" class="cert-name ar-text">Participant</div>
         <div class="cert-score-box">
@@ -212,37 +215,37 @@
   (() => {
     "use strict";
 
-    // BASE DE DONNÉES INTÉGRÉE POUR AL-SHAMSIYYA (29 MOTS)
-    const shamsiyyaData = [
-      { correct: "الشَّمْس", traps: ["اَلْشَمْس", "شَمْس", "الشَمْس"], audio: "audio/shamsiyya/shams.mp3", fr: "Le soleil", es: "El sol" },
-      { correct: "التُّفَّاح", traps: ["اَلْتُفَّاح", "تُفَّاح", "التُفَّاح"], audio: "audio/shamsiyya/tuffah.mp3", fr: "La pomme", es: "La manzana" },
-      { correct: "الثَّلْج", traps: ["اَلْثَلْج", "ثَلْج", "الثَلْج"], audio: "audio/shamsiyya/thalj.mp3", fr: "La neige", es: "La nieve" },
-      { correct: "الدِّيك", traps: ["اَلْدِّيك", "دِيك", "الدِيك"], audio: "audio/shamsiyya/dik.mp3", fr: "Le coq", es: "El gallo" },
-      { correct: "الذَّهَب", traps: ["اَلْذَّهَب", "ذَهَب", "الذَهَب"], audio: "audio/shamsiyya/dhahab.mp3", fr: "L'or", es: "El oro" },
-      { correct: "الرَّجُل", traps: ["اَلْرَّجُل", "رَجُل", "الرَجُل"], audio: "audio/shamsiyya/rajul.mp3", fr: "L'homme", es: "El hombre" },
-      { correct: "الزَّيْت", traps: ["اَلْزَّيْت", "زَيْت", "الزَيْت"], audio: "audio/shamsiyya/zayt.mp3", fr: "L'huile", es: "El aceite" },
-      { correct: "السَّمَك", traps: ["اَلْسَّمَك", "سَمَك", "السَمَك"], audio: "audio/shamsiyya/samak.mp3", fr: "Le poisson", es: "El pez" },
-      { correct: "الشَّجَرَة", traps: ["اَلْشَّجَرَة", "شَجَرَة", "الشَجَرَة"], audio: "audio/shamsiyya/shajara.mp3", fr: "L'arbre", es: "El árbol" },
-      { correct: "الصَّقْر", traps: ["اَلْصَّقْر", "صَقْر", "الصَقْر"], audio: "audio/shamsiyya/saqr.mp3", fr: "Le faucon", es: "El halcón" },
-      { correct: "الضَّوْء", traps: ["اَلْضَّوْء", "ضَوْء", "الضَوْء"], audio: "audio/shamsiyya/daw.mp3", fr: "La lumière", es: "La luz" },
-      { correct: "الطَّيْر", traps: ["اَلْطَّيْر", "طَيْر", "الطَيْر"], audio: "audio/shamsiyya/tayr.mp3", fr: "L'oiseau", es: "El pájaro" },
-      { correct: "الظِّلّ", traps: ["اَلْظِّلّ", "ظِلّ", "الظِلّ"], audio: "audio/shamsiyya/zill.mp3", fr: "L'ombre", es: "La sombra" },
-      { correct: "اللَّيْل", traps: ["اَلْلَّيْل", "لَيْل", "اللَيْل"], audio: "audio/shamsiyya/layl.mp3", fr: "La nuit", es: "La noche" },
-      { correct: "النَّجْم", traps: ["اَلْنَّجْم", "نَجْم", "النَجْم"], audio: "audio/shamsiyya/najm.mp3", fr: "L'étoile", es: "La estrella" },
-      { correct: "التَّاجِر", traps: ["اَلْتَاجِر", "تَاجِر", "التَاجِر"], audio: "audio/shamsiyya/tajir.mp3", fr: "Le marchand", es: "El comerciante" },
-      { correct: "الثَّعْلَب", traps: ["اَلْثَعْلَب", "ثَعْلَب", "الثَعْلَب"], audio: "audio/shamsiyya/thalab.mp3", fr: "Le renard", es: "El zorro" },
-      { correct: "الدَّرْس", traps: ["اَلْدَّرْس", "دَرْس", "الدَرْس"], audio: "audio/shamsiyya/dars.mp3", fr: "La leçon", es: "La lección" },
-      { correct: "الذِّئْب", traps: ["اَلْذِّئْب", "ذِئْب", "الذِئْب"], audio: "audio/shamsiyya/dhib.mp3", fr: "Le loup", es: "El lobo" },
-      { correct: "الرَّأْس", traps: ["اَلْرَّأْس", "رَأْس", "الرَأْس"], audio: "audio/shamsiyya/ras.mp3", fr: "La tête", es: "La cabeza" },
-      { correct: "الزَّرَافَة", traps: ["اَلْزَّرَافَة", "زَرَافَة", "الزَرَافَة"], audio: "audio/shamsiyya/zarafa.mp3", fr: "La girafe", es: "La jirafa" },
-      { correct: "السَّيَّارَة", traps: ["اَلْسَّيَّارَة", "سَيَّارَة", "السَيَّارَة"], audio: "audio/shamsiyya/sayyara.mp3", fr: "La voiture", es: "El coche" },
-      { correct: "الشَّارِع", traps: ["اَلْشَّارِع", "شَارِع", "الشَارِع"], audio: "audio/shamsiyya/shari.mp3", fr: "La rue", es: "La calle" },
-      { correct: "الصَّدِيق", traps: ["اَلْصَّدِيق", "صَدِيق", "الصَدِيق"], audio: "audio/shamsiyya/sadiq.mp3", fr: "L'ami", es: "El amigo" },
-      { correct: "الضِّفْدَع", traps: ["اَلْضِّفْدَع", "ضِفْدَع", "الضِفْدَع"], audio: "audio/shamsiyya/difda.mp3", fr: "La grenouille", es: "La rana" },
-      { correct: "الطَّالِب", traps: ["اَلْطَّالِب", "طَالِب", "الطَالِب"], audio: "audio/shamsiyya/talib.mp3", fr: "L'étudiant", es: "El estudiante" },
-      { correct: "الظَّرْف", traps: ["اَلْظَّرْف", "ظَرْف", "الظَرْف"], audio: "audio/shamsiyya/zarf.mp3", fr: "L'enveloppe", es: "El sobre" },
-      { correct: "اللِّسَان", traps: ["اَلْلِّسَان", "لِسَان", "اللِسَان"], audio: "audio/shamsiyya/lisan.mp3", fr: "La langue", es: "La lengua" },
-      { correct: "النَّهْر", traps: ["اَلْنَّهْر", "نَهْر", "النَهْر"], audio: "audio/shamsiyya/nahr.mp3", fr: "Le fleuve", es: "El río" }
+    // BASE DE DONNÉES INTÉGRÉE POUR AL-QAMARIYYA (29 MOTS)
+    const qamariyyaData = [
+      { correct: "الأَمِير", traps: ["أَمِير", "الإِمِير", "الأُمِير"], audio: "audio/qamariyya/amir.mp3", fr: "Le prince", es: "El príncipe" },
+      { correct: "الأَسَد", traps: ["أَسَد", "الإِسَد", "الأُسَد"], audio: "audio/asad.mp3", fr: "Le lion", es: "El león" },
+      { correct: "البَيْت", traps: ["بَيْت", "الَبَّيْت", "الَبَيْت"], audio: "audio/qamariyya/bayt.mp3", fr: "La maison", es: "La casa" },
+      { correct: "البَحْر", traps: ["بَحْر", "الَبَّحْر", "الَبَحْر"], audio: "audio/bahr.mp3", fr: "La mer", es: "El mar" },
+      { correct: "الجَمَل", traps: ["جَمَل", "الَجَّمَل", "الَجَمَل"], audio: "audio/jamal.mp3", fr: "Le chameau", es: "El camello" },
+      { correct: "الجَبَل", traps: ["جَبَل", "الَجَّبَل", "الَجَبَل"], audio: "audio/jabal.mp3", fr: "La montagne", es: "La montaña" },
+      { correct: "الحِصَان", traps: ["حِصَان", "الَحِّصَان", "الَحِصَان"], audio: "audio/qamariyya/hisan.mp3", fr: "Le cheval", es: "El caballo" },
+      { correct: "الحَلِيب", traps: ["حَلِيب", "الَحَّلِيب", "الَحَلِيب"], audio: "audio/qamariyya/halib.mp3", fr: "Le lait", es: "La leche" },
+      { correct: "الخُبْز", traps: ["خُبْز", "الَخُّبْز", "الَخُبْز"], audio: "audio/khobz.mp3", fr: "Le pain", es: "El pan" },
+      { correct: "الخَرُوف", traps: ["خَرُوف", "الَخَّرُوف", "الَخَرُوف"], audio: "audio/qamariyya/kharuf.mp3", fr: "Le mouton", es: "La oveja" },
+      { correct: "العَيْن", traps: ["عَيْن", "الَعَّيْن", "الَعَيْن"], audio: "audio/ayn.mp3", fr: "L'œil", es: "El ojo" },
+      { correct: "العَسَل", traps: ["عَسَل", "الَعَّسَل", "الَعَسَل"], audio: "audio/qamariyya/asal.mp3", fr: "Le miel", es: "La miel" },
+      { correct: "الغُرَاب", traps: ["غُرَاب", "الَغُّرَاب", "الَغُرَاب"], audio: "audio/qamariyya/ghurab.mp3", fr: "Le corbeau", es: "El cuervo" },
+      { correct: "الغَيْم", traps: ["غَيْم", "الَغَّيْم", "الَغَيْم"], audio: "audio/ghaym.mp3", fr: "Le nuage", es: "La nube" },
+      { correct: "الفِيل", traps: ["فِيل", "الَفِّيل", "الَفِيل"], audio: "audio/fil.mp3", fr: "L'éléphant", es: "El elefante" },
+      { correct: "الفَم", traps: ["فَم", "الَفَّم", "الَفَم"], audio: "audio/module2/famu.mp3", fr: "La bouche", es: "La boca" },
+      { correct: "القَمَر", traps: ["قَمَر", "الَقَّمَر", "الَقَمَر"], audio: "audio/qamar.mp3", fr: "La lune", es: "La luna" },
+      { correct: "القَلَم", traps: ["قَلَم", "الَقَّلَم", "الَقَلَم"], audio: "audio/qalam.mp3", fr: "Le stylo", es: "El bolígrafo" },
+      { correct: "الكِتَاب", traps: ["كِتَاب", "الَكِّتَاب", "الَكِتَاب"], audio: "audio/kitab.mp3", fr: "Le livre", es: "El libro" },
+      { correct: "الكَلْب", traps: ["كَلْب", "الَكَّلْب", "الَكَلْب"], audio: "audio/qamariyya/kalb.mp3", fr: "Le chien", es: "El perro" },
+      { correct: "المَاء", traps: ["مَاء", "الَمَّاء", "الَمَاء"], audio: "audio/ma.mp3", fr: "L'eau", es: "El agua" },
+      { correct: "المَدْرَسَة", traps: ["مَدْرَسَة", "الَمَّدْرَسَة", "الَمَدْرَسَة"], audio: "audio/madrasa.mp3", fr: "L'école", es: "La escuela" },
+      { correct: "الهِلَال", traps: ["هِلَال", "الَهِّلَال", "الَهِلَال"], audio: "audio/hilal.mp3", fr: "Le croissant", es: "La media luna" },
+      { correct: "الهَوَاء", traps: ["هَوَاء", "الَهَّوَاء", "الَهَوَاء"], audio: "audio/qamariyya/hawa.mp3", fr: "L'air", es: "El aire" },
+      { correct: "الوَلَد", traps: ["وَلَد", "الَوَّلَد", "الَوَلَد"], audio: "audio/walad.mp3", fr: "Le garçon", es: "El niño" },
+      { correct: "الوَرْدَة", traps: ["وَرْدَة", "الَوَّرْدَة", "الَوَرْدَة"], audio: "audio/warda.mp3", fr: "La rose", es: "La rosa" },
+      { correct: "اليَد", traps: ["يَد", "الَيَّد", "الَيَد"], audio: "audio/yad.mp3", fr: "La main", es: "La mano" },
+      { correct: "اليَاسَمِين", traps: ["يَاسَمِين", "الَيَّاسَمِين", "الَيَاسَمِين"], audio: "audio/qamariyya/yasamin.mp3", fr: "Le jasmin", es: "El jazmín" },
+      { correct: "الكُرْسِي", traps: ["كُرْسِي", "الَكُّرْسِي", "الَكُرْسِي"], audio: "audio/kursi.mp3", fr: "La chaise", es: "La silla" }
     ];
 
     const $ = id => document.getElementById(id);
@@ -261,32 +264,12 @@
       formatDateFr(d=new Date()){return d.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});},
       vibrate(p){if(navigator.vibrate)navigator.vibrate(p);}
     };
-    const AudioController = {
-      player:new Audio(),effectPlayer:new Audio(),isUnlocked:false,
-      SILENT:"data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=",
-      init(){this.player.preload="none";this.effectPlayer.preload="none";this.player.playsInline=true;this.effectPlayer.playsInline=true;},
-      async unlock(){
-        if(this.isUnlocked)return;
-        try{
-          this.player.src=this.SILENT;this.effectPlayer.src=this.SILENT;
-          this.player.muted=true;this.effectPlayer.muted=true;
-          await this.player.play().catch(()=>{});this.player.pause();this.player.currentTime=0;
-          await this.effectPlayer.play().catch(()=>{});this.effectPlayer.pause();this.effectPlayer.currentTime=0;
-          this.player.muted=false;this.effectPlayer.muted=false;
-          this.player.removeAttribute("src");this.effectPlayer.removeAttribute("src");
-          this.player.load();this.effectPlayer.load();this.isUnlocked=true;
-        }catch(_){this.player.muted=false;this.effectPlayer.muted=false;}
-      },
-      async playMain(src){if(!src)return;try{this.player.pause();this.player.currentTime=0;this.player.src=src;this.player.load();await this.player.play();}catch(_){}},
-      async playEffect(src){if(!src)return;try{this.effectPlayer.pause();this.effectPlayer.currentTime=0;this.effectPlayer.src=src;this.effectPlayer.load();await this.effectPlayer.play();}catch(_){}},
-      stopAll(){this.player.pause();this.effectPlayer.pause();this.player.currentTime=0;this.effectPlayer.currentTime=0;}
-    };
     const App = {
       state:{playerName:"Participant",questions:[],currentIndex:0,score:0,isStarting:false,isProcessing:false,hasFinished:false,hasPlayedSuccess:false,pendingTimer:null,questionToken:0},
       clearTimer(){if(this.state.pendingTimer){clearTimeout(this.state.pendingTimer);this.state.pendingTimer=null;}},
       switchView(name){Object.values(DOM.views).forEach(v=>v.classList.add("hidden"));DOM.views[name].classList.remove("hidden");},
       buildQuestions(){
-        return Utils.shuffle(shamsiyyaData).map(item=>{
+        return Utils.shuffle(qamariyyaData).map(item=>{
           // Options limitées à 4 choix maximum
           const options=Utils.shuffle([item.correct,...item.traps]).slice(0, 4);
           return{targetArabic:item.correct,targetAudio:item.audio,options,fr:item.fr,es:item.es};
@@ -297,7 +280,7 @@
       async startQuiz(){
         if(this.state.isStarting)return;
         this.state.isStarting=true;this.clearTimer();
-        await AudioController.unlock();
+        await DAKAudio.unlock();
         this.state.playerName=DOM.playerName.value.trim()||"Participant";
         this.state.questions=this.buildQuestions();
         this.state.currentIndex=0;this.state.score=0;this.state.isProcessing=false;
@@ -321,7 +304,7 @@
           btn.addEventListener("click",()=>this.handleAnswer(word,btn,q.targetArabic));
           DOM.optionsGrid.appendChild(btn);
         });
-        this.state.pendingTimer=setTimeout(()=>{if(token===this.state.questionToken&&!this.state.hasFinished)AudioController.playMain(q.targetAudio);},400);
+        this.state.pendingTimer=setTimeout(()=>{if(token===this.state.questionToken&&!this.state.hasFinished)DAKAudio.play(q.targetAudio, DOM.audioBtn);},400);
       },
       handleAnswer(selected,btnEl,target){
         if(this.state.isProcessing||this.state.hasFinished)return;
@@ -332,11 +315,11 @@
         else{btnEl.classList.add("wrong");Utils.vibrate([120,50,120]);allBtns.forEach(b=>{if(b.textContent===target)b.classList.add("correct");});}
         this.state.pendingTimer=setTimeout(()=>{this.state.currentIndex++;if(this.state.currentIndex<this.state.questions.length)this.renderQuestion();else this.endQuiz();},1200);
       },
-      playAudio(){if(this.state.hasFinished||this.state.currentIndex>=this.state.questions.length)return;AudioController.playMain(this.state.questions[this.state.currentIndex].targetAudio);},
+      playAudio(){if(this.state.hasFinished||this.state.currentIndex>=this.state.questions.length)return;DAKAudio.play(this.state.questions[this.state.currentIndex].targetAudio, DOM.audioBtn);},
       endQuiz(){
         if(this.state.hasFinished)return;
         this.clearTimer();this.state.hasFinished=true;this.state.questionToken+=1;
-        AudioController.stopAll();
+        DAKAudio.stopAll();
         DOM.progressFill.style.width="100%";DOM.progressBar.setAttribute("aria-valuenow","100");
         DOM.certName.textContent=this.state.playerName;
         DOM.certScore.textContent=`${this.state.score} / ${this.state.questions.length}`;
@@ -346,22 +329,20 @@
         (function frame(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<end)requestAnimationFrame(frame);})();
         Utils.vibrate([120,50,120,50,180]);
         if(this.state.hasPlayedSuccess)return;
-        this.state.hasPlayedSuccess=true;AudioController.playEffect("mabruk.mp3");
+        this.state.hasPlayedSuccess=true;DAKAudio.playEffect("mabruk.mp3");
 
         // DAK Tracker
         if (window.DAK_enregistrerScore) {
             window.DAK_enregistrerScore({ module: "Module 5", quiz: "Quiz 2", score: this.state.score, total: this.state.questions.length });
         }
       },
-      restartQuiz(){this.clearTimer();AudioController.stopAll();this.state.isStarting=false;this.state.isProcessing=false;this.state.hasFinished=false;this.state.hasPlayedSuccess=false;this.state.questionToken+=1;this.switchView("welcome");DOM.playerName.focus();},
+      restartQuiz(){this.clearTimer();DAKAudio.stopAll();this.state.isStarting=false;this.state.isProcessing=false;this.state.hasFinished=false;this.state.hasPlayedSuccess=false;this.state.questionToken+=1;this.switchView("welcome");DOM.playerName.focus();},
       init(){
-        AudioController.init();
         DOM.startBtn.addEventListener("click",()=>this.startQuiz());
         DOM.audioBtn.addEventListener("click",()=>this.playAudio());
         DOM.printBtn.addEventListener("click",()=>window.print());
         DOM.restartBtn.addEventListener("click",()=>this.restartQuiz());
         DOM.playerName.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();this.startQuiz();}});
-        document.addEventListener("visibilitychange",()=>{if(document.hidden)AudioController.stopAll();});
       }
     };
     App.init();window.AppEngine=App;

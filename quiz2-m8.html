@@ -117,6 +117,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -188,7 +191,7 @@ const DATA=[
   {s:"صَعِدَ إِلَى الطَّابِقِ الثَّانِي",c:"إِلَى",t:["مِن","عَلَى","لِـ"],fr:"Il est monté au deuxième étage",es:"Subió al segundo piso"},
   {s:"الثَّلْجُ عَلَى الْجَبَلِ",c:"عَلَى",t:["فِي","مِن","إِلَى"],fr:"La neige est sur la montagne",es:"La nieve está sobre la montaña"},
   {s:"تَحَدَّثَ مَعَ صَدِيقِهِ بِالْهَاتِفِ",c:"بِـ",t:["مِن","فِي","عَلَى"],fr:"Il a parlé avec son ami par téléphone",es:"Habló con su amigo por teléfono"},
-  {s:"خَرَجَ مِنَ الْمَسْتَشْفَى",c:"مِن",t:["إِلَى","فِي","لِـ"],fr:"Il est sorti de l'hôpital",es:"Salió del hospital"},
+  {s:"خَرَجَ مِنَ الْمُسْتَشْفَى",c:"مِن",t:["إِلَى","فِي","لِـ"],fr:"Il est sorti de l'hôpital",es:"Salió del hospital"},
   {s:"قَفَزَ الضِّفْدَعُ إِلَى الْمَاءِ",c:"إِلَى",t:["مِن","عَلَى","بِـ"],fr:"La grenouille a sauté dans l'eau",es:"La rana saltó al agua"},
   {s:"السَّمَكَةُ فِي النَّهْرِ",c:"فِي",t:["مِن","إِلَى","عَلَى"],fr:"Le poisson est dans la rivière",es:"El pez está en el río"},
   {s:"قَدَّمَ الطَّعَامَ لِلضُّيُوفِ",c:"لِـ",t:["فِي","مِن","بِـ"],fr:"Il a servi la nourriture aux invités",es:"Sirvió la comida a los invitados"},
@@ -214,7 +217,7 @@ const A={
   start(){if(this.s.starting)return;this.s.starting=true;this.ct();this.s.name=D.pn.value.trim()||"Participant";this.s.qs=this.bq();this.s.idx=0;this.s.score=0;this.s.proc=false;this.s.done=false;this.s.tok+=1;this.sv("q");this.us();this.rq();this.s.starting=false;},
   rq(){this.ct();this.s.proc=false;this.s.tok+=1;const q=this.s.qs[this.s.idx];if(!q)return;this.up();D.sar.textContent=q.s;D.sfr.textContent=q.fr;D.ses.textContent=q.es;D.og.innerHTML="";q.opts.forEach(h=>{const b=document.createElement("button");b.type="button";b.className="oc";b.dataset.v=h;b.innerHTML=`<span class="oar ar">${h}</span><span class="ofr">${MN[h]||""}</span>`;b.addEventListener("click",()=>this.ans(h,b,q.c));D.og.appendChild(b);});},
   ans(sel,btn,tgt){if(this.s.proc||this.s.done)return;this.s.proc=true;this.ct();[...D.og.children].forEach(b=>b.disabled=true);if(sel===tgt){this.s.score++;btn.classList.add("correct");this.us();}else{btn.classList.add("wrong");[...D.og.children].forEach(b=>{if(b.dataset.v===tgt)b.classList.add("correct");});}this.s.timer=setTimeout(()=>{this.s.idx++;if(this.s.idx<this.s.qs.length)this.rq();else this.end();},1200);},
-  end(){if(this.s.done)return;this.ct();this.s.done=true;D.pf.style.width="100%";D.cname.textContent=this.s.name;D.cscore.textContent=`${this.s.score} / ${this.s.qs.length}`;D.cdate.textContent=`Fait le ${U.dt()}`;this.sv("c");const e=Date.now()+3000;(function f(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<e)requestAnimationFrame(f);})();
+  end(){if(this.s.done)return;this.ct();this.s.done=true;D.pf.style.width="100%";D.cname.textContent=this.s.name;D.cscore.textContent=`${this.s.score} / ${this.s.qs.length}`;D.cdate.textContent=`Fait le ${U.dt()}`;this.sv("c");DAKAudio.playEffect("mabruk.mp3");const e=Date.now()+3000;(function f(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<e)requestAnimationFrame(f);})();
     // DAK Tracker
     if(window.DAK_enregistrerScore){window.DAK_enregistrerScore({module:"Module 8",quiz:"Quiz 2",score:this.s.score,total:this.s.qs.length});}
   },

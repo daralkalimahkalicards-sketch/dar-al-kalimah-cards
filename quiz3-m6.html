@@ -123,6 +123,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -202,13 +205,12 @@
 <script>
 (() => {
   "use strict";
-  const SILENT = "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=";
 
   // 15 phrases tirées de يوم عزيز — chacune avec 4 options dont 1 correcte
   const QUESTIONS = [
     {
       phrase:"يَسْتَيْقِظُ عَزِيز فِي السَّاعَةِ السَّابِعَةِ.",
-      audio:"audio/m6/phrase1.mp3",
+      audio:"audio/module6/phrase1.mp3",
       correct:{fr:"Aziz se réveille à sept heures.",es:"Aziz se despierta a las siete."},
       wrong:[
         {fr:"Aziz mange à sept heures.",es:"Aziz come a las siete."},
@@ -218,7 +220,7 @@
     },
     {
       phrase:"يَتَوَضَّأُ وَيُصَلِّي الفَجْرَ.",
-      audio:"audio/m6/phrase2.mp3",
+      audio:"audio/module6/phrase2.mp3",
       correct:{fr:"Il fait ses ablutions et prie le Fajr.",es:"Hace las abluciones y reza el Fajr."},
       wrong:[
         {fr:"Il mange et lit le Coran.",es:"Come y lee el Corán."},
@@ -228,7 +230,7 @@
     },
     {
       phrase:"يَقْرَأُ القُرْآنَ قَلِيلًا.",
-      audio:"audio/m6/phrase3.mp3",
+      audio:"audio/module6/phrase3.mp3",
       correct:{fr:"Il lit un peu le Coran.",es:"Lee un poco el Corán."},
       wrong:[
         {fr:"Il écrit un peu.",es:"Escribe un poco."},
@@ -238,7 +240,7 @@
     },
     {
       phrase:"يَلْبَسُ قَمِيصًا أَبْيَضَ وَسِرْوَالًا أَزْرَقَ.",
-      audio:"audio/m6/phrase4.mp3",
+      audio:"audio/module6/phrase4.mp3",
       correct:{fr:"Il met une chemise blanche et un pantalon bleu.",es:"Se pone camisa blanca y pantalón azul."},
       wrong:[
         {fr:"Il met une chemise rouge et un pantalon vert.",es:"Se pone camisa roja y pantalón verde."},
@@ -248,7 +250,7 @@
     },
     {
       phrase:"يَجْلِسُ مَعَ أَبِيهِ وَأُمِّهِ وَأُخْتِهِ.",
-      audio:"audio/m6/phrase5.mp3",
+      audio:"audio/module6/phrase5.mp3",
       correct:{fr:"Il s'assoit avec son père, sa mère et sa sœur.",es:"Se sienta con su padre, madre y hermana."},
       wrong:[
         {fr:"Il joue avec son frère et son cousin.",es:"Juega con su hermano y primo."},
@@ -257,8 +259,8 @@
       ]
     },
     {
-      phrase:"يَأْكُلُوا الفُطُورَ.",
-      audio:"audio/m6/phrase6.mp3",
+      phrase:"يَأْكُلُونَ الفُطُورَ.",
+      audio:"audio/module6/phrase6.mp3",
       correct:{fr:"Ils mangent le petit-déjeuner.",es:"Desayunan."},
       wrong:[
         {fr:"Ils mangent le déjeuner.",es:"Almuerzan."},
@@ -268,7 +270,7 @@
     },
     {
       phrase:"يَذْهَبُ إِلَى المَدْرَسَةِ بِالحَافِلَةِ.",
-      audio:"audio/m6/phrase7.mp3",
+      audio:"audio/module6/phrase7.mp3",
       correct:{fr:"Il va à l'école en bus.",es:"Va al colegio en autobús."},
       wrong:[
         {fr:"Il va à l'école en voiture.",es:"Va al colegio en coche."},
@@ -278,7 +280,7 @@
     },
     {
       phrase:"يَدْرُسُ وَيَكْتُبُ.",
-      audio:"audio/m6/phrase8.mp3",
+      audio:"audio/module6/phrase8.mp3",
       correct:{fr:"Il étudie et écrit.",es:"Estudia y escribe."},
       wrong:[
         {fr:"Il lit et mange.",es:"Lee y come."},
@@ -288,7 +290,7 @@
     },
     {
       phrase:"يَعُدُّ: وَاحِد، اِثْنَان، ثَلَاثَة.",
-      audio:"audio/m6/phrase9.mp3",
+      audio:"audio/module6/phrase9.mp3",
       correct:{fr:"Il compte : un, deux, trois.",es:"Cuenta : uno, dos, tres."},
       wrong:[
         {fr:"Il lit : alif, ba, ta.",es:"Lee : alif, ba, ta."},
@@ -298,7 +300,7 @@
     },
     {
       phrase:"عِنْدَ الظُّهْرِ يُصَلِّي الظُّهْرَ.",
-      audio:"audio/m6/phrase10.mp3",
+      audio:"audio/module6/phrase10.mp3",
       correct:{fr:"À midi, il prie le Dhohr.",es:"Al mediodía reza el Dhohr."},
       wrong:[
         {fr:"Le matin, il prie le Fajr.",es:"Por la mañana reza el Fajr."},
@@ -308,7 +310,7 @@
     },
     {
       phrase:"يَلْعَبُ كُرَةَ القَدَمِ.",
-      audio:"audio/m6/phrase11.mp3",
+      audio:"audio/module6/phrase11.mp3",
       correct:{fr:"Il joue au football.",es:"Juega al fútbol."},
       wrong:[
         {fr:"Il joue au basket.",es:"Juega al baloncesto."},
@@ -318,7 +320,7 @@
     },
     {
       phrase:"يَعُودُ إِلَى البَيْتِ بِالسَّيَّارَةِ.",
-      audio:"audio/m6/phrase12.mp3",
+      audio:"audio/module6/phrase12.mp3",
       correct:{fr:"Il rentre à la maison en voiture.",es:"Vuelve a casa en coche."},
       wrong:[
         {fr:"Il va à l'école en voiture.",es:"Va al colegio en coche."},
@@ -328,7 +330,7 @@
     },
     {
       phrase:"يُصَلِّي المَغْرِبَ ثُمَّ يَتَعَشَّى.",
-      audio:"audio/m6/phrase13.mp3",
+      audio:"audio/module6/phrase13.mp3",
       correct:{fr:"Il prie le Maghrib puis dîne.",es:"Reza el Maghrib y luego cena."},
       wrong:[
         {fr:"Il dîne puis prie le Maghrib.",es:"Cena y luego reza el Maghrib."},
@@ -338,7 +340,7 @@
     },
     {
       phrase:"يَتَعَشَّى مَعَ عَائِلَتِهِ.",
-      audio:"audio/m6/phrase14.mp3",
+      audio:"audio/module6/phrase14.mp3",
       correct:{fr:"Il dîne avec sa famille.",es:"Cena con su familia."},
       wrong:[
         {fr:"Il déjeune avec ses amis.",es:"Almuerza con sus amigos."},
@@ -348,7 +350,7 @@
     },
     {
       phrase:"قَبْلَ النَّوْمِ يُصَلِّي العِشَاءَ ثُمَّ يَنَامُ.",
-      audio:"audio/m6/phrase15.mp3",
+      audio:"audio/module6/phrase15.mp3",
       correct:{fr:"Avant de dormir il prie l'Isha puis s'endort.",es:"Antes de dormir reza el Isha y luego se duerme."},
       wrong:[
         {fr:"Avant de dormir il lit le Coran et mange.",es:"Antes de dormir lee el Corán y come."},
@@ -360,7 +362,7 @@
     // 15 questions vocabulaire en contexte (mots du texte يوم عزيز)
     {
       phrase:"يَسْتَيْقِظُ",
-      audio:"audio/m6/yastayqidh.mp3",
+      audio:"audio/module6/yastayqidh.mp3",
       correct:{fr:"Il se réveille",es:"Se despierta"},
       wrong:[
         {fr:"Il dort",es:"Duerme"},
@@ -370,7 +372,7 @@
     },
     {
       phrase:"يَتَوَضَّأُ",
-      audio:"audio/m6/yatawadda.mp3",
+      audio:"audio/module6/yatawadda.mp3",
       correct:{fr:"Il fait ses ablutions",es:"Hace las abluciones"},
       wrong:[
         {fr:"Il se lave les mains",es:"Se lava las manos"},
@@ -380,7 +382,7 @@
     },
     {
       phrase:"يُصَلِّي",
-      audio:"audio/m6/yusalli.mp3",
+      audio:"audio/module6/yusalli.mp3",
       correct:{fr:"Il prie",es:"Reza"},
       wrong:[
         {fr:"Il lit",es:"Lee"},
@@ -390,7 +392,7 @@
     },
     {
       phrase:"يَقْرَأُ",
-      audio:"audio/m6/yaqra.mp3",
+      audio:"audio/module6/yaqra.mp3",
       correct:{fr:"Il lit",es:"Lee"},
       wrong:[
         {fr:"Il écrit",es:"Escribe"},
@@ -400,7 +402,7 @@
     },
     {
       phrase:"يَلْبَسُ",
-      audio:"audio/m6/yalbas.mp3",
+      audio:"audio/module6/yalbas.mp3",
       correct:{fr:"Il s'habille / il met",es:"Se viste / se pone"},
       wrong:[
         {fr:"Il enlève",es:"Se quita"},
@@ -410,7 +412,7 @@
     },
     {
       phrase:"يَجْلِسُ",
-      audio:"audio/m6/yajlis.mp3",
+      audio:"audio/module6/yajlis.mp3",
       correct:{fr:"Il s'assoit",es:"Se sienta"},
       wrong:[
         {fr:"Il se lève",es:"Se levanta"},
@@ -420,7 +422,7 @@
     },
     {
       phrase:"يَأْكُلُ",
-      audio:"audio/m6/yakul.mp3",
+      audio:"audio/module6/yakul.mp3",
       correct:{fr:"Il mange",es:"Come"},
       wrong:[
         {fr:"Il boit",es:"Bebe"},
@@ -430,7 +432,7 @@
     },
     {
       phrase:"يَذْهَبُ",
-      audio:"audio/m6/yadhhab.mp3",
+      audio:"audio/module6/yadhhab.mp3",
       correct:{fr:"Il va / il part",es:"Va / parte"},
       wrong:[
         {fr:"Il revient",es:"Vuelve"},
@@ -440,7 +442,7 @@
     },
     {
       phrase:"يَدْرُسُ",
-      audio:"audio/m6/yadrus.mp3",
+      audio:"audio/module6/yadrus.mp3",
       correct:{fr:"Il étudie",es:"Estudia"},
       wrong:[
         {fr:"Il joue",es:"Juega"},
@@ -450,7 +452,7 @@
     },
     {
       phrase:"يَكْتُبُ",
-      audio:"audio/m6/yaktub.mp3",
+      audio:"audio/module6/yaktub.mp3",
       correct:{fr:"Il écrit",es:"Escribe"},
       wrong:[
         {fr:"Il lit",es:"Lee"},
@@ -460,7 +462,7 @@
     },
     {
       phrase:"يَلْعَبُ",
-      audio:"audio/m6/yallab.mp3",
+      audio:"audio/module6/yalab.mp3",
       correct:{fr:"Il joue",es:"Juega"},
       wrong:[
         {fr:"Il court",es:"Corre"},
@@ -470,7 +472,7 @@
     },
     {
       phrase:"يَعُودُ",
-      audio:"audio/m6/yaud.mp3",
+      audio:"audio/module6/yaud.mp3",
       correct:{fr:"Il revient / rentre",es:"Vuelve / regresa"},
       wrong:[
         {fr:"Il part",es:"Se va"},
@@ -480,7 +482,7 @@
     },
     {
       phrase:"يَتَعَشَّى",
-      audio:"audio/m6/yataasha.mp3",
+      audio:"audio/module6/yataasha.mp3",
       correct:{fr:"Il dîne",es:"Cena"},
       wrong:[
         {fr:"Il petit-déjeune",es:"Desayuna"},
@@ -490,7 +492,7 @@
     },
     {
       phrase:"يَنَامُ",
-      audio:"audio/m6/yanam.mp3",
+      audio:"audio/module6/yanam.mp3",
       correct:{fr:"Il dort / s'endort",es:"Duerme / se duerme"},
       wrong:[
         {fr:"Il se réveille",es:"Se despierta"},
@@ -500,7 +502,7 @@
     },
     {
       phrase:"يَعُدُّ",
-      audio:"audio/m6/yaoudd.mp3",
+      audio:"audio/module6/yaoudd.mp3",
       correct:{fr:"Il compte",es:"Cuenta"},
       wrong:[
         {fr:"Il lit",es:"Lee"},
@@ -522,17 +524,6 @@
     certName:$("cert-name"),certScore:$("cert-score"),certDate:$("cert-date")
   };
 
-  const Audio_ = {
-    main:new Audio(),unlocked:false,
-    init(){this.main.preload="none";this.main.playsInline=true;},
-    async unlock(){
-      if(this.unlocked)return;
-      try{this.main.src=SILENT;this.main.muted=true;await this.main.play().catch(()=>{});this.main.pause();this.main.currentTime=0;this.main.muted=false;this.main.removeAttribute("src");this.main.load();this.unlocked=true;}catch(_){this.main.muted=false;}
-    },
-    async play(src){if(!src)return;try{this.main.pause();this.main.currentTime=0;this.main.src=src;this.main.load();await this.main.play();}catch(_){}},
-    stop(){this.main.pause();this.main.currentTime=0;}
-  };
-
   const shuffle=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
   const dateFr=()=>new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
   const vibrate=p=>{try{if(navigator.vibrate)navigator.vibrate(p);}catch(_){}};
@@ -552,7 +543,7 @@
 
   const startQuiz=async()=>{
     if(S.isStarting)return;S.isStarting=true;clearTimer();
-    await Audio_.unlock();
+    await DAKAudio.unlock();
     S.playerName=DOM.nameInput.value.trim()||"Participant";
     S.questions=buildQuestions();S.idx=0;S.score=0;S.isProcessing=false;S.hasFinished=false;S.hasPlayedSuccess=false;
     switchView("quiz");bumpScore();renderQuestion();S.isStarting=false;
@@ -583,7 +574,7 @@
       btn.addEventListener("click",()=>handleAnswer(opt,btn,q.correct));
       DOM.optionsGrid.appendChild(btn);
     });
-    S.pendingTimer=setTimeout(()=>{if(!S.hasFinished)Audio_.play(S.currentAudio);},450);
+    S.pendingTimer=setTimeout(()=>{if(!S.hasFinished)DAKAudio.play(S.currentAudio, DOM.audioBtn);},450);
   };
 
   const handleAnswer=(selected,btnEl,target)=>{
@@ -597,7 +588,7 @@
   };
 
   const endQuiz=()=>{
-    if(S.hasFinished)return;clearTimer();S.hasFinished=true;Audio_.stop();
+    if(S.hasFinished)return;clearTimer();S.hasFinished=true;DAKAudio.stopAll();
     DOM.certName.textContent=S.playerName;DOM.certScore.textContent=`${S.score} / ${S.questions.length}`;DOM.certDate.textContent=`Fait le ${dateFr()}`;
     DOM.progressFill.style.width="100%";DOM.progressBar.setAttribute("aria-valuenow","100");
     switchView("certificate");
@@ -605,7 +596,7 @@
       if(S.hasPlayedSuccess)return;S.hasPlayedSuccess=true;
       const end=Date.now()+3000;
       (function frame(){if(typeof confetti==="function"){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:["#C8A462","#5D1828","#dfc28b"]});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:["#C8A462","#5D1828","#dfc28b"]});}if(Date.now()<end)requestAnimationFrame(frame);})();
-      vibrate([120,50,120,50,180]);Audio_.play("audio/mabruk.mp3");
+      vibrate([120,50,120,50,180]);DAKAudio.playEffect("mabruk.mp3");
 
       // DAK Tracker
       if (window.DAK_enregistrerScore) {
@@ -614,17 +605,15 @@
     },50);
   };
 
-  const restartQuiz=()=>{clearTimer();Audio_.stop();S.isStarting=false;S.isProcessing=false;S.hasFinished=false;S.hasPlayedSuccess=false;S.currentAudio="";switchView("welcome");DOM.nameInput.focus();};
+  const restartQuiz=()=>{clearTimer();DAKAudio.stopAll();S.isStarting=false;S.isProcessing=false;S.hasFinished=false;S.hasPlayedSuccess=false;S.currentAudio="";switchView("welcome");DOM.nameInput.focus();};
 
   DOM.startBtn.addEventListener("click",startQuiz);
 
-  DOM.audioBtn.addEventListener("click",()=>{if(!S.hasFinished&&S.currentAudio)Audio_.play(S.currentAudio);});
-  DOM.exitBtn.addEventListener("click",()=>{clearTimer();Audio_.stop();switchView("welcome");});
+  DOM.audioBtn.addEventListener("click",()=>{if(!S.hasFinished&&S.currentAudio)DAKAudio.play(S.currentAudio, DOM.audioBtn);});
+  DOM.exitBtn.addEventListener("click",()=>{clearTimer();DAKAudio.stopAll();switchView("welcome");});
   DOM.printBtn.addEventListener("click",()=>window.print());
   DOM.restartBtn.addEventListener("click",restartQuiz);
   DOM.nameInput.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();startQuiz();}});
-  document.addEventListener("visibilitychange",()=>{if(document.hidden)Audio_.stop();});
-  Audio_.init();
 })();
 </script>
 <script>

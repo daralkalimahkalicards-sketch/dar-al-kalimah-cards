@@ -374,7 +374,9 @@
   
     #view-welcome { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker.js"></script>
+    <script src="audio-controller.js"></script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -396,6 +398,7 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
 </head>
 
 <body>
@@ -420,7 +423,7 @@
         </div>
         <button id="start-btn" class="btn-main start-btn" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
       </section>
     </main>
@@ -571,58 +574,6 @@
       vibrate(p) { if (DATA.settings.enableVibration && navigator.vibrate) navigator.vibrate(p); }
     };
 
-    const AudioController = {
-      player: new Audio(), effectPlayer: new Audio(), isUnlocked: false,
-
-      init() {
-        this.player.preload = "none"; this.effectPlayer.preload = "none";
-        this.player.playsInline = true; this.effectPlayer.playsInline = true;
-        this.player.volume = 1; this.effectPlayer.volume = 1;
-      },
-
-      async unlock() {
-        if (this.isUnlocked) return true;
-        try {
-          const s = DATA.meta.silentUnlockAudio;
-          this.player.pause(); this.effectPlayer.pause();
-          this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
-          this.player.src = s; this.effectPlayer.src = s;
-          this.player.muted = true; this.effectPlayer.muted = true;
-          await this.player.play().catch(() => {});
-          this.player.pause(); this.player.currentTime = 0;
-          await this.effectPlayer.play().catch(() => {});
-          this.effectPlayer.pause(); this.effectPlayer.currentTime = 0;
-          this.player.muted = false; this.effectPlayer.muted = false;
-          this.player.removeAttribute("src"); this.effectPlayer.removeAttribute("src");
-          this.player.load(); this.effectPlayer.load();
-          this.isUnlocked = true; return true;
-        } catch(_) { this.player.muted = false; this.effectPlayer.muted = false; return false; }
-      },
-
-      async playQuestion(src) {
-        if (!src) return;
-        try {
-          this.player.pause(); this.player.currentTime = 0;
-          this.player.src = src; this.player.load();
-          await this.player.play();
-        } catch(_) {}
-      },
-
-      async playEffect(src) {
-        if (!src) return;
-        try {
-          this.effectPlayer.pause(); this.effectPlayer.currentTime = 0;
-          this.effectPlayer.src = src; this.effectPlayer.load();
-          await this.effectPlayer.play();
-        } catch(_) {}
-      },
-
-      stopAll() {
-        this.player.pause(); this.effectPlayer.pause();
-        this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
-      }
-    };
-
     const App = {
       state: {
         playerName: "Participant",
@@ -636,7 +587,6 @@
       },
 
       init() {
-        AudioController.init();
         DOM.navHomeTop.href = DATA.meta.homeHref;
         DOM.navHomeCert.href = DATA.meta.homeHref;
         const saved = Utils.load(DATA.meta.storage.playerName, "");
@@ -650,7 +600,6 @@
         DOM.printBtn.addEventListener("click", () => window.print());
         DOM.restartBtn.addEventListener("click", () => this.restartQuiz());
         DOM.playerName.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); this.startQuiz(); } });
-        document.addEventListener("visibilitychange", () => { if (document.hidden) AudioController.stopAll(); });
       },
 
       switchView(name) {
@@ -703,7 +652,7 @@
         this.state.questionToken += 1;
 
         Utils.save(DATA.meta.storage.playerName, this.state.playerName);
-        await AudioController.unlock();
+        await DAKAudio.unlock();
 
         this.switchView("quiz");
         this.updateScore();
@@ -713,7 +662,7 @@
 
       restartQuiz() {
         this.clearTimer();
-        AudioController.stopAll();
+        DAKAudio.stopAll();
         this.state.currentIndex = 0; this.state.score = 0;
         this.state.currentAudio = ""; this.state.isProcessing = false;
         this.state.isStarting = false; this.state.hasFinished = false;
@@ -803,7 +752,7 @@
 
       playCurrentAudio() {
         if (!this.state.currentAudio || this.state.hasFinished) return;
-        AudioController.playQuestion(this.state.currentAudio);
+        DAKAudio.play(this.state.currentAudio, DOM.playAudioBtn);
       },
 
       finishQuiz() {
@@ -811,7 +760,7 @@
         this.clearTimer();
         this.state.hasFinished = true;
         this.state.questionToken += 1;
-        AudioController.stopAll();                /* ✅ stopAll */
+        DAKAudio.stopAll();                /* ✅ stopAll */
 
         DOM.progressFill.style.width = "100%";
         DOM.progressBar.setAttribute("aria-valuenow", "100");
@@ -834,7 +783,7 @@
 
         if (this.state.hasPlayedSuccess) return;
         this.state.hasPlayedSuccess = true;
-        AudioController.playEffect(DATA.meta.successAudio);
+        DAKAudio.playEffect(DATA.meta.successAudio);
 
         // DAK Tracker
         if (window.DAK_enregistrerScore) {

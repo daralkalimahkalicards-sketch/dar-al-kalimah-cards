@@ -49,11 +49,12 @@
         @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .btn-back-home {
-            position: absolute; top: 25px; right: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
-            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
-            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; z-index: 100;
+            position: absolute; top: 25px; right: 25px; background: transparent; border: none; color: var(--gold);
+            padding: 5px; border-radius: 0; font-size: 1.6rem; font-weight: normal; text-transform: none; letter-spacing: normal;
+            cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.3s ease, color 0.3s ease; z-index: 100;
         }
-        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+        .btn-back-home:hover { transform: scale(1.1); color: var(--gold-light); background: transparent; }
+        .btn-back-home-label { display: none; }
 
         .btn-main, .btn-secondary {
             background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
@@ -142,7 +143,6 @@
 
         @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 2.2rem; } .diploma-paper { padding: 30px 20px; } }
         @media (max-width: 480px) { 
-            .btn-back-home { position: static; display: inline-flex; justify-content: center; margin-bottom: 15px; }
             .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } 
             .btn-audio-huge { width: 70px; height: 70px; font-size: 2rem; }
             .option-card { font-size: 1.8rem; aspect-ratio: auto; padding: 25px 5px; } 
@@ -181,13 +181,17 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
 
-    <a href="module3.html" class="btn-back-home"><i class="fa-solid fa-house"></i> Menu / Menú</a>
+    <a href="module3.html" class="btn-back-home" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i><span class="btn-back-home-label"> Menu / Menú</span></a>
 
     <div id="view-welcome" class="view">
         <div class="menu-container">
+            <a href="module3.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
             <div class="brand-ar ar-text">المدود</div>
             <div class="app-title serif-text">Kalicards – Module 3</div>
             <div class="app-subtitle">QUIZ 3 : Écoute et trouve (4+ lettres)</div>
@@ -203,7 +207,7 @@
                 <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
             
-            <button class="btn-main" onclick="startQuiz()">Commencer / Empezar</button>
+            <button class="btn-main" onclick="startQuiz()">Commencer le quiz<span class="btn-es">Empezar el quiz</span></button>
         </div>
     </div>
 
@@ -259,8 +263,6 @@
         let totalWordsCount = 0;
         let remainingQuestions = []; 
         let isAnswerProcessing = false;
-        let questionAudio = new Audio();
-        
         let wordData = [];
 
         function initQuizData() {
@@ -271,13 +273,14 @@
             totalWordsCount = wordData.length;
         }
 
-        function startQuiz() {
+        async function startQuiz() {
             playerName = document.getElementById('player-name').value.trim();
             if (playerName === "") playerName = "Participant";
 
             initQuizData();
             isAnswerProcessing = false;
 
+            await DAKAudio.unlock();
             generateQuestions();
             
             document.querySelector('.btn-back-home').style.display = 'none';
@@ -322,8 +325,6 @@
             const progressPercent = (masteredCount / totalWordsCount) * 100;
             document.getElementById('progress-fill').style.width = `${progressPercent}%`;
 
-            questionAudio.src = currentQ.targetAudio;
-
             const optionsGrid = document.getElementById('options-grid');
             optionsGrid.innerHTML = "";
 
@@ -339,11 +340,9 @@
         }
 
         function playQuestionAudio() {
-            questionAudio.currentTime = 0;
-            let playPromise = questionAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Audio en attente d'interaction :", error); });
-            }
+            const currentQ = remainingQuestions[0];
+            if (!currentQ) return;
+            DAKAudio.play(currentQ.targetAudio, document.getElementById('btn-play-audio'));
         }
 
         function handleAnswer(selectedArabic, cardElement, currentQ) {
@@ -386,11 +385,7 @@
 
             triggerConfetti();
 
-            const mabrukAudio = new Audio("mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
-            }
+            DAKAudio.playEffect("mabruk.mp3");
 
             // DAK Tracker
             let masteredCount = totalWordsCount - remainingQuestions.length;

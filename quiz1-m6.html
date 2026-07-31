@@ -177,6 +177,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -270,75 +273,74 @@
 <script>
 (() => {
   "use strict";
-  const SILENT = "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=";
 
   // ── BASE DE DONNÉES COMPLÈTE MODULE 6 ──────────────────────
   const ALL_WORDS = [
     // Jours
-    {ar:"الإثْنَيْن",    fr:"Lundi",          es:"Lunes",           theme:"Jours"},
-    {ar:"الثُّلَاثَاء",  fr:"Mardi",          es:"Martes",          theme:"Jours"},
-    {ar:"الأَرْبِعَاء",  fr:"Mercredi",       es:"Miércoles",       theme:"Jours"},
-    {ar:"الخَمِيس",      fr:"Jeudi",          es:"Jueves",          theme:"Jours"},
-    {ar:"الجُمُعَة",     fr:"Vendredi",       es:"Viernes",         theme:"Jours"},
-    {ar:"السَّبْت",      fr:"Samedi",         es:"Sábado",          theme:"Jours"},
-    {ar:"الأَحَد",       fr:"Dimanche",       es:"Domingo",         theme:"Jours"},
+    {ar:"الاثْنَيْن",    fr:"Lundi",          es:"Lunes",           theme:"Jours", aud:"audio/module6/al-ithnayn.mp3"},
+    {ar:"الثُّلَاثَاء",  fr:"Mardi",          es:"Martes",          theme:"Jours", aud:"audio/module6/ath-thulatha.mp3"},
+    {ar:"الأَرْبِعَاء",  fr:"Mercredi",       es:"Miércoles",       theme:"Jours", aud:"audio/module6/al-arbia.mp3"},
+    {ar:"الخَمِيس",      fr:"Jeudi",          es:"Jueves",          theme:"Jours", aud:"audio/module6/al-khamis.mp3"},
+    {ar:"الجُمُعَة",     fr:"Vendredi",       es:"Viernes",         theme:"Jours", aud:"audio/module6/al-jumua.mp3"},
+    {ar:"السَّبْت",      fr:"Samedi",         es:"Sábado",          theme:"Jours", aud:"audio/module6/as-sabt.mp3"},
+    {ar:"الأَحَد",       fr:"Dimanche",       es:"Domingo",         theme:"Jours", aud:"audio/module6/al-ahad.mp3"},
     // Horaires
-    {ar:"الفَجْر",       fr:"L'Aube",         es:"El amanecer",     theme:"Horaires"},
-    {ar:"الصُّبْح",      fr:"Le Matin",       es:"La mañana",       theme:"Horaires"},
-    {ar:"الظُّهْر",      fr:"Midi",           es:"El mediodía",     theme:"Horaires"},
-    {ar:"العَصْر",       fr:"L'Après-midi",   es:"La tarde",        theme:"Horaires"},
-    {ar:"المَسَاء",      fr:"Le Soir",        es:"La tarde",        theme:"Horaires"},
-    {ar:"المَغْرِب",     fr:"Le Coucher",     es:"El atardecer",    theme:"Horaires"},
-    {ar:"العِشَاء",      fr:"La Nuit",        es:"La noche",        theme:"Horaires"},
-    {ar:"اللَّيْل",      fr:"La Nuit (tard)", es:"La noche",        theme:"Horaires"},
+    {ar:"الفَجْر",       fr:"L'Aube",         es:"El amanecer",     theme:"Horaires", aud:"audio/module6/al-fajr.mp3"},
+    {ar:"الصُّبْح",      fr:"Le Matin",       es:"La mañana",       theme:"Horaires", aud:"audio/module6/as-subh.mp3"},
+    {ar:"الظُّهْر",      fr:"Midi",           es:"El mediodía",     theme:"Horaires", aud:"audio/module6/az-zuhr.mp3"},
+    {ar:"العَصْر",       fr:"L'Après-midi",   es:"La tarde",        theme:"Horaires", aud:"audio/module6/al-asr.mp3"},
+    {ar:"المَسَاء",      fr:"Le Soir",        es:"La tarde",        theme:"Horaires", aud:"audio/module6/al-masa.mp3"},
+    {ar:"المَغْرِب",     fr:"Le Coucher",     es:"El atardecer",    theme:"Horaires", aud:"audio/module6/al-maghrib.mp3"},
+    {ar:"العِشَاء",      fr:"La Nuit",        es:"La noche",        theme:"Horaires", aud:"audio/module6/al-isha.mp3"},
+    {ar:"اللَّيْل",      fr:"La Nuit (tard)", es:"La noche",        theme:"Horaires", aud:"audio/module6/al-layl.mp3"},
     // Famille
-    {ar:"أَب",           fr:"Père",           es:"Padre",           theme:"Famille"},
-    {ar:"أُمّ",          fr:"Mère",           es:"Madre",           theme:"Famille"},
-    {ar:"أَخ",           fr:"Frère",          es:"Hermano",         theme:"Famille"},
-    {ar:"أُخْت",         fr:"Sœur",           es:"Hermana",         theme:"Famille"},
-    {ar:"اِبْن",         fr:"Fils",           es:"Hijo",            theme:"Famille"},
-    {ar:"بِنْت",         fr:"Fille",          es:"Hija",            theme:"Famille"},
-    {ar:"جَدّ",          fr:"Grand-père",     es:"Abuelo",          theme:"Famille"},
-    {ar:"جَدَّة",        fr:"Grand-mère",     es:"Abuela",          theme:"Famille"},
-    {ar:"حَفِيد",        fr:"Petit-fils",     es:"Nieto",           theme:"Famille"},
-    {ar:"حَفِيدَة",      fr:"Petite-fille",   es:"Nieta",           theme:"Famille"},
-    {ar:"عَمّ",          fr:"Oncle (père)",   es:"Tío paterno",     theme:"Famille"},
-    {ar:"عَمَّة",        fr:"Tante (père)",   es:"Tía paterna",     theme:"Famille"},
-    {ar:"خَال",          fr:"Oncle (mère)",   es:"Tío materno",     theme:"Famille"},
-    {ar:"خَالَة",        fr:"Tante (mère)",   es:"Tía materna",     theme:"Famille"},
+    {ar:"أَب",           fr:"Père",           es:"Padre",           theme:"Famille", aud:"audio/module6/ab.mp3"},
+    {ar:"أُمّ",          fr:"Mère",           es:"Madre",           theme:"Famille", aud:"audio/quiz-qat/umm.mp3"},
+    {ar:"أَخ",           fr:"Frère",          es:"Hermano",         theme:"Famille", aud:"audio/module6/akh.mp3"},
+    {ar:"أُخْت",         fr:"Sœur",           es:"Hermana",         theme:"Famille", aud:"audio/module6/ukht.mp3"},
+    {ar:"اِبْن",         fr:"Fils",           es:"Hijo",            theme:"Famille", aud:"audio/module6/ibn.mp3"},
+    {ar:"بِنْت",         fr:"Fille",          es:"Hija",            theme:"Famille", aud:"audio/module2/bint.mp3"},
+    {ar:"جَدّ",          fr:"Grand-père",     es:"Abuelo",          theme:"Famille", aud:"audio/shadda/jadd.mp3"},
+    {ar:"جَدَّة",        fr:"Grand-mère",     es:"Abuela",          theme:"Famille", aud:"audio/shadda/jadda.mp3"},
+    {ar:"حَفِيد",        fr:"Petit-fils",     es:"Nieto",           theme:"Famille", aud:"audio/module6/hafid.mp3"},
+    {ar:"حَفِيدَة",      fr:"Petite-fille",   es:"Nieta",           theme:"Famille", aud:"audio/module6/hafida.mp3"},
+    {ar:"عَمّ",          fr:"Oncle (père)",   es:"Tío paterno",     theme:"Famille", aud:"audio/module6/amm.mp3"},
+    {ar:"عَمَّة",        fr:"Tante (père)",   es:"Tía paterna",     theme:"Famille", aud:"audio/module6/amma.mp3"},
+    {ar:"خَال",          fr:"Oncle (mère)",   es:"Tío materno",     theme:"Famille", aud:"audio/module6/khal.mp3"},
+    {ar:"خَالَة",        fr:"Tante (mère)",   es:"Tía materna",     theme:"Famille", aud:"audio/module6/khala.mp3"},
     // Nombres (sélection)
-    {ar:"صِفْر",         fr:"Zéro",           es:"Cero",            theme:"Nombres"},
-    {ar:"وَاحِد",        fr:"Un",             es:"Uno",             theme:"Nombres"},
-    {ar:"اِثْنَان",      fr:"Deux",           es:"Dos",             theme:"Nombres"},
-    {ar:"ثَلَاثَة",      fr:"Trois",          es:"Tres",            theme:"Nombres"},
-    {ar:"أَرْبَعَة",     fr:"Quatre",         es:"Cuatro",          theme:"Nombres"},
-    {ar:"خَمْسَة",       fr:"Cinq",           es:"Cinco",           theme:"Nombres"},
-    {ar:"عَشَرَة",       fr:"Dix",            es:"Diez",            theme:"Nombres"},
-    {ar:"أَحَدَ عَشَر",  fr:"Onze",           es:"Once",            theme:"Nombres"},
-    {ar:"عِشْرُون",      fr:"Vingt",          es:"Veinte",          theme:"Nombres"},
-    {ar:"ثَلَاثُون",     fr:"Trente",         es:"Treinta",         theme:"Nombres"},
-    {ar:"مِئَة",         fr:"Cent",           es:"Cien",            theme:"Nombres"},
-    {ar:"أَلْف",         fr:"Mille",          es:"Mil",             theme:"Nombres"},
+    {ar:"صِفْر",         fr:"Zéro",           es:"Cero",            theme:"Nombres", aud:"audio/module6/sifr.mp3"},
+    {ar:"وَاحِد",        fr:"Un",             es:"Uno",             theme:"Nombres", aud:"audio/module6/wahid.mp3"},
+    {ar:"اِثْنَان",      fr:"Deux",           es:"Dos",             theme:"Nombres", aud:"audio/module6/ithnan.mp3"},
+    {ar:"ثَلَاثَة",      fr:"Trois",          es:"Tres",            theme:"Nombres", aud:"audio/module6/thalatha.mp3"},
+    {ar:"أَرْبَعَة",     fr:"Quatre",         es:"Cuatro",          theme:"Nombres", aud:"audio/module6/arbaa.mp3"},
+    {ar:"خَمْسَة",       fr:"Cinq",           es:"Cinco",           theme:"Nombres", aud:"audio/module6/khamsa.mp3"},
+    {ar:"عَشَرَة",       fr:"Dix",            es:"Diez",            theme:"Nombres", aud:"audio/module6/ashara.mp3"},
+    {ar:"أَحَدَ عَشَر",  fr:"Onze",           es:"Once",            theme:"Nombres", aud:"audio/module6/ahada-ashar.mp3"},
+    {ar:"عِشْرُون",      fr:"Vingt",          es:"Veinte",          theme:"Nombres", aud:"audio/module6/ishrun.mp3"},
+    {ar:"ثَلَاثُون",     fr:"Trente",         es:"Treinta",         theme:"Nombres", aud:"audio/module6/thalathun.mp3"},
+    {ar:"مِئَة",         fr:"Cent",           es:"Cien",            theme:"Nombres", aud:"audio/module6/miah.mp3"},
+    {ar:"أَلْف",         fr:"Mille",          es:"Mil",             theme:"Nombres", aud:"audio/module6/alf.mp3"},
     // Transports
-    {ar:"سَيَّارَة",     fr:"Voiture",        es:"Coche",           theme:"Transports"},
-    {ar:"طَائِرَة",      fr:"Avion",          es:"Avión",           theme:"Transports"},
-    {ar:"دَرَّاجَة هَوَائِيَّة", fr:"Vélo",  es:"Bicicleta",       theme:"Transports"},
-    {ar:"قِطَار",        fr:"Train",          es:"Tren",            theme:"Transports"},
-    {ar:"حَافِلَة",      fr:"Bus",            es:"Autobús",         theme:"Transports"},
-    {ar:"سَفِينَة",      fr:"Bateau",         es:"Barco",           theme:"Transports"},
-    {ar:"تَاكْسِي",      fr:"Taxi",           es:"Taxi",            theme:"Transports"},
-    {ar:"مِتْرُو",       fr:"Métro",          es:"Metro",           theme:"Transports"},
+    {ar:"سَيَّارَة",     fr:"Voiture",        es:"Coche",           theme:"Transports", aud:"audio/shadda/sayyara.mp3"},
+    {ar:"طَائِرَة",      fr:"Avion",          es:"Avión",           theme:"Transports", aud:"audio/module3/taira.mp3"},
+    {ar:"دَرَّاجَة هَوَائِيَّة", fr:"Vélo",  es:"Bicicleta",       theme:"Transports", aud:"audio/module6/darraja-hawaiya.mp3"},
+    {ar:"قِطَار",        fr:"Train",          es:"Tren",            theme:"Transports", aud:"audio/module6/qitar.mp3"},
+    {ar:"حَافِلَة",      fr:"Bus",            es:"Autobús",         theme:"Transports", aud:"audio/module6/hafila.mp3"},
+    {ar:"سَفِينَة",      fr:"Bateau",         es:"Barco",           theme:"Transports", aud:"audio/module6/safina.mp3"},
+    {ar:"تَاكْسِي",      fr:"Taxi",           es:"Taxi",            theme:"Transports", aud:"audio/module6/taxi.mp3"},
+    {ar:"مِتْرُو",       fr:"Métro",          es:"Metro",           theme:"Transports", aud:"audio/module6/metro.mp3"},
     // Couleurs
-    {ar:"أَحْمَر",       fr:"Rouge",          es:"Rojo",            theme:"Couleurs"},
-    {ar:"أَزْرَق",       fr:"Bleu",           es:"Azul",            theme:"Couleurs"},
-    {ar:"أَخْضَر",       fr:"Vert",           es:"Verde",           theme:"Couleurs"},
-    {ar:"أَسْوَد",       fr:"Noir",           es:"Negro",           theme:"Couleurs"},
-    {ar:"أَبْيَض",       fr:"Blanc",          es:"Blanco",          theme:"Couleurs"},
-    {ar:"بُنِّي",        fr:"Marron",         es:"Marrón",          theme:"Couleurs"},
-    {ar:"أَصْفَر",       fr:"Jaune",          es:"Amarillo",        theme:"Couleurs"},
-    {ar:"بُرْتُقَالِي",  fr:"Orange",         es:"Naranja",         theme:"Couleurs"},
-    {ar:"بَنَفْسَجِي",   fr:"Violet",         es:"Violeta",         theme:"Couleurs"},
-    {ar:"نِيلِي",        fr:"Indigo",         es:"Índigo",          theme:"Couleurs"},
+    {ar:"أَحْمَر",       fr:"Rouge",          es:"Rojo",            theme:"Couleurs", aud:"audio/module6/ahmar.mp3"},
+    {ar:"أَزْرَق",       fr:"Bleu",           es:"Azul",            theme:"Couleurs", aud:"audio/module6/azraq.mp3"},
+    {ar:"أَخْضَر",       fr:"Vert",           es:"Verde",           theme:"Couleurs", aud:"audio/module6/akhdar.mp3"},
+    {ar:"أَسْوَد",       fr:"Noir",           es:"Negro",           theme:"Couleurs", aud:"audio/module6/aswad.mp3"},
+    {ar:"أَبْيَض",       fr:"Blanc",          es:"Blanco",          theme:"Couleurs", aud:"audio/module6/abyad.mp3"},
+    {ar:"بُنِّي",        fr:"Marron",         es:"Marrón",          theme:"Couleurs", aud:"audio/module6/bunni.mp3"},
+    {ar:"أَصْفَر",       fr:"Jaune",          es:"Amarillo",        theme:"Couleurs", aud:"audio/module6/asfar.mp3"},
+    {ar:"بُرْتُقَالِي",  fr:"Orange",         es:"Naranja",         theme:"Couleurs", aud:"audio/module6/burtuqali.mp3"},
+    {ar:"بَنَفْسَجِي",   fr:"Violet",         es:"Violeta",         theme:"Couleurs", aud:"audio/module6/banafsaji.mp3"},
+    {ar:"نِيلِي",        fr:"Indigo",         es:"Índigo",          theme:"Couleurs", aud:"audio/module6/nili.mp3"},
   ];
 
   const MAX_Q = 30;
@@ -356,22 +358,6 @@
     certName:$("cert-name"), certScore:$("cert-score"), certDate:$("cert-date")
   };
 
-  // ── AUDIO ──────────────────────────────────────────────────
-  const Audio_ = {
-    main: new Audio(), unlocked: false,
-    init(){ this.main.preload="none"; this.main.playsInline=true; },
-    async unlock(){
-      if(this.unlocked) return;
-      try{
-        this.main.src=SILENT; this.main.muted=true;
-        await this.main.play().catch(()=>{}); this.main.pause(); this.main.currentTime=0;
-        this.main.muted=false; this.main.removeAttribute("src"); this.main.load();
-        this.unlocked=true;
-      }catch(_){ this.main.muted=false; }
-    },
-    async play(src){ if(!src)return; try{ this.main.pause(); this.main.currentTime=0; this.main.src=src; this.main.load(); await this.main.play(); }catch(_){} },
-    stop(){ this.main.pause(); this.main.currentTime=0; }
-  };
 
   // ── UTILS ──────────────────────────────────────────────────
   const shuffle = arr => { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
@@ -434,7 +420,7 @@
   const startQuiz = async () => {
     if(S.isStarting) return;
     S.isStarting = true; clearTimer();
-    await Audio_.unlock();
+    await DAKAudio.unlock();
     S.playerName = DOM.nameInput.value.trim() || "Participant";
     S.questions = buildQuestions();
     S.idx = 0; S.score = 0; S.isProcessing = false;
@@ -456,7 +442,7 @@
     DOM.qTheme.innerHTML = `${icon} ${q.target.theme} · ${THEME_ES[q.target.theme]||""}`;
     DOM.qFr.textContent = q.target.fr;
     DOM.qEs.textContent = q.target.es;
-    S.currentAudio = `audio/m6/${q.target.ar.replace(/\s/g,"-")}.mp3`;
+    S.currentAudio = q.target.aud;
 
     DOM.optionsGrid.innerHTML = "";
     q.options.forEach((opt, i) => {
@@ -481,7 +467,7 @@
 
     // Auto-lecture audio
     S.pendingTimer = setTimeout(() => {
-      if(!S.hasFinished) Audio_.play(S.currentAudio);
+      if(!S.hasFinished) DAKAudio.play(S.currentAudio, DOM.audioBtn);
     }, 450);
   };
 
@@ -508,7 +494,7 @@
   const endQuiz = () => {
     if(S.hasFinished) return;
     clearTimer(); S.hasFinished = true;
-    Audio_.stop();
+    DAKAudio.stopAll();
     DOM.certName.textContent = S.playerName;
     DOM.certScore.textContent = `${S.score} / ${S.questions.length}`;
     DOM.certDate.textContent = `Fait le ${dateFr()}`;
@@ -527,7 +513,7 @@
         if(Date.now() < end) requestAnimationFrame(frame);
       })();
       vibrate([120,50,120,50,180]);
-      Audio_.play("audio/mabruk.mp3");
+      DAKAudio.playEffect("mabruk.mp3");
 
       // DAK Tracker
       if (window.DAK_enregistrerScore) {
@@ -537,7 +523,7 @@
   };
 
   const restartQuiz = () => {
-    clearTimer(); Audio_.stop();
+    clearTimer(); DAKAudio.stopAll();
     S.isStarting=false; S.isProcessing=false;
     S.hasFinished=false; S.hasPlayedSuccess=false;
     S.currentAudio="";
@@ -547,14 +533,11 @@
   // ── EVENTS ─────────────────────────────────────────────────
   DOM.startBtn.addEventListener("click", startQuiz);
 
-  DOM.audioBtn.addEventListener("click", () => { if(!S.hasFinished && S.currentAudio) Audio_.play(S.currentAudio); });
-  DOM.exitBtn.addEventListener("click",  () => { clearTimer(); Audio_.stop(); switchView("welcome"); });
+  DOM.audioBtn.addEventListener("click", () => { if(!S.hasFinished && S.currentAudio) DAKAudio.play(S.currentAudio, DOM.audioBtn); });
+  DOM.exitBtn.addEventListener("click",  () => { clearTimer(); DAKAudio.stopAll(); switchView("welcome"); });
   DOM.printBtn.addEventListener("click", () => window.print());
   DOM.restartBtn.addEventListener("click", restartQuiz);
   DOM.nameInput.addEventListener("keydown", e => { if(e.key==="Enter"){e.preventDefault();startQuiz();} });
-  document.addEventListener("visibilitychange", () => { if(document.hidden) Audio_.stop(); });
-
-  Audio_.init();
 })();
 </script>
 <script>

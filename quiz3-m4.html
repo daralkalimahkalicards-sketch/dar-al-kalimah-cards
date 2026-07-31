@@ -746,6 +746,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -887,7 +890,7 @@
       "welcomeSubtitleFr": "Écoute l'audio et choisis la bonne orthographe selon la règle de la hamza.",
       "welcomeSubtitleEs": "Escucha el audio y elige la ortografía correcta según la regla de la hamza.",
       "playerLabel": "Nom du participant / Nombre del participante",
-      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empieza el quiz</span>",
+      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empezar el quiz</span>",
       "instructionFr": "Écoute et choisis la bonne orthographe !",
       "instructionEs": "¡Escucha y elige la ortografía correcta!",
       "feedbackLabel": "📌 Règle à retenir",
@@ -904,7 +907,7 @@
         "id": "hamza-01",
         "correct": "سُئِلَ",
         "traps": ["سُؤِلَ", "سُأِلَ", "سَئِلَ"],
-        "audio": "audio/quiz3/suila.mp3",
+        "audio": "audio/quiz-hamza/suila.mp3",
         "fr": "On lui a demandé",
         "es": "Se le preguntó",
         "rule": "Hamza médiane — Kasra gagne → Ya"
@@ -913,7 +916,7 @@
         "id": "hamza-02",
         "correct": "مُؤْمِن",
         "traps": ["مُئْمِن", "مُأْمِن", "مُومِن"],
-        "audio": "audio/quiz3/mumin.mp3",
+        "audio": "audio/quiz-qat/mumin.mp3",
         "fr": "Un croyant",
         "es": "Un creyente",
         "rule": "Hamza médiane — Soukoun, Damma avant → Waw"
@@ -922,7 +925,7 @@
         "id": "hamza-03",
         "correct": "يَأْكُل",
         "traps": ["يَئْكُل", "يَؤْكُل", "يَاكُل"],
-        "audio": "audio/quiz3/yakul.mp3",
+        "audio": "audio/quiz-qat/yakul.mp3",
         "fr": "Il mange",
         "es": "Él come",
         "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
@@ -931,7 +934,7 @@
         "id": "hamza-04",
         "correct": "سُؤَال",
         "traps": ["سُأَال", "سُئَال", "سُوَال"],
-        "audio": "audio/quiz3/sual.mp3",
+        "audio": "audio/quiz-qat/sual.mp3",
         "fr": "Une question",
         "es": "Una pregunta",
         "rule": "Hamza médiane — Damma gagne → Waw"
@@ -940,7 +943,7 @@
         "id": "hamza-05",
         "correct": "بِئْر",
         "traps": ["بِأْر", "بِؤْر", "بِيْر"],
-        "audio": "audio/quiz3/bir.mp3",
+        "audio": "audio/quiz-qat/bir.mp3",
         "fr": "Un puits",
         "es": "Un pozo",
         "rule": "Hamza médiane — Kasra gagne → Ya"
@@ -949,7 +952,7 @@
         "id": "hamza-06",
         "correct": "ذِئْب",
         "traps": ["ذِأْب", "ذِؤْب", "ذِيب"],
-        "audio": "audio/quiz3/dhib.mp3",
+        "audio": "audio/module2/dhib.mp3",
         "fr": "Un loup",
         "es": "Un lobo",
         "rule": "Hamza médiane — Kasra gagne → Ya"
@@ -958,7 +961,7 @@
         "id": "hamza-07",
         "correct": "شَيْء",
         "traps": ["شَيْأ", "شَيْئ", "شَيْؤ"],
-        "audio": "audio/quiz3/shay.mp3",
+        "audio": "audio/quiz-qat/shay.mp3",
         "fr": "Une chose",
         "es": "Una cosa",
         "rule": "Hamza finale — Soukoun avant → sur la ligne"
@@ -967,7 +970,7 @@
         "id": "hamza-08",
         "correct": "قَرَأَ",
         "traps": ["قَرَئَ", "قَرَؤَ", "قَرَءَ"],
-        "audio": "audio/quiz3/qaraa.mp3",
+        "audio": "audio/module2/qaraa.mp3",
         "fr": "Il a lu",
         "es": "Él leyó",
         "rule": "Hamza finale — Fatha gagne → Alef"
@@ -976,7 +979,7 @@
         "id": "hamza-09",
         "correct": "شَاطِئ",
         "traps": ["شَاطِأ", "شَاطِؤ", "شَاطِء"],
-        "audio": "audio/quiz3/shati.mp3",
+        "audio": "audio/quiz-qat/shati.mp3",
         "fr": "Une plage",
         "es": "Una playa",
         "rule": "Hamza finale — Kasra gagne → Ya"
@@ -985,7 +988,7 @@
         "id": "hamza-10",
         "correct": "مَاء",
         "traps": ["مَأ", "مَئ", "مَؤ"],
-        "audio": "audio/quiz3/ma.mp3",
+        "audio": "audio/ma.mp3",
         "fr": "De l'eau",
         "es": "Agua",
         "rule": "Hamza finale sur la ligne (Madd + Hamza)"
@@ -994,7 +997,7 @@
         "id": "hamza-11",
         "correct": "أَسَد",
         "traps": ["اسَد", "إِسَد", "ؤَسَد"],
-        "audio": "audio/quiz3/asad.mp3",
+        "audio": "audio/asad.mp3",
         "fr": "Un lion",
         "es": "Un león",
         "rule": "Hamzat al-Qat' — Fatha → أَ"
@@ -1003,7 +1006,7 @@
         "id": "hamza-12",
         "correct": "إِسْلَام",
         "traps": ["اسْلَام", "أَسْلَام", "أُسْلَام"],
-        "audio": "audio/quiz3/islam.mp3",
+        "audio": "audio/quiz-qat/islam.mp3",
         "fr": "L'Islam",
         "es": "El Islam",
         "rule": "Hamzat al-Qat' — Kasra → إِ"
@@ -1012,7 +1015,7 @@
         "id": "hamza-13",
         "correct": "أُمّ",
         "traps": ["امّ", "إِمّ", "ؤُمّ"],
-        "audio": "audio/quiz3/umm.mp3",
+        "audio": "audio/quiz-qat/umm.mp3",
         "fr": "Une mère",
         "es": "Una madre",
         "rule": "Hamzat al-Qat' — Damma → أُ"
@@ -1021,7 +1024,7 @@
         "id": "hamza-14",
         "correct": "ٱسْم",
         "traps": ["أِسْم", "إِسْم", "أُسْم"],
-        "audio": "audio/quiz3/ism.mp3",
+        "audio": "audio/quiz-hamza/ism.mp3",
         "fr": "Un nom",
         "es": "Un nombre",
         "rule": "Hamzat al-Wasl — nom, commence par I"
@@ -1030,7 +1033,7 @@
         "id": "hamza-15",
         "correct": "ٱلْبَيْت",
         "traps": ["إِلْبَيْت", "أُلْبَيْت", "أَلْبَيْت"],
-        "audio": "audio/quiz3/albayt.mp3",
+        "audio": "audio/quiz-hamza/albayt.mp3",
         "fr": "La maison",
         "es": "La casa",
         "rule": "Hamzat al-Wasl — article ال → A"
@@ -1039,7 +1042,7 @@
         "id": "hamza-16",
         "correct": "ٱكْتُبْ",
         "traps": ["إِكْتُبْ", "أَكْتُبْ", "أُكْتُبْ"],
-        "audio": "audio/quiz3/uktub.mp3",
+        "audio": "audio/quiz-hamza/uktub.mp3",
         "fr": "Écris",
         "es": "Escribe",
         "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Damma"
@@ -1048,7 +1051,7 @@
         "id": "hamza-17",
         "correct": "ٱفْتَحْ",
         "traps": ["أَفْتَحْ", "أُفْتَحْ", "إِفْتَحْ"],
-        "audio": "audio/quiz3/iftah.mp3",
+        "audio": "audio/quiz-hamza/iftah.mp3",
         "fr": "Ouvre",
         "es": "Abre",
         "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
@@ -1057,7 +1060,7 @@
         "id": "hamza-18",
         "correct": "ٱجْلِسْ",
         "traps": ["أَجْلِسْ", "أُجْلِسْ", "إِجْلِسْ"],
-        "audio": "audio/quiz3/ijlis.mp3",
+        "audio": "audio/quiz-hamza/ijlis.mp3",
         "fr": "Assieds-toi",
         "es": "Siéntate",
         "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Kasra"
@@ -1066,7 +1069,7 @@
         "id": "hamza-19",
         "correct": "رَأْس",
         "traps": ["رَاس", "رَؤْس", "رَئْس"],
-        "audio": "audio/quiz3/ras.mp3",
+        "audio": "audio/quiz-qat/ras.mp3",
         "fr": "Une tête",
         "es": "Una cabeza",
         "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
@@ -1075,7 +1078,7 @@
         "id": "hamza-20",
         "correct": "فَأْس",
         "traps": ["فَاس", "فَؤْس", "فَئْس"],
-        "audio": "audio/quiz3/fas.mp3",
+        "audio": "audio/quiz-qat/fas.mp3",
         "fr": "Une hache",
         "es": "Un hacha",
         "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
@@ -1084,7 +1087,7 @@
         "id": "hamza-21",
         "correct": "مُؤَسَّسَة",
         "traps": ["مُأَسَّسَة", "مُئَسَّسَة", "مُوسَّسَة"],
-        "audio": "audio/quiz3/muassasa.mp3",
+        "audio": "audio/quiz-qat/muassasa.mp3",
         "fr": "Une institution",
         "es": "Una institución",
         "rule": "Hamza médiane — Damma gagne → Waw"
@@ -1093,7 +1096,7 @@
         "id": "hamza-22",
         "correct": "بَدَأَ",
         "traps": ["بَدَءَ", "بَدَئَ", "بَدَؤَ"],
-        "audio": "audio/quiz3/badaa.mp3",
+        "audio": "audio/quiz-qat/badaa.mp3",
         "fr": "Il a commencé",
         "es": "Él empezó",
         "rule": "Hamza finale — Fatha gagne → Alef"
@@ -1102,7 +1105,7 @@
         "id": "hamza-23",
         "correct": "جُزْء",
         "traps": ["جُزْأ", "جُزْؤ", "جُزْئ"],
-        "audio": "audio/quiz3/juz.mp3",
+        "audio": "audio/quiz-hamza/juz.mp3",
         "fr": "Une partie",
         "es": "Una parte",
         "rule": "Hamza finale — Soukoun avant → sur la ligne"
@@ -1111,7 +1114,7 @@
         "id": "hamza-24",
         "correct": "هُدُوء",
         "traps": ["هُدُؤ", "هُدُوأ", "هُدُوئ"],
-        "audio": "audio/quiz3/huduu.mp3",
+        "audio": "audio/quiz-hamza/huduu.mp3",
         "fr": "Le calme",
         "es": "La calma",
         "rule": "Hamza finale sur la ligne (après Waw)"
@@ -1120,7 +1123,7 @@
         "id": "hamza-25",
         "correct": "سَمَاء",
         "traps": ["سَمَأ", "سَمَئ", "سَمَؤ"],
-        "audio": "audio/quiz3/sama.mp3",
+        "audio": "audio/quiz-qat/sama.mp3",
         "fr": "Un ciel",
         "es": "Un cielo",
         "rule": "Hamza finale sur la ligne (Madd + Hamza)"
@@ -1129,7 +1132,7 @@
         "id": "hamza-26",
         "correct": "قَارِئ",
         "traps": ["قَارِأ", "قَارِؤ", "قَارِء"],
-        "audio": "audio/quiz3/qari.mp3",
+        "audio": "audio/quiz-qat/qari.mp3",
         "fr": "Un lecteur",
         "es": "Un lector",
         "rule": "Hamza finale — Kasra gagne → Ya"
@@ -1138,7 +1141,7 @@
         "id": "hamza-27",
         "correct": "إِبْرِيق",
         "traps": ["ابْرِيق", "أَبْرِيق", "أُبْرِيق"],
-        "audio": "audio/quiz3/ibriq.mp3",
+        "audio": "audio/quiz-qat/ibriq.mp3",
         "fr": "Une cruche",
         "es": "Una jarra",
         "rule": "Hamzat al-Qat' — Kasra → إِ"
@@ -1147,7 +1150,7 @@
         "id": "hamza-28",
         "correct": "ٱبْن",
         "traps": ["إِبْن", "أَبْن", "أُبْن"],
-        "audio": "audio/quiz3/ibn.mp3",
+        "audio": "audio/quiz-hamza/ibn.mp3",
         "fr": "Un fils (mot exception)",
         "es": "Un hijo (excepción)",
         "rule": "Hamzat al-Wasl — mot exception : ٱبن"
@@ -1156,7 +1159,7 @@
         "id": "hamza-29",
         "correct": "ٱشْرَبْ",
         "traps": ["إِشْرَبْ", "أَشْرَبْ", "أُشْرَبْ"],
-        "audio": "audio/quiz3/ishrab.mp3",
+        "audio": "audio/quiz-hamza/ishrab.mp3",
         "fr": "Bois",
         "es": "Bebe",
         "rule": "Hamzat al-Wasl — verbe, 3ᵉ lettre à Fatha"
@@ -1165,7 +1168,7 @@
         "id": "hamza-30",
         "correct": "كَأْس",
         "traps": ["كَاس", "كَؤْس", "كَئْس"],
-        "audio": "audio/quiz3/kas.mp3",
+        "audio": "audio/kas.mp3",
         "fr": "Un verre",
         "es": "Un vaso",
         "rule": "Hamza médiane — Soukoun, Fatha avant → Alef"
@@ -1268,82 +1271,6 @@
         }
       };
 
-      const AudioController = {
-        player: new Audio(),
-        effectPlayer: new Audio(),
-        isUnlocked: false,
-
-        init() {
-          this.player.preload = "auto";
-          this.effectPlayer.preload = "auto";
-          this.player.playsInline = true;
-          this.effectPlayer.playsInline = true;
-          this.player.volume = 1;
-          this.effectPlayer.volume = 1;
-        },
-
-        async unlock() {
-          if (this.isUnlocked) return true;
-
-          try {
-            const warmup = DATA.settings.warmupAudio || DATA.settings.successAudio || "";
-            if (warmup) {
-              this.player.src = warmup;
-              this.effectPlayer.src = warmup;
-            }
-
-            this.player.muted = true;
-            this.effectPlayer.muted = true;
-
-            await this.player.play().catch(() => {});
-            this.player.pause();
-            this.player.currentTime = 0;
-
-            await this.effectPlayer.play().catch(() => {});
-            this.effectPlayer.pause();
-            this.effectPlayer.currentTime = 0;
-
-            this.player.muted = false;
-            this.effectPlayer.muted = false;
-            this.isUnlocked = true;
-            return true;
-          } catch (_) {
-            this.player.muted = false;
-            this.effectPlayer.muted = false;
-            return false;
-          }
-        },
-
-        async play(instance, src) {
-          if (!src || !instance) return false;
-
-          try {
-            instance.pause();
-            instance.currentTime = 0;
-            instance.src = src;
-            instance.load();
-            await instance.play();
-            return true;
-          } catch (err) {
-            console.warn("Audio non lu :", src, err);
-            return false;
-          }
-        },
-
-        playMain(src) {
-          return this.play(this.player, src);
-        },
-
-        playEffect(src) {
-          return this.play(this.effectPlayer, src);
-        },
-
-        pauseAll() {
-          this.player.pause();
-          this.effectPlayer.pause();
-        }
-      };
-
       const PWAController = {
         ensureManifest() {
           if (document.querySelector('link[rel="manifest"]')) return;
@@ -1388,7 +1315,6 @@
         },
 
         init() {
-          AudioController.init();
           PWAController.ensureManifest();
           this.applyStaticContent();
           this.restorePlayerName();
@@ -1458,7 +1384,7 @@
 
           Utils.save(DATA.meta.storage.playerName, this.state.playerName);
 
-          AudioController.unlock().finally(() => {
+          DAKAudio.unlock().finally(() => {
             this.switchView("quiz");
             this.updateScoreLive();
             this.renderQuestion();
@@ -1466,7 +1392,7 @@
         },
 
         restartQuiz() {
-          AudioController.pauseAll();
+          DAKAudio.stopAll();
           DOM.feedbackBar.classList.add("hidden");
           this.switchView("welcome");
           DOM.playerName.focus();
@@ -1566,11 +1492,11 @@
           if (this.state.currentIndex >= this.state.questions.length) return;
           const currentQ = this.state.questions[this.state.currentIndex];
           if (!currentQ?.targetAudio) return;
-          AudioController.playMain(currentQ.targetAudio);
+          DAKAudio.play(currentQ.targetAudio, DOM.playAudioBtn);
         },
 
         finishQuiz() {
-          AudioController.pauseAll();
+          DAKAudio.stopAll();
           this.switchView("certificate");
 
           DOM.progressFill.style.width = "100%";
@@ -1614,7 +1540,7 @@
           Utils.vibrate([80, 50, 120]);
 
           if (DATA.settings.enableCertificateAudio) {
-            AudioController.playEffect(DATA.settings.successAudio);
+            DAKAudio.playEffect(DATA.settings.successAudio);
           }
 
           // DAK Tracker
@@ -1637,7 +1563,7 @@
           });
 
           document.addEventListener("visibilitychange", () => {
-            if (document.hidden) AudioController.pauseAll();
+            if (document.hidden) DAKAudio.stopAll();
           });
         }
       };

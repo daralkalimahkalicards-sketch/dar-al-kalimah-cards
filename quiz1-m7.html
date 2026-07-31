@@ -141,6 +141,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -161,7 +164,7 @@
         </div>
         <button class="btn-main start-btn" id="btn-start" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
       </section>
     </main>
@@ -226,25 +229,25 @@
       { correct: "أَحَدٌ", traps: ["ٱلصَّمَدُ", "لَمْ", "هُوَ"], fr: "Trouve le mot qui se termine par un Tanwin ( ٌ ) :", es: "Encuentra la palabra que termina con un Tanwin ( ٌ ):" },
       { correct: "كُفُؤًا", traps: ["أَحَدٌ", "ٱللَّهُ", "يُولَدْ"], fr: "Quel mot possède un Tanwin Fatha ( ً ) ?", es: "¿Qué palabra tiene un Tanwin Fatha ( ً )?" },
       { correct: "ٱلصَّمَدُ", traps: ["يَلِدْ", "أَحَدٌ", "يَكُنْ"], fr: "Observe bien : quel mot contient une Shadda ( ّ ) ?", es: "Observa bien: ¿qué palabra contiene una Shadda ( ّ )?" },
-      { correct: "إِنَّا", traps: ["ٱلَابْتَرُ", "شَانِئَكَ", "وَٱنْحَرْ"], fr: "Un autre mot avec une Shadda :", es: "Otra palabra con una Shadda:" },
-      { correct: "ٱلصَّمَدُ", traps: ["ٱلْكَوْثَرَ", "ٱلَابْتَرُ", "يَلِدْ"], fr: "Reconnais 'Al' Solaire (الشمسية) où le Lam ne se prononce pas :", es: "Reconoce 'Al' Solar (الشمسية) donde la Lam no se pronuncia:" },
+      { correct: "إِنَّا", traps: ["ٱلاَبْتَرُ", "شَانِئَكَ", "وَٱنْحَرْ"], fr: "Un autre mot avec une Shadda :", es: "Otra palabra con una Shadda:" },
+      { correct: "ٱلصَّمَدُ", traps: ["ٱلْكَوْثَرَ", "ٱلاَبْتَرُ", "يَلِدْ"], fr: "Reconnais 'Al' Solaire (الشمسية) où le Lam ne se prononce pas :", es: "Reconoce 'Al' Solar (الشمسية) donde la Lam no se pronuncia:" },
       { correct: "ٱلْكَوْثَرَ", traps: ["ٱلصَّمَدُ", "ٱلنَّاسِ", "يُولَدْ"], fr: "Reconnais 'Al' Lunaire (القمرية) avec un Soukoun sur le Lam :", es: "Reconoce 'Al' Lunar (القمرية) con un Sukun en la Lam:" },
       { correct: "لَمْ", traps: ["هُوَ", "أَحَدٌ", "ٱللَّهُ"], fr: "Lequel de ces mots contient un Soukoun ( ْ ) ?", es: "¿Cuál de estas palabras contiene un Sukun ( ْ )?" },
       { correct: "فَصَلِّ", traps: ["إِنَّا", "شَانِئَكَ", "وَٱنْحَرْ"], fr: "Trouve le mot qui se termine par une Kasra ( ِ ) :", es: "Encuentra la palabra que termina con una Kasra ( ِ ):" },
-      { correct: "ٱلَابْتَرُ", traps: ["يَلِدْ", "قُلْ", "يَكُنْ"], fr: "Les noms ont souvent 'Al' (ال). Lequel est un nom ?", es: "Los sustantivos suelen tener 'Al' (ال). ¿Cuál es un sustantivo?" },
+      { correct: "ٱلاَبْتَرُ", traps: ["يَلِدْ", "قُلْ", "يَكُنْ"], fr: "Les noms ont souvent 'Al' (ال). Lequel est un nom ?", es: "Los sustantivos suelen tener 'Al' (ال). ¿Cuál es un sustantivo?" },
       { correct: "أَحَدٌ", traps: ["لَمْ", "يُولَدْ", "هُوَ"], fr: "Le Tanwin est aussi la marque d'un nom. Trouve le nom :", es: "El Tanwin también es la marca de un sustantivo. Encuentra el sustantivo:" },
       { correct: "قُلْ", traps: ["فُلْ", "كُلْ", "صُلْ"], fr: "Quel mot commence par la lettre Qaf (ق) ?", es: "¿Qué palabra empieza con la letra Qaf (ق)?" },
       { correct: "كُفُؤًا", traps: ["قُفُؤًا", "عُفُؤًا", "غُفُؤًا"], fr: "Quel mot commence par la lettre Kaf (ك) ?", es: "¿Qué palabra empieza con la letra Kaf (ك)?" },
       { correct: "ٱلصَّمَدُ", traps: ["ٱلسَّمَدُ", "ٱلشَّمَدُ", "ٱلثَّمَدُ"], fr: "Trouve 'Samad' avec la lettre forte Saad (ص) :", es: "Encuentra 'Samad' con la letra fuerte Saad (ص):" },
       { correct: "ٱلْكَوْثَرَ", traps: ["ٱلْكَوْتَرَ", "ٱلْكَوْسَرَ", "ٱلْكَوْشَرَ"], fr: "Trouve 'Kawthar' avec la lettre Thaa (ث) :", es: "Encuentra 'Kawthar' con la letra Thaa (ث):" },
-      { correct: "ٱلَابْتَرُ", traps: ["ٱلَابْثَرُ", "ٱلَابْدَرُ", "ٱلَابْزَرُ"], fr: "Observe bien et trouve le mot 'Labtar' :", es: "Observa bien y encuentra la palabra 'Labtar':" },
+      { correct: "ٱلاَبْتَرُ", traps: ["ٱلاَبْثَرُ", "ٱلاَبْدَرُ", "ٱلاَبْزَرُ"], fr: "Observe bien et trouve le mot 'Al-Abtar' :", es: "Observa bien y encuentra la palabra 'Al-Abtar':" },
       { correct: "أَعْطَيْنَاكَ", traps: ["أَعْتَيْنَاكَ", "أَعْطَيْنَكَ", "أَغْطَيْنَاكَ"], fr: "Reconnais le long mot 'A'taynaka' :", es: "Reconoce la palabra larga 'A'taynaka':" },
       { correct: "شَانِئَكَ", traps: ["سَانِئَكَ", "صَانِئَكَ", "ثَانِئَكَ"], fr: "Trouve le mot 'Shaani'aka' avec un Shiin (ش) :", es: "Encuentra la palabra 'Shaani'aka' con un Shiin (ش):" },
       { correct: "يَلِدْ", traps: ["بَلِدْ", "تَلِدْ", "نَلِدْ"], fr: "Trouve le mot 'Yalid' (il engendre) :", es: "Encuentra la palabra 'Yalid' (él engendra):" },
       { correct: "يُولَدْ", traps: ["يَلِدْ", "يُؤْلَدْ", "تُولَدْ"], fr: "Trouve 'Yuulad' (avec la prolongation Waaw) :", es: "Encuentra 'Yuulad' (con la prolongación Waaw):" },
       { correct: "لِرَبِّكَ", traps: ["لِ رَبِّكَ", "لِرَبِّ كَ", "لِ رَبِّ كَ"], fr: "Le mot 'Li-Rabbika' s'écrit tout attaché. Trouve-le :", es: "La palabra 'Li-Rabbika' se escribe toda junta. Encuéntrala:" },
       { correct: "وَٱنْحَرْ", traps: ["وَ نْحَرْ", "وَٱن حَرْ", "وَ ٱنْحَرْ"], fr: "Le mot 'Wa-inhar' s'écrit aussi attaché. Trouve-le :", es: "La palabra 'Wa-inhar' también se escribe junta. Encuéntrala:" },
-      { correct: "شَانِئَكَ", traps: ["ٱلْكَوْثَرَ", "ٱلصَّمَدُ", "ٱلَابْتَرُ"], fr: "Quel mot n'a PAS de 'Al' (ال) au début ?", es: "¿Qué palabra NO tiene 'Al' (ال) al principio?" },
+      { correct: "شَانِئَكَ", traps: ["ٱلْكَوْثَرَ", "ٱلصَّمَدُ", "ٱلاَبْتَرُ"], fr: "Quel mot n'a PAS de 'Al' (ال) au début ?", es: "¿Qué palabra NO tiene 'Al' (ال) al principio?" },
       { correct: "ٱلصَّمَدُ", traps: ["شَانِئَكَ", "يَلِدْ", "كُفُؤًا"], fr: "Quel mot n'a AUCUN point sur ses lettres ?", es: "¿Qué palabra NO tiene NINGÚN punto en sus letras?" },
       { correct: "قُلْ", traps: ["أَحَدٌ", "يَلِدْ", "صَمَدُ"], fr: "Quel mot est composé de seulement 2 lettres ?", es: "¿Qué palabra está compuesta por solo 2 letras?" },
       { correct: "أَحَدٌ", traps: ["قُلْ", "لَمْ", "هُوَ"], fr: "Quel mot est composé exactement de 3 lettres ?", es: "¿Qué palabra está compuesta exactamente por 3 letras?" },
@@ -382,6 +385,7 @@
         DOM.certDate.textContent=`Fait le ${Utils.formatDateFr()}`;
         
         this.switchView("certificate");
+        DAKAudio.playEffect("mabruk.mp3");
         
         const end=Date.now()+3000;
         (function frame(){

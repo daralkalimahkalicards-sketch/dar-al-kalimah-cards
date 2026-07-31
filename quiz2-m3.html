@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#5D1828">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <title>Dar Al-Kalimah - Quiz 2 (Mots de 2 lettres)</title>
+  <title>Dar Al-Kalimah - Quiz 2 (Mots avec Modoud)</title>
   <meta name="theme-color" content="#5D1828">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -191,15 +191,18 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
     <main id="view-welcome" class="view" role="main">
       <section class="menu-container" aria-labelledby="welcome-title">
-        <a href="module2.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
-        <h1 id="welcome-title" class="brand-ar ar-text">كلمات قصيرة</h1>
-        <div class="app-title serif-text">Kalicards – Module 2</div>
-        <div class="app-subtitle">Quiz 2 : Mots de 2 lettres</div>
+        <a href="module3.html" class="btn-house" title="Retour au menu" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+        <h1 id="welcome-title" class="brand-ar ar-text">كَلِمَات بِالمَدّ</h1>
+        <div class="app-title serif-text">Kalicards – Module 3</div>
+        <div class="app-subtitle">Quiz 2 : Mots avec Modoud</div>
         <div class="divider"></div>
         <div class="subtitle-group">
           <p class="subtitle fr">Écoute l'audio et trouve le bon mot en arabe.</p>
@@ -211,7 +214,7 @@
         </div>
         <button class="btn-main start-btn" id="btn-start" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
       </section>
     </main>
@@ -240,12 +243,12 @@
 
     <main id="view-certificate" class="view hidden" role="main">
       <article class="diploma-paper">
-        <a href="module2.html" class="btn-house no-print" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+        <a href="module3.html" class="btn-house no-print" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
         <div class="cert-ar ar-text">مبروك</div>
         <h2 class="cert-title serif-text">Certificat de réussite</h2>
         <div class="cert-messages">
-          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Mots courts).</p>
-          <p class="cert-msg es">Felicidades, has completado el quiz 2 (Palabras cortas).</p>
+          <p class="cert-msg fr">Félicitations, vous avez terminé le quiz 2 (Mots avec Modoud).</p>
+          <p class="cert-msg es">Felicidades, has completado el quiz 2 (Palabras con Modoud).</p>
         </div>
         <div id="cert-name" class="cert-name ar-text">Participant</div>
         <div class="cert-score-box">
@@ -292,37 +295,6 @@
       stripHarakat(s) { return s.replace(/[ًٌٍَُِّْٰ]/g, ""); }
     };
 
-    const AudioController = {
-      player: new Audio(), effectPlayer: new Audio(), isUnlocked: false,
-      SILENT: "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=",
-      init() {
-        this.player.preload = "none"; this.effectPlayer.preload = "none";
-        this.player.playsInline = true; this.effectPlayer.playsInline = true;
-      },
-      async unlock() {
-        if (this.isUnlocked) return;
-        try {
-          this.player.src = this.SILENT; this.effectPlayer.src = this.SILENT;
-          this.player.muted = true; this.effectPlayer.muted = true;
-          await this.player.play().catch(() => {}); this.player.pause(); this.player.currentTime = 0;
-          await this.effectPlayer.play().catch(() => {}); this.effectPlayer.pause(); this.effectPlayer.currentTime = 0;
-          this.player.muted = false; this.effectPlayer.muted = false;
-          this.player.removeAttribute("src"); this.effectPlayer.removeAttribute("src");
-          this.player.load(); this.effectPlayer.load();
-          this.isUnlocked = true;
-        } catch(_) { this.player.muted = false; this.effectPlayer.muted = false; }
-      },
-      async playMain(src) {
-        if (!src) return;
-        try { this.player.pause(); this.player.currentTime = 0; this.player.src = src; this.player.load(); await this.player.play(); } catch(_) {}
-      },
-      async playEffect(src) {
-        if (!src) return;
-        try { this.effectPlayer.pause(); this.effectPlayer.currentTime = 0; this.effectPlayer.src = src; this.effectPlayer.load(); await this.effectPlayer.play(); } catch(_) {}
-      },
-      stopAll() { this.player.pause(); this.effectPlayer.pause(); this.player.currentTime = 0; this.effectPlayer.currentTime = 0; }
-    };
-
     const App = {
       state: {
         playerName: "Participant", wordData: [], questions: [],
@@ -338,8 +310,7 @@
       buildWordData() {
         return wordsDatabase.filter(item =>
           item.type === "word" &&
-          item.id >= 101 && item.id <= 148 &&
-          Utils.stripHarakat(item.arabe).length === 2
+          item.id >= 149 && item.id <= 178
         );
       },
 
@@ -369,7 +340,7 @@
         if (this.state.isStarting) return;
         this.state.isStarting = true;
         this.clearTimer();
-        await AudioController.unlock();
+        await DAKAudio.unlock();
         this.state.playerName = DOM.playerName.value.trim() || "Participant";
         this.state.wordData = this.buildWordData();
         this.state.questions = this.buildQuestions(this.state.wordData);
@@ -398,7 +369,7 @@
         });
         this.state.pendingTimer = setTimeout(() => {
           if (token === this.state.questionToken && !this.state.hasFinished)
-            AudioController.playMain(q.targetAudio);
+            DAKAudio.play(q.targetAudio, DOM.audioBtn);
         }, 400);
       },
 
@@ -423,13 +394,13 @@
 
       playAudio() {
         if (this.state.hasFinished || this.state.currentIndex >= this.state.questions.length) return;
-        AudioController.playMain(this.state.questions[this.state.currentIndex].targetAudio);
+        DAKAudio.play(this.state.questions[this.state.currentIndex].targetAudio, DOM.audioBtn);
       },
 
       endQuiz() {
         if (this.state.hasFinished) return;
         this.clearTimer(); this.state.hasFinished = true; this.state.questionToken += 1;
-        AudioController.stopAll();
+        DAKAudio.stopAll();
         DOM.progressFill.style.width = "100%"; DOM.progressBar.setAttribute("aria-valuenow", "100");
         DOM.certName.textContent = this.state.playerName;
         DOM.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
@@ -446,7 +417,7 @@
         Utils.vibrate([120,50,120,50,180]);
         if (this.state.hasPlayedSuccess) return;
         this.state.hasPlayedSuccess = true;
-        AudioController.playEffect("mabruk.mp3");
+        DAKAudio.playEffect("mabruk.mp3");
 
         // DAK Tracker
         if (window.DAK_enregistrerScore) {
@@ -455,7 +426,7 @@
       },
 
       restartQuiz() {
-        this.clearTimer(); AudioController.stopAll();
+        this.clearTimer(); DAKAudio.stopAll();
         this.state.isStarting = false; this.state.isProcessing = false;
         this.state.hasFinished = false; this.state.hasPlayedSuccess = false;
         this.state.questionToken += 1;
@@ -463,13 +434,11 @@
       },
 
       init() {
-        AudioController.init();
         DOM.startBtn.addEventListener("click", () => this.startQuiz());
         DOM.audioBtn.addEventListener("click", () => this.playAudio());
         DOM.printBtn.addEventListener("click", () => window.print());
         DOM.restartBtn.addEventListener("click", () => this.restartQuiz());
         DOM.playerName.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); this.startQuiz(); } });
-        document.addEventListener("visibilitychange", () => { if (document.hidden) AudioController.stopAll(); });
       }
     };
 

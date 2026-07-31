@@ -751,6 +751,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -758,12 +761,12 @@
     <main id="view-welcome" class="view" role="main">
       <section class="menu-container" aria-labelledby="welcome-title">
         
-        <a id="btn-house-welcome" href="module5.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+        <a id="btn-house-welcome" href="module4.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
           <i class="fa-solid fa-house" aria-hidden="true"></i>
         </a>
 
         <h1 id="welcome-title" class="brand-ar ar-text">هَمْزَةُ الْقَطْعِ</h1>
-        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Module 5</div>
+        <div id="welcome-app-title" class="app-title serif-text">Kalicards – Module 4</div>
         <div id="welcome-app-subtitle" class="app-subtitle">QUIZ 2 : L'écriture de Hamzat Al-Qat'</div>
         <div class="divider"></div>
 
@@ -779,7 +782,7 @@
 
         <button class="btn-main start-btn" id="btn-start-quiz" type="button">
           Commencer le quiz
-          <span class="btn-es">Empieza el quiz</span>
+          <span class="btn-es">Empezar el quiz</span>
         </button>
 
       </section>
@@ -817,7 +820,7 @@
     <main id="view-certificate" class="view hidden" role="main">
       <article class="diploma-paper">
 
-        <a id="btn-house-cert" href="module5.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
+        <a id="btn-house-cert" href="module4.html" class="btn-house no-print" title="Retour au menu" aria-label="Menu Principal">
           <i class="fa-solid fa-house" aria-hidden="true"></i>
         </a>
 
@@ -825,8 +828,8 @@
         <h2 id="cert-title" class="cert-title serif-text">Certificat de réussite</h2>
 
         <div class="cert-messages">
-          <p id="cert-msg-fr" class="cert-msg">Félicitations, vous avez terminé le quiz 2 du module 5 (Hamzat Al-Qat').</p>
-          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el quiz 2 del módulo 5 (Hamzat Al-Qat').</p>
+          <p id="cert-msg-fr" class="cert-msg">Félicitations, vous avez terminé le quiz 2 du module 4 (Hamzat Al-Qat').</p>
+          <p id="cert-msg-es" class="cert-msg es">Felicidades, has completado el quiz 2 del módulo 4 (Hamzat Al-Qat').</p>
         </div>
 
         <div id="cert-name" class="cert-name ar-text">Participant</div>
@@ -853,18 +856,18 @@
     "meta": {
       "pageTitle": "Dar Al-Kalimah - Quiz 2 (Hamzat Al-Qat')",
       "brandName": "Dar Al-Kalimah",
-      "appTitle": "Kalicards – Module 5",
+      "appTitle": "Kalicards – Module 4",
       "appSubtitle": "QUIZ 2 : L'écriture de Hamzat Al-Qat'",
-      "moduleId": "module-5-quiz-2-hamzat-alqat",
-      "homeHref": "module5.html",
+      "moduleId": "module-4-quiz-2-hamzat-alqat",
+      "homeHref": "module4.html",
       "storage": {
-        "playerName": "dak_module5_quiz2_qat_player_name",
-        "lastScore": "dak_module5_quiz2_qat_last_score"
+        "playerName": "dak_module4_quiz2_qat_player_name",
+        "lastScore": "dak_module4_quiz2_qat_last_score"
       },
       "pwa": {
         "appName": "Dar Al-Kalimah",
         "shortName": "Kalicards",
-        "startUrl": "module5.html",
+        "startUrl": "module4.html",
         "display": "standalone",
         "backgroundColor": "#FAF6F0",
         "themeColor": "#5D1828",
@@ -889,32 +892,32 @@
       "welcomeSubtitleFr": "Écoute l'audio et trouve la bonne orthographe.",
       "welcomeSubtitleEs": "Escucha el audio y encuentra la ortografía correcta.",
       "playerLabel": "Nom du participant / Nombre del participante",
-      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empieza el quiz</span>",
+      "startButtonHtml": "Commencer le quiz<br><span class=\"btn-es\">Empezar el quiz</span>",
       "instructionFr": "Écoute et choisis la bonne orthographe !",
       "instructionEs": "¡Escucha y elige la ortografía correcta!",
       "certificateTitle": "Certificat de réussite",
-      "certificateMessageFr": "Félicitations, vous avez terminé le quiz 2 du module 5 (Hamzat Al-Qat').",
-      "certificateMessageEs": "Felicidades, has completado el quiz 2 del módulo 5 (Hamzat Al-Qat').",
+      "certificateMessageFr": "Félicitations, vous avez terminé le quiz 2 du module 4 (Hamzat Al-Qat').",
+      "certificateMessageEs": "Felicidades, has completado el quiz 2 del módulo 4 (Hamzat Al-Qat').",
       "certificateScoreLabel": "Score Final",
       "certificateDatePrefix": "Fait le",
       "printButton": "🖨️ Imprimer",
       "restartButton": "Recommencer ↺"
     },
     "quizDatabase": [
-      { "id": "qat-01", "correct": "أَسَد", "traps": ["اسَد","ئَسَد","ؤَسَد"], "audio": "audio/quiz-qat/asad.mp3", "fr": "Un lion", "es": "Un león" },
-      { "id": "qat-02", "correct": "إِبْرِيق", "traps": ["ابْرِيق","أَِبْرِيق","أُبْرِيق"], "audio": "audio/quiz-qat/ibriq.mp3", "fr": "Une cruche", "es": "Una jarra" },
+      { "id": "qat-01", "correct": "أَسَد", "traps": ["اسَد","ئَسَد","ؤَسَد"], "audio": "audio/asad.mp3", "fr": "Un lion", "es": "Un león" },
+      { "id": "qat-02", "correct": "إِبْرِيق", "traps": ["ابْرِيق","أَبْرِيق","أُبْرِيق"], "audio": "audio/quiz-qat/ibriq.mp3", "fr": "Une cruche", "es": "Una jarra" },
       { "id": "qat-03", "correct": "أُمّ", "traps": ["امّ","إِمّ","ئُمّ"], "audio": "audio/quiz-qat/umm.mp3", "fr": "Une mère", "es": "Una madre" },
       { "id": "qat-04", "correct": "رَأْس", "traps": ["رَاس","رَؤْس","رَئْس"], "audio": "audio/quiz-qat/ras.mp3", "fr": "Une tête", "es": "Una cabeza" },
-      { "id": "qat-05", "correct": "كَأْس", "traps": ["كَاس","كَؤْس","كَئْس"], "audio": "audio/quiz-qat/kas.mp3", "fr": "Un verre", "es": "Un vaso" },
+      { "id": "qat-05", "correct": "كَأْس", "traps": ["كَاس","كَؤْس","كَئْس"], "audio": "audio/kas.mp3", "fr": "Un verre", "es": "Un vaso" },
       { "id": "qat-06", "correct": "بِئْر", "traps": ["بِأْر","بِؤْر","بِيْر"], "audio": "audio/quiz-qat/bir.mp3", "fr": "Un puits", "es": "Un pozo" },
-      { "id": "qat-07", "correct": "ذِئْب", "traps": ["ذِأْب","ذِؤْب","ذِيب"], "audio": "audio/quiz-qat/dhib.mp3", "fr": "Un loup", "es": "Un lobo" },
+      { "id": "qat-07", "correct": "ذِئْب", "traps": ["ذِأْب","ذِؤْب","ذِيب"], "audio": "audio/module2/dhib.mp3", "fr": "Un loup", "es": "Un lobo" },
       { "id": "qat-08", "correct": "فَأْس", "traps": ["فَاس","فَؤْس","فَئْس"], "audio": "audio/quiz-qat/fas.mp3", "fr": "Une hache", "es": "Un hacha" },
       { "id": "qat-09", "correct": "مُؤْمِن", "traps": ["مُأْمِن","مُئْمِن","مُومِن"], "audio": "audio/quiz-qat/mumin.mp3", "fr": "Un croyant", "es": "Un creyente" },
       { "id": "qat-10", "correct": "سُؤَال", "traps": ["سُأَال","سُئَال","سُوَال"], "audio": "audio/quiz-qat/sual.mp3", "fr": "Une question", "es": "Una pregunta" },
-      { "id": "qat-11", "correct": "مَاء", "traps": ["مَأ","مَئ","مَؤ"], "audio": "audio/quiz-qat/ma.mp3", "fr": "De l'eau", "es": "Agua" },
+      { "id": "qat-11", "correct": "مَاء", "traps": ["مَأ","مَئ","مَؤ"], "audio": "audio/ma.mp3", "fr": "De l'eau", "es": "Agua" },
       { "id": "qat-12", "correct": "سَمَاء", "traps": ["سَمَأ","سَمَئ","سَمَؤ"], "audio": "audio/quiz-qat/sama.mp3", "fr": "Un ciel", "es": "Un cielo" },
       { "id": "qat-13", "correct": "شَيْء", "traps": ["شَيْأ","شَيْئ","شَيْؤ"], "audio": "audio/quiz-qat/shay.mp3", "fr": "Une chose", "es": "Una cosa" },
-      { "id": "qat-14", "correct": "قَرَأَ", "traps": ["قَرَءَ","قَرَئَ","قَرَؤَ"], "audio": "audio/quiz-qat/qaraa.mp3", "fr": "Il a lu", "es": "Él leyó" },
+      { "id": "qat-14", "correct": "قَرَأَ", "traps": ["قَرَءَ","قَرَئَ","قَرَؤَ"], "audio": "audio/module2/qaraa.mp3", "fr": "Il a lu", "es": "Él leyó" },
       { "id": "qat-15", "correct": "بَدَأَ", "traps": ["بَدَءَ","بَدَئَ","بَدَؤَ"], "audio": "audio/quiz-qat/badaa.mp3", "fr": "Il a commencé", "es": "Él empezó" },
       { "id": "qat-16", "correct": "يَأْكُل", "traps": ["يَئْكُل","يَؤْكُل","يَاكُل"], "audio": "audio/quiz-qat/yakul.mp3", "fr": "Il mange", "es": "Él come" },
       { "id": "qat-17", "correct": "مُؤَسَّسَة", "traps": ["مُأَسَّسَة","مُئَسَّسَة","مُوسَّسَة"], "audio": "audio/quiz-qat/muassasa.mp3", "fr": "Une institution", "es": "Una institución" },
@@ -1025,82 +1028,6 @@
         }
       };
 
-      const AudioController = {
-        player: new Audio(),
-        effectPlayer: new Audio(),
-        isUnlocked: false,
-
-        init() {
-          this.player.preload = "auto";
-          this.effectPlayer.preload = "auto";
-          this.player.playsInline = true;
-          this.effectPlayer.playsInline = true;
-          this.player.volume = 1;
-          this.effectPlayer.volume = 1;
-        },
-
-        async unlock() {
-          if (this.isUnlocked) return true;
-
-          try {
-            const warmup = DATA.settings.warmupAudio || DATA.settings.successAudio || "";
-            if (warmup) {
-              this.player.src = warmup;
-              this.effectPlayer.src = warmup;
-            }
-
-            this.player.muted = true;
-            this.effectPlayer.muted = true;
-
-            await this.player.play().catch(() => {});
-            this.player.pause();
-            this.player.currentTime = 0;
-
-            await this.effectPlayer.play().catch(() => {});
-            this.effectPlayer.pause();
-            this.effectPlayer.currentTime = 0;
-
-            this.player.muted = false;
-            this.effectPlayer.muted = false;
-            this.isUnlocked = true;
-            return true;
-          } catch (_) {
-            this.player.muted = false;
-            this.effectPlayer.muted = false;
-            return false;
-          }
-        },
-
-        async play(instance, src) {
-          if (!src || !instance) return false;
-
-          try {
-            instance.pause();
-            instance.currentTime = 0;
-            instance.src = src;
-            instance.load();
-            await instance.play();
-            return true;
-          } catch (err) {
-            console.warn("Audio non lu :", src, err);
-            return false;
-          }
-        },
-
-        playMain(src) {
-          return this.play(this.player, src);
-        },
-
-        playEffect(src) {
-          return this.play(this.effectPlayer, src);
-        },
-
-        pauseAll() {
-          this.player.pause();
-          this.effectPlayer.pause();
-        }
-      };
-
       const PWAController = {
         ensureManifest() {
           if (document.querySelector('link[rel="manifest"]')) return;
@@ -1141,7 +1068,6 @@
         },
 
         init() {
-          AudioController.init();
           PWAController.ensureManifest();
           this.applyStaticContent();
           this.restorePlayerName();
@@ -1210,7 +1136,7 @@
 
           Utils.save(DATA.meta.storage.playerName, this.state.playerName);
 
-          AudioController.unlock().finally(() => {
+          DAKAudio.unlock().finally(() => {
             this.switchView("quiz");
             this.updateScoreLive();
             this.renderQuestion();
@@ -1218,7 +1144,7 @@
         },
 
         restartQuiz() {
-          AudioController.pauseAll();
+          DAKAudio.stopAll();
           this.switchView("welcome");
           DOM.playerName.focus();
         },
@@ -1296,7 +1222,7 @@
         playAudio() {
           if (this.state.currentIndex >= this.state.questions.length) return;
           const src = this.state.questions[this.state.currentIndex]?.targetAudio;
-          if (src) AudioController.playMain(src);
+          if (src) DAKAudio.play(src, DOM.btnPlayAudio);
         },
 
         updateScoreLive() {
@@ -1308,7 +1234,7 @@
         },
 
         finishQuiz() {
-          AudioController.pauseAll();
+          DAKAudio.stopAll();
           this.switchView("certificate");
           DOM.progressFill.style.width = "100%";
           DOM.progressBar.setAttribute("aria-valuenow", "100");
@@ -1353,7 +1279,7 @@
           Utils.vibrate([80, 50, 120]);
 
           if (DATA.settings.enableCertificateAudio) {
-            AudioController.playEffect(DATA.settings.successAudio);
+            DAKAudio.playEffect(DATA.settings.successAudio);
           }
 
           // DAK Tracker
@@ -1376,7 +1302,7 @@
           });
 
           document.addEventListener("visibilitychange", () => {
-            if (document.hidden) AudioController.pauseAll();
+            if (document.hidden) DAKAudio.stopAll();
           });
         }
       };

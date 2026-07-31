@@ -147,6 +147,9 @@
       }
     });
   </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
 </head>
 <body>
 
@@ -167,7 +170,7 @@
                 <input type="text" id="player-name" placeholder="Ex: Rayan..." autocomplete="off">
             </div>
             
-            <button class="btn-main" onclick="startQuiz()">Commencer le quiz</button>
+            <button class="btn-main" onclick="startQuiz()">Commencer le quiz<span class="btn-es">Empezar el quiz</span></button>
             <a href="module4.html" class="btn-house" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
         </div>
     </div>
@@ -185,7 +188,7 @@
         <div class="quiz-container">
             <div class="instruction-text">Écoute et trouve la bonne terminaison !<br><small>¡Escucha y encuentra la terminación correcta!</small></div>
             <div class="question-focus">
-                <button class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
+                <button id="btn-question-audio" class="btn-audio big-audio" onclick="playCurrentQuestionAudio()" title="Écouter">🎙️</button>
                 <div class="word-translation">
                     <div id="word-fr" class="word-fr"></div>
                     <div id="word-es" class="word-es"></div>
@@ -197,6 +200,7 @@
 
     <div id="view-certificate" class="view hidden">
         <div class="diploma-paper">
+            <a href="module4.html" class="btn-house no-print" aria-label="Menu Principal"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
             <div class="cert-ar ar-text">مبروك</div>
             <h2 class="cert-title serif-text">Certificat de réussite</h2>
             <div class="cert-messages">
@@ -254,10 +258,9 @@
         ];
 
         let playerName = "";
-        let questions = []; 
+        let questions = [];
         let currentQuestionIndex = 0;
         let score = 0;
-        let currentAudio = new Audio();
         let isAnswerProcessing = false;
 
         const viewWelcome = document.getElementById('view-welcome');
@@ -265,7 +268,7 @@
         const viewCertificate = document.getElementById('view-certificate');
         const nameInput = document.getElementById('player-name');
 
-        function startQuiz() {
+        async function startQuiz() {
             playerName = nameInput.value.trim();
             if (playerName === "") playerName = "Participant";
 
@@ -273,6 +276,7 @@
             currentQuestionIndex = 0;
             isAnswerProcessing = false;
 
+            await DAKAudio.unlock();
             generateQuestions();
 
             viewWelcome.classList.add('hidden');
@@ -359,16 +363,7 @@
 
         function playCurrentQuestionAudio() {
             const currentQ = questions[currentQuestionIndex];
-            const audioPath = currentQ.targetAudio;
-            if (!audioPath || audioPath === "") return;
-
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio.src = audioPath;
-            let playPromise = currentAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Lecture audio impossible :", error); });
-            }
+            DAKAudio.play(currentQ.targetAudio, document.getElementById('btn-question-audio'));
         }
 
         function finishQuiz() {
@@ -384,11 +379,7 @@
 
             triggerConfetti();
 
-            const mabrukAudio = new Audio("audio/mabruk.mp3");
-            let playPromise = mabrukAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Mabrouk audio bloqué :", error); });
-            }
+            DAKAudio.playEffect("mabruk.mp3");
 
             // DAK Tracker
             if (window.DAK_enregistrerScore) {
