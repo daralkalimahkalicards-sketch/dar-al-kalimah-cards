@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Dar Al-Kalimah — États visuels du composant audio unique (DAKAudio)
+   Chantier n°1 — système audio unifié
+
+   Deux états seulement, identiques partout dans l'application :
+   - Repos  : apparence propre à chaque bouton (déjà définie par le fichier
+              qui l'utilise — clair/blanc ou beige très léger, contour doré).
+              Cette feuille n'y touche pas.
+   - Lecture : classe .dak-playing posée par audio-controller.js sur le
+              bouton actif pendant la lecture. Rempli du doré officiel,
+              icône blanche. Retirée automatiquement à la fin, à
+              l'interruption ou à l'échec (voir audio-controller.js).
+
+   S'applique à n'importe quel bouton audio quel que soit son nom de classe
+   (.btn-audio, .btn-audio-micro, .btn-audio-main, .big-audio, etc.) —
+   c'est la classe .dak-playing elle-même qui porte l'état, pas le
+   sélecteur de base du bouton.
+
+   Chargement : <link rel="stylesheet" href="audio-controller.css">
+   (après le <style> propre au fichier, comme quiz-common.css)
+
+   Toast de retour visuel (fichier absent / lecture bloquée) — identique à
+   celui de lecon1.html, créé dynamiquement par audio-controller.js.
+   ========================================================================== */
+
+.dak-playing {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--white) !important;
+}
+
+.dak-toast {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--burgundy);
+  color: var(--white);
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: bottom 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 1000;
+  text-align: center;
+  border: 1px solid var(--gold);
+}
+
+.dak-toast.show {
+  bottom: 40px;
+}
