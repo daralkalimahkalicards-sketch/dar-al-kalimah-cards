@@ -389,6 +389,7 @@
 
             // DAK Tracker
             let masteredCount = totalWordsCount - remainingQuestions.length;
+            document.getElementById('cert-score').innerText = `${masteredCount} / ${totalWordsCount}`;
             if (window.DAK_enregistrerScore) {
                 window.DAK_enregistrerScore({ module: "Module 3", quiz: "Quiz 3", score: masteredCount, total: totalWordsCount });
             }
