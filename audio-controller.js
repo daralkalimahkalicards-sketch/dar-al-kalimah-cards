@@ -35,6 +35,7 @@ const DAKAudio = (() => {
   let isUnlocked = false;
   let currentButton = null;
   let toastTimeout = null;
+  let playToken = 0;
 
   function getToast() {
     let t = document.getElementById("dak-toast");
@@ -98,6 +99,7 @@ const DAKAudio = (() => {
   function play(src, button) {
     // Un clic coupe toujours ce qui est en cours, y compris le même bouton
     // recliqué : on repart de zéro (comportement identique partout).
+    const myToken = ++playToken;
     player.pause();
     player.currentTime = 0;
 
@@ -113,8 +115,19 @@ const DAKAudio = (() => {
     const p = player.play();
     if (p !== undefined) {
       p.catch(err => {
+        // Une lecture plus recente a deja pris le relais : ce rejet est
+        // perime (interruption normale), on l'ignore sans toucher au
+        // bouton ni a l'etat de la nouvelle lecture en cours.
+        if (myToken !== playToken) return;
+
         console.error("Audio error:", err);
         releaseButton();
+
+        // AbortError (lecture volontairement interrompue par un nouvel
+        // appel) et NotAllowedError (geste utilisateur non reconnu) ne
+        // signifient pas que le fichier est absent : pas de faux toast.
+        if (err && (err.name === "AbortError" || err.name === "NotAllowedError")) return;
+
         showToast();
       });
     }
