@@ -261,9 +261,10 @@
     <script>
         let playerName = "";
         let totalWordsCount = 0;
-        let remainingQuestions = []; 
+        let remainingQuestions = [];
         let isAnswerProcessing = false;
         let wordData = [];
+        let score = 0;
 
         function initQuizData() {
             // Filtre strict : ID 179 à 208 (Mots de 4+ lettres)
@@ -279,6 +280,7 @@
 
             initQuizData();
             isAnswerProcessing = false;
+            score = 0;
 
             await DAKAudio.unlock();
             generateQuestions();
@@ -352,7 +354,8 @@
 
             if (selectedArabic === currentQ.targetArabic) {
                 cardElement.classList.add('correct');
-                remainingQuestions.shift(); 
+                score++;
+                remainingQuestions.shift();
             } else {
                 cardElement.classList.add('wrong');
                 if (navigator.vibrate) navigator.vibrate(200);
@@ -361,8 +364,7 @@
                         allCards[i].classList.add('correct');
                     }
                 }
-                let failedQuestion = remainingQuestions.shift();
-                remainingQuestions.push(failedQuestion);
+                remainingQuestions.shift();
             }
 
             setTimeout(() => {
@@ -388,10 +390,9 @@
             DAKAudio.playEffect("mabruk.mp3");
 
             // DAK Tracker
-            let masteredCount = totalWordsCount - remainingQuestions.length;
-            document.getElementById('cert-score').innerText = `${masteredCount} / ${totalWordsCount}`;
+            document.getElementById('cert-score').innerText = `${score} / ${totalWordsCount}`;
             if (window.DAK_enregistrerScore) {
-                window.DAK_enregistrerScore({ module: "Module 3", quiz: "Quiz 3", score: masteredCount, total: totalWordsCount });
+                window.DAK_enregistrerScore({ module: "Module 3", quiz: "Quiz 3", score: score, total: totalWordsCount });
             }
         }
 
@@ -407,7 +408,10 @@
         function restartQuiz() {
             document.getElementById('view-certificate').classList.add('hidden');
             document.getElementById('view-welcome').classList.remove('hidden');
-            document.getElementById('player-name').value = ""; 
+            document.getElementById('player-name').value = "";
+            score = 0;
+            remainingQuestions = [];
+            isAnswerProcessing = false;
         }
     </script>
 <script>
