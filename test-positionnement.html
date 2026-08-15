@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#5D1828">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>Test de positionnement — Dar Al-Kalimah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+
+<style>
+  :root {
+    --burgundy: #5D1828;
+    --burgundy-dark: #3a0f19;
+    --gold: #C8A462;
+    --gold-light: #dfc28b;
+    --white: #FFFFFF;
+    --bg-beige: #FAF6F0;
+    --text-dark: #2C3E50;
+    --text-soft: #8c775a;
+    --success-green: #4CAF50;
+    --error-red: #e05555;
+    --shadow-card: 0 20px 50px rgba(93, 24, 40, 0.10);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --tap-size: 48px;
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--bg-beige);
+    background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+    font-family: "Montserrat", sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: calc(20px + var(--safe-top)) 16px calc(30px + var(--safe-bottom));
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+  }
+
+  button { font: inherit; touch-action: manipulation; cursor: pointer; }
+
+  .ar-text {
+    font-family: "Amiri", serif;
+    direction: rtl;
+    unicode-bidi: isolate;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .shell { width: 100%; max-width: 640px; display: flex; flex-direction: column; align-items: center; }
+
+  .brand { text-align: center; margin-bottom: 28px; }
+  .brand-ar { font-family: "Amiri", serif; color: var(--gold); font-size: 1.9rem; font-weight: bold; }
+  .brand-fr { font-family: "Cinzel", serif; color: var(--burgundy); font-size: 0.78rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 4px; }
+
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(200, 164, 98, 0.4);
+    width: 100%;
+    padding: 34px 26px;
+  }
+
+  .view { display: none; width: 100%; }
+  .view.active { display: flex; flex-direction: column; align-items: center; }
+
+  /* ---------- Sélecteur de mode ---------- */
+  .mode-title { font-family: "Cinzel", serif; font-size: 1.3rem; color: var(--burgundy); text-align: center; margin-bottom: 6px; }
+  .mode-sub { font-size: 0.9rem; color: var(--text-soft); text-align: center; margin-bottom: 28px; }
+  .mode-choices { display: flex; gap: 16px; width: 100%; flex-wrap: wrap; justify-content: center; }
+  .mode-btn {
+    flex: 1; min-width: 220px;
+    background: var(--bg-beige);
+    border: 2px solid var(--gold);
+    border-radius: var(--radius-lg);
+    padding: 26px 18px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: var(--transition-smooth);
+  }
+  .mode-btn:hover, .mode-btn:focus-visible { background: var(--gold); transform: translateY(-2px); outline: none; }
+  .mode-btn:hover .mode-btn-label, .mode-btn:hover .mode-btn-desc { color: var(--white); }
+  .mode-btn-icon { font-size: 2.4rem; }
+  .mode-btn-label { font-family: "Cinzel", serif; font-size: 1rem; color: var(--burgundy); letter-spacing: 1px; }
+  .mode-btn-desc { font-size: 0.78rem; color: var(--text-soft); text-align: center; }
+
+  /* ---------- Motivation (adulte, facultatif) ---------- */
+  .motivation-text { font-size: 0.95rem; color: var(--text-dark); text-align: center; margin-bottom: 20px; line-height: 1.5; }
+  textarea#motivation-input {
+    width: 100%; min-height: 90px; border: 1.5px solid rgba(200,164,98,0.5); border-radius: var(--radius-md);
+    padding: 14px; font-family: "Montserrat", sans-serif; font-size: 0.92rem; resize: vertical; outline: none;
+  }
+  textarea#motivation-input:focus { border-color: var(--gold); }
+  .motivation-actions { display: flex; gap: 12px; width: 100%; margin-top: 18px; }
+
+  /* ---------- Progression ---------- */
+  .progress-wrap { width: 100%; margin-bottom: 24px; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-soft); margin-bottom: 6px; }
+  .progress-track { width: 100%; height: 8px; background: rgba(200,164,98,0.2); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.4s ease; width: 0%; }
+  .section-badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--burgundy); background: rgba(200,164,98,0.15); padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+  }
+
+  /* ---------- Question ---------- */
+  .q-prompt-latin {
+    font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.5rem; text-align: center;
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .q-prompt-ar { font-size: clamp(2.2rem, 8vw, 3rem); color: var(--burgundy); font-weight: 700; margin-bottom: 8px; }
+  .q-prompt-word { font-size: clamp(2.6rem, 9vw, 3.6rem); color: var(--burgundy); font-weight: 700; margin-bottom: 4px; }
+  .q-prompt-phrase { font-size: clamp(1.6rem, 6vw, 2.2rem); color: var(--burgundy); font-weight: 700; line-height: 1.9; margin-bottom: 4px; }
+  .q-audio-btn {
+    width: var(--tap-size); height: var(--tap-size); border-radius: 50%;
+    background: var(--bg-beige); border: 1px solid var(--gold); color: var(--burgundy);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem;
+    box-shadow: 0 4px 15px rgba(200,164,98,0.2); transition: var(--transition-smooth); margin: 10px auto 0;
+  }
+  .q-audio-btn:hover { background: var(--gold); color: var(--white); }
+  .q-audio-btn.dak-playing { background: var(--gold); color: var(--white); }
+
+  .q-instruction { font-size: 0.85rem; color: var(--text-soft); text-align: center; margin: 14px 0 20px; }
+
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+  .options-grid.single-col { grid-template-columns: 1fr; }
+  .opt-btn {
+    background: var(--bg-beige); border: 1.5px solid rgba(200,164,98,0.5); border-radius: var(--radius-md);
+    padding: 16px 10px; min-height: var(--tap-size);
+    font-size: 1.1rem; color: var(--text-dark); transition: var(--transition-smooth);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .opt-btn.opt-ar { font-family: "Amiri", serif; font-size: 1.7rem; direction: rtl; }
+  .opt-btn:hover:not(:disabled) { border-color: var(--gold); background: #fff; transform: translateY(-1px); }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn.correct { background: rgba(76,175,80,0.15); border-color: var(--success-green); color: #2d7a2d; }
+  .opt-btn.wrong { background: rgba(224,85,85,0.12); border-color: var(--error-red); color: #b83b3b; }
+  .opt-btn.idk { grid-column: 1 / -1; font-size: 0.85rem; color: var(--text-soft); background: transparent; border-style: dashed; }
+
+  /* ---------- Résultats ---------- */
+  .result-title { font-family: "Cinzel", serif; font-size: 1.4rem; color: var(--burgundy); text-align: center; margin-bottom: 4px; }
+  .result-sub { font-size: 0.85rem; color: var(--text-soft); text-align: center; margin-bottom: 26px; }
+  .result-total { text-align: center; margin-bottom: 26px; }
+  .result-total-score { font-family: "Cinzel", serif; font-size: 2.6rem; color: var(--burgundy); font-weight: 700; }
+  .result-total-pct { font-size: 1rem; color: var(--gold); font-weight: 600; margin-top: 2px; }
+
+  .breakdown { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 26px; }
+  .breakdown-row { display: flex; align-items: center; gap: 12px; }
+  .breakdown-label { flex: 0 0 130px; font-size: 0.85rem; color: var(--text-dark); }
+  .breakdown-bar { flex: 1; height: 10px; background: rgba(200,164,98,0.15); border-radius: 999px; overflow: hidden; }
+  .breakdown-bar-fill { height: 100%; background: var(--gold); border-radius: 999px; }
+  .breakdown-score { flex: 0 0 46px; font-size: 0.85rem; color: var(--burgundy); font-weight: 600; text-align: right; }
+
+  .recommendation {
+    width: 100%; background: var(--bg-beige); border: 1.5px solid var(--gold); border-radius: var(--radius-lg);
+    padding: 22px 20px; text-align: center; margin-bottom: 22px;
+  }
+  .recommendation-eyebrow { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-soft); margin-bottom: 6px; }
+  .recommendation-module { font-family: "Cinzel", serif; font-size: 1.3rem; color: var(--burgundy); margin-bottom: 8px; }
+  .recommendation-why { font-size: 0.85rem; color: var(--text-dark); line-height: 1.5; }
+
+  /* ---------- Boutons génériques ---------- */
+  .btn-main {
+    width: 100%; padding: 16px; border: none; border-radius: 999px;
+    background: var(--burgundy); color: var(--white); font-weight: 600; font-size: 0.95rem;
+    letter-spacing: 0.5px; transition: var(--transition-smooth); min-height: var(--tap-size);
+  }
+  .btn-main:hover { background: var(--burgundy-dark); }
+  .btn-secondary {
+    width: 100%; padding: 16px; border: 1.5px solid var(--gold); border-radius: 999px;
+    background: transparent; color: var(--burgundy); font-weight: 600; font-size: 0.95rem; min-height: var(--tap-size);
+  }
+  .btn-secondary:hover { background: rgba(200,164,98,0.1); }
+  .btn-row { display: flex; gap: 12px; width: 100%; margin-top: 6px; }
+
+  .home-link { margin-top: 20px; color: var(--text-soft); font-size: 0.82rem; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .home-link:hover { color: var(--burgundy); }
+
+  /* Ton "Enfant" : plus rond, plus coloré */
+  body.mode-enfant .card { border-width: 2px; }
+  body.mode-enfant .q-prompt-latin { font-size: 1.7rem; }
+  body.mode-enfant .opt-btn { border-radius: 20px; font-weight: 600; }
+  body.mode-enfant .section-badge { background: var(--gold); color: var(--white); }
+
+  @media (max-width: 480px) {
+    .card { padding: 26px 18px; border-radius: var(--radius-lg); }
+    .options-grid { grid-template-columns: 1fr; }
+    .mode-choices { flex-direction: column; }
+    .breakdown-label { flex-basis: 100px; font-size: 0.78rem; }
+  }
+
+  /* Guard auth */
+  body.auth-hidden { visibility: hidden; }
+</style>
+<link rel="stylesheet" href="audio-controller.css">
+<script type="module" src="tracker.js"></script>
+<script src="audio-controller.js"></script>
+<script>
+  /* Filet de securite : cette page ne depend jamais du systeme audio.
+     Si audio-controller.js est absent/en echec, DAKAudio devient un stub
+     inoffensif afin qu'aucun appel audio ne puisse casser la page. */
+  if (typeof DAKAudio === "undefined") {
+    window.DAKAudio = {
+      play: function () {},
+      playEffect: function () {},
+      stopAll: function () {},
+      unlock: function () { return Promise.resolve(false); },
+      showToast: function () {}
+    };
+  }
+</script>
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  onAuthStateChanged(_auth, (user) => {
+    if (user) {
+      document.body.style.visibility = 'visible';
+    } else {
+      window.location.href = 'auth.html';
+    }
+  });
+</script>
+</head>
+<body>
+  <div class="shell">
+
+    <div class="brand">
+      <div class="brand-ar ar-text">دار الكلمة</div>
+      <div class="brand-fr">Test de positionnement</div>
+    </div>
+
+    <div class="card">
+
+      <!-- VUE 1 : choix du mode -->
+      <section class="view active" id="view-mode">
+        <div class="mode-title">Bienvenue !</div>
+        <div class="mode-sub">Ce test dure environ 10 minutes et nous permet de vous proposer le bon point de départ.</div>
+        <div class="mode-choices">
+          <button class="mode-btn" id="btn-mode-enfant" type="button">
+            <span class="mode-btn-icon">🧒</span>
+            <span class="mode-btn-label">ENFANT</span>
+            <span class="mode-btn-desc">Version ludique et illustrée</span>
+          </button>
+          <button class="mode-btn" id="btn-mode-adulte" type="button">
+            <span class="mode-btn-icon">🧑</span>
+            <span class="mode-btn-label">ADULTE</span>
+            <span class="mode-btn-desc">Version sobre et directe</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- VUE 2 : motivation (adulte, facultatif) -->
+      <section class="view" id="view-motivation">
+        <div class="mode-title">Une dernière chose</div>
+        <p class="motivation-text">Pourquoi apprenez-vous l'arabe ? <em>(facultatif — ne compte pas dans votre score)</em></p>
+        <textarea id="motivation-input" placeholder="Votre réponse (optionnel)…"></textarea>
+        <div class="motivation-actions">
+          <button class="btn-secondary" id="btn-motivation-skip" type="button">Passer</button>
+          <button class="btn-main" id="btn-motivation-next" type="button">Continuer</button>
+        </div>
+      </section>
+
+      <!-- VUE 3 : question -->
+      <section class="view" id="view-question">
+        <div class="progress-wrap">
+          <div class="progress-labels">
+            <span id="progress-current">Question 1 / 30</span>
+            <span id="section-name-top"></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <div class="section-badge" id="section-badge">Lettres</div>
+
+        <div id="q-content"></div>
+
+        <div class="q-instruction" id="q-instruction"></div>
+
+        <div class="options-grid" id="options-grid"></div>
+      </section>
+
+      <!-- VUE 4 : résultats -->
+      <section class="view" id="view-results">
+        <div class="result-title" id="result-title">Résultat de votre test</div>
+        <div class="result-sub" id="result-sub"></div>
+
+        <div class="result-total">
+          <div class="result-total-score" id="result-total-score">0 / 30</div>
+          <div class="result-total-pct" id="result-total-pct">0 %</div>
+        </div>
+
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="recommendation">
+          <div class="recommendation-eyebrow">Nous vous recommandons</div>
+          <div class="recommendation-module" id="reco-module"></div>
+          <div class="recommendation-why" id="reco-why"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-main" id="btn-go-module" type="button">Commencer ce module</button>
+        </div>
+        <a class="home-link" href="modules.html"><i class="fa-solid fa-house"></i> Retour à l'accueil</a>
+      </section>
+
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ============================================================
+     BANQUE DE QUESTIONS — 30 questions évaluées, fixes.
+     Chaque item utilise un chemin audio DEJA existant sur le site
+     (mots déjà enregistrés) quand un bouton micro est proposé ;
+     aucune nouvelle dépendance audio n'est requise.
+     ============================================================ */
+  const QUESTIONS = {
+    lettres: [
+      { latin: "ALIF",  correct: "ا", options: ["ا", "ب", "ت", "ث"] },
+      { latin: "BA",    correct: "ب", options: ["ب", "ن", "ت", "ي"] },
+      { latin: "TA",    correct: "ت", options: ["ت", "ث", "ب", "ن"] },
+      { latin: "THA",   correct: "ث", options: ["ث", "ت", "ب", "ن"] },
+      { latin: "JIM",   correct: "ج", options: ["ج", "ح", "خ", "د"] },
+      { latin: "HA",    correct: "ح", options: ["ح", "ج", "خ", "ع"] },
+      { latin: "DAL",   correct: "د", options: ["د", "ذ", "ر", "ز"] },
+      { latin: "DHAL",  correct: "ذ", options: ["ذ", "د", "ز", "ر"] },
+      { latin: "RA",    correct: "ر", options: ["ر", "ز", "د", "و"] },
+      { latin: "SIN",   correct: "س", options: ["س", "ش", "ص", "ن"] },
+      { latin: "SHIN",  correct: "ش", options: ["ش", "س", "ص", "ض"] },
+      { latin: "AYN",   correct: "ع", options: ["ع", "غ", "ح", "خ"] }
+    ],
+    harakat: [
+      { latin: "BA",  correct: "بَ", options: ["بَ", "بِ", "بُ", "تَ"] },
+      { latin: "BI",  correct: "بِ", options: ["بِ", "بَ", "بُ", "نِ"] },
+      { latin: "BOU", correct: "بُ", options: ["بُ", "بِ", "بَ", "تُ"] },
+      { latin: "TA",  correct: "تَ", options: ["تَ", "تِ", "تُ", "ثَ"] },
+      { latin: "TI",  correct: "تِ", options: ["تِ", "تَ", "تُ", "نِ"] },
+      { latin: "SA",  correct: "سَ", options: ["سَ", "سِ", "سُ", "شَ"] },
+      { latin: "MOU", correct: "مُ", options: ["مُ", "مِ", "مَ", "نُ"] },
+      { latin: "LI",  correct: "لِ", options: ["لِ", "لَ", "لُ", "كِ"] }
+    ],
+    // audio: chemins déjà enregistrés et déployés sur le site (Module 1)
+    mots: [
+      { arabe: "بَيْت",  audio: "audio/bayt.mp3",  correct: "Maison", options: ["Maison", "Livre", "Stylo", "Porte"] },
+      { arabe: "قَلَم",  audio: "audio/qalam.mp3", correct: "Stylo",  options: ["Table", "Stylo", "Chaise", "Fenêtre"] },
+      { arabe: "كِتَاب", audio: "audio/kitab.mp3", correct: "Livre",  options: ["Cahier", "Sac", "Livre", "Crayon"] },
+      { arabe: "قَمَر",  audio: "audio/qamar.mp3", correct: "Lune",   options: ["Soleil", "Étoile", "Ciel", "Lune"] },
+      { arabe: "بَحْر",  audio: "audio/bahr.mp3",  correct: "Mer",    options: ["Rivière", "Mer", "Lac", "Montagne"] },
+      { arabe: "وَلَد",  audio: "audio/walad.mp3", correct: "Garçon", options: ["Fille", "Garçon", "Homme", "Enfant (bébé)"] }
+    ],
+    phrases: [
+      { arabe: "هٰذَا بَيْتٌ", correct: "Ceci est une maison", options: ["Ceci est une maison", "Voici un livre", "C'est mon stylo", "Où est la maison ?"] },
+      { arabe: "الْوَلَدُ يَقْرَأُ", correct: "Le garçon lit", options: ["Le garçon écrit", "Le garçon lit", "Le garçon joue", "Le garçon dort"] },
+      { arabe: "أَيْنَ الْقَلَمُ؟", correct: "Où est le stylo ?", options: ["Où est le stylo ?", "Voici le stylo", "J'aime le stylo", "Le stylo est ici"] },
+      { arabe: "أَنَا أُحِبُّ الْقِرَاءَةَ", correct: "J'aime la lecture", options: ["J'aime écrire", "Je n'aime pas lire", "J'aime la lecture", "J'apprends à lire"] }
+    ]
+  };
+
+  const SECTION_META = {
+    lettres:  { label: "Lettres",  total: 12, instructionEnfant: "Touche la bonne lettre 👇", instructionAdulte: "Sélectionnez la lettre correspondante." },
+    harakat:  { label: "Harakāt",  total: 8,  instructionEnfant: "Quelle lettre fait ce son ? 🔤", instructionAdulte: "Sélectionnez la lettre vocalisée correspondante." },
+    mots:     { label: "Mots",     total: 6,  instructionEnfant: "Que veut dire ce mot ? 📖", instructionAdulte: "Sélectionnez la traduction correcte." },
+    phrases:  { label: "Phrases",  total: 4,  instructionEnfant: "Que veut dire cette phrase ? 💬", instructionAdulte: "Sélectionnez la traduction correcte." }
+  };
+
+  const SECTION_ORDER = ["lettres", "harakat", "mots", "phrases"];
+
+  // Grille de recommandation — logique du "maillon le plus faible" :
+  // on place l'élève au premier vrai point de blocage plutôt qu'au score global.
+  const MODULE_RULES = [
+    { test: (s) => s.lettres < 8,  module: "Module 1", href: "module1.html", why: "La reconnaissance des lettres n'est pas encore stable — nous recommandons de consolider l'alphabet en premier." },
+    { test: (s) => s.harakat < 5,  module: "Module 2", href: "module2.html", why: "Les lettres sont acquises, mais les voyelles courtes (harakāt) demandent encore de la pratique." },
+    { test: (s) => s.mots < 4,     module: "Module 3", href: "module3.html", why: "Les sons isolés sont maîtrisés — il est temps de travailler le déchiffrage de mots complets." },
+    { test: (s) => s.phrases < 2,  module: "Module 6", href: "module6.html", why: "La lecture de mots est bonne — nous recommandons d'enrichir le vocabulaire et la lecture en contexte." },
+    { test: () => true,            module: "Module 7", href: "module7.html", why: "Excellent niveau sur toutes les épreuves — vous pouvez commencer directement du contenu avancé." }
+  ];
+
+  /* ============================================================
+     ÉTAT
+     ============================================================ */
+  const state = {
+    mode: null,          // 'enfant' | 'adulte'
+    motivation: "",
+    order: [],           // liste ordonnée de {section, index}
+    current: 0,
+    answers: [],          // { section, correct: bool }
+    startTime: null
+  };
+
+  SECTION_ORDER.forEach((section) => {
+    QUESTIONS[section].forEach((_, i) => state.order.push({ section, index: i }));
+  });
+
+  const $ = (id) => document.getElementById(id);
+  const views = {
+    mode: $("view-mode"),
+    motivation: $("view-motivation"),
+    question: $("view-question"),
+    results: $("view-results")
+  };
+
+  function showView(name) {
+    Object.values(views).forEach((v) => v.classList.remove("active"));
+    views[name].classList.add("active");
+  }
+
+  /* ============================================================
+     VUE 1 — MODE
+     ============================================================ */
+  $("btn-mode-enfant").addEventListener("click", () => selectMode("enfant"));
+  $("btn-mode-adulte").addEventListener("click", () => selectMode("adulte"));
+
+  function selectMode(mode) {
+    state.mode = mode;
+    document.body.classList.toggle("mode-enfant", mode === "enfant");
+    DAKAudio.unlock();
+    if (mode === "adulte") {
+      showView("motivation");
+    } else {
+      startTest();
+    }
+  }
+
+  /* ============================================================
+     VUE 2 — MOTIVATION (adulte, facultatif, hors score)
+     ============================================================ */
+  $("btn-motivation-skip").addEventListener("click", () => { state.motivation = ""; startTest(); });
+  $("btn-motivation-next").addEventListener("click", () => {
+    state.motivation = $("motivation-input").value.trim();
+    startTest();
+  });
+
+  /* ============================================================
+     VUE 3 — QUESTIONS
+     ============================================================ */
+  function startTest() {
+    state.current = 0;
+    state.answers = [];
+    state.startTime = Date.now();
+    showView("question");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    DAKAudio.stopAll();
+    const { section, index } = state.order[state.current];
+    const q = QUESTIONS[section][index];
+    const meta = SECTION_META[section];
+
+    $("progress-current").textContent = `Question ${state.current + 1} / 30`;
+    $("section-name-top").textContent = meta.label;
+    $("progress-fill").style.width = `${(state.current / 30) * 100}%`;
+    $("section-badge").textContent = meta.label;
+    $("q-instruction").textContent = state.mode === "enfant" ? meta.instructionEnfant : meta.instructionAdulte;
+
+    const content = $("q-content");
+    const grid = $("options-grid");
+    grid.className = "options-grid";
+    let optionClass = "opt-btn";
+
+    if (section === "lettres") {
+      content.innerHTML = `<div class="q-prompt-latin">${q.latin}</div>`;
+      optionClass += " opt-ar";
+    } else if (section === "harakat") {
+      content.innerHTML = `<div class="q-prompt-latin">${q.latin}</div>`;
+      optionClass += " opt-ar";
+    } else if (section === "mots") {
+      content.innerHTML = `
+        <div class="q-prompt-word ar-text">${q.arabe}</div>
+        <button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="Écouter"><i class="fa-solid fa-volume-high"></i></button>`;
+      $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(q.audio, e.currentTarget));
+    } else if (section === "phrases") {
+      content.innerHTML = `<div class="q-prompt-phrase ar-text">${q.arabe}</div>`;
+    }
+
+    grid.innerHTML = "";
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = optionClass;
+      btn.textContent = opt;
+      btn.addEventListener("click", () => handleAnswer(opt === q.correct, btn, q.correct));
+      grid.appendChild(btn);
+    });
+
+    // Option "Je ne sais pas encore lire" — adulte uniquement, phrases uniquement
+    if (state.mode === "adulte" && section === "phrases") {
+      const idkBtn = document.createElement("button");
+      idkBtn.type = "button";
+      idkBtn.className = "opt-btn idk";
+      idkBtn.textContent = "Je ne sais pas encore lire";
+      idkBtn.addEventListener("click", () => handleAnswer(false, idkBtn, q.correct));
+      grid.appendChild(idkBtn);
+    }
+  }
+
+  let answering = false;
+  function handleAnswer(isCorrect, btnEl, correctText) {
+    if (answering) return;
+    answering = true;
+
+    const { section } = state.order[state.current];
+    state.answers.push({ section, correct: isCorrect });
+
+    const allBtns = document.querySelectorAll("#options-grid .opt-btn");
+    allBtns.forEach((b) => {
+      b.disabled = true;
+      if (b.textContent === correctText) b.classList.add("correct");
+    });
+    if (!isCorrect) btnEl.classList.add("wrong");
+
+    setTimeout(() => {
+      answering = false;
+      if (state.current < 29) {
+        state.current++;
+        renderQuestion();
+      } else {
+        finishTest();
+      }
+    }, 900);
+  }
+
+  /* ============================================================
+     VUE 4 — RÉSULTATS
+     ============================================================ */
+  function finishTest() {
+    DAKAudio.stopAll();
+
+    const scores = { lettres: 0, harakat: 0, mots: 0, phrases: 0 };
+    state.answers.forEach((a) => { if (a.correct) scores[a.section]++; });
+
+    const total = scores.lettres + scores.harakat + scores.mots + scores.phrases;
+    const pct = Math.round((total / 30) * 100);
+
+    const rule = MODULE_RULES.find((r) => r.test(scores));
+
+    $("result-title").textContent = state.mode === "enfant" ? "Bravo, test terminé ! 🎉" : "Résultat de votre test";
+    $("result-sub").textContent = "Voici votre positionnement détaillé.";
+    $("result-total-score").textContent = `${total} / 30`;
+    $("result-total-pct").textContent = `${pct} %`;
+
+    const breakdown = $("breakdown");
+    breakdown.innerHTML = "";
+    [
+      ["Lettres", scores.lettres, 12],
+      ["Harakāt", scores.harakat, 8],
+      ["Mots", scores.mots, 6],
+      ["Phrases", scores.phrases, 4]
+    ].forEach(([label, score, outOf]) => {
+      const row = document.createElement("div");
+      row.className = "breakdown-row";
+      row.innerHTML = `
+        <div class="breakdown-label">${label}</div>
+        <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width:${(score/outOf)*100}%"></div></div>
+        <div class="breakdown-score">${score} / ${outOf}</div>`;
+      breakdown.appendChild(row);
+    });
+
+    $("reco-module").textContent = rule.module;
+    $("reco-why").textContent = rule.why;
+    $("btn-go-module").onclick = () => { window.location.href = rule.href; };
+
+    if (pct >= 70 && typeof confetti === "function") {
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ["#C8A462", "#5D1828"] });
+    }
+
+    showView("results");
+    saveResult(scores, total, pct, rule.module);
+  }
+
+  /* ============================================================
+     FIREBASE — enregistrement du résultat
+     Utilise le même projet/app Firebase que le reste du site
+     (config identique à auth.html / tracker.js), sans y toucher.
+     ============================================================ */
+  async function saveResult(scores, total, pct, moduleRecommande) {
+    try {
+      const { getApps, initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+      const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      const { getFirestore, doc, setDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      const cfg = {
+        apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+        authDomain: "dar-al-kalimah.firebaseapp.com",
+        projectId: "dar-al-kalimah",
+        storageBucket: "dar-al-kalimah.firebasestorage.app",
+        messagingSenderId: "472629258",
+        appId: "1:472629258:web:29b755d38efe89421f1ff3"
+      };
+      const app = getApps().length ? getApps()[0] : initializeApp(cfg);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const dureeSecondes = Math.round((Date.now() - state.startTime) / 1000);
+
+      await setDoc(doc(db, "eleves", user.uid), {
+        testPositionnement: {
+          mode: state.mode,
+          lettres: scores.lettres,
+          harakat: scores.harakat,
+          mots: scores.mots,
+          phrases: scores.phrases,
+          scoreTotal: total,
+          pourcentage: pct,
+          moduleRecommande: moduleRecommande,
+          motivationEleve: state.motivation || null,
+          dureeSecondes: dureeSecondes,
+          date: serverTimestamp()
+        }
+      }, { merge: true });
+
+      if (window.DAK_enregistrerScore) {
+        window.DAK_enregistrerScore({ module: "Test de positionnement", quiz: "Positionnement", score: total, total: 30 });
+      }
+    } catch (e) {
+      console.error("Erreur enregistrement test de positionnement:", e);
+    }
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) DAKAudio.stopAll();
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>
