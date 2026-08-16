@@ -979,9 +979,7 @@
   }
 
   $("btn-see-cert").addEventListener("click", () => {
-    const t = TEXT[state.lang];
-    $("cert-hint").textContent = t.seeCertNotReady;
-    $("cert-hint").classList.add("show");
+    window.location.href = "certificat-final.html";
   });
 
   $("btn-retry").addEventListener("click", () => {
