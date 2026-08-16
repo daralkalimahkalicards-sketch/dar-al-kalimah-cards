@@ -69,6 +69,17 @@
   .brand-ar { font-family: "Amiri", serif; color: var(--gold); font-size: 1.8rem; font-weight: bold; }
   .brand-fr { font-family: "Cinzel", serif; color: var(--burgundy); font-size: 0.72rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 4px; }
 
+  /* Bandeau titre — identité DAK discrète (pas de bloc bordeaux lourd) */
+  .brand-banner {
+    margin-top: 16px; padding: 10px 4px;
+    border-top: 1px solid rgba(93, 24, 40, 0.18);
+    border-bottom: 1px solid rgba(93, 24, 40, 0.18);
+  }
+  .brand-banner-text {
+    font-family: "Cinzel", serif; font-size: 0.72rem; letter-spacing: 3.5px;
+    color: var(--burgundy); text-transform: uppercase;
+  }
+
   .card {
     background: var(--white);
     border-radius: var(--radius-xl);
@@ -80,6 +91,15 @@
 
   .view { display: none; width: 100%; }
   .view.active { display: flex; flex-direction: column; align-items: center; }
+
+  /* ---------- Sélecteur de langue (accueil uniquement) ---------- */
+  .lang-toggle { display: flex; gap: 6px; margin-bottom: 24px; }
+  .lang-btn {
+    border: 1px solid rgba(200,164,98,0.5); background: transparent; color: var(--text-soft);
+    font-family: "Cinzel", serif; font-size: 0.68rem; letter-spacing: 1.5px; font-weight: 600;
+    padding: 6px 16px; border-radius: 999px; transition: var(--transition-smooth); min-height: 32px;
+  }
+  .lang-btn.active { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); }
 
   /* ---------- Sélecteur de mode ---------- */
   .mode-title { font-family: "Cinzel", serif; font-size: 1.25rem; color: var(--burgundy); text-align: center; margin-bottom: 8px; letter-spacing: 0.5px; }
@@ -94,13 +114,33 @@
     display: flex; flex-direction: column; align-items: center; gap: 12px;
     transition: var(--transition-smooth);
   }
-  .mode-btn:hover, .mode-btn:focus-visible { border-color: var(--gold); box-shadow: 0 8px 24px rgba(200,164,98,0.18); transform: translateY(-2px); outline: none; }
+  .mode-btn:hover, .mode-btn:focus-visible { box-shadow: 0 8px 24px rgba(200,164,98,0.18); transform: translateY(-2px); outline: none; }
   .mode-btn-icon {
     width: 52px; height: 52px; border-radius: 50%; background: var(--bg-beige);
     display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--burgundy);
   }
   .mode-btn-label { font-family: "Cinzel", serif; font-size: 0.92rem; color: var(--burgundy); letter-spacing: 1.5px; }
   .mode-btn-desc { font-size: 0.76rem; color: var(--text-soft); text-align: center; }
+
+  /* Carte ENFANT : chaleureuse, illustrée, jouable — dès l'écran de choix */
+  #btn-mode-enfant {
+    border-radius: 22px; border: 2px dashed rgba(200,164,98,0.55);
+    background: linear-gradient(160deg, #ffffff, rgba(200,164,98,0.06));
+  }
+  #btn-mode-enfant .mode-btn-icon {
+    width: 60px; height: 60px; font-size: 1.6rem; color: var(--white);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    box-shadow: 0 6px 16px rgba(200,164,98,0.35);
+  }
+  #btn-mode-enfant:hover { transform: translateY(-3px) rotate(-1deg); border-color: var(--gold); }
+
+  /* Carte ADULTE : sobre, élégante, structurée */
+  #btn-mode-adulte { border-radius: 10px; border: 1px solid rgba(93,24,40,0.3); background: var(--white); }
+  #btn-mode-adulte .mode-btn-icon {
+    width: 48px; height: 48px; font-size: 1.1rem; color: var(--burgundy);
+    background: var(--white); border: 1px solid var(--burgundy);
+  }
+  #btn-mode-adulte:hover { transform: translateY(-2px); border-color: var(--burgundy); }
 
   /* ---------- Motivation (adulte, facultatif) ---------- */
   .motivation-text { font-size: 0.92rem; color: var(--text-dark); text-align: center; margin-bottom: 20px; line-height: 1.55; }
@@ -115,26 +155,37 @@
 
   /* ---------- Progression ---------- */
   .progress-wrap { width: 100%; margin-bottom: 26px; }
-  .progress-labels { display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--text-soft); margin-bottom: 7px; }
-  .progress-track { width: 100%; height: 5px; background: rgba(200,164,98,0.18); border-radius: 999px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--gold); border-radius: 999px; transition: width 0.4s ease; width: 0%; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 0.74rem; margin-bottom: 7px; }
+  .progress-labels span:first-child { color: var(--burgundy); font-weight: 700; }
+  .progress-labels span:last-child { color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.68rem; }
+  .progress-track { width: 100%; height: 6px; background: rgba(93,24,40,0.08); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--burgundy), var(--gold)); border-radius: 999px; transition: width 0.4s ease; width: 0%; }
+  .section-icon {
+    display: none; width: 44px; height: 44px; border-radius: 50%; align-items: center; justify-content: center;
+    margin: 0 auto 10px; font-size: 1.2rem;
+  }
+  body.mode-enfant .section-icon { display: flex; background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--white); }
   .section-badge {
     display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
     color: var(--burgundy); border: 1px solid rgba(200,164,98,0.5); padding: 5px 16px; border-radius: 999px; margin-bottom: 22px;
   }
+  body.mode-enfant .section-badge { background: var(--gold); color: var(--white); border-color: var(--gold); }
+  body.mode-adulte .section-badge { border-radius: 4px; letter-spacing: 2px; }
 
   /* ---------- Question ---------- */
+  #q-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
   .q-prompt-latin {
     font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.5rem; text-align: center;
     letter-spacing: 2px; margin-bottom: 8px;
   }
   .q-prompt-word { font-size: clamp(2.4rem, 9vw, 3.4rem); color: var(--burgundy); font-weight: 700; margin-bottom: 6px; }
   .q-prompt-phrase { font-size: clamp(1.5rem, 6vw, 2.1rem); color: var(--burgundy); font-weight: 700; line-height: 1.9; margin-bottom: 6px; }
+  .q-audio-row { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 12px; }
   .q-audio-btn {
     width: var(--tap-size); height: var(--tap-size); border-radius: 50%;
     background: var(--white); border: 1.5px solid var(--gold); color: var(--burgundy);
-    display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem;
-    transition: var(--transition-smooth); margin: 12px auto 0;
+    display: flex; justify-content: center; align-items: center; font-size: 1.2rem; margin: 0;
+    transition: var(--transition-smooth);
   }
   .q-audio-btn:hover { background: var(--gold); color: var(--white); }
   .q-audio-btn.dak-playing { background: var(--gold); color: var(--white); }
@@ -154,6 +205,23 @@
   .opt-btn.correct { background: rgba(76,175,80,0.10); border-color: var(--success-green); color: #2d7a2d; }
   .opt-btn.wrong { background: rgba(224,85,85,0.08); border-color: var(--error-red); color: #b83b3b; }
   .opt-btn.idk { grid-column: 1 / -1; font-size: 0.82rem; color: var(--text-soft); background: transparent; border-style: dashed; }
+
+  /* Micro-animation d'apparition — enfant uniquement */
+  @keyframes popIn { from { opacity: 0; transform: scale(0.94) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  body.mode-enfant #q-content, body.mode-enfant .options-grid { animation: popIn 0.32s ease; }
+
+  /* Message d'encouragement entre deux séries — enfant uniquement */
+  .encouragement-msg {
+    display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 70px 10px;
+    font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.2rem; text-align: center;
+    animation: popIn 0.4s ease; width: 100%;
+  }
+  .encouragement-msg i { color: var(--gold); font-size: 1.6rem; }
+
+  /* Différenciation Adulte : caractères arabes plus grands, cadre plus structuré */
+  body.mode-adulte .opt-btn.opt-ar { font-size: 2rem; }
+  body.mode-adulte .q-prompt-word { font-size: clamp(2.6rem, 9vw, 3.7rem); }
+  body.mode-adulte .q-prompt-phrase { font-size: clamp(1.6rem, 6vw, 2.3rem); }
 
   /* ---------- Résultats ---------- */
   .result-message {
@@ -210,26 +278,16 @@
   .home-link:hover { color: var(--burgundy); }
 
   /* ============================================================
-     DIFFÉRENCIATION ENFANT / ADULTE
-     Le contenu testé est identique ; la présentation ne l'est pas.
+     DIFFÉRENCIATION ENFANT / ADULTE — cadre général
      ============================================================ */
-
-  /* Enfant : plus chaleureux — accents or plus marqués, coins plus ronds,
-     léger effet de "carte" plus jouable, typographies un peu plus grandes. */
-  body.mode-enfant .card { border-color: rgba(200,164,98,0.55); }
-  body.mode-enfant .section-badge { background: var(--gold); color: var(--white); border-color: var(--gold); }
+  body.mode-enfant .card { border-color: rgba(200,164,98,0.55); border-top: 4px solid var(--gold); border-radius: var(--radius-xl) var(--radius-xl) 30px 30px; }
   body.mode-enfant .opt-btn { border-radius: 18px; font-weight: 600; border-width: 2px; }
-  body.mode-enfant .opt-btn.opt-ar { font-size: 1.8rem; }
   body.mode-enfant .q-prompt-latin { font-size: 1.65rem; }
   body.mode-enfant .btn-main, body.mode-enfant .btn-secondary { border-radius: 999px; }
-  body.mode-enfant .mode-btn.selected-preview { border-color: var(--gold); }
   body.mode-enfant .result-message { font-size: 1.25rem; }
 
-  /* Adulte : plus minéral — angles plus droits, moins de bordures épaisses,
-     hiérarchie plus discrète, aucune fioriture. */
-  body.mode-adulte .card { border-radius: 16px; }
+  body.mode-adulte .card { border-radius: 16px; border-top: 3px double var(--gold); }
   body.mode-adulte .opt-btn { border-radius: 8px; border-width: 1px; }
-  body.mode-adulte .section-badge { border-radius: 4px; letter-spacing: 2px; }
   body.mode-adulte .btn-main, body.mode-adulte .btn-secondary { border-radius: 6px; }
 
   @media (max-width: 480px) {
@@ -284,33 +342,38 @@
 
     <div class="brand">
       <div class="brand-ar ar-text">دار الكلمة</div>
-      <div class="brand-fr">Test de positionnement</div>
+      <div class="brand-fr">Dar Al-Kalimah</div>
+      <div class="brand-banner"><div class="brand-banner-text" id="brand-banner-text">Test de positionnement</div></div>
     </div>
 
     <div class="card">
 
       <!-- VUE 1 : choix du mode -->
       <section class="view active" id="view-mode">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-lang-fr" type="button">FR</button>
+          <button class="lang-btn" id="btn-lang-es" type="button">ES</button>
+        </div>
         <div class="mode-title" id="mode-title">Bienvenue</div>
         <div class="mode-sub" id="mode-sub">Ce test dure environ 10 minutes et nous permet de vous proposer le bon point de départ.</div>
         <div class="mode-choices">
           <button class="mode-btn" id="btn-mode-enfant" type="button">
             <span class="mode-btn-icon"><i class="fa-solid fa-child-reaching"></i></span>
-            <span class="mode-btn-label">ENFANT</span>
-            <span class="mode-btn-desc">Version illustrée et encourageante</span>
+            <span class="mode-btn-label" id="child-label-text">ENFANT</span>
+            <span class="mode-btn-desc" id="child-desc-text">Version illustrée et encourageante</span>
           </button>
           <button class="mode-btn" id="btn-mode-adulte" type="button">
             <span class="mode-btn-icon"><i class="fa-solid fa-user"></i></span>
-            <span class="mode-btn-label">ADULTE</span>
-            <span class="mode-btn-desc">Version sobre et directe</span>
+            <span class="mode-btn-label" id="adult-label-text">ADULTE</span>
+            <span class="mode-btn-desc" id="adult-desc-text">Version sobre et directe</span>
           </button>
         </div>
       </section>
 
       <!-- VUE 2 : motivation (adulte, facultatif) -->
       <section class="view" id="view-motivation">
-        <div class="mode-title">Avant de commencer</div>
-        <p class="motivation-text">Pourquoi souhaitez-vous apprendre l'arabe ? <em>(facultatif, sans incidence sur votre score)</em></p>
+        <div class="mode-title" id="motivation-title">Avant de commencer</div>
+        <p class="motivation-text"><span id="motivation-question-text">Pourquoi souhaitez-vous apprendre l'arabe ?</span> <em id="motivation-note-text">(facultatif, sans incidence sur votre score)</em></p>
         <textarea id="motivation-input" placeholder="Votre réponse (optionnel)…"></textarea>
         <div class="motivation-actions">
           <button class="btn-secondary" id="btn-motivation-skip" type="button">Passer</button>
@@ -327,6 +390,7 @@
           </div>
           <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
         </div>
+        <div class="section-icon" id="section-icon"><i class="fa-solid fa-font" id="section-icon-i"></i></div>
         <div class="section-badge" id="section-badge">Lettres</div>
 
         <div id="q-content"></div>
@@ -336,25 +400,25 @@
         <div class="options-grid" id="options-grid"></div>
       </section>
 
-      <!-- VUE 4 : résultats -->
+      <!-- VUE 4 : résultats (structure et design INCHANGÉS — seuls les libellés sont i18n) -->
       <section class="view" id="view-results">
         <div class="result-message" id="result-message"></div>
 
         <div class="result-block acquired" id="result-acquired-block">
-          <div class="result-block-title"><i class="fa-solid fa-circle-check result-block-icon"></i>Ce qui est acquis</div>
+          <div class="result-block-title"><i class="fa-solid fa-circle-check result-block-icon"></i><span id="acquired-title-text">Ce qui est acquis</span></div>
           <div class="result-block-text" id="result-acquired-text"></div>
         </div>
 
         <div class="result-block consolidate" id="result-consolidate-block">
-          <div class="result-block-title"><i class="fa-solid fa-seedling result-block-icon"></i>À consolider</div>
+          <div class="result-block-title"><i class="fa-solid fa-seedling result-block-icon"></i><span id="consolidate-title-text">À consolider</span></div>
           <div class="result-block-text" id="result-consolidate-text"></div>
         </div>
 
-        <div class="scores-title">Détail des scores</div>
+        <div class="scores-title" id="scores-title-text">Détail des scores</div>
         <div class="breakdown" id="breakdown"></div>
 
         <div class="total-row">
-          <span class="total-label">Score total</span>
+          <span class="total-label" id="total-label-text">Score total</span>
           <span><span class="total-score" id="result-total-score">0 / 30</span><span class="total-pct" id="result-total-pct">(0 %)</span></span>
         </div>
 
@@ -363,7 +427,7 @@
         <div class="btn-row">
           <button class="btn-main" id="btn-go-module" type="button">Commencer ce module</button>
         </div>
-        <a class="home-link" href="modules.html"><i class="fa-solid fa-house"></i> Retour à l'accueil</a>
+        <a class="home-link" href="modules.html"><i class="fa-solid fa-house"></i> <span id="home-link-text">Retour à l'accueil</span></a>
       </section>
 
     </div>
@@ -375,9 +439,9 @@
 
   /* ============================================================
      BANQUE DE QUESTIONS — 30 questions évaluées, fixes, inchangées.
-     Chaque item utilise un chemin audio DEJA existant sur le site
-     (mots déjà enregistrés) quand un bouton micro est proposé ;
-     aucune nouvelle dépendance audio n'est requise.
+     lettres/harakat : indépendantes de la langue (lettres arabes).
+     mots/phrases : contenu correct/options fourni en fr ET es ;
+     l'arabe et les chemins audio restent identiques dans les deux langues.
      ============================================================ */
   const QUESTIONS = {
     lettres: [
@@ -404,34 +468,50 @@
       { latin: "MOU", correct: "مُ", options: ["مُ", "مِ", "مَ", "نُ"] },
       { latin: "LI",  correct: "لِ", options: ["لِ", "لَ", "لُ", "كِ"] }
     ],
-    // audio: chemins déjà enregistrés et déployés sur le site (Module 1)
+    // audio: chemins déjà enregistrés et déployés sur le site (Module 1), identiques quelle que soit la langue
     mots: [
-      { arabe: "بَيْت",  audio: "audio/bayt.mp3",  correct: "Maison", options: ["Maison", "Livre", "Stylo", "Porte"] },
-      { arabe: "قَلَم",  audio: "audio/qalam.mp3", correct: "Stylo",  options: ["Table", "Stylo", "Chaise", "Fenêtre"] },
-      { arabe: "كِتَاب", audio: "audio/kitab.mp3", correct: "Livre",  options: ["Cahier", "Sac", "Livre", "Crayon"] },
-      { arabe: "قَمَر",  audio: "audio/qamar.mp3", correct: "Lune",   options: ["Soleil", "Étoile", "Ciel", "Lune"] },
-      { arabe: "بَحْر",  audio: "audio/bahr.mp3",  correct: "Mer",    options: ["Rivière", "Mer", "Lac", "Montagne"] },
-      { arabe: "وَلَد",  audio: "audio/walad.mp3", correct: "Garçon", options: ["Fille", "Garçon", "Homme", "Enfant (bébé)"] }
+      { arabe: "بَيْت",  audio: "audio/bayt.mp3",
+        fr: { correct: "Maison", options: ["Maison", "Livre", "Stylo", "Porte"] },
+        es: { correct: "Casa", options: ["Casa", "Libro", "Bolígrafo", "Puerta"] } },
+      { arabe: "قَلَم",  audio: "audio/qalam.mp3",
+        fr: { correct: "Stylo", options: ["Table", "Stylo", "Chaise", "Fenêtre"] },
+        es: { correct: "Bolígrafo", options: ["Mesa", "Bolígrafo", "Silla", "Ventana"] } },
+      { arabe: "كِتَاب", audio: "audio/kitab.mp3",
+        fr: { correct: "Livre", options: ["Cahier", "Sac", "Livre", "Crayon"] },
+        es: { correct: "Libro", options: ["Cuaderno", "Bolsa", "Libro", "Lápiz"] } },
+      { arabe: "قَمَر",  audio: "audio/qamar.mp3",
+        fr: { correct: "Lune", options: ["Soleil", "Étoile", "Ciel", "Lune"] },
+        es: { correct: "Luna", options: ["Sol", "Estrella", "Cielo", "Luna"] } },
+      { arabe: "بَحْر",  audio: "audio/bahr.mp3",
+        fr: { correct: "Mer", options: ["Rivière", "Mer", "Lac", "Montagne"] },
+        es: { correct: "Mar", options: ["Río", "Mar", "Lago", "Montaña"] } },
+      { arabe: "وَلَد",  audio: "audio/walad.mp3",
+        fr: { correct: "Garçon", options: ["Fille", "Garçon", "Homme", "Enfant (bébé)"] },
+        es: { correct: "Niño", options: ["Niña", "Niño", "Hombre", "Bebé"] } }
     ],
     phrases: [
-      { arabe: "هٰذَا بَيْتٌ", correct: "Ceci est une maison", options: ["Ceci est une maison", "Voici un livre", "C'est mon stylo", "Où est la maison ?"] },
-      { arabe: "الْوَلَدُ يَقْرَأُ", correct: "Le garçon lit", options: ["Le garçon écrit", "Le garçon lit", "Le garçon joue", "Le garçon dort"] },
-      { arabe: "أَيْنَ الْقَلَمُ؟", correct: "Où est le stylo ?", options: ["Où est le stylo ?", "Voici le stylo", "J'aime le stylo", "Le stylo est ici"] },
-      { arabe: "أَنَا أُحِبُّ الْقِرَاءَةَ", correct: "J'aime la lecture", options: ["J'aime écrire", "Je n'aime pas lire", "J'aime la lecture", "J'apprends à lire"] }
+      { arabe: "هٰذَا بَيْتٌ",
+        fr: { correct: "Ceci est une maison", options: ["Ceci est une maison", "Voici un livre", "C'est mon stylo", "Où est la maison ?"] },
+        es: { correct: "Esto es una casa", options: ["Esto es una casa", "Aquí hay un libro", "Este es mi bolígrafo", "¿Dónde está la casa?"] } },
+      { arabe: "الْوَلَدُ يَقْرَأُ",
+        fr: { correct: "Le garçon lit", options: ["Le garçon écrit", "Le garçon lit", "Le garçon joue", "Le garçon dort"] },
+        es: { correct: "El niño lee", options: ["El niño escribe", "El niño lee", "El niño juega", "El niño duerme"] } },
+      { arabe: "أَيْنَ الْقَلَمُ؟",
+        fr: { correct: "Où est le stylo ?", options: ["Où est le stylo ?", "Voici le stylo", "J'aime le stylo", "Le stylo est ici"] },
+        es: { correct: "¿Dónde está el bolígrafo?", options: ["¿Dónde está el bolígrafo?", "Aquí está el bolígrafo", "Me gusta el bolígrafo", "El bolígrafo está aquí"] } },
+      { arabe: "أَنَا أُحِبُّ الْقِرَاءَةَ",
+        fr: { correct: "J'aime la lecture", options: ["J'aime écrire", "Je n'aime pas lire", "J'aime la lecture", "J'apprends à lire"] },
+        es: { correct: "Me gusta la lectura", options: ["Me gusta escribir", "No me gusta leer", "Me gusta la lectura", "Estoy aprendiendo a leer"] } }
     ]
   };
 
-  const SECTION_META = {
-    lettres:  { label: "Lettres",  total: 12, instructionEnfant: "Touche la bonne lettre", instructionAdulte: "Sélectionnez la lettre correspondante." },
-    harakat:  { label: "Harakāt",  total: 8,  instructionEnfant: "Quelle lettre fait ce son ?", instructionAdulte: "Sélectionnez la lettre vocalisée correspondante." },
-    mots:     { label: "Mots",     total: 6,  instructionEnfant: "Que veut dire ce mot ?", instructionAdulte: "Sélectionnez la traduction correcte." },
-    phrases:  { label: "Phrases",  total: 4,  instructionEnfant: "Que veut dire cette phrase ?", instructionAdulte: "Sélectionnez la traduction correcte." }
-  };
-
   const SECTION_ORDER = ["lettres", "harakat", "mots", "phrases"];
+  const SECTION_TOTAL = { lettres: 12, harakat: 8, mots: 6, phrases: 4 };
+  const SECTION_ICON = { lettres: "fa-font", harakat: "fa-ear-listen", mots: "fa-book-open", phrases: "fa-comments" };
 
   // Grille de recommandation — logique du "maillon le plus faible" :
   // on place l'élève au premier vrai point de blocage plutôt qu'au score global.
+  // INCHANGÉ (structure et seuils identiques à la version précédente).
   const MODULE_RULES = [
     { test: (s) => s.lettres < 8,  module: "Module 1", href: "module1.html" },
     { test: (s) => s.harakat < 5,  module: "Module 2", href: "module2.html" },
@@ -440,37 +520,110 @@
     { test: () => true,            module: "Module 7", href: "module7.html" }
   ];
 
-  // Seuil de maîtrise par épreuve (≥75 % = acquis, sinon à consolider)
+  // Seuil de maîtrise par épreuve (≥75 % = acquis, sinon à consolider) — INCHANGÉ
   const MASTERY_RATIO = 0.75;
 
-  const SECTION_TEXT = {
-    enfant: {
-      acquired: {
-        lettres: "tu reconnais très bien les lettres",
-        harakat: "tu entends bien les harakāt (voyelles courtes)",
-        mots: "tu lis déjà des mots complets",
-        phrases: "tu comprends des phrases simples"
+  /* ============================================================
+     TEXTES — FR / ES
+     ============================================================ */
+  const TEXT = {
+    fr: {
+      brandBanner: "Test de positionnement",
+      modeTitle: "Bienvenue",
+      modeSub: "Ce test dure environ 10 minutes et nous permet de vous proposer le bon point de départ.",
+      childLabel: "ENFANT",
+      childDesc: "Version illustrée et encourageante",
+      adultLabel: "ADULTE",
+      adultDesc: "Version sobre et directe",
+      motivationTitle: "Avant de commencer",
+      motivationQuestion: "Pourquoi souhaitez-vous apprendre l'arabe ?",
+      motivationNote: "(facultatif, sans incidence sur votre score)",
+      motivationPlaceholder: "Votre réponse (optionnel)…",
+      skip: "Passer",
+      startTest: "Commencer le test",
+      listenAria: "Écouter",
+      idk: "Je ne sais pas encore lire",
+      scoresDetail: "Détail des scores",
+      scoreTotal: "Score total",
+      acquiredTitle: "Ce qui est acquis",
+      consolidateTitle: "À consolider",
+      startModule: "Commencer ce module",
+      backHome: "Retour à l'accueil",
+      questionWord: "Question",
+      sectionLabels: { lettres: "Lettres", harakat: "Harakāt", mots: "Mots", phrases: "Phrases" },
+      instructions: {
+        lettres: { enfant: (l) => `Retrouve la lettre ${l}`, adulte: (l) => `Sélectionnez la lettre correspondant à ${l}.` },
+        harakat: { enfant: () => "Écoute bien… quelle est la bonne réponse ?", adulte: () => "Écoutez puis sélectionnez la réponse correspondante." },
+        mots:    { enfant: () => "Reconnais-tu ce mot ?", adulte: () => "Quelle est la signification de ce mot ?" },
+        phrases: { enfant: () => "Lis tranquillement cette phrase.", adulte: () => "Lisez la phrase suivante, puis sélectionnez sa signification." }
       },
-      consolidate: {
-        lettres: "reconnaître certaines lettres mérite encore un peu d'entraînement",
-        harakat: "les harakāt méritent encore un peu de pratique",
-        mots: "lire des mots complets mérite encore un peu d'entraînement",
-        phrases: "la lecture de phrases mérite encore un peu de pratique pour gagner en fluidité"
-      }
+      encouragements: ["Très bien, continue !", "Tu avances super bien.", "Encore quelques étapes !", "Bravo, tu progresses bien !"],
+      opening: {
+        enfant: { high: "Mabrouk ! Tu as déjà de très bonnes bases.", mid: "Bien joué ! Tu progresses bien.", low: "Beau travail pour un début — chaque étape compte." },
+        adulte: { high: "Bravo, vous avez déjà de très bonnes bases.", mid: "Vous progressez bien.", low: "Ce test constitue un bon point de départ." }
+      },
+      skillTexts: {
+        enfant: {
+          acquired: { lettres: "tu reconnais très bien les lettres", harakat: "tu entends bien les harakāt (voyelles courtes)", mots: "tu lis déjà des mots complets", phrases: "tu comprends des phrases simples" },
+          consolidate: { lettres: "reconnaître certaines lettres mérite encore un peu d'entraînement", harakat: "les harakāt méritent encore un peu de pratique", mots: "lire des mots complets mérite encore un peu d'entraînement", phrases: "la lecture de phrases mérite encore un peu de pratique pour gagner en fluidité" }
+        },
+        adulte: {
+          acquired: { lettres: "la reconnaissance des lettres est bien maîtrisée", harakat: "les voyelles courtes (harakāt) sont bien maîtrisées", mots: "la lecture de mots complets est acquise", phrases: "la compréhension de phrases simples est acquise" },
+          consolidate: { lettres: "la reconnaissance de certaines lettres mérite d'être consolidée", harakat: "les harakāt méritent encore un peu de pratique", mots: "le déchiffrage de mots complets mérite d'être consolidé", phrases: "la lecture de phrases mérite encore un peu de pratique pour gagner en fluidité" }
+        }
+      },
+      joinWord: " et ",
+      who: { enfant: "te", adulte: "vous" },
+      recommendationTemplate: (who, module) => `Pour continuer dans de bonnes conditions, nous ${who} recommandons de commencer au <strong>${module}</strong>.`
     },
-    adulte: {
-      acquired: {
-        lettres: "la reconnaissance des lettres est bien maîtrisée",
-        harakat: "les voyelles courtes (harakāt) sont bien maîtrisées",
-        mots: "la lecture de mots complets est acquise",
-        phrases: "la compréhension de phrases simples est acquise"
+    es: {
+      brandBanner: "Prueba de nivel",
+      modeTitle: "Bienvenido(a)",
+      modeSub: "Esta prueba dura unos 10 minutos y nos permite proponerte el mejor punto de partida.",
+      childLabel: "NIÑO(A)",
+      childDesc: "Versión ilustrada y motivadora",
+      adultLabel: "ADULTO(A)",
+      adultDesc: "Versión sobria y directa",
+      motivationTitle: "Antes de empezar",
+      motivationQuestion: "¿Por qué quiere aprender árabe?",
+      motivationNote: "(opcional, no afecta su puntuación)",
+      motivationPlaceholder: "Su respuesta (opcional)…",
+      skip: "Omitir",
+      startTest: "Comenzar la prueba",
+      listenAria: "Escuchar",
+      idk: "Todavía no sé leer",
+      scoresDetail: "Detalle de puntuaciones",
+      scoreTotal: "Puntuación total",
+      acquiredTitle: "Lo que ya dominas",
+      consolidateTitle: "A reforzar",
+      startModule: "Empezar este módulo",
+      backHome: "Volver al inicio",
+      questionWord: "Pregunta",
+      sectionLabels: { lettres: "Letras", harakat: "Harakat", mots: "Palabras", phrases: "Frases" },
+      instructions: {
+        lettres: { enfant: (l) => `Encuentra la letra ${l}`, adulte: (l) => `Seleccione la letra correspondiente a ${l}.` },
+        harakat: { enfant: () => "Escucha bien… ¿cuál es la respuesta correcta?", adulte: () => "Escuche y luego seleccione la respuesta correspondiente." },
+        mots:    { enfant: () => "¿Reconoces esta palabra?", adulte: () => "¿Cuál es el significado de esta palabra?" },
+        phrases: { enfant: () => "Lee tranquilamente esta frase.", adulte: () => "Lea la frase siguiente y seleccione su significado." }
       },
-      consolidate: {
-        lettres: "la reconnaissance de certaines lettres mérite d'être consolidée",
-        harakat: "les harakāt méritent encore un peu de pratique",
-        mots: "le déchiffrage de mots complets mérite d'être consolidé",
-        phrases: "la lecture de phrases mérite encore un peu de pratique pour gagner en fluidité"
-      }
+      encouragements: ["¡Muy bien, sigue así!", "Vas muy bien.", "¡Unos pasos más!", "¡Genial, estás progresando!"],
+      opening: {
+        enfant: { high: "¡Mabrouk! Ya tienes muy buenas bases.", mid: "¡Muy bien! Estás progresando.", low: "Buen trabajo para empezar — cada paso cuenta." },
+        adulte: { high: "Enhorabuena, ya tiene muy buenas bases.", mid: "Está progresando bien.", low: "Esta prueba es un buen punto de partida." }
+      },
+      skillTexts: {
+        enfant: {
+          acquired: { lettres: "reconoces muy bien las letras", harakat: "escuchas bien las harakat (vocales cortas)", mots: "ya lees palabras completas", phrases: "comprendes frases sencillas" },
+          consolidate: { lettres: "reconocer algunas letras merece un poco más de práctica", harakat: "las harakat merecen un poco más de práctica", mots: "leer palabras completas merece un poco más de práctica", phrases: "la lectura de frases merece un poco más de práctica para ganar fluidez" }
+        },
+        adulte: {
+          acquired: { lettres: "el reconocimiento de las letras está bien dominado", harakat: "las vocales cortas (harakat) están bien dominadas", mots: "la lectura de palabras completas está adquirida", phrases: "la comprensión de frases sencillas está adquirida" },
+          consolidate: { lettres: "el reconocimiento de algunas letras merece consolidarse", harakat: "las harakat merecen un poco más de práctica", mots: "el desciframiento de palabras completas merece consolidarse", phrases: "la lectura de frases merece un poco más de práctica para ganar fluidez" }
+        }
+      },
+      joinWord: " y ",
+      who: { enfant: "te", adulte: "le" },
+      recommendationTemplate: (who, module) => `Para continuar en las mejores condiciones, ${who} recomendamos comenzar en <strong>${module}</strong>.`
     }
   };
 
@@ -478,11 +631,12 @@
      ÉTAT
      ============================================================ */
   const state = {
-    mode: null,          // 'enfant' | 'adulte'
+    lang: "fr",           // 'fr' | 'es'
+    mode: null,           // 'enfant' | 'adulte'
     motivation: "",
-    order: [],           // liste ordonnée de {section, index}
+    order: [],             // liste ordonnée de {section, index}
     current: 0,
-    answers: [],          // { section, correct: bool }
+    answers: [],           // { section, correct: bool }
     startTime: null
   };
 
@@ -504,7 +658,7 @@
   }
 
   // Mélange Fisher-Yates — recalculé à chaque affichage de question,
-  // donc la position de la bonne réponse n'est jamais fixe.
+  // donc la position de la bonne réponse n'est jamais fixe. INCHANGÉ.
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -513,6 +667,54 @@
     }
     return a;
   }
+
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function joinList(list) {
+    const t = TEXT[state.lang];
+    if (list.length === 0) return "";
+    if (list.length === 1) return capitalize(list[0]) + ".";
+    const head = list.slice(0, -1).join(", ");
+    return capitalize(head) + t.joinWord + list[list.length - 1] + ".";
+  }
+
+  /* ============================================================
+     LANGUE — bascule complète de l'interface (accueil uniquement)
+     ============================================================ */
+  function applyStaticTexts() {
+    const t = TEXT[state.lang];
+    document.documentElement.lang = state.lang;
+    $("brand-banner-text").textContent = t.brandBanner;
+    $("mode-title").textContent = t.modeTitle;
+    $("mode-sub").textContent = t.modeSub;
+    $("child-label-text").textContent = t.childLabel;
+    $("child-desc-text").textContent = t.childDesc;
+    $("adult-label-text").textContent = t.adultLabel;
+    $("adult-desc-text").textContent = t.adultDesc;
+    $("motivation-title").textContent = t.motivationTitle;
+    $("motivation-question-text").textContent = t.motivationQuestion;
+    $("motivation-note-text").textContent = t.motivationNote;
+    $("motivation-input").placeholder = t.motivationPlaceholder;
+    $("btn-motivation-skip").textContent = t.skip;
+    $("btn-motivation-next").textContent = t.startTest;
+    $("scores-title-text").textContent = t.scoresDetail;
+    $("total-label-text").textContent = t.scoreTotal;
+    $("acquired-title-text").textContent = t.acquiredTitle;
+    $("consolidate-title-text").textContent = t.consolidateTitle;
+    $("btn-go-module").textContent = t.startModule;
+    $("home-link-text").textContent = t.backHome;
+  }
+
+  function setLang(lang) {
+    state.lang = lang;
+    $("btn-lang-fr").classList.toggle("active", lang === "fr");
+    $("btn-lang-es").classList.toggle("active", lang === "es");
+    applyStaticTexts();
+  }
+
+  $("btn-lang-fr").addEventListener("click", () => setLang("fr"));
+  $("btn-lang-es").addEventListener("click", () => setLang("es"));
+  setLang("fr");
 
   /* ============================================================
      VUE 1 — MODE
@@ -552,17 +754,28 @@
     renderQuestion();
   }
 
+  // Renvoie la question avec correct/options dans la langue active (mots/phrases) ;
+  // lettres/harakat sont indépendantes de la langue et renvoyées telles quelles.
+  function localizeQuestion(section, q) {
+    if (section === "mots" || section === "phrases") {
+      const loc = q[state.lang];
+      return { arabe: q.arabe, audio: q.audio, correct: loc.correct, options: loc.options };
+    }
+    return q;
+  }
+
   function renderQuestion() {
     DAKAudio.stopAll();
+    const t = TEXT[state.lang];
     const { section, index } = state.order[state.current];
-    const q = QUESTIONS[section][index];
-    const meta = SECTION_META[section];
+    const q = localizeQuestion(section, QUESTIONS[section][index]);
 
-    $("progress-current").textContent = `Question ${state.current + 1} / 30`;
-    $("section-name-top").textContent = meta.label;
+    $("progress-current").textContent = `${t.questionWord} ${state.current + 1} / 30`;
+    $("section-name-top").textContent = t.sectionLabels[section];
     $("progress-fill").style.width = `${(state.current / 30) * 100}%`;
-    $("section-badge").textContent = meta.label;
-    $("q-instruction").textContent = state.mode === "enfant" ? meta.instructionEnfant : meta.instructionAdulte;
+    $("section-badge").textContent = t.sectionLabels[section];
+    $("section-icon-i").className = "fa-solid " + SECTION_ICON[section];
+    $("q-instruction").textContent = t.instructions[section][state.mode](q.latin);
 
     const content = $("q-content");
     const grid = $("options-grid");
@@ -574,13 +787,13 @@
     } else if (section === "mots") {
       content.innerHTML = `
         <div class="q-prompt-word ar-text">${q.arabe}</div>
-        <button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="Écouter"><i class="fa-solid fa-volume-high"></i></button>`;
+        <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}"><i class="fa-solid fa-volume-high"></i></button></div>`;
       $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(q.audio, e.currentTarget));
     } else if (section === "phrases") {
       content.innerHTML = `<div class="q-prompt-phrase ar-text">${q.arabe}</div>`;
     }
 
-    // Mélange aléatoire des 4 propositions à chaque question — jamais de position fixe.
+    // Mélange aléatoire des 4 propositions à chaque question — jamais de position fixe. INCHANGÉ.
     const shuffledOptions = shuffle(q.options);
 
     grid.innerHTML = "";
@@ -593,19 +806,30 @@
       grid.appendChild(btn);
     });
 
-    // Option "Je ne sais pas encore lire" — adulte uniquement, phrases uniquement
+    // Option "Je ne sais pas encore lire" — adulte uniquement, phrases uniquement. INCHANGÉ.
     if (state.mode === "adulte" && section === "phrases") {
       const idkBtn = document.createElement("button");
       idkBtn.type = "button";
       idkBtn.className = "opt-btn idk";
-      idkBtn.textContent = "Je ne sais pas encore lire";
+      idkBtn.textContent = t.idk;
       idkBtn.addEventListener("click", () => handleAnswer(false, idkBtn, q.correct));
       grid.appendChild(idkBtn);
     }
   }
 
+  // Petite pause encourageante entre deux séries de questions — ENFANT UNIQUEMENT.
+  // Ne révèle jamais si les réponses précédentes étaient correctes.
+  function showEncouragement(next) {
+    const t = TEXT[state.lang];
+    const msg = t.encouragements[Math.floor(Math.random() * t.encouragements.length)];
+    $("q-content").innerHTML = `<div class="encouragement-msg"><i class="fa-solid fa-star"></i><span>${msg}</span></div>`;
+    $("q-instruction").textContent = "";
+    $("options-grid").innerHTML = "";
+    setTimeout(next, 1200);
+  }
+
   // Garde anti-double-clic : un seul clic pris en compte par question,
-  // tous les boutons désactivés pendant la transition.
+  // tous les boutons désactivés pendant la transition. INCHANGÉ.
   let answering = false;
   function handleAnswer(isCorrect, btnEl, correctText) {
     if (answering) return;
@@ -624,8 +848,14 @@
     setTimeout(() => {
       answering = false;
       if (state.current < 29) {
+        const prevSection = state.order[state.current].section;
         state.current++;
-        renderQuestion();
+        const nextSection = state.order[state.current].section;
+        if (state.mode === "enfant" && nextSection !== prevSection) {
+          showEncouragement(renderQuestion);
+        } else {
+          renderQuestion();
+        }
       } else {
         finishTest();
       }
@@ -633,40 +863,30 @@
   }
 
   /* ============================================================
-     VUE 4 — RÉSULTATS
+     VUE 4 — RÉSULTATS (structure/design INCHANGÉS, texte i18n)
      ============================================================ */
   function buildOpeningMessage(pct) {
-    if (state.mode === "enfant") {
-      if (pct >= 80) return "Mabrouk ! Tu as déjà de très bonnes bases.";
-      if (pct >= 50) return "Bien joué ! Tu progresses bien.";
-      return "Beau travail pour un début — chaque étape compte.";
-    }
-    if (pct >= 80) return "Bravo, vous avez déjà de très bonnes bases.";
-    if (pct >= 50) return "Vous progressez bien.";
-    return "Ce test constitue un bon point de départ.";
+    const o = TEXT[state.lang].opening[state.mode];
+    if (pct >= 80) return o.high;
+    if (pct >= 50) return o.mid;
+    return o.low;
   }
 
   function buildSkillLists(scores) {
-    const texts = SECTION_TEXT[state.mode];
+    const texts = TEXT[state.lang].skillTexts[state.mode];
     const acquired = [];
     const consolidate = [];
     SECTION_ORDER.forEach((section) => {
-      const ratio = scores[section] / SECTION_META[section].total;
+      const ratio = scores[section] / SECTION_TOTAL[section];
       if (ratio >= MASTERY_RATIO) acquired.push(texts.acquired[section]);
       else consolidate.push(texts.consolidate[section]);
     });
     return { acquired, consolidate };
   }
 
-  function joinFr(list) {
-    if (list.length === 0) return "";
-    if (list.length === 1) return list[0].charAt(0).toUpperCase() + list[0].slice(1) + ".";
-    const head = list.slice(0, -1).join(", ");
-    return head.charAt(0).toUpperCase() + head.slice(1) + " et " + list[list.length - 1] + ".";
-  }
-
   function finishTest() {
     DAKAudio.stopAll();
+    const t = TEXT[state.lang];
 
     const scores = { lettres: 0, harakat: 0, mots: 0, phrases: 0 };
     state.answers.forEach((a) => { if (a.correct) scores[a.section]++; });
@@ -684,7 +904,7 @@
     const acquiredBlock = $("result-acquired-block");
     if (acquired.length > 0) {
       acquiredBlock.style.display = "";
-      $("result-acquired-text").textContent = joinFr(acquired);
+      $("result-acquired-text").textContent = joinList(acquired);
     } else {
       acquiredBlock.style.display = "none";
     }
@@ -693,25 +913,21 @@
     const consolidateBlock = $("result-consolidate-block");
     if (consolidate.length > 0) {
       consolidateBlock.style.display = "";
-      $("result-consolidate-text").textContent = joinFr(consolidate);
+      $("result-consolidate-text").textContent = joinList(consolidate);
     } else {
       consolidateBlock.style.display = "none";
-      // Cas rare : tout est déjà acquis sur les 4 épreuves
     }
 
-    // Détail des scores
+    // Détail des scores — structure INCHANGÉE, libellés i18n
     const breakdown = $("breakdown");
     breakdown.innerHTML = "";
-    [
-      ["Lettres", scores.lettres, 12],
-      ["Harakāt", scores.harakat, 8],
-      ["Mots", scores.mots, 6],
-      ["Phrases", scores.phrases, 4]
-    ].forEach(([label, score, outOf]) => {
+    SECTION_ORDER.forEach((section) => {
+      const score = scores[section];
+      const outOf = SECTION_TOTAL[section];
       const row = document.createElement("div");
       row.className = "breakdown-row";
       row.innerHTML = `
-        <div class="breakdown-label">${label}</div>
+        <div class="breakdown-label">${t.sectionLabels[section]}</div>
         <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width:${(score/outOf)*100}%"></div></div>
         <div class="breakdown-score">${score} / ${outOf}</div>`;
       breakdown.appendChild(row);
@@ -720,13 +936,15 @@
     $("result-total-score").textContent = `${total} / 30`;
     $("result-total-pct").textContent = `(${pct} %)`;
 
-    // D. Recommandation — en dernier, intégrée dans une phrase, jamais le message principal
-    const recoVerb = state.mode === "enfant" ? "te" : "vous";
-    $("recommendation-line").innerHTML = `Pour continuer dans de bonnes conditions, nous ${recoVerb} recommandons de commencer au <strong>${rule.module}</strong>.`;
+    // D. Recommandation — en dernier, intégrée dans une phrase, jamais le message principal. INCHANGÉ dans sa logique.
+    const who = t.who[state.mode];
+    const moduleLabel = state.lang === "es" ? rule.module.replace("Module", "Módulo") : rule.module;
+    $("recommendation-line").innerHTML = t.recommendationTemplate(who, moduleLabel);
     $("btn-go-module").onclick = () => { window.location.href = rule.href; };
 
-    if (state.mode === "enfant" && pct >= 70 && typeof confetti === "function") {
-      confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 }, colors: ["#C8A462", "#5D1828"] });
+    // Confettis — ENFANT UNIQUEMENT, brefs, non bloquants, sans emoji. Page de résultats non redessinée par ailleurs.
+    if (state.mode === "enfant" && typeof confetti === "function") {
+      confetti({ particleCount: 60, spread: 60, startVelocity: 32, ticks: 160, origin: { y: 0.55 }, colors: ["#C8A462", "#5D1828", "#dfc28b"] });
     }
 
     showView("results");
@@ -734,7 +952,7 @@
   }
 
   /* ============================================================
-     FIREBASE — enregistrement du résultat
+     FIREBASE — enregistrement du résultat (INCHANGÉ)
      Utilise le même projet/app Firebase que le reste du site
      (config identique à auth.html / tracker.js), sans y toucher.
      ============================================================ */
@@ -763,6 +981,7 @@
       await setDoc(doc(db, "eleves", user.uid), {
         testPositionnement: {
           mode: state.mode,
+          langue: state.lang,
           lettres: scores.lettres,
           harakat: scores.harakat,
           mots: scores.mots,
