@@ -292,7 +292,7 @@
 <script type="module">
   import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const _cfg = {
     apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
@@ -323,6 +323,21 @@
   // applique aux 12 modules : aucun nouveau systeme de suivi cree.
   onAuthStateChanged(_auth, async (user) => {
     if (!user) return; // pas de gate global sur cette page : la carte reste simplement verrouillee
+
+    // Statut professeur reel : reutilise la collection /profs/{uid} deja en place
+    // (celle que verifie estProf() dans les regles Firestore) — aucun email en dur,
+    // aucun nouveau champ. Un prof a acces au test final en permanence, sans condition
+    // de progression ; la regle elève ci-dessous reste totalement inchangee.
+    try {
+      const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+      if (profSnap.exists()) {
+        unlockTestFinalCard(false);
+        return;
+      }
+    } catch (eProf) {
+      console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+    }
+
     try {
       const [leconsSnap, resultatsSnap] = await Promise.all([
         getDocs(query(collection(_db, 'lecons'), where('eleveId', '==', user.uid))),
