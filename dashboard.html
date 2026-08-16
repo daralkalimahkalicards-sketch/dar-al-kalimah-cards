@@ -68,6 +68,29 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .login-box button { width: 100%; padding: 14px; background: var(--gold); color: var(--burgundy); border: none; border-radius: 50px; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
 .login-error { color: #ff9999; font-size: 0.85rem; margin-top: 10px; display: none; }
 
+/* Évaluations (test de positionnement + test final) par élève */
+.btn-eval { background: rgba(200,164,98,0.15); border: 1px solid var(--gold); color: var(--burgundy); padding: 6px 14px; border-radius: 50px; font-size: 0.78rem; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+.btn-eval:hover { background: rgba(200,164,98,0.3); }
+.eval-detail-row td { background: var(--bg); padding: 0; border-bottom: 1px solid rgba(93,24,40,0.06); }
+.eval-detail { padding: 20px 24px; }
+.eval-block { margin-bottom: 18px; }
+.eval-block:last-child { margin-bottom: 0; }
+.eval-block-title { font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--burgundy); margin-bottom: 10px; font-weight: 700; }
+.eval-row { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 0.82rem; margin-bottom: 6px; }
+.eval-label { color: rgba(93,24,40,0.55); }
+.eval-value { font-weight: 600; color: var(--burgundy); }
+.eval-compare-row { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 5px 0; border-bottom: 1px dashed rgba(200,164,98,0.3); max-width: 320px; }
+.eval-compare-row:last-child { border-bottom: none; }
+.eval-empty { font-size: 0.82rem; color: rgba(93,24,40,0.4); font-style: italic; }
+@media (max-width: 768px) {
+  .eval-row { flex-direction: column; gap: 2px; }
+  /* Le tableau elèves defile horizontalement sur mobile (8 colonnes) ; sans ce correctif,
+     le detail Evaluations (colspan="8") heritait de cette meme largeur et devenait illisible
+     sans defiler lateralement. On l'epingle au bord gauche visible du conteneur qui defile. */
+  .eval-detail-row td { position: sticky; left: 0; }
+  .eval-detail { width: calc(100vw - 32px); max-width: 420px; }
+}
+
 @media (max-width: 768px) {
   .stats-grid { grid-template-columns: 1fr 1fr; padding: 20px; }
   .section { padding: 0 16px 24px; }
@@ -118,8 +141,8 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     <div class="section-title">👥 Élèves</div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th></tr></thead>
-        <tbody id="eleves-tbody"><tr><td colspan="7" class="loading">Chargement...</td></tr></tbody>
+        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th><th>Évaluations</th></tr></thead>
+        <tbody id="eleves-tbody"><tr><td colspan="8" class="loading">Chargement...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -218,11 +241,30 @@ function badgeScore(pct) {
   return `<span class="badge badge-red">${pct}%</span>`;
 }
 
+function tsToMs(ts) {
+  if (!ts) return 0;
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.getTime();
+}
+
 async function chargerDonnees() {
   // Élèves — snapshot unique
   const elevesSnap = await getDocs(collection(db, 'eleves'));
   const eleves = [];
   elevesSnap.forEach(d => eleves.push({ id: d.id, ...d.data() }));
+  window._elevesById = {};
+  eleves.forEach(e => window._elevesById[e.id] = e);
+
+  // Tests finaux — tous les élèves (lecture prof), regroupés par eleveId
+  const testsFinauxSnap = await getDocs(collection(db, 'testsFinaux'));
+  const testsFinauxParEleve = {};
+  testsFinauxSnap.forEach(d => {
+    const t = { id: d.id, ...d.data() };
+    if (!testsFinauxParEleve[t.eleveId]) testsFinauxParEleve[t.eleveId] = [];
+    testsFinauxParEleve[t.eleveId].push(t);
+  });
+  Object.values(testsFinauxParEleve).forEach(arr => arr.sort((a, b) => tsToMs(b.date) - tsToMs(a.date)));
+  window._testsFinauxParEleve = testsFinauxParEleve;
 
   // Résultats quiz — temps réel
   const qResultats = query(collection(db, 'resultats'), orderBy('date', 'desc'), limit(50));
@@ -261,7 +303,7 @@ function afficherResultats(resultats, eleves) {
   // Tableau élèves — ajout colonne leçons (placeholder —)
   const tbody = document.getElementById('eleves-tbody');
   if (eleves.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty">Aucun élève inscrit</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" class="empty">Aucun élève inscrit</td></tr>';
   } else {
     tbody.innerHTML = eleves.map(e => {
       const er = resultats.filter(r => r.eleveId === e.id);
@@ -274,6 +316,10 @@ function afficherResultats(resultats, eleves) {
         <td>${er.length}</td>
         <td id="lecons-eleve-${e.id}">—</td>
         <td>${me!==null?badgeScore(me):'—'}</td>
+        <td><button class="btn-eval" onclick="toggleEval('${e.id}')">Voir</button></td>
+      </tr>
+      <tr class="eval-detail-row" id="eval-row-${e.id}" style="display:none">
+        <td colspan="8"><div class="eval-detail" id="eval-detail-${e.id}"></div></td>
       </tr>`;
     }).join('');
   }
@@ -328,6 +374,115 @@ function afficherLecons(lecons, eleves) {
         <div class="result-date">${formatHeure(l.date)}</div>
       </div>
     </div>`).join('');
+}
+
+function pct(n, d) { return d ? Math.round((n / d) * 100) : 0; }
+
+window.toggleEval = (uid) => {
+  const row = document.getElementById('eval-row-' + uid);
+  const detail = document.getElementById('eval-detail-' + uid);
+  const isOpen = row.style.display !== 'none';
+  if (isOpen) { row.style.display = 'none'; return; }
+  if (!detail.dataset.rendered) {
+    detail.innerHTML = renderEvalDetail(window._elevesById[uid], window._testsFinauxParEleve[uid] || []);
+    detail.dataset.rendered = '1';
+  }
+  row.style.display = 'table-row';
+  // Remet le tableau au bord gauche : sur mobile le tableau defile horizontalement
+  // (8 colonnes), et le detail Evaluations doit rester lisible sans avoir a defiler.
+  const tableWrap = document.querySelector('.table-wrap');
+  if (tableWrap) tableWrap.scrollLeft = 0;
+};
+
+// Affiche test de positionnement + test final + progression pour un élève, dans le dashboard prof.
+// Réutilise les mêmes données que côté élève (eleves/{uid}.testPositionnement, collection testsFinaux) —
+// aucun nouveau système de suivi créé, seule la vue change (tous les élèves au lieu d'un seul).
+function renderEvalDetail(e, testsFinaux) {
+  if (!e) return '<div class="eval-empty">Élève introuvable.</div>';
+
+  let posHtml;
+  if (e.testPositionnementFait && e.testPositionnement) {
+    const p = e.testPositionnement;
+    posHtml = `
+      <div class="eval-row"><span class="eval-label">Statut</span><span class="eval-value">✅ Effectué</span></div>
+      <div class="eval-row"><span class="eval-label">Date</span><span class="eval-value">${formatDate(p.dateTest)}</span></div>
+      <div class="eval-row"><span class="eval-label">Score total</span><span class="eval-value">${p.scoreTotal ?? '—'}/30 (${p.pourcentage ?? '—'}%)</span></div>
+      <div class="eval-row">
+        <span class="eval-label">Lettres</span><span class="eval-value">${p.lettres ?? '—'}/12</span>
+        <span class="eval-label">Harakāt</span><span class="eval-value">${p.harakat ?? '—'}/8</span>
+        <span class="eval-label">Mots</span><span class="eval-value">${p.mots ?? '—'}/6</span>
+        <span class="eval-label">Phrases</span><span class="eval-value">${p.phrases ?? '—'}/4</span>
+      </div>
+      <div class="eval-row"><span class="eval-label">Module de départ recommandé</span><span class="eval-value">${p.niveauDepart ?? '—'}</span></div>`;
+  } else {
+    posHtml = '<div class="eval-empty">Non effectué</div>';
+  }
+
+  let finalHtml;
+  if (testsFinaux.length > 0) {
+    const last = testsFinaux[0];
+    const meilleur = testsFinaux.reduce((best, t) => (t.pourcentage || 0) > (best.pourcentage || 0) ? t : best, testsFinaux[0]);
+    finalHtml = `
+      <div class="eval-row"><span class="eval-label">Statut</span><span class="eval-value">✅ Effectué</span></div>
+      <div class="eval-row"><span class="eval-label">Dernière tentative</span><span class="eval-value">${formatDate(last.date)}</span></div>
+      <div class="eval-row"><span class="eval-label">Score</span><span class="eval-value">${last.scoreTotal ?? '—'}/50 (${last.pourcentage ?? '—'}%)</span></div>
+      <div class="eval-row">
+        <span class="eval-label">Lettres/Lecture</span><span class="eval-value">${last.lettres ?? '—'}/8</span>
+        <span class="eval-label">Harakāt+Madd</span><span class="eval-value">${last.harakatMadd ?? '—'}/7</span>
+        <span class="eval-label">Règles de lecture</span><span class="eval-value">${last.reglesLecture ?? '—'}/10</span>
+      </div>
+      <div class="eval-row">
+        <span class="eval-label">Mots</span><span class="eval-value">${last.mots ?? '—'}/5</span>
+        <span class="eval-label">Nom/Verbe</span><span class="eval-value">${last.nomVerbe ?? '—'}/5</span>
+        <span class="eval-label">Phrase nom./verb.</span><span class="eval-value">${last.phraseType ?? '—'}/5</span>
+      </div>
+      <div class="eval-row">
+        <span class="eval-label">Compréhension</span><span class="eval-value">${last.comprehension ?? '—'}/5</span>
+        <span class="eval-label">Coran</span><span class="eval-value">${last.coran ?? '—'}/5</span>
+      </div>
+      <div class="eval-row">
+        <span class="eval-label">Tentatives</span><span class="eval-value">${testsFinaux.length}</span>
+        <span class="eval-label">Meilleur score</span><span class="eval-value">${meilleur.scoreTotal ?? '—'}/50 (${meilleur.pourcentage ?? '—'}%)</span>
+        <span class="eval-label">Certificat</span><span class="eval-value">${last.certificatDebloque ? '🏅 débloqué' : '—'}</span>
+      </div>`;
+  } else {
+    finalHtml = '<div class="eval-empty">Non effectué</div>';
+  }
+
+  let compareHtml = '';
+  if (e.testPositionnementFait && e.testPositionnement && testsFinaux.length > 0) {
+    const p = e.testPositionnement;
+    const last = testsFinaux[0];
+    const rows = [];
+    if (typeof p.lettres === 'number' && typeof last.lettres === 'number') {
+      rows.push(['Lettres', pct(p.lettres, 12), pct(last.lettres, 8)]);
+    }
+    if (typeof p.harakat === 'number' && typeof last.harakatMadd === 'number') {
+      rows.push(['Harakāt', pct(p.harakat, 8), pct(last.harakatMadd, 7)]);
+    }
+    if (typeof p.mots === 'number' && typeof last.mots === 'number') {
+      rows.push(['Mots', pct(p.mots, 6), pct(last.mots, 5)]);
+    }
+    if (rows.length > 0) {
+      compareHtml = `
+        <div class="eval-block">
+          <div class="eval-block-title">📈 Progression</div>
+          ${rows.map(r => `<div class="eval-compare-row"><span>${r[0]}</span><span>${r[1]}% → ${r[2]}%</span></div>`).join('')}
+        </div>`;
+    }
+  }
+
+  return `
+    <div class="eval-block">
+      <div class="eval-block-title">📝 Test de positionnement</div>
+      ${posHtml}
+    </div>
+    <div class="eval-block">
+      <div class="eval-block-title">🎓 Test final</div>
+      ${finalHtml}
+    </div>
+    ${compareHtml}
+  `;
 }
 </script>
 <script>

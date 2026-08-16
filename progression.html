@@ -267,6 +267,18 @@ body::before {
 .objectif-bar-fill.top  { background: linear-gradient(90deg, #66bb6a, #2e7d32); }
 .objectif-msg { font-size: 0.8rem; font-style: italic; color: rgba(93,24,40,0.7); line-height: 1.5; }
 
+/* ── MES ÉVALUATIONS (test de positionnement + test final) ── */
+.eval-card { background: var(--white); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(93,24,40,0.08); border: 1px solid rgba(200,164,98,0.2); }
+.eval-card-title { font-family: 'Cinzel', serif; font-size: 0.92rem; color: var(--burgundy); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.eval-card-title-es { font-size: 0.72rem; color: rgba(93,24,40,0.45); font-style: italic; font-weight: 400; }
+.eval-row { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 0.84rem; margin-bottom: 8px; }
+.eval-label { color: rgba(93,24,40,0.55); }
+.eval-value { font-weight: 700; color: var(--burgundy); }
+.eval-empty { font-size: 0.85rem; color: rgba(93,24,40,0.4); font-style: italic; padding: 6px 0; }
+.eval-compare-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 7px 0; border-bottom: 1px dashed rgba(200,164,98,0.3); max-width: 360px; }
+.eval-compare-row:last-child { border-bottom: none; }
+@media (max-width: 480px) { .eval-row { flex-direction: column; gap: 3px; } }
+
 /* ── GRAPHIQUE ── */
 .chart-wrap {
   background: var(--white); border-radius: var(--radius-lg);
@@ -408,6 +420,23 @@ body::before {
       <div class="loading">Chargement...</div>
     </div>
 
+    <div class="section-title" style="margin-top:10px">📝 Mes évaluations <span style="font-size:0.7rem; font-weight:400; color:rgba(93,24,40,0.45); font-style:italic; margin-left:6px;">Mis evaluaciones</span></div>
+
+    <div class="eval-card" id="eval-positionnement">
+      <div class="eval-card-title">🔤 Test de positionnement <span class="eval-card-title-es">Prueba de posicionamiento</span></div>
+      <div class="loading">Chargement...</div>
+    </div>
+
+    <div class="eval-card" id="eval-final">
+      <div class="eval-card-title">🎓 Test final <span class="eval-card-title-es">Prueba final</span></div>
+      <div class="loading">Chargement...</div>
+    </div>
+
+    <div class="eval-card" id="eval-comparaison" style="display:none">
+      <div class="eval-card-title">📈 Progression <span class="eval-card-title-es">Progreso</span></div>
+      <div id="eval-comparaison-body"></div>
+    </div>
+
   </div>
 </div>
 
@@ -499,7 +528,96 @@ async function chargerProgression(user) {
   const quiz = [];
   quizSnap.forEach(d => quiz.push({ id: d.id, ...d.data(), _type: 'quiz' }));
 
+  // Tentatives du test final de l'élève (uniquement les siennes, comme lecons/resultats)
+  const testsFinauxSnap = await getDocs(query(collection(db, 'testsFinaux'), where('eleveId', '==', uid)));
+  const testsFinaux = [];
+  testsFinauxSnap.forEach(d => testsFinaux.push({ id: d.id, ...d.data() }));
+
   afficherTout(user, eleve, lecons, quiz);
+  afficherEvaluations(eleve, testsFinaux);
+}
+
+// ── MES ÉVALUATIONS (test de positionnement + test final) ──
+// Réutilise le snapshot déjà stocké dans eleves/{uid}.testPositionnement (jamais recréé,
+// jamais écrasé) et la collection testsFinaux filtrée sur l'élève connecté uniquement.
+function afficherEvaluations(eleve, testsFinaux) {
+  const posEl = document.getElementById('eval-positionnement');
+  if (eleve.testPositionnementFait && eleve.testPositionnement) {
+    const p = eleve.testPositionnement;
+    posEl.innerHTML = `
+      <div class="eval-card-title">🔤 Test de positionnement <span class="eval-card-title-es">Prueba de posicionamiento</span></div>
+      <div class="eval-row"><span class="eval-label">Statut / Estado</span><span class="eval-value">✅ Effectué / Realizada</span></div>
+      <div class="eval-row"><span class="eval-label">Date / Fecha</span><span class="eval-value">${formatDate(p.dateTest)}</span></div>
+      <div class="eval-row"><span class="eval-label">Score total</span><span class="eval-value">${p.scoreTotal ?? '—'}/30 (${p.pourcentage ?? '—'}%)</span></div>
+      <div class="eval-row">
+        <span class="eval-label">Lettres</span><span class="eval-value">${p.lettres ?? '—'}/12</span>
+        <span class="eval-label">Harakāt</span><span class="eval-value">${p.harakat ?? '—'}/8</span>
+        <span class="eval-label">Mots</span><span class="eval-value">${p.mots ?? '—'}/6</span>
+        <span class="eval-label">Phrases</span><span class="eval-value">${p.phrases ?? '—'}/4</span>
+      </div>
+      <div class="eval-row"><span class="eval-label">Module de départ recommandé / Módulo recomendado</span><span class="eval-value">${p.niveauDepart ?? '—'}</span></div>`;
+  } else {
+    posEl.innerHTML = `
+      <div class="eval-card-title">🔤 Test de positionnement <span class="eval-card-title-es">Prueba de posicionamiento</span></div>
+      <div class="eval-empty">Non effectué / No realizada</div>`;
+  }
+
+  const finalEl = document.getElementById('eval-final');
+  const tries = testsFinaux.slice().sort((a, b) => tsToMs(b.date) - tsToMs(a.date));
+  if (tries.length > 0) {
+    const last = tries[0];
+    const meilleur = tries.reduce((best, t) => (t.pourcentage || 0) > (best.pourcentage || 0) ? t : best, tries[0]);
+    finalEl.innerHTML = `
+      <div class="eval-card-title">🎓 Test final <span class="eval-card-title-es">Prueba final</span></div>
+      <div class="eval-row"><span class="eval-label">Statut / Estado</span><span class="eval-value">✅ Effectué / Realizada</span></div>
+      <div class="eval-row"><span class="eval-label">Dernière tentative / Último intento</span><span class="eval-value">${formatDate(last.date)}</span></div>
+      <div class="eval-row"><span class="eval-label">Score total</span><span class="eval-value">${last.scoreTotal ?? '—'}/50 (${last.pourcentage ?? '—'}%)</span></div>
+      <div class="eval-row">
+        <span class="eval-label">Lettres / Lecture</span><span class="eval-value">${last.lettres ?? '—'}/8</span>
+        <span class="eval-label">Harakāt + Madd</span><span class="eval-value">${last.harakatMadd ?? '—'}/7</span>
+        <span class="eval-label">Règles de lecture</span><span class="eval-value">${last.reglesLecture ?? '—'}/10</span>
+      </div>
+      <div class="eval-row">
+        <span class="eval-label">Mots</span><span class="eval-value">${last.mots ?? '—'}/5</span>
+        <span class="eval-label">Nom / Verbe</span><span class="eval-value">${last.nomVerbe ?? '—'}/5</span>
+        <span class="eval-label">Phrase nom. / verb.</span><span class="eval-value">${last.phraseType ?? '—'}/5</span>
+      </div>
+      <div class="eval-row">
+        <span class="eval-label">Compréhension</span><span class="eval-value">${last.comprehension ?? '—'}/5</span>
+        <span class="eval-label">Coran</span><span class="eval-value">${last.coran ?? '—'}/5</span>
+      </div>
+      ${tries.length > 1 ? `<div class="eval-row">
+        <span class="eval-label">Tentatives / Intentos</span><span class="eval-value">${tries.length}</span>
+        <span class="eval-label">Meilleur score / Mejor puntuación</span><span class="eval-value">${meilleur.scoreTotal ?? '—'}/50 (${meilleur.pourcentage ?? '—'}%)</span>
+      </div>` : ''}`;
+  } else {
+    finalEl.innerHTML = `
+      <div class="eval-card-title">🎓 Test final <span class="eval-card-title-es">Prueba final</span></div>
+      <div class="eval-empty">Non effectué / No realizada</div>`;
+  }
+
+  // Comparaison : uniquement les compétences réellement comparables, en pourcentage
+  // (dénominateurs différents entre test initial /30 et test final /50 — jamais de score brut mélangé).
+  if (eleve.testPositionnementFait && eleve.testPositionnement && tries.length > 0) {
+    const p = eleve.testPositionnement;
+    const last = tries[0];
+    const rows = [];
+    if (typeof p.lettres === 'number' && typeof last.lettres === 'number') {
+      rows.push(['Lettres / Letras', Math.round((p.lettres / 12) * 100), Math.round((last.lettres / 8) * 100)]);
+    }
+    if (typeof p.harakat === 'number' && typeof last.harakatMadd === 'number') {
+      rows.push(['Harakāt', Math.round((p.harakat / 8) * 100), Math.round((last.harakatMadd / 7) * 100)]);
+    }
+    if (typeof p.mots === 'number' && typeof last.mots === 'number') {
+      rows.push(['Mots / Palabras', Math.round((p.mots / 6) * 100), Math.round((last.mots / 5) * 100)]);
+    }
+    if (rows.length > 0) {
+      document.getElementById('eval-comparaison').style.display = 'block';
+      document.getElementById('eval-comparaison-body').innerHTML = rows.map((r) =>
+        `<div class="eval-compare-row"><span>${r[0]}</span><span>${r[1]}% → ${r[2]}%</span></div>`
+      ).join('');
+    }
+  }
 }
 
 function afficherTout(user, eleve, lecons, quiz) {
