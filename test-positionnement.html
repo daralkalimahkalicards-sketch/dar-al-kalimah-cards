@@ -813,6 +813,9 @@
       const dureeSecondes = Math.round((Date.now() - state.startTime) / 1000);
 
       await setDoc(doc(db, "eleves", user.uid), {
+        // Ecriture atomique : le flag de redirection (auth.html) ne passe a true
+        // que si ce meme appel reussit, en meme temps que le snapshot lui-meme.
+        testPositionnementFait: true,
         testPositionnement: {
           testNiveauFait: true,
           langue: state.lang,
