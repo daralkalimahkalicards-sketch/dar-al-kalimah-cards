@@ -96,6 +96,22 @@
             .mod-right { width: 100%; justify-content: center; }
             .icon-arrow { transform: rotate(90deg); }
         }
+
+        /* =========================================
+           CARTE TEST FINAL (étape distincte après le Module 12)
+           ========================================= */
+        .test-final-card { border: 1.5px solid var(--gold); cursor: default; }
+        .test-final-card.unlocked { cursor: pointer; }
+        .test-final-card.unlocked:hover { transform: translateX(10px); box-shadow: var(--shadow-hover); }
+        .test-final-card.locked { border: 2px dashed rgba(200, 164, 98, 0.4); box-shadow: none; cursor: not-allowed; }
+        .test-final-card.locked .icon-arrow { opacity: 0.5; }
+        .test-final-badge { color: var(--gold); display: flex; align-items: center; gap: 6px; }
+        .test-final-status { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+        .test-final-card.unlocked .test-final-status { color: var(--burgundy); font-weight: 700; }
+        .tf-cta-es { display: block; font-style: italic; color: var(--text-muted); font-weight: 500; font-size: 0.85em; margin-top: 2px; }
+        .test-final-card.unlocked .tf-cta-es { color: var(--gold); }
+        .tf-retry { display: block; margin-top: 8px; font-size: 0.78rem; font-style: normal; color: var(--text-muted); font-weight: 400; }
+        @media (max-width: 768px) { .test-final-badge { justify-content: center; } }
     </style>
 </head>
 <body>
@@ -256,8 +272,91 @@
             </div>
         </a>
 
+        <div class="module-card test-final-card locked" id="test-final-card">
+            <div class="module-info">
+                <div class="mod-number test-final-badge"><i class="fa-solid fa-graduation-cap"></i> ÉVALUATION FINALE / EVALUACIÓN FINAL</div>
+                <div class="mod-title">Ton parcours touche à sa fin. Découvre tout le chemin parcouru.</div>
+                <div class="mod-title-es">Tu recorrido llega a su etapa final. Descubre todo el camino que has recorrido.</div>
+                <div class="test-final-status" id="test-final-status">
+                    Termine ton parcours pour accéder à ton évaluation finale.
+                    <span class="tf-cta-es">Completa tu recorrido para acceder a tu evaluación final.</span>
+                </div>
+            </div>
+            <div class="mod-right">
+                <i class="fa-solid fa-lock icon-arrow" id="test-final-icon"></i>
+            </div>
+        </div>
+
     </div>
 
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  const _db = getFirestore(_app);
+
+  function unlockTestFinalCard(alreadyDone) {
+    const card = document.getElementById('test-final-card');
+    const statusEl = document.getElementById('test-final-status');
+    const icon = document.getElementById('test-final-icon');
+    card.classList.remove('locked');
+    card.classList.add('unlocked');
+    icon.className = 'fa-solid fa-chevron-right icon-arrow';
+    statusEl.innerHTML = 'Passer mon test final<span class="tf-cta-es">Realizar mi prueba final</span>'
+      + (alreadyDone ? '<span class="tf-retry">Test final déjà réalisé — tu peux le repasser pour mesurer encore ta progression.<br>Prueba final ya realizada — puedes repetirla para seguir midiendo tu progreso.</span>' : '');
+    card.addEventListener('click', () => { window.location.href = 'test-final.html'; });
+  }
+
+  // Reutilise exactement le meme calcul de progression que progression.html
+  // (collections "lecons" et "resultats", 1 lecon + 3 quiz = module termine)
+  // applique aux 12 modules : aucun nouveau systeme de suivi cree.
+  onAuthStateChanged(_auth, async (user) => {
+    if (!user) return; // pas de gate global sur cette page : la carte reste simplement verrouillee
+    try {
+      const [leconsSnap, resultatsSnap] = await Promise.all([
+        getDocs(query(collection(_db, 'lecons'), where('eleveId', '==', user.uid))),
+        getDocs(query(collection(_db, 'resultats'), where('eleveId', '==', user.uid)))
+      ]);
+      const lecons = leconsSnap.docs.map((d) => d.data());
+      const resultats = resultatsSnap.docs.map((d) => d.data());
+
+      let parcoursTermine = true;
+      for (let i = 1; i <= 12; i++) {
+        const modKey = 'Module ' + i;
+        const nbLecons = Math.min(lecons.filter((l) => l.module === modKey).length, 1);
+        const nbQuiz = Math.min(resultats.filter((r) => r.module === modKey).length, 3);
+        if (nbLecons + nbQuiz < 4) { parcoursTermine = false; break; }
+      }
+      if (!parcoursTermine) return;
+
+      // Lecture isolee : les regles Firestore actuelles de "testsFinaux" n'autorisent
+      // que l'ecriture (addDoc), pas la lecture en liste. Si elle echoue, on deverrouille
+      // quand meme la carte (le parcours est reellement termine) sans le message "deja realise".
+      let alreadyDone = false;
+      try {
+        const testsFinauxSnap = await getDocs(query(collection(_db, 'testsFinaux'), where('eleveId', '==', user.uid)));
+        alreadyDone = !testsFinauxSnap.empty;
+      } catch (e2) {
+        console.error('Lecture testsFinaux impossible (regles Firestore a verifier) :', e2);
+      }
+      unlockTestFinalCard(alreadyDone);
+    } catch (e) {
+      console.error('Erreur verification progression (carte Test final):', e);
+      // Fail-safe : en cas d'erreur, la carte reste verrouillee (etat par defaut du HTML) - ne casse jamais la page.
+    }
+  });
+</script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));

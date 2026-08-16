@@ -164,7 +164,10 @@
   #q-content, .options-grid { animation: popIn 0.32s ease; }
 
   .encouragement-msg {
-    display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 70px 10px;
+    /* Padding relevee de 70px a 124px (haut/bas) : compense la disparition de la
+       grille de reponses (~166px) et de la consigne (~55px) entre deux questions,
+       pour que la carte garde une hauteur stable et ne "saute" plus visuellement. */
+    display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 124px 10px;
     font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.2rem; font-weight: 600; text-align: center;
     animation: popIn 0.4s ease; width: 100%;
   }
