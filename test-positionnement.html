@@ -451,7 +451,7 @@
         phrases: () => "Lis tranquillement cette phrase."
       },
       encouragements: ["Très bien, continue !", "Tu avances super bien.", "Encore quelques étapes !", "Bravo, tu progresses bien !"],
-      opening: { high: "Mabrouk ! Tu as déjà de très bonnes bases.", mid: "Bien joué ! Tu progresses bien.", low: "Beau travail pour un début — chaque étape compte." },
+      opening: { high: "Mabrouk ! Tu as déjà de très bonnes bases.", mid: "Mabrouk ! Bien joué, tu progresses bien.", low: "Mabrouk ! Beau travail pour un début — chaque étape compte." },
       skillTexts: {
         acquired: { lettres: "tu reconnais très bien les lettres", harakat: "tu entends bien les harakāt (voyelles courtes)", mots: "tu lis déjà des mots complets", phrases: "tu comprends des phrases simples" },
         consolidate: { lettres: "reconnaître certaines lettres mérite encore un peu d'entraînement", harakat: "les harakāt méritent encore un peu de pratique", mots: "lire des mots complets mérite encore un peu d'entraînement", phrases: "la lecture de phrases mérite encore un peu de pratique pour gagner en fluidité" }
@@ -480,7 +480,7 @@
         phrases: () => "Lee tranquilamente esta frase."
       },
       encouragements: ["¡Muy bien, sigue así!", "Vas muy bien.", "¡Unos pasos más!", "¡Genial, estás progresando!"],
-      opening: { high: "¡Mabrouk! Ya tienes muy buenas bases.", mid: "¡Muy bien! Estás progresando.", low: "Buen trabajo para empezar — cada paso cuenta." },
+      opening: { high: "¡Mabrouk! Ya tienes muy buenas bases.", mid: "¡Mabrouk! Muy bien, estás progresando.", low: "¡Mabrouk! Buen trabajo para empezar — cada paso cuenta." },
       skillTexts: {
         acquired: { lettres: "reconoces muy bien las letras", harakat: "escuchas bien las harakat (vocales cortas)", mots: "ya lees palabras completas", phrases: "comprendes frases sencillas" },
         consolidate: { lettres: "reconocer algunas letras merece un poco más de práctica", harakat: "las harakat merecen un poco más de práctica", mots: "leer palabras completas merece un poco más de práctica", phrases: "la lectura de frases merece un poco más de práctica para ganar fluidez" }
@@ -762,10 +762,11 @@
     $("recommendation-line").innerHTML = t.recommendationTemplate(moduleLabel);
     $("btn-go-module").onclick = () => { window.location.href = rule.href; };
 
-    // Confettis — brefs, non bloquants, sans emoji. Page de résultats non redessinée par ailleurs.
+    // Confettis + son Mabrouk — déclenchés ensemble, brefs, non bloquants. Page de résultats non redessinée par ailleurs.
     if (typeof confetti === "function") {
       confetti({ particleCount: 60, spread: 60, startVelocity: 32, ticks: 160, origin: { y: 0.55 }, colors: ["#C8A462", "#5D1828", "#dfc28b"] });
     }
+    DAKAudio.playEffect("mabruk.mp3");
 
     showView("results");
     saveResult(scores, total, pct, rule.module);
