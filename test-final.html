@@ -117,7 +117,10 @@
     text-align: center;
   }
 
-  #q-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  /* min-height + centrage vertical : reduit le saut visuel entre questions avec/sans micro
+     ou avec des tailles d'enonce differentes, sans jamais contraindre le Coran (texte plus long,
+     qui depasse naturellement cette hauteur minimale). */
+  #q-content { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 130px; }
   .q-prompt-latin {
     font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.5rem; font-weight: 700; text-align: center;
     letter-spacing: 2px; margin-bottom: 8px;
@@ -145,11 +148,13 @@
   .options-grid.stacked { grid-template-columns: 1fr; }
   .opt-btn {
     background: var(--white); border: 1.5px solid rgba(93,24,40,0.28); border-radius: var(--radius-md);
-    padding: 16px 10px; min-height: var(--tap-size);
+    padding: 16px 10px; min-height: 64px;
     font-size: 1.02rem; font-weight: 600; color: var(--text-dark); transition: var(--transition-smooth);
     display: flex; align-items: center; justify-content: center; text-align: center;
   }
   .opt-btn.opt-ar { font-family: "Amiri", serif; font-size: 1.55rem; font-weight: 700; color: var(--burgundy); direction: rtl; line-height: 1.7; }
+  /* Coran uniquement : cartes plus hautes pour un texte d'āya plus long (exception assumée, cf. item 9). */
+  .opt-btn.opt-coran { min-height: 96px; padding: 20px 14px; font-size: 1.3rem; line-height: 1.9; }
   .opt-btn:hover:not(:disabled) { border-color: var(--gold); box-shadow: 0 4px 14px rgba(200,164,98,0.18); }
   .opt-btn:disabled { cursor: default; }
   .opt-btn.correct { background: rgba(76,175,80,0.10); border-color: var(--success-green); color: #2d7a2d; }
@@ -207,6 +212,8 @@
   .total-pct { font-size: 0.85rem; color: var(--gold); font-weight: 700; margin-left: 8px; }
 
   .compare-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-soft); margin: 6px 0 12px; align-self: flex-start; }
+  .progress-highlight { font-family: "Cinzel", serif; font-size: 1rem; color: var(--burgundy); font-weight: 700; text-align: center; width: 100%; margin-bottom: 14px; line-height: 1.6; }
+  .progress-highlight strong { color: var(--gold); }
   .compare-row { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 8px 0; font-size: 0.86rem; }
   .compare-label { color: var(--text-dark); font-weight: 500; }
   .compare-values { color: var(--burgundy); font-weight: 700; font-family: "Cinzel", serif; font-size: 0.82rem; }
@@ -242,7 +249,8 @@
     .card { padding: 26px 18px; border-radius: var(--radius-lg); }
     .options-grid { grid-template-columns: 1fr; }
     .breakdown-label { flex-basis: 120px; font-size: 0.76rem; }
-    .opt-btn { min-height: 52px; }
+    .opt-btn { min-height: 58px; }
+    .opt-btn.opt-coran { min-height: 84px; }
   }
 </style>
 <link rel="stylesheet" href="audio-controller.css">
@@ -330,13 +338,20 @@
         <div class="result-message" id="result-message"></div>
         <div class="result-sub" id="result-sub"></div>
 
-        <div class="cert-status" id="cert-status">
+        <div class="cert-status unlocked" id="cert-status">
           <div class="cert-status-title" id="cert-status-title"></div>
           <div class="cert-status-text" id="cert-status-text"></div>
         </div>
 
+        <div id="compare-block" style="width:100%; display:none;">
+          <div class="compare-title" id="compare-title-text">Tes progrès</div>
+          <div class="progress-highlight" id="progress-highlight"></div>
+          <div id="compare-rows"></div>
+          <div class="compare-note" id="compare-note-text"></div>
+        </div>
+
         <div class="result-block acquired" id="result-acquired-block">
-          <div class="result-block-title"><i class="fa-solid fa-circle-check result-block-icon"></i><span id="acquired-title-text">Acquis</span></div>
+          <div class="result-block-title"><i class="fa-solid fa-circle-check result-block-icon"></i><span id="acquired-title-text">Tes points forts</span></div>
           <div class="result-block-text" id="result-acquired-text"></div>
         </div>
 
@@ -353,11 +368,7 @@
           <span><span class="total-score" id="result-total-score">0 / 50</span><span class="total-pct" id="result-total-pct">(0 %)</span></span>
         </div>
 
-        <div id="compare-block" style="width:100%; display:none;">
-          <div class="compare-title" id="compare-title-text">Test initial → Test final</div>
-          <div id="compare-rows"></div>
-          <div class="compare-note" id="compare-note-text"></div>
-        </div>
+        <div class="scores-title" id="next-objective-title">Ton prochain objectif</div>
 
         <div class="new-skills-line" id="new-skills-line"></div>
 
@@ -406,20 +417,34 @@
       { type: "audio", latin: "L (soukoun)", audio: "audio/harakat/laam-soukoun.mp3", correct: "لْ", options: ["لْ", "لَ", "لِ", "لُ"] },
       { type: "audio", latin: "NA (madd)", audio: "audio/modoud/nuun-aa.mp3", correct: "نَا", options: ["نَا", "نُو", "نِي", "نَ"] },
       { type: "audio", latin: "SOU (madd)", audio: "audio/modoud/siin-uu.mp3", correct: "سُو", options: ["سُو", "سَا", "سِي", "سُ"] },
-      { type: "visual-long", correct: "بَا", options: ["بَ", "بَا"] }
+      { type: "audio", latin: "TA", audio: "audio/harakat/taa-fathah.mp3", correct: "تَ", options: ["تَ", "تَا", "تِ", "تُ"] }
     ],
     // C. RÈGLES DE LECTURE — 10 questions (Modules 4 et 5)
+    // instrFr/instrEs : consigne precise par question (le bug "Applique la regle apprise"
+    // generique et ambigu a ete corrige — chaque question dit desormais exactement ce qui est demande).
     reglesLecture: [
-      { type: "rule-visual", prompt: "مَكْتَب", correct: "مَكْتَبًا", options: ["مَكْتَبًا", "مَكْتَبٌ", "مَكْتَبٍ", "المَكْتَب"] },
-      { type: "rule-visual", prompt: "طَبِيب", correct: "طَبِيبٌ", options: ["طَبِيبٌ", "طَبِيبًا", "طَبِيبٍ", "الطَّبِيب"] },
-      { type: "audio", audio: "audio/shadda/muallim.mp3", correct: "مُعَلِّم", options: ["مُعَلِّم", "قِطَّة", "سَيَّارَة", "رُمَّان"] },
-      { type: "audio", audio: "audio/shadda/tuffah.mp3", correct: "تُفَّاح", options: ["تُفَّاح", "سُلَّم", "سُكَّر", "دَرَّاجَة"] },
-      { type: "rule-visual", prompt: "أَسَد", correct: "أَسَد", options: ["أَسَد", "ءَسَد", "اسَد", "أسَد "] },
-      { type: "rule-concept", prompt: "ٱسْم", correct: "Hamzat al-waṣl", options: ["Hamzat al-waṣl", "Hamzat al-qaṭ'", "Tanwīn", "Shadda"] },
-      { type: "audio", audio: "audio/qamariyya/al-amir.mp3", correct: "الأَمِير", options: ["الأَمِير", "الأَسَد", "البَيْت", "الجَمَل"] },
-      { type: "audio", audio: "audio/qamariyya/al-bayt.mp3", correct: "البَيْت", options: ["البَيْت", "الجَبَل", "الحِصَان", "الفِيل"] },
-      { type: "audio", audio: "audio/shamsiyya/ash-shams.mp3", correct: "الشَّمْس", options: ["الشَّمْس", "التُّفَّاح", "الدِّيك", "النَّجْم"] },
-      { type: "audio", audio: "audio/shamsiyya/at-tuffah.mp3", correct: "التُّفَّاح", options: ["التُّفَّاح", "الثَّلْج", "الرَّجُل", "الزَّيْت"] }
+      { type: "rule-visual", prompt: "مَكْتَب", correct: "مَكْتَبًا", options: ["مَكْتَبًا", "مَكْتَبٌ", "مَكْتَبٍ", "المَكْتَب"],
+        instrFr: "Choisis la forme avec le tanwīn fatḥ (son -an).", instrEs: "Elige la forma con tanwīn fatḥ (sonido -an)." },
+      { type: "rule-visual", prompt: "طَبِيب", correct: "طَبِيبٌ", options: ["طَبِيبٌ", "طَبِيبًا", "طَبِيبٍ", "الطَّبِيب"],
+        instrFr: "Choisis la forme avec le tanwīn ḍamm (son -oun).", instrEs: "Elige la forma con tanwīn ḍamm (sonido -un)." },
+      { type: "audio", audio: "audio/shadda/muallim.mp3", correct: "مُعَلِّم", options: ["مُعَلِّم", "قِطَّة", "سَيَّارَة", "رُمَّان"],
+        instrFr: "Écoute et retrouve le mot que tu entends.", instrEs: "Escucha y encuentra la palabra que oyes." },
+      { type: "audio", audio: "audio/shadda/tuffah.mp3", correct: "تُفَّاح", options: ["تُفَّاح", "سُلَّم", "سُكَّر", "دَرَّاجَة"],
+        instrFr: "Écoute et retrouve le mot que tu entends.", instrEs: "Escucha y encuentra la palabra que oyes." },
+      // Bug corrige : l'ancien enonce affichait "أَسَد" (la reponse correcte elle-meme) au-dessus des options.
+      // Remplace par la translitteration latine "ASAD" (comme pour SAAD/DHAL en section Lettres) — ne revele plus la reponse.
+      { type: "rule-latin", prompt: "ASAD", correct: "أَسَد", options: ["أَسَد", "ءَسَد", "اسَد", "أسَد"],
+        instrFr: "« Lion » se dit ASAD. Quelle est la bonne écriture avec la hamza ?", instrEs: "« León » se dice ASAD. ¿Cuál es la escritura correcta con la hamza?" },
+      { type: "rule-concept", prompt: "ٱسْم", correct: "Hamzat al-waṣl", options: ["Hamzat al-waṣl", "Hamzat al-qaṭ'", "Tanwīn", "Shadda"],
+        instrFr: "Quelle règle concerne la hamza de ce mot ?", instrEs: "¿Qué regla se aplica a la hamza de esta palabra?" },
+      { type: "audio", audio: "audio/qamariyya/al-amir.mp3", correct: "الأَمِير", options: ["الأَمِير", "الأَسَد", "البَيْت", "الجَمَل"],
+        instrFr: "Écoute et retrouve le mot que tu entends (ال qamariyya).", instrEs: "Escucha y encuentra la palabra que oyes (ال qamariyya)." },
+      { type: "audio", audio: "audio/qamariyya/al-bayt.mp3", correct: "البَيْت", options: ["البَيْت", "الجَبَل", "الحِصَان", "الفِيل"],
+        instrFr: "Écoute et retrouve le mot que tu entends (ال qamariyya).", instrEs: "Escucha y encuentra la palabra que oyes (ال qamariyya)." },
+      { type: "audio", audio: "audio/shamsiyya/ash-shams.mp3", correct: "الشَّمْس", options: ["الشَّمْس", "التُّفَّاح", "الدِّيك", "النَّجْم"],
+        instrFr: "Écoute et retrouve le mot que tu entends (ال shamsiyya).", instrEs: "Escucha y encuentra la palabra que oyes (ال shamsiyya)." },
+      { type: "audio", audio: "audio/shamsiyya/at-tuffah.mp3", correct: "التُّفَّاح", options: ["التُّفَّاح", "الثَّلْج", "الرَّجُل", "الزَّيْت"],
+        instrFr: "Écoute et retrouve le mot que tu entends (ال shamsiyya).", instrEs: "Escucha y encuentra la palabra que oyes (ال shamsiyya)." }
     ],
     // D. LECTURE / RECONNAISSANCE DE MOTS — 5 questions (Modules 2, 3, 6)
     mots: [
@@ -486,10 +511,11 @@
 
   const SECTION_ORDER = ["lettres", "harakatMadd", "reglesLecture", "mots", "nomVerbe", "phraseType", "comprehension", "coran"];
   const SECTION_TOTAL = { lettres: 8, harakatMadd: 7, reglesLecture: 10, mots: 5, nomVerbe: 5, phraseType: 5, comprehension: 5, coran: 5 };
-  // Seuils minimum par compétence (>=50%, arrondis entiers validés le 2026-08-16)
+  // Seuils de maîtrise par compétence (>=50%) — utilisés uniquement pour classer
+  // "points forts" / "à consolider" dans le bilan. Ne conditionnent plus le
+  // certificat final, qui est désormais débloqué pour tout test terminé et sauvegardé.
   const SECTION_THRESHOLD = { lettres: 4, harakatMadd: 4, reglesLecture: 5, mots: 3, nomVerbe: 3, phraseType: 3, comprehension: 3, coran: 3 };
   const SECTION_ICON = { lettres: "fa-font", harakatMadd: "fa-ear-listen", reglesLecture: "fa-scroll", mots: "fa-book-open", nomVerbe: "fa-tags", phraseType: "fa-align-left", comprehension: "fa-comments", coran: "fa-moon" };
-  const GLOBAL_PASS_RATIO = 0.8; // 40/50
 
   // Correspondance compétence -> module à revoir (recommandation, jamais un verrouillage)
   const SKILL_MODULE = {
@@ -516,9 +542,17 @@
       questionWord: "Question",
       sectionLabels: { lettres: "Lettres", harakatMadd: "Harakāt & Madd", reglesLecture: "Règles de lecture", mots: "Mots", nomVerbe: "Nom / Verbe", phraseType: "Type de phrase", comprehension: "Compréhension", coran: "Coran" },
       instructions: {
-        lettres: () => "Retrouve la bonne lettre.",
+        // Consigne precise selon le type exact de question — corrige le bug
+        // "Retrouve la bonne lettre" trop vague (premiere/derniere/milieu/ecoute ?).
+        lettres: (raw) => {
+          if (raw.type === "audio") return "Écoute puis retrouve la lettre.";
+          if (raw.type === "word-initial") return "Quelle lettre commence ce mot ?";
+          if (raw.type === "word-final") return "Quelle lettre termine ce mot ?";
+          if (raw.type === "word-medial") return "Quelle lettre se trouve au milieu de ce mot ?";
+          return "Quelle est cette lettre ?";
+        },
         harakatMadd: () => "Écoute bien… quelle est la bonne réponse ?",
-        reglesLecture: () => "Applique la règle apprise.",
+        reglesLecture: (raw) => raw.instrFr,
         mots: () => "Que veut dire ce mot ?",
         nomVerbe: () => "Ce mot est-il un nom ou un verbe ?",
         phraseType: () => "Cette phrase est-elle nominale ou verbale ?",
@@ -528,27 +562,37 @@
       nomVerbeOptions: { nom: "Nom", verbe: "Verbe" },
       phraseTypeOptions: { nominale: "Phrase nominale", verbale: "Phrase verbale" },
       encouragements: ["Très bien, continue !", "Tu avances bien.", "Encore quelques étapes !", "Bravo, tu progresses !"],
-      openingPass: "Mabrouk ! Ton certificat final Dar Al-Kalimah est débloqué.",
-      openingWorkInProgress: "Ton parcours a déjà porté ses fruits. Certaines compétences méritent encore d'être consolidées avant de valider ton certificat final.",
+      openingHigh: "Mabrouk ! Tu as acquis une maîtrise solide des compétences travaillées dans ton parcours Dar Al-Kalimah.",
+      openingMid: "Mabrouk pour tout le chemin parcouru ! Tu as acquis de nombreuses compétences. Certaines notions méritent encore un peu de consolidation pour gagner davantage en aisance.",
+      openingLow: "Mabrouk pour ton parcours et tous les efforts accomplis. Ton test montre déjà plusieurs acquis. Certaines compétences ont encore besoin d'entraînement pour devenir plus solides.",
       scoresDetail: "Détail des scores",
       scoreTotal: "Score total",
-      acquiredTitle: "Acquis",
+      acquiredTitle: "Tes points forts",
       consolidateTitle: "À consolider",
       certUnlockedTitle: "Certificat final débloqué",
-      certUnlockedText: "Score global ≥ 80 % et toutes les compétences maîtrisées à au moins 50 %. Félicitations !",
-      certLockedTitle: "Certificat non débloqué pour cette tentative",
-      certLockedText: "Revois les compétences à consolider ci-dessous, puis repasse le test quand tu es prêt(e). Ta tentative est conservée dans ton historique.",
+      certUnlockedText: "Tu as terminé le parcours Dar Al-Kalimah et réalisé ton évaluation finale. Ton bilan ci-dessous indique ton niveau actuel.",
       seeCert: "Voir mon certificat",
       seeCertNotReady: "Le certificat final Dar Al-Kalimah sera bientôt disponible ici.",
       retry: "Repasser le test",
       backHome: "Retour à l'accueil",
-      compareTitle: "Test initial → Test final",
+      compareTitle: "Tes progrès",
+      progressLine: (initPct, finalPct, diff) => `Test initial : <strong>${initPct} %</strong> → Test final : <strong>${finalPct} %</strong> (Progression : <strong>${diff >= 0 ? "+" : ""}${diff} points</strong>)`,
       compareNote: "Les deux tests n'ont ni le même nombre de questions ni le même niveau de difficulté : cette comparaison porte uniquement sur les compétences communes, en pourcentage.",
       newSkillsPrefix: "Compétences acquises en fin de parcours : ",
       joinWord: " et ",
       who: "te",
-      recommendationTemplate: (module) => `Pour consolider tes acquis, nous te recommandons de revoir le <strong>${module}</strong>.`,
-      recommendationAllGood: "Toutes tes compétences sont déjà bien maîtrisées — continue ainsi !"
+      nextObjectiveTitle: "Ton prochain objectif",
+      nextObjective: {
+        lettres: "Pour gagner encore plus d'aisance avec les lettres, nous te conseillons de revoir le <strong>Module 1</strong>.",
+        harakatMadd: "Pour gagner encore plus de fluidité avec les harakāt et le madd, nous te conseillons de revoir le <strong>Module 2</strong>.",
+        reglesLecture: "Pour mieux appliquer les règles de lecture (tanwīn, shadda, shamsiyya, qamariyya…), nous te conseillons de revoir le <strong>Module 4</strong>.",
+        mots: "Pour élargir encore ton vocabulaire, nous te conseillons de revoir le <strong>Module 6</strong>.",
+        nomVerbe: "Pour distinguer encore plus facilement noms et verbes, nous te conseillons de revoir le <strong>Module 10</strong>.",
+        phraseType: "Pour mieux reconnaître les phrases nominales et verbales, nous te conseillons de revoir le <strong>Module 9</strong>.",
+        comprehension: "Pour renforcer ta compréhension de phrases, nous te conseillons de revoir le <strong>Module 6</strong>.",
+        coran: "Pour approfondir ta lecture des sourates, nous te conseillons de revoir le <strong>Module 12</strong>."
+      },
+      recommendationAllGood: "Toutes tes compétences sont déjà bien maîtrisées — continue à faire vivre ce que tu as appris !"
     },
     es: {
       brandBanner: "Prueba final",
@@ -559,9 +603,15 @@
       questionWord: "Pregunta",
       sectionLabels: { lettres: "Letras", harakatMadd: "Harakat y Madd", reglesLecture: "Reglas de lectura", mots: "Palabras", nomVerbe: "Nombre / Verbo", phraseType: "Tipo de oración", comprehension: "Comprensión", coran: "Corán" },
       instructions: {
-        lettres: () => "Encuentra la letra correcta.",
+        lettres: (raw) => {
+          if (raw.type === "audio") return "Escucha y encuentra la letra.";
+          if (raw.type === "word-initial") return "¿Qué letra empieza esta palabra?";
+          if (raw.type === "word-final") return "¿Qué letra termina esta palabra?";
+          if (raw.type === "word-medial") return "¿Qué letra está en medio de esta palabra?";
+          return "¿Cuál es esta letra?";
+        },
         harakatMadd: () => "Escucha bien… ¿cuál es la respuesta correcta?",
-        reglesLecture: () => "Aplica la regla aprendida.",
+        reglesLecture: (raw) => raw.instrEs,
         mots: () => "¿Qué significa esta palabra?",
         nomVerbe: () => "¿Esta palabra es un nombre o un verbo?",
         phraseType: () => "¿Esta oración es nominal o verbal?",
@@ -571,27 +621,37 @@
       nomVerbeOptions: { nom: "Nombre", verbe: "Verbo" },
       phraseTypeOptions: { nominale: "Oración nominal", verbale: "Oración verbal" },
       encouragements: ["¡Muy bien, sigue así!", "Vas muy bien.", "¡Unos pasos más!", "¡Genial, estás progresando!"],
-      openingPass: "¡Mabrouk! Tu certificado final Dar Al-Kalimah está desbloqueado.",
-      openingWorkInProgress: "Tu recorrido ya ha dado sus frutos. Algunas competencias todavía merecen consolidarse antes de validar tu certificado final.",
+      openingHigh: "¡Mabrouk! Has logrado un dominio sólido de las competencias trabajadas en tu recorrido Dar Al-Kalimah.",
+      openingMid: "¡Mabrouk por todo el camino recorrido! Has adquirido numerosas competencias. Algunas nociones todavía merecen un poco de consolidación para ganar más soltura.",
+      openingLow: "Mabrouk por tu recorrido y todo el esfuerzo realizado. Tu prueba ya muestra varios logros. Algunas competencias todavía necesitan práctica para volverse más sólidas.",
       scoresDetail: "Detalle de puntuaciones",
       scoreTotal: "Puntuación total",
-      acquiredTitle: "Dominado",
+      acquiredTitle: "Tus puntos fuertes",
       consolidateTitle: "A reforzar",
       certUnlockedTitle: "Certificado final desbloqueado",
-      certUnlockedText: "Puntuación global ≥ 80 % y todas las competencias dominadas al menos al 50 %. ¡Felicidades!",
-      certLockedTitle: "Certificado no desbloqueado en este intento",
-      certLockedText: "Repasa las competencias a reforzar abajo, luego vuelve a hacer la prueba cuando estés listo(a). Tu intento queda guardado en tu historial.",
+      certUnlockedText: "Has terminado el recorrido Dar Al-Kalimah y realizado tu evaluación final. Tu balance a continuación indica tu nivel actual.",
       seeCert: "Ver mi certificado",
       seeCertNotReady: "El certificado final Dar Al-Kalimah estará disponible aquí próximamente.",
       retry: "Repetir la prueba",
       backHome: "Volver al inicio",
-      compareTitle: "Prueba inicial → Prueba final",
+      compareTitle: "Tus progresos",
+      progressLine: (initPct, finalPct, diff) => `Prueba inicial : <strong>${initPct} %</strong> → Prueba final : <strong>${finalPct} %</strong> (Progresión : <strong>${diff >= 0 ? "+" : ""}${diff} puntos</strong>)`,
       compareNote: "Las dos pruebas no tienen ni el mismo número de preguntas ni el mismo nivel de dificultad: esta comparación solo cubre las competencias comunes, en porcentaje.",
       newSkillsPrefix: "Competencias adquiridas al final del recorrido: ",
       joinWord: " y ",
       who: "te",
-      recommendationTemplate: (module) => `Para consolidar tus logros, te recomendamos repasar el <strong>${module}</strong>.`,
-      recommendationAllGood: "Todas tus competencias ya están bien dominadas — ¡sigue así!"
+      nextObjectiveTitle: "Tu próximo objetivo",
+      nextObjective: {
+        lettres: "Para ganar más soltura con las letras, te recomendamos repasar el <strong>Módulo 1</strong>.",
+        harakatMadd: "Para ganar más fluidez con las harakat y el madd, te recomendamos repasar el <strong>Módulo 2</strong>.",
+        reglesLecture: "Para aplicar mejor las reglas de lectura (tanwīn, shadda, shamsiyya, qamariyya…), te recomendamos repasar el <strong>Módulo 4</strong>.",
+        mots: "Para ampliar aún más tu vocabulario, te recomendamos repasar el <strong>Módulo 6</strong>.",
+        nomVerbe: "Para distinguir con más facilidad nombres y verbos, te recomendamos repasar el <strong>Módulo 10</strong>.",
+        phraseType: "Para reconocer mejor las oraciones nominales y verbales, te recomendamos repasar el <strong>Módulo 9</strong>.",
+        comprehension: "Para reforzar tu comprensión de frases, te recomendamos repasar el <strong>Módulo 6</strong>.",
+        coran: "Para profundizar tu lectura de las suras, te recomendamos repasar el <strong>Módulo 12</strong>."
+      },
+      recommendationAllGood: "Todas tus competencias ya están bien dominadas — ¡sigue haciendo vivir lo que has aprendido!"
     }
   };
 
@@ -652,6 +712,7 @@
     $("btn-retry").textContent = t.retry;
     $("home-link-text").textContent = t.backHome;
     $("compare-title-text").textContent = t.compareTitle;
+    $("next-objective-title").textContent = t.nextObjectiveTitle;
   }
 
   function setLang(lang) {
@@ -689,7 +750,7 @@
     $("progress-fill").style.width = `${(state.current / 50) * 100}%`;
     $("section-badge").textContent = t.sectionLabels[section];
     $("section-icon-i").className = "fa-solid " + SECTION_ICON[section];
-    $("q-instruction").textContent = t.instructions[section]();
+    $("q-instruction").textContent = t.instructions[section](raw);
 
     const content = $("q-content");
     const grid = $("options-grid");
@@ -699,8 +760,9 @@
 
     if (section === "lettres") {
       if (raw.type === "audio") {
-        content.innerHTML = `<div class="q-prompt-latin">${raw.latin}</div>
-          <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+        // Bug corrige : le nom de la lettre (ex. "JIM") n'est plus affiche a l'ecran —
+        // il revelait la reponse avant meme l'ecoute. Seul le micro est visible desormais.
+        content.innerHTML = `<div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
         $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
       } else if (raw.type === "visual") {
         content.innerHTML = `<div class="q-prompt-latin">${raw.latin}</div>`;
@@ -715,13 +777,10 @@
       correctValue = raw.correct;
       optionsArr = raw.options;
     } else if (section === "harakatMadd") {
-      if (raw.type === "audio") {
-        content.innerHTML = `<div class="q-prompt-latin">${raw.latin}</div>
-          <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
-        $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
-      } else {
-        content.innerHTML = `<div class="q-prompt-word ar-text">${raw.correct === "بَا" ? "بَا" : ""}</div>`;
-      }
+      // Bug corrige : la transliteration (ex. "BA", "L (soukoun)") n'est plus affichee a l'ecran —
+      // elle revelait la reponse phonetique avant meme l'ecoute. Seul le micro est visible desormais.
+      content.innerHTML = `<div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+      $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
       optionClass += " opt-ar";
       correctValue = raw.correct;
       optionsArr = raw.options;
@@ -729,6 +788,8 @@
       if (raw.type === "audio") {
         content.innerHTML = `<div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
         $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
+      } else if (raw.type === "rule-latin") {
+        content.innerHTML = `<div class="q-prompt-latin">${raw.prompt}</div>`;
       } else {
         content.innerHTML = `<div class="q-prompt-word ar-text">${raw.prompt}</div>`;
       }
@@ -761,7 +822,7 @@
       optionsArr = loc.options;
     } else if (section === "coran") {
       content.innerHTML = `<div class="q-prompt-passage ar-text">${raw.before}<br><span class="q-blank">············</span><br>${raw.after}</div>`;
-      optionClass += " opt-ar";
+      optionClass += " opt-ar opt-coran";
       correctValue = raw.correct;
       optionsArr = raw.options;
       grid.classList.add("stacked");
@@ -846,19 +907,17 @@
     const total = SECTION_ORDER.reduce((sum, s) => sum + scores[s], 0);
     const pct = Math.round((total / 50) * 100);
 
-    const globalPass = total >= Math.ceil(50 * GLOBAL_PASS_RATIO);
-    const allThresholdsMet = SECTION_ORDER.every((s) => scores[s] >= SECTION_THRESHOLD[s]);
-    const reussite = globalPass && allThresholdsMet;
+    // Le certificat final atteste la FIN DU PARCOURS, jamais un score minimum :
+    // il est débloqué pour tout élève qui termine et sauvegarde ses 50 réponses.
+    const tier = pct >= 80 ? "high" : (pct >= 60 ? "mid" : "low");
 
     const { acquired, consolidate } = buildSkillLists(scores);
 
-    $("result-message").textContent = reussite ? t.openingPass : t.openingWorkInProgress;
+    $("result-message").textContent = tier === "high" ? t.openingHigh : (tier === "mid" ? t.openingMid : t.openingLow);
     $("result-sub").textContent = "";
 
-    const certBlock = $("cert-status");
-    certBlock.className = "cert-status " + (reussite ? "unlocked" : "locked");
-    $("cert-status-title").textContent = reussite ? t.certUnlockedTitle : t.certLockedTitle;
-    $("cert-status-text").textContent = reussite ? t.certUnlockedText : t.certLockedText;
+    $("cert-status-title").textContent = t.certUnlockedTitle;
+    $("cert-status-text").textContent = t.certUnlockedText;
 
     const acquiredBlock = $("result-acquired-block");
     if (acquired.length > 0) {
@@ -893,33 +952,30 @@
     $("result-total-score").textContent = `${total} / 50`;
     $("result-total-pct").textContent = `(${pct} %)`;
 
-    // Recommandation : le premier maillon faible rencontré dans l'ordre pédagogique
+    // Prochain objectif : le premier maillon faible rencontré dans l'ordre pédagogique.
+    // Jamais formulé comme un échec — toujours une orientation positive vers un module réel.
     const weak = SECTION_ORDER.find((s) => scores[s] < SECTION_THRESHOLD[s]);
     if (weak) {
-      $("recommendation-line").innerHTML = t.recommendationTemplate(SKILL_MODULE[weak].module);
+      $("recommendation-line").innerHTML = t.nextObjective[weak];
     } else {
       $("recommendation-line").textContent = t.recommendationAllGood;
     }
 
-    // Confettis + son Mabrouk — systématiques à l'arrivée sur le résultat, comme le test de positionnement.
+    // Confettis + son Mabrouk — systématiques à l'arrivée sur le résultat, quel que soit le score.
     if (typeof confetti === "function") {
       confetti({ particleCount: 60, spread: 60, startVelocity: 32, ticks: 160, origin: { y: 0.55 }, colors: ["#C8A462", "#5D1828", "#dfc28b"] });
     }
     DAKAudio.playEffect("mabruk.mp3");
 
-    $("btn-see-cert").disabled = !reussite;
-    $("cert-hint").classList.toggle("show", !reussite);
-    if (!reussite) {
-      $("cert-hint").textContent = state.lang === "es" ? "Disponible una vez desbloqueado el certificado." : "Disponible une fois le certificat débloqué.";
-    }
+    // Certificat toujours débloqué : il atteste la fin du parcours, pas un score minimum.
+    $("btn-see-cert").disabled = false;
 
     showView("results");
     compareWithInitialTest(scores, total, pct);
-    saveResult(scores, total, pct, reussite, weak ? SKILL_MODULE[weak].module : null);
+    saveResult(scores, total, pct, tier, weak ? SKILL_MODULE[weak].module : null);
   }
 
   $("btn-see-cert").addEventListener("click", () => {
-    if ($("btn-see-cert").disabled) return;
     const t = TEXT[state.lang];
     $("cert-hint").textContent = t.seeCertNotReady;
     $("cert-hint").classList.add("show");
@@ -955,6 +1011,12 @@
       const init = snap.data().testPositionnement;
       const t = TEXT[state.lang];
 
+      const hasGlobalProgress = typeof init.pourcentage === "number";
+      if (hasGlobalProgress) {
+        const diff = pct - init.pourcentage;
+        $("progress-highlight").innerHTML = t.progressLine(init.pourcentage, pct, diff);
+      }
+
       const rows = [];
       // Lettres : initial /12, final /8
       if (typeof init.lettres === "number") {
@@ -969,7 +1031,7 @@
         rows.push({ label: t.sectionLabels.mots, initPct: Math.round((init.mots/6)*100), finalPct: Math.round((scores.mots/5)*100) });
       }
 
-      if (rows.length > 0) {
+      if (rows.length > 0 || hasGlobalProgress) {
         const initTotal = typeof init.scoreTotal === "number" ? init.scoreTotal : null;
         const container = $("compare-rows");
         container.innerHTML = "";
@@ -1003,7 +1065,7 @@
      déjà utilisé par tracker.js) : chaque tentative est conservée,
      jamais écrasée. testPositionnement n'est jamais modifié.
      ============================================================ */
-  async function saveResult(scores, total, pct, reussite, moduleRecommande) {
+  async function saveResult(scores, total, pct, tier, moduleRecommande) {
     try {
       const { getApps, initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
       const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
@@ -1035,17 +1097,17 @@
         scoreTotal: total,
         totalQuestions: 50,
         pourcentage: pct,
-        reussite: reussite,
-        certificatDebloque: reussite,
+        niveauTier: tier,
+        certificatDebloque: true,
         moduleRecommande: moduleRecommande,
         dureeSecondes: dureeSecondes,
         date: serverTimestamp()
       });
 
-      // Ne jamais repasser certificatFinalDebloque a false : une reussite anterieure reste acquise.
-      if (reussite) {
-        await setDoc(doc(db, "eleves", user.uid), { certificatFinalDebloque: true }, { merge: true });
-      }
+      // Le certificat atteste la fin du parcours (test termine + sauvegarde reussie),
+      // pas un score minimum : toujours debloque des lors que cet appel reussit.
+      // Jamais repasse a false ensuite, quel que soit le resultat d'une tentative ulterieure.
+      await setDoc(doc(db, "eleves", user.uid), { certificatFinalDebloque: true }, { merge: true });
 
       if (window.DAK_enregistrerScore) {
         window.DAK_enregistrerScore({ module: "Test final", quiz: "Test final Dar Al-Kalimah", score: total, total: 50 });
