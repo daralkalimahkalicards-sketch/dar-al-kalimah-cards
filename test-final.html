@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#5D1828">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>Test final — Dar Al-Kalimah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+
+<style>
+  /* Identité visuelle reprise telle quelle de test-positionnement.html validé */
+  :root {
+    --burgundy: #5D1828;
+    --burgundy-dark: #3a0f19;
+    --gold: #C8A462;
+    --gold-light: #dfc28b;
+    --white: #FFFFFF;
+    --bg-beige: #FBF9F6;
+    --text-dark: #2C3E50;
+    --text-soft: #7d6a52;
+    --success-green: #4CAF50;
+    --error-red: #e05555;
+    --shadow-card: 0 20px 50px rgba(93, 24, 40, 0.10);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --tap-size: 48px;
+    --radius-xl: 24px;
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--white);
+    font-family: "Montserrat", sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: calc(24px + var(--safe-top)) 16px calc(30px + var(--safe-bottom));
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+  }
+
+  button { font: inherit; touch-action: manipulation; cursor: pointer; }
+
+  .ar-text {
+    font-family: "Amiri", serif;
+    direction: rtl;
+    unicode-bidi: isolate;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .shell { width: 100%; max-width: 640px; display: flex; flex-direction: column; align-items: center; }
+
+  .brand { text-align: center; margin-bottom: 30px; }
+  .brand-ar { font-family: "Amiri", serif; color: var(--gold); font-size: 1.9rem; font-weight: bold; }
+  .brand-fr { font-family: "Cinzel", serif; color: var(--burgundy); font-size: 0.74rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+  .brand-banner { margin-top: 16px; padding: 10px 4px; border-top: 1px solid var(--burgundy); border-bottom: 1px solid var(--gold); }
+  .brand-banner-text { font-family: "Cinzel", serif; font-size: 0.78rem; letter-spacing: 3.5px; color: var(--burgundy); text-transform: uppercase; font-weight: 700; }
+
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    border: 1.5px solid var(--gold);
+    width: 100%;
+    padding: 36px 28px;
+    position: relative;
+  }
+  .card::before {
+    content: ""; position: absolute; top: -1.5px; left: 24px; right: 24px; height: 3px;
+    background: var(--gold); border-radius: 0 0 4px 4px;
+  }
+
+  .view { display: none; width: 100%; }
+  .view.active { display: flex; flex-direction: column; align-items: center; }
+
+  .lang-toggle { display: flex; gap: 6px; margin-bottom: 24px; }
+  .lang-btn {
+    border: 1px solid rgba(93,24,40,0.35); background: transparent; color: var(--text-soft);
+    font-family: "Cinzel", serif; font-size: 0.68rem; letter-spacing: 1.5px; font-weight: 600;
+    padding: 6px 16px; border-radius: 999px; transition: var(--transition-smooth); min-height: 32px;
+  }
+  .lang-btn.active { background: var(--burgundy); color: var(--white); border-color: var(--burgundy); }
+
+  .mode-sub { font-size: 0.96rem; color: var(--text-dark); text-align: center; margin-bottom: 22px; line-height: 1.6; font-weight: 500; }
+  .intro-note { font-size: 0.82rem; color: var(--text-soft); text-align: center; margin-bottom: 26px; line-height: 1.55; }
+  .btn-start { width: 100%; max-width: 320px; }
+
+  .progress-wrap { width: 100%; margin-bottom: 26px; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 0.74rem; margin-bottom: 7px; }
+  .progress-labels span:first-child { color: var(--burgundy); font-weight: 700; }
+  .progress-labels span:last-child { color: var(--burgundy); opacity: 0.75; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.66rem; }
+  .progress-track { width: 100%; height: 6px; background: rgba(93,24,40,0.08); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--burgundy) 0%, var(--burgundy) 75%, var(--gold) 100%); border-radius: 999px; transition: width 0.4s ease; width: 0%; }
+  .section-icon {
+    display: flex; width: 46px; height: 46px; border-radius: 50%; align-items: center; justify-content: center;
+    margin: 0 auto 10px; font-size: 1.2rem; background: var(--gold); color: var(--white);
+  }
+  .section-badge {
+    display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--white); background: var(--burgundy); border: 1px solid var(--burgundy); padding: 5px 14px; border-radius: 999px; margin-bottom: 22px;
+    text-align: center;
+  }
+
+  #q-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .q-prompt-latin {
+    font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.5rem; font-weight: 700; text-align: center;
+    letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .q-prompt-word { font-size: clamp(2.2rem, 8vw, 3.2rem); color: var(--burgundy); font-weight: 700; margin-bottom: 6px; }
+  .q-prompt-phrase { font-size: clamp(1.4rem, 5.5vw, 2rem); color: var(--burgundy); font-weight: 700; line-height: 1.9; margin-bottom: 6px; }
+  .q-prompt-passage { font-size: clamp(1.3rem, 5vw, 1.8rem); color: var(--burgundy); font-weight: 700; line-height: 2.2; margin-bottom: 6px; text-align: center; }
+  .q-blank { display: inline-block; color: var(--gold); font-family: "Cinzel", serif; letter-spacing: 3px; }
+
+  .q-audio-row { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 12px; }
+  .q-audio-btn {
+    width: 68px; height: 68px; border-radius: 50%;
+    background: #ffffff; border: 3px solid var(--gold); color: var(--burgundy);
+    display: flex; justify-content: center; align-items: center; font-size: 2.2rem; margin: 0;
+    box-shadow: 0 8px 25px rgba(200,164,98,0.3);
+    transition: var(--transition-smooth); outline: none;
+  }
+  .q-audio-btn:hover, .q-audio-btn:focus-visible { transform: scale(1.1); background: var(--gold); color: var(--white); }
+  .q-audio-btn:active { transform: scale(0.95); }
+  .q-audio-btn.dak-playing { background: var(--gold); border-color: var(--gold); color: var(--white); }
+
+  .q-instruction { font-size: 0.86rem; color: var(--text-dark); text-align: center; margin: 16px 0 22px; font-weight: 500; }
+
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+  .options-grid.stacked { grid-template-columns: 1fr; }
+  .opt-btn {
+    background: var(--white); border: 1.5px solid rgba(93,24,40,0.28); border-radius: var(--radius-md);
+    padding: 16px 10px; min-height: var(--tap-size);
+    font-size: 1.02rem; font-weight: 600; color: var(--text-dark); transition: var(--transition-smooth);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .opt-btn.opt-ar { font-family: "Amiri", serif; font-size: 1.55rem; font-weight: 700; color: var(--burgundy); direction: rtl; line-height: 1.7; }
+  .opt-btn:hover:not(:disabled) { border-color: var(--gold); box-shadow: 0 4px 14px rgba(200,164,98,0.18); }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn.correct { background: rgba(76,175,80,0.10); border-color: var(--success-green); color: #2d7a2d; }
+  .opt-btn.wrong { background: rgba(224,85,85,0.08); border-color: var(--error-red); color: #b83b3b; }
+
+  @keyframes popIn { from { opacity: 0; transform: scale(0.94) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  #q-content, .options-grid { animation: popIn 0.32s ease; }
+
+  .encouragement-msg {
+    display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 70px 10px;
+    font-family: "Cinzel", serif; color: var(--burgundy); font-size: 1.2rem; font-weight: 600; text-align: center;
+    animation: popIn 0.4s ease; width: 100%;
+  }
+  .encouragement-msg i { color: var(--gold); font-size: 1.6rem; }
+
+  /* ---------- Résultats ---------- */
+  .result-message {
+    font-family: "Cinzel", serif; font-size: 1.25rem; font-weight: 700; color: var(--burgundy); text-align: center;
+    margin-bottom: 10px; line-height: 1.5;
+  }
+  .result-sub { font-size: 0.9rem; color: var(--text-dark); text-align: center; margin-bottom: 24px; line-height: 1.6; }
+
+  .cert-status { width: 100%; border-radius: var(--radius-md); padding: 18px; margin-bottom: 22px; text-align: center; }
+  .cert-status.unlocked { background: rgba(76,175,80,0.08); border: 1.5px solid var(--success-green); }
+  .cert-status.locked { background: var(--bg-beige); border: 1.5px solid rgba(200,164,98,0.4); }
+  .cert-status-title { font-family: "Cinzel", serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .cert-status.unlocked .cert-status-title { color: #2d7a2d; }
+  .cert-status.locked .cert-status-title { color: var(--burgundy); }
+  .cert-status-text { font-size: 0.85rem; color: var(--text-dark); line-height: 1.5; }
+
+  .result-block { width: 100%; border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 12px; }
+  .result-block-icon { font-size: 0.95rem; margin-right: 8px; }
+  .result-block-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .result-block-text { font-size: 0.9rem; line-height: 1.55; color: var(--text-dark); }
+  .result-block.acquired { background: rgba(76,175,80,0.06); border: 1px solid rgba(76,175,80,0.25); }
+  .result-block.acquired .result-block-title { color: #2d7a2d; }
+  .result-block.consolidate { background: var(--bg-beige); border: 1px solid rgba(200,164,98,0.35); margin-bottom: 24px; }
+  .result-block.consolidate .result-block-title { color: var(--burgundy); }
+
+  .scores-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-soft); margin-bottom: 12px; align-self: flex-start; margin-top: 6px; }
+  .breakdown { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 8px; }
+  .breakdown-row { display: flex; align-items: center; gap: 12px; }
+  .breakdown-label { flex: 0 0 150px; font-size: 0.82rem; color: var(--text-dark); font-weight: 500; }
+  .breakdown-bar { flex: 1; height: 8px; background: rgba(200,164,98,0.15); border-radius: 999px; overflow: hidden; }
+  .breakdown-bar-fill { height: 100%; background: var(--burgundy); border-radius: 999px; }
+  .breakdown-bar-fill.below { background: var(--error-red); }
+  .breakdown-score { flex: 0 0 50px; font-size: 0.82rem; color: var(--burgundy); font-weight: 700; text-align: right; }
+
+  .total-row {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    padding: 16px 0 22px; margin-top: 10px; border-top: 1px solid rgba(200,164,98,0.25);
+  }
+  .total-label { font-family: "Cinzel", serif; font-size: 0.85rem; color: var(--burgundy); letter-spacing: 1px; font-weight: 700; }
+  .total-score { font-family: "Cinzel", serif; font-size: 1.5rem; color: var(--burgundy); font-weight: 700; }
+  .total-pct { font-size: 0.85rem; color: var(--gold); font-weight: 700; margin-left: 8px; }
+
+  .compare-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-soft); margin: 6px 0 12px; align-self: flex-start; }
+  .compare-row { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 8px 0; font-size: 0.86rem; }
+  .compare-label { color: var(--text-dark); font-weight: 500; }
+  .compare-values { color: var(--burgundy); font-weight: 700; font-family: "Cinzel", serif; font-size: 0.82rem; }
+  .compare-note { font-size: 0.76rem; color: var(--text-soft); line-height: 1.5; margin: 10px 0 20px; font-style: italic; }
+  .new-skills-line { font-size: 0.86rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 20px; }
+  .new-skills-line strong { color: var(--burgundy); }
+
+  .recommendation-line {
+    width: 100%; text-align: center; font-size: 0.92rem; color: var(--text-dark); line-height: 1.6;
+    padding: 16px 8px; margin-bottom: 18px;
+  }
+  .recommendation-line strong { color: var(--burgundy); font-family: "Cinzel", serif; font-weight: 700; }
+
+  .btn-main {
+    width: 100%; padding: 16px; border: none; border-radius: 999px;
+    background: var(--burgundy); color: var(--white); font-weight: 700; font-size: 0.96rem;
+    letter-spacing: 0.5px; transition: var(--transition-smooth); min-height: var(--tap-size);
+  }
+  .btn-main:hover { background: var(--burgundy-dark); }
+  .btn-main:disabled { opacity: 0.5; cursor: default; }
+  .btn-main.gold { background: var(--gold); }
+  .btn-main.gold:hover { background: #b7935a; }
+  .btn-row { display: flex; gap: 12px; width: 100%; margin-top: 4px; flex-wrap: wrap; }
+  .btn-row .btn-main { flex: 1; min-width: 200px; }
+
+  .cert-hint { font-size: 0.76rem; color: var(--text-soft); text-align: center; margin-top: 10px; display: none; }
+  .cert-hint.show { display: block; }
+
+  .home-link { margin-top: 22px; color: var(--text-soft); font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .home-link:hover { color: var(--burgundy); }
+
+  @media (max-width: 480px) {
+    .card { padding: 26px 18px; border-radius: var(--radius-lg); }
+    .options-grid { grid-template-columns: 1fr; }
+    .breakdown-label { flex-basis: 120px; font-size: 0.76rem; }
+    .opt-btn { min-height: 52px; }
+  }
+</style>
+<link rel="stylesheet" href="audio-controller.css">
+<script type="module" src="tracker.js"></script>
+<script src="audio-controller.js"></script>
+<script>
+  /* Filet de securite : cette page ne depend jamais du systeme audio.
+     Si audio-controller.js est absent/en echec, DAKAudio devient un stub
+     inoffensif afin qu'aucun appel audio ne puisse casser la page. */
+  if (typeof DAKAudio === "undefined") {
+    window.DAKAudio = {
+      play: function () {},
+      playEffect: function () {},
+      stopAll: function () {},
+      unlock: function () { return Promise.resolve(false); },
+      showToast: function () {}
+    };
+  }
+</script>
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  onAuthStateChanged(_auth, (user) => {
+    if (user) {
+      document.body.style.visibility = 'visible';
+    } else {
+      window.location.href = 'auth.html';
+    }
+  });
+</script>
+</head>
+<body>
+  <div class="shell">
+
+    <div class="brand">
+      <div class="brand-ar ar-text">دار الكلمة</div>
+      <div class="brand-fr">Dar Al-Kalimah</div>
+      <div class="brand-banner"><div class="brand-banner-text" id="brand-banner-text">Test final</div></div>
+    </div>
+
+    <div class="card">
+
+      <!-- VUE 1 : accueil unique -->
+      <section class="view active" id="view-mode">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-lang-fr" type="button">FR</button>
+          <button class="lang-btn" id="btn-lang-es" type="button">ES</button>
+        </div>
+        <div class="mode-sub" id="mode-sub">Bienvenue ! Ce test final évalue ce que tu as appris pendant les 12 modules. Il dure environ 20 à 30 minutes.</div>
+        <div class="intro-note" id="intro-note">50 questions réparties en 8 compétences. Prends ton temps, chaque étape compte.</div>
+        <button class="btn-main btn-start" id="btn-start-test" type="button">Commencer le test final</button>
+      </section>
+
+      <!-- VUE 2 : question -->
+      <section class="view" id="view-question">
+        <div class="progress-wrap">
+          <div class="progress-labels">
+            <span id="progress-current">Question 1 / 50</span>
+            <span id="section-name-top"></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <div class="section-icon" id="section-icon"><i class="fa-solid fa-font" id="section-icon-i"></i></div>
+        <div class="section-badge" id="section-badge">Lettres</div>
+
+        <div id="q-content"></div>
+
+        <div class="q-instruction" id="q-instruction"></div>
+
+        <div class="options-grid" id="options-grid"></div>
+      </section>
+
+      <!-- VUE 3 : résultats -->
+      <section class="view" id="view-results">
+        <div class="result-message" id="result-message"></div>
+        <div class="result-sub" id="result-sub"></div>
+
+        <div class="cert-status" id="cert-status">
+          <div class="cert-status-title" id="cert-status-title"></div>
+          <div class="cert-status-text" id="cert-status-text"></div>
+        </div>
+
+        <div class="result-block acquired" id="result-acquired-block">
+          <div class="result-block-title"><i class="fa-solid fa-circle-check result-block-icon"></i><span id="acquired-title-text">Acquis</span></div>
+          <div class="result-block-text" id="result-acquired-text"></div>
+        </div>
+
+        <div class="result-block consolidate" id="result-consolidate-block">
+          <div class="result-block-title"><i class="fa-solid fa-seedling result-block-icon"></i><span id="consolidate-title-text">À consolider</span></div>
+          <div class="result-block-text" id="result-consolidate-text"></div>
+        </div>
+
+        <div class="scores-title" id="scores-title-text">Détail des scores</div>
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="total-row">
+          <span class="total-label" id="total-label-text">Score total</span>
+          <span><span class="total-score" id="result-total-score">0 / 50</span><span class="total-pct" id="result-total-pct">(0 %)</span></span>
+        </div>
+
+        <div id="compare-block" style="width:100%; display:none;">
+          <div class="compare-title" id="compare-title-text">Test initial → Test final</div>
+          <div id="compare-rows"></div>
+          <div class="compare-note" id="compare-note-text"></div>
+        </div>
+
+        <div class="new-skills-line" id="new-skills-line"></div>
+
+        <div class="recommendation-line" id="recommendation-line"></div>
+
+        <div class="btn-row">
+          <button class="btn-main gold" id="btn-see-cert" type="button">Voir mon certificat</button>
+          <button class="btn-main" id="btn-retry" type="button">Repasser le test</button>
+        </div>
+        <div class="cert-hint" id="cert-hint"></div>
+        <a class="home-link" href="modules.html"><i class="fa-solid fa-house"></i> <span id="home-link-text">Retour à l'accueil</span></a>
+      </section>
+
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ============================================================
+     BANQUE DE 50 QUESTIONS — contenu issu exclusivement de l'audit
+     réel des Modules 1 à 12 (leçons + quiz). Aucun mot, règle,
+     sourate ou notion grammaticale non enseignée dans DAK n'a été
+     ajouté. Chemins audio vérifiés présents sur le disque avant
+     intégration (sauf section Coran, cf. rapport : aucun fichier
+     audio/sourates/ n'existe actuellement).
+     ============================================================ */
+  const QUESTIONS = {
+    // A. LETTRES ET LECTURE — 8 questions (Module 1)
+    lettres: [
+      { type: "audio", latin: "JIM", audio: "audio/05-jim.mp3", correct: "ج", options: ["ج", "ح", "خ", "د"] },
+      { type: "audio", latin: "SHIIN", audio: "audio/13-shiin.mp3", correct: "ش", options: ["ش", "س", "ص", "ض"] },
+      { type: "visual", latin: "SAAD", correct: "ص", options: ["ص", "ض", "ط", "ظ"] },
+      { type: "visual", latin: "DHAL", correct: "ذ", options: ["ذ", "د", "ز", "ر"] },
+      { type: "word-initial", word: "جَمَل", correct: "ج", options: ["ج", "ح", "خ", "د"] },
+      { type: "word-final", word: "كِتَاب", correct: "ب", options: ["ب", "ت", "ن", "م"] },
+      { type: "word-medial", word: "بُرْج", correct: "ر", options: ["ر", "ز", "د", "ذ"] },
+      { type: "visual", latin: "THAA", correct: "ث", options: ["ث", "ت", "ن", "ي"] }
+    ],
+    // B. HARAKAT + MADD — 7 questions (Modules 2 et 3)
+    harakatMadd: [
+      { type: "audio", latin: "BA", audio: "audio/harakat/baa-fathah.mp3", correct: "بَ", options: ["بَ", "بِ", "بُ", "بْ"] },
+      { type: "audio", latin: "MI", audio: "audio/harakat/miim-kasrah.mp3", correct: "مِ", options: ["مِ", "مَ", "مُ", "مْ"] },
+      { type: "audio", latin: "NOU", audio: "audio/harakat/nuun-dammah.mp3", correct: "نُ", options: ["نُ", "نِ", "نَ", "نْ"] },
+      { type: "audio", latin: "L (soukoun)", audio: "audio/harakat/laam-soukoun.mp3", correct: "لْ", options: ["لْ", "لَ", "لِ", "لُ"] },
+      { type: "audio", latin: "NA (madd)", audio: "audio/modoud/nuun-aa.mp3", correct: "نَا", options: ["نَا", "نُو", "نِي", "نَ"] },
+      { type: "audio", latin: "SOU (madd)", audio: "audio/modoud/siin-uu.mp3", correct: "سُو", options: ["سُو", "سَا", "سِي", "سُ"] },
+      { type: "visual-long", correct: "بَا", options: ["بَ", "بَا"] }
+    ],
+    // C. RÈGLES DE LECTURE — 10 questions (Modules 4 et 5)
+    reglesLecture: [
+      { type: "rule-visual", prompt: "مَكْتَب", correct: "مَكْتَبًا", options: ["مَكْتَبًا", "مَكْتَبٌ", "مَكْتَبٍ", "المَكْتَب"] },
+      { type: "rule-visual", prompt: "طَبِيب", correct: "طَبِيبٌ", options: ["طَبِيبٌ", "طَبِيبًا", "طَبِيبٍ", "الطَّبِيب"] },
+      { type: "audio", audio: "audio/shadda/muallim.mp3", correct: "مُعَلِّم", options: ["مُعَلِّم", "قِطَّة", "سَيَّارَة", "رُمَّان"] },
+      { type: "audio", audio: "audio/shadda/tuffah.mp3", correct: "تُفَّاح", options: ["تُفَّاح", "سُلَّم", "سُكَّر", "دَرَّاجَة"] },
+      { type: "rule-visual", prompt: "أَسَد", correct: "أَسَد", options: ["أَسَد", "ءَسَد", "اسَد", "أسَد "] },
+      { type: "rule-concept", prompt: "ٱسْم", correct: "Hamzat al-waṣl", options: ["Hamzat al-waṣl", "Hamzat al-qaṭ'", "Tanwīn", "Shadda"] },
+      { type: "audio", audio: "audio/qamariyya/al-amir.mp3", correct: "الأَمِير", options: ["الأَمِير", "الأَسَد", "البَيْت", "الجَمَل"] },
+      { type: "audio", audio: "audio/qamariyya/al-bayt.mp3", correct: "البَيْت", options: ["البَيْت", "الجَبَل", "الحِصَان", "الفِيل"] },
+      { type: "audio", audio: "audio/shamsiyya/ash-shams.mp3", correct: "الشَّمْس", options: ["الشَّمْس", "التُّفَّاح", "الدِّيك", "النَّجْم"] },
+      { type: "audio", audio: "audio/shamsiyya/at-tuffah.mp3", correct: "التُّفَّاح", options: ["التُّفَّاح", "الثَّلْج", "الرَّجُل", "الزَّيْت"] }
+    ],
+    // D. LECTURE / RECONNAISSANCE DE MOTS — 5 questions (Modules 2, 3, 6)
+    mots: [
+      { audio: "audio/module6/ab.mp3", arabe: "أَب", fr: { correct: "Père", options: ["Père", "Mère", "Frère", "Sœur"] }, es: { correct: "Padre", options: ["Padre", "Madre", "Hermano", "Hermana"] } },
+      { audio: "audio/module6/ahmar.mp3", arabe: "أَحْمَر", fr: { correct: "Rouge", options: ["Rouge", "Bleu", "Vert", "Noir"] }, es: { correct: "Rojo", options: ["Rojo", "Azul", "Verde", "Negro"] } },
+      { audio: "audio/shadda/sayyara.mp3", arabe: "سَيَّارَة", fr: { correct: "Voiture", options: ["Voiture", "Avion", "Train", "Bateau"] }, es: { correct: "Coche", options: ["Coche", "Avión", "Tren", "Barco"] } },
+      { audio: "audio/module6/al-jumua.mp3", arabe: "الجُمُعَة", fr: { correct: "Vendredi", options: ["Vendredi", "Samedi", "Dimanche", "Lundi"] }, es: { correct: "Viernes", options: ["Viernes", "Sábado", "Domingo", "Lunes"] } },
+      { audio: "audio/module3/bab.mp3", arabe: "بَاب", fr: { correct: "Porte", options: ["Porte", "Fenêtre", "Table", "Mur"] }, es: { correct: "Puerta", options: ["Puerta", "Ventana", "Mesa", "Pared"] } }
+    ],
+    // E. NOM OU VERBE — 5 questions (Module 10)
+    nomVerbe: [
+      { arabe: "كَتَبَ", correct: "verbe" },
+      { arabe: "كِتَابٌ", correct: "nom" },
+      { arabe: "ذَهَبَ", correct: "verbe" },
+      { arabe: "مُعَلِّمٌ", correct: "nom" },
+      { arabe: "عِلْمٌ", correct: "nom" }
+    ],
+    // F. PHRASE NOMINALE OU VERBALE — 5 questions (Module 9 : nominale / Module 11 : verbale)
+    phraseType: [
+      { arabe: "أَحْمَدُ طَالِبٌ", correct: "nominale" },
+      { arabe: "أَكَلَ عَزِيزٌ الطَّعَامَ", correct: "verbale" },
+      { arabe: "الْبَيْتُ كَبِيرٌ", correct: "nominale" },
+      { arabe: "نَزَلَ جِبْرِيلُ الْوَحْيَ", correct: "verbale" },
+      { arabe: "هَذَا كِتَابٌ", correct: "nominale" }
+    ],
+    // G. LECTURE / COMPRÉHENSION DE PHRASES — 5 questions (Module 6, texte "يَوْمُ عَزِيز")
+    comprehension: [
+      { audio: "audio/module6/phrase1.mp3", arabe: "يَسْتَيْقِظُ عَزِيز فِي السَّاعَةِ السَّابِعَةِ.",
+        fr: { correct: "Aziz se réveille à sept heures.", options: ["Aziz se réveille à sept heures.", "Aziz mange à sept heures.", "Aziz dort à sept heures.", "Aziz part à sept heures."] },
+        es: { correct: "Aziz se despierta a las siete.", options: ["Aziz se despierta a las siete.", "Aziz come a las siete.", "Aziz duerme a las siete.", "Aziz se va a las siete."] } },
+      { audio: "audio/module6/phrase2.mp3", arabe: "يَتَوَضَّأُ وَيُصَلِّي الفَجْرَ.",
+        fr: { correct: "Il fait ses ablutions et prie le Fajr.", options: ["Il fait ses ablutions et prie le Fajr.", "Il mange puis part à l'école.", "Il lit le Coran puis dort.", "Il joue puis rentre."] },
+        es: { correct: "Hace abluciones y reza el Fajr.", options: ["Hace abluciones y reza el Fajr.", "Come y va al colegio.", "Lee el Corán y duerme.", "Juega y vuelve."] } },
+      { audio: "audio/module6/phrase7.mp3", arabe: "يَذْهَبُ إِلَى المَدْرَسَةِ بِالحَافِلَةِ.",
+        fr: { correct: "Il va à l'école en bus.", options: ["Il va à l'école en bus.", "Il va à l'école en voiture.", "Il rentre à la maison en bus.", "Il joue au football."] },
+        es: { correct: "Va al colegio en autobús.", options: ["Va al colegio en autobús.", "Va al colegio en coche.", "Vuelve a casa en autobús.", "Juega al fútbol."] } },
+      { audio: "audio/module6/phrase11.mp3", arabe: "يَلْعَبُ كُرَةَ القَدَمِ.",
+        fr: { correct: "Il joue au football.", options: ["Il joue au football.", "Il étudie à l'école.", "Il mange le déjeuner.", "Il prie le Dhohr."] },
+        es: { correct: "Juega al fútbol.", options: ["Juega al fútbol.", "Estudia en el colegio.", "Come el almuerzo.", "Reza el Dhohr."] } },
+      { audio: "audio/module6/phrase12.mp3", arabe: "يَعُودُ إِلَى البَيْتِ بِالسَّيَّارَةِ.",
+        fr: { correct: "Il rentre à la maison en voiture.", options: ["Il rentre à la maison en voiture.", "Il va à l'école en voiture.", "Il rentre à la maison en bus.", "Il part en voyage."] },
+        es: { correct: "Vuelve a casa en coche.", options: ["Vuelve a casa en coche.", "Va al colegio en coche.", "Vuelve a casa en autobús.", "Se va de viaje."] } }
+    ],
+    // H. CORAN — 5 questions (Sourates Al-Kawthar, Al-Ikhlas, Al-Falaq, An-Nas, Al-Fatiha)
+    // AUCUN audio disponible (dossier audio/sourates/ absent du projet) — questions texte uniquement.
+    coran: [
+      { surah: "Al-Kawthar", before: "إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾", after: "اِنَّ شَانِئَكَ هُوَ ٱلاَبْتَرُ ﴿٣﴾",
+        correct: "فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾",
+        options: ["فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾", "ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", "مِن شَرِّ مَا خَلَقَ ﴿٢﴾", "مَلِكِ النَّاسِ ﴿٢﴾"] },
+      { surah: "Al-Ikhlas", before: "قُلْ هُوَ ٱللَّهُ أَحَدٌ ﴿١﴾", after: "لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾",
+        correct: "ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾",
+        options: ["ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", "فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾", "إِلَهِ النَّاسِ ﴿٣﴾", "مَلِكِ يَوْمِ الدِّينِ ﴿٣﴾"] },
+      { surah: "Al-Falaq", before: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾", after: "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾",
+        correct: "مِن شَرِّ مَا خَلَقَ ﴿٢﴾",
+        options: ["مِن شَرِّ مَا خَلَقَ ﴿٢﴾", "ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", "مَلِكِ النَّاسِ ﴿٢﴾", "الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾"] },
+      { surah: "An-Nas", before: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾", after: "إِلَهِ النَّاسِ ﴿٣﴾",
+        correct: "مَلِكِ النَّاسِ ﴿٢﴾",
+        options: ["مَلِكِ النَّاسِ ﴿٢﴾", "مِن شَرِّ مَا خَلَقَ ﴿٢﴾", "ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", "الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾"] },
+      { surah: "Al-Fatiha", before: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿١﴾", after: "مَلِكِ يَوْمِ الدِّينِ ﴿٣﴾",
+        correct: "الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾",
+        options: ["الرَّحْمَنِ الرَّحِيمِ ﴿٢﴾", "مَلِكِ النَّاسِ ﴿٢﴾", "ٱللَّهُ ٱلصَّمَدُ ﴿٢﴾", "مِن شَرِّ مَا خَلَقَ ﴿٢﴾"] }
+    ]
+  };
+
+  const SECTION_ORDER = ["lettres", "harakatMadd", "reglesLecture", "mots", "nomVerbe", "phraseType", "comprehension", "coran"];
+  const SECTION_TOTAL = { lettres: 8, harakatMadd: 7, reglesLecture: 10, mots: 5, nomVerbe: 5, phraseType: 5, comprehension: 5, coran: 5 };
+  // Seuils minimum par compétence (>=50%, arrondis entiers validés le 2026-08-16)
+  const SECTION_THRESHOLD = { lettres: 4, harakatMadd: 4, reglesLecture: 5, mots: 3, nomVerbe: 3, phraseType: 3, comprehension: 3, coran: 3 };
+  const SECTION_ICON = { lettres: "fa-font", harakatMadd: "fa-ear-listen", reglesLecture: "fa-scroll", mots: "fa-book-open", nomVerbe: "fa-tags", phraseType: "fa-align-left", comprehension: "fa-comments", coran: "fa-moon" };
+  const GLOBAL_PASS_RATIO = 0.8; // 40/50
+
+  // Correspondance compétence -> module à revoir (recommandation, jamais un verrouillage)
+  const SKILL_MODULE = {
+    lettres: { module: "Module 1", href: "module1.html" },
+    harakatMadd: { module: "Module 2", href: "module2.html" },
+    reglesLecture: { module: "Module 4", href: "module4.html" },
+    mots: { module: "Module 6", href: "module6.html" },
+    nomVerbe: { module: "Module 10", href: "module10.html" },
+    phraseType: { module: "Module 9", href: "module9.html" },
+    comprehension: { module: "Module 6", href: "module6.html" },
+    coran: { module: "Module 12", href: "module12.html" }
+  };
+
+  /* ============================================================
+     TEXTES — FR / ES
+     ============================================================ */
+  const TEXT = {
+    fr: {
+      brandBanner: "Test final",
+      welcomeText: "Bienvenue ! Ce test final évalue ce que tu as appris pendant les 12 modules. Il dure environ 20 à 30 minutes.",
+      introNote: "50 questions réparties en 8 compétences. Prends ton temps, chaque étape compte.",
+      startTest: "Commencer le test final",
+      listenAria: "Écouter",
+      questionWord: "Question",
+      sectionLabels: { lettres: "Lettres", harakatMadd: "Harakāt & Madd", reglesLecture: "Règles de lecture", mots: "Mots", nomVerbe: "Nom / Verbe", phraseType: "Type de phrase", comprehension: "Compréhension", coran: "Coran" },
+      instructions: {
+        lettres: () => "Retrouve la bonne lettre.",
+        harakatMadd: () => "Écoute bien… quelle est la bonne réponse ?",
+        reglesLecture: () => "Applique la règle apprise.",
+        mots: () => "Que veut dire ce mot ?",
+        nomVerbe: () => "Ce mot est-il un nom ou un verbe ?",
+        phraseType: () => "Cette phrase est-elle nominale ou verbale ?",
+        comprehension: () => "Que veut dire cette phrase ?",
+        coran: () => "Quelle āya complète correctement ce passage ?"
+      },
+      nomVerbeOptions: { nom: "Nom", verbe: "Verbe" },
+      phraseTypeOptions: { nominale: "Phrase nominale", verbale: "Phrase verbale" },
+      encouragements: ["Très bien, continue !", "Tu avances bien.", "Encore quelques étapes !", "Bravo, tu progresses !"],
+      openingPass: "Mabrouk ! Ton certificat final Dar Al-Kalimah est débloqué.",
+      openingWorkInProgress: "Ton parcours a déjà porté ses fruits. Certaines compétences méritent encore d'être consolidées avant de valider ton certificat final.",
+      scoresDetail: "Détail des scores",
+      scoreTotal: "Score total",
+      acquiredTitle: "Acquis",
+      consolidateTitle: "À consolider",
+      certUnlockedTitle: "Certificat final débloqué",
+      certUnlockedText: "Score global ≥ 80 % et toutes les compétences maîtrisées à au moins 50 %. Félicitations !",
+      certLockedTitle: "Certificat non débloqué pour cette tentative",
+      certLockedText: "Revois les compétences à consolider ci-dessous, puis repasse le test quand tu es prêt(e). Ta tentative est conservée dans ton historique.",
+      seeCert: "Voir mon certificat",
+      seeCertNotReady: "Le certificat final Dar Al-Kalimah sera bientôt disponible ici.",
+      retry: "Repasser le test",
+      backHome: "Retour à l'accueil",
+      compareTitle: "Test initial → Test final",
+      compareNote: "Les deux tests n'ont ni le même nombre de questions ni le même niveau de difficulté : cette comparaison porte uniquement sur les compétences communes, en pourcentage.",
+      newSkillsPrefix: "Compétences acquises en fin de parcours : ",
+      joinWord: " et ",
+      who: "te",
+      recommendationTemplate: (module) => `Pour consolider tes acquis, nous te recommandons de revoir le <strong>${module}</strong>.`,
+      recommendationAllGood: "Toutes tes compétences sont déjà bien maîtrisées — continue ainsi !"
+    },
+    es: {
+      brandBanner: "Prueba final",
+      welcomeText: "¡Bienvenido(a)! Esta prueba final evalúa lo que has aprendido durante los 12 módulos. Dura entre 20 y 30 minutos.",
+      introNote: "50 preguntas repartidas en 8 competencias. Tómate tu tiempo, cada paso cuenta.",
+      startTest: "Empezar la prueba final",
+      listenAria: "Escuchar",
+      questionWord: "Pregunta",
+      sectionLabels: { lettres: "Letras", harakatMadd: "Harakat y Madd", reglesLecture: "Reglas de lectura", mots: "Palabras", nomVerbe: "Nombre / Verbo", phraseType: "Tipo de oración", comprehension: "Comprensión", coran: "Corán" },
+      instructions: {
+        lettres: () => "Encuentra la letra correcta.",
+        harakatMadd: () => "Escucha bien… ¿cuál es la respuesta correcta?",
+        reglesLecture: () => "Aplica la regla aprendida.",
+        mots: () => "¿Qué significa esta palabra?",
+        nomVerbe: () => "¿Esta palabra es un nombre o un verbo?",
+        phraseType: () => "¿Esta oración es nominal o verbal?",
+        comprehension: () => "¿Qué significa esta frase?",
+        coran: () => "¿Qué āya completa correctamente este pasaje?"
+      },
+      nomVerbeOptions: { nom: "Nombre", verbe: "Verbo" },
+      phraseTypeOptions: { nominale: "Oración nominal", verbale: "Oración verbal" },
+      encouragements: ["¡Muy bien, sigue así!", "Vas muy bien.", "¡Unos pasos más!", "¡Genial, estás progresando!"],
+      openingPass: "¡Mabrouk! Tu certificado final Dar Al-Kalimah está desbloqueado.",
+      openingWorkInProgress: "Tu recorrido ya ha dado sus frutos. Algunas competencias todavía merecen consolidarse antes de validar tu certificado final.",
+      scoresDetail: "Detalle de puntuaciones",
+      scoreTotal: "Puntuación total",
+      acquiredTitle: "Dominado",
+      consolidateTitle: "A reforzar",
+      certUnlockedTitle: "Certificado final desbloqueado",
+      certUnlockedText: "Puntuación global ≥ 80 % y todas las competencias dominadas al menos al 50 %. ¡Felicidades!",
+      certLockedTitle: "Certificado no desbloqueado en este intento",
+      certLockedText: "Repasa las competencias a reforzar abajo, luego vuelve a hacer la prueba cuando estés listo(a). Tu intento queda guardado en tu historial.",
+      seeCert: "Ver mi certificado",
+      seeCertNotReady: "El certificado final Dar Al-Kalimah estará disponible aquí próximamente.",
+      retry: "Repetir la prueba",
+      backHome: "Volver al inicio",
+      compareTitle: "Prueba inicial → Prueba final",
+      compareNote: "Las dos pruebas no tienen ni el mismo número de preguntas ni el mismo nivel de dificultad: esta comparación solo cubre las competencias comunes, en porcentaje.",
+      newSkillsPrefix: "Competencias adquiridas al final del recorrido: ",
+      joinWord: " y ",
+      who: "te",
+      recommendationTemplate: (module) => `Para consolidar tus logros, te recomendamos repasar el <strong>${module}</strong>.`,
+      recommendationAllGood: "Todas tus competencias ya están bien dominadas — ¡sigue así!"
+    }
+  };
+
+  /* ============================================================
+     ÉTAT
+     ============================================================ */
+  const state = {
+    lang: "fr",
+    order: [],
+    current: 0,
+    answers: [],
+    startTime: null
+  };
+
+  SECTION_ORDER.forEach((section) => {
+    QUESTIONS[section].forEach((_, i) => state.order.push({ section, index: i }));
+  });
+
+  const $ = (id) => document.getElementById(id);
+  const views = { mode: $("view-mode"), question: $("view-question"), results: $("view-results") };
+
+  function showView(name) {
+    Object.values(views).forEach((v) => v.classList.remove("active"));
+    views[name].classList.add("active");
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function joinList(list) {
+    const t = TEXT[state.lang];
+    if (list.length === 0) return "";
+    if (list.length === 1) return capitalize(list[0]) + ".";
+    const head = list.slice(0, -1).join(", ");
+    return capitalize(head) + t.joinWord + list[list.length - 1] + ".";
+  }
+
+  function applyStaticTexts() {
+    const t = TEXT[state.lang];
+    document.documentElement.lang = state.lang;
+    $("brand-banner-text").textContent = t.brandBanner;
+    $("mode-sub").textContent = t.welcomeText;
+    $("intro-note").textContent = t.introNote;
+    $("btn-start-test").textContent = t.startTest;
+    $("scores-title-text").textContent = t.scoresDetail;
+    $("total-label-text").textContent = t.scoreTotal;
+    $("acquired-title-text").textContent = t.acquiredTitle;
+    $("consolidate-title-text").textContent = t.consolidateTitle;
+    $("btn-see-cert").textContent = t.seeCert;
+    $("btn-retry").textContent = t.retry;
+    $("home-link-text").textContent = t.backHome;
+    $("compare-title-text").textContent = t.compareTitle;
+  }
+
+  function setLang(lang) {
+    state.lang = lang;
+    $("btn-lang-fr").classList.toggle("active", lang === "fr");
+    $("btn-lang-es").classList.toggle("active", lang === "es");
+    applyStaticTexts();
+  }
+
+  $("btn-lang-fr").addEventListener("click", () => setLang("fr"));
+  $("btn-lang-es").addEventListener("click", () => setLang("es"));
+  setLang("fr");
+
+  $("btn-start-test").addEventListener("click", () => {
+    DAKAudio.unlock();
+    startTest();
+  });
+
+  function startTest() {
+    state.current = 0;
+    state.answers = [];
+    state.startTime = Date.now();
+    showView("question");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    DAKAudio.stopAll();
+    const t = TEXT[state.lang];
+    const { section, index } = state.order[state.current];
+    const raw = QUESTIONS[section][index];
+
+    $("progress-current").textContent = `${t.questionWord} ${state.current + 1} / 50`;
+    $("section-name-top").textContent = t.sectionLabels[section];
+    $("progress-fill").style.width = `${(state.current / 50) * 100}%`;
+    $("section-badge").textContent = t.sectionLabels[section];
+    $("section-icon-i").className = "fa-solid " + SECTION_ICON[section];
+    $("q-instruction").textContent = t.instructions[section]();
+
+    const content = $("q-content");
+    const grid = $("options-grid");
+    grid.classList.remove("stacked");
+    let optionClass = "opt-btn";
+    let correctValue, optionsArr;
+
+    if (section === "lettres") {
+      if (raw.type === "audio") {
+        content.innerHTML = `<div class="q-prompt-latin">${raw.latin}</div>
+          <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+        $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
+      } else if (raw.type === "visual") {
+        content.innerHTML = `<div class="q-prompt-latin">${raw.latin}</div>`;
+      } else if (raw.type === "word-initial") {
+        content.innerHTML = `<div class="q-prompt-word ar-text">${raw.word}</div>`;
+      } else if (raw.type === "word-final") {
+        content.innerHTML = `<div class="q-prompt-word ar-text">${raw.word}</div>`;
+      } else if (raw.type === "word-medial") {
+        content.innerHTML = `<div class="q-prompt-word ar-text">${raw.word}</div>`;
+      }
+      optionClass += " opt-ar";
+      correctValue = raw.correct;
+      optionsArr = raw.options;
+    } else if (section === "harakatMadd") {
+      if (raw.type === "audio") {
+        content.innerHTML = `<div class="q-prompt-latin">${raw.latin}</div>
+          <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+        $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
+      } else {
+        content.innerHTML = `<div class="q-prompt-word ar-text">${raw.correct === "بَا" ? "بَا" : ""}</div>`;
+      }
+      optionClass += " opt-ar";
+      correctValue = raw.correct;
+      optionsArr = raw.options;
+    } else if (section === "reglesLecture") {
+      if (raw.type === "audio") {
+        content.innerHTML = `<div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+        $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
+      } else {
+        content.innerHTML = `<div class="q-prompt-word ar-text">${raw.prompt}</div>`;
+      }
+      optionClass += raw.type === "rule-concept" ? "" : " opt-ar";
+      correctValue = raw.correct;
+      optionsArr = raw.options;
+    } else if (section === "mots") {
+      const loc = raw[state.lang];
+      content.innerHTML = `<div class="q-prompt-word ar-text">${raw.arabe}</div>
+        <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+      $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
+      correctValue = loc.correct;
+      optionsArr = loc.options;
+    } else if (section === "nomVerbe") {
+      content.innerHTML = `<div class="q-prompt-word ar-text">${raw.arabe}</div>`;
+      correctValue = t.nomVerbeOptions[raw.correct];
+      optionsArr = [t.nomVerbeOptions.nom, t.nomVerbeOptions.verbe];
+      grid.classList.add("stacked");
+    } else if (section === "phraseType") {
+      content.innerHTML = `<div class="q-prompt-phrase ar-text">${raw.arabe}</div>`;
+      correctValue = t.phraseTypeOptions[raw.correct];
+      optionsArr = [t.phraseTypeOptions.nominale, t.phraseTypeOptions.verbale];
+      grid.classList.add("stacked");
+    } else if (section === "comprehension") {
+      const loc = raw[state.lang];
+      content.innerHTML = `<div class="q-prompt-phrase ar-text">${raw.arabe}</div>
+        <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}">🎙️</button></div>`;
+      $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(raw.audio, e.currentTarget));
+      correctValue = loc.correct;
+      optionsArr = loc.options;
+    } else if (section === "coran") {
+      content.innerHTML = `<div class="q-prompt-passage ar-text">${raw.before}<br><span class="q-blank">············</span><br>${raw.after}</div>`;
+      optionClass += " opt-ar";
+      correctValue = raw.correct;
+      optionsArr = raw.options;
+      grid.classList.add("stacked");
+    }
+
+    const shuffledOptions = shuffle(optionsArr);
+    grid.innerHTML = "";
+    shuffledOptions.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = optionClass;
+      btn.textContent = opt;
+      btn.addEventListener("click", () => handleAnswer(opt === correctValue, btn, correctValue));
+      grid.appendChild(btn);
+    });
+  }
+
+  function showEncouragement(next) {
+    const t = TEXT[state.lang];
+    const msg = t.encouragements[Math.floor(Math.random() * t.encouragements.length)];
+    $("q-content").innerHTML = `<div class="encouragement-msg"><i class="fa-solid fa-star"></i><span>${msg}</span></div>`;
+    $("q-instruction").textContent = "";
+    $("options-grid").innerHTML = "";
+    setTimeout(next, 1200);
+  }
+
+  let answering = false;
+  function handleAnswer(isCorrect, btnEl, correctText) {
+    if (answering) return;
+    answering = true;
+
+    const { section } = state.order[state.current];
+    state.answers.push({ section, correct: isCorrect });
+
+    const allBtns = document.querySelectorAll("#options-grid .opt-btn");
+    allBtns.forEach((b) => {
+      b.disabled = true;
+      if (b.textContent === correctText) b.classList.add("correct");
+    });
+    if (!isCorrect) btnEl.classList.add("wrong");
+
+    setTimeout(() => {
+      answering = false;
+      if (state.current < 49) {
+        const prevSection = state.order[state.current].section;
+        state.current++;
+        const nextSection = state.order[state.current].section;
+        if (nextSection !== prevSection) {
+          showEncouragement(renderQuestion);
+        } else {
+          renderQuestion();
+        }
+      } else {
+        finishTest();
+      }
+    }, 900);
+  }
+
+  function buildSkillLists(scores) {
+    const acquired = [];
+    const consolidate = [];
+    SECTION_ORDER.forEach((section) => {
+      const t = TEXT[state.lang];
+      const label = t.sectionLabels[section];
+      if (scores[section] >= SECTION_THRESHOLD[section]) acquired.push(label);
+      else consolidate.push(label);
+    });
+    return { acquired, consolidate };
+  }
+
+  let finishing = false;
+  function finishTest() {
+    if (finishing) return;
+    finishing = true;
+    DAKAudio.stopAll();
+    const t = TEXT[state.lang];
+
+    const scores = {};
+    SECTION_ORDER.forEach((s) => scores[s] = 0);
+    state.answers.forEach((a) => { if (a.correct) scores[a.section]++; });
+
+    const total = SECTION_ORDER.reduce((sum, s) => sum + scores[s], 0);
+    const pct = Math.round((total / 50) * 100);
+
+    const globalPass = total >= Math.ceil(50 * GLOBAL_PASS_RATIO);
+    const allThresholdsMet = SECTION_ORDER.every((s) => scores[s] >= SECTION_THRESHOLD[s]);
+    const reussite = globalPass && allThresholdsMet;
+
+    const { acquired, consolidate } = buildSkillLists(scores);
+
+    $("result-message").textContent = reussite ? t.openingPass : t.openingWorkInProgress;
+    $("result-sub").textContent = "";
+
+    const certBlock = $("cert-status");
+    certBlock.className = "cert-status " + (reussite ? "unlocked" : "locked");
+    $("cert-status-title").textContent = reussite ? t.certUnlockedTitle : t.certLockedTitle;
+    $("cert-status-text").textContent = reussite ? t.certUnlockedText : t.certLockedText;
+
+    const acquiredBlock = $("result-acquired-block");
+    if (acquired.length > 0) {
+      acquiredBlock.style.display = "";
+      $("result-acquired-text").textContent = joinList(acquired);
+    } else {
+      acquiredBlock.style.display = "none";
+    }
+    const consolidateBlock = $("result-consolidate-block");
+    if (consolidate.length > 0) {
+      consolidateBlock.style.display = "";
+      $("result-consolidate-text").textContent = joinList(consolidate);
+    } else {
+      consolidateBlock.style.display = "none";
+    }
+
+    const breakdown = $("breakdown");
+    breakdown.innerHTML = "";
+    SECTION_ORDER.forEach((section) => {
+      const score = scores[section];
+      const outOf = SECTION_TOTAL[section];
+      const below = score < SECTION_THRESHOLD[section];
+      const row = document.createElement("div");
+      row.className = "breakdown-row";
+      row.innerHTML = `
+        <div class="breakdown-label">${t.sectionLabels[section]}</div>
+        <div class="breakdown-bar"><div class="breakdown-bar-fill${below ? " below" : ""}" style="width:${(score/outOf)*100}%"></div></div>
+        <div class="breakdown-score">${score} / ${outOf}</div>`;
+      breakdown.appendChild(row);
+    });
+
+    $("result-total-score").textContent = `${total} / 50`;
+    $("result-total-pct").textContent = `(${pct} %)`;
+
+    // Recommandation : le premier maillon faible rencontré dans l'ordre pédagogique
+    const weak = SECTION_ORDER.find((s) => scores[s] < SECTION_THRESHOLD[s]);
+    if (weak) {
+      $("recommendation-line").innerHTML = t.recommendationTemplate(SKILL_MODULE[weak].module);
+    } else {
+      $("recommendation-line").textContent = t.recommendationAllGood;
+    }
+
+    // Confettis + son Mabrouk — systématiques à l'arrivée sur le résultat, comme le test de positionnement.
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 60, spread: 60, startVelocity: 32, ticks: 160, origin: { y: 0.55 }, colors: ["#C8A462", "#5D1828", "#dfc28b"] });
+    }
+    DAKAudio.playEffect("mabruk.mp3");
+
+    $("btn-see-cert").disabled = !reussite;
+    $("cert-hint").classList.toggle("show", !reussite);
+    if (!reussite) {
+      $("cert-hint").textContent = state.lang === "es" ? "Disponible una vez desbloqueado el certificado." : "Disponible une fois le certificat débloqué.";
+    }
+
+    showView("results");
+    compareWithInitialTest(scores, total, pct);
+    saveResult(scores, total, pct, reussite, weak ? SKILL_MODULE[weak].module : null);
+  }
+
+  $("btn-see-cert").addEventListener("click", () => {
+    if ($("btn-see-cert").disabled) return;
+    const t = TEXT[state.lang];
+    $("cert-hint").textContent = t.seeCertNotReady;
+    $("cert-hint").classList.add("show");
+  });
+
+  $("btn-retry").addEventListener("click", () => {
+    showView("mode");
+  });
+
+  /* ============================================================
+     COMPARAISON AVEC LE TEST INITIAL (testPositionnement)
+     Compétences communes comparées en pourcentage uniquement
+     (dénominateurs différents). Le reste = nouvelles compétences.
+     ============================================================ */
+  async function compareWithInitialTest(scores, total, pct) {
+    try {
+      const { getApps, initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+      const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      const { getFirestore, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      const cfg = {
+        apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ", authDomain: "dar-al-kalimah.firebaseapp.com",
+        projectId: "dar-al-kalimah", storageBucket: "dar-al-kalimah.firebasestorage.app",
+        messagingSenderId: "472629258", appId: "1:472629258:web:29b755d38efe89421f1ff3"
+      };
+      const app = getApps().length ? getApps()[0] : initializeApp(cfg);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const snap = await getDoc(doc(db, "eleves", user.uid));
+      if (!snap.exists() || !snap.data().testPositionnement) return;
+      const init = snap.data().testPositionnement;
+      const t = TEXT[state.lang];
+
+      const rows = [];
+      // Lettres : initial /12, final /8
+      if (typeof init.lettres === "number") {
+        rows.push({ label: t.sectionLabels.lettres, initPct: Math.round((init.lettres/12)*100), finalPct: Math.round((scores.lettres/8)*100) });
+      }
+      // Harakat : initial /8 (harakat seul), final /7 (harakat+madd) — comparaison indicative
+      if (typeof init.harakat === "number") {
+        rows.push({ label: t.sectionLabels.harakatMadd, initPct: Math.round((init.harakat/8)*100), finalPct: Math.round((scores.harakatMadd/7)*100) });
+      }
+      // Mots : initial /6, final /5
+      if (typeof init.mots === "number") {
+        rows.push({ label: t.sectionLabels.mots, initPct: Math.round((init.mots/6)*100), finalPct: Math.round((scores.mots/5)*100) });
+      }
+
+      if (rows.length > 0) {
+        const initTotal = typeof init.scoreTotal === "number" ? init.scoreTotal : null;
+        const container = $("compare-rows");
+        container.innerHTML = "";
+        if (initTotal !== null) {
+          const gRow = document.createElement("div");
+          gRow.className = "compare-row";
+          gRow.innerHTML = `<span class="compare-label">${t.scoreTotal}</span><span class="compare-values">${initTotal}/30 → ${total}/50</span>`;
+          container.appendChild(gRow);
+        }
+        rows.forEach((r) => {
+          const row = document.createElement("div");
+          row.className = "compare-row";
+          row.innerHTML = `<span class="compare-label">${r.label}</span><span class="compare-values">${r.initPct}% → ${r.finalPct}%</span>`;
+          container.appendChild(row);
+        });
+        $("compare-note-text").textContent = t.compareNote;
+        $("compare-block").style.display = "flex";
+        $("compare-block").style.flexDirection = "column";
+      }
+
+      const newSkills = [t.sectionLabels.reglesLecture, t.sectionLabels.nomVerbe, t.sectionLabels.phraseType, t.sectionLabels.comprehension, t.sectionLabels.coran];
+      $("new-skills-line").innerHTML = `<strong>${t.newSkillsPrefix}</strong>${newSkills.join(", ")}.`;
+    } catch (e) {
+      console.error("Erreur comparaison test initial:", e);
+    }
+  }
+
+  /* ============================================================
+     FIREBASE — historique des tentatives du test final.
+     Collection dédiée "testsFinaux" (append-only, comme "resultats"
+     déjà utilisé par tracker.js) : chaque tentative est conservée,
+     jamais écrasée. testPositionnement n'est jamais modifié.
+     ============================================================ */
+  async function saveResult(scores, total, pct, reussite, moduleRecommande) {
+    try {
+      const { getApps, initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+      const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      const { getFirestore, doc, setDoc, addDoc, collection, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      const cfg = {
+        apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ", authDomain: "dar-al-kalimah.firebaseapp.com",
+        projectId: "dar-al-kalimah", storageBucket: "dar-al-kalimah.firebasestorage.app",
+        messagingSenderId: "472629258", appId: "1:472629258:web:29b755d38efe89421f1ff3"
+      };
+      const app = getApps().length ? getApps()[0] : initializeApp(cfg);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const dureeSecondes = Math.round((Date.now() - state.startTime) / 1000);
+
+      await addDoc(collection(db, "testsFinaux"), {
+        eleveId: user.uid,
+        langue: state.lang,
+        lettres: scores.lettres,
+        harakatMadd: scores.harakatMadd,
+        reglesLecture: scores.reglesLecture,
+        mots: scores.mots,
+        nomVerbe: scores.nomVerbe,
+        phraseType: scores.phraseType,
+        comprehension: scores.comprehension,
+        coran: scores.coran,
+        scoreTotal: total,
+        totalQuestions: 50,
+        pourcentage: pct,
+        reussite: reussite,
+        certificatDebloque: reussite,
+        moduleRecommande: moduleRecommande,
+        dureeSecondes: dureeSecondes,
+        date: serverTimestamp()
+      });
+
+      // Ne jamais repasser certificatFinalDebloque a false : une reussite anterieure reste acquise.
+      if (reussite) {
+        await setDoc(doc(db, "eleves", user.uid), { certificatFinalDebloque: true }, { merge: true });
+      }
+
+      if (window.DAK_enregistrerScore) {
+        window.DAK_enregistrerScore({ module: "Test final", quiz: "Test final Dar Al-Kalimah", score: total, total: 50 });
+      }
+    } catch (e) {
+      console.error("Erreur enregistrement test final:", e);
+    }
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) DAKAudio.stopAll();
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>
