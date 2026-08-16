@@ -363,15 +363,16 @@
       { latin: "SHIN",  correct: "ش", options: ["ش", "س", "ص", "ض"] },
       { latin: "AYN",   correct: "ع", options: ["ع", "غ", "ح", "خ"] }
     ],
+    // audio: chemins reels, verifies presents sur le disque et deja utilises en production (lecon2.html)
     harakat: [
-      { latin: "BA",  correct: "بَ", options: ["بَ", "بِ", "بُ", "تَ"] },
-      { latin: "BI",  correct: "بِ", options: ["بِ", "بَ", "بُ", "نِ"] },
-      { latin: "BOU", correct: "بُ", options: ["بُ", "بِ", "بَ", "تُ"] },
-      { latin: "TA",  correct: "تَ", options: ["تَ", "تِ", "تُ", "ثَ"] },
-      { latin: "TI",  correct: "تِ", options: ["تِ", "تَ", "تُ", "نِ"] },
-      { latin: "SA",  correct: "سَ", options: ["سَ", "سِ", "سُ", "شَ"] },
-      { latin: "MOU", correct: "مُ", options: ["مُ", "مِ", "مَ", "نُ"] },
-      { latin: "LI",  correct: "لِ", options: ["لِ", "لَ", "لُ", "كِ"] }
+      { latin: "BA",  correct: "بَ", audio: "audio/harakat/baa-fathah.mp3",  options: ["بَ", "بِ", "بُ", "تَ"] },
+      { latin: "BI",  correct: "بِ", audio: "audio/harakat/baa-kasrah.mp3",  options: ["بِ", "بَ", "بُ", "نِ"] },
+      { latin: "BOU", correct: "بُ", audio: "audio/harakat/baa-dammah.mp3",  options: ["بُ", "بِ", "بَ", "تُ"] },
+      { latin: "TA",  correct: "تَ", audio: "audio/harakat/taa-fathah.mp3",  options: ["تَ", "تِ", "تُ", "ثَ"] },
+      { latin: "TI",  correct: "تِ", audio: "audio/harakat/taa-kasrah.mp3",  options: ["تِ", "تَ", "تُ", "نِ"] },
+      { latin: "SA",  correct: "سَ", audio: "audio/harakat/siin-fathah.mp3", options: ["سَ", "سِ", "سُ", "شَ"] },
+      { latin: "MOU", correct: "مُ", audio: "audio/harakat/miim-dammah.mp3", options: ["مُ", "مِ", "مَ", "نُ"] },
+      { latin: "LI",  correct: "لِ", audio: "audio/harakat/laam-kasrah.mp3", options: ["لِ", "لَ", "لُ", "كِ"] }
     ],
     // audio: chemins réellement présents sur le disque et déjà utilisés par la Banque (database.js)
     mots: [
@@ -612,9 +613,15 @@
     const grid = $("options-grid");
     let optionClass = "opt-btn";
 
-    if (section === "lettres" || section === "harakat") {
+    if (section === "lettres") {
       content.innerHTML = `<div class="q-prompt-latin">${q.latin}</div>`;
       optionClass += " opt-ar";
+    } else if (section === "harakat") {
+      content.innerHTML = `
+        <div class="q-prompt-latin">${q.latin}</div>
+        <div class="q-audio-row"><button class="q-audio-btn" id="q-audio-btn" type="button" aria-label="${t.listenAria}"><i class="fa-solid fa-volume-high"></i></button></div>`;
+      optionClass += " opt-ar";
+      $("q-audio-btn").addEventListener("click", (e) => DAKAudio.play(q.audio, e.currentTarget));
     } else if (section === "mots") {
       content.innerHTML = `
         <div class="q-prompt-word ar-text">${q.arabe}</div>
