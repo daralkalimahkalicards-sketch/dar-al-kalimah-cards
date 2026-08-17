@@ -376,12 +376,12 @@
         .option-card {
             background: var(--white);
             border: 2px solid var(--gold-light);
-            border-radius: 16px;
-            aspect-ratio: 1.2;
+            border-radius: 18px;
+            aspect-ratio: 1.8;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 4.5rem;
+            font-size: 3.2rem;
             color: var(--burgundy);
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -520,7 +520,7 @@
             .menu-container,
             .quiz-container { padding: 40px 20px; }
 
-            .option-card { font-size: 4rem; }
+            .option-card { font-size: 2.8rem; }
             .diploma-paper { padding: 30px 20px; }
         }
 
@@ -528,12 +528,16 @@
             .menu-container .brand-ar { font-size: 3rem; }
             .menu-container .app-title { font-size: 1.3rem; }
             .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; }
-            .option-card { font-size: 3.5rem; aspect-ratio: 1.1; }
+            .option-card { font-size: 2.4rem; aspect-ratio: 1.5; }
             .cert-ar { font-size: 3.5rem; }
             .cert-title { font-size: 1.5rem; }
             .cert-name { font-size: 2.5rem; }
             .cert-actions { flex-direction: column; width: 100%; max-width: 300px; }
             .btn-main, .btn-secondary { width: 100%; text-align: center; }
+        }
+
+        @media (max-width: 360px) {
+            .option-card { font-size: 2rem; }
         }
 
         @media print {
