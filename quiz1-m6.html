@@ -104,10 +104,10 @@
     .btn-audio:active{transform:scale(0.95);}
 
     /* ── OPTIONS ── */
-    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;position:relative;z-index:1;}
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;width:100%;position:relative;z-index:1;}
     .option-card{
       background:var(--white);border:2px solid var(--gold-light);border-radius:var(--radius-md);
-      min-height:120px;padding:16px 12px;
+      aspect-ratio:1.8;padding:16px 12px;
       display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
       cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.05);transition:var(--transition);user-select:none;
     }
@@ -117,7 +117,7 @@
     .option-card.wrong{border:3px solid var(--error-border)!important;background-color:var(--error-red);animation:shake 0.4s;pointer-events:none;opacity:0.75;}
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
 
-    .opt-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(2rem,7vw,3rem);color:var(--burgundy);font-weight:700;line-height:1.2;text-align:center;}
+    .opt-ar{font-family:"Amiri",serif;direction:rtl;font-size:3.2rem;color:var(--burgundy);font-weight:700;line-height:1.2;text-align:center;}
     .opt-hint{font-size:0.62rem;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;text-align:center;}
 
     /* ── CERTIFICAT ── */
@@ -136,14 +136,20 @@
     .cert-icon{position:absolute;bottom:-25px;left:50%;transform:translateX(-50%);font-size:1.8rem;color:var(--gold);background:var(--bg-beige);border-radius:50%;padding:8px 10px;}
     .cert-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;width:100%;}
 
+    @media(max-width:768px){
+      .opt-ar{font-size:2.8rem;}
+    }
     @media(max-width:480px){
       body{padding:14px;}
       .menu-container,.quiz-container{padding:46px 18px 30px;}
       .btn-house{top:14px;right:14px;font-size:1.4rem;}
-      .opt-ar{font-size:clamp(1.8rem,8vw,2.5rem);}
-      .option-card{min-height:100px;}
+      .opt-ar{font-size:2.4rem;}
+      .option-card{aspect-ratio:1.5;}
       .cert-actions{flex-direction:column;max-width:300px;margin:0 auto;}
       .btn-main,.btn-secondary{width:100%;}
+    }
+    @media(max-width:360px){
+      .opt-ar{font-size:2rem;}
     }
     @media print{
       body *{visibility:hidden;}
