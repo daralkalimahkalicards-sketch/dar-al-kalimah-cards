@@ -71,6 +71,8 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 /* Évaluations (test de positionnement + test final) par élève */
 .btn-eval { background: rgba(200,164,98,0.15); border: 1px solid var(--gold); color: var(--burgundy); padding: 6px 14px; border-radius: 50px; font-size: 0.78rem; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; }
 .btn-eval:hover { background: rgba(200,164,98,0.3); }
+.btn-delete { background: rgba(93,24,40,0.06); border: 1px solid rgba(93,24,40,0.2); color: var(--burgundy); width: 28px; height: 28px; border-radius: 50%; font-size: 0.8rem; line-height: 1; cursor: pointer; font-family: 'Montserrat', sans-serif; flex-shrink: 0; }
+.btn-delete:hover { background: var(--burgundy); border-color: var(--burgundy); color: var(--white); }
 .eval-detail-row td { background: var(--bg); padding: 0; border-bottom: 1px solid rgba(93,24,40,0.06); }
 .eval-detail { padding: 20px 24px; }
 .eval-block { margin-bottom: 18px; }
@@ -84,8 +86,8 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .eval-empty { font-size: 0.82rem; color: rgba(93,24,40,0.4); font-style: italic; }
 @media (max-width: 768px) {
   .eval-row { flex-direction: column; gap: 2px; }
-  /* Le tableau elèves defile horizontalement sur mobile (8 colonnes) ; sans ce correctif,
-     le detail Evaluations (colspan="8") heritait de cette meme largeur et devenait illisible
+  /* Le tableau elèves defile horizontalement sur mobile (9 colonnes) ; sans ce correctif,
+     le detail Evaluations (colspan="9") heritait de cette meme largeur et devenait illisible
      sans defiler lateralement. On l'epingle au bord gauche visible du conteneur qui defile. */
   .eval-detail-row td { position: sticky; left: 0; }
   .eval-detail { width: calc(100vw - 32px); max-width: 420px; }
@@ -141,8 +143,8 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     <div class="section-title">👥 Élèves</div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th><th>Évaluations</th></tr></thead>
-        <tbody id="eleves-tbody"><tr><td colspan="8" class="loading">Chargement...</td></tr></tbody>
+        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th><th>Évaluations</th><th></th></tr></thead>
+        <tbody id="eleves-tbody"><tr><td colspan="9" class="loading">Chargement...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -164,7 +166,7 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, query, orderBy, limit, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, limit, onSnapshot, getDocs, doc, deleteDoc, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const EMAILS_PROF = ["sunfertity2080@gmail.com"];
 
@@ -248,6 +250,11 @@ function tsToMs(ts) {
 }
 
 async function chargerDonnees() {
+  // Nettoyage des listeners temps réel existants (chargerDonnees est rappelée après
+  // suppression d'un élève) pour ne pas les empiler.
+  if (unsubResults) { unsubResults(); unsubResults = null; }
+  if (unsubLecons)  { unsubLecons();  unsubLecons  = null; }
+
   // Élèves — snapshot unique
   const elevesSnap = await getDocs(collection(db, 'eleves'));
   const eleves = [];
@@ -303,7 +310,7 @@ function afficherResultats(resultats, eleves) {
   // Tableau élèves — ajout colonne leçons (placeholder —)
   const tbody = document.getElementById('eleves-tbody');
   if (eleves.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" class="empty">Aucun élève inscrit</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="9" class="empty">Aucun élève inscrit</td></tr>';
   } else {
     tbody.innerHTML = eleves.map(e => {
       const er = resultats.filter(r => r.eleveId === e.id);
@@ -317,9 +324,10 @@ function afficherResultats(resultats, eleves) {
         <td id="lecons-eleve-${e.id}">—</td>
         <td>${me!==null?badgeScore(me):'—'}</td>
         <td><button class="btn-eval" onclick="toggleEval('${e.id}')">Voir</button></td>
+        <td><button class="btn-delete" onclick="deleteEleve('${e.id}')" title="Supprimer cet élève">✕</button></td>
       </tr>
       <tr class="eval-detail-row" id="eval-row-${e.id}" style="display:none">
-        <td colspan="8"><div class="eval-detail" id="eval-detail-${e.id}"></div></td>
+        <td colspan="9"><div class="eval-detail" id="eval-detail-${e.id}"></div></td>
       </tr>`;
     }).join('');
   }
@@ -340,6 +348,7 @@ function afficherResultats(resultats, eleves) {
           ${badgeScore(r.pourcentage||0)}
           <div class="result-date">${formatHeure(r.date)}</div>
         </div>
+        <button class="btn-delete" onclick="deleteResultat('${r.id}')" title="Supprimer ce résultat">✕</button>
       </div>`).join('');
   }
 }
@@ -373,6 +382,7 @@ function afficherLecons(lecons, eleves) {
         <span class="badge badge-blue">✅ terminée</span>
         <div class="result-date">${formatHeure(l.date)}</div>
       </div>
+      <button class="btn-delete" onclick="deleteLecon('${l.id}')" title="Supprimer cette leçon">✕</button>
     </div>`).join('');
 }
 
@@ -389,9 +399,48 @@ window.toggleEval = (uid) => {
   }
   row.style.display = 'table-row';
   // Remet le tableau au bord gauche : sur mobile le tableau defile horizontalement
-  // (8 colonnes), et le detail Evaluations doit rester lisible sans avoir a defiler.
+  // (9 colonnes), et le detail Evaluations doit rester lisible sans avoir a defiler.
   const tableWrap = document.querySelector('.table-wrap');
   if (tableWrap) tableWrap.scrollLeft = 0;
+};
+
+// Suppression d'un élève : purge en cascade ses documents liés (resultats/lecons/testsFinaux)
+// avant de supprimer sa fiche eleves, pour vraiment libérer de la place.
+window.deleteEleve = async (id) => {
+  const eleve = window._elevesById[id];
+  const nom = eleve ? (eleve.nom || eleve.email || 'cet élève') : 'cet élève';
+  if (!confirm(`Supprimer définitivement ${nom} et toutes ses données (résultats, leçons, évaluations) ?`)) return;
+  try {
+    for (const col of ['resultats', 'lecons', 'testsFinaux']) {
+      const q = query(collection(db, col), where('eleveId', '==', id));
+      const snap = await getDocs(q);
+      for (const d of snap.docs) {
+        await deleteDoc(doc(db, col, d.id));
+      }
+    }
+    await deleteDoc(doc(db, 'eleves', id));
+    chargerDonnees();
+  } catch(e) {
+    alert('Erreur lors de la suppression : ' + e.message);
+  }
+};
+
+window.deleteResultat = async (id) => {
+  if (!confirm('Supprimer ce résultat de quiz ?')) return;
+  try {
+    await deleteDoc(doc(db, 'resultats', id));
+  } catch(e) {
+    alert('Erreur lors de la suppression : ' + e.message);
+  }
+};
+
+window.deleteLecon = async (id) => {
+  if (!confirm('Supprimer cette leçon terminée ?')) return;
+  try {
+    await deleteDoc(doc(db, 'lecons', id));
+  } catch(e) {
+    alert('Erreur lors de la suppression : ' + e.message);
+  }
 };
 
 // Affiche test de positionnement + test final + progression pour un élève, dans le dashboard prof.
