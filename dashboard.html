@@ -73,6 +73,14 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .btn-eval:hover { background: rgba(200,164,98,0.3); }
 .btn-delete { background: rgba(93,24,40,0.06); border: 1px solid rgba(93,24,40,0.2); color: var(--burgundy); width: 28px; height: 28px; border-radius: 50%; font-size: 0.8rem; line-height: 1; cursor: pointer; font-family: 'Montserrat', sans-serif; flex-shrink: 0; }
 .btn-delete:hover { background: var(--burgundy); border-color: var(--burgundy); color: var(--white); }
+
+.confirm-overlay { position: fixed; inset: 0; background: rgba(58,15,26,0.55); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
+.confirm-box { background: var(--white); border-radius: 16px; padding: 30px 28px; width: 340px; max-width: 100%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.25); border: 1px solid rgba(200,164,98,0.3); }
+.confirm-box p { font-size: 0.92rem; color: var(--burgundy); line-height: 1.5; margin-bottom: 22px; }
+.confirm-actions { display: flex; gap: 12px; justify-content: center; }
+.confirm-actions .btn-logout { color: rgba(93,24,40,0.6); border-color: rgba(93,24,40,0.25); background: transparent; }
+.btn-confirm-delete { background: var(--burgundy); color: var(--white); border: 1px solid var(--burgundy); padding: 8px 22px; border-radius: 50px; cursor: pointer; font-size: 0.8rem; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+.btn-confirm-delete:hover { background: #3d0f1a; }
 .eval-detail-row td { background: var(--bg); padding: 0; border-bottom: 1px solid rgba(93,24,40,0.06); }
 .eval-detail { padding: 20px 24px; }
 .eval-block { margin-bottom: 18px; }
@@ -161,6 +169,19 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     <div class="results-grid" id="lecons-grid"><div class="loading">Chargement...</div></div>
   </div>
 
+</div>
+
+<!-- Confirmation de suppression maison — window.confirm() ne s'affiche pas dans la PWA
+     installée en mode standalone (limitation connue d'Android/Chrome), donc on ne peut
+     pas s'appuyer dessus pour les actions de suppression. -->
+<div class="confirm-overlay" id="confirm-overlay" style="display:none">
+  <div class="confirm-box">
+    <p id="confirm-message"></p>
+    <div class="confirm-actions">
+      <button class="btn-logout" id="confirm-cancel">Annuler</button>
+      <button class="btn-confirm-delete" id="confirm-ok">Supprimer</button>
+    </div>
+  </div>
 </div>
 
 <script type="module">
@@ -404,12 +425,34 @@ window.toggleEval = (uid) => {
   if (tableWrap) tableWrap.scrollLeft = 0;
 };
 
+// Confirmation maison (remplace window.confirm, invisible dans la PWA installée en
+// mode standalone) : retourne une Promise<boolean>, resolue au clic sur un des 2 boutons.
+function askConfirm(message) {
+  return new Promise((resolve) => {
+    const overlay = document.getElementById('confirm-overlay');
+    document.getElementById('confirm-message').textContent = message;
+    const okBtn = document.getElementById('confirm-ok');
+    const cancelBtn = document.getElementById('confirm-cancel');
+    const finish = (result) => {
+      overlay.style.display = 'none';
+      okBtn.removeEventListener('click', onOk);
+      cancelBtn.removeEventListener('click', onCancel);
+      resolve(result);
+    };
+    const onOk = () => finish(true);
+    const onCancel = () => finish(false);
+    okBtn.addEventListener('click', onOk);
+    cancelBtn.addEventListener('click', onCancel);
+    overlay.style.display = 'flex';
+  });
+}
+
 // Suppression d'un élève : purge en cascade ses documents liés (resultats/lecons/testsFinaux)
 // avant de supprimer sa fiche eleves, pour vraiment libérer de la place.
 window.deleteEleve = async (id) => {
   const eleve = window._elevesById[id];
   const nom = eleve ? (eleve.nom || eleve.email || 'cet élève') : 'cet élève';
-  if (!confirm(`Supprimer définitivement ${nom} et toutes ses données (résultats, leçons, évaluations) ?`)) return;
+  if (!(await askConfirm(`Supprimer définitivement ${nom} et toutes ses données (résultats, leçons, évaluations) ?`))) return;
   try {
     for (const col of ['resultats', 'lecons', 'testsFinaux']) {
       const q = query(collection(db, col), where('eleveId', '==', id));
@@ -426,7 +469,7 @@ window.deleteEleve = async (id) => {
 };
 
 window.deleteResultat = async (id) => {
-  if (!confirm('Supprimer ce résultat de quiz ?')) return;
+  if (!(await askConfirm('Supprimer ce résultat de quiz ?'))) return;
   try {
     await deleteDoc(doc(db, 'resultats', id));
   } catch(e) {
@@ -435,7 +478,7 @@ window.deleteResultat = async (id) => {
 };
 
 window.deleteLecon = async (id) => {
-  if (!confirm('Supprimer cette leçon terminée ?')) return;
+  if (!(await askConfirm('Supprimer cette leçon terminée ?'))) return;
   try {
     await deleteDoc(doc(db, 'lecons', id));
   } catch(e) {
