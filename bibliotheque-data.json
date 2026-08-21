@@ -47,6 +47,30 @@
       "public": "tous",
       "icone": "fa-solid fa-pen-to-square",
       "lien": "https://daralkalimahkalicards-sketch.github.io/Workbook-daralkalimah.html/"
+    },
+    {
+      "id": "fiche-horouf-jar-icharah-fr-nl",
+      "titre_fr": "Prépositions & Démonstratifs",
+      "sous_titre_fr": "Huruf Al-Jar & Asmaa Al-Icharah (FR/NL)",
+      "titre_ar": "حُرُوفُ الجَرّ وَأَسْمَاءُ الإِشَارَة",
+      "description_fr": "Fiche illustrée des prépositions et démonstratifs arabes, pour enfant, avec bascule français / néerlandais.",
+      "description_es": "Ficha ilustrada de las preposiciones y los demostrativos árabes, disponible en francés y neerlandés.",
+      "type": "fiche",
+      "public": "enfant",
+      "icone": "fa-solid fa-language",
+      "lien": "fiches/horouf-al-jar-asmaa-al-icharah-fr-nl.html"
+    },
+    {
+      "id": "fiche-horouf-jar-icharah-fr-es",
+      "titre_fr": "Prépositions & Démonstratifs",
+      "sous_titre_fr": "Huruf Al-Jar & Asmaa Al-Icharah (FR/ES)",
+      "titre_ar": "حُرُوفُ الجَرّ وَأَسْمَاءُ الإِشَارَة",
+      "description_fr": "Fiche illustrée des prépositions et démonstratifs arabes, pour enfant, avec bascule français / espagnol.",
+      "description_es": "Ficha ilustrada de las preposiciones y los demostrativos árabes, con cambio francés / español.",
+      "type": "fiche",
+      "public": "enfant",
+      "icone": "fa-solid fa-language",
+      "lien": "fiches/horouf-al-jar-asmaa-al-icharah-fr-es.html"
     }
   ]
 }
