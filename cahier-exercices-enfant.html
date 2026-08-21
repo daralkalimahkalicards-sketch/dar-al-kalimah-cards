@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cahier d'Exercices — Version Enfant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ====================================================================
+   TOKENS
+==================================================================== */
+:root{
+  --bordeaux:#5D1828;
+  --bordeaux-dark:#3a0f19;
+  --gold:#C8A462;
+  --gold-light:#dfc28b;
+  --white:#FFFFFF;
+  --ink:#2a1810;
+  --ink-soft:#7a6552;
+  --hairline:rgba(93,24,40,0.14);
+  --ok-bg:#eef7ee;
+  --ok-border:#7fae82;
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+
+body{
+  margin:0; padding:0;
+  background:#fdfbf8;
+  color:var(--ink);
+  font-family:'Montserrat',sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding-top:var(--safe-top);
+  padding-bottom:var(--safe-bottom);
+}
+
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+    radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+}
+
+.ar-text{
+  direction:rtl; unicode-bidi:isolate;
+  font-family:'Amiri', serif;
+  font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;
+}
+
+.wrap{ max-width:960px; margin:0 auto; padding:24px 16px 70px; }
+
+.ico{
+  width:1em; height:1em; display:inline-block; vertical-align:-0.15em;
+  fill:none; stroke:currentColor; stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+.ico.filled{ fill:currentColor; stroke:none; }
+
+/* ====================================================================
+   TOP BAR (persistent, screen only)
+==================================================================== */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; padding:10px 4px 18px; flex-wrap:wrap;
+}
+.topbar .brand{
+  display:flex; align-items:center; gap:8px;
+  font-family:'Cinzel',serif; font-size:0.74rem; letter-spacing:2px;
+  text-transform:uppercase; color:var(--bordeaux); opacity:0.85;
+}
+.topbar .brand .ico{ color:var(--gold); }
+.jump-nav{ display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; }
+.jump-nav a{
+  font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.68rem;
+  color:var(--bordeaux); background:var(--white); border:1px solid var(--hairline);
+  padding:5px 9px; border-radius:999px; text-decoration:none; letter-spacing:0.3px;
+}
+.jump-nav a:hover{ border-color:var(--gold); }
+
+/* ====================================================================
+   COVER PAGE
+==================================================================== */
+.cover-page{
+  position:relative;
+  background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+  border-radius:var(--radius-xl);
+  padding:52px 30px 40px;
+  color:var(--white);
+  overflow:hidden;
+  box-shadow:0 18px 44px rgba(58,15,25,0.24);
+  text-align:center;
+}
+.cover-page::before{
+  content:""; position:absolute; inset:10px;
+  border:1px solid rgba(200,164,98,0.30); border-radius:22px; pointer-events:none;
+}
+.cover-page::after{
+  content:""; position:absolute; right:-70px; top:-70px; width:260px; height:260px;
+  border-radius:50%; background:radial-gradient(circle, rgba(200,164,98,0.22), transparent 70%);
+  pointer-events:none;
+}
+.cover-eyebrow{
+  font-family:'Cinzel',serif; font-size:0.74rem; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold-light); opacity:0.9; margin-bottom:18px;
+}
+.cover-ar{ font-size:clamp(2.2rem,7vw,3.4rem); font-weight:700; margin:6px 0 10px; }
+.cover-title{
+  font-family:'Cinzel',serif; font-weight:700; font-size:clamp(1.3rem,4vw,1.9rem);
+  color:var(--gold-light); margin:4px 0 6px;
+}
+.cover-sub{ font-size:0.95rem; color:rgba(255,255,255,0.78); max-width:520px; margin:0 auto 10px; }
+.cover-sub .es-line{ display:block; font-size:0.85rem; opacity:0.8; margin-top:3px; }
+.cover-badges{
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:20px 0 26px;
+}
+.cover-badge{
+  font-size:0.68rem; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
+  color:var(--bordeaux-dark); background:linear-gradient(120deg, var(--gold-light), var(--gold));
+  padding:6px 13px; border-radius:999px;
+}
+.cover-fields{
+  background:rgba(255,255,255,0.06); border:1px solid rgba(200,164,98,0.30);
+  border-radius:var(--radius-md); padding:18px 20px; max-width:440px; margin:0 auto;
+  display:grid; gap:14px; text-align:left;
+}
+.cover-field label{
+  display:block; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.8px;
+  color:var(--gold-light); margin-bottom:5px; font-weight:700;
+}
+.cover-field input{
+  width:100%; background:rgba(255,255,255,0.92); border:none; border-radius:10px;
+  padding:9px 12px; font-family:'Montserrat',sans-serif; font-size:0.95rem; color:var(--ink);
+}
+.cover-field input:focus{ outline:2px solid var(--gold); }
+
+/* ====================================================================
+   TABLE OF CONTENTS
+==================================================================== */
+.toc{
+  background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-lg);
+  padding:22px 20px; margin-top:22px; box-shadow:0 8px 20px rgba(93,24,40,0.06);
+}
+.toc-title{
+  font-family:'Cinzel',serif; font-weight:600; font-size:1rem; color:var(--bordeaux);
+  text-align:center; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;
+}
+.toc-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+@media (min-width:640px){ .toc-grid{ grid-template-columns:repeat(3,1fr); } }
+.toc-item{
+  display:flex; align-items:center; gap:9px; text-decoration:none; color:var(--ink);
+  padding:9px 11px; border-radius:12px; border:1px solid transparent; transition:all .2s ease;
+}
+.toc-item:hover{ background:#fdfbf8; border-color:var(--hairline); }
+.toc-num{
+  flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:var(--bordeaux);
+  color:var(--gold-light); font-family:'Cinzel',serif; font-weight:700; font-size:0.72rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.toc-label{ font-size:0.78rem; font-weight:600; line-height:1.25; }
+.toc-label .ar{ display:block; font-family:'Amiri',serif; direction:rtl; color:var(--bordeaux); font-size:0.9rem; }
+
+/* ====================================================================
+   MODULE SECTION
+==================================================================== */
+.module-section{ margin-top:44px; scroll-margin-top:16px; }
+.module-band{
+  position:relative; display:flex; align-items:center; gap:16px;
+  background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+  border-radius:var(--radius-lg); padding:18px 22px; color:var(--white);
+  box-shadow:0 10px 26px rgba(93,24,40,0.18); overflow:hidden;
+}
+.module-band::after{
+  content:""; position:absolute; right:-40px; top:-40px; width:150px; height:150px;
+  border-radius:50%; background:radial-gradient(circle, rgba(200,164,98,0.18), transparent 70%);
+}
+.module-badge{
+  flex:0 0 auto; width:52px; height:52px; border-radius:16px;
+  background:rgba(255,255,255,0.10); border:1px solid rgba(200,164,98,0.4);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel',serif; font-weight:700; font-size:1.3rem; color:var(--gold-light);
+}
+.module-titles{ flex:1; min-width:0; position:relative; z-index:1; }
+.module-titles .ar{ font-size:clamp(1.15rem,3.4vw,1.55rem); display:block; margin-bottom:2px; }
+.module-titles .fr{
+  font-family:'Cinzel',serif; font-weight:600; font-size:0.92rem; color:var(--gold-light);
+  text-transform:uppercase; letter-spacing:0.5px; display:block;
+}
+.module-titles .es{ font-size:0.74rem; color:rgba(255,255,255,0.7); font-style:italic; display:block; margin-top:2px; }
+
+/* ====================================================================
+   EXERCISE BLOCKS
+==================================================================== */
+.exercise{
+  background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-md);
+  padding:20px 20px 22px; margin-top:16px; box-shadow:0 8px 18px rgba(93,24,40,0.06);
+}
+.exercise-head{ display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
+.exercise-num{
+  flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--gold-light);
+  color:var(--bordeaux-dark); font-family:'Cinzel',serif; font-weight:700; font-size:0.85rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.exercise-instr{ flex:1; min-width:0; }
+.exercise-instr .fr{ font-weight:700; font-size:0.94rem; color:var(--ink); }
+.exercise-instr .es{ font-size:0.78rem; color:var(--ink-soft); font-style:italic; margin-top:2px; }
+.exercise-instr .ar{ font-size:0.92rem; color:var(--bordeaux); margin-top:4px; }
+
+/* fill-in blanks */
+.fill-line{
+  font-family:'Amiri',serif; font-size:1.1rem; color:var(--bordeaux);
+  border:none; border-bottom:2px dotted var(--gold); background:transparent;
+  padding:4px 6px; width:100%; max-width:220px; text-align:center;
+}
+.fill-line:focus{ outline:none; border-bottom-color:var(--bordeaux); background:#fdfbf8; }
+.fill-line.wide{ max-width:100%; text-align:left; font-family:'Montserrat',sans-serif; font-size:0.95rem; }
+
+.blank-row{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  padding:9px 4px; border-bottom:1px dashed var(--hairline);
+}
+.blank-row:last-child{ border-bottom:none; }
+.blank-row .item-ar{ font-size:1.4rem; color:var(--bordeaux); min-width:64px; }
+.blank-row .item-label{ font-size:0.82rem; color:var(--ink-soft); flex:0 0 auto; }
+
+/* checkbox / matching options */
+.opt-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; }
+.opt-card{
+  display:flex; align-items:center; gap:8px; border:1.5px solid var(--hairline);
+  border-radius:12px; padding:10px 12px; cursor:pointer; transition:all .2s ease;
+}
+.opt-card:hover{ border-color:var(--gold); }
+.opt-card input{ accent-color:var(--bordeaux); width:16px; height:16px; flex:0 0 auto; }
+.opt-card .opt-ar{ font-size:1.15rem; color:var(--bordeaux); }
+.opt-card .opt-txt{ font-size:0.82rem; }
+
+/* data table */
+.data-table{ width:100%; border-collapse:collapse; margin-top:6px; }
+.data-table th, .data-table td{
+  border:1px solid var(--hairline); padding:8px 8px; text-align:center; font-size:0.82rem;
+}
+.data-table th{ background:#fdfbf8; color:var(--bordeaux); font-family:'Cinzel',serif; font-weight:600; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.3px; }
+.data-table td .fill-line{ max-width:100%; }
+.data-table .ar-cell{ font-size:1.2rem; color:var(--bordeaux); }
+.table-scroll{ overflow-x:auto; }
+
+/* trace pad */
+.trace-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:14px; }
+.trace-pad{
+  position:relative; border:1.5px dashed var(--gold); border-radius:14px;
+  background:#fffdf9; aspect-ratio:1/1; overflow:hidden; touch-action:none;
+}
+.trace-ghost{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:'Amiri',serif; font-size:4.2rem; color:var(--bordeaux); opacity:0.16;
+  pointer-events:none; direction:rtl;
+}
+.trace-pad canvas{ position:absolute; inset:0; width:100%; height:100%; }
+.trace-clear{
+  position:absolute; bottom:5px; right:5px; z-index:2;
+  background:var(--white); border:1px solid var(--hairline); border-radius:999px;
+  width:26px; height:26px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--bordeaux); font-size:0.7rem;
+}
+
+/* verse block */
+.verse-block{
+  background:#fdfbf8; border:1px solid var(--hairline); border-radius:14px;
+  padding:16px 18px; margin-top:10px;
+}
+.verse-ar{ font-size:1.3rem; color:var(--bordeaux); direction:rtl; text-align:center; line-height:2.2; margin-bottom:8px; }
+.verse-tr{ font-size:0.8rem; color:var(--ink-soft); text-align:center; margin-bottom:12px; }
+.copy-lines{ display:grid; gap:10px; margin-top:8px; }
+.copy-lines .fill-line{ max-width:100%; direction:rtl; font-size:1.15rem; height:34px; }
+
+/* correct-answer reveal (used only in appendix) */
+.answer-box{
+  background:var(--ok-bg); border:1px solid var(--ok-border); border-radius:10px;
+  padding:8px 12px; font-size:0.8rem; color:#2f5230; margin-top:6px;
+}
+
+/* closing page */
+.closing-page{
+  text-align:center; background:var(--white); border:1px solid var(--hairline);
+  border-radius:var(--radius-xl); padding:50px 24px; margin-top:50px;
+  box-shadow:0 8px 22px rgba(93,24,40,0.07);
+}
+.closing-page .ar{ font-size:2rem; color:var(--bordeaux); margin-bottom:8px; }
+.closing-page .title{ font-family:'Cinzel',serif; font-weight:700; font-size:1.3rem; color:var(--bordeaux); margin-bottom:6px; }
+.closing-page .sub{ font-size:0.9rem; color:var(--ink-soft); max-width:420px; margin:0 auto; }
+.stars-row{ font-size:1.6rem; color:var(--gold); margin:18px 0; letter-spacing:6px; }
+
+/* appendix */
+.appendix{ margin-top:44px; }
+.appendix-title{
+  font-family:'Cinzel',serif; font-weight:700; font-size:1.1rem; color:var(--bordeaux);
+  text-align:center; margin-bottom:18px; text-transform:uppercase; letter-spacing:1px;
+}
+.appendix-mod{
+  background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-md);
+  padding:14px 18px; margin-bottom:10px;
+}
+.appendix-mod h4{ margin:0 0 8px; font-family:'Cinzel',serif; font-size:0.85rem; color:var(--bordeaux); }
+.appendix-mod ul{ margin:0; padding-left:18px; font-size:0.82rem; color:var(--ink); }
+.appendix-mod li{ margin-bottom:4px; }
+.appendix-mod .ar-text{ font-size:1rem; }
+
+/* footer */
+.wb-footer{
+  margin-top:50px; text-align:center; padding-top:20px; border-top:1px solid var(--hairline);
+}
+.wb-footer .sig{ font-family:'Cinzel',serif; font-weight:600; font-size:0.82rem; color:var(--bordeaux); letter-spacing:1px; }
+.wb-footer .sig .ico{ color:var(--gold); margin:0 6px; }
+.wb-footer .note{ font-size:0.72rem; color:var(--ink-soft); margin-top:5px; }
+
+/* ====================================================================
+   RESPONSIVE
+==================================================================== */
+@media (max-width:480px){
+  .wrap{ padding:16px 10px 50px; }
+  .cover-page{ padding:38px 18px 30px; }
+  .module-band{ flex-wrap:wrap; }
+  .opt-grid{ grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); }
+  .trace-grid{ grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); }
+}
+
+/* ====================================================================
+   PRINT
+==================================================================== */
+@media print{
+  body{ background:#fff; }
+  body::before{ display:none; }
+  .topbar{ display:none; }
+  .wrap{ max-width:100%; padding:0; }
+  .module-section{ page-break-before:always; margin-top:0; padding-top:14px; }
+  .cover-page, .toc, .exercise, .appendix-mod, .closing-page{ box-shadow:none; }
+  .trace-clear{ display:none; }
+  a.toc-item{ text-decoration:none; }
+  .exercise{ page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3 7.2 7.2 0 0021 12.8z"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M3.5 5.2a1.8 1.8 0 011.8-1.8H11v15.4H5.3a1.8 1.8 0 00-1.8 1.8V5.2z"/><path d="M20.5 5.2a1.8 1.8 0 00-1.8-1.8H13v15.4h5.7a1.8 1.8 0 011.8 1.8V5.2z"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 2.5l2.6 5.8 6.2.6-4.7 4.2 1.4 6.2L12 16.2l-5.5 3.1 1.4-6.2-4.7-4.2 6.2-.6z"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand"><svg class="ico filled"><use href="#icon-moon"></use></svg> Dar Al-Kalimah &middot; Kalicards</div>
+  </div>
+
+  <!-- ============ COVER ============ -->
+  <div class="cover-page" id="cover">
+    <div class="cover-eyebrow">Kalicards</div>
+    <div class="cover-ar ar-text">كُتَيِّبُ التَّدْرِيبَاتِ</div>
+    <div class="cover-title">Cahier d'Exercices — Version Enfant</div>
+    <p class="cover-sub">
+      Cahier complet des 12 modules Dar Al-Kalimah, à remplir à l'écran ou à imprimer.
+      <span class="es-line">Cuaderno completo de los 12 módulos, para completar en pantalla o imprimir.</span>
+    </p>
+    <div class="cover-badges">
+      <span class="cover-badge">12 Modules</span>
+      <span class="cover-badge">Interactif</span>
+      <span class="cover-badge">Imprimable</span>
+    </div>
+    <div class="cover-fields">
+      <div class="cover-field">
+        <label>Prénom de l'enfant / Nombre del niño</label>
+        <input type="text" placeholder="…">
+      </div>
+      <div class="cover-field">
+        <label>Date de début / Fecha de inicio</label>
+        <input type="date">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOC ============ -->
+  <div class="toc">
+    <div class="toc-title">Sommaire &middot; Índice</div>
+    <div class="toc-grid">
+      <a href="#m1" class="toc-item"><span class="toc-num">1</span><span class="toc-label">Les Lettres<span class="ar">الحروف الأبجدية</span></span></a>
+      <a href="#m2" class="toc-item"><span class="toc-num">2</span><span class="toc-label">Al-Harakat<span class="ar">الحركات القصيرة</span></span></a>
+      <a href="#m3" class="toc-item"><span class="toc-num">3</span><span class="toc-label">Al-Modoud<span class="ar">المدود ا و ي</span></span></a>
+      <a href="#m4" class="toc-item"><span class="toc-num">4</span><span class="toc-label">Tanwin &amp; Hamza<span class="ar">التنوين والهمزة</span></span></a>
+      <a href="#m5" class="toc-item"><span class="toc-num">5</span><span class="toc-label">Shamsiyah/Qamariyah<span class="ar">الشمسية والقمرية</span></span></a>
+      <a href="#m6" class="toc-item"><span class="toc-num">6</span><span class="toc-label">Vocabulaire<span class="ar">المفردات الأساسية</span></span></a>
+      <a href="#m7" class="toc-item"><span class="toc-num">7</span><span class="toc-label">Al-Kawthar &amp; Al-Ikhlas<span class="ar">الكوثر والإخلاص</span></span></a>
+      <a href="#m8" class="toc-item"><span class="toc-num">8</span><span class="toc-label">Le Nom &amp; Horouf Al-Jar<span class="ar">الاسم وحروف الجر</span></span></a>
+      <a href="#m9" class="toc-item"><span class="toc-num">9</span><span class="toc-label">Phrase Nominale<span class="ar">الجملة الاسمية</span></span></a>
+      <a href="#m10" class="toc-item"><span class="toc-num">10</span><span class="toc-label">Le Verbe<span class="ar">الفعل</span></span></a>
+      <a href="#m11" class="toc-item"><span class="toc-num">11</span><span class="toc-label">Phrase Verbale<span class="ar">الجملة الفعلية</span></span></a>
+      <a href="#m12" class="toc-item"><span class="toc-num">12</span><span class="toc-label">Lecture Fatihah<span class="ar">قراءة الفاتحة</span></span></a>
+    </div>
+  </div>
+
+  <!-- MODULES INSERTED HERE -->
+  <div id="modules-root">
+
+  <!-- ============================================================
+       MODULE 1 — LES LETTRES ARABES
+  ============================================================= -->
+  <section class="module-section" id="m1">
+    <div class="module-band">
+      <div class="module-badge">1</div>
+      <div class="module-titles">
+        <span class="ar">اَلْحُرُوفُ ٱلْأَبْجَدِيَّةُ</span>
+        <span class="fr">Les Lettres Arabes</span>
+        <span class="es">Las letras árabes</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Trace chaque lettre avec ton doigt ou ta souris, en suivant le modèle.</div>
+          <div class="es">Traza cada letra con el dedo o el ratón, siguiendo el modelo.</div>
+        </div>
+      </div>
+      <div class="trace-grid">
+        <div class="trace-pad"><div class="trace-ghost">ا</div><canvas data-letter="alif"></canvas><div class="trace-clear" data-clear="alif">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">ب</div><canvas data-letter="ba"></canvas><div class="trace-clear" data-clear="ba">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">ت</div><canvas data-letter="ta"></canvas><div class="trace-clear" data-clear="ta">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">ث</div><canvas data-letter="tha"></canvas><div class="trace-clear" data-clear="tha">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">ج</div><canvas data-letter="jim"></canvas><div class="trace-clear" data-clear="jim">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">ح</div><canvas data-letter="ha"></canvas><div class="trace-clear" data-clear="ha">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">خ</div><canvas data-letter="kha"></canvas><div class="trace-clear" data-clear="kha">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost">د</div><canvas data-letter="dal"></canvas><div class="trace-clear" data-clear="dal">↺</div></div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Écris le nom de chaque lettre à côté.</div>
+          <div class="es">Escribe el nombre de cada letra al lado.</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">م</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">ن</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">هـ</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">و</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">ي</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">س</span><input class="fill-line" type="text" placeholder="…"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">3</div>
+        <div class="exercise-instr">
+          <div class="fr">Une lettre change un peu de forme selon sa place dans le mot. Complète le tableau.</div>
+          <div class="es">Una letra cambia un poco de forma según su lugar en la palabra. Completa la tabla.</div>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Isolée / Aislada</th><th>Initiale / Inicial</th><th>Médiane / Media</th><th>Finale / Final</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="ar-cell">ب</td>
+              <td><input class="fill-line" type="text" placeholder="✎"></td>
+              <td><input class="fill-line" type="text" placeholder="✎"></td>
+              <td><input class="fill-line" type="text" placeholder="✎"></td>
+            </tr>
+            <tr>
+              <td class="ar-cell">ع</td>
+              <td><input class="fill-line" type="text" placeholder="✎"></td>
+              <td><input class="fill-line" type="text" placeholder="✎"></td>
+              <td><input class="fill-line" type="text" placeholder="✎"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 2 — AL-HARAKAT
+  ============================================================= -->
+  <section class="module-section" id="m2">
+    <div class="module-band">
+      <div class="module-badge">2</div>
+      <div class="module-titles">
+        <span class="ar">الْحَرَكَاتُ الْقَصِيرَةُ</span>
+        <span class="fr">Al-Harakat</span>
+        <span class="es">Las vocales cortas</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Écris le nom de chaque harakah (fathah, dammah, kasrah ou soukoun).</div>
+          <div class="es">Escribe el nombre de cada vocal corta (fathah, dammah, kasrah o soukoun).</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">بَ</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">بُ</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">بِ</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">بْ</span><input class="fill-line" type="text" placeholder="…"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Coche seulement les mots qui ont une <strong>fathah</strong> sur la première lettre.</div>
+          <div class="es">Marca solo las palabras que tienen una <strong>fathah</strong> en la primera letra.</div>
+        </div>
+      </div>
+      <div class="opt-grid">
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">بَيْت</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">دُرْج</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">قَلَم</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">كِتَاب</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">شَمْس</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">نُور</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 3 — AL-MODOUD
+  ============================================================= -->
+  <section class="module-section" id="m3">
+    <div class="module-band">
+      <div class="module-badge">3</div>
+      <div class="module-titles">
+        <span class="ar">اَلْمُدُودُ (ا و ي)</span>
+        <span class="fr">Al-Modoud &mdash; Les Voyelles Longues</span>
+        <span class="es">Las vocales largas</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Choisis la bonne lettre de prolongation pour compléter chaque mot.</div>
+          <div class="es">Elige la letra de prolongación correcta para completar cada palabra.</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">كِتَ__بٌ</span><span class="item-label">(ا / و / ي)</span><input class="fill-line" type="text" placeholder="…" style="max-width:80px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">نُ__رٌ</span><span class="item-label">(ا / و / ي)</span><input class="fill-line" type="text" placeholder="…" style="max-width:80px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">كَبِ__رٌ</span><span class="item-label">(ا / و / ي)</span><input class="fill-line" type="text" placeholder="…" style="max-width:80px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">سَلَ__مٌ</span><span class="item-label">(ا / و / ي)</span><input class="fill-line" type="text" placeholder="…" style="max-width:80px;"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Trace ces mots avec les voyelles longues.</div>
+          <div class="es">Traza estas palabras con las vocales largas.</div>
+        </div>
+      </div>
+      <div class="trace-grid">
+        <div class="trace-pad"><div class="trace-ghost" style="font-size:2.6rem;">كِتَاب</div><canvas data-letter="m3w1"></canvas><div class="trace-clear" data-clear="m3w1">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost" style="font-size:2.6rem;">نُور</div><canvas data-letter="m3w2"></canvas><div class="trace-clear" data-clear="m3w2">↺</div></div>
+        <div class="trace-pad"><div class="trace-ghost" style="font-size:2.6rem;">سَلَام</div><canvas data-letter="m3w3"></canvas><div class="trace-clear" data-clear="m3w3">↺</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 4 — TANWIN & HAMZA
+  ============================================================= -->
+  <section class="module-section" id="m4">
+    <div class="module-band">
+      <div class="module-badge">4</div>
+      <div class="module-titles">
+        <span class="ar">التَّنْوِينُ وَالْهَمْزَةُ</span>
+        <span class="fr">At-Tanwin &amp; Al-Hamza</span>
+        <span class="es">El tanwin y la hamza</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Écris le nom de chaque tanwin.</div>
+          <div class="es">Escribe el nombre de cada tanwin.</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">بًا</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">بٍ</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">بٌ</span><input class="fill-line" type="text" placeholder="…"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Coche les mots qui contiennent une <strong>hamza</strong> (ء أ إ ؤ ئ).</div>
+          <div class="es">Marca las palabras que contienen una <strong>hamza</strong> (ء أ إ ؤ ئ).</div>
+        </div>
+      </div>
+      <div class="opt-grid">
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">أَحْمَد</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">بَيْت</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">سُؤَال</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">قَلَم</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">قَارِئ</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">إِسْلَام</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 5 — SHAMSIYAH / QAMARIYAH / SHADDA
+  ============================================================= -->
+  <section class="module-section" id="m5">
+    <div class="module-band">
+      <div class="module-badge">5</div>
+      <div class="module-titles">
+        <span class="ar">الشَّمْسِيَّة وَالْقَمَرِيَّة وَالشَّدَّة</span>
+        <span class="fr">Al-Shamsiyah / Al-Qamariyah</span>
+        <span class="es">Letras solares y lunares</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Le ل de "ال" se prononce (lunaire ق) ou disparaît (solaire ش). Écris ش ou ق pour chaque mot.</div>
+          <div class="es">La ل de "ال" se pronuncia (lunar ق) o desaparece (solar ش). Escribe ش o ق para cada palabra.</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلشَّمْس</span><input class="fill-line" type="text" placeholder="ش / ق" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلْقَمَر</span><input class="fill-line" type="text" placeholder="ش / ق" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلرَّجُل</span><input class="fill-line" type="text" placeholder="ش / ق" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلْكِتَاب</span><input class="fill-line" type="text" placeholder="ش / ق" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلنُّور</span><input class="fill-line" type="text" placeholder="ش / ق" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلْبَيْت</span><input class="fill-line" type="text" placeholder="ش / ق" style="max-width:90px;"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Coche les mots qui contiennent une <strong>chaddah</strong> (ّ).</div>
+          <div class="es">Marca las palabras que contienen una <strong>shadda</strong> (ّ).</div>
+        </div>
+      </div>
+      <div class="opt-grid">
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">اَلشَّمْس</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">مُدَرِّس</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">كِتَاب</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">أُمّ</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">قَلَم</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">حَقِيبَة</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 6 — VOCABULAIRE & LECTURE
+  ============================================================= -->
+  <section class="module-section" id="m6">
+    <div class="module-band">
+      <div class="module-badge">6</div>
+      <div class="module-titles">
+        <span class="ar">اَلْمُفْرَدَاتُ الْأَسَاسِيَّة وَتَعْزِيزُ الْقِرَاءَة</span>
+        <span class="fr">Vocabulaire &amp; Lecture</span>
+        <span class="es">Vocabulario y lectura</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Écris la traduction française de chaque mot.</div>
+          <div class="es">Escribe la traducción en francés de cada palabra.</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text" style="font-size:1.5rem;">🏠 بَيْت</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text" style="font-size:1.5rem;">☀️ شَمْس</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text" style="font-size:1.5rem;">🌙 قَمَر</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text" style="font-size:1.5rem;">💧 مَاء</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text" style="font-size:1.5rem;">📖 كِتَاب</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text" style="font-size:1.5rem;">✏️ قَلَم</span><input class="fill-line" type="text" placeholder="…"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Recopie ces mots sur la ligne.</div>
+          <div class="es">Copia estas palabras en la línea.</div>
+        </div>
+      </div>
+      <div class="copy-lines">
+        <div class="blank-row" style="border:none;"><span class="item-ar ar-text">بَيْت</span><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem;" placeholder=""></div>
+        <div class="blank-row" style="border:none;"><span class="item-ar ar-text">شَمْس</span><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem;" placeholder=""></div>
+        <div class="blank-row" style="border:none;"><span class="item-ar ar-text">كِتَاب</span><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem;" placeholder=""></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 7 — AL-KAWTHAR & AL-IKHLAS
+  ============================================================= -->
+  <section class="module-section" id="m7">
+    <div class="module-band">
+      <div class="module-badge">7</div>
+      <div class="module-titles">
+        <span class="ar">قِصَارُ السُّوَرِ: الْكَوْثَر وَالْإِخْلَاص</span>
+        <span class="fr">Sourates Al-Kawthar &amp; Al-Ikhlas</span>
+        <span class="es">Suras Al-Kawthar y Al-Ikhlas</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Lis puis recopie chaque verset de sourate Al-Kawthar.</div>
+          <div class="es">Lee y copia cada versículo de la sura Al-Kawthar.</div>
+        </div>
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ</div>
+        <div class="verse-tr">Nous t'avons accordé l'Abondance / Te hemos concedido la Abundancia (1)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">فَصَلِّ لِرَبِّكَ وَانْحَرْ</div>
+        <div class="verse-tr">Accomplis donc la prière pour ton Seigneur / Ora, pues, a tu Señor (2)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ</div>
+        <div class="verse-tr">Celui qui te hait sera sans postérité / Quien te odia será quien quede sin posteridad (3)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Lis puis recopie chaque verset de sourate Al-Ikhlas.</div>
+          <div class="es">Lee y copia cada versículo de la sura Al-Ikhlas.</div>
+        </div>
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">قُلْ هُوَ اللَّهُ أَحَدٌ</div>
+        <div class="verse-tr">Dis : "Il est Allah, Unique" / Di: "Él es Allah, Uno" (1)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">اللَّهُ الصَّمَدُ</div>
+        <div class="verse-tr">Allah, Le Seul à être imploré / Allah, el Absoluto (2)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">لَمْ يَلِدْ وَلَمْ يُولَدْ</div>
+        <div class="verse-tr">Il n'a jamais engendré, n'a pas été engendré / No engendra ni ha sido engendrado (3)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ</div>
+        <div class="verse-tr">Et nul n'est égal à Lui / Y no hay nadie semejante a Él (4)</div>
+        <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.15rem; height:36px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 8 — LE NOM & HOROUF AL-JAR
+  ============================================================= -->
+  <section class="module-section" id="m8">
+    <div class="module-band">
+      <div class="module-badge">8</div>
+      <div class="module-titles">
+        <span class="ar">اَلِٱسْمُ وَحُرُوفُ الْجَرّ</span>
+        <span class="fr">Le Nom &amp; Horouf Al-Jar</span>
+        <span class="es">El nombre y las preposiciones</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Complète chaque phrase avec la bonne préposition : في &middot; على &middot; إلى &middot; من</div>
+          <div class="es">Completa cada frase con la preposición correcta: في &middot; على &middot; إلى &middot; من</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">البَيْتُ ___ المَدِينَةِ</span><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">الكِتَابُ ___ الطَّاوِلَةِ</span><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">ذَهَبْتُ ___ المَدْرَسَةِ</span><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">أَنَا ___ المَغْرِبِ</span><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"></div>
+      <p style="font-size:0.72rem;color:var(--ink-soft);margin-top:8px;">Astuce / Consejo : revois la fiche "Horouf Al-Jar" de la bibliothèque si tu hésites !</p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Ce nom est-il masculin ou féminin ? Coche la bonne case.</div>
+          <div class="es">¿Este nombre es masculino o femenino? Marca la casilla correcta.</div>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Mot / Palabra</th><th>Masculin</th><th>Féminin</th></tr></thead>
+          <tbody>
+            <tr><td class="ar-cell">كِتَاب</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+            <tr><td class="ar-cell">سَيَّارَة</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+            <tr><td class="ar-cell">بَيْت</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+            <tr><td class="ar-cell">مَدْرَسَة</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+            <tr><td class="ar-cell">قَلَم</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 9 — PHRASE NOMINALE & ASMAA AL-ICHARAH
+  ============================================================= -->
+  <section class="module-section" id="m9">
+    <div class="module-band">
+      <div class="module-badge">9</div>
+      <div class="module-titles">
+        <span class="ar">اَلْجُمْلَةُ الِاسْمِيَّة وَأَسْمَاءُ الْإِشَارَة</span>
+        <span class="fr">La Phrase Nominale</span>
+        <span class="es">La frase nominal</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Complète avec le bon démonstratif : هذا &middot; هذه &middot; ذلك &middot; تلك</div>
+          <div class="es">Completa con el demostrativo correcto: هذا &middot; هذه &middot; ذلك &middot; تلك</div>
+        </div>
+      </div>
+      <div class="blank-row"><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"><span class="item-ar ar-text">كِتَابٌ</span><span class="item-label">(proche, masc.)</span></div>
+      <div class="blank-row"><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"><span class="item-ar ar-text">سَيَّارَةٌ</span><span class="item-label">(proche, fém.)</span></div>
+      <div class="blank-row"><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"><span class="item-ar ar-text">بَيْتٌ</span><span class="item-label">(loin, masc.)</span></div>
+      <div class="blank-row"><input class="fill-line" type="text" placeholder="…" style="max-width:90px;"><span class="item-ar ar-text">شَجَرَةٌ</span><span class="item-label">(loin, fém.)</span></div>
+      <p style="font-size:0.72rem;color:var(--ink-soft);margin-top:8px;">Astuce / Consejo : revois la fiche "Asmaa Al-Icharah" de la bibliothèque si tu hésites !</p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Une phrase nominale commence par un nom (pas un verbe). Complète avec un adjectif de ton choix.</div>
+          <div class="es">Una frase nominal empieza con un nombre (no un verbo). Completa con un adjetivo de tu elección.</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلْقَمَرُ ___</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلْبَيْتُ ___</span><input class="fill-line" type="text" placeholder="…"></div>
+      <div class="blank-row"><span class="item-ar ar-text">اَلْكِتَابُ ___</span><input class="fill-line" type="text" placeholder="…"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 10 — LE VERBE
+  ============================================================= -->
+  <section class="module-section" id="m10">
+    <div class="module-band">
+      <div class="module-badge">10</div>
+      <div class="module-titles">
+        <span class="ar">اَلْفِعْلُ وَتَعْزِيزُ الْقِرَاءَة</span>
+        <span class="fr">Le Verbe</span>
+        <span class="es">El verbo</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Conjugue le verbe كَتَبَ (écrire) au présent selon la personne.</div>
+          <div class="es">Conjuga el verbo كَتَبَ (escribir) en presente según la persona.</div>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Personne / Persona</th><th>Conjugaison</th></tr></thead>
+          <tbody>
+            <tr><td>أَنَا (je / yo)</td><td><input class="fill-line" type="text" style="direction:rtl;font-family:'Amiri',serif;" placeholder="…"></td></tr>
+            <tr><td>أَنْتَ (tu / tú)</td><td><input class="fill-line" type="text" style="direction:rtl;font-family:'Amiri',serif;" placeholder="…"></td></tr>
+            <tr><td>هُوَ (il / él)</td><td><input class="fill-line" type="text" style="direction:rtl;font-family:'Amiri',serif;" placeholder="…"></td></tr>
+            <tr><td>هِيَ (elle / ella)</td><td><input class="fill-line" type="text" style="direction:rtl;font-family:'Amiri',serif;" placeholder="…"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Coche seulement les <strong>verbes</strong> (pas les noms).</div>
+          <div class="es">Marca solo los <strong>verbos</strong> (no los nombres).</div>
+        </div>
+      </div>
+      <div class="opt-grid">
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">كَتَبَ</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">كِتَاب</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">ذَهَبَ</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">بَيْت</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">قَرَأَ</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-ar ar-text">قَلَم</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 11 — PHRASE VERBALE & AL-MU'AWWIDHATAYN
+  ============================================================= -->
+  <section class="module-section" id="m11">
+    <div class="module-band">
+      <div class="module-badge">11</div>
+      <div class="module-titles">
+        <span class="ar">اَلْجُمْلَةُ الْفِعْلِيَّة وَالْمُعَوِّذَتَان</span>
+        <span class="fr">Phrase Verbale &amp; Al-Mu'awwidhatayn</span>
+        <span class="es">La frase verbal y Al-Mu'awwidhatayn</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">Une phrase verbale commence par un verbe. Souligne le verbe dans chaque phrase (recopie-le).</div>
+          <div class="es">Una frase verbal empieza con un verbo. Subraya el verbo en cada frase (cópialo).</div>
+        </div>
+      </div>
+      <div class="blank-row"><span class="item-ar ar-text">ذَهَبَ أَحْمَدُ إِلَى الْمَدْرَسَةِ</span><input class="fill-line" type="text" placeholder="…" style="max-width:100px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">كَتَبَتْ سَارَةُ دَرْسَهَا</span><input class="fill-line" type="text" placeholder="…" style="max-width:100px;"></div>
+      <div class="blank-row"><span class="item-ar ar-text">قَرَأَ الْوَلَدُ الْقُرْآنَ</span><input class="fill-line" type="text" placeholder="…" style="max-width:100px;"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Lis puis recopie sourate Al-Falaq.</div>
+          <div class="es">Lee y copia la sura Al-Falaq.</div>
+        </div>
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ &bull; مِنْ شَرِّ مَا خَلَقَ &bull; وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ &bull; وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ &bull; وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ</div>
+        <div class="verse-tr">Dis : "Je cherche protection auprès du Seigneur de l'aube naissante..." / Di: "Me refugio en el Señor del alba..." (1-5)</div>
+        <div class="copy-lines">
+          <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;">
+          <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;">
+          <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">3</div>
+        <div class="exercise-instr">
+          <div class="fr">Lis puis recopie sourate An-Nas.</div>
+          <div class="es">Lee y copia la sura An-Nas.</div>
+        </div>
+      </div>
+      <div class="verse-block">
+        <div class="verse-ar">قُلْ أَعُوذُ بِرَبِّ النَّاسِ &bull; مَلِكِ النَّاسِ &bull; إِلَٰهِ النَّاسِ &bull; مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ &bull; الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ &bull; مِنَ الْجِنَّةِ وَالنَّاسِ</div>
+        <div class="verse-tr">Dis : "Je cherche protection auprès du Seigneur des hommes..." / Di: "Me refugio en el Señor de los hombres..." (1-6)</div>
+        <div class="copy-lines">
+          <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;">
+          <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;">
+          <input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODULE 12 — LECTURE DE LA FATIHAH
+  ============================================================= -->
+  <section class="module-section" id="m12">
+    <div class="module-band">
+      <div class="module-badge">12</div>
+      <div class="module-titles">
+        <span class="ar">قِرَاءَةُ الْفَاتِحَة</span>
+        <span class="fr">Lecture de la Fatihah</span>
+        <span class="es">Lectura de la Fatiha</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">1</div>
+        <div class="exercise-instr">
+          <div class="fr">C'est le module de synthèse : lis chaque verset à voix haute, puis recopie-le.</div>
+          <div class="es">Es el módulo de síntesis: lee cada versículo en voz alta y luego cópialo.</div>
+        </div>
+      </div>
+      <div class="verse-block"><div class="verse-ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="verse-tr">Au nom d'Allah, le Tout Miséricordieux (1)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+      <div class="verse-block"><div class="verse-ar">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</div><div class="verse-tr">Louange à Allah, Seigneur des mondes (2)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+      <div class="verse-block"><div class="verse-ar">الرَّحْمَٰنِ الرَّحِيمِ</div><div class="verse-tr">Le Tout Miséricordieux (3)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+      <div class="verse-block"><div class="verse-ar">مَالِكِ يَوْمِ الدِّينِ</div><div class="verse-tr">Maître du Jour de la rétribution (4)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+      <div class="verse-block"><div class="verse-ar">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</div><div class="verse-tr">C'est Toi que nous adorons, Toi dont nous implorons secours (5)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+      <div class="verse-block"><div class="verse-ar">اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</div><div class="verse-tr">Guide-nous dans le droit chemin (6)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+      <div class="verse-block"><div class="verse-ar">صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div><div class="verse-tr">Le chemin de ceux que Tu as comblés de faveurs (7)</div><input class="fill-line wide" type="text" style="direction:rtl; font-family:'Amiri',serif; font-size:1.1rem; height:34px;"></div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-head">
+        <div class="exercise-num">2</div>
+        <div class="exercise-instr">
+          <div class="fr">Révision finale : coche tout ce que tu as appris dans ce cahier !</div>
+          <div class="es">Repaso final: ¡marca todo lo que has aprendido en este cuaderno!</div>
+        </div>
+      </div>
+      <div class="opt-grid">
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Les 28 lettres</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Les harakat</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Les voyelles longues</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Tanwin &amp; hamza</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Chamsiyah / qamariyah</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Vocabulaire</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Al-Kawthar &amp; Al-Ikhlas</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Horouf al-jar</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Asmaa al-icharah</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Conjugaison</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">Phrase verbale</span></label>
+        <label class="opt-card"><input type="checkbox"><span class="opt-txt">La Fatihah</span></label>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing-page">
+    <div class="ar ar-text">مَبْرُوك!</div>
+    <div class="title">Bravo, tu as terminé ton cahier !</div>
+    <div class="stars-row">★ ★ ★ ★ ★</div>
+    <p class="sub">
+      Tu as travaillé les 12 modules de Dar Al-Kalimah, du premier alphabet jusqu'à la lecture de la Fatihah. Continue ainsi, inch'Allah !
+      <br><br>
+      <em>Has trabajado los 12 módulos de Dar Al-Kalimah, desde el primer alfabeto hasta la lectura de la Fatiha. ¡Sigue así!</em>
+    </p>
+  </div>
+
+  <!-- APPENDIX / CORRECTIONS -->
+  <section class="appendix">
+    <div class="appendix-title">Corrections &middot; Correcciones</div>
+
+    <div class="appendix-mod">
+      <h4>Module 1 &mdash; Les Lettres</h4>
+      <ul>
+        <li class="ar-text">م = mīm &middot; ن = nūn &middot; هـ = hā' &middot; و = wāw &middot; ي = yā' &middot; س = sīn</li>
+        <li>Formes de ب : بـ (initiale) &middot; ـبـ (médiane) &middot; ـب (finale). Formes de ع : عـ &middot; ـعـ &middot; ـع.</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 2 &mdash; Al-Harakat</h4>
+      <ul>
+        <li class="ar-text">بَ = fatḥah &middot; بُ = ḍammah &middot; بِ = kasrah &middot; بْ = soukoun</li>
+        <li class="ar-text">Mots avec fathah : بَيْت &middot; قَلَم &middot; شَمْس</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 3 &mdash; Al-Modoud</h4>
+      <ul>
+        <li class="ar-text">كِتَابٌ (ا) &middot; نُورٌ (و) &middot; كَبِيرٌ (ي) &middot; سَلَامٌ (ا)</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 4 &mdash; Tanwin &amp; Hamza</h4>
+      <ul>
+        <li class="ar-text">بًا = fatḥatayn &middot; بٍ = kasratayn &middot; بٌ = ḍammatayn</li>
+        <li class="ar-text">Mots avec hamza : أَحْمَد &middot; سُؤَال &middot; قَارِئ &middot; إِسْلَام</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 5 &mdash; Shamsiyah / Qamariyah</h4>
+      <ul>
+        <li class="ar-text">الشَّمْس = ش &middot; القَمَر = ق &middot; الرَّجُل = ش &middot; الكِتَاب = ق &middot; النُّور = ش &middot; البَيْت = ق</li>
+        <li class="ar-text">Mots avec chaddah : الشَّمْس &middot; مُدَرِّس &middot; أُمّ &middot; حَقِيبَة</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 6 &mdash; Vocabulaire</h4>
+      <ul>
+        <li>بَيْت = maison &middot; شَمْس = soleil &middot; قَمَر = lune &middot; مَاء = eau &middot; كِتَاب = livre &middot; قَلَم = stylo</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 8 &mdash; Le Nom &amp; Horouf Al-Jar</h4>
+      <ul>
+        <li class="ar-text">البَيْتُ <strong>في</strong> المَدِينَةِ &middot; الكِتَابُ <strong>على</strong> الطَّاولَةِ &middot; ذَهَبْتُ <strong>إلى</strong> المَدْرَسَةِ &middot; أَنَا <strong>من</strong> المَغْرِبِ</li>
+        <li>Masculin : كِتَاب &middot; بَيْت &middot; قَلَم — Féminin : سَيَّارَة &middot; مَدْرَسَة</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 9 &mdash; Phrase Nominale &amp; Asmaa Al-Icharah</h4>
+      <ul>
+        <li class="ar-text"><strong>هذا</strong> كِتَابٌ &middot; <strong>هذه</strong> سَيَّارَةٌ &middot; <strong>ذلك</strong> بَيْتٌ &middot; <strong>تلك</strong> شَجَرَةٌ</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 10 &mdash; Le Verbe</h4>
+      <ul>
+        <li class="ar-text">أَنَا أَكْتُبُ &middot; أَنْتَ تَكْتُبُ &middot; هُوَ يَكْتُبُ &middot; هِيَ تَكْتُبُ</li>
+        <li class="ar-text">Verbes : كَتَبَ &middot; ذَهَبَ &middot; قَرَأَ (pas كِتَاب / بَيْت / قَلَم, qui sont des noms)</li>
+      </ul>
+    </div>
+
+    <div class="appendix-mod">
+      <h4>Module 11 &mdash; Phrase Verbale</h4>
+      <ul>
+        <li class="ar-text">Verbes soulignés : ذَهَبَ &middot; كَتَبَتْ &middot; قَرَأَ</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="wb-footer">
+    <div class="sig">Dar Al-Kalimah <svg class="ico filled"><use href="#icon-moon"></use></svg> Kalicards</div>
+    <div class="note">Cahier d'exercices — Palma de Mallorca</div>
+  </footer>
+
+</div>
+
+<script>
+  function initTracePads(){
+    document.querySelectorAll('.trace-pad canvas').forEach(function(canvas){
+      var pad = canvas.closest('.trace-pad');
+      var ctx = canvas.getContext('2d');
+      var drawing = false;
+      var last = null;
+
+      function sizeCanvas(){
+        var rect = canvas.getBoundingClientRect();
+        var dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, rect.width * dpr);
+        canvas.height = Math.max(1, rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#5D1828';
+      }
+      sizeCanvas();
+      window.addEventListener('resize', sizeCanvas);
+
+      function posFromEvent(e){
+        var rect = canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      }
+
+      canvas.addEventListener('pointerdown', function(e){
+        drawing = true;
+        canvas.setPointerCapture(e.pointerId);
+        last = posFromEvent(e);
+      });
+      canvas.addEventListener('pointermove', function(e){
+        if(!drawing) return;
+        var p = posFromEvent(e);
+        ctx.beginPath();
+        ctx.moveTo(last.x, last.y);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+        last = p;
+      });
+      function stop(){ drawing = false; last = null; }
+      canvas.addEventListener('pointerup', stop);
+      canvas.addEventListener('pointerleave', stop);
+      canvas.addEventListener('pointercancel', stop);
+
+      var clearBtn = pad.querySelector('.trace-clear');
+      if(clearBtn){
+        clearBtn.addEventListener('click', function(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initTracePads);
+</script>
+</body>
+</html>

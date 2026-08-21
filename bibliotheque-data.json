@@ -49,6 +49,18 @@
       "lien": "https://daralkalimahkalicards-sketch.github.io/Workbook-daralkalimah.html/"
     },
     {
+      "id": "workbook-enfant",
+      "titre_fr": "Cahier d'Exercices",
+      "sous_titre_fr": "Version Enfant — 12 Modules",
+      "titre_ar": "كُتَيِّبُ التَّدْرِيبَاتِ",
+      "description_fr": "Cahier complet des 12 modules, interactif (saisie, tracé, cases à cocher) et imprimable, conçu pour les enfants.",
+      "description_es": "Cuaderno completo de los 12 módulos, interactivo (escritura, trazado, casillas) e imprimible, diseñado para niños.",
+      "type": "workbook",
+      "public": "enfant",
+      "icone": "fa-solid fa-pen-to-square",
+      "lien": "cahier-exercices-enfant.html"
+    },
+    {
       "id": "fiche-horouf-jar-icharah-fr-nl",
       "titre_fr": "Prépositions & Démonstratifs",
       "sous_titre_fr": "Huruf Al-Jar & Asmaa Al-Icharah (FR/NL)",
