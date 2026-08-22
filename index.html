@@ -126,6 +126,52 @@
             .brand-ar { font-size: 3rem; }
             .nav-card { padding: 35px 20px; }
         }
+
+        /* =========================================
+           MOT DU JOUR — ajout du 22/08/2026
+           ========================================= */
+        .word-of-day {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.4);
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+            width: 100%; max-width: 900px;
+            margin-bottom: 40px;
+            padding: 28px 30px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap;
+        }
+        .word-of-day .wod-label {
+            font-family: "Cinzel", serif; font-size: 0.78rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+        }
+        .word-of-day .wod-word { font-size: 2.4rem; font-weight: 700; color: var(--burgundy); line-height: 1.3; }
+        .word-of-day .wod-tr { font-size: 0.95rem; color: var(--text-dark); margin-top: 4px; }
+        .word-of-day .wod-tr .es { color: var(--text-muted); font-style: italic; }
+        .word-of-day .wod-play {
+            flex: 0 0 auto; width: 56px; height: 56px; border-radius: 50%;
+            background: var(--bg-beige); border: 2px solid var(--gold); color: var(--burgundy);
+            font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.25s ease;
+        }
+        .word-of-day .wod-play:hover { background: var(--gold); color: var(--white); transform: scale(1.06); }
+
+        /* =========================================
+           RAPPELS QUOTIDIENS (OneSignal) — ajout du 22/08/2026
+           ========================================= */
+        .reminder-bar {
+            width: 100%; max-width: 900px; margin-bottom: 40px;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            flex-wrap: wrap;
+        }
+        #btn-activer-rappels {
+            background: transparent; border: 2px solid var(--gold); color: var(--burgundy);
+            font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem;
+            letter-spacing: 0.5px; padding: 10px 22px; border-radius: 50px; cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        #btn-activer-rappels:hover { background: var(--gold); color: var(--white); }
+        #btn-activer-rappels.is-active { border-color: #4CAF50; color: #2e7d32; cursor: default; }
     </style>
 </head>
 <body>
@@ -137,7 +183,20 @@
         <p class="subtitle">Choisissez votre espace d’étude.</p>
         <p class="subtitle-es">Elige tu espacio de estudio.</p>
     </div>
-    
+
+    <div class="word-of-day" id="word-of-day">
+        <div>
+            <div class="wod-label">✨ Mot du jour · Palabra del día</div>
+            <div class="wod-word ar-text" id="wod-arabe">—</div>
+            <div class="wod-tr"><span id="wod-fr">Chargement...</span> · <span class="es" id="wod-es"></span></div>
+        </div>
+        <button type="button" class="wod-play" id="wod-play" title="Écouter / Escuchar" aria-label="Écouter le mot du jour">🔊</button>
+    </div>
+
+    <div class="reminder-bar">
+        <button type="button" id="btn-activer-rappels">🔔 Active tes rappels quotidiens · Activa tus recordatorios</button>
+    </div>
+
     <div class="nav-grid">
 
         <a href="modules.html" class="nav-card">
@@ -265,6 +324,80 @@ if ('serviceWorker' in navigator) {
     window.location.reload();
   });
 }
+</script>
+
+<!-- =========================================
+     MOT DU JOUR — ajout du 22/08/2026
+     Choisit un mot de vocabulaire (type "word") dans database.js,
+     de façon déterministe selon la date du jour : tout le monde voit
+     le même mot le même jour, sans base de données ni serveur.
+     ========================================= -->
+<script src="database.js"></script>
+<script>
+(function () {
+  try {
+    const pool = (typeof wordsDatabase !== "undefined" ? wordsDatabase : []).filter(w => w.type === "word");
+    if (!pool.length) return;
+
+    // Jour depuis epoch (UTC) -> stable pour tout le monde le même jour calendaire,
+    // change automatiquement chaque jour sans rien à maintenir.
+    const dayIndex = Math.floor(Date.now() / 86400000) % pool.length;
+    const word = pool[dayIndex];
+
+    document.getElementById("wod-arabe").textContent = word.arabe;
+    document.getElementById("wod-fr").textContent = word.fr;
+    document.getElementById("wod-es").textContent = word.es;
+
+    const playBtn = document.getElementById("wod-play");
+    const wodAudio = new Audio();
+    wodAudio.preload = "none";
+    playBtn.addEventListener("click", () => {
+      if (!word.audio) return;
+      wodAudio.pause();
+      wodAudio.currentTime = 0;
+      wodAudio.src = word.audio;
+      wodAudio.play().catch(() => {});
+    });
+  } catch (err) {
+    console.error("Mot du jour — erreur:", err);
+  }
+})();
+</script>
+
+<!-- =========================================
+     RAPPELS QUOTIDIENS (OneSignal) — ajout du 22/08/2026
+     App ID renseigné le 22/08/2026 (app "daralkalimah App").
+     ⚠️ À vérifier côté tableau de bord OneSignal (Settings > Push & In-App) :
+     - Site URL = https://daralkalimah.com
+     - "Auto Prompt" désactivé (sinon la popup s'affiche toute seule
+       au chargement au lieu d'attendre le clic sur le bouton)
+     - Plateforme configurée en Web Push (pas Apple/Android natif)
+     ========================================= -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  const DAK_ONESIGNAL_APP_ID = "45f20a47-8afe-4b34-b847-8493041430bf";
+
+  OneSignalDeferred.push(async function (OneSignal) {
+    if (DAK_ONESIGNAL_APP_ID.startsWith("REMPLACER")) return; // pas encore configuré
+    await OneSignal.init({ appId: DAK_ONESIGNAL_APP_ID });
+
+    const btn = document.getElementById("btn-activer-rappels");
+    const setActiveState = async () => {
+      const enabled = OneSignal.Notifications.permission === true;
+      if (enabled) {
+        btn.textContent = "🔔 Rappels activés · Recordatorios activados";
+        btn.classList.add("is-active");
+      }
+    };
+    setActiveState();
+
+    btn.addEventListener("click", async () => {
+      if (btn.classList.contains("is-active")) return;
+      await OneSignal.Slidedown.show();
+      setActiveState();
+    });
+  });
 </script>
 </body>
 </html>
