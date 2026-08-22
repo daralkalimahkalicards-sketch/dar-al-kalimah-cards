@@ -146,14 +146,28 @@ const db = getFirestore(app);
 // Persistance locale — l'élève reste connecté même après fermeture du navigateur
 await setPersistence(auth, browserLocalPersistence);
 
-// Redirection post-connexion : envoie vers le test de positionnement tant qu'il
-// n'a pas été validé (testPositionnementFait !== true), sinon vers l'accueil.
+// Redirection post-connexion, dans l'ordre :
+// 1) test de positionnement tant qu'il n'a pas été validé ;
+// 2) étape notifications si jamais proposée, ou si "later" et le délai de
+//    7 jours est dépassé (eleves/{uid}.notifications) ;
+// 3) sinon l'accueil.
 // En cas d'erreur de lecture Firestore, on ne bloque jamais l'élève : index.html.
 async function redirectAfterAuth(uid) {
   try {
     const snap = await getDoc(doc(db, 'eleves', uid));
-    const fait = snap.exists() && snap.data().testPositionnementFait === true;
-    window.location.href = fait ? 'index.html' : 'test-positionnement.html';
+    const data = snap.exists() ? snap.data() : {};
+    if (data.testPositionnementFait !== true) {
+      window.location.href = 'test-positionnement.html';
+      return;
+    }
+    const notif = data.notifications;
+    const laterDue = notif && notif.statut === 'later' && notif.dateRepropositionApres &&
+      notif.dateRepropositionApres.toDate().getTime() <= Date.now();
+    if (!notif || notif.statut === 'not_asked' || laterDue) {
+      window.location.href = 'notifications.html?flow=required';
+      return;
+    }
+    window.location.href = 'index.html';
   } catch (e) {
     console.error('Erreur lecture profil élève:', e);
     window.location.href = 'index.html';

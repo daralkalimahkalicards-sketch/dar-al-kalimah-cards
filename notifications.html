@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Notifications — Dar Al-Kalimah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --burgundy: #5D1828;
+  --burgundy-dark: #3a0f19;
+  --gold: #C8A462;
+  --gold-light: #dfc28b;
+  --white: #FFFFFF;
+  --bg: #f8f5f0;
+  --text-dark: #2C3E50;
+  --text-muted: #888888;
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 18px;
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--burgundy);
+  min-height: 100vh;
+  padding-bottom: 40px;
+  visibility: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+    radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+}
+
+.header {
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+  padding: calc(var(--safe-top) + 20px) 30px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(93,24,40,0.3);
+}
+.header-brand { display: flex; flex-direction: column; gap: 2px; }
+.header-ar { font-family: 'Amiri', serif; font-size: 1.6rem; color: var(--gold); }
+.header-en { font-family: 'Cinzel', serif; font-size: 0.65rem; color: rgba(200,164,98,0.7); letter-spacing: 3px; }
+.header-sub { color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 2px; }
+.btn-home {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(200,164,98,0.32);
+  color: var(--gold); border-radius: 999px; padding: 8px 18px;
+  font-family: 'Montserrat', sans-serif; font-size: 0.8rem; cursor: pointer;
+  text-decoration: none; display: flex; align-items: center; gap: 6px;
+}
+
+.container { max-width: 640px; margin: 0 auto; padding: 30px 20px; }
+
+/* ── Carte proposition (statut pas encore tranché) ── */
+.proposal-card {
+  background: var(--white); border-radius: var(--radius-xl);
+  padding: 38px 30px; text-align: center;
+  box-shadow: 0 8px 30px rgba(93,24,40,0.10);
+  border: 1px solid rgba(200,164,98,0.25);
+  margin-bottom: 24px;
+}
+.proposal-icon {
+  width: 60px; height: 60px; margin: 0 auto 18px; border-radius: 50%;
+  background: rgba(200,164,98,0.14); border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+}
+.proposal-title { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: var(--burgundy); line-height: 1.4; }
+.proposal-title .es { display: block; font-size: 0.86rem; font-weight: 500; color: var(--gold); font-style: italic; margin-top: 6px; }
+.proposal-msg { font-size: 0.92rem; color: var(--text-dark); line-height: 1.65; margin: 18px 0 28px; }
+.proposal-msg .es { display: block; font-size: 0.84rem; color: var(--text-muted); font-style: italic; margin-top: 8px; }
+.proposal-actions { display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto; }
+
+/* ── Carte statut (choix déjà fait) ── */
+.status-card {
+  background: var(--white); border-radius: var(--radius-xl);
+  padding: 34px 28px; text-align: center;
+  box-shadow: 0 8px 30px rgba(93,24,40,0.10);
+  border: 1px solid rgba(200,164,98,0.25);
+  margin-bottom: 24px;
+}
+.status-icon { font-size: 2.4rem; margin-bottom: 14px; }
+.status-title { font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--burgundy); margin-bottom: 8px; line-height: 1.5; }
+.status-title .es { display: block; font-size: 0.82rem; font-family: 'Montserrat', sans-serif; font-style: italic; color: var(--gold); margin-top: 6px; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+  color: var(--white); border: none; border-radius: 50px; padding: 14px 26px;
+  font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.88rem;
+  cursor: pointer; transition: all 0.25s ease; line-height: 1.3;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(93,24,40,0.3); }
+.btn-primary:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
+.btn-primary .es { display: block; font-size: 0.76em; font-weight: 500; opacity: 0.85; margin-top: 2px; }
+
+.btn-secondary {
+  background: transparent; color: var(--text-muted); border: none;
+  font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 500;
+  cursor: pointer; padding: 8px; text-decoration: underline; text-underline-offset: 3px;
+}
+
+.help-box {
+  background: var(--bg); border-radius: var(--radius-md); padding: 16px 18px;
+  font-size: 0.8rem; color: var(--text-dark); line-height: 1.6; text-align: left;
+  margin-top: 18px; border: 1px dashed rgba(200,164,98,0.4);
+}
+.help-box strong { color: var(--burgundy); }
+.help-box .es { display: block; font-style: italic; color: var(--text-muted); margin-top: 6px; }
+
+.section-title {
+  font-family: 'Cinzel', serif; font-size: 0.9rem;
+  color: var(--burgundy); margin-bottom: 14px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--gold);
+}
+.future-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 18px 20px; box-shadow: 0 4px 16px rgba(93,24,40,0.06);
+  border: 1px solid rgba(200,164,98,0.18);
+}
+.future-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid rgba(93,24,40,0.06);
+}
+.future-row:last-child { border-bottom: none; }
+.future-label { font-size: 0.88rem; color: var(--text-dark); }
+.future-label .es { display: block; font-size: 0.76rem; color: var(--text-muted); font-style: italic; }
+.future-badge {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--gold); background: rgba(200,164,98,0.14); border: 1px solid rgba(200,164,98,0.3);
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+}
+
+.hidden { display: none !important; }
+.loading { text-align: center; padding: 60px 20px; color: rgba(93,24,40,0.4); }
+
+@media (max-width: 480px) {
+  .header { padding: calc(var(--safe-top) + 16px) 20px 16px; }
+  .proposal-card, .status-card { padding: 28px 22px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-brand">
+    <span class="header-ar">دار الكلمة</span>
+    <span class="header-en">DAR AL-KALIMAH</span>
+    <span class="header-sub">🔔 Notifications</span>
+  </div>
+  <a href="index.html" class="btn-home" id="btn-home"><i class="fa-solid fa-house"></i></a>
+</div>
+
+<div class="container">
+
+  <div id="loading-block" class="loading">Chargement... <span style="display:block;font-style:italic;">Cargando...</span></div>
+
+  <!-- Statut pas encore tranché : proposition complète (identique, que ce soit une étape
+       obligatoire du parcours ou une consultation volontaire jamais encore décidée) -->
+  <div id="proposal-card" class="proposal-card hidden">
+    <div class="proposal-icon">🔔</div>
+    <div class="proposal-title">
+      Un petit coup de pouce au quotidien ?
+      <span class="es">¿Un pequeño impulso cada día?</span>
+    </div>
+    <div class="proposal-msg">
+      Recevez un rappel d’apprentissage, un mot arabe et quelques encouragements. Maximum : une notification par jour.
+      <span class="es">Recibe un recordatorio de aprendizaje, una palabra árabe y algunos mensajes de ánimo. Máximo: una notificación al día.</span>
+    </div>
+    <div class="proposal-actions">
+      <button type="button" class="btn-primary" id="btn-activate">
+        Activer mes rappels
+        <span class="es">Activar mis recordatorios</span>
+      </button>
+      <button type="button" class="btn-secondary" id="btn-later">
+        Plus tard <span style="font-style:italic;">· Más tarde</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Statut déjà tranché : résumé + éventuelle nouvelle tentative -->
+  <div id="status-card" class="status-card hidden"></div>
+
+  <div class="section-title">Bientôt disponible ici · Próximamente aquí</div>
+  <div class="future-card">
+    <div class="future-row">
+      <span class="future-label">Rappel de 15 minutes<span class="es">Recordatorio de 15 minutos</span></span>
+      <span class="future-badge">À venir · Próximo</span>
+    </div>
+    <div class="future-row">
+      <span class="future-label">Mot du jour<span class="es">Palabra del día</span></span>
+      <span class="future-badge">À venir · Próximo</span>
+    </div>
+    <div class="future-row">
+      <span class="future-label">Encouragements<span class="es">Mensajes de ánimo</span></span>
+      <span class="future-badge">À venir · Próximo</span>
+    </div>
+    <div class="future-row">
+      <span class="future-label">Heure préférée<span class="es">Hora preferida</span></span>
+      <span class="future-badge">À venir · Próximo</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Firebase (Auth + Firestore) — chargé et exécuté indépendamment d'OneSignal :
+     la vérification de connexion et l'affichage du statut ne doivent jamais
+     dépendre du SDK OneSignal (bloqueur de pub, réseau lent, erreur CDN...). -->
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const DAK_ONESIGNAL_APP_ID = "45f20a47-8afe-4b34-b847-8493041430bf";
+
+// OneSignal se charge en parallèle. On ne bloque jamais la page en l'attendant :
+// getOneSignal() se résout avec l'instance dès qu'elle est prête, ou avec null après
+// un délai raisonnable si le SDK ne répond jamais (échec technique, pas une décision
+// de l'élève — traité comme une erreur, cf. handleActivateClick).
+let _resolveOneSignal;
+const oneSignalReady = new Promise((resolve) => { _resolveOneSignal = resolve; });
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+window.OneSignalDeferred.push(async function (OneSignal) {
+  try {
+    await OneSignal.init({
+      appId: DAK_ONESIGNAL_APP_ID,
+      serviceWorkerPath: "sw.js",
+      serviceWorkerParam: { scope: "/" }
+    });
+    _resolveOneSignal(OneSignal);
+  } catch (e) {
+    console.error("Notifications — erreur init OneSignal:", e);
+    _resolveOneSignal(null);
+  }
+});
+function getOneSignal(timeoutMs = 8000) {
+  return Promise.race([
+    oneSignalReady,
+    new Promise((resolve) => setTimeout(() => resolve(null), timeoutMs))
+  ]);
+}
+
+const _cfg = {
+  apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+  authDomain: "dar-al-kalimah.firebaseapp.com",
+  projectId: "dar-al-kalimah",
+  storageBucket: "dar-al-kalimah.firebasestorage.app",
+  messagingSenderId: "472629258",
+  appId: "1:472629258:web:29b755d38efe89421f1ff3"
+};
+const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+const _auth = getAuth(_app);
+const _db = getFirestore(_app);
+
+// Destinations internes autorisees pour le parametre ?next= — toute valeur absente de
+// cette liste (URL externe, javascript:, //, chemin inattendu...) retombe sur index.html.
+// Correspondance exacte uniquement, jamais de construction d'URL a partir de "next".
+const DESTINATIONS_AUTORISEES = [
+  "module1.html","module2.html","module3.html","module4.html","module5.html",
+  "module6.html","module7.html","module8.html","module9.html","module10.html",
+  "module11.html","module12.html"
+];
+function destinationSure(brute) {
+  if (typeof brute === "string" && DESTINATIONS_AUTORISEES.includes(brute)) return brute;
+  return "index.html";
+}
+
+const params = new URLSearchParams(window.location.search);
+const isRequired = params.get("flow") === "required";
+const safeNext = destinationSure(params.get("next"));
+const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+const supported = typeof Notification !== "undefined";
+
+const loadingBlock = document.getElementById("loading-block");
+const proposalCard = document.getElementById("proposal-card");
+const statusCard = document.getElementById("status-card");
+const btnActivate = document.getElementById("btn-activate");
+const btnLater = document.getElementById("btn-later");
+const btnHome = document.getElementById("btn-home");
+
+// Etape obligatoire du parcours : le retour "accueil" doit suivre la meme regle
+// que la redirection post-choix (jamais une valeur brute non validee).
+if (isRequired) btnHome.setAttribute("href", safeNext);
+
+function goNext() { window.location.href = safeNext; }
+function goSafeFallback() { window.location.href = "index.html"; } // erreurs techniques uniquement
+
+const STATUS_TEXTS = {
+  accepted:     { icon: "✅", titre: "Tes rappels sont activés.",        titreEs: "Tus recordatorios están activados." },
+  later:        { icon: "⏳", titre: "Tu as choisi « Plus tard ».",      titreEs: "Elegiste « Más tarde »." },
+  denied:       { icon: "❌", titre: "Les notifications sont bloquées.", titreEs: "Las notificaciones están bloqueadas." },
+  unsubscribed: { icon: "🔕", titre: "Tes rappels sont désactivés.",     titreEs: "Tus recordatorios están desactivados." },
+  unsupported:  { icon: "⚠️", titre: "Appareil non compatible.",        titreEs: "Dispositivo no compatible." }
+};
+
+function renderDecidedStatus(statut) {
+  loadingBlock.classList.add("hidden");
+  proposalCard.classList.add("hidden");
+  statusCard.classList.remove("hidden");
+  const t = STATUS_TEXTS[statut] || STATUS_TEXTS.accepted;
+  statusCard.innerHTML = `
+    <div class="status-icon">${t.icon}</div>
+    <div class="status-title">${t.titre}<span class="es">${t.titreEs}</span></div>
+  `;
+  if (statut !== "accepted" && statut !== "unsupported") {
+    const retryBtn = document.createElement("button");
+    retryBtn.type = "button";
+    retryBtn.className = "btn-primary";
+    retryBtn.innerHTML = 'Activer mes rappels<span class="es">Activar mis recordatorios</span>';
+    retryBtn.style.marginTop = "8px";
+    retryBtn.addEventListener("click", () => handleActivateClick(true));
+    statusCard.appendChild(retryBtn);
+  }
+  if (statut === "denied") {
+    const help = document.createElement("div");
+    help.className = "help-box";
+    help.innerHTML = `<strong>Comment réactiver :</strong> ouvre les réglages de ton navigateur pour ce site (icône 🔒 ou ⓘ à côté de l'adresse), puis autorise les notifications.
+      <span class="es"><strong>Cómo reactivar:</strong> abre la configuración de tu navegador para este sitio (icono 🔒 o ⓘ junto a la dirección), y permite las notificaciones.</span>`;
+    statusCard.appendChild(help);
+  }
+}
+
+function renderProposal() {
+  loadingBlock.classList.add("hidden");
+  statusCard.classList.add("hidden");
+  proposalCard.classList.remove("hidden");
+}
+
+function renderErrorFallback() {
+  loadingBlock.classList.add("hidden");
+  proposalCard.classList.add("hidden");
+  statusCard.classList.remove("hidden");
+  statusCard.innerHTML = `
+    <div class="status-icon">⚠️</div>
+    <div class="status-title">Une erreur est survenue. Réessaie plus tard.<span class="es">Ha ocurrido un error. Vuelve a intentarlo más tarde.</span></div>
+  `;
+}
+
+// Le bouton se desactive AVANT tout await, de facon synchrone, pour qu'un double-clic
+// (ou un clic pendant le traitement) ne puisse jamais declencher un second appel.
+async function handleActivateClick(fromStatusRetry) {
+  const btn = fromStatusRetry ? statusCard.querySelector(".btn-primary") : btnActivate;
+  if (btn) {
+    if (btn.disabled) return;
+    btn.disabled = true;
+  }
+  try {
+    const OneSignal = await getOneSignal();
+    if (!OneSignal) throw new Error("OneSignal indisponible (SDK non chargé)");
+    await OneSignal.Notifications.requestPermission();
+    const optedIn = OneSignal.User.PushSubscription.optedIn === true;
+    const ref = doc(_db, "eleves", _auth.currentUser.uid);
+    if (optedIn) {
+      await OneSignal.login(_auth.currentUser.uid);
+      await setDoc(ref, { notifications: {
+        statut: "accepted",
+        dateDernierChoix: serverTimestamp(),
+        dateActivation: serverTimestamp(),
+        dateDerniereVerification: serverTimestamp(),
+        oneSignalSubscribed: true
+      }}, { merge: true });
+    } else {
+      await setDoc(ref, { notifications: {
+        statut: "denied",
+        dateDernierChoix: serverTimestamp(),
+        dateDerniereVerification: serverTimestamp(),
+        oneSignalSubscribed: false
+      }}, { merge: true });
+    }
+    if (isRequired) { goNext(); return; }
+    loadFromFirestore();
+  } catch (e) {
+    console.error("Notifications — erreur activation:", e);
+    if (isRequired) { goSafeFallback(); return; }
+    if (btn) btn.disabled = false;
+  }
+}
+
+// Ne dépend jamais d'OneSignal — fonctionne même si son SDK n'a jamais chargé.
+async function handleLaterClick() {
+  if (btnLater.disabled) return;
+  btnLater.disabled = true;
+  try {
+    const ref = doc(_db, "eleves", _auth.currentUser.uid);
+    await setDoc(ref, { notifications: {
+      statut: "later",
+      dateDernierChoix: serverTimestamp(),
+      dateRepropositionApres: new Date(Date.now() + SEVEN_DAYS_MS)
+    }}, { merge: true });
+    if (isRequired) { goNext(); return; }
+    loadFromFirestore();
+  } catch (e) {
+    console.error("Notifications — erreur report:", e);
+    if (isRequired) { goSafeFallback(); return; }
+  } finally {
+    btnLater.disabled = false;
+  }
+}
+
+btnActivate.addEventListener("click", () => handleActivateClick(false));
+btnLater.addEventListener("click", handleLaterClick);
+
+async function loadFromFirestore() {
+  const uid = _auth.currentUser.uid;
+  const ref = doc(_db, "eleves", uid);
+
+  if (!supported) {
+    try {
+      const snap = await getDoc(ref);
+      const notif = (snap.exists() && snap.data().notifications) || {};
+      if (notif.statut !== "unsupported") {
+        await setDoc(ref, { notifications: { statut: "unsupported", dateDerniereVerification: serverTimestamp() } }, { merge: true });
+      }
+    } catch (e) { console.error("Notifications — erreur (unsupported):", e); }
+    if (isRequired) { goNext(); return; }
+    renderDecidedStatus("unsupported");
+    return;
+  }
+
+  const snap = await getDoc(ref);
+  const notif = (snap.exists() && snap.data().notifications) || null;
+  const statut = notif && notif.statut;
+  const now = Date.now();
+  const laterDue = statut === "later" && notif.dateRepropositionApres &&
+    notif.dateRepropositionApres.toDate().getTime() <= now;
+  const undecided = !notif || statut === "not_asked" || laterDue;
+
+  if (undecided) {
+    if (!notif) {
+      await setDoc(ref, { notifications: { datePropositionInitiale: serverTimestamp() } }, { merge: true });
+    }
+    renderProposal();
+  } else {
+    renderDecidedStatus(statut);
+  }
+}
+
+// Ne dépend d'aucune disponibilité d'OneSignal : redirige immédiatement si l'élève
+// n'est pas connecté, sinon affiche systématiquement quelque chose (jamais de
+// chargement infini, même si Firestore échoue).
+onAuthStateChanged(_auth, (user) => {
+  if (!user) { window.location.href = "auth.html"; return; }
+  document.body.style.visibility = "visible";
+  loadFromFirestore().catch((e) => {
+    console.error("Notifications — erreur chargement:", e);
+    if (isRequired) { goSafeFallback(); return; }
+    renderErrorFallback();
+  });
+});
+</script>
+
+<!-- Mot du jour — jamais affiché dans l'interface DAK, réservé aux futures notifications
+     (automatisation d'envoi non construite pour l'instant, chantier séparé). Banque réelle :
+     database.js / wordsDatabase, type "word", 663 entrées, inchangée.
+     Séquence pédagogique de démarrage recommandée (à utiliser manuellement lors de la
+     création des premières campagnes OneSignal, pas l'ordre brut de la base) :
+       1. كَلِمَةٌ — un mot / una palabra
+       2. نُورٌ — une lumière / una luz
+       3. عِلْمٌ — un savoir / conocimiento
+       4. كِتَابٌ — un livre / un libro
+       5. قَلَمٌ — un stylo / un bolígrafo
+       6. سَلَامٌ — la paix / la paz
+       7. قَلْبٌ — un cœur / un corazón -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>

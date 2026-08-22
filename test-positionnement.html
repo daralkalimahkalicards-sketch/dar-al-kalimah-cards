@@ -772,7 +772,11 @@
     // D. Recommandation — en dernier, intégrée dans une phrase, jamais le message principal. INCHANGÉ dans sa logique.
     const moduleLabel = state.lang === "es" ? rule.module.replace("Module", "Módulo") : rule.module;
     $("recommendation-line").innerHTML = t.recommendationTemplate(moduleLabel);
-    $("btn-go-module").onclick = () => { window.location.href = rule.href; };
+    // Passe par l'étape notifications avant le module recommandé (voir notifications.html
+    // pour la validation stricte du paramètre "next" — jamais de redirection brute ici).
+    $("btn-go-module").onclick = () => {
+      window.location.href = "notifications.html?flow=required&next=" + encodeURIComponent(rule.href);
+    };
 
     // Confettis + son Mabrouk — déclenchés ensemble, brefs, non bloquants. Page de résultats non redessinée par ailleurs.
     if (typeof confetti === "function") {
