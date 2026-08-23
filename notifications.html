@@ -474,7 +474,6 @@ onAuthStateChanged(_auth, (user) => {
 
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
   let dakSwRefreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (dakSwRefreshing) return;
