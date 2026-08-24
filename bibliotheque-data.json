@@ -70,7 +70,7 @@
       "type": "fiche",
       "public": "enfant",
       "icone": "fa-solid fa-language",
-      "lien": "fiches/horouf-al-jar-asmaa-al-icharah-fr-nl.html"
+      "lien": "fiches/fr-nl/horouf-al-jar-asmaa-al-icharah-fr-nl.html"
     },
     {
       "id": "fiche-horouf-jar-icharah-fr-es",
@@ -82,7 +82,31 @@
       "type": "fiche",
       "public": "enfant",
       "icone": "fa-solid fa-language",
-      "lien": "fiches/horouf-al-jar-asmaa-al-icharah-fr-es.html"
+      "lien": "fiches/fr-es/horouf-al-jar-asmaa-al-icharah-fr-es.html"
+    },
+    {
+      "id": "fiche-verbes-madi-mudari-amr-fr-nl",
+      "titre_fr": "Les Verbes Arabes",
+      "sous_titre_fr": "Al-Māḍī, Al-Muḍāriʿ & Al-Amr (FR/NL)",
+      "titre_ar": "الماضي، المضارع، الأمر",
+      "description_fr": "Fiche illustrée sur les trois temps du verbe arabe (passé, présent, impératif), pour enfant, avec règles, exemples et exercices corrigés. Français / néerlandais.",
+      "description_es": "Ficha ilustrada sobre los tres tiempos del verbo árabe (pasado, presente, imperativo), con reglas, ejemplos y ejercicios corregidos. Francés / neerlandés.",
+      "type": "fiche",
+      "public": "enfant",
+      "icone": "fa-solid fa-language",
+      "lien": "fiches/fr-nl/verbes-madi-mudari-amr-fr-nl.html"
+    },
+    {
+      "id": "fiche-verbes-madi-mudari-amr-fr-es",
+      "titre_fr": "Les Verbes Arabes",
+      "sous_titre_fr": "Al-Māḍī, Al-Muḍāriʿ & Al-Amr (FR/ES)",
+      "titre_ar": "الماضي، المضارع، الأمر",
+      "description_fr": "Fiche illustrée sur les trois temps du verbe arabe (passé, présent, impératif), pour enfant, avec règles, exemples et exercices corrigés. Français / espagnol.",
+      "description_es": "Ficha ilustrada sobre los tres tiempos del verbo árabe (pasado, presente, imperativo), con reglas, ejemplos y ejercicios corregidos. Francés / español.",
+      "type": "fiche",
+      "public": "enfant",
+      "icone": "fa-solid fa-language",
+      "lien": "fiches/fr-es/verbes-madi-mudari-amr-fr-es.html"
     }
   ]
 }
