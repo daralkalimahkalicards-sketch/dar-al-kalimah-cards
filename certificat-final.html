@@ -382,13 +382,25 @@
     if (!user) { window.location.href = "auth.html"; return; }
 
     try {
+      // Statut professeur : reutilise la collection /profs/{uid} deja en place (meme
+      // mecanisme que le deverrouillage de la carte Test final sur modules.html) — un
+      // prof accede au certificat sans avoir a terminer l'evaluation finale.
+      let estProfConnecte = false;
+      try {
+        const profSnap = await getDoc(doc(_db, "profs", user.uid));
+        estProfConnecte = profSnap.exists();
+      } catch (eProf) {
+        console.error("Verification statut prof impossible (on continue avec la logique eleve) :", eProf);
+      }
+
       const eleveSnap = await getDoc(doc(_db, "eleves", user.uid));
       const eleve = eleveSnap.exists() ? eleveSnap.data() : {};
 
       // Le certificat atteste la fin du parcours (test final termine + sauvegarde reussie),
       // jamais un score minimum : on reutilise le meme signal que test-final.html ecrit deja
-      // (eleves/{uid}.certificatFinalDebloque), jamais recalcule ni redefini ici.
-      if (eleve.certificatFinalDebloque !== true) {
+      // (eleves/{uid}.certificatFinalDebloque), jamais recalcule ni redefini ici — sauf pour
+      // un compte prof, qui contourne volontairement cette condition (cf. commentaire ci-dessus).
+      if (eleve.certificatFinalDebloque !== true && !estProfConnecte) {
         showStatus("status-locked");
         return;
       }
