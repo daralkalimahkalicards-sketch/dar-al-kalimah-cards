@@ -52,6 +52,22 @@
   .status-text { font-size: 0.98rem; color: var(--text-dark); line-height: 1.6; }
   .status-link { display: inline-block; margin-top: 22px; color: var(--burgundy); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; font-size: 0.88rem; }
 
+  /* ---------- Choix du style de certificat ---------- */
+  .choice-title { margin-bottom: 26px; font-family: "Cinzel", serif; font-size: 1.05rem; color: var(--burgundy); }
+  .choice-row { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+  .choice-card {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    background: var(--white); border: 1px solid rgba(200,164,98,0.4); border-radius: 14px;
+    padding: 20px 26px; cursor: pointer; font-family: "Montserrat", sans-serif;
+    font-size: 0.86rem; font-weight: 600; color: var(--text-dark);
+    transition: all 0.25s ease;
+  }
+  .choice-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(93,24,40,0.12); }
+  .choice-swatch { width: 48px; height: 34px; border-radius: 6px; border: 1px solid rgba(93,24,40,0.15); }
+  .choice-swatch-ivoire { background: var(--ivoire); }
+  .choice-swatch-bordeaux { background: var(--burgundy); }
+  @media (max-width: 480px) { .choice-row { gap: 14px; } .choice-card { padding: 16px 20px; } }
+
   /* ---------- Champ nom (interface uniquement, jamais imprime) ---------- */
   .name-field { width: 100%; max-width: 420px; margin-bottom: 26px; text-align: center; }
   .name-field.hidden { display: none; }
@@ -231,6 +247,25 @@
     </a>
   </div>
 
+  <div class="status-view hidden" id="status-choice">
+    <div class="status-text choice-title">
+      <span class="lang-fr">Choisis le style de ton certificat</span>
+      <span class="lang-es">Elige el estilo de tu certificado</span>
+    </div>
+    <div class="choice-row no-print">
+      <button class="choice-card choice-ivoire" id="choice-ivoire" type="button">
+        <span class="choice-swatch choice-swatch-ivoire"></span>
+        <span class="lang-fr">Classique ivoire</span>
+        <span class="lang-es">Clásico marfil</span>
+      </button>
+      <button class="choice-card choice-bordeaux" id="choice-bordeaux" type="button">
+        <span class="choice-swatch choice-swatch-bordeaux"></span>
+        <span class="lang-fr">Bordeaux doré</span>
+        <span class="lang-es">Burdeos dorado</span>
+      </button>
+    </div>
+  </div>
+
   <div class="name-field no-print hidden" id="name-field">
     <label class="name-label" for="cert-name-input">
       <span class="lang-fr">Nom à afficher sur le certificat</span>
@@ -371,6 +406,7 @@
   function showStatus(view) {
     $("status-loading").classList.add("hidden");
     $("status-locked").classList.add("hidden");
+    $("status-choice").classList.add("hidden");
     $("name-field").classList.add("hidden");
     $("controls").classList.add("hidden");
     $("cert-wrap").classList.add("hidden");
@@ -405,6 +441,22 @@
         return;
       }
 
+      // Deux styles de certificat disponibles : celui-ci (ivoire) reste sur place,
+      // "bordeaux dore" redirige vers le fichier separe certificat-final-bordeaux.html
+      // (meme logique de deverrouillage, dupliquee independamment sur cette autre page).
+      showStatus("status-choice");
+      $("choice-ivoire").addEventListener("click", () => renderCertificatIvoire(eleve, user), { once: true });
+      $("choice-bordeaux").addEventListener("click", () => {
+        window.location.href = "certificat-final-bordeaux.html";
+      }, { once: true });
+    } catch (e) {
+      console.error("Erreur chargement certificat final :", e);
+      showStatus("status-locked");
+    }
+  });
+
+  async function renderCertificatIvoire(eleve, user) {
+    try {
       // Le nom n'est plus impose depuis Firebase : simple prerempli editable, l'eleve reste
       // libre de taper exactement ce qu'il veut voir sur son certificat (accents, arabe,
       // apostrophes, tirets... jamais reformate). Champ vide -> impression bloquee (cf. plus bas).
@@ -437,7 +489,7 @@
       console.error("Erreur chargement certificat final :", e);
       showStatus("status-locked");
     }
-  });
+  }
 </script>
 <script>
 if ('serviceWorker' in navigator) {
