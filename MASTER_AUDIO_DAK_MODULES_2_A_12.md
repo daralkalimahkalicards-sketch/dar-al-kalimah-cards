@@ -744,12 +744,12 @@ Document unique et officiel pour les enregistrements Audacity de Dar Al-Kalimah 
 | 665 | 7 | Leçon | إِنَّا أَعْطَيْنَاكَ ٱلْكَوْثَرَ ﴿١﴾ | inna a'taynaka al-kawthara | `kawthar-v1.mp3` | `audio/sourates/kawthar-v1.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 666 | 7 | Leçon | فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾ | fasalli li-rabbika wanhar | `kawthar-v2.mp3` | `audio/sourates/kawthar-v2.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 667 | 7 | Leçon | إِنَّ شَانِئَكَ هُوَ ٱلاَبْتَرُ ﴿٣﴾ | inna shani'aka huwa al-abtar | `kawthar-v3.mp3` | `audio/sourates/kawthar-v3.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
-| 668 | 7 | Leçon | سُورَة الكَوْثَر (كاملة) | sourate Al-Kawthar complète | `kawthar-complete.mp3` | `audio/sourates/kawthar-complete.mp3` | Leçon 7 | ☐ À enregistrer / ☐ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
+| 668 | 7 | Leçon | سُورَة الكَوْثَر (كاملة) | sourate Al-Kawthar complète | `kawthar-complete.mp3` | `audio/sourates/kawthar-complete.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 669 | 7 | Leçon | قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ | qul huwa Allahu ahad | `ikhlas-v1.mp3` | `audio/sourates/ikhlas-v1.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 670 | 7 | Leçon | اللَّهُ ٱلصَّمَدُ ﴿٢﴾ | Allahu as-samad | `ikhlas-v2.mp3` | `audio/sourates/ikhlas-v2.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 671 | 7 | Leçon | لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ | lam yalid wa lam yulad | `ikhlas-v3.mp3` | `audio/sourates/ikhlas-v3.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 672 | 7 | Leçon | وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿٤﴾ | wa lam yakun lahu kufuwan ahad | `ikhlas-v4.mp3` | `audio/sourates/ikhlas-v4.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
-| 673 | 7 | Leçon | سُورَة الإِخْلَاص (كاملة) | sourate Al-Ikhlas complète | `ikhlas-complete.mp3` | `audio/sourates/ikhlas-complete.mp3` | Leçon 7 | ☐ À enregistrer / ☐ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
+| 673 | 7 | Leçon | سُورَة الإِخْلَاص (كاملة) | sourate Al-Ikhlas complète | `ikhlas-complete.mp3` | `audio/sourates/ikhlas-complete.mp3` | Leçon 7 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 
 ### Banque
 
@@ -1004,14 +1004,14 @@ Document unique et officiel pour les enregistrements Audacity de Dar Al-Kalimah 
 | 892 | 11 | Leçon | وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ | wa min sharri ghasiqin idha waqab | `falaq-v3.mp3` | `audio/sourates/falaq-v3.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 893 | 11 | Leçon | وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ | wa min sharri an-naffathati fi al-uqad | `falaq-v4.mp3` | `audio/sourates/falaq-v4.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 894 | 11 | Leçon | وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾ | wa min sharri hasidin idha hasad | `falaq-v5.mp3` | `audio/sourates/falaq-v5.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
-| 895 | 11 | Leçon | سُورَة الفَلَق (كاملة) | sourate Al-Falaq complète | `falaq-complete.mp3` | `audio/sourates/falaq-complete.mp3` | Leçon 11 | ☐ À enregistrer / ☐ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
+| 895 | 11 | Leçon | سُورَة الفَلَق (كاملة) | sourate Al-Falaq complète | `falaq-complete.mp3` | `audio/sourates/falaq-complete.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 896 | 11 | Leçon | قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾ | qul a'udhu bi-rabbi an-nas | `nas-v1.mp3` | `audio/sourates/nas-v1.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 897 | 11 | Leçon | مَلِكِ النَّاسِ ﴿٢﴾ | maliki an-nas | `nas-v2.mp3` | `audio/sourates/nas-v2.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 898 | 11 | Leçon | إِلَهِ النَّاسِ ﴿٣﴾ | ilahi an-nas | `nas-v3.mp3` | `audio/sourates/nas-v3.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 899 | 11 | Leçon | مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾ | min sharri al-waswasi al-khannas | `nas-v4.mp3` | `audio/sourates/nas-v4.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 900 | 11 | Leçon | الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾ | alladhi yuwaswisu fi sudur an-nas | `nas-v5.mp3` | `audio/sourates/nas-v5.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 901 | 11 | Leçon | مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾ | mina al-jinnati wa an-nas | `nas-v6.mp3` | `audio/sourates/nas-v6.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
-| 902 | 11 | Leçon | سُورَة النَّاس (كاملة) | sourate An-Nas complète | `nas-complete.mp3` | `audio/sourates/nas-complete.mp3` | Leçon 11 | ☐ À enregistrer / ☐ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
+| 902 | 11 | Leçon | سُورَة النَّاس (كاملة) | sourate An-Nas complète | `nas-complete.mp3` | `audio/sourates/nas-complete.mp3` | Leçon 11 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 
 ### Banque
 
@@ -1068,7 +1068,7 @@ Document unique et officiel pour les enregistrements Audacity de Dar Al-Kalimah 
 | 944 | 12 | Leçon | إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٤﴾ | iyyaka na'budu wa iyyaka nasta'in | `fatiha-v4.mp3` | `audio/sourates/fatiha-v4.mp3` | Leçon 12 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 945 | 12 | Leçon | اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٥﴾ | ihdina as-sirata al-mustaqim | `fatiha-v5.mp3` | `audio/sourates/fatiha-v5.mp3` | Leçon 12 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 | 946 | 12 | Leçon | صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٦-٧﴾ | sirata alladhina an'amta alayhim ghayri al-maghdubi alayhim wa la ad-dallin | `fatiha-v6.mp3` | `audio/sourates/fatiha-v6.mp3` | Leçon 12 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
-| 947 | 12 | Leçon | سُورَة الفَاتِحَة (كاملة) | sourate Al-Fatiha complète | `fatiha-complete.mp3` | `audio/sourates/fatiha-complete.mp3` | Leçon 12 | ☐ À enregistrer / ☐ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
+| 947 | 12 | Leçon | سُورَة الفَاتِحَة (كاملة) | sourate Al-Fatiha complète | `fatiha-complete.mp3` | `audio/sourates/fatiha-complete.mp3` | Leçon 12 | ☐ À enregistrer / ☑ Enregistré / ☐ Vérifié — ⚠️ récitateur qualifié riwaya Warsh requis |
 
 ### Banque
 
