@@ -375,7 +375,18 @@ async function handleActivateClick(fromStatusRetry) {
     const optedIn = OneSignal.User.PushSubscription.optedIn === true;
     const ref = doc(_db, "eleves", _auth.currentUser.uid);
     if (optedIn) {
-      await OneSignal.login(_auth.currentUser.uid);
+      // OneSignal.login() communique avec le service worker pour lier le compte —
+      // si ca ne repond jamais (conflit SW, etc.), le clic ne doit pas rester
+      // bloque indefiniment : la permission navigateur est deja accordee, donc on
+      // enregistre quand meme le statut apres ce delai plutot que d'attendre a l'infini.
+      try {
+        await Promise.race([
+          OneSignal.login(_auth.currentUser.uid),
+          new Promise((resolve) => setTimeout(resolve, 5000))
+        ]);
+      } catch (eLogin) {
+        console.error("Notifications — erreur OneSignal.login (on continue quand même) :", eLogin);
+      }
       await setDoc(ref, { notifications: {
         statut: "accepted",
         dateDernierChoix: serverTimestamp(),
