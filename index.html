@@ -235,7 +235,6 @@
 <script type="module">
   import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const _cfg = {
     apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
     authDomain: "dar-al-kalimah.firebaseapp.com",
@@ -246,28 +245,12 @@
   };
   const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
   const _auth = getAuth(_app);
-  const _db = getFirestore(_app);
   const PROF_EMAIL = "sunfertity2080@gmail.com";
-  onAuthStateChanged(_auth, async (user) => {
+  onAuthStateChanged(_auth, (user) => {
     if (!user) { window.location.href = 'auth.html'; return; }
     if (user.email !== PROF_EMAIL) {
       const profCard = document.querySelector('a[href="dashboard.html"]');
       if (profCard) profCard.style.display = 'none';
-    }
-    // Meme regle de proposition des notifications que auth.html : necessaire ici
-    // car un utilisateur deja connecte qui rouvre l'app via l'icone installee
-    // atterrit directement sur index.html, sans repasser par auth.html.
-    try {
-      const snap = await getDoc(doc(_db, 'eleves', user.uid));
-      const notif = snap.exists() ? snap.data().notifications : null;
-      const laterDue = notif && notif.statut === 'later' && notif.dateRepropositionApres &&
-        notif.dateRepropositionApres.toDate().getTime() <= Date.now();
-      if (!notif || !notif.statut || notif.statut === 'not_asked' || laterDue) {
-        window.location.href = 'notifications.html?flow=required';
-        return;
-      }
-    } catch (e) {
-      console.error('Erreur verification statut notifications:', e);
     }
   });
 </script>
