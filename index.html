@@ -35,6 +35,7 @@
             font-family: 'Montserrat', sans-serif;
             padding: 40px 20px; color: var(--text-dark);
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            visibility: hidden;
         }
 
         .ar-text { font-family: "Amiri", serif; direction: rtl; }
@@ -252,7 +253,11 @@
       const profCard = document.querySelector('a[href="dashboard.html"]');
       if (profCard) profCard.style.display = 'none';
     }
+    document.body.style.visibility = 'visible';
   });
+  // Filet de securite : si Firebase Auth ne repond jamais (SDK bloque, reseau...),
+  // la page ne doit jamais rester invisible indefiniment.
+  setTimeout(() => { document.body.style.visibility = 'visible'; }, 3000);
 </script>
 <script>
 if ('serviceWorker' in navigator) {
