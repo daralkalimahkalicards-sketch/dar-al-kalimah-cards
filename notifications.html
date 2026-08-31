@@ -69,6 +69,7 @@ body::before {
   box-shadow: 0 8px 30px rgba(93,24,40,0.10);
   border: 1px solid rgba(200,164,98,0.25);
   margin-bottom: 24px;
+  transition: opacity 0.3s ease;
 }
 .proposal-icon {
   width: 60px; height: 60px; margin: 0 auto 18px; border-radius: 50%;
@@ -88,6 +89,7 @@ body::before {
   box-shadow: 0 8px 30px rgba(93,24,40,0.10);
   border: 1px solid rgba(200,164,98,0.25);
   margin-bottom: 24px;
+  transition: opacity 0.3s ease;
 }
 .status-icon { font-size: 2.4rem; margin-bottom: 14px; }
 .status-title { font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--burgundy); margin-bottom: 8px; line-height: 1.5; }
@@ -302,10 +304,21 @@ const STATUS_TEXTS = {
   unsupported:  { icon: "⚠️", titre: "Appareil non compatible.",        titreEs: "Dispositivo no compatible." }
 };
 
+// Adoucit le remplacement carte proposition <-> carte statut (tailles differentes,
+// sans ca le contenu en dessous "sautait" instantanement vers le haut).
+function fadeIn(el) {
+  el.style.opacity = "0";
+  requestAnimationFrame(() => { el.style.opacity = "1"; });
+  // Filet de securite : si requestAnimationFrame ne se declenche jamais (onglet
+  // en arriere-plan, appareil lent...), le contenu ne doit jamais rester invisible.
+  setTimeout(() => { el.style.opacity = "1"; }, 400);
+}
+
 function renderDecidedStatus(statut) {
   loadingBlock.classList.add("hidden");
   proposalCard.classList.add("hidden");
   statusCard.classList.remove("hidden");
+  fadeIn(statusCard);
   const t = STATUS_TEXTS[statut] || STATUS_TEXTS.accepted;
   statusCard.innerHTML = `
     <div class="status-icon">${t.icon}</div>
@@ -333,12 +346,14 @@ function renderProposal() {
   loadingBlock.classList.add("hidden");
   statusCard.classList.add("hidden");
   proposalCard.classList.remove("hidden");
+  fadeIn(proposalCard);
 }
 
 function renderErrorFallback() {
   loadingBlock.classList.add("hidden");
   proposalCard.classList.add("hidden");
   statusCard.classList.remove("hidden");
+  fadeIn(statusCard);
   statusCard.innerHTML = `
     <div class="status-icon">⚠️</div>
     <div class="status-title">Une erreur est survenue. Réessaie plus tard.<span class="es">Ha ocurrido un error. Vuelve a intentarlo más tarde.</span></div>
