@@ -67,6 +67,11 @@
   .user-email { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 24px; }
   .btn-secondary { width: 100%; padding: 14px; background: transparent; color: rgba(200,164,98,0.7); border: 1px solid rgba(200,164,98,0.3); border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; cursor: pointer; margin-top: 10px; transition: all 0.3s; }
   .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .link-forgot { display: block; text-align: center; margin-top: 14px; color: rgba(200,164,98,0.75); font-size: 0.8rem; text-decoration: none; cursor: pointer; background: none; border: none; font-family: 'Montserrat', sans-serif; width: 100%; }
+  .link-forgot:hover { color: var(--gold); text-decoration: underline; }
+  .lbl-es { display: block; text-transform: none; font-weight: 400; font-style: italic; letter-spacing: 0; color: rgba(200,164,98,0.5); margin-top: 3px; font-size: 0.7rem; }
+  .btn-es { display: block; font-size: 0.72em; font-weight: 500; opacity: 0.85; margin-top: 2px; text-transform: none; letter-spacing: 0.3px; }
+  .msg .es { display: block; font-style: italic; opacity: 0.85; margin-top: 4px; font-size: 0.88em; }
   @media (max-width: 480px) { .auth-card { padding: 40px 24px; } .brand-ar { font-size: 2rem; } }
 </style>
 </head>
@@ -103,6 +108,27 @@
       </div>
       <button class="btn-main" onclick="login()">Se connecter</button>
       <div id="login-msg" class="msg"></div>
+      <button type="button" class="link-forgot" onclick="showResetPanel()">
+        Mot de passe oublié ?
+        <span class="lbl-es">¿Has olvidado tu contraseña?</span>
+      </button>
+    </div>
+
+    <!-- MOT DE PASSE OUBLIÉ -->
+    <div id="panel-reset" class="form-panel">
+      <div class="form-group">
+        <label>Entre ton adresse e-mail<span class="lbl-es">Introduce tu correo electrónico</span></label>
+        <input type="email" id="reset-email" placeholder="ton@email.com" onkeydown="if(event.key==='Enter')resetPassword()">
+      </div>
+      <button class="btn-main" id="btn-reset" onclick="resetPassword()">
+        Envoyer le lien
+        <span class="btn-es">Enviar el enlace</span>
+      </button>
+      <div id="reset-msg" class="msg"></div>
+      <button type="button" class="link-forgot" onclick="showLoginPanel()">
+        ← Retour à la connexion
+        <span class="lbl-es">← Volver al inicio de sesión</span>
+      </button>
     </div>
 
     <!-- INSCRIPTION -->
@@ -127,7 +153,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, deleteUser, onAuthStateChanged, browserLocalPersistence, setPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, deleteUser, onAuthStateChanged, browserLocalPersistence, setPersistence, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -193,6 +219,25 @@ window.switchTab = (tab) => {
 
 window.goToApp = () => { redirectAfterAuth(auth.currentUser.uid); };
 
+// Ecran "mot de passe oublie" : un 3e panneau, atteint uniquement via le lien
+// (pas un onglet) — on masque la barre d'onglets pendant qu'il est affiche.
+window.showResetPanel = () => {
+  document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-reset').classList.add('active');
+  document.querySelector('.tabs').style.display = 'none';
+};
+window.showLoginPanel = () => {
+  document.querySelector('.tabs').style.display = 'flex';
+  document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('login')"]`).classList.add('active');
+  document.getElementById('panel-login').classList.add('active');
+  const msg = document.getElementById('reset-msg');
+  msg.className = 'msg';
+  msg.textContent = '';
+  document.getElementById('reset-email').value = '';
+};
+
 window.login = async () => {
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
@@ -256,6 +301,38 @@ window.register = async () => {
     msg.textContent = e.code === 'auth/email-already-in-use'
       ? '❌ Email déjà utilisé. Connecte-toi.'
       : '❌ Erreur : ' + e.message;
+  }
+};
+
+const RESET_MSG_OK = 'Si cette adresse correspond à un compte Dar Al-Kalimah, tu recevras un e-mail te permettant de choisir un nouveau mot de passe. Pense à vérifier tes courriers indésirables.<span class="es">Si esta dirección corresponde a una cuenta de Dar Al-Kalimah, recibirás un correo para elegir una nueva contraseña. Revisa también la carpeta de correo no deseado.</span>';
+
+window.resetPassword = async () => {
+  const email = document.getElementById('reset-email').value.trim();
+  const msg = document.getElementById('reset-msg');
+  const btn = document.getElementById('btn-reset');
+  if (!email) {
+    msg.className = 'msg error';
+    msg.innerHTML = '❌ Entre ton adresse e-mail.<span class="es">❌ Introduce tu correo electrónico.</span>';
+    return;
+  }
+  if (btn.disabled) return;
+  btn.disabled = true;
+  try {
+    await sendPasswordResetEmail(auth, email);
+    msg.className = 'msg success';
+    msg.innerHTML = RESET_MSG_OK;
+  } catch (e) {
+    if (e.code === 'auth/invalid-email') {
+      msg.className = 'msg error';
+      msg.innerHTML = '❌ Adresse email invalide.<span class="es">❌ Correo electrónico no válido.</span>';
+    } else {
+      // Ne jamais reveler si le compte existe ou non (auth/user-not-found ou
+      // toute autre erreur technique) : meme message rassurant que le succes.
+      msg.className = 'msg success';
+      msg.innerHTML = RESET_MSG_OK;
+    }
+  } finally {
+    btn.disabled = false;
   }
 };
 
