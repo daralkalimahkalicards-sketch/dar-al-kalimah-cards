@@ -447,7 +447,7 @@ async function loadFromFirestore() {
   const now = Date.now();
   const laterDue = statut === "later" && notif.dateRepropositionApres &&
     notif.dateRepropositionApres.toDate().getTime() <= now;
-  const undecided = !notif || statut === "not_asked" || laterDue;
+  const undecided = !notif || !statut || statut === "not_asked" || laterDue;
 
   if (undecided) {
     if (!notif) {

@@ -262,7 +262,7 @@
       const notif = snap.exists() ? snap.data().notifications : null;
       const laterDue = notif && notif.statut === 'later' && notif.dateRepropositionApres &&
         notif.dateRepropositionApres.toDate().getTime() <= Date.now();
-      if (!notif || notif.statut === 'not_asked' || laterDue) {
+      if (!notif || !notif.statut || notif.statut === 'not_asked' || laterDue) {
         window.location.href = 'notifications.html?flow=required';
         return;
       }
