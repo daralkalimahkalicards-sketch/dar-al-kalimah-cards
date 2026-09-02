@@ -174,7 +174,9 @@ await setPersistence(auth, browserLocalPersistence);
 
 // Redirection post-connexion, dans l'ordre :
 // 1) test de positionnement tant qu'il n'a pas été validé ;
-// 2) sinon l'accueil.
+// 2) étape notifications si jamais proposée (statut absent ou 'not_asked'), ou si
+//    "later" et le délai de 7 jours est dépassé (eleves/{uid}.notifications) ;
+// 3) sinon l'accueil.
 // En cas d'erreur de lecture Firestore, on ne bloque jamais l'élève : index.html.
 async function redirectAfterAuth(uid) {
   try {
@@ -182,6 +184,13 @@ async function redirectAfterAuth(uid) {
     const data = snap.exists() ? snap.data() : {};
     if (data.testPositionnementFait !== true) {
       window.location.href = 'test-positionnement.html';
+      return;
+    }
+    const notif = data.notifications;
+    const laterDue = notif && notif.statut === 'later' && notif.dateRepropositionApres &&
+      notif.dateRepropositionApres.toDate().getTime() <= Date.now();
+    if (!notif || !notif.statut || notif.statut === 'not_asked' || laterDue) {
+      window.location.href = 'notifications.html?flow=required';
       return;
     }
     window.location.href = 'index.html';
