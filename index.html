@@ -61,11 +61,19 @@
         /* =========================================
            GRILLE DE NAVIGATION 2 COLONNES
            ========================================= */
-        .nav-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); 
-            gap: 30px; width: 100%; max-width: 850px; 
+        .nav-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 30px; width: 100%; max-width: 850px;
             margin-bottom: 40px;
         }
+
+        .page-footer { width: 100%; text-align: center; margin-top: 10px; }
+        .page-footer a {
+            color: var(--text-muted); font-size: 0.78rem; text-decoration: none;
+            border-bottom: 1px dotted rgba(93,24,40,0.25); padding-bottom: 2px;
+        }
+        .page-footer a:hover { color: var(--burgundy); }
+        .lang-es-inline { font-style: italic; }
 
         /* =========================================
            CARTES D'ÉTUDE
@@ -231,6 +239,10 @@
             <button class="btn-open btn-locked">Bientôt / Pronto</button>
         </div>
 
+    </div>
+
+    <div class="page-footer">
+        <a href="/confidentialite.html">Politique de confidentialité <span class="lang-es-inline">· Política de privacidad</span></a>
     </div>
 
 <script type="module">
