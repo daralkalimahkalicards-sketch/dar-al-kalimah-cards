@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5D1828">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Politique de confidentialité — Dar Al-Kalimah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --burgundy: #5D1828;
+    --burgundy-dark: #3a0f19;
+    --gold: #C8A462;
+    --gold-light: #dfc28b;
+    --white: #FFFFFF;
+    --bg: #FAF6F0;
+    --text-dark: #2C3E50;
+    --text-muted: #6b7280;
+    --safe-top: env(safe-area-inset-top, 0px);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.7;
+    padding-bottom: 60px;
+  }
+  body[data-lang="fr"] .lang-es { display: none; }
+  body[data-lang="es"] .lang-fr { display: none; }
+
+  .header {
+    background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+    padding: calc(var(--safe-top) + 30px) 30px 26px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(93,24,40,0.3);
+  }
+  .header-ar { font-family: 'Amiri', serif; font-size: 1.9rem; color: var(--gold); }
+  .header-en { font-family: 'Cinzel', serif; font-size: 0.7rem; color: rgba(200,164,98,0.75); letter-spacing: 3px; margin-top: 4px; }
+  .header-title { color: var(--white); font-family: 'Cinzel', serif; font-size: 1.1rem; margin-top: 14px; letter-spacing: 0.5px; }
+  .header-dates { color: rgba(255,255,255,0.5); font-size: 0.76rem; margin-top: 8px; line-height: 1.6; }
+  .top-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .btn-home {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(200,164,98,0.32);
+    color: var(--gold); border-radius: 999px; padding: 8px 20px;
+    font-size: 0.8rem; text-decoration: none;
+  }
+  .lang-switch { display: inline-flex; gap: 4px; background: rgba(255,255,255,0.06); border-radius: 999px; padding: 3px; }
+  .lang-btn {
+    border: none; background: transparent; color: rgba(255,255,255,0.6);
+    font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .lang-btn.active { background: var(--gold); color: var(--burgundy-dark); }
+  .lang-sep { color: rgba(255,255,255,0.35); font-size: 0.75rem; align-self: center; }
+
+  .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 0; }
+
+  section { margin-bottom: 34px; }
+  h2 {
+    font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--burgundy);
+    padding-bottom: 8px; border-bottom: 2px solid var(--gold); margin-bottom: 14px;
+  }
+  p { font-size: 0.92rem; margin-bottom: 10px; }
+  ul { margin: 8px 0 8px 20px; font-size: 0.92rem; }
+  li { margin-bottom: 6px; }
+  a { color: var(--burgundy); }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: var(--white); border-radius: 12px; overflow: hidden; }
+  th { background: var(--burgundy); color: var(--gold); text-align: left; padding: 12px 16px; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; border-right: 2px solid rgba(200,164,98,0.4); width: 45%; }
+  th:last-child { border-right: none; width: 55%; }
+  td { padding: 10px 16px; border-bottom: 1px solid rgba(93,24,40,0.08); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  footer { text-align: center; padding: 30px 24px 0; font-size: 0.78rem; color: var(--text-muted); }
+
+  @media (max-width: 480px) {
+    .header { padding: calc(var(--safe-top) + 22px) 20px 20px; }
+    .container { padding: 30px 18px 0; }
+  }
+</style>
+</head>
+<body data-lang="fr">
+
+<div class="header">
+  <div class="header-ar">دار الكلمة</div>
+  <div class="header-en">DAR AL-KALIMAH</div>
+  <div class="header-title">
+    <span class="lang-fr">Politique de confidentialité</span>
+    <span class="lang-es">Política de privacidad</span>
+  </div>
+  <div class="header-dates">
+    <span class="lang-fr">Date d'entrée en vigueur : 2 septembre 2026 · Dernière mise à jour : 2 septembre 2026</span>
+    <span class="lang-es">Fecha de entrada en vigor: 2 de septiembre de 2026 · Última actualización: 2 de septiembre de 2026</span>
+  </div>
+  <div class="top-row">
+    <a href="/index.html" class="btn-home">
+      <span class="lang-fr">← Retour à l'accueil</span>
+      <span class="lang-es">← Volver al inicio</span>
+    </a>
+    <div class="lang-switch">
+      <button type="button" class="lang-btn active" id="btn-lang-fr">FR</button><span class="lang-sep">|</span><button type="button" class="lang-btn" id="btn-lang-es">ES</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section>
+    <h2><span class="lang-fr">Qui sommes-nous ?</span><span class="lang-es">¿Quiénes somos?</span></h2>
+    <p class="lang-fr">Dar Al-Kalimah est une plateforme d'apprentissage de la langue arabe, éditée par Houda Lahrichi, domiciliée à Palma de Mallorca, Espagne. Pour toute question sur cette politique ou sur vos données, vous pouvez nous contacter à <a href="mailto:daralkalimah.kalicards@gmail.com">daralkalimah.kalicards@gmail.com</a>.</p>
+    <p class="lang-es">Dar Al-Kalimah es una plataforma de aprendizaje de la lengua árabe, editada por Houda Lahrichi, domiciliada en Palma de Mallorca, España. Para cualquier pregunta sobre esta política o sobre sus datos, puede contactarnos en <a href="mailto:daralkalimah.kalicards@gmail.com">daralkalimah.kalicards@gmail.com</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Quelles données nous collectons</span><span class="lang-es">Qué datos recopilamos</span></h2>
+    <p class="lang-fr">Les principales catégories de données actuellement traitées sont présentées ci-dessous.</p>
+    <p class="lang-es">Las principales categorías de datos actualmente tratados se presentan a continuación.</p>
+
+    <div class="table-wrap lang-fr">
+      <table>
+        <thead>
+          <tr>
+            <th>Donnée</th>
+            <th>À quoi elle sert</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Prénom, adresse e-mail</td> <td>Créer et sécuriser le compte</td></tr>
+          <tr><td>Date d'inscription et dernière connexion</td> <td>Suivre l'activité du compte</td></tr>
+          <tr><td>Résultats des tests et quiz</td> <td>Adapter et suivre le parcours</td></tr>
+          <tr><td>Leçons terminées</td> <td>Assurer le suivi pédagogique</td></tr>
+          <tr><td>Choix relatif aux notifications</td> <td>Enregistrer et respecter la décision</td></tr>
+          <tr><td>Identifiant de notification push</td> <td>Envoyer les notifications autorisées</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap lang-es">
+      <table>
+        <thead>
+          <tr>
+            <th>Dato</th>
+            <th>Para qué sirve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Nombre, dirección de correo electrónico</td> <td>Crear y proteger la cuenta</td></tr>
+          <tr><td>Fecha de inscripción y última conexión</td> <td>Seguir la actividad de la cuenta</td></tr>
+          <tr><td>Resultados de pruebas y cuestionarios</td> <td>Adaptar y seguir el progreso</td></tr>
+          <tr><td>Lecciones terminadas</td> <td>Garantizar el seguimiento pedagógico</td></tr>
+          <tr><td>Elección relativa a las notificaciones</td> <td>Registrar y respetar la decisión</td></tr>
+          <tr><td>Identificador de notificación push</td> <td>Enviar las notificaciones autorizadas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lang-fr">Les identifiants de connexion sont traités par Firebase Authentication. Dar Al-Kalimah n'a pas accès au mot de passe en clair. Firebase traite aussi certaines données techniques de sécurité, notamment l'adresse IP et le navigateur/appareil utilisé.</p>
+    <p class="lang-es">Las credenciales de acceso son tratadas por Firebase Authentication. Dar Al-Kalimah no tiene acceso a la contraseña en texto claro. Firebase también trata determinados datos técnicos de seguridad, en particular la dirección IP y el navegador/dispositivo utilizado.</p>
+
+    <p class="lang-fr">Nous ne collectons <strong>aucune donnée de paiement</strong> directement sur la plateforme, aucune donnée de localisation précise, et n'utilisons aucun outil de suivi publicitaire ou de revente de données.</p>
+    <p class="lang-es">No recopilamos <strong>ningún dato de pago</strong> directamente en la plataforma, ningún dato de localización precisa, y no utilizamos ninguna herramienta de seguimiento publicitario ni de reventa de datos.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Stockage technique sur votre appareil</span><span class="lang-es">Almacenamiento técnico en su dispositivo</span></h2>
+    <p class="lang-fr">Pour que la plateforme fonctionne aussi hors connexion, votre navigateur conserve localement :</p>
+    <p class="lang-es">Para que la plataforma funcione también sin conexión, su navegador conserva localmente:</p>
+    <ul class="lang-fr">
+      <li>Une copie technique des pages et fichiers déjà consultés (service worker / cache), pour un chargement plus rapide et un usage possible sans réseau ;</li>
+      <li>Votre session de connexion, pour ne pas avoir à vous reconnecter à chaque visite.</li>
+    </ul>
+    <ul class="lang-es">
+      <li>Una copia técnica de las páginas y archivos ya consultados (service worker / caché), para una carga más rápida y un uso posible sin red;</li>
+      <li>Su sesión de conexión, para no tener que volver a conectarse en cada visita.</li>
+    </ul>
+    <p class="lang-fr">Ces données restent sur votre appareil et ne sont jamais transmises à des tiers publicitaires.</p>
+    <p class="lang-es">Estos datos permanecen en su dispositivo y nunca se transmiten a terceros publicitarios.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Avec qui nous partageons des données</span><span class="lang-es">Con quién compartimos datos</span></h2>
+    <p class="lang-fr">Nous ne vendons ni ne louons aucune donnée. Deux prestataires techniques traitent des données en notre nom, uniquement pour faire fonctionner le service :</p>
+    <p class="lang-es">No vendemos ni alquilamos ningún dato. Dos proveedores técnicos tratan datos en nuestro nombre, únicamente para el funcionamiento del servicio:</p>
+    <ul class="lang-fr">
+      <li><strong>Firebase</strong> (Google Ireland Ltd.) — authentification et base de données ;</li>
+      <li><strong>OneSignal</strong> — envoi des notifications, uniquement pour les comptes qui les ont explicitement activées.</li>
+    </ul>
+    <ul class="lang-es">
+      <li><strong>Firebase</strong> (Google Ireland Ltd.) — autenticación y base de datos;</li>
+      <li><strong>OneSignal</strong> — envío de notificaciones, únicamente para las cuentas que las hayan activado explícitamente.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Base légale des traitements</span><span class="lang-es">Base legal de los tratamientos</span></h2>
+    <p class="lang-fr">Chaque traitement de données repose sur l'une des bases légales suivantes, prévues par le RGPD :</p>
+    <p class="lang-es">Cada tratamiento de datos se basa en una de las siguientes bases legales, previstas por el RGPD:</p>
+    <ul class="lang-fr">
+      <li><strong>Exécution du service</strong> — compte, accès aux cours, résultats et progression ;</li>
+      <li><strong>Consentement</strong> — notifications push ;</li>
+      <li><strong>Intérêt légitime</strong> — sécurité et prévention des abus ;</li>
+      <li><strong>Obligation légale</strong> — facturation et comptabilité ;</li>
+      <li><strong>Consentement</strong> — donné par l'utilisateur ou, lorsque cela est nécessaire, par son parent ou représentant légal.</li>
+    </ul>
+    <ul class="lang-es">
+      <li><strong>Ejecución del servicio</strong> — cuenta, acceso a los cursos, resultados y progreso;</li>
+      <li><strong>Consentimiento</strong> — notificaciones push;</li>
+      <li><strong>Interés legítimo</strong> — seguridad y prevención de abusos;</li>
+      <li><strong>Obligación legal</strong> — facturación y contabilidad;</li>
+      <li><strong>Consentimiento</strong> — otorgado por el usuario o, cuando sea necesario, por su padre, madre o representante legal.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Comptes d'enfants</span><span class="lang-es">Cuentas de menores</span></h2>
+    <p class="lang-fr">Dar Al-Kalimah propose du contenu pédagogique destiné aux enfants, utilisé sous la responsabilité d'un parent ou tuteur légal. La création d'un compte pour un enfant mineur suppose l'accord du parent ou tuteur, qui reste responsable des informations fournies (prénom, résultats de progression). Nous ne demandons jamais directement à un enfant une donnée allant au-delà de ce qui est nécessaire au suivi pédagogique.</p>
+    <p class="lang-es">Dar Al-Kalimah ofrece contenido pedagógico destinado a niños, utilizado bajo la responsabilidad de un padre, madre o tutor legal. La creación de una cuenta para un menor supone el acuerdo del padre, madre o tutor, que sigue siendo responsable de la información proporcionada (nombre, resultados de progreso). Nunca solicitamos directamente a un menor un dato que vaya más allá de lo necesario para el seguimiento pedagógico.</p>
+
+    <p class="lang-fr">En Espagne, un mineur peut en principe consentir seul au traitement de ses données à partir de 14 ans. En dessous de 14 ans, le consentement du parent ou tuteur est nécessaire lorsque le traitement repose sur le consentement.</p>
+    <p class="lang-es">En España, un menor puede en principio consentir por sí mismo el tratamiento de sus datos a partir de los 14 años. Por debajo de los 14 años, es necesario el consentimiento del padre, madre o tutor cuando el tratamiento se basa en el consentimiento.</p>
+
+    <p class="lang-fr">Pour les élèves de moins de 14 ans, le compte est créé et administré sous la responsabilité du parent ou représentant légal. L'autorisation des notifications doit être donnée depuis l'appareil du parent ou avec son accord.</p>
+    <p class="lang-es">Para los alumnos menores de 14 años, la cuenta se crea y administra bajo la responsabilidad del padre, madre o representante legal. La autorización de las notificaciones debe darse desde el dispositivo del padre/madre o con su consentimiento.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Transferts hors de l'Union européenne</span><span class="lang-es">Transferencias fuera de la Unión Europea</span></h2>
+    <p class="lang-fr">Firebase et OneSignal peuvent traiter certaines données en dehors de l'Espace économique européen, notamment aux États-Unis. Lorsque ces transferts l'exigent, ils sont encadrés par des mécanismes reconnus par le RGPD, notamment les clauses contractuelles types approuvées par la Commission européenne.</p>
+    <p class="lang-es">Firebase y OneSignal pueden tratar determinados datos fuera del Espacio Económico Europeo, en particular en Estados Unidos. Cuando estas transferencias lo requieren, se enmarcan en mecanismos reconocidos por el RGPD, en particular las cláusulas contractuales tipo aprobadas por la Comisión Europea.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Combien de temps nous conservons vos données</span><span class="lang-es">Durante cuánto tiempo conservamos sus datos</span></h2>
+    <p class="lang-fr">Les données du compte et de progression sont conservées pendant toute la durée d'utilisation du compte, puis pendant cinq ans après la dernière activité, sauf demande de suppression ou obligation légale contraire. Les données comptables peuvent être conservées jusqu'à six ans. Les données rendues définitivement anonymes peuvent être conservées sans limitation de durée.</p>
+    <p class="lang-es">Los datos de la cuenta y de progreso se conservan durante toda la duración de uso de la cuenta, y después durante cinco años tras la última actividad, salvo solicitud de eliminación u obligación legal contraria. Los datos contables pueden conservarse hasta seis años. Los datos anonimizados de forma definitiva pueden conservarse sin límite de tiempo.</p>
+
+    <p class="lang-fr">Vous pouvez demander la suppression de votre compte à tout moment par écrit à l'adresse <a href="mailto:daralkalimah.kalicards@gmail.com">daralkalimah.kalicards@gmail.com</a>. Dar Al-Kalimah procédera alors manuellement à la suppression ou à l'anonymisation des données associées dans Firebase Authentication, Firestore et OneSignal, sauf lorsqu'une conservation est imposée par la loi. Certaines copies de sauvegarde peuvent subsister pendant les délais techniques propres à chaque prestataire.</p>
+    <p class="lang-es">Puede solicitar la eliminación de su cuenta en cualquier momento por escrito a la dirección <a href="mailto:daralkalimah.kalicards@gmail.com">daralkalimah.kalicards@gmail.com</a>. Dar Al-Kalimah procederá entonces manualmente a eliminar o anonimizar los datos asociados en Firebase Authentication, Firestore y OneSignal, salvo cuando la ley imponga su conservación. Determinadas copias de seguridad pueden subsistir durante los plazos técnicos propios de cada proveedor.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Vos droits</span><span class="lang-es">Sus derechos</span></h2>
+    <p class="lang-fr">Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants sur vos données :</p>
+    <p class="lang-es">De conformidad con el Reglamento General de Protección de Datos (RGPD), usted dispone de los siguientes derechos sobre sus datos:</p>
+    <ul class="lang-fr">
+      <li>Droit d'accès — savoir quelles données nous détenons sur vous ;</li>
+      <li>Droit de rectification — corriger une information inexacte ;</li>
+      <li>Droit à l'effacement — demander la suppression de votre compte et de vos données ;</li>
+      <li>Droit à la portabilité — recevoir vos données dans un format exploitable ;</li>
+      <li>Droit d'opposition — vous opposer à un traitement particulier (par exemple, retirer votre consentement aux notifications, possible à tout moment depuis l'app) ;</li>
+      <li>Droit à la limitation du traitement — demander la mise en pause temporaire d'un traitement ;</li>
+      <li>Droit de retirer votre consentement à tout moment, sans que cela remette en cause la licéité du traitement effectué avant ce retrait ;</li>
+      <li>Vous pouvez également déposer une réclamation auprès de l'<a href="https://www.aepd.es" target="_blank" rel="noopener">Agencia Española de Protección de Datos</a>.</li>
+    </ul>
+    <ul class="lang-es">
+      <li>Derecho de acceso — saber qué datos tenemos sobre usted;</li>
+      <li>Derecho de rectificación — corregir una información inexacta;</li>
+      <li>Derecho de supresión — solicitar la eliminación de su cuenta y de sus datos;</li>
+      <li>Derecho a la portabilidad — recibir sus datos en un formato utilizable;</li>
+      <li>Derecho de oposición — oponerse a un tratamiento particular (por ejemplo, retirar su consentimiento a las notificaciones, posible en cualquier momento desde la app);</li>
+      <li>Derecho a la limitación del tratamiento — solicitar la pausa temporal de un tratamiento;</li>
+      <li>Derecho a retirar su consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento previo a dicha retirada;</li>
+      <li>También puede presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener">Agencia Española de Protección de Datos</a>.</li>
+    </ul>
+    <p class="lang-fr">Pour exercer l'un de ces droits, écrivez-nous à <a href="mailto:daralkalimah.kalicards@gmail.com">daralkalimah.kalicards@gmail.com</a>. Nous répondons sous 1 mois.</p>
+    <p class="lang-es">Para ejercer cualquiera de estos derechos, escríbanos a <a href="mailto:daralkalimah.kalicards@gmail.com">daralkalimah.kalicards@gmail.com</a>. Respondemos en un plazo de 1 mes.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Sécurité</span><span class="lang-es">Seguridad</span></h2>
+    <p class="lang-fr">Les échanges avec la plateforme sont chiffrés (HTTPS). L'accès aux données est protégé par des règles de sécurité côté serveur (Firebase) : chaque élève ne peut consulter ou modifier que ses propres données, et seul un compte professeur authentifié a accès à la vue d'ensemble du suivi pédagogique.</p>
+    <p class="lang-es">Los intercambios con la plataforma están cifrados (HTTPS). El acceso a los datos está protegido por reglas de seguridad del lado del servidor (Firebase): cada alumno solo puede consultar o modificar sus propios datos, y solo una cuenta de profesor autenticada tiene acceso a la vista de conjunto del seguimiento pedagógico.</p>
+  </section>
+
+  <section>
+    <h2><span class="lang-fr">Modifications de cette politique</span><span class="lang-es">Modificaciones de esta política</span></h2>
+    <p class="lang-fr">Cette politique peut évoluer si le fonctionnement de la plateforme change. Les dates d'entrée en vigueur et de dernière mise à jour figurent en haut de cette page.</p>
+    <p class="lang-es">Esta política puede evolucionar si el funcionamiento de la plataforma cambia. Las fechas de entrada en vigor y de última actualización figuran en la parte superior de esta página.</p>
+  </section>
+
+</div>
+
+<footer>Dar Al-Kalimah — دار الكلمة</footer>
+
+<script>
+function setLang(lang) {
+  document.body.dataset.lang = lang;
+  document.getElementById('btn-lang-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('btn-lang-es').classList.toggle('active', lang === 'es');
+}
+document.getElementById('btn-lang-fr').addEventListener('click', () => setLang('fr'));
+document.getElementById('btn-lang-es').addEventListener('click', () => setLang('es'));
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>
