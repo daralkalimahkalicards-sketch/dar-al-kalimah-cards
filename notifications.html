@@ -347,8 +347,11 @@ function renderDecidedStatus(statut) {
     if (statut === "accepted") {
       // Le statut "accepted" peut avoir ete enregistre a tort (ancien bug, ou
       // permission revoquee depuis) : on propose toujours un moyen discret de
-      // revérifier plutot que de laisser la carte figee sans recours.
-      retryBtn.className = "btn-link-retry";
+      // revérifier plutot que de laisser la carte figee sans recours. On garde
+      // "btn-primary" (necessaire au querySelector de handleActivateClick pour
+      // desactiver le bouton et afficher un retour visuel pendant le clic) et on
+      // ajoute juste "btn-link-retry" pour l'aspect discret.
+      retryBtn.classList.add("btn-link-retry");
       retryBtn.innerHTML = 'Ce n\'est pas le cas ? Revérifier<span class="es">¿No es así? Volver a comprobar</span>';
     }
     statusCard.appendChild(retryBtn);
@@ -384,9 +387,12 @@ function renderErrorFallback() {
 // (ou un clic pendant le traitement) ne puisse jamais declencher un second appel.
 async function handleActivateClick(fromStatusRetry) {
   const btn = fromStatusRetry ? statusCard.querySelector(".btn-primary") : btnActivate;
+  let btnOriginalHTML = null;
   if (btn) {
     if (btn.disabled) return;
     btn.disabled = true;
+    btnOriginalHTML = btn.innerHTML;
+    btn.innerHTML = 'Vérification en cours…<span class="es">Comprobando…</span>';
   }
   try {
     const OneSignal = await getOneSignal();
@@ -439,7 +445,22 @@ async function handleActivateClick(fromStatusRetry) {
   } catch (e) {
     console.error("Notifications — erreur activation:", e);
     if (isRequired) { goSafeFallback(); return; }
-    if (btn) btn.disabled = false;
+    if (btn) {
+      btn.disabled = false;
+      if (btnOriginalHTML !== null) btn.innerHTML = btnOriginalHTML;
+      // Retour visuel explicite : sans ca, un echec silencieux (ex. abonnement
+      // push jamais confirme) ne montrait strictement rien a la personne.
+      let errMsg = btn.parentElement.querySelector(".retry-error-msg");
+      if (!errMsg) {
+        errMsg = document.createElement("div");
+        errMsg.className = "retry-error-msg";
+        errMsg.style.color = "#b3261e";
+        errMsg.style.fontSize = "13px";
+        errMsg.style.marginTop = "8px";
+        btn.insertAdjacentElement("afterend", errMsg);
+      }
+      errMsg.innerHTML = 'Ça n\'a pas fonctionné, réessaie.<span class="es"> No funcionó, vuelve a intentarlo.</span>';
+    }
   }
 }
 
