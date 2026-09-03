@@ -376,9 +376,10 @@ async function handleActivateClick(fromStatusRetry) {
     const ref = doc(_db, "eleves", _auth.currentUser.uid);
     if (optedIn) {
       // OneSignal.login() communique avec le service worker pour lier le compte —
-      // si ca ne repond jamais (conflit SW, etc.), le clic ne doit pas rester
-      // bloque indefiniment : la permission navigateur est deja accordee, donc on
-      // enregistre quand meme le statut apres ce delai plutot que d'attendre a l'infini.
+      // on lui laisse jusqu'à 5s pour repondre (conflit SW, etc.), mais on ne
+      // marque "accepted" que si un vrai abonnement push existe cote OneSignal :
+      // sinon la permission navigateur est accordee sans que rien ne soit
+      // reellement enregistre cote serveur, et l'ecran affichait "active" a tort.
       try {
         await Promise.race([
           OneSignal.login(_auth.currentUser.uid),
@@ -386,6 +387,17 @@ async function handleActivateClick(fromStatusRetry) {
         ]);
       } catch (eLogin) {
         console.error("Notifications — erreur OneSignal.login (on continue quand même) :", eLogin);
+      }
+      // Attend jusqu'à 5s de plus qu'un identifiant d'abonnement push reel
+      // apparaisse avant de considerer l'activation comme reussie.
+      let subscriptionId = OneSignal.User.PushSubscription.id;
+      const subscriptionDeadline = Date.now() + 5000;
+      while (!subscriptionId && Date.now() < subscriptionDeadline) {
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        subscriptionId = OneSignal.User.PushSubscription.id;
+      }
+      if (!subscriptionId) {
+        throw new Error("Permission accordée mais abonnement push non confirmé côté OneSignal");
       }
       await setDoc(ref, { notifications: {
         statut: "accepted",
