@@ -149,6 +149,19 @@ body::before {
   .header { padding: calc(var(--safe-top) + 16px) 20px 16px; }
   .proposal-card, .status-card { padding: 28px 22px; }
 }
+
+.btn-link-retry {
+  background: none;
+  border: none;
+  color: var(--bordeaux, #5D1828);
+  text-decoration: underline;
+  font-size: 13px;
+  opacity: 0.7;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 6px;
+}
+.btn-link-retry:hover { opacity: 1; }
 </style>
 </head>
 <body>
@@ -324,13 +337,20 @@ function renderDecidedStatus(statut) {
     <div class="status-icon">${t.icon}</div>
     <div class="status-title">${t.titre}<span class="es">${t.titreEs}</span></div>
   `;
-  if (statut !== "accepted" && statut !== "unsupported") {
+  if (statut !== "unsupported") {
     const retryBtn = document.createElement("button");
     retryBtn.type = "button";
     retryBtn.className = "btn-primary";
     retryBtn.innerHTML = 'Activer mes rappels<span class="es">Activar mis recordatorios</span>';
     retryBtn.style.marginTop = "8px";
     retryBtn.addEventListener("click", () => handleActivateClick(true));
+    if (statut === "accepted") {
+      // Le statut "accepted" peut avoir ete enregistre a tort (ancien bug, ou
+      // permission revoquee depuis) : on propose toujours un moyen discret de
+      // revérifier plutot que de laisser la carte figee sans recours.
+      retryBtn.className = "btn-link-retry";
+      retryBtn.innerHTML = 'Ce n\'est pas le cas ? Revérifier<span class="es">¿No es así? Volver a comprobar</span>';
+    }
     statusCard.appendChild(retryBtn);
   }
   if (statut === "denied") {
