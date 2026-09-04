@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Les Sœurs de l'Alphabet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bordeaux:#5D1828;
+    --bordeaux-dark:#3a0f19;
+    --gold:#C8A462;
+    --gold-light:#dfc28b;
+    --white:#ffffff;
+    --paper:#fbf8f4;
+    --ink:#2c1e1a;
+    --ink-soft:#6b5750;
+    --line:rgba(93,24,40,0.14);
+    --radius-xl:28px;
+    --radius-lg:22px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;
+    padding: calc(2.4rem + var(--safe-top)) 1.4rem calc(3rem + var(--safe-bottom));
+    position:relative;
+    line-height:1.5;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(200,164,98,0.16), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(93,24,40,0.10), transparent 28%),
+      radial-gradient(circle at 50% 94%, rgba(200,164,98,0.12), transparent 34%),
+      var(--paper);
+  }
+
+  .ar-text{ direction:rtl; unicode-bidi:isolate; font-family:'Amiri', serif; font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1; }
+
+  /* ---------- FR / ES language switch ---------- */
+  .t-es{ display:none; }
+  body.lang-es .t-fr{ display:none; }
+  body.lang-es .t-es{ display:inline; }
+  .lang-switch{
+    display:inline-flex; background:var(--white); border:1px solid var(--line);
+    border-radius:999px; padding:3px; gap:2px; box-shadow:0 2px 10px rgba(93,24,40,0.06);
+  }
+  .lang-btn{
+    border:none; background:transparent; cursor:pointer;
+    font-family:'Montserrat',sans-serif; font-weight:700; font-size:.76rem; letter-spacing:.02em;
+    color:var(--ink-soft); padding:.5rem 1rem; border-radius:999px;
+  }
+  .lang-btn.active{ background:var(--bordeaux); color:var(--white); }
+  .lang-btn:focus-visible{ outline:2px solid var(--bordeaux); outline-offset:2px; }
+
+  /* ---------- Layout shell ---------- */
+  .sheet{ max-width:1080px; margin:0 auto; }
+
+  header.top{ text-align:center; margin-bottom:2rem; }
+  .brandline{ margin:0 0 .9rem; display:flex; align-items:center; justify-content:center; gap:.4rem; }
+  .brandline .ar-text{ font-size:1.05rem; color:var(--gold); }
+  .brandline .latin{ font-family:'Cinzel', serif; font-size:.72rem; letter-spacing:.08em; color:var(--gold); text-transform:uppercase; }
+
+  h1{
+    font-family:'Cinzel', serif;
+    color:var(--bordeaux);
+    font-size:clamp(1.8rem, 5vw, 2.7rem);
+    margin:0 0 .3rem;
+    text-wrap:balance;
+    font-weight:700;
+    letter-spacing:0.01em;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:clamp(0.95rem,2vw,1.08rem);
+    max-width:520px;
+    margin:.9rem auto 0;
+    text-wrap:balance;
+  }
+  .rtl-note{
+    display:inline-flex; align-items:center; gap:.4rem;
+    margin:.7rem auto 0; color:var(--bordeaux);
+    font-size:.78rem; font-weight:700; letter-spacing:.01em;
+    background:rgba(200,164,98,0.16); border:1px solid rgba(200,164,98,0.4);
+    border-radius:999px; padding:.35rem .9rem;
+  }
+  .rtl-note svg{ width:14px; height:14px; flex:none; }
+
+  .toolbar{ display:flex; align-items:center; justify-content:center; gap:.7rem; flex-wrap:wrap; margin:1.6rem auto 0; }
+  .btn-ghost{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--white);
+    border:1px solid var(--line);
+    color:var(--bordeaux);
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;
+    font-size:.82rem;
+    padding:.6rem 1.1rem;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 2px 10px rgba(93,24,40,0.06);
+  }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--bordeaux-dark); }
+  .btn-ghost:focus-visible{ outline:2px solid var(--bordeaux); outline-offset:2px; }
+  .icon{ width:1.05em; height:1.05em; vertical-align:-2px; flex:none; color:var(--gold); }
+
+  /* ---------- Section header ---------- */
+  .section-head{ margin:0 0 1.2rem; text-align:center; }
+  .section-head h2{ font-family:'Cinzel', serif; color:var(--bordeaux); font-size:1.25rem; margin:0 0 .2rem; }
+  .section-head .count{ font-size:.8rem; color:var(--ink-soft); font-weight:600; }
+
+  /* ---------- Families — one strict sequential column ---------- */
+  .families{
+    max-width:840px; margin:0 auto;
+    display:flex; flex-direction:column; gap:1rem;
+    counter-reset:fam;
+  }
+  .family-card{
+    background:var(--bordeaux);
+    color:var(--white);
+    border-radius:var(--radius-lg);
+    padding:1.1rem 1.2rem;
+    position:relative;
+    box-shadow:0 10px 28px rgba(58,15,25,0.28);
+  }
+  .family-card::before{
+    content:""; position:absolute; inset:9px; border-radius:var(--radius-md);
+    border:1px solid rgba(200,164,98,0.32); pointer-events:none;
+  }
+  .family-card::after{
+    content:""; position:absolute; left:37px; top:100%; width:2px; height:1rem;
+    background:repeating-linear-gradient(180deg,var(--gold-light) 0 4px,transparent 4px 8px);
+  }
+  .family-card:last-child::after{ display:none; }
+  .fbody{
+    display:flex; flex-direction:column; align-items:center; gap:.6rem;
+    position:relative; z-index:1;
+  }
+  .fhead{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:.5rem; max-width:420px; }
+  .ficon{
+    width:72px; height:72px; border-radius:20px; flex:none;
+    background:rgba(255,255,255,0.1); border:1px solid rgba(200,164,98,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.5rem; line-height:1;
+  }
+  .ficon .flip{ display:inline-block; transform:scaleX(-1); }
+  .ficon svg{ width:40px; height:40px; }
+  .ficon svg *{ stroke:var(--gold-light); }
+  .ftext{ min-width:0; }
+  .ftitle{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:.45rem; }
+  .fnum{
+    width:22px; height:22px; border-radius:50%;
+    background:var(--gold); color:var(--bordeaux-dark);
+    font-family:'Cinzel', serif; font-size:.68rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .fname{ font-family:'Cinzel', serif; font-size:1rem; color:var(--white); font-weight:700; letter-spacing:.01em; }
+  .fdesc{ font-size:.78rem; color:rgba(255,255,255,0.78); margin:.3rem 0 0; text-align:center; }
+
+  .letters-row{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; position:relative; z-index:1;
+  }
+  .letter-card{
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(200,164,98,0.35);
+    border-radius:var(--radius-sm);
+    padding:.65rem .55rem .6rem;
+    width:128px; height:192px; flex:none;
+  }
+  .dotband{ display:flex; gap:3px; height:9px; align-items:center; justify-content:center; flex:none; }
+  .dotband .d{ width:5px; height:5px; border-radius:50%; background:var(--gold); }
+  .dotband.empty{ visibility:hidden; }
+  .letter-glyph{
+    display:flex; width:100%; flex:1; align-items:center; justify-content:center; text-align:center;
+    font-family:'Amiri', serif; direction:rtl; unicode-bidi:isolate;
+    font-size:clamp(2.8rem,6.5vw,3.4rem); color:var(--white); line-height:1; margin:.1rem 0;
+  }
+  .point-chip{
+    font-size:.6rem; font-weight:700; letter-spacing:.02em;
+    color:var(--bordeaux-dark);
+    background:linear-gradient(90deg,var(--gold-light),var(--gold));
+    border-radius:999px; padding:.18rem .5rem;
+    text-align:center; line-height:1.3; flex:none;
+  }
+  .phon{
+    display:block; font-size:.64rem; font-style:italic; font-weight:600;
+    color:var(--gold-light); text-align:center; line-height:1.25;
+    margin-top:.3rem; flex:none;
+  }
+
+  /* ---------- Alif: the standing reference (same box, just no dots) ---------- */
+  .family-card.alif .caption{
+    text-align:center; font-size:.72rem; color:var(--gold-light); margin-top:.2rem; letter-spacing:.02em;
+  }
+
+  /* ---------- Tip box ---------- */
+  .tip{
+    margin-top:1.6rem;
+    display:flex; gap:.9rem; align-items:flex-start;
+    background:var(--bordeaux);
+    color:var(--gold-light);
+    border-radius:var(--radius-lg);
+    padding:1.2rem 1.3rem;
+    box-shadow:0 8px 24px rgba(93,24,40,0.12);
+    position:relative;
+  }
+  .tip::before{ content:""; position:absolute; inset:9px; border-radius:var(--radius-md); border:1px solid rgba(200,164,98,0.3); pointer-events:none; }
+  .tip .icon{ color:var(--gold); width:1.25rem; height:1.25rem; margin-top:.15rem; position:relative; z-index:1; }
+  .tip .body{ position:relative; z-index:1; }
+  .tip h3{ font-family:'Cinzel', serif; font-size:.98rem; color:var(--white); margin:0 0 .4rem; }
+  .tip p{ margin:0 0 .3rem; font-size:.87rem; color:rgba(255,255,255,0.88); }
+  .tip .mnemonic{ font-size:1.15rem; color:var(--gold-light); margin-top:.5rem; padding-top:.6rem; border-top:1px dashed rgba(255,255,255,0.25); }
+
+  footer{ text-align:center; margin-top:2.2rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:560px){
+    body{ padding:calc(1.6rem + var(--safe-top)) .9rem calc(2.2rem + var(--safe-bottom)); }
+    .letter-card{ width:112px; height:174px; }
+    .ficon{ width:64px; height:64px; font-size:2.2rem; }
+  }
+  @media (max-width:360px){
+    .letter-card{ width:100px; height:164px; }
+    .letter-glyph{ font-size:2.3rem; }
+    h1{ font-size:1.6rem; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+  @media print{
+    body{ background:#fff; padding:0.6cm; }
+    body::before{ display:none; }
+    .toolbar{ display:none; }
+    .family-card{ box-shadow:none; border:1px solid var(--line); break-inside:avoid; background:#fff; color:var(--ink); }
+    .family-card::after{ display:none; }
+    .family-card .fname{ color:var(--bordeaux); }
+    .family-card .fdesc{ color:var(--ink-soft); }
+    .family-card .fnum{ background:var(--bordeaux); color:var(--gold-light); }
+    .family-card .ficon{ background:var(--paper); border-color:var(--line); }
+    .family-card .ficon svg *{ stroke:var(--bordeaux); }
+    .family-card .letter-card{ background:var(--paper); border-color:var(--line); }
+    .family-card .letter-glyph{ color:var(--bordeaux); }
+    .family-card .phon{ color:var(--ink-soft); }
+    .family-card.alif .caption{ color:var(--ink-soft); }
+    .tip{ background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none; }
+    .tip h3{ color:var(--bordeaux); }
+    .tip p{ color:var(--ink-soft); }
+    .tip .mnemonic{ color:var(--bordeaux); border-top-color:var(--line); }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header class="top">
+    <p class="brandline"><span class="ar-text">دار الكلمة</span><span class="latin">— Dar Al-Kalimah</span></p>
+    <h1><span class="t-fr">Les familles de lettres arabes</span><span class="t-es">Las familias de letras árabes</span></h1>
+    <p class="subtitle"><span class="t-fr">Je reconnais les lettres grâce à leur forme.</span><span class="t-es">Reconozco las letras por su forma.</span></p>
+    <p class="rtl-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4"/><path d="M10 6l-6 6 6 6"/></svg>
+      <span class="t-fr">L'arabe s'écrit de droite à gauche</span><span class="t-es">El árabe se escribe de derecha a izquierda</span>
+    </p>
+    <div class="toolbar">
+      <div class="lang-switch" role="group" aria-label="Choisir la langue / Elegir idioma">
+        <button type="button" class="lang-btn active" id="langFr" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" class="lang-btn" id="langEs" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <button class="btn-ghost" id="printBtn" type="button">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        <span class="t-fr">Imprimer la fiche</span><span class="t-es">Imprimir la ficha</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="section-head">
+    <h2><span class="t-fr">28 lettres, 17 familles</span><span class="t-es">28 letras, 17 familias</span></h2>
+    <span class="count"><span class="t-fr">Je regarde la forme, puis les points</span><span class="t-es">Miro la forma, luego los puntos</span></span>
+  </div>
+
+  <div class="families" id="familiesGrid"></div>
+
+  <div class="tip">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 6.8L22 11l-7.6 2.2L12 20l-2.4-6.8L2 11l7.6-2.2z"/></svg>
+    <div class="body">
+      <h3><span class="t-fr">Mon astuce</span><span class="t-es">Mi truco</span></h3>
+      <p><span class="t-fr">Je regarde d'abord la forme pour reconnaître la famille. Puis je regarde les points pour reconnaître la lettre.</span><span class="t-es">Primero miro la forma para reconocer la familia. Luego miro los puntos para reconocer la letra.</span></p>
+      <p class="mnemonic ar-text">شكل الحرف ← النقط ← الحرف</p>
+    </div>
+  </div>
+
+  <footer>
+    <p class="brandline" style="margin-bottom:0"><span class="ar-text">دار الكلمة</span><span class="latin">— Dar Al-Kalimah</span></p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var FAMILIES = [
+    { icon:"🦯", name:"LE BÂTON", nameEs:"EL BASTÓN", desc:"Un grand bâton bien droit.", descEs:"Un bastón grande y bien recto.",
+      letters:[{glyph:"ا", pts:null, phon:"a (comme dans « papa »)", phonEs:"a (como en «papá»)"}] },
+
+    { icon:"🛶", name:"LA BARQUE", nameEs:"LA BARCA", desc:"Même forme, seuls les points changent.", descEs:"Misma forma, solo cambian los puntos.",
+      letters:[
+        {glyph:"ب", pts:1, pos:"dessous", phon:"b (comme dans « bébé »)", phonEs:"b (como en «bebé»)"},
+        {glyph:"ت", pts:2, pos:"dessus", phon:"t (comme dans « tomate »)", phonEs:"t (como en «tomate»)"},
+        {glyph:"ث", pts:3, pos:"dessus", phon:"th dur, comme l'anglais « think »", phonEs:"z española (como en «zapato»)"}
+      ] },
+
+    { icon:"🪝", name:"LE CROCHET", nameEs:"EL GANCHO", desc:"Même crochet, seuls les points changent.", descEs:"Mismo gancho, solo cambian los puntos.",
+      letters:[
+        {glyph:"ح", pts:0, pos:"", phon:"h soufflé, du fond de la gorge", phonEs:"h aspirada fuerte, desde la garganta"},
+        {glyph:"ج", pts:1, pos:"dessous", phon:"j (comme dans « jardin »)", phonEs:"sonido «y» fuerte, no existe en español"},
+        {glyph:"خ", pts:1, pos:"dessus", phon:"kh (comme la jota espagnole)", phonEs:"j (como la jota española)"}
+      ] },
+
+    { icon:"📐", flip:true, name:"L'ANGLE À 45°", nameEs:"EL ÁNGULO DE 45°", desc:"Même angle, seul le point change.", descEs:"Mismo ángulo, solo cambia el punto.",
+      letters:[
+        {glyph:"د", pts:0, pos:"", phon:"d (comme dans « domino »)", phonEs:"d (como en «dedo»)"},
+        {glyph:"ذ", pts:1, pos:"dessus", phon:"th doux, comme l'anglais « this »", phonEs:"d suave (como en «nada»)"}
+      ] },
+
+    { icon:"🍌", name:"LA BANANE", nameEs:"EL PLÁTANO", desc:"Même forme courbée.", descEs:"Misma forma curvada.",
+      letters:[
+        {glyph:"ر", pts:0, pos:"", phon:"r (comme dans « renard »)", phonEs:"r suave (como en «pero»)"},
+        {glyph:"ز", pts:1, pos:"dessus", phon:"z (comme dans « zèbre »)", phonEs:"z (como en inglés «zoo»)"}
+      ] },
+
+    { icon:"🦷", name:"LES DENTS", nameEs:"LOS DIENTES", desc:"Regarde les trois petites dents !", descEs:"¡Mira los tres dientecitos!",
+      letters:[
+        {glyph:"س", pts:0, pos:"", phon:"s (comme dans « sardine »)", phonEs:"s (como en «sardina»)"},
+        {glyph:"ش", pts:3, pos:"dessus", phon:"ch (comme dans « chat »)", phonEs:"sh (como en inglés «show»)"}
+      ] },
+
+    { icon:"🥚", name:"LA FORME ALLONGÉE", nameEs:"LA FORMA ALARGADA", desc:"", descEs:"",
+      letters:[
+        {glyph:"ص", pts:0, pos:"", phon:"s épais, gonflé dans la bouche", phonEs:"s gruesa, no existe en español"},
+        {glyph:"ض", pts:1, pos:"dessus", phon:"d épais, gonflé dans la bouche", phonEs:"d gruesa, no existe en español"}
+      ] },
+
+    { icon:"🍭", name:"LA FORME AVEC LA TIGE", nameEs:"LA FORMA CON EL PALITO", desc:"", descEs:"",
+      letters:[
+        {glyph:"ط", pts:0, pos:"", phon:"t épais, gonflé dans la bouche", phonEs:"t gruesa, no existe en español"},
+        {glyph:"ظ", pts:1, pos:"dessus", phon:"th épais, gonflé dans la bouche", phonEs:"z gruesa, no existe en español"}
+      ] },
+
+    { icon:"👁️", name:"L'ŒIL", nameEs:"EL OJO", desc:"", descEs:"",
+      letters:[
+        {glyph:"ع", pts:0, pos:"", phon:"son de gorge serrée, n'existe pas en français", phonEs:"sonido de garganta apretada, no existe en español"},
+        {glyph:"غ", pts:1, pos:"dessus", phon:"r grasseyé (comme le « r » de « Paris »)", phonEs:"r fuerte, gutural (como en francés)"}
+      ] },
+
+    { icon:"☕", name:"LA TASSE", nameEs:"LA TAZA", desc:"", descEs:"",
+      letters:[
+        {glyph:"ف", pts:1, pos:"dessus", phon:"f (comme dans « fou »)", phonEs:"f (como en «foca»)"},
+        {glyph:"ق", pts:2, pos:"dessus", phon:"q profond, du fond de la gorge", phonEs:"q profunda, desde la garganta"}
+      ] },
+
+    { icon:"chair", name:"LA CHAISE", nameEs:"LA SILLA", desc:"Observe sa forme : elle rappelle une chaise.", descEs:"Observa su forma: recuerda a una silla.",
+      letters:[{glyph:"ك", pts:null, phon:"k (comme dans « classe »)", phonEs:"k (como en «koala»)"}] },
+
+    { icon:"🪝", flip:true, name:"L'HAMEÇON", nameEs:"EL ANZUELO", desc:"Une longue tige qui se recourbe.", descEs:"Un palito largo que se curva.",
+      letters:[{glyph:"ل", pts:null, phon:"l (comme dans « lune »)", phonEs:"l (como en «luna»)"}] },
+
+    { icon:"🔑", name:"LA CLÉ", nameEs:"LA LLAVE", desc:"Une petite tête et une longue tige.", descEs:"Una cabecita y un palito largo.",
+      letters:[{glyph:"م", pts:null, phon:"m (comme dans « maman »)", phonEs:"m (como en «mamá»)"}] },
+
+    { icon:"🛶", name:"LA COUSINE DE LA BARQUE", nameEs:"LA PRIMA DE LA BARCA", desc:"Elle ressemble à la famille de la barque, mais elle porte 1 point au-dessus.", descEs:"Se parece a la familia de la barca, pero lleva 1 punto arriba.",
+      letters:[{glyph:"ن", pts:1, pos:"dessus", phon:"n (comme dans « nuage »)", phonEs:"n (como en «nube»)"}] },
+
+    { icon:"🦋", name:"LE PAPILLON", nameEs:"LA MARIPOSA", desc:"Sa forme rappelle les ailes d'un papillon.", descEs:"Su forma recuerda las alas de una mariposa.",
+      letters:[{glyph:"ه", pts:null, phon:"h aspiré léger (comme l'anglais « house »)", phonEs:"h aspirada suave (como en inglés «house»)"}] },
+
+    { icon:"🍌", name:"LA COUSINE DE LA BANANE", nameEs:"LA PRIMA DEL PLÁTANO", desc:"Elle rappelle la forme de la banane, avec sa petite tête.", descEs:"Recuerda la forma del plátano, con su cabecita.",
+      letters:[{glyph:"و", pts:0, pos:"", phon:"w / ou (comme dans « oui »)", phonEs:"w / u (como en «agua»)"}] },
+
+    { icon:"🛝", name:"LE TOBOGGAN", nameEs:"EL TOBOGÁN", desc:"Une longue forme qui descend comme un toboggan, avec 2 points en dessous.", descEs:"Una forma larga que baja como un tobogán, con 2 puntos debajo.",
+      letters:[{glyph:"ي", pts:2, pos:"dessous", phon:"y / i (comme dans « yaourt »)", phonEs:"y / i (como en «yogur»)"}] }
+  ];
+
+  function dotBand(count, active){
+    if(!active){ return '<div class="dotband empty"><span class="d"></span></div>'; }
+    var s = '<div class="dotband">';
+    for(var i=0;i<count;i++){ s += '<span class="d"></span>'; }
+    s += '</div>';
+    return s;
+  }
+
+  var POS_ES = { "dessus":"encima", "dessous":"debajo", "":"" };
+
+  function pointChip(pts, pos){
+    if(pts === 0){
+      return '<span class="point-chip"><span class="t-fr">sans point</span><span class="t-es">sin punto</span></span>';
+    }
+    var labelFr = pts + (pts>1 ? ' points' : ' point') + ' · ' + pos;
+    var labelEs = pts + (pts>1 ? ' puntos' : ' punto') + ' · ' + POS_ES[pos];
+    return '<span class="point-chip"><span class="t-fr">'+labelFr+'</span><span class="t-es">'+labelEs+'</span></span>';
+  }
+
+  function phonHTML(L){
+    if(!L.phon){ return ''; }
+    return '<span class="phon"><span class="t-fr">'+L.phon+'</span>'+(L.phonEs ? '<span class="t-es">'+L.phonEs+'</span>' : '')+'</span>';
+  }
+
+  function letterCardHTML(L, n){
+    if(L.pts === null || typeof L.pts === "undefined"){
+      return ''
+        + '<div class="letter-card">'
+        +   '<div class="dotband empty"><span class="d"></span></div>'
+        +   '<span class="letter-glyph ar-text">'+L.glyph+'</span>'
+        +   '<div class="dotband empty"><span class="d"></span></div>'
+        +   phonHTML(L)
+        + '</div>';
+    }
+    var above = L.pos === "dessus";
+    var below = L.pos === "dessous";
+    var top = above ? dotBand(L.pts, true) : (L.pts===0 ? '<div class="dotband empty"><span class="d"></span></div>' : dotBand(0,false));
+    var bottom = below ? dotBand(L.pts, true) : '<div class="dotband empty"><span class="d"></span></div>';
+
+    return ''
+      + '<div class="letter-card">'
+      +   top
+      +   '<span class="letter-glyph ar-text">'+L.glyph+'</span>'
+      +   bottom
+      +   pointChip(L.pts, L.pos)
+      +   phonHTML(L)
+      + '</div>';
+  }
+
+  var CHAIR_SVG = '<svg viewBox="0 0 64 64" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M44 9v31"/><path d="M44 40H17"/><path d="M17 40v15"/><path d="M44 40v15"/></svg>';
+
+  function iconHTML(fam){
+    var inner = fam.icon === "chair" ? CHAIR_SVG : fam.icon;
+    return fam.flip ? '<span class="flip">'+inner+'</span>' : inner;
+  }
+
+  function familyCardHTML(fam, index, isAlif){
+    var descHTML = fam.desc
+      ? '<p class="fdesc"><span class="t-fr">'+fam.desc+'</span>'+(fam.descEs ? '<span class="t-es">'+fam.descEs+'</span>' : '')+'</p>'
+      : '';
+    var caption = isAlif
+      ? '<p class="caption"><span class="t-fr">Notre lettre-repère : un trait vertical, bien droit.</span><span class="t-es">Nuestra letra de referencia: un trazo vertical, bien recto.</span></p>'
+      : '';
+    return ''
+      + '<div class="family-card'+(isAlif?' alif':'')+'">'
+      +   '<div class="fbody">'
+      +     '<div class="fhead">'
+      +       '<div class="ficon">'+iconHTML(fam)+'</div>'
+      +       '<div class="ftext">'
+      +         '<div class="ftitle"><span class="fnum">'+index+'</span><span class="fname"><span class="t-fr">'+fam.name+'</span>'+(fam.nameEs ? '<span class="t-es">'+fam.nameEs+'</span>' : '')+'</span></div>'
+      +         descHTML
+      +       '</div>'
+      +     '</div>'
+      +     '<div class="letters-row">'
+      +       fam.letters.map(function(L){ return letterCardHTML(L); }).join('')
+      +     '</div>'
+      +     caption
+      +   '</div>'
+      + '</div>';
+  }
+
+  var grid = document.getElementById('familiesGrid');
+  grid.innerHTML = FAMILIES.map(function(fam, i){ return familyCardHTML(fam, i+1, i===0); }).join('');
+
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  var langBtns = [document.getElementById('langFr'), document.getElementById('langEs')];
+  function setLang(lang){
+    document.body.classList.toggle('lang-es', lang === 'es');
+    document.documentElement.setAttribute('lang', lang);
+    langBtns.forEach(function(btn){
+      var active = btn.getAttribute('data-lang') === lang;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    try{ localStorage.setItem('dak_familles_lang', lang); }catch(_){}
+  }
+  langBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ setLang(btn.getAttribute('data-lang')); });
+  });
+  var savedLang = 'fr';
+  try{ savedLang = localStorage.getItem('dak_familles_lang') || 'fr'; }catch(_){}
+  setLang(savedLang);
+})();
+</script>
+
+</body>
+</html>

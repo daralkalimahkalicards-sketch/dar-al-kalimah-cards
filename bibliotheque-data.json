@@ -107,6 +107,18 @@
       "public": "enfant",
       "icone": "fa-solid fa-language",
       "lien": "fiches/fr-es/verbes-madi-mudari-amr-fr-es.html"
+    },
+    {
+      "id": "fiche-familles-lettres-fr-es",
+      "titre_fr": "Les Sœurs de l'Alphabet",
+      "sous_titre_fr": "17 Familles de Lettres (FR/ES)",
+      "titre_ar": "أَخَوَاتُ الحُرُوف",
+      "description_fr": "Fiche illustrée des 28 lettres arabes regroupées en 17 familles par ressemblance de forme, pour enfant, avec bascule français / espagnol.",
+      "description_es": "Ficha ilustrada de las 28 letras árabes agrupadas en 17 familias por semejanza de forma, con cambio francés / español.",
+      "type": "fiche",
+      "public": "enfant",
+      "icone": "fa-solid fa-font",
+      "lien": "fiches/fr-es/familles-lettres-fr-es.html"
     }
   ]
 }
