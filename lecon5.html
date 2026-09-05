@@ -423,6 +423,32 @@
     .latin-example-trans .trans-fr { margin-bottom: 4px; }
     .latin-example-trans .trans-es { color: var(--text-soft); font-style: italic; font-weight: normal; font-size: 1rem; }
 
+    .btn-audio-small {
+      background: var(--bg-beige);
+      border: 1px solid var(--gold);
+      color: var(--burgundy);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2);
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+      outline: none;
+      touch-action: manipulation;
+      flex-shrink: 0;
+    }
+    .btn-audio-small:hover, .btn-audio-small:focus-visible {
+      transform: scale(1.08);
+      background: var(--gold);
+      color: var(--white);
+      outline: none;
+    }
+    .btn-audio-small:active { transform: scale(0.95); }
+
     /* NAVIGATION (harmonisé Leçon 1) */
     .btn-nav { background: none; border: none; color: var(--gold); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 300; padding: 6px 8px; transition: color 0.3s ease; }
     .btn-nav:hover { color: var(--gold); }
@@ -459,7 +485,23 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
+    <script>
+      /* Filet de securite : les lecons ne dependent jamais du systeme audio.
+         Si audio-controller.js est absent/en echec, DAKAudio devient un stub
+         inoffensif afin qu'aucun appel audio ne puisse casser une lecon. */
+      if (typeof DAKAudio === "undefined") {
+        window.DAKAudio = {
+          play: function () {},
+          playEffect: function () {},
+          stopAll: function () {},
+          unlock: function () { return Promise.resolve(false); },
+          showToast: function () {}
+        };
+      }
+    </script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -522,9 +564,9 @@
         letters: "ت ث د ذ ر ز س ش ص ض ط ظ ل ن",
         diagram: false,
         examples: [
-          { word: "الش<span class='gold-mark'>َّ</span>مْس", transFr: "Le soleil", transEs: "El sol" },
-          { word: "الن<span class='gold-mark'>َّ</span>جْم", transFr: "L'étoile", transEs: "La estrella" },
-          { word: "الر<span class='gold-mark'>َّ</span>جُل", transFr: "L'homme", transEs: "El hombre" }
+          { word: "الش<span class='gold-mark'>َّ</span>مْس", transFr: "Le soleil", transEs: "El sol", audio: "audio/shamsiyya/ash-shams.mp3" },
+          { word: "الن<span class='gold-mark'>َّ</span>جْم", transFr: "L'étoile", transEs: "La estrella", audio: "audio/shamsiyya/an-najm.mp3" },
+          { word: "الر<span class='gold-mark'>َّ</span>جُل", transFr: "L'homme", transEs: "El hombre", audio: "audio/shamsiyya/ar-rajul.mp3" }
         ]
       },
       {
@@ -543,9 +585,9 @@
         letters: "أ ب ج ح خ ع غ ف ق ك م هـ و ي",
         diagram: false,
         examples: [
-          { word: "ال<span class='gold-mark'>ْ</span>قَمَر", transFr: "La lune", transEs: "La luna" },
-          { word: "ال<span class='gold-mark'>ْ</span>بَيْت", transFr: "La maison", transEs: "La casa" },
-          { word: "ال<span class='gold-mark'>ْ</span>كِتَاب", transFr: "Le livre", transEs: "El libro" }
+          { word: "ال<span class='gold-mark'>ْ</span>قَمَر", transFr: "La lune", transEs: "La luna", audio: "audio/qamariyya/al-qamar.mp3" },
+          { word: "ال<span class='gold-mark'>ْ</span>بَيْت", transFr: "La maison", transEs: "La casa", audio: "audio/qamariyya/al-bayt.mp3" },
+          { word: "ال<span class='gold-mark'>ْ</span>كِتَاب", transFr: "Le livre", transEs: "El libro", audio: "audio/qamariyya/al-kitab.mp3" }
         ]
       },
       {
@@ -559,9 +601,9 @@
         showLetters: false,
         diagram: true, 
         examples: [
-          { word: "مُعَل<span class='gold-mark'>ِّ</span>م", transFr: "Professeur", transEs: "Profesor" },
-          { word: "قِط<span class='gold-mark'>َّ</span>ة", transFr: "Une chatte", transEs: "Una gata" },
-          { word: "سَي<span class='gold-mark'>َّ</span>ارَة", transFr: "Voiture", transEs: "Coche" }
+          { word: "مُعَل<span class='gold-mark'>ِّ</span>م", transFr: "Professeur", transEs: "Profesor", audio: "audio/shadda/muallim.mp3" },
+          { word: "قِط<span class='gold-mark'>َّ</span>ة", transFr: "Une chatte", transEs: "Una gata", audio: "audio/shadda/qitta.mp3" },
+          { word: "سَي<span class='gold-mark'>َّ</span>ارَة", transFr: "Voiture", transEs: "Coche", audio: "audio/shadda/sayyara.mp3" }
         ]
       }
     ];
@@ -685,10 +727,23 @@
       `;
     }
 
+    function audioBtnHtml(src) {
+      if (!src) return "";
+      return `<button class="btn-audio-small" data-audio-src="${src}" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>`;
+    }
+
+    function handleAudioBtn(event, btn) {
+      event.stopPropagation();
+      const src = btn.dataset.audioSrc || "";
+      if (!src) return;
+      DAKAudio.play(src, btn);
+    }
+
     function updateBack(data) {
       const examplesHtml = data.examples.map(ex => `
         <div class="example-block">
           <div class="example-word-ar ar-text">${ex.word}</div>
+          ${audioBtnHtml(ex.audio)}
           <div class="latin-example-trans">
             <span class="trans-fr">${ex.transFr}</span>
             <span class="trans-es">${ex.transEs}</span>
