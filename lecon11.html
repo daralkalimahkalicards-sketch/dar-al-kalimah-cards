@@ -264,6 +264,10 @@
 
         /* Guard auth */
         body { visibility: hidden; }
+
+        .btn-audio-small{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(200,164,98,0.12);border:1px solid rgba(200,164,98,0.35);font-size:0.8rem;margin:2px 4px;vertical-align:middle;transition:var(--transition);}
+        .btn-audio-small:hover{background:rgba(200,164,98,0.25);}
+        .btn-audio-small.dak-playing{background:var(--gold);}
   </style>
     <link rel="stylesheet" href="audio-controller.css">
     <script src="audio-controller.js"></script>
@@ -279,6 +283,12 @@
           unlock: function () { return Promise.resolve(false); },
           showToast: function () {}
         };
+      }
+      function handleAudioBtn(event, btn) {
+        event.stopPropagation();
+        const src = btn.dataset.audioSrc || "";
+        if (!src) return;
+        DAKAudio.play(src, btn);
       }
     </script>
     <script type="module" src="tracker-lecons.js"></script>
@@ -572,12 +582,12 @@ const JOMLA_DATA = [
       <div class="contrast-row">
         <div class="contrast-box ism">
           <span class="contrast-label" style="color:var(--burgundy);">جُمْلَة اِسْمِيَّة</span>
-          <div class="contrast-ar ar" style="color:var(--burgundy);">الطَّعَامُ لَذِيذٌ</div>
+          <div class="contrast-ar ar" style="color:var(--burgundy);">الطَّعَامُ لَذِيذٌ<button class="btn-audio-small" data-audio-src="audio/module11/attaamu-ladhidhun.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
           <div style="font-size:0.68rem;color:#888;font-style:italic;margin-top:4px;">La nourriture est délicieuse<br><em>La comida está deliciosa</em></div>
         </div>
         <div class="contrast-box fil">
           <span class="contrast-label" style="color:var(--burgundy);">جُمْلَة فِعْلِيَّة</span>
-          <div class="contrast-ar ar" style="color:var(--burgundy);">أَكَلَ عَزِيزٌ الطَّعَامَ</div>
+          <div class="contrast-ar ar" style="color:var(--burgundy);">أَكَلَ عَزِيزٌ الطَّعَامَ<button class="btn-audio-small" data-audio-src="audio/module11/akala-azizun-attaam.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
           <div style="font-size:0.68rem;color:#888;font-style:italic;margin-top:4px;">Aziz a mangé la nourriture<br><em>Aziz comió la comida</em></div>
         </div>
       </div>
@@ -627,19 +637,19 @@ const JOMLA_DATA = [
         <thead><tr><th style="color:var(--green);">فِعْل<span class="vso-label">Verbe · Verbo</span></th><th style="color:var(--burgundy);">فَاعِل<span class="vso-label">Sujet · Sujeto</span></th><th style="color:var(--gold);">مَفْعُول به<span class="vso-label">Objet · Objeto</span></th></tr></thead>
         <tbody>
           <tr>
-            <td><span class="vso-ar ar hl-v">أَكَلَ</span><span class="vso-label">a mangé · comió</span></td>
-            <td><span class="vso-ar ar hl-f">عَزِيزٌ</span><span class="vso-label">Aziz (مرفوع ُ)</span></td>
-            <td><span class="vso-ar ar hl-m">الطَّعَامَ</span><span class="vso-label">la nourriture (منصوب َ)</span></td>
+            <td><span class="vso-ar ar hl-v">أَكَلَ</span><button class="btn-audio-small" data-audio-src="audio/module2/akala.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">a mangé · comió</span></td>
+            <td><span class="vso-ar ar hl-f">عَزِيزٌ</span><button class="btn-audio-small" data-audio-src="audio/module8/aziz.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">Aziz (مرفوع ُ)</span></td>
+            <td><span class="vso-ar ar hl-m">الطَّعَامَ</span><button class="btn-audio-small" data-audio-src="audio/module8/at-taam.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">la nourriture (منصوب َ)</span></td>
           </tr>
           <tr>
-            <td><span class="vso-ar ar hl-v">كَتَبَتِ</span><span class="vso-label">a écrit · escribió</span></td>
-            <td><span class="vso-ar ar hl-f">الطَّالِبَةُ</span><span class="vso-label">l'étudiante (مرفوع ُ)</span></td>
-            <td><span class="vso-ar ar hl-m">الدَّرْسَ</span><span class="vso-label">la leçon (منصوب َ)</span></td>
+            <td><span class="vso-ar ar hl-v">كَتَبَتِ</span><button class="btn-audio-small" data-audio-src="audio/module11/katabati.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">a écrit · escribió</span></td>
+            <td><span class="vso-ar ar hl-f">الطَّالِبَةُ</span><button class="btn-audio-small" data-audio-src="audio/module9/at-taliba.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">l'étudiante (مرفوع ُ)</span></td>
+            <td><span class="vso-ar ar hl-m">الدَّرْسَ</span><button class="btn-audio-small" data-audio-src="audio/dars.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">la leçon (منصوب َ)</span></td>
           </tr>
           <tr>
-            <td><span class="vso-ar ar hl-v">قَرَأَ</span><span class="vso-label">a lu · leyó</span></td>
-            <td><span class="vso-ar ar hl-f">النَّبِيُّ</span><span class="vso-label">le Prophète (مرفوع ُ)</span></td>
-            <td><span class="vso-ar ar hl-m">الْوَحْيَ</span><span class="vso-label">la Révélation (منصوب َ)</span></td>
+            <td><span class="vso-ar ar hl-v">قَرَأَ</span><button class="btn-audio-small" data-audio-src="audio/module2/qaraa.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">a lu · leyó</span></td>
+            <td><span class="vso-ar ar hl-f">النَّبِيُّ</span><button class="btn-audio-small" data-audio-src="audio/module10/an-nabiyy.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">le Prophète (مرفوع ُ)</span></td>
+            <td><span class="vso-ar ar hl-m">الْوَحْيَ</span><button class="btn-audio-small" data-audio-src="audio/module11/al-wahy.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:22px;height:22px;font-size:0.7rem;">🎙️</button><span class="vso-label">la Révélation (منصوب َ)</span></td>
           </tr>
         </tbody>
       </table>
@@ -650,6 +660,7 @@ const JOMLA_DATA = [
       <div class="card-rule-fr" style="margin-bottom:10px;"><strong>Psycholinguistique — L'arabe met l'ACTION en premier :</strong><br><em style="color:var(--text-soft);">Psicolingüística — el árabe pone la ACCIÓN primero :</em></div>
       <div class="example-block">
         <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.3rem;color:var(--text-dark);font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;"><span class="hl-v">نَزَلَ</span> <span class="hl-f">جِبْرِيلُ</span> <span class="hl-m">الْوَحْيَ</span></div>
+        <button class="btn-audio-small" data-audio-src="audio/module11/nazala-jibrilu-alwahy.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
         <div class="ex-fr">Jibrîl <strong>fit descendre</strong> la Révélation</div>
         <div class="ex-es">Jibrîl <strong>hizo descender</strong> la Revelación</div>
       </div>
@@ -658,7 +669,7 @@ const JOMLA_DATA = [
         <em style="color:var(--text-soft);">Las terminaciones gramaticales indican la función, ¡no el orden!</em>
       </div>
       <div style="background:rgba(45,122,58,0.05);border:1px solid rgba(45,122,58,0.2);border-radius:12px;padding:12px;margin:8px 0;text-align:center;">
-        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;margin-bottom:6px;"><span class="hl-f">عَزِيزٌ</span> <span class="hl-v">أَكَلَ</span> <span class="hl-m">الطَّعَامَ</span> = <span class="hl-v">أَكَلَ</span> <span class="hl-f">عَزِيزٌ</span> <span class="hl-m">الطَّعَامَ</span></div>
+        <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;font-weight:700;font-feature-settings:'liga' 1,'calt' 1,'mark' 1,'mkmk' 1;margin-bottom:6px;"><span class="hl-f">عَزِيزٌ</span> <span class="hl-v">أَكَلَ</span> <span class="hl-m">الطَّعَامَ</span><button class="btn-audio-small" data-audio-src="audio/module11/azizun-akala-attaam.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button> = <span class="hl-v">أَكَلَ</span> <span class="hl-f">عَزِيزٌ</span> <span class="hl-m">الطَّعَامَ</span><button class="btn-audio-small" data-audio-src="audio/module11/akala-azizun-attaam.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></div>
         <div style="font-size:0.78rem;color:var(--text-soft);">Même sens ! Les harakat définissent la fonction · ¡El mismo sentido! Las harakat definen la función.</div>
       </div>
       <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour · Volver</div>`
@@ -689,12 +700,14 @@ const JOMLA_DATA = [
       <div class="card-sep"></div>
       <div class="example-block">
         <div class="ex-ar ar"><span class="hl-v">كَتَبَ</span> <span class="hl-f">الطَّالِبُ</span></div>
+        <button class="btn-audio-small" data-audio-src="audio/module10/kataba-attalibu.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
         <div class="ex-analyse" style="color:var(--burgundy);">فعل مذكّر + فاعل مذكّر · الطَّالِبُ = مرفوع (ُ)</div>
         <div class="ex-fr">L'étudiant a écrit</div>
         <div class="ex-es">El estudiante escribió</div>
       </div>
       <div class="example-block">
         <div class="ex-ar ar"><span class="hl-v">كَتَبَتِ</span> <span class="hl-f">الطَّالِبَةُ</span></div>
+        <button class="btn-audio-small" data-audio-src="audio/module10/katabati-attaliba.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
         <div class="ex-analyse" style="color:var(--burgundy);">فعل مؤنّث (+ تِ) + فاعل مؤنّث · التقاء الساكنين ✓</div>
         <div class="ex-fr">L'étudiante a écrit</div>
         <div class="ex-es">La estudiante escribió</div>
@@ -710,12 +723,14 @@ const JOMLA_DATA = [
       </div>
       <div class="example-block">
         <div class="ex-ar ar"><span class="hl-v">قَامَ</span> <span class="hl-f">الطُّلَّابُ</span></div>
+        <button class="btn-audio-small" data-audio-src="audio/module11/qama-attullab.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
         <div class="ex-analyse" style="color:var(--burgundy);">✓ قَامَ (singulier) — PAS قَامُوا ! · ¡NO قَامُوا!</div>
         <div class="ex-fr">Les étudiants se sont levés</div>
         <div class="ex-es">Los estudiantes se levantaron</div>
       </div>
       <div class="example-block">
         <div class="ex-ar ar"><span class="hl-f">الطُّلَّابُ</span> <span class="hl-v">قَامُوا</span></div>
+        <button class="btn-audio-small" data-audio-src="audio/module11/attullabu-qamu.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
         <div class="ex-analyse" style="color:var(--green);">✓ قَامُوا — فاعل AVANT le verbe = accord en nombre</div>
         <div class="ex-fr">Les étudiants, ils se sont levés (جملة اسمية ثم فعل)</div>
         <div class="ex-es">Los estudiantes se levantaron (sujeto antes)</div>
@@ -747,9 +762,9 @@ const JOMLA_DATA = [
       <table class="vso-table">
         <thead><tr><th style="color:var(--green);">فِعْل</th><th style="color:var(--burgundy);">فَاعِل ُ</th><th style="color:var(--gold);">مَفْعُول به َ</th></tr></thead>
         <tbody>
-          <tr><td class="vso-ar ar hl-v">خَلَقَ</td><td class="vso-ar ar hl-f">اللَّهُ</td><td><span class="vso-ar ar hl-m">الإِنسَانَ</span><span class="vso-label" style="color:var(--gold);">Al-Alaq v.2</span></td></tr>
-          <tr><td class="vso-ar ar hl-v">عَلَّمَ</td><td class="vso-ar ar hl-f">اللَّهُ</td><td><span class="vso-ar ar hl-m">آدَمَ الأَسْمَاءَ</span><span class="vso-label" style="color:var(--gold);">Al-Baqara v.31</span></td></tr>
-          <tr><td class="vso-ar ar hl-v">يَقْرَأُ</td><td class="vso-ar ar hl-f">عَزِيزٌ</td><td><span class="vso-ar ar hl-m">الْقُرْآنَ</span><span class="vso-label" style="color:var(--gold);">مَاذَا يَقْرَأُ ؟</span></td></tr>
+          <tr><td class="vso-ar ar hl-v">خَلَقَ<button class="btn-audio-small" data-audio-src="audio/module10/khalaqa.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></td><td class="vso-ar ar hl-f">اللَّهُ<button class="btn-audio-small" data-audio-src="audio/module11/allah.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></td><td><span class="vso-ar ar hl-m">الإِنسَانَ</span><button class="btn-audio-small" data-audio-src="audio/module10/al-insan.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button><span class="vso-label" style="color:var(--gold);">Al-Alaq v.2</span></td></tr>
+          <tr><td class="vso-ar ar hl-v">عَلَّمَ<button class="btn-audio-small" data-audio-src="audio/module8/allama.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></td><td class="vso-ar ar hl-f">اللَّهُ<button class="btn-audio-small" data-audio-src="audio/module11/allah.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></td><td><span class="vso-ar ar hl-m">آدَمَ الأَسْمَاءَ</span><button class="btn-audio-small" data-audio-src="audio/module11/adama-alasmaa.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button><span class="vso-label" style="color:var(--gold);">Al-Baqara v.31</span></td></tr>
+          <tr><td class="vso-ar ar hl-v">يَقْرَأُ<button class="btn-audio-small" data-audio-src="audio/quiz-qat/yaqrau.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></td><td class="vso-ar ar hl-f">عَزِيزٌ<button class="btn-audio-small" data-audio-src="audio/module8/aziz.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button></td><td><span class="vso-ar ar hl-m">الْقُرْآنَ</span><button class="btn-audio-small" data-audio-src="audio/module8/al-quran.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="width:20px;height:20px;font-size:0.65rem;">🎙️</button><span class="vso-label" style="color:var(--gold);">مَاذَا يَقْرَأُ ؟</span></td></tr>
         </tbody>
       </table>
       <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Résumé · Resumen</div>`,
@@ -768,6 +783,7 @@ const JOMLA_DATA = [
       <div class="card-sep"></div>
       <div class="example-block">
         <div class="ex-ar ar"><span class="hl-v">نَزَلَ</span> <span class="hl-f">جِبْرِيلُ</span> <span class="hl-m">الْوَحْيَ</span> عَلَى <span class="hl-f">النَّبِيِّ</span> ﷺ</div>
+        <button class="btn-audio-small" data-audio-src="audio/module11/nazala-jibrilu-alwahy-ala-annabiyy.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
         <div class="ex-analyse" style="color:var(--green);">فعل + فاعل (مرفوع) + مفعول به (منصوب) ← النَّبِيّ = جار ومجرور</div>
         <div class="ex-fr">Jibrîl fit descendre la Révélation sur le Prophète ﷺ</div>
         <div class="ex-es">Jibrîl hizo descender la Revelación sobre el Profeta ﷺ</div>
