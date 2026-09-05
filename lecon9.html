@@ -126,6 +126,17 @@
     .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
     .ex-analyse{font-size:0.75rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:0.5px;margin-top:2px;}
 
+    .btn-audio-small{
+      background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);
+      width:40px;height:40px;border-radius:50%;
+      display:inline-flex;justify-content:center;align-items:center;font-size:1.15rem;
+      cursor:pointer;box-shadow:0 4px 15px rgba(200,164,98,0.2);
+      transition:transform 0.3s ease,background 0.3s ease,color 0.3s ease;
+      outline:none;touch-action:manipulation;flex-shrink:0;
+    }
+    .btn-audio-small:hover,.btn-audio-small:focus-visible{transform:scale(1.08);background:var(--gold);color:var(--white);outline:none;}
+    .btn-audio-small:active{transform:scale(0.95);}
+
     /* Lecture */
     .qiraa-legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:0 0 10px;padding:8px 14px;background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.2);border-radius:10px;font-size:0.72rem;}
     .legend-item{display:flex;align-items:center;gap:5px;font-family:"Cinzel",serif;font-size:0.64rem;letter-spacing:0.5px;}
@@ -175,7 +186,23 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
+    <script>
+      if (typeof DAKAudio === "undefined") {
+        window.DAKAudio = {
+          play: function () {}, playEffect: function () {}, stopAll: function () {},
+          unlock: function () { return Promise.resolve(false); }, showToast: function () {}
+        };
+      }
+      function handleAudioBtn(event, btn) {
+        event.stopPropagation();
+        const src = btn.dataset.audioSrc || "";
+        if (!src) return;
+        DAKAudio.play(src, btn);
+      }
+    </script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -573,6 +600,7 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="card-title-ar ar" style="font-size:4rem;color:var(--burgundy);">هَذَا</div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin:2px 0 6px;"><button class="btn-audio-small" data-audio-src="audio/hadha.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="card-title-fr serif">CE / CECI — MASC. SINGULIER PROCHE</div>
         <div class="card-title-es serif">ESTE / ESTO — MASC. SING. CERCANO</div>
         <div class="card-sep"></div>
@@ -607,6 +635,7 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="card-title-ar ar" style="font-size:4rem;color:var(--burgundy);">هَذِهِ</div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin:2px 0 6px;"><button class="btn-audio-small" data-audio-src="audio/module9/hadhihi.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="card-title-fr serif">CETTE / CECI — FÉM. SINGULIER PROCHE</div>
         <div class="card-title-es serif">ESTA / ESTO — FÉM. SING. CERCANA</div>
         <div class="card-sep"></div>
@@ -648,10 +677,12 @@ const DATA = {
           <div style="text-align:center;">
             <div style="font-family:'Amiri',serif;font-size:3rem;color:var(--burgundy);direction:rtl;unicode-bidi:isolate;">ذَلِكَ</div>
             <div style="font-size:0.65rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;">MASC.</div>
+            <button class="btn-audio-small" data-audio-src="audio/module9/dhalika.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="margin-top:6px;">🎙️</button>
           </div>
           <div style="text-align:center;">
             <div style="font-family:'Amiri',serif;font-size:3rem;color:var(--burgundy);direction:rtl;unicode-bidi:isolate;">تِلْكَ</div>
             <div style="font-size:0.65rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;">FÉM.</div>
+            <button class="btn-audio-small" data-audio-src="audio/module9/tilka.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="margin-top:6px;">🎙️</button>
           </div>
         </div>
         <div class="card-title-fr serif" style="margin-bottom:3px;">SINGULIER ÉLOIGNÉ</div>
@@ -688,6 +719,7 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="card-title-ar ar" style="font-size:3.5rem;color:var(--burgundy);">هَؤُلَاءِ</div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin:2px 0 6px;"><button class="btn-audio-small" data-audio-src="audio/module9/haulai.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="card-title-fr serif">CES PERSONNES-CI — PLURIEL PROCHE</div>
         <div class="card-title-es serif">ESTAS PERSONAS — PLURAL CERCANO</div>
         <div class="card-sep"></div>
@@ -725,6 +757,7 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="card-title-ar ar" style="font-size:3.5rem;color:var(--burgundy);">أُولَئِكَ</div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin:2px 0 6px;"><button class="btn-audio-small" data-audio-src="audio/module9/ulaika.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="card-title-fr serif">CES PERSONNES-LÀ — PLURIEL LOIN</div>
         <div class="card-title-es serif">ESAS PERSONAS — PLURAL LEJANO</div>
         <div class="card-sep"></div>
@@ -763,6 +796,7 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="card-title-ar ar" style="font-size:3.5rem;color:var(--burgundy);">اللَّوَاتِي</div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin:2px 0 6px;"><button class="btn-audio-small" data-audio-src="audio/module9/al-lawati.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="card-title-fr serif">CES FEMMES / CELLES QUI — FÉM. PLURIEL</div>
         <div class="card-title-es serif">ESTAS MUJERES / LAS QUE — FEM. PLURAL</div>
         <div class="card-sep"></div>
@@ -812,12 +846,14 @@ const DATA = {
             <span class="schema-ar ar" style="color:var(--gold);font-size:2rem;">هُنَا</span>
             <span class="schema-label">هنا — ICI</span>
             <span class="schema-label-es">aquí — proche</span>
+            <button class="btn-audio-small" data-audio-src="audio/module9/huna.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="margin-top:4px;">🎙️</button>
           </div>
           <div class="schema-plus" style="font-size:1.2rem;">←</div>
           <div class="schema-box">
             <span class="schema-ar ar" style="color:var(--text-soft);font-size:2rem;">هُنَاكَ</span>
             <span class="schema-label">LÀ-BAS</span>
             <span class="schema-label-es">allí — loin</span>
+            <button class="btn-audio-small" data-audio-src="audio/module9/hunaka.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter" style="margin-top:4px;">🎙️</button>
           </div>
           <div class="schema-plus" style="font-size:1.2rem;">←</div>
           <div class="schema-box">

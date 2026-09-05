@@ -146,6 +146,24 @@
     .ex-fr{font-size:0.9rem;color:var(--text-dark);font-weight:500;}
     .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
 
+    .btn-audio-small{
+      background:var(--bg-beige);
+      border:1px solid var(--gold);
+      color:var(--burgundy);
+      width:40px;height:40px;
+      border-radius:50%;
+      display:inline-flex;justify-content:center;align-items:center;
+      font-size:1.15rem;
+      cursor:pointer;
+      box-shadow:0 4px 15px rgba(200,164,98,0.2);
+      transition:transform 0.3s ease,background 0.3s ease,color 0.3s ease;
+      outline:none;touch-action:manipulation;flex-shrink:0;
+    }
+    .btn-audio-small:hover,.btn-audio-small:focus-visible{
+      transform:scale(1.08);background:var(--gold);color:var(--white);outline:none;
+    }
+    .btn-audio-small:active{transform:scale(0.95);}
+
     /* ── QUIZ OUI / NON ── */
     .quiz-num{font-size:0.7rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:2px;text-align:center;margin-bottom:8px;opacity:0.7;}
     .quiz-q-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.4rem,4.5vw,1.9rem);color:var(--burgundy);font-weight:700;line-height:1.8;text-align:center;margin:10px 0 6px;}
@@ -242,7 +260,29 @@
         /* Guard auth */
         body { visibility: hidden; }
   </style>
+    <link rel="stylesheet" href="audio-controller.css">
     <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
+    <script>
+      /* Filet de securite : les lecons ne dependent jamais du systeme audio.
+         Si audio-controller.js est absent/en echec, DAKAudio devient un stub
+         inoffensif afin qu'aucun appel audio ne puisse casser une lecon. */
+      if (typeof DAKAudio === "undefined") {
+        window.DAKAudio = {
+          play: function () {},
+          playEffect: function () {},
+          stopAll: function () {},
+          unlock: function () { return Promise.resolve(false); },
+          showToast: function () {}
+        };
+      }
+      function handleAudioBtn(event, btn) {
+        event.stopPropagation();
+        const src = btn.dataset.audioSrc || "";
+        if (!src) return;
+        DAKAudio.play(src, btn);
+      }
+    </script>
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -407,21 +447,25 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar">أَحْمَدُ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/ahmad.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Un prénom — <strong>personne</strong></div>
           <div class="ex-es">Un nombre propio — persona</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">مَسْجِدٌ</div>
+          <button class="btn-audio-small" data-audio-src="audio/masjid.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Une mosquée — <strong>lieu</strong></div>
           <div class="ex-es">Una mezquita — lugar</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">كِتَابٌ</div>
+          <button class="btn-audio-small" data-audio-src="audio/kitab.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Un livre — <strong>chose</strong></div>
           <div class="ex-es">Un libro — cosa</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">رَحْمَةٌ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/rahma.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Miséricorde — <strong>concept</strong></div>
           <div class="ex-es">Misericordia — concepto</div>
         </div>
@@ -476,16 +520,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar">كِتَاب<span class="gold">ٌ</span></div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/kitab-un.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr"><span class="gold">Tanwīn</span> → c'est un nom indéfini</div>
           <div class="ex-es"><span class="gold">Tanwīn</span> → es un nombre indefinido</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">ٱلْ</span>كِتَابُ</div>
+          <button class="btn-audio-small" data-audio-src="audio/qamariyya/al-kitab.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr"><span class="gold">Alif-Lam</span> → nom défini</div>
           <div class="ex-es"><span class="gold">Alif-Lam</span> → nombre definido</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">فِي الْبَيْت<span class="gold">ِ</span></div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/fi-albayt.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr"><span class="gold">Kasra</span> après فِي → nom en état jarr</div>
           <div class="ex-es"><span class="gold">Kasra</span> después de فِي → nombre en estado jarr</div>
         </div>
@@ -533,6 +580,7 @@ const DATA = {
         <div class="card-rule-es">Todo nombre que sigue a una preposición recibe una <strong style="color:var(--gold);">kasra</strong> (ِ) al final — se llama <strong>majrūr</strong>.</div>
         <div class="card-sep"></div>
         <div class="ex-ar ar" style="font-size:1.9rem;text-align:center;">فِي الْبَيْت<span class="gold">ِ</span></div>
+        <div style="text-align:center;margin:6px 0;"><button class="btn-audio-small" data-audio-src="audio/module8/fi-albayt.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="ex-fr" style="text-align:center;margin-top:6px;">فِي + البيت → kasra sur le ت</div>
         <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour</div>`
     },
@@ -547,6 +595,7 @@ const DATA = {
           <div class="harf-hero-ar ar">بِـ</div>
         </div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin-top:-4px;margin-bottom:6px;"><button class="btn-audio-small" data-audio-src="audio/module8/bi.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="harf-hero-fr serif">PAR / AVEC / AU NOM DE</div>
         <div class="harf-hero-es serif">POR / CON / EN EL NOMBRE DE</div>
         <div class="card-sep"></div>
@@ -566,16 +615,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">بِـ</span>سْمِ اللَّهِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/bismi-allahi.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Au nom d'Allah — <em>coranique</em></div>
           <div class="ex-es">En el nombre de Alá — <em>coránico</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">كَتَبَ <span class="gold">بِـ</span>الْقَلَمِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/kataba-bilqalam.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Il a écrit avec le stylo</div>
           <div class="ex-es">Escribió con el bolígrafo</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">سَافَرَ <span class="gold">بِـ</span>الطَّائِرَةِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/safara-bittaira.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Il a voyagé en avion</div>
           <div class="ex-es">Viajó en avión</div>
         </div>
@@ -592,6 +644,7 @@ const DATA = {
           <div class="harf-hero-ar ar">فِي</div>
         </div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin-top:-4px;margin-bottom:6px;"><button class="btn-audio-small" data-audio-src="audio/module8/fi.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="harf-hero-fr serif">DANS / EN</div>
         <div class="harf-hero-es serif">EN / DENTRO DE</div>
         <div class="card-sep"></div>
@@ -611,16 +664,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">فِي</span> الْمَسْجِدِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/fi-almasjid.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Dans la mosquée — <em>lieu</em></div>
           <div class="ex-es">En la mezquita — <em>lugar</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">فِي</span> الصَّبَاحِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/fi-assabah.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Dans la matinée — <em>temps</em></div>
           <div class="ex-es">Por la mañana — <em>tiempo</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">فِي</span> الْبَيْتِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/fi-albayt.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Dans la maison — <em>lieu quotidien</em></div>
           <div class="ex-es">En casa — <em>cotidiano</em></div>
         </div>
@@ -637,6 +693,7 @@ const DATA = {
           <div class="harf-hero-ar ar">مِن</div>
         </div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin-top:-4px;margin-bottom:6px;"><button class="btn-audio-small" data-audio-src="audio/module8/min.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="harf-hero-fr serif">DE / DEPUIS / PARMI</div>
         <div class="harf-hero-es serif">DE / DESDE / ENTRE</div>
         <div class="card-sep"></div>
@@ -656,16 +713,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">مِن</span> الْمَدْرَسَةِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/min-almadrasa.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Depuis l'école — <em>origine</em></div>
           <div class="ex-es">Desde la escuela — <em>origen</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">مِن</span> الْقُرْآنِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/min-alquran.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Du Coran — <em>source</em></div>
           <div class="ex-es">Del Corán — <em>fuente</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">مِن</span> رَبِّهِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/min-rabbihi.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">De son Seigneur — <em>coranique</em></div>
           <div class="ex-es">De su Señor — <em>coránico</em></div>
         </div>
@@ -682,6 +742,7 @@ const DATA = {
           <div class="harf-hero-ar ar">إِلَى</div>
         </div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin-top:-4px;margin-bottom:6px;"><button class="btn-audio-small" data-audio-src="audio/module8/ila.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="harf-hero-fr serif">VERS / À / JUSQU'À</div>
         <div class="harf-hero-es serif">HACIA / A / HASTA</div>
         <div class="card-sep"></div>
@@ -701,16 +762,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar">ذَهَبَ <span class="gold">إِلَى</span> الْمَدْرَسَةِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/dhahaba-ila-almadrasa.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Il est allé à l'école</div>
           <div class="ex-es">Fue a la escuela</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">إِلَى</span> رَبِّكَ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/ila-rabbika.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Vers ton Seigneur — <em>coranique</em></div>
           <div class="ex-es">Hacia tu Señor — <em>coránico</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar"><span class="gold">مِن</span> الْبَيْتِ <span class="gold">إِلَى</span> الْمَسْجِدِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/min-albayt-ila-almasjid.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">De la maison jusqu'à la mosquée</div>
           <div class="ex-es">De la casa hasta la mezquita</div>
         </div>
@@ -727,6 +791,7 @@ const DATA = {
           <div class="harf-hero-ar ar">عَلَى</div>
         </div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin-top:-4px;margin-bottom:6px;"><button class="btn-audio-small" data-audio-src="audio/module8/ala.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="harf-hero-fr serif">SUR / AU-DESSUS</div>
         <div class="harf-hero-es serif">SOBRE / ENCIMA DE</div>
         <div class="card-sep"></div>
@@ -746,16 +811,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar">الْكِتَابُ <span class="gold">عَلَى</span> الطَّاوِلَةِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/alkitab-ala-attawila.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Le livre est sur la table</div>
           <div class="ex-es">El libro está sobre la mesa</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">الصَّلَاةُ <span class="gold">عَلَى</span> وَقْتِهَا</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/assalat-ala-waqtiha.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">La prière en son temps — <em>coranique</em></div>
           <div class="ex-es">La oración en su tiempo — <em>coránico</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">جَلَسَ <span class="gold">عَلَى</span> الْكُرْسِيِّ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/jalasa-ala-alkursi.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Il s'est assis sur la chaise</div>
           <div class="ex-es">Se sentó en la silla</div>
         </div>
@@ -772,6 +840,7 @@ const DATA = {
           <div class="harf-hero-ar ar">لِـ</div>
         </div>
         <div class="card-sep"></div>
+        <div style="text-align:center;margin-top:-4px;margin-bottom:6px;"><button class="btn-audio-small" data-audio-src="audio/module8/li.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button></div>
         <div class="harf-hero-fr serif">POUR / À / APPARTIENT À</div>
         <div class="harf-hero-es serif">PARA / A / PERTENECE A</div>
         <div class="card-sep"></div>
@@ -792,16 +861,19 @@ const DATA = {
         <div class="card-sep"></div>
         <div class="example-block">
           <div class="ex-ar ar">فَصَلِّ <span class="gold">لِـ</span>رَبِّكَ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/fasalli-lirabbika.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Prie pour ton Seigneur — <em>coranique</em></div>
           <div class="ex-es">Reza a tu Señor — <em>coránico</em></div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">الْكِتَابُ <span class="gold">لِـ</span>أَحْمَدَ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/alkitab-liahmad.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Le livre appartient à Ahmed</div>
           <div class="ex-es">El libro es de Ahmed</div>
         </div>
         <div class="example-block">
           <div class="ex-ar ar">ذَهَبَ <span class="gold">لِـ</span>لدِّرَاسَةِ</div>
+          <button class="btn-audio-small" data-audio-src="audio/module8/dhahaba-lidirasa.mp3" onclick="event.stopPropagation(); handleAudioBtn(event, this);" title="Écouter" aria-label="Écouter">🎙️</button>
           <div class="ex-fr">Il est parti pour étudier</div>
           <div class="ex-es">Fue a estudiar</div>
         </div>
