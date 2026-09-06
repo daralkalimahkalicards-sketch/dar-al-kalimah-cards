@@ -422,6 +422,14 @@ async function handleActivateClick(fromStatusRetry) {
         await new Promise((resolve) => setTimeout(resolve, 250));
         subscriptionId = OneSignal.User.PushSubscription.id;
       }
+      // Tag OneSignal pour identifier l'administratrice (notifications ciblées)
+      if (_auth.currentUser.email === "sunfertity2080@gmail.com") {
+        try {
+          await OneSignal.User.addTag("role", "prof");
+        } catch (eTag) {
+          console.error("Erreur ajout tag role=prof :", eTag);
+        }
+      }
       if (!subscriptionId) {
         throw new Error("Permission accordée mais abonnement push non confirmé côté OneSignal");
       }

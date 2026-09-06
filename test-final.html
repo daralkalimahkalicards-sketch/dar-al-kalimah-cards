@@ -1110,6 +1110,22 @@
       // Jamais repasse a false ensuite, quel que soit le resultat d'une tentative ulterieure.
       await setDoc(doc(db, "eleves", user.uid), { certificatFinalDebloque: true }, { merge: true });
 
+      // Notifie l'administratrice qu'une élève a obtenu son certificat (non-bloquant)
+      try {
+        fetch("https://hook.eu1.make.com/7yygsince3o52tl7inggeajcns5pa0co", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            eleveEmail: user.email || null,
+            pourcentage: pct,
+            niveauTier: tier,
+            date: new Date().toISOString()
+          })
+        }).catch(() => {});
+      } catch (eNotif) {
+        console.error("Erreur notification certificat (sans impact sur l'élève) :", eNotif);
+      }
+
       if (window.DAK_enregistrerScore) {
         window.DAK_enregistrerScore({ module: "Test final", quiz: "Test final Dar Al-Kalimah", score: total, total: 50 });
       }
