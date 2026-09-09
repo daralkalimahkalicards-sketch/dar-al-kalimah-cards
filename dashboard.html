@@ -69,6 +69,13 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .login-box button { width: 100%; padding: 14px; background: var(--gold); color: var(--burgundy); border: none; border-radius: 50px; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
 .login-error { color: #ff9999; font-size: 0.85rem; margin-top: 10px; display: none; }
 
+/* Password visibility toggle */
+.pwd-wrap { position: relative; margin-bottom: 12px; }
+.pwd-wrap input { padding-right: 48px; margin-bottom: 0; }
+.pwd-toggle { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; color: var(--gold); padding: 0; }
+.pwd-toggle:hover { opacity: 0.75; }
+.pwd-toggle svg { pointer-events: none; }
+
 /* Évaluations (test de positionnement + test final) par élève */
 .btn-eval { background: rgba(200,164,98,0.15); border: 1px solid var(--gold); color: var(--burgundy); padding: 6px 14px; border-radius: 50px; font-size: 0.78rem; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; }
 .btn-eval:hover { background: rgba(200,164,98,0.3); }
@@ -123,7 +130,13 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     <h2>دار الكلمة</h2>
     <p>Espace professeur — accès sécurisé</p>
     <input type="email" id="prof-email" placeholder="Email professeur">
-    <input type="password" id="prof-password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')profLogin()">
+    <div class="pwd-wrap">
+      <input type="password" id="prof-password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')profLogin()">
+      <button type="button" class="pwd-toggle" onclick="togglePwd(this)" aria-label="Afficher le mot de passe">
+        <svg class="icon-eye" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg class="icon-eye-off" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.8 21.8 0 0 1 5.06-6.06M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.8 21.8 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      </button>
+    </div>
     <button onclick="profLogin()">ACCÉDER</button>
     <div class="login-error" id="login-error">❌ Email ou mot de passe incorrect</div>
   </div>
@@ -226,6 +239,15 @@ onAuthStateChanged(auth, (user) => {
     ouvrirDashboard(user);
   }
 });
+
+window.togglePwd = (btn) => {
+  const input = btn.parentElement.querySelector('input');
+  const showing = input.type === 'text';
+  input.type = showing ? 'password' : 'text';
+  btn.setAttribute('aria-label', showing ? 'Afficher le mot de passe' : 'Masquer le mot de passe');
+  btn.querySelector('.icon-eye').style.display = showing ? '' : 'none';
+  btn.querySelector('.icon-eye-off').style.display = showing ? 'none' : '';
+};
 
 window.profLogin = async () => {
   const email = document.getElementById('prof-email').value.trim();
