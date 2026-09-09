@@ -112,6 +112,19 @@
         .test-final-card.unlocked .tf-cta-es { color: var(--gold); }
         .tf-retry { display: block; margin-top: 8px; font-size: 0.78rem; font-style: normal; color: var(--text-muted); font-weight: 400; }
         @media (max-width: 768px) { .test-final-badge { justify-content: center; } }
+
+        /* =========================================
+           PARTIE 2 (Modules 13 a 18) — meme logique visuelle
+           que la carte Test final : verrouille par defaut,
+           deverrouillage individuel (aucune progression requise).
+           ========================================= */
+        .partie2-card { border: 1.5px solid var(--gold); cursor: default; }
+        .partie2-card.unlocked { cursor: pointer; }
+        .partie2-card.unlocked:hover { transform: translateX(10px); box-shadow: var(--shadow-hover); }
+        .partie2-card.locked { border: 2px dashed rgba(200, 164, 98, 0.4); box-shadow: none; cursor: not-allowed; }
+        .partie2-card.locked .icon-arrow { opacity: 0.5; }
+        .partie2-status { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+        .partie2-card.unlocked .partie2-status { color: var(--burgundy); font-weight: 700; }
     </style>
 </head>
 <body>
@@ -287,6 +300,22 @@
             </div>
         </div>
 
+        <a href="javascript:void(0);" onclick="return false;" class="module-card partie2-card locked" id="partie2-module13-card">
+            <div class="module-info">
+                <div class="mod-number">MODULE 13 / MÓDULO 13</div>
+                <div class="mod-title">La Négation</div>
+                <div class="mod-title-es">La Negación</div>
+                <div class="partie2-status" id="partie2-module13-status">
+                    Module réservé — débloqué individuellement par l'enseignante.
+                    <span class="tf-cta-es">Módulo reservado — desbloqueado individualmente por la profesora.</span>
+                </div>
+            </div>
+            <div class="mod-right">
+                <div class="mod-ar ar-text">النفي</div>
+                <i class="fa-solid fa-lock icon-arrow" id="partie2-module13-icon"></i>
+            </div>
+        </a>
+
     </div>
 
 <script type="module">
@@ -318,6 +347,36 @@
     card.addEventListener('click', () => { window.location.href = 'test-final.html'; });
   }
 
+  // ==== PARTIE 2 (Modules 13 a 18) : une seule logique de deverrouillage reutilisable ====
+  // Champ eleves/{uid}.partie2Debloquee : absent/false = verrouille par defaut, pour TOUS
+  // les eleves (nouveaux et existants). Aucun deverrouillage automatique, meme si les 12
+  // modules de la Partie 1 sont termines. Deverrouillage manuel, eleve par eleve, via la
+  // console Firebase. Pour ajouter le Module 14, ajouter une entree ici + la carte HTML
+  // correspondante (id="partie2-module14-card" / "-status" / "-icon") : aucune nouvelle
+  // logique a ecrire.
+  const PARTIE2_MODULES = [
+    { num: 13, href: 'module13.html' }
+  ];
+
+  function unlockPartie2Card(num, href) {
+    const card = document.getElementById('partie2-module' + num + '-card');
+    const statusEl = document.getElementById('partie2-module' + num + '-status');
+    const icon = document.getElementById('partie2-module' + num + '-icon');
+    if (!card || !statusEl || !icon) return;
+    card.classList.remove('locked');
+    card.classList.add('unlocked');
+    icon.className = 'fa-solid fa-chevron-right icon-arrow';
+    statusEl.innerHTML = 'Accéder au module<span class="tf-cta-es">Acceder al módulo</span>';
+    // Vrai lien natif (comme les Modules 1-12) plutot que window.location.href en JS :
+    // navigation fiable dans tous les contextes navigateur, aucune dependance au script au clic.
+    card.removeAttribute('onclick');
+    card.href = href;
+  }
+
+  function unlockAllPartie2Cards() {
+    PARTIE2_MODULES.forEach((m) => unlockPartie2Card(m.num, m.href));
+  }
+
   // Reutilise exactement le meme calcul de progression que progression.html
   // (collections "lecons" et "resultats", 1 lecon + 3 quiz = module termine)
   // applique aux 12 modules : aucun nouveau systeme de suivi cree.
@@ -332,10 +391,22 @@
       const profSnap = await getDoc(doc(_db, 'profs', user.uid));
       if (profSnap.exists()) {
         unlockTestFinalCard(false);
+        unlockAllPartie2Cards();
         return;
       }
     } catch (eProf) {
       console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+    }
+
+    // Deverrouillage Partie 2 : verification INDEPENDANTE de la progression Partie 1
+    // (ne depend que du champ partie2Debloquee, jamais deduite des modules 1-12).
+    try {
+      const eleveSnap = await getDoc(doc(_db, 'eleves', user.uid));
+      if (eleveSnap.exists() && eleveSnap.data().partie2Debloquee === true) {
+        unlockAllPartie2Cards();
+      }
+    } catch (eP2) {
+      console.error('Verification acces Partie 2 impossible :', eP2);
     }
 
     try {

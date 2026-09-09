@@ -704,7 +704,7 @@ function afficherTout(user, eleve, lecons, quiz) {
     return;
   }
 
-  afficherModules(lecons, quiz);
+  afficherModules(lecons, quiz, eleve.partie2Debloquee === true);
   afficherObjectif(moyJour);
   afficherParcours(toutesActivites);
 
@@ -732,11 +732,14 @@ function afficherTout(user, eleve, lecons, quiz) {
 }
 
 // ── PROGRESSION PAR MODULE ──────────────────────────────────────
-function afficherModules(lecons, quiz) {
+function afficherModules(lecons, quiz, partie2Debloquee) {
   const grid = document.getElementById('modules-grid');
   const rows = [];
 
-  for (let i = 1; i <= 12; i++) {
+  // Module 13 (Partie 2) n'apparaît dans la grille que pour les élèves
+  // qui y ont explicitement accès — cohérent avec le verrou de modules.html.
+  const dernierModule = partie2Debloquee ? 13 : 12;
+  for (let i = 1; i <= dernierModule; i++) {
     const modKey = 'Module ' + i;
     const leconsMod = lecons.filter(l => l.module === modKey);
     const quizMod   = quiz.filter(q => q.module === modKey);
