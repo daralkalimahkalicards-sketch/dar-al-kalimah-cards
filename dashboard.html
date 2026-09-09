@@ -108,8 +108,8 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 .eval-empty { font-size: 0.82rem; color: rgba(93,24,40,0.4); font-style: italic; }
 @media (max-width: 768px) {
   .eval-row { flex-direction: column; gap: 2px; }
-  /* Le tableau elèves defile horizontalement sur mobile (10 colonnes) ; sans ce correctif,
-     le detail Evaluations (colspan="10") heritait de cette meme largeur et devenait illisible
+  /* Le tableau elèves defile horizontalement sur mobile (11 colonnes) ; sans ce correctif,
+     le detail Evaluations (colspan="11") heritait de cette meme largeur et devenait illisible
      sans defiler lateralement. On l'epingle au bord gauche visible du conteneur qui defile. */
   .eval-detail-row td { position: sticky; left: 0; }
   .eval-detail { width: calc(100vw - 32px); max-width: 420px; }
@@ -173,13 +173,25 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     <div class="stat-card"><div class="stat-number" id="stat-actifs">—</div><div class="stat-label">Actifs cette semaine</div></div>
   </div>
 
+  <!-- ENGAGEMENT — vue globale : qui travaille, qui ralentit, qui décroche -->
+  <div class="section">
+    <div class="section-title">🎯 Engagement des élèves</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-number" id="eng-taux-activite">—%</div><div class="stat-label">Taux d'activité (7j)</div></div>
+      <div class="stat-card"><div class="stat-number" id="eng-progression">—%</div><div class="stat-label">Progression moyenne</div></div>
+      <div class="stat-card"><div class="stat-number" id="eng-surveiller">—</div><div class="stat-label">À surveiller</div></div>
+      <div class="stat-card"><div class="stat-number" id="eng-relancer">—</div><div class="stat-label">À relancer</div></div>
+      <div class="stat-card"><div class="stat-number" id="eng-notifs">—%</div><div class="stat-label">Notifications activées</div></div>
+    </div>
+  </div>
+
   <!-- ÉLÈVES -->
   <div class="section">
     <div class="section-title">👥 Élèves</div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th><th>Évaluations</th><th>Notifications</th><th></th></tr></thead>
-        <tbody id="eleves-tbody"><tr><td colspan="10" class="loading">Chargement...</td></tr></tbody>
+        <thead><tr><th>Prénom</th><th>Email</th><th>Inscription</th><th>Dernier accès</th><th>Quiz faits</th><th>Leçons</th><th>Moy. score</th><th>Évaluations</th><th>Notifications</th><th>Statut</th><th></th></tr></thead>
+        <tbody id="eleves-tbody"><tr><td colspan="11" class="loading">Chargement...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -233,6 +245,19 @@ const db = getFirestore(app);
 
 let unsubResults = null;
 let unsubLecons  = null;
+
+// ============================================
+// ENGAGEMENT — seuils de statut (facilement modifiables)
+// L'activité pédagogique (leçons/quiz) pèse plus lourd que les emails/notifications,
+// jamais utilisés seuls pour classer un élève comme "décroché".
+// ============================================
+const SEUILS_ENGAGEMENT = {
+  actifJoursMax: 3,       // 🟢 si dernière activité il y a <= 3 jours...
+  actifJoursSemaine: 3,   // ...OU si >= 3 jours actifs distincts sur les 7 derniers jours
+  surveillerJoursMax: 10  // 🟠 si dernière activité entre actifJoursMax+1 et 10 jours ; au-delà : 🔴
+};
+window._resultatsCache = [];
+window._leconsCache = [];
 
 onAuthStateChanged(auth, (user) => {
   if (user && EMAILS_PROF.includes(user.email)) {
@@ -322,6 +347,91 @@ function tsToMs(ts) {
   return d.getTime();
 }
 
+// ============================================
+// ENGAGEMENT — calculs réutilisant uniquement les données déjà enregistrées
+// (collections resultats + lecons), aucune nouvelle donnée stockée.
+// ============================================
+function activitesEleve(uid) {
+  const r = window._resultatsCache.filter(x => x.eleveId === uid).map(x => ({ date: x.date }));
+  const l = window._leconsCache.filter(x => x.eleveId === uid).map(x => ({ date: x.date }));
+  return r.concat(l);
+}
+
+function joursActifsSet(activites) {
+  return new Set(
+    activites.filter(a => a.date).map(a => {
+      const d = a.date.toDate ? a.date.toDate() : new Date(a.date);
+      return d.toLocaleDateString('fr-FR');
+    })
+  );
+}
+
+function joursActifsFenetre(activites, jours) {
+  const seuil = Date.now() - jours * 86400000;
+  return joursActifsSet(activites.filter(a => a.date && tsToMs(a.date) >= seuil)).size;
+}
+
+// 4 dernières semaines glissantes : [S-3, S-2, S-1, cette semaine] — nb de jours actifs distincts par semaine.
+function tendance4Semaines(activites) {
+  const semaines = [];
+  for (let i = 3; i >= 0; i--) {
+    const finFenetre = Date.now() - i * 7 * 86400000;
+    const debutFenetre = finFenetre - 7 * 86400000;
+    const set = joursActifsSet(activites.filter(a => a.date && tsToMs(a.date) >= debutFenetre && tsToMs(a.date) < finFenetre));
+    semaines.push(set.size);
+  }
+  return semaines;
+}
+
+function statutEngagement(e, activites) {
+  const dernierMs = e.dernierAcces ? tsToMs(e.dernierAcces) : 0;
+  if (!dernierMs) return { emoji: '🔴', label: 'À relancer', cls: 'badge-red' };
+  const joursDepuis = Math.floor((Date.now() - dernierMs) / 86400000);
+  const actifs7 = joursActifsFenetre(activites, 7);
+  if (joursDepuis <= SEUILS_ENGAGEMENT.actifJoursMax || actifs7 >= SEUILS_ENGAGEMENT.actifJoursSemaine) {
+    return { emoji: '🟢', label: 'Actif', cls: 'badge-green' };
+  }
+  if (joursDepuis <= SEUILS_ENGAGEMENT.surveillerJoursMax) {
+    return { emoji: '🟠', label: 'À surveiller', cls: 'badge-orange' };
+  }
+  return { emoji: '🔴', label: 'À relancer', cls: 'badge-red' };
+}
+
+// Progression globale simplifiée : nb d'activités enregistrées (leçons+quiz) / 48
+// (12 modules × 4, même référentiel que "Mon parcours" dans progression.html).
+function progressionGlobale(activites) {
+  return Math.min(100, Math.round(activites.length / 48 * 100));
+}
+
+function mettreAJourStatuts(eleves) {
+  let actifs = 0, surveiller = 0, relancer = 0;
+  eleves.forEach(e => {
+    const act = activitesEleve(e.id);
+    const s = statutEngagement(e, act);
+    const cell = document.getElementById('statut-eleve-' + e.id);
+    if (cell) cell.innerHTML = `<span class="badge ${s.cls}">${s.emoji} ${s.label}</span>`;
+    if (s.label === 'Actif') actifs++;
+    else if (s.label === 'À surveiller') surveiller++;
+    else relancer++;
+  });
+
+  const engTaux = document.getElementById('eng-taux-activite');
+  if (engTaux) engTaux.textContent = (eleves.length ? Math.round(actifs / eleves.length * 100) : 0) + '%';
+  const engSurv = document.getElementById('eng-surveiller');
+  if (engSurv) engSurv.textContent = surveiller;
+  const engRel = document.getElementById('eng-relancer');
+  if (engRel) engRel.textContent = relancer;
+
+  const progressions = eleves.map(e => progressionGlobale(activitesEleve(e.id)));
+  const progMoy = progressions.length ? Math.round(progressions.reduce((a, b) => a + b, 0) / progressions.length) : 0;
+  const engProg = document.getElementById('eng-progression');
+  if (engProg) engProg.textContent = progMoy + '%';
+
+  const notifOn = eleves.filter(e => e.notifications && e.notifications.statut === 'accepted').length;
+  const engNotifs = document.getElementById('eng-notifs');
+  if (engNotifs) engNotifs.textContent = (eleves.length ? Math.round(notifOn / eleves.length * 100) : 0) + '%';
+}
+
 async function chargerDonnees() {
   // Nettoyage des listeners temps réel existants (chargerDonnees est rappelée après
   // suppression d'un élève) pour ne pas les empiler.
@@ -366,6 +476,7 @@ async function chargerDonnees() {
 }
 
 function afficherResultats(resultats, eleves) {
+  window._resultatsCache = resultats;
   // Stats
   document.getElementById('stat-eleves').textContent = eleves.length;
   document.getElementById('stat-quiz').textContent = resultats.length;
@@ -383,7 +494,7 @@ function afficherResultats(resultats, eleves) {
   // Tableau élèves — ajout colonne leçons (placeholder —)
   const tbody = document.getElementById('eleves-tbody');
   if (eleves.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" class="empty">Aucun élève inscrit</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" class="empty">Aucun élève inscrit</td></tr>';
   } else {
     tbody.innerHTML = eleves.map(e => {
       const er = resultats.filter(r => r.eleveId === e.id);
@@ -398,13 +509,15 @@ function afficherResultats(resultats, eleves) {
         <td>${me!==null?badgeScore(me):'—'}</td>
         <td><button class="btn-eval" onclick="toggleEval('${e.id}')">Voir</button></td>
         <td>${badgeNotif(e.notifications)}</td>
+        <td id="statut-eleve-${e.id}">—</td>
         <td><button class="btn-delete" onclick="deleteEleve('${e.id}')" title="Supprimer cet élève">✕</button></td>
       </tr>
       <tr class="eval-detail-row" id="eval-row-${e.id}" style="display:none">
-        <td colspan="10"><div class="eval-detail" id="eval-detail-${e.id}"></div></td>
+        <td colspan="11"><div class="eval-detail" id="eval-detail-${e.id}"></div></td>
       </tr>`;
     }).join('');
   }
+  mettreAJourStatuts(eleves);
 
   // Derniers résultats quiz
   const grid = document.getElementById('results-grid');
@@ -428,12 +541,14 @@ function afficherResultats(resultats, eleves) {
 }
 
 function afficherLecons(lecons, eleves) {
+  window._leconsCache = lecons;
   // Mettre à jour le nombre de leçons par élève dans le tableau
   eleves.forEach(e => {
     const nb = lecons.filter(l => l.eleveId === e.id).length;
     const cell = document.getElementById('lecons-eleve-' + e.id);
     if (cell) cell.textContent = nb > 0 ? nb : '—';
   });
+  mettreAJourStatuts(eleves);
 
   // Section leçons terminées
   const grid = document.getElementById('lecons-grid');
@@ -545,6 +660,32 @@ window.deleteLecon = async (id) => {
 function renderEvalDetail(e, testsFinaux) {
   if (!e) return '<div class="eval-empty">Élève introuvable.</div>';
 
+  // Fiche engagement — reconstruite à partir des collections resultats/lecons déjà en cache,
+  // aucune nouvelle donnée. Voir SEUILS_ENGAGEMENT en haut du script pour les seuils de statut.
+  const act = activitesEleve(e.id);
+  const nbQuiz = window._resultatsCache.filter(r => r.eleveId === e.id).length;
+  const j7 = joursActifsFenetre(act, 7);
+  const j30 = joursActifsFenetre(act, 30);
+  const prog = progressionGlobale(act);
+  const statut = statutEngagement(e, act);
+  const tend = tendance4Semaines(act);
+  const engagementHtml = `
+    <div class="eval-block">
+      <div class="eval-block-title">🎯 Engagement</div>
+      <div class="eval-row"><span class="eval-label">Statut</span><span class="eval-value">${statut.emoji} ${statut.label}</span></div>
+      <div class="eval-row"><span class="eval-label">Dernière activité</span><span class="eval-value">${formatDate(e.dernierAcces)}</span></div>
+      <div class="eval-row">
+        <span class="eval-label">Jours actifs / 7j</span><span class="eval-value">${j7}/7</span>
+        <span class="eval-label">Jours actifs / 30j</span><span class="eval-value">${j30}/30</span>
+      </div>
+      <div class="eval-row">
+        <span class="eval-label">Progression</span><span class="eval-value">${prog}%</span>
+        <span class="eval-label">Quiz réalisés</span><span class="eval-value">${nbQuiz}</span>
+      </div>
+      <div class="eval-row"><span class="eval-label">Tendance (4 dern. semaines)</span><span class="eval-value">${tend.join(' → ')} jours actifs</span></div>
+      <div class="eval-row"><span class="eval-label">Notifications</span><span class="eval-value">${badgeNotif(e.notifications)}</span></div>
+    </div>`;
+
   let posHtml;
   if (e.testPositionnementFait && e.testPositionnement) {
     const p = e.testPositionnement;
@@ -618,6 +759,7 @@ function renderEvalDetail(e, testsFinaux) {
   }
 
   return `
+    ${engagementHtml}
     <div class="eval-block">
       <div class="eval-block-title">📝 Test de positionnement</div>
       ${posHtml}
