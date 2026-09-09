@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Dar Al-Kalimah – Leçon 16 | الفِعْلُ الماضِي</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --burgundy:#5D1828;--burgundy-dark:#3a0f19;
+      --gold:#C8A462;--gold-light:#dfc28b;
+      --green:#2d7a3a;--green-light:#e8f5e9;
+      --white:#FFFFFF;--bg-beige:#FAF6F0;
+      --text-dark:#2C3E50;--text-soft:#8c775a;
+      --shadow-soft:0 8px 25px rgba(93,24,40,0.06);
+      --shadow-card:0 20px 50px rgba(93,24,40,0.10);
+      --transition:all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      --radius-xl:28px;--radius-lg:22px;--radius-md:18px;--radius-sm:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+    body{min-height:100vh;min-height:100dvh;min-height:100svh;background:var(--bg-beige);font-family:"Montserrat",sans-serif;color:var(--text-dark);padding:16px 14px 50px;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 18%,rgba(200,164,98,0.13),transparent 26%),radial-gradient(circle at 88% 12%,rgba(93,24,40,0.08),transparent 28%),radial-gradient(circle at 50% 92%,rgba(200,164,98,0.10),transparent 34%);}
+    button,a{touch-action:manipulation;font:inherit;text-decoration:none;border:none;background:none;cursor:pointer;outline:none;}
+    .ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:isolate;text-rendering:optimizeLegibility;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.7;}
+    .serif{font-family:"Cinzel","Georgia",serif;}
+    .hidden{display:none!important;}
+    .view{width:100%;max-width:950px;display:flex;flex-direction:column;align-items:center;animation:up .38s ease-out;}
+    @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    .gold{color:var(--gold);font-weight:700;}
+    .green{color:var(--green);font-weight:700;}
+
+    /* ── HEADER MENU ── */
+    .menu-header{text-align:center;margin-bottom:28px;position:relative;width:100%;padding-top:8px;}
+    .menu-brand-ar{font-size:3.8rem;color:var(--gold);margin-bottom:2px;line-height:1;}
+    .menu-brand-sub{font-size:0.72rem;letter-spacing:5px;text-transform:uppercase;color:var(--burgundy);opacity:0.65;margin-bottom:12px;font-family:"Cinzel",serif;}
+    .menu-title{font-size:1rem;color:var(--burgundy);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:2px;}
+    .menu-title-sub{font-size:0.82rem;color:var(--burgundy);font-weight:600;margin-bottom:6px;}
+    .menu-title-es{font-size:0.8rem;color:#999;letter-spacing:1.5px;text-transform:uppercase;}
+    .menu-title-es-sub{font-size:0.72rem;color:#bbb;font-style:italic;}
+    .btn-house-menu{position:absolute;top:8px;right:0;color:var(--gold);font-size:1.8rem;transition:var(--transition);border-radius:999px;background:transparent;border:none;}
+
+    /* ── CARTES THÈME ── */
+    .theme-list{width:100%;display:flex;flex-direction:column;gap:22px;}
+    .theme-card{background:var(--white);border:1px solid rgba(200,164,98,0.22);border-radius:var(--radius-xl);padding:36px 24px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;align-items:center;transition:var(--transition);width:100%;cursor:pointer;}
+    .theme-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 40px rgba(93,24,40,0.13);}
+    .theme-card:active{transform:scale(0.98);}
+    .theme-card.fil-card{border-top:4px solid var(--green);}
+    .theme-card.madhi-card{border-top:4px solid var(--burgundy);}
+    .theme-card.mudhari-card{border-top:4px solid var(--gold);}
+    .theme-card.amr-card{border-top:4px solid #7b5ea7;}
+    .theme-card.laysa-card{border-top:4px solid #2a6f7a;}
+    .theme-card.qiraa-card{border-top:4px solid var(--text-soft);}
+    .theme-icon{font-size:3.5rem;color:var(--gold);margin-bottom:16px;}
+    .theme-title-ar{font-size:2.4rem;color:var(--burgundy);font-weight:700;margin-bottom:14px;line-height:1.4;}
+    .theme-divider{width:70px;height:2px;background:var(--gold);margin-bottom:12px;opacity:0.5;border-radius:2px;}
+    .theme-title-fr{font-weight:700;font-size:1.1rem;color:var(--burgundy);text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+    .theme-title-es{font-size:0.92rem;color:#888;font-style:italic;}
+
+    /* ── TOP BAR (harmonisé Leçon 1) ── */
+    .lesson-top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;max-width:950px;flex-wrap:wrap;}
+    .nav-inline-group{display:flex;align-items:center;gap:8px;}
+    .pill-counter{font-size:0.95rem;color:var(--burgundy);opacity:0.8;min-width:95px;text-align:center;}
+    .btn-back-lesson{color:var(--gold);font-size:1.3rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;padding:5px;display:flex;align-items:center;background:none;border:none;}
+    .btn-back-lesson:hover{transform:scale(1.1);color:var(--gold-light);}
+
+    /* ── FLIP CARD ── */
+    .card-scene{width:100%;max-width:950px;perspective:1800px;margin-bottom:20px;}
+    .card-flip{position:relative;width:100%;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);cursor:pointer;height:clamp(560px,80svh,720px);}
+    .card-flip.flipped{transform:rotateY(180deg);}
+    .card-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(200,164,98,0.35);box-shadow:var(--shadow-card);padding:24px 20px 16px;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,164,98,0.3) transparent;}
+    .card-face::-webkit-scrollbar{width:4px;}
+    .card-face::-webkit-scrollbar-thumb{background:rgba(200,164,98,0.3);border-radius:2px;}
+    .card-back-face{transform:rotateY(180deg);}
+
+    /* Branding */
+    .card-brand{text-align:center;margin-bottom:10px;}
+    .card-brand-ar{font-size:1.8rem;color:var(--gold);line-height:1;margin-bottom:2px;}
+    .card-brand-fr{font-size:0.62rem;color:var(--burgundy);letter-spacing:3px;text-transform:uppercase;opacity:0.65;}
+    .card-sep{width:40px;height:1px;background:var(--gold);opacity:0.4;margin:10px auto;}
+
+    /* Titres carte */
+    .card-title-ar{font-size:clamp(1.8rem,5.5vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;margin-bottom:4px;line-height:1.4;}
+    .card-title-fr{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:2px;}
+    .card-title-es{font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--burgundy);opacity:0.55;font-style:italic;text-align:center;margin-bottom:12px;}
+    .card-rule-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.1rem,3.8vw,1.6rem);color:var(--burgundy);line-height:1.8;text-align:center;margin-bottom:12px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .card-rule-fr{font-size:0.88rem;color:var(--text-dark);line-height:1.65;margin-bottom:5px;}
+    .card-rule-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;line-height:1.6;}
+    .flip-hint{text-align:center;color:var(--gold);font-size:0.7rem;letter-spacing:1px;opacity:0.55;margin-top:14px;padding-top:8px;border-top:1px solid rgba(200,164,98,0.15);font-family:"Cinzel",serif;animation:pulse 2.5s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:0.35;}50%{opacity:0.8;}}
+
+    /* Tableau contraste اسم / فعل */
+    .contrast-table{width:100%;border-collapse:collapse;margin:12px 0;}
+    .contrast-table th{padding:10px 8px;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;font-family:"Cinzel",serif;}
+    .contrast-table th.th-ism{background:var(--burgundy);color:var(--white);border-radius:8px 0 0 0;}
+    .contrast-table th.th-fil{background:var(--green);color:var(--white);border-radius:0 8px 0 0;}
+    .contrast-table td{padding:10px 8px;text-align:center;border-bottom:1px solid rgba(200,164,98,0.18);}
+    .contrast-table tr:last-child td{border-bottom:none;}
+    .contrast-table tr:nth-child(even) td{background:rgba(200,164,98,0.05);}
+    .td-ar-ism{font-family:"Amiri",serif;direction:rtl;font-size:1.5rem;color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .td-ar-fil{font-family:"Amiri",serif;direction:rtl;font-size:1.5rem;color:var(--green);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .td-fr{font-size:0.72rem;color:var(--text-soft);font-style:italic;}
+
+    /* Gabarit visuel */
+    .gabarit-box{background:var(--bg-beige);border:1px dashed rgba(200,164,98,0.5);border-radius:var(--radius-md);padding:14px 16px;margin:10px 0;text-align:center;}
+    .gabarit-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(2rem,6vw,2.8rem);color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;line-height:1.3;}
+    .gabarit-label{font-size:0.68rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+
+    /* Famille de racine */
+    .root-family{display:flex;flex-direction:row-reverse;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 0;}
+    .root-item{background:var(--white);border:1.5px solid rgba(200,164,98,0.4);border-radius:var(--radius-sm);padding:8px 10px;text-align:center;min-width:70px;}
+    .root-item .ri-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.4rem;color:var(--burgundy);font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;display:block;line-height:1.2;}
+    .root-item .ri-fr{font-size:0.58rem;color:#aaa;font-style:italic;display:block;margin-top:2px;}
+    .root-item.fil-item{border-color:var(--green);background:rgba(45,122,58,0.04);}
+    .root-item.fil-item .ri-ar{color:var(--green);}
+    .root-root{display:flex;flex-direction:row;direction:rtl;justify-content:center;align-items:baseline;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+    .root-root-ar{font-family:"Amiri",serif;direction:rtl;unicode-bidi:embed;font-size:1.8rem;color:var(--gold);font-weight:700;letter-spacing:8px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;display:block;text-align:center;}
+    .root-root-fr{font-size:0.7rem;color:var(--text-soft);font-family:"Cinzel",serif;letter-spacing:1px;direction:ltr;}
+
+    /* Tableau conjugaison */
+    .conj-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:0.82rem;}
+    .conj-table th{background:var(--burgundy);color:var(--white);padding:8px;text-align:center;font-size:0.68rem;font-family:"Cinzel",serif;letter-spacing:0.5px;}
+    .conj-table th:first-child{border-radius:8px 0 0 0;}
+    .conj-table th:last-child{border-radius:0 8px 0 0;}
+    .conj-table.green-header th{background:var(--green);}
+    .conj-table.purple-header th{background:#7b5ea7;}
+    .conj-table td{padding:9px 6px;text-align:center;border-bottom:1px solid rgba(200,164,98,0.15);}
+    .conj-table tr:last-child td{border-bottom:none;}
+    .conj-table tr:nth-child(even) td{background:rgba(200,164,98,0.04);}
+    .ct-ar{font-family:"Amiri",serif;direction:rtl;font-size:1.4rem;font-weight:700;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .ct-ar.fil{color:var(--green);}
+    .ct-ar.ism{color:var(--burgundy);}
+    .ct-pron{font-family:"Amiri",serif;direction:rtl;font-size:1rem;color:#888;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .ct-fr{font-size:0.72rem;color:var(--text-soft);font-style:italic;}
+    .marker-badge{display:inline-block;padding:2px 7px;border-radius:999px;font-size:0.62rem;font-weight:700;font-family:"Amiri",serif;direction:rtl;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .mb-green{background:rgba(45,122,58,0.1);color:var(--green);border:1px solid rgba(45,122,58,0.2);}
+    .mb-gold{background:rgba(200,164,98,0.15);color:#8a6620;border:1px solid rgba(200,164,98,0.3);}
+    .mb-purple{background:rgba(123,94,167,0.1);color:#7b5ea7;border:1px solid rgba(123,94,167,0.2);}
+
+    /* Exemples verso */
+    .example-block{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 0;border-bottom:1px solid rgba(200,164,98,0.18);text-align:center;}
+    .example-block:last-child{border-bottom:none;padding-bottom:0;}
+    .example-block:first-child{padding-top:0;}
+    .ex-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.6rem,5.5vw,2.4rem);color:var(--text-dark);font-weight:700;line-height:1.4;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;padding-bottom:8px;border-bottom:1px solid rgba(200,164,98,0.3);width:100%;}
+    .ex-ar .hv{color:var(--green);} /* فعل */
+    .ex-ar .hn{color:var(--burgundy);} /* اسم */
+    .ex-ar .hr{color:var(--gold);font-size:0.8em;vertical-align:super;} /* racine */
+    .ex-analyse{font-size:0.72rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:0.5px;}
+    .ex-fr{font-size:0.88rem;color:var(--text-dark);font-weight:500;}
+    .ex-es{font-size:0.8rem;color:var(--text-soft);font-style:italic;}
+
+    .btn-audio-small{
+      background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);
+      width:38px;height:38px;border-radius:50%;
+      display:inline-flex;justify-content:center;align-items:center;font-size:1.05rem;
+      cursor:pointer;box-shadow:0 4px 15px rgba(200,164,98,0.2);
+      transition:transform 0.3s ease,background 0.3s ease,color 0.3s ease;
+      outline:none;touch-action:manipulation;flex-shrink:0;vertical-align:middle;margin:4px;
+    }
+    .btn-audio-small:hover,.btn-audio-small:focus-visible{transform:scale(1.08);background:var(--gold);color:var(--white);outline:none;}
+    .btn-audio-small:active{transform:scale(0.95);}
+
+    /* Lecture */
+    .qiraa-legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:0 0 10px;padding:8px 12px;background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.2);border-radius:10px;font-size:0.68rem;}
+    .legend-item{display:flex;align-items:center;gap:5px;font-family:"Cinzel",serif;font-size:0.62rem;letter-spacing:0.5px;}
+    .legend-dot-v{width:10px;height:10px;background:var(--green);border-radius:50%;flex-shrink:0;}
+    .legend-dot-n{width:10px;height:10px;background:var(--burgundy);border-radius:50%;flex-shrink:0;}
+    .legend-dot-r{width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+    .qiraa-title-fr{font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px;font-family:"Cinzel",serif;}
+    .qiraa-text{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--text-dark);line-height:2.3;text-align:center;width:100%;margin:6px 0;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .hl-v{color:var(--green);font-weight:700;} /* فعل */
+    .hl-n{color:var(--burgundy);font-weight:700;text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;} /* اسم */
+    .hl-r{color:var(--gold);font-weight:700;} /* racine */
+
+    /* Quiz نعم/لا */
+    .quiz-num{font-size:0.7rem;color:var(--gold);font-family:"Cinzel",serif;letter-spacing:2px;text-align:center;margin-bottom:8px;opacity:0.7;}
+    .quiz-q-ar{font-family:"Amiri",serif;direction:rtl;font-size:clamp(1.3rem,4.3vw,1.8rem);color:var(--burgundy);font-weight:700;line-height:1.8;text-align:center;margin:10px 0 6px;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
+    .quiz-q-fr{font-size:0.88rem;color:var(--text-dark);text-align:center;margin-bottom:4px;}
+    .quiz-q-es{font-size:0.78rem;color:var(--text-soft);font-style:italic;text-align:center;margin-bottom:16px;}
+    .quiz-btns{display:flex;gap:14px;justify-content:center;margin:0 0 14px;}
+    .quiz-btn{flex:1;max-width:140px;padding:12px 10px;border-radius:999px;font-weight:700;font-size:0.95rem;letter-spacing:1px;border:2px solid;cursor:pointer;transition:all 0.25s;font-family:"Montserrat",sans-serif;}
+    .quiz-btn-oui{background:rgba(45,122,58,0.06);border-color:var(--green);color:var(--green);}
+    .quiz-btn-non{background:rgba(200,164,98,0.08);border-color:var(--gold);color:#8a6620;}
+    .quiz-btn:disabled{opacity:0.4;pointer-events:none;}
+    .quiz-feedback{border-radius:14px;padding:12px 14px;margin-top:4px;font-size:0.82rem;line-height:1.6;text-align:center;display:none;}
+    .quiz-feedback.correct{background:rgba(45,122,58,0.07);border:1px solid rgba(45,122,58,0.25);color:#1a5c28;}
+    .quiz-feedback.wrong{background:rgba(200,30,30,0.06);border:1px solid rgba(200,30,30,0.18);color:#9b1a1a;}
+    .quiz-feedback.show{display:block;}
+
+    /* MCQ */
+    .mcq-btn{width:100%;padding:10px 14px;border-radius:var(--radius-md);font-weight:600;font-size:0.88rem;cursor:pointer;border:2px solid rgba(200,164,98,0.4);background:#fff;color:var(--burgundy);transition:all .22s;text-align:right;direction:rtl;margin-bottom:8px;}
+    .mcq-btn:hover{border-color:var(--gold);background:rgba(200,164,98,0.05);}
+    .mcq-btn:disabled{cursor:default;}
+    .mcq-btn.mcq-correct{border:2px solid var(--green)!important;background:var(--green-light);color:var(--green);}
+    .mcq-btn.mcq-wrong{border:2px solid #f44336!important;background:#ffebee;opacity:0.7;}
+
+    /* NAV (harmonisé Leçon 1) */
+    .btn-nav{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:300;padding:6px 8px;transition:color 0.3s ease;}
+    .btn-nav:hover{color:var(--gold);}
+    .btn-nav:disabled{opacity:0.35;pointer-events:none;}
+
+    @media(max-width:480px){
+      .card-flip{height:clamp(520px,78svh,660px);}
+      .card-face{padding:18px 14px 12px;}
+      .card-brand-ar{font-size:1.5rem;}
+      .lesson-top-bar{justify-content:center;}
+    }
+
+        /* Guard auth */
+        body { visibility: hidden; }
+  </style>
+    <link rel="stylesheet" href="audio-controller.css">
+    <script type="module" src="tracker-lecons.js"></script>
+    <script src="audio-controller.js"></script>
+    <script>
+      if (typeof DAKAudio === "undefined") {
+        window.DAKAudio = {
+          play: function () {}, playEffect: function () {}, stopAll: function () {},
+          unlock: function () { return Promise.resolve(false); }, showToast: function () {}
+        };
+      }
+      function handleAudioBtn(event, btn) {
+        event.stopPropagation();
+        const src = btn.dataset.audioSrc || "";
+        if (!src) return;
+        DAKAudio.play(src, btn);
+      }
+    </script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    const _db = getFirestore(_app);
+    // Verrou Partie 2 (Modules 13 a 18) : empeche l'acces direct par URL meme
+    // si l'eleve devine le lien, independamment du menu module16.html.
+    // Reutilise EXACTEMENT la meme source d'autorisation que modules.html :
+    // 1) profs/{uid} (acces enseignant illimite) 2) eleves/{uid}.partie2Debloquee
+    onAuthStateChanged(_auth, async (user) => {
+      if (!user) { window.location.href = 'auth.html'; return; }
+      try {
+        const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+        if (profSnap.exists()) {
+          document.body.style.visibility = 'visible';
+          return;
+        }
+      } catch (eProf) {
+        console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+      }
+      try {
+        const snap = await getDoc(doc(_db, 'eleves', user.uid));
+        const autorise = snap.exists() && snap.data().partie2Debloquee === true;
+        if (!autorise) { window.location.href = 'modules.html'; return; }
+        document.body.style.visibility = 'visible';
+      } catch (e) {
+        console.error('Verification acces Partie 2 impossible :', e);
+        window.location.href = 'modules.html';
+      }
+    });
+  </script>
+</head>
+<body>
+
+<!-- ══ VUE MENU ══ -->
+<main id="view-select" class="view">
+  <header class="menu-header">
+    <a href="module16.html" class="btn-house-menu"><i class="fa-solid fa-house"></i></a>
+    <div class="menu-brand-ar ar">دار الكلمة</div>
+    <div class="menu-brand-sub serif">DAR AL-KALIMAH</div>
+    <div class="menu-title serif">LEÇON 16 — اَلْفِعْلُ الْمَاضِي</div>
+    <div class="menu-title-sub">Le Verbe au Passé · El Verbo en Pasado</div>
+    <div class="menu-title-es serif">LECCIÓN 16</div>
+    <div class="menu-title-es-sub">El Verbo en Pasado</div>
+  </header>
+  <div class="theme-list">
+    <button class="theme-card fil-card" onclick="openSection('fil')">
+      <i class="fa-solid fa-clock-rotate-left" style="font-size:3.6rem;color:var(--gold);margin-bottom:16px;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.7rem;">اَلْفِعْلُ الْمَاضِي</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Comprendre le passé</div>
+      <div class="theme-title-es">Entender el pasado</div>
+    </button>
+    <button class="theme-card madhi-card" onclick="openSection('madhi')">
+      <i class="fa-solid fa-scale-balanced" style="font-size:3.6rem;color:var(--gold);margin-bottom:16px;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.6rem;">اَلْوَزْنُ الصَّرْفِيّ</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Le gabarit du verbe</div>
+      <div class="theme-title-es">El patrón del verbo</div>
+    </button>
+    <button class="theme-card mudhari-card" onclick="openSection('mudhari')">
+      <i class="fa-solid fa-magnifying-glass" style="font-size:3.6rem;color:var(--gold);margin-bottom:16px;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.6rem;">اُنْظُرْ إِلَى النِّهَايَة</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Regarde la fin du verbe</div>
+      <div class="theme-title-es">Mira el final del verbo</div>
+    </button>
+    <button class="theme-card amr-card" onclick="openSection('amr')">
+      <i class="fa-solid fa-shuffle" style="font-size:3.6rem;color:var(--gold);margin-bottom:16px;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.7rem;">غَيِّرِ الفِعْل</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Change de verbe</div>
+      <div class="theme-title-es">Cambia el verbo</div>
+    </button>
+    <button class="theme-card laysa-card" onclick="openSection('laysa')">
+      <i class="fa-solid fa-arrow-right-long" style="font-size:3.6rem;color:var(--gold);margin-bottom:16px;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.7rem;">نَحْوَ الحَاضِر</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Vers le présent</div>
+      <div class="theme-title-es">Hacia el presente</div>
+    </button>
+    <button class="theme-card qiraa-card" onclick="openSection('qiraa')">
+      <i class="fa-solid fa-scroll" style="font-size:3.6rem;color:var(--gold);margin-bottom:16px;"></i>
+      <div class="theme-title-ar ar" style="font-size:1.8rem;">تَعْزِيزُ الْقِرَاءَة</div>
+      <div class="theme-divider"></div>
+      <div class="theme-title-fr">Renforcement · Lecture</div>
+      <div class="theme-title-es">Refuerzo · Lectura</div>
+    </button>
+  </div>
+</main>
+
+<!-- ══ VUE FIL ══ -->
+<main id="view-fil" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="fil-prev" onclick="navigate('fil',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="fil-curr">1</span> / <span id="fil-tot">3</span></div>
+      <button class="btn-nav" id="fil-next" onclick="navigate('fil',1)" aria-label="Suivant">&rarr;</button>
+    </div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-fil" onclick="flipCard('fil')">
+      <div class="card-face" id="fil-front"></div>
+      <div class="card-face card-back-face" id="fil-back"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ VUE MADHI ══ -->
+<main id="view-madhi" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="madhi-prev" onclick="navigate('madhi',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="madhi-curr">1</span> / <span id="madhi-tot">6</span></div>
+      <button class="btn-nav" id="madhi-next" onclick="navigate('madhi',1)" aria-label="Suivant">&rarr;</button>
+    </div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-madhi" onclick="flipCard('madhi')">
+      <div class="card-face" id="madhi-front"></div>
+      <div class="card-face card-back-face" id="madhi-back"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ VUE MUDHARI ══ -->
+<main id="view-mudhari" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="mudhari-prev" onclick="navigate('mudhari',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="mudhari-curr">1</span> / <span id="mudhari-tot">2</span></div>
+      <button class="btn-nav" id="mudhari-next" onclick="navigate('mudhari',1)" aria-label="Suivant">&rarr;</button>
+    </div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-mudhari" onclick="flipCard('mudhari')">
+      <div class="card-face" id="mudhari-front"></div>
+      <div class="card-face card-back-face" id="mudhari-back"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ VUE AMR ══ -->
+<main id="view-amr" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="amr-prev" onclick="navigate('amr',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="amr-curr">1</span> / <span id="amr-tot">4</span></div>
+      <button class="btn-nav" id="amr-next" onclick="navigate('amr',1)" aria-label="Suivant">&rarr;</button>
+    </div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-amr" onclick="flipCard('amr')">
+      <div class="card-face" id="amr-front"></div>
+      <div class="card-face card-back-face" id="amr-back"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ VUE LAYSA ══ -->
+<main id="view-laysa" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="laysa-prev" onclick="navigate('laysa',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="laysa-curr">1</span> / <span id="laysa-tot">1</span></div>
+      <button class="btn-nav" id="laysa-next" onclick="navigate('laysa',1)" aria-label="Suivant">&rarr;</button>
+    </div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-laysa" onclick="flipCard('laysa')">
+      <div class="card-face" id="laysa-front"></div>
+      <div class="card-face card-back-face" id="laysa-back"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ VUE QIRAA ══ -->
+<main id="view-qiraa" class="view hidden">
+  <div class="lesson-top-bar">
+    <div class="nav-inline-group">
+      <button class="btn-nav" id="qiraa-prev" onclick="navigate('qiraa',-1)" disabled aria-label="Précédent">&larr;</button>
+      <div class="pill-counter"><span id="qiraa-curr">1</span> / <span id="qiraa-tot">9</span></div>
+      <button class="btn-nav" id="qiraa-next" onclick="navigate('qiraa',1)" aria-label="Suivant">&rarr;</button>
+    </div>
+    <button class="btn-back-lesson" onclick="goHome()"><i class="fa-solid fa-house"></i></button>
+  </div>
+  <div class="card-scene">
+    <div class="card-flip" id="card-qiraa" onclick="flipCard('qiraa')">
+      <div class="card-face" id="qiraa-front"></div>
+      <div class="card-face card-back-face" id="qiraa-back"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+(()=>{
+"use strict";
+
+const DATA = {
+
+  /* ══════════════════════════════════ 1. اَلْفِعْلُ الْمَاضِي — comprendre le passé ══════════════════════════════════ */ fil: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="color:var(--green);">اَلْفِعْلُ الْمَاضِي</div> <div class="card-title-fr serif">LE VERBE AU PASSÉ</div> <div class="card-title-es serif">EL VERBO EN PASADO</div> <div class="card-sep"></div> <div class="card-rule-fr"> <strong style="color:var(--green);">اَلْفِعْلُ الْمَاضِي</strong> exprime une action déjà réalisée, déjà terminée. </div> <div class="card-rule-es">El verbo en pasado expresa una acción ya realizada, ya terminada.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Des verbes déjà connus · Verbos ya conocidos</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Des verbes déjà connus</div></div> <div class="card-sep"></div> <table class="conj-table green-header"> <thead><tr><th>ar</th><th>fr</th></tr></thead> <tbody> <tr><td class="ct-ar ar fil">كَتَبَ</td><td class="ct-fr">il a écrit</td></tr> <tr><td class="ct-ar ar fil">دَرَسَ</td><td class="ct-fr">il a étudié</td></tr> <tr><td class="ct-ar ar fil">فَتَحَ</td><td class="ct-fr">il a ouvert</td></tr> <tr><td class="ct-ar ar fil">جَلَسَ</td><td class="ct-fr">il s'est assis</td></tr> <tr><td class="ct-ar ar fil">قَرَأَ</td><td class="ct-fr">il a lu</td></tr> <tr><td class="ct-ar ar fil">ذَهَبَ</td><td class="ct-fr">il est allé</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:8px;font-size:0.82rem;">💡 Nous allons surtout utiliser ces verbes réguliers simples pour bien comprendre le mécanisme.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Commençons par هُوَ · Empecemos por هُوَ</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.5rem,5vw,2.1rem);">نَبْدَأُ بِـ هُوَ</div> <div class="card-title-fr serif">ON COMMENCE PAR هُوَ</div> <div class="card-title-es serif">EMPEZAMOS POR هُوَ</div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">كَتَبَ</span>.</div> <div class="ex-fr">Il a écrit.</div> </div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">دَرَسَ</span>.</div> <div class="ex-fr">Il a étudié.</div> </div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">فَتَحَ</span>.</div> <div class="ex-fr">Il a ouvert.</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et si la personne change ? · ¿Y si cambia la persona?</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Et si la personne change ?</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="text-align:center;font-weight:700;color:var(--burgundy);">Que se passe-t-il lorsque la personne change ?</div> <div class="card-rule-es" style="text-align:center;">¿Qué pasa cuando cambia la persona?</div> <div class="card-rule-fr" style="margin-top:10px;font-size:0.85rem;">💡 Souviens-toi du <strong>Module 15</strong> : أَنَا، أَنْتَ، أَنْتِ، هُوَ، هِيَ، نَحْنُ... Chacun de ces pronoms va laisser une trace différente à la fin du verbe.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;هُوَ / هِيَ</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.6rem,5vw,2.2rem);">هُوَ / هِيَ</div> <div class="card-title-fr serif">IL / ELLE</div> <div class="card-title-es serif">ÉL / ELLA</div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">كَتَبَ</span>.</div> <div class="ex-fr">Il a écrit.</div> </div> <div class="example-block"> <div class="ex-ar ar">هِيَ <span class="hv">كَتَبَتْ</span>.</div> <div class="ex-fr">Elle a écrit.</div> </div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="color:var(--green);font-size:1.8rem;">كَتَبَ ↓ كَتَبَتْ</div> <div class="gabarit-label serif">regarde la fin du verbe !</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Encore un exemple · Otro ejemplo</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Encore un exemple</div></div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">دَرَسَ</span>. / هِيَ <span class="hv">دَرَسَتْ</span>.</div> <div class="ex-fr">Il a étudié. / Elle a étudié.</div> </div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">فَتَحَ</span>. / هِيَ <span class="hv">فَتَحَتْ</span>.</div> <div class="ex-fr">Il a ouvert. / Elle a ouvert.</div> </div> <div class="card-rule-fr" style="margin-top:8px;font-size:0.85rem;">💡 Au féminin, on ajoute presque toujours <strong style="color:var(--green);">ـتْ</strong> à la fin du verbe.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et moi ? Et toi ? · ¿Y yo? ¿Y tú?</div>`
+    }
+  ],
+
+  /* ══════════════════════════════════ 2. اَلْوَزْنُ الصَّرْفِيّ + أَنَا وَأَنْتَ — gabarit فعل + أنا/أنت/أنتِ/نحن + décomposition ══════════════════════════════════ */ madhi: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.5rem,5vw,2rem);">اَلْوَزْنُ الصَّرْفِيّ</div> <div class="card-title-fr serif">LE GABARIT MORPHOLOGIQUE</div> <div class="card-title-es serif">EL PATRÓN MORFOLÓGICO</div> <div class="card-sep"></div> <div class="card-rule-fr">Pour comprendre la structure d'un verbe arabe simple de trois lettres, on utilise un gabarit — une sorte de « balance » :</div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:2.2rem;">ف ـ ع ـ ل</div> <div class="gabarit-label serif">le gabarit de référence</div> </div> <div class="card-rule-fr" style="font-size:0.85rem;">La <strong style="color:#C8A462;">1ʳᵉ</strong> lettre du verbe correspond à <strong style="color:#C8A462;">ف</strong>. La <strong style="color:var(--green);">2ᵉ</strong> correspond à <strong style="color:var(--green);">ع</strong>. La <strong style="color:#7b5ea7;">3ᵉ</strong> correspond à <strong style="color:#7b5ea7;">ل</strong>.</div> <div class="card-rule-es">La 1ª letra corresponde a ف, la 2ª a ع, la 3ª a ل.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Le réflexe DAK · El reflejo DAK</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Le réflexe DAK</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="text-align:center;font-weight:700;color:var(--burgundy);margin-bottom:8px;">١ — أَجِدُ · JE TROUVE</div> <div class="card-rule-fr" style="margin-bottom:4px;">Je trouve les trois lettres principales du verbe.</div> <div style="text-align:center;margin:8px 0;"> <span class="ex-ar ar" style="border:none;font-size:1.6rem;">كَتَبَ</span> <div style="font-size:1.3rem;color:var(--gold);margin:2px 0;">↓</div> <span class="root-root-ar ar">ك ـ ت ـ ب</span> </div> <div class="card-sep"></div> <div class="card-rule-fr" style="text-align:center;font-weight:700;color:var(--burgundy);margin-bottom:8px;">٢ — أَزِنُ · JE PÈSE</div> <div class="card-rule-fr">Je place ces lettres sur le gabarit ف ـ ع ـ ل.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;كَتَبَ ↔ فَعَلَ</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.6rem,5.5vw,2.2rem);">كَتَبَ ↔ فَعَلَ</div> <div class="card-title-fr serif">L'EXEMPLE كَتَبَ</div> <div class="card-title-es serif">EL EJEMPLO كَتَبَ</div> <div class="card-sep"></div> <div style="text-align:center;"> <span class="root-root-ar ar"><span style="color:#C8A462;">ك</span> ـ <span style="color:var(--green);">ت</span> ـ <span style="color:#7b5ea7;">ب</span></span> <div style="font-size:1.5rem;color:var(--gold);margin:2px 0;">↕</div> <span class="root-root-ar ar"><span style="color:#C8A462;">ف</span> ـ <span style="color:var(--green);">ع</span> ـ <span style="color:#7b5ea7;">ل</span></span> </div> <div class="card-rule-fr" style="text-align:center;margin-top:10px;font-size:0.85rem;"> <span style="color:#C8A462;font-weight:700;">ك ↔ ف</span> &nbsp;·&nbsp; <span style="color:var(--green);font-weight:700;">ت ↔ ع</span> &nbsp;·&nbsp; <span style="color:#7b5ea7;font-weight:700;">ب ↔ ل</span> </div> <div class="card-rule-fr" style="text-align:center;font-weight:700;color:var(--burgundy);margin-top:8px;">إِذَن : كَتَبَ ← فَعَلَ</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;J'observe et je comprends · Observo y comprendo</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">أُرَاقِبُ · أَفْهَمُ</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="text-align:center;font-weight:700;color:var(--burgundy);margin-bottom:8px;">٣ — أُرَاقِبُ · J'OBSERVE</div> <div class="card-rule-fr">J'observe les lettres ET les voyelles.</div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:1.6rem;">كَتَبَ ↔ فَعَلَ</div> </div> <div class="card-rule-fr" style="text-align:center;font-weight:700;color:var(--burgundy);margin:10px 0 8px;">٤ — أَفْهَمُ · JE COMPRENDS</div> <div class="card-rule-fr">Je reconnais la structure du verbe. 💡 <strong>Attention :</strong> le gabarit garde ف ع ل comme repère, mais les voyelles peuvent changer selon le verbe (فَعِلَ، فَعُلَ...). Nous découvrirons ces familles progressivement.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;D'autres verbes · Otros verbos</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">لَيْسَ فَقَطْ كَتَبَ</div> <div class="card-title-fr serif">PAS SEULEMENT كَتَبَ</div> <div class="card-title-es serif">NO SOLO كَتَبَ</div> <div class="card-sep"></div> <div class="card-rule-fr">Le même gabarit fonctionne avec d'autres verbes réguliers :</div> <table class="contrast-table"> <thead><tr><th class="th-ism">اَلْفِعْل</th><th class="th-fil">اَلْوَزْن</th></tr></thead> <tbody> <tr><td><span class="td-ar-ism ar">كَتَبَ</span></td><td><span class="td-ar-fil ar">فَعَلَ</span></td></tr> <tr><td><span class="td-ar-ism ar">جَلَسَ</span></td><td><span class="td-ar-fil ar">فَعَلَ</span></td></tr> <tr><td><span class="td-ar-ism ar">نَزَلَ</span></td><td><span class="td-ar-fil ar">فَعَلَ</span></td></tr> <tr><td><span class="td-ar-ism ar">فَتَحَ</span></td><td><span class="td-ar-fil ar">فَعَلَ</span></td></tr> <tr><td><span class="td-ar-ism ar">رَفَعَ</span></td><td><span class="td-ar-fil ar">فَعَلَ</span></td></tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Retour à la conjugaison · Volver a la conjugación</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Le réflexe complet</div></div> <div class="card-sep"></div> <div style="background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.3);border-radius:14px;padding:14px;text-align:center;"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1rem;color:var(--burgundy);font-weight:700;line-height:2;">أَجِدُ ← أَزِنُ ← أُرَاقِبُ ← أَفْهَمُ</div> <div style="font-size:0.78rem;color:var(--text-soft);margin-top:4px;">Je trouve les lettres → je les pèse sur ف ع ل → j'observe → je comprends la structure.<br><em>Encuentro las letras → las peso sobre ف ع ل → observo → comprendo la estructura.</em></div> </div> <div class="card-rule-fr" style="margin-top:10px;font-size:0.85rem;">💡 Ce n'est pas seulement كَتَبَ que j'ai mémorisé — j'ai compris un mécanisme que je peux transférer à n'importe quel verbe simple.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et la conjugaison ? · ¿Y la conjugación?</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">اَلْوَزْنُ وَالتَّصْرِيف</div> <div class="card-title-fr serif">LE GABARIT ET LA TERMINAISON</div> <div class="card-title-es serif">EL PATRÓN Y LA TERMINACIÓN</div> <div class="card-sep"></div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:1.8rem;">كَتَبَ = فَعَلَ</div> </div> <div class="card-rule-fr">Maintenant, regarde ce qui se passe quand je parle de moi-même :</div> <div class="example-block"> <div class="ex-ar ar">كَتَبْتُ</div> <div class="ex-fr">j'ai écrit</div> </div> <div class="card-rule-fr" style="font-size:0.85rem;">Le <strong>corps du verbe</strong> (le وزن) reste reconnaissable — c'est la <strong>terminaison</strong> qui ajoute l'information sur QUI a fait l'action.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Regardons chaque personne · Veamos cada persona</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Les deux mécanismes ensemble</div></div> <div class="card-sep"></div> <table class="conj-table" style="font-size:0.8rem;"> <thead><tr><th>وَزْن + لَاحِقَة</th><th>=</th></tr></thead> <tbody> <tr><td class="ct-ar ar fil">كَتَبْ + تُ</td><td class="ct-ar ar fil">كَتَبْتُ</td></tr> <tr><td class="ct-ar ar fil">كَتَبْ + تَ</td><td class="ct-ar ar fil">كَتَبْتَ</td></tr> <tr><td class="ct-ar ar fil">كَتَبْ + تِ</td><td class="ct-ar ar fil">كَتَبْتِ</td></tr> <tr><td class="ct-ar ar fil">كَتَبْ + نَا</td><td class="ct-ar ar fil">كَتَبْنَا</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:8px;font-size:0.82rem;">💡 1) je reconnais le verbe et sa structure (le وزن) ; 2) j'observe la terminaison ; 3) la terminaison m'indique QUI a fait l'action.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;أَنَا / أَنْتَ / أَنْتِ en détail · En detalle</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.5rem,5vw,2rem);">أَنَا / أَنْتَ / أَنْتِ</div> <div class="card-title-fr serif">JE / TU (M.) / TU (F.)</div> <div class="card-title-es serif">YO / TÚ (M.) / TÚ (F.)</div> <div class="card-sep"></div> <table class="conj-table"> <thead><tr><th>ضَمِير</th><th>فِعْل</th><th>مَعْنَى</th></tr></thead> <tbody> <tr><td class="ct-pron ar">أَنَا</td><td class="ct-ar ar fil">كَتَبْتُ</td><td class="ct-fr">j'ai écrit</td></tr> <tr><td class="ct-pron ar">أَنْتَ</td><td class="ct-ar ar fil">كَتَبْتَ</td><td class="ct-fr">tu as écrit (m.)</td></tr> <tr><td class="ct-pron ar">أَنْتِ</td><td class="ct-ar ar fil">كَتَبْتِ</td><td class="ct-fr">tu as écrit (f.)</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:6px;">Regarde bien la fin de chaque mot !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Décomposons ces mots · Descompongamos estas palabras</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Décomposons ces mots</div></div> <div class="card-sep"></div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:1.6rem;">كَتَبْ + تُ = كَتَبْتُ</div> <div class="gabarit-label serif">أَنَا</div> </div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:1.6rem;">كَتَبْ + تَ = كَتَبْتَ</div> <div class="gabarit-label serif">أَنْتَ</div> </div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:1.6rem;">كَتَبْ + تِ = كَتَبْتِ</div> <div class="gabarit-label serif">أَنْتِ</div> </div> <div class="card-rule-fr" style="margin-top:6px;font-size:0.85rem;">💡 <strong>ـتُ ، ـتَ ، ـتِ</strong> donnent des informations différentes sur la personne. Apprends à regarder la terminaison !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et nous ? · ¿Y nosotros?</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.7rem,5.5vw,2.3rem);">نَحْنُ</div> <div class="card-title-fr serif">NOUS</div> <div class="card-title-es serif">NOSOTROS</div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar">نَحْنُ <span class="hv">كَتَبْنَا</span>.</div> <div class="ex-fr">Nous avons écrit.</div> </div> <div class="gabarit-box"> <div class="gabarit-ar ar" style="font-size:1.8rem;">كَتَبْ + نَا = كَتَبْنَا</div> <div class="gabarit-label serif">نَحْنُ</div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Tu connais déjà ـنَا ! · ¡Ya conoces ـنَا!</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Tu connais déjà ـنَا !</div></div> <div class="card-sep"></div> <div style="background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.3);border-radius:14px;padding:16px;text-align:center;"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.2rem;color:var(--burgundy);font-weight:700;line-height:1.8;">تَذَكَّرْ : <span style="color:#7b5ea7;">كِتَابُنَا</span> (Module 15)</div> <div style="font-size:0.82rem;color:var(--text-soft);margin-top:6px;">Tu as déjà rencontré ـنَا dans « notre livre ». Attention : ce n'est pas la même fonction grammaticale ici, mais c'est la même écriture — un indice que tu sais déjà repérer !<br><em>Ya has visto ـنَا en «nuestro libro». No es la misma función gramatical, pero es la misma escritura — ¡una pista que ya sabes reconocer!</em></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;La conjugaison complète · La conjugación completa</div>`
+    }
+  ],
+
+  /* ══════════════════════════════════ 3. اُنْظُرْ إِلَى النِّهَايَة — synthèse + réflexe DAK ══════════════════════════════════ */ mudhari: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">التَّصْرِيفُ الكَامِل</div> <div class="card-title-fr serif">LA CONJUGAISON COMPLÈTE</div> <div class="card-title-es serif">LA CONJUGACIÓN COMPLETA</div> <div class="card-sep"></div> <div class="card-rule-fr" style="margin-bottom:6px;">Après avoir découvert le mécanisme pas à pas, voici la synthèse complète du verbe <strong class="green">كَتَبَ</strong> au passé :</div> <table class="conj-table" style="font-size:0.76rem;"> <thead><tr><th>ضَمِير</th><th>فِعْل</th></tr></thead> <tbody> <tr><td class="ct-pron ar">أَنَا</td><td class="ct-ar ar fil">كَتَبْتُ</td></tr> <tr><td class="ct-pron ar">نَحْنُ</td><td class="ct-ar ar fil">كَتَبْنَا</td></tr> <tr><td class="ct-pron ar">أَنْتَ</td><td class="ct-ar ar fil">كَتَبْتَ</td></tr> <tr><td class="ct-pron ar">أَنْتِ</td><td class="ct-ar ar fil">كَتَبْتِ</td></tr> <tr><td class="ct-pron ar">أَنْتُمَا</td><td class="ct-ar ar fil">كَتَبْتُمَا</td></tr> </tbody> </table> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;La suite du tableau · El resto de la tabla</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">La suite du tableau</div></div> <div class="card-sep"></div> <table class="conj-table" style="font-size:0.76rem;"> <thead><tr><th>ضَمِير</th><th>فِعْل</th></tr></thead> <tbody> <tr><td class="ct-pron ar">أَنْتُمْ</td><td class="ct-ar ar fil">كَتَبْتُمْ</td></tr> <tr><td class="ct-pron ar">أَنْتُنَّ</td><td class="ct-ar ar fil">كَتَبْتُنَّ</td></tr> <tr><td class="ct-pron ar">هُوَ</td><td class="ct-ar ar fil">كَتَبَ</td></tr> <tr><td class="ct-pron ar">هِيَ</td><td class="ct-ar ar fil">كَتَبَتْ</td></tr> <tr><td class="ct-pron ar">هُمَا (m.)</td><td class="ct-ar ar fil">كَتَبَا</td></tr> <tr><td class="ct-pron ar">هُمَا (f.)</td><td class="ct-ar ar fil">كَتَبَتَا</td></tr> <tr><td class="ct-pron ar">هُمْ</td><td class="ct-ar ar fil">كَتَبُوا</td></tr> <tr><td class="ct-pron ar">هُنَّ</td><td class="ct-ar ar fil">كَتَبْنَ</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:8px;font-size:0.82rem;">💡 Ne retiens pas ce tableau par cœur : entraîne-toi plutôt à repérer LA FIN du verbe !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Le réflexe DAK · El reflejo DAK</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">اُنْظُرْ إِلَى النِّهَايَة</div> <div class="card-title-fr serif">REGARDE LA FIN DU VERBE</div> <div class="card-title-es serif">MIRA EL FINAL DEL VERBO</div> <div class="card-sep"></div> <div style="text-align:center;font-family:'Amiri',serif;direction:rtl;font-size:1.15rem;color:var(--burgundy);line-height:2.1;"> كَتَبْتُ<br>↓<br><span style="color:#7b5ea7;">ـتُ</span><br>↓<br><span class="serif" style="font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--text-dark);">indice : c'est MOI qui parle</span><br>↓<br><strong>أَنَا</strong> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;D'autres terminaisons · Otras terminaciones</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">La clé d'or</div></div> <div class="card-sep"></div> <table class="conj-table purple-header" style="font-size:0.8rem;"> <thead><tr><th>فِعْل</th><th>لَاحِقَة</th><th>ضَمِير</th></tr></thead> <tbody> <tr><td class="ct-ar ar fil">كَتَبْتُ</td><td class="ct-ar ar" style="color:#7b5ea7;">ـتُ</td><td class="ct-pron ar">أَنَا</td></tr> <tr><td class="ct-ar ar fil">كَتَبْتَ</td><td class="ct-ar ar" style="color:#7b5ea7;">ـتَ</td><td class="ct-pron ar">أَنْتَ</td></tr> <tr><td class="ct-ar ar fil">كَتَبْتِ</td><td class="ct-ar ar" style="color:#7b5ea7;">ـتِ</td><td class="ct-pron ar">أَنْتِ</td></tr> <tr><td class="ct-ar ar fil">كَتَبْنَا</td><td class="ct-ar ar" style="color:#7b5ea7;">ـنَا</td><td class="ct-pron ar">نَحْنُ</td></tr> <tr><td class="ct-ar ar fil">كَتَبُوا</td><td class="ct-ar ar" style="color:#7b5ea7;">ـوا</td><td class="ct-pron ar">هُمْ</td></tr> <tr><td class="ct-ar ar fil">كَتَبْنَ</td><td class="ct-ar ar" style="color:#7b5ea7;">ـنَ</td><td class="ct-pron ar">هُنَّ</td></tr> </tbody> </table> <div style="background:rgba(200,164,98,0.08);border:1px solid rgba(200,164,98,0.3);border-radius:14px;padding:12px;text-align:center;margin-top:8px;"> <div style="font-size:0.7rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;margin-bottom:6px;">LA CLÉ D'OR · LA CLAVE DE ORO</div> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1rem;color:var(--burgundy);font-weight:700;">مَنْ فَعَلَ؟ اُنْظُرْ إِلَى آخِرِ الفِعْلِ!</div> <div style="font-size:0.76rem;color:var(--text-soft);margin-top:4px;">Qui a fait l'action ? Regarde la fin du verbe !<br><em>¿Quién hizo la acción? ¡Mira el final del verbo!</em></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Change de verbe · Cambia el verbo</div>`
+    }
+  ],
+
+  /* ══════════════════════════════════ 4. غَيِّرِ الفِعْل — d'autres verbes + la phrase + sujet implicite + négation ══════════════════════════════════ */ amr: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.6rem,5vw,2.1rem);">دَرَسَ</div> <div class="card-title-fr serif">MÊME MÉCANISME, AUTRE VERBE</div> <div class="card-title-es serif">MISMO MECANISMO, OTRO VERBO</div> <div class="card-sep"></div> <table class="conj-table"> <thead><tr><th>ضَمِير</th><th>فِعْل</th></tr></thead> <tbody> <tr><td class="ct-pron ar">أَنَا</td><td class="ct-ar ar fil">دَرَسْتُ</td></tr> <tr><td class="ct-pron ar">هِيَ</td><td class="ct-ar ar fil">دَرَسَتْ</td></tr> <tr><td class="ct-pron ar">نَحْنُ</td><td class="ct-ar ar fil">دَرَسْنَا</td></tr> <tr><td class="ct-pron ar">هُمْ</td><td class="ct-ar ar fil">دَرَسُوا</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:6px;">Les mêmes terminaisons — ـتُ، ـتْ، ـنَا، ـوا — reviennent, quel que soit le verbe !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;فَتَحَ aussi · فَتَحَ también</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">فَتَحَ</div></div> <div class="card-sep"></div> <table class="conj-table"> <thead><tr><th>ضَمِير</th><th>فِعْل</th></tr></thead> <tbody> <tr><td class="ct-pron ar">أَنَا</td><td class="ct-ar ar fil">فَتَحْتُ</td></tr> <tr><td class="ct-pron ar">أَنْتَ</td><td class="ct-ar ar fil">فَتَحْتَ</td></tr> <tr><td class="ct-pron ar">هُوَ</td><td class="ct-ar ar fil">فَتَحَ</td></tr> <tr><td class="ct-pron ar">هِيَ</td><td class="ct-ar ar fil">فَتَحَتْ</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:6px;font-size:0.85rem;">💡 Même terminaison ـتُ → toujours أَنَا, quel que soit le verbe.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;جَلَسَ aussi · جَلَسَ también</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.6rem,5vw,2.1rem);">جَلَسَ</div> <div class="card-title-fr serif">ENCORE UN AUTRE VERBE</div> <div class="card-title-es serif">OTRO VERBO MÁS</div> <div class="card-sep"></div> <table class="conj-table"> <thead><tr><th>ضَمِير</th><th>فِعْل</th></tr></thead> <tbody> <tr><td class="ct-pron ar">هُوَ</td><td class="ct-ar ar fil">جَلَسَ</td></tr> <tr><td class="ct-pron ar">هِيَ</td><td class="ct-ar ar fil">جَلَسَتْ</td></tr> <tr><td class="ct-pron ar">نَحْنُ</td><td class="ct-ar ar fil">جَلَسْنَا</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:10px;font-weight:700;text-align:center;color:var(--burgundy);">Ce n'est pas seulement كَتَبَ que j'ai mémorisé. J'ai compris un mécanisme !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;الماضي dans la phrase · الماضي en la frase</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">الماضي فِي الجُمْلَة</div></div> <div class="card-sep"></div> <div class="card-rule-fr" style="margin-bottom:8px;">La conjugaison sert à COMPRENDRE la phrase :</div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">كَتَبَ</span> <span class="hn">مُحَمَّدٌ</span> الدَّرْسَ.</div> <div class="ex-analyse serif">فِعْل (a fait quoi ?) · فَاعِل (qui ?) · مَفْعُول (quoi ?)</div> <div class="ex-fr">Mohammed a écrit la leçon.</div> </div> <div class="card-rule-fr" style="font-size:0.82rem;"><span class="hv" style="font-weight:700;">كَتَبَ</span> = le verbe (qu'a-t-il fait ?) · <span class="hn" style="font-weight:700;">مُحَمَّدٌ</span> = le sujet (qui ?) · الدَّرْسَ = le complément (quoi ?)</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Un autre exemple · Otro ejemplo</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.4rem,4.5vw,1.9rem);">فِعْل · فَاعِل · مَفْعُول</div> <div class="card-title-fr serif">VERBE · SUJET · COMPLÉMENT</div> <div class="card-title-es serif">VERBO · SUJETO · COMPLEMENTO</div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">قَرَأَتْ</span> <span class="hn">مَرْيَمُ</span> الكِتَابَ.</div> <div class="ex-fr">Maryam a lu le livre.</div> </div> <div class="card-rule-fr" style="font-size:0.85rem;"><span class="hv" style="font-weight:700;">قَرَأَتْ</span> = elle a lu (le ـتْ indique déjà le féminin !) · <span class="hn" style="font-weight:700;">مَرْيَمُ</span> = qui ? · الكِتَابَ = quoi ?</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et sans pronom écrit ? · ¿Y sin pronombre escrito?</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Le sujet est parfois caché dans le verbe</div></div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar"><span class="hv">دَرَسْنَا</span> اللُّغَةَ العَرَبِيَّةَ.</div> <div class="ex-fr">Nous avons étudié la langue arabe.</div> </div> <div class="card-rule-fr" style="font-size:0.85rem;">Qui a étudié ? <strong>نَحْنُ</strong> — Comment le sais-tu ? Grâce à <strong style="color:#7b5ea7;">ـنَا</strong> !</div> <div class="example-block" style="margin-top:8px;"> <div class="ex-ar ar"><span class="hv">كَتَبْتُ</span> الدَّرْسَ.</div> <div class="ex-fr">J'ai écrit la leçon.</div> </div> <div class="card-rule-fr" style="font-size:0.85rem;">Qui a écrit ? <strong>أَنَا</strong> — indice : <strong style="color:#7b5ea7;">ـتُ</strong>.</div> <div class="card-rule-fr" style="margin-top:8px;font-size:0.82rem;font-weight:700;color:var(--burgundy);">La forme du verbe contient déjà l'information sur QUI a fait l'action !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et la négation ? · ¿Y la negación?</div>`
+    },
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.5rem,5vw,2rem);">اَلنَّفْيُ (تَذَكُّر)</div> <div class="card-title-fr serif">LA NÉGATION (RAPPEL)</div> <div class="card-title-es serif">LA NEGACIÓN (RECORDATORIO)</div> <div class="card-sep"></div> <div class="card-rule-fr" style="margin-bottom:8px;">Tu connais déjà la négation depuis le <strong>Module 13</strong> :</div> <table class="conj-table"> <thead><tr><th>مُثْبَت</th><th>مَنْفِيّ</th></tr></thead> <tbody> <tr><td class="ct-ar ar fil">كَتَبَ</td><td class="ct-ar ar hn">مَا كَتَبَ</td></tr> <tr><td class="ct-ar ar fil">ذَهَبَ</td><td class="ct-ar ar hn">مَا ذَهَبَ</td></tr> </tbody> </table> <div class="card-rule-fr" style="margin-top:8px;font-size:0.8rem;">💡 C'est un acquis réactivé, pas une nouvelle règle !</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Récapitulatif · Resumen</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Récapitulatif</div></div> <div class="card-sep"></div> <div style="background:rgba(45,122,58,0.06);border:1px solid rgba(45,122,58,0.2);border-radius:14px;padding:16px;text-align:center;"> <div style="font-family:'Amiri',serif;direction:rtl;font-size:1.05rem;color:var(--burgundy);font-weight:700;line-height:1.9;">اُنْظُرِ الفِعْلَ، اُنْظُرِ النِّهَايَةَ، اِعْرِفْ مَنْ فَعَلَ</div> <div style="font-size:0.8rem;color:var(--text-soft);margin-top:6px;">Regarde le verbe, regarde sa fin, tu sauras qui a fait l'action — même sans pronom écrit !<br><em>Mira el verbo, mira su final, sabrás quién hizo la acción — ¡incluso sin pronombre escrito!</em></div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Et maintenant ? · ¿Y ahora?</div>`
+    }
+  ],
+
+  /* ══════════════════════════════════ 5. نَحْوَ الحَاضِر — transition très courte vers Module 17 ══════════════════════════════════ */ laysa: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">DAR AL-KALIMAH</div></div> <div class="card-sep"></div> <div class="card-title-ar ar" style="font-size:clamp(1.5rem,5vw,2rem);">أَحْسَنْتَ!</div> <div class="card-title-fr serif">TU SAIS MAINTENANT...</div> <div class="card-title-es serif">AHORA SABES...</div> <div class="card-sep"></div> <div class="card-rule-fr" style="text-align:center;">Tu sais reconnaître une action passée, et deviner QUI l'a faite grâce à la fin du verbe. 🎉</div> <div class="card-rule-fr" style="margin-top:10px;text-align:center;font-weight:700;color:var(--burgundy);">Et maintenant ? Et si l'action se passe MAINTENANT ?</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Vers le présent · Hacia el presente</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Vers le présent</div></div> <div class="card-sep"></div> <div class="example-block"> <div class="ex-ar ar">هُوَ <span class="hv">يَكْتُبُ</span>. / هِيَ <span class="hv">تَكْتُبُ</span>.</div> <div class="ex-fr">Il écrit. / Elle écrit.</div> </div> <div class="card-rule-fr" style="margin-top:10px;font-size:0.85rem;">💡 Tu connais maintenant le وَزْن <strong>فَعَلَ</strong> ! Il te servira bientôt à comprendre <strong>اَلْفِعْلُ الْمُضَارِع</strong> (Module 17) — le présent en détail. Puis <strong>اَلْأَمْر</strong> (Module 18) — l'impératif.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;تَعْزِيزُ القِرَاءَة · Refuerzo de lectura</div>`
+    }
+  ],
+
+  /* ══════════════════════════════════ 6. تعزيز القراءة ══════════════════════════════════ */ qiraa: [
+    {
+      front:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">تَعْزِيزُ الْقِرَاءَة · TEXTE</div></div> <div class="card-sep"></div> <div class="qiraa-legend"> <div class="legend-item"><div class="legend-dot-v"></div><span>اَلْفِعْلُ الْمَاضِي — vert</span></div> <div class="legend-item"><div class="legend-dot-n"></div><span>أَكْتَسَبْتُهُ فِي مُودُلَة سَابِقَة — بوردو</span></div> </div> <div class="qiraa-title-fr serif">يَوْمٌ فِي الْمَدْرَسَةِ · Un jour à l'école · Un día en la escuela</div> <div class="qiraa-text ar"><span class="hl-v">ذَهَبَ</span> أَحْمَدُ إِلَى الْمَدْرَسَةِ صَبَاحًا.</div> <div class="qiraa-text ar"><span class="hl-v">جَلَسَ</span> عَلَى كُرْسِيِّهِ وَ<span class="hl-v">فَتَحَ</span> كِتَابَهُ.</div> <div class="qiraa-text ar"><span class="hl-v">ذَهَبَتْ</span> مَرْيَمُ أَيْضًا. <span class="hl-v">جَلَسَتْ</span> قُرْبَ أَحْمَدَ وَ<span class="hl-v">فَتَحَتْ</span> دَفْتَرَهَا.</div> <div class="qiraa-text ar"><span class="hl-v">قَرَأَ</span> أَحْمَدُ الدَّرْسَ الجَدِيدَ، وَ<span class="hl-v">قَرَأَتْ</span> مَرْيَمُ مَعَهُ.</div> <div class="qiraa-text ar"><span class="hl-v">كَتَبْنَا</span> الوَاجِبَ وَ<span class="hl-v">دَرَسْنَا</span> اللُّغَةَ العَرَبِيَّةَ مَعَ مُعَلِّمِنَا.</div> <div class="qiraa-text ar"><span class="hl-n">لَمْ يَذْهَبْ</span> خَالِدٌ إِلَى الْمَدْرَسَةِ الْيَوْمَ لِأَنَّهُ مَرِيضٌ.</div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Traduction · Traducción</div>`,
+      back:` <div class="card-brand"><div class="card-brand-ar ar">دار الكلمة</div><div class="card-brand-fr serif">Traduction · Traducción</div></div> <div style="font-size:0.84rem;line-height:1.5;padding:0 2px;"> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);">Ahmad est allé à l'école le matin.</div> <div style="color:var(--text-soft);font-style:italic;">Ahmad fue a la escuela por la mañana.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);">Il s'est assis sur sa chaise et a ouvert son livre.</div> <div style="color:var(--text-soft);font-style:italic;">Se sentó en su silla y abrió su libro.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);">Maryam est allée aussi. Elle s'est assise près d'Ahmad et a ouvert son cahier.</div> <div style="color:var(--text-soft);font-style:italic;">Maryam también fue. Se sentó cerca de Ahmad y abrió su cuaderno.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);">Ahmad a lu la nouvelle leçon, et Maryam a lu avec lui.</div> <div style="color:var(--text-soft);font-style:italic;">Ahmad leyó la nueva lección, y Maryam leyó con él.</div> </div> <div style="padding:6px 0;border-bottom:1px solid rgba(200,164,98,0.15);"> <div style="color:var(--text-dark);">Nous avons écrit le devoir et étudié la langue arabe avec notre professeur.</div> <div style="color:var(--text-soft);font-style:italic;">Escribimos la tarea y estudiamos la lengua árabe con nuestro profesor.</div> </div> <div style="padding:6px 0;"> <div style="color:var(--text-dark);">Khalid n'est pas allé à l'école aujourd'hui car il est malade.</div> <div style="color:var(--text-soft);font-style:italic;">Khalid no fue a la escuela hoy porque está enfermo.</div> </div> </div> <div class="flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Questions · Preguntas</div>`
+    },
+    { type:'quiz', num:1,
+      ar:'هَلْ ذَهَبَ أَحْمَدُ إِلَى الْمَدْرَسَةِ صَبَاحًا؟',
+      fr:'Ahmad est-il allé à l’école le matin ?', es:'¿Ahmad fue a la escuela por la mañana?',
+      answer:true,
+      ok_ar:'✓ صَحِيح — ذَهَبَ أَحْمَدُ إِلَى الْمَدْرَسَةِ صَبَاحًا', ok_fr:'Correct — le texte le dit dès la première phrase.', ok_es:'Correcto — el texto lo dice en la primera frase.',
+      ko_ar:'✗ النَّصُّ يَقُولُ: ذَهَبَ أَحْمَدُ صَبَاحًا', ko_fr:'Non — relis la première phrase du texte.', ko_es:'No — vuelve a leer la primera frase del texto.'
+    },
+    { type:'quiz', num:2,
+      ar:'هَلْ ذَهَبَ خَالِدٌ إِلَى الْمَدْرَسَةِ الْيَوْمَ؟',
+      fr:'Khalid est-il allé à l’école aujourd’hui ?', es:'¿Khalid fue a la escuela hoy?',
+      answer:false,
+      ok_ar:'✓ صَحِيح — لَمْ يَذْهَبْ لِأَنَّهُ مَرِيضٌ', ok_fr:'Correct — il n’est pas allé car il est malade.', ok_es:'Correcto — no fue porque está enfermo.',
+      ko_ar:'✗ النَّصُّ يَقُولُ: لَمْ يَذْهَبْ خَالِدٌ', ko_fr:'Non — le texte dit qu’il n’y est pas allé (لَمْ يَذْهَبْ).', ko_es:'No — el texto dice que no fue (لَمْ يَذْهَبْ).'
+    },
+    { type:'quiz', num:3,
+      ar:'هَلْ جَلَسَتْ مَرْيَمُ بَعِيدًا عَنْ أَحْمَدَ؟',
+      fr:'Maryam s’est-elle assise loin d’Ahmad ?', es:'¿Maryam se sentó lejos de Ahmad?',
+      answer:false,
+      ok_ar:'✓ صَحِيح — جَلَسَتْ قُرْبَ أَحْمَدَ، لَا بَعِيدًا عَنْهُ', ok_fr:'Correct — elle s’est assise PRÈS de lui, pas loin.', ok_es:'Correcto — se sentó CERCA de él, no lejos.',
+      ko_ar:'✗ النَّصُّ يَقُولُ: جَلَسَتْ قُرْبَ أَحْمَدَ', ko_fr:'Non — le texte dit qu’elle s’est assise près de lui.', ko_es:'No — el texto dice que se sentó cerca de él.'
+    },
+    { type:'mcq',
+      ar:'مَا هُوَ الفِعْلُ فِي الجُمْلَةِ: (فَتَحَتْ مَرْيَمُ دَفْتَرَهَا)؟', fr:'Quel est le verbe dans la phrase : « Maryam a ouvert son cahier » ?', es:'¿Cuál es el verbo en la frase: «Maryam abrió su cuaderno»?',
+      opts:['فَتَحَتْ','مَرْيَمُ','دَفْتَرَهَا'], correct:0,
+      fb_ok_ar:'✓ فَتَحَتْ هُوَ الفِعْل', fb_ok_fr:'Correct — « فَتَحَتْ » (elle a ouvert) est le verbe.', fb_ok_es:'Correcto — «فَتَحَتْ» (abrió) es el verbo.',
+      fb_ko_ar:'✗ الفِعْلُ هُوَ فَتَحَتْ', fb_ko_fr:'Non — le verbe est l’action réalisée : فَتَحَتْ.', fb_ko_es:'No — el verbo es la acción realizada: فَتَحَتْ.'
+    },
+    { type:'mcq',
+      ar:'فِي الجُمْلَةِ (كَتَبْنَا الوَاجِبَ)، مَنْ كَتَبَ الوَاجِبَ؟', fr:'Dans « نَحْنُ avons écrit le devoir », qui a écrit le devoir ?', es:'En «escribimos la tarea», ¿quién escribió la tarea?',
+      opts:['أَنَا','نَحْنُ','هُمْ'], correct:1,
+      fb_ok_ar:'✓ ـنَا فِي (كَتَبْنَا) تُشِيرُ إِلَى نَحْنُ', fb_ok_fr:'Correct — la terminaison ـنَا indique نَحْنُ (nous).', fb_ok_es:'Correcto — la terminación ـنَا indica نَحْنُ (nosotros).',
+      fb_ko_ar:'✗ اَللَّاحِقَةُ ـنَا تُشِيرُ إِلَى نَحْنُ', fb_ko_fr:'Non — regarde la terminaison ـنَا : elle indique نَحْنُ.', fb_ko_es:'No — mira la terminación ـنَا: indica نَحْنُ.'
+    },
+    { type:'mcq',
+      ar:'كَلِمَةُ (دَرَسْنَا) مُكَوَّنَةٌ مِنْ:', fr:'Le mot « دَرَسْنَا » est composé de :', es:'La palabra «دَرَسْنَا» está compuesta de:',
+      opts:['دَرَسْ + نَا','دَرَسْ + تُمْ','دَرَسَ + هُمْ'], correct:0,
+      fb_ok_ar:'✓ دَرَسْ + نَا = nous avons étudié', fb_ok_fr:'Correct — نَا est le suffixe de نَحْنُ.', fb_ok_es:'Correcto — نَا es el sufijo de نَحْنُ.',
+      fb_ko_ar:'✗ اللَّاحِقَةُ هِيَ نَا (نَحْنُ)', fb_ko_fr:'Non — la terminaison نَا correspond à نَحْنُ (nous).', fb_ko_es:'No — la terminación نَا corresponde a نَحْنُ (nosotros).'
+    },
+    { type:'mcq',
+      ar:'أَيُّ ضَمِيرٍ يُطَابِقُ الفِعْلَ (ذَهَبَتْ)؟', fr:'Quel pronom correspond au verbe « ذَهَبَتْ » ?', es:'¿Qué pronombre corresponde al verbo «ذَهَبَتْ»?',
+      opts:['هُوَ','هِيَ','هُمْ'], correct:1,
+      fb_ok_ar:'✓ ـتْ فِي آخِرِ الفِعْلِ تُشِيرُ إِلَى هِيَ', fb_ok_fr:'Correct — le ـتْ final indique le féminin : هِيَ.', fb_ok_es:'Correcto — la ـتْ final indica el femenino: هِيَ.',
+      fb_ko_ar:'✗ اَلتَّاءُ فِي آخِرِ الفِعْلِ لِلْمُؤَنَّثِ الغَائِب', fb_ko_fr:'Non — le ت final marque le féminin (elle).', fb_ko_es:'No — la ت final marca el femenino (ella).'
+    },
+    { type:'mcq',
+      ar:'لِمَاذَا لَمْ يَذْهَبْ خَالِدٌ إِلَى الْمَدْرَسَةِ؟', fr:'Pourquoi Khalid n’est-il pas allé à l’école ?', es:'¿Por qué Khalid no fue a la escuela?',
+      opts:['لِأَنَّهُ مَرِيضٌ','لِأَنَّهُ فِي الْبَيْتِ يَلْعَبُ','لِأَنَّهُ ذَهَبَ إِلَى مَكَانٍ آخَرَ'], correct:0,
+      fb_ok_ar:'✓ لِأَنَّهُ مَرِيضٌ', fb_ok_fr:'Correct — il est malade.', fb_ok_es:'Correcto — está enfermo.',
+      fb_ko_ar:'✗ السَّبَبُ: هُوَ مَرِيضٌ', fb_ko_fr:'Non — la raison donnée dans le texte est la maladie.', fb_ko_es:'No — la razón dada en el texto es la enfermedad.'
+    }
+  ]
+};
+
+/* ══ STATE & RENDU ══ */
+const State = { fil:     {idx:0,flipped:false}, madhi:   {idx:0,flipped:false}, mudhari: {idx:0,flipped:false}, amr:     {idx:0,flipped:false}, laysa:   {idx:0,flipped:false}, qiraa:   {idx:0,flipped:false}
+};
+
+const $=id=>document.getElementById(id);
+const views={select:$("view-select"),fil:$("view-fil"),madhi:$("view-madhi"),mudhari:$("view-mudhari"),amr:$("view-amr"),laysa:$("view-laysa"),qiraa:$("view-qiraa")};
+
+function showView(n){Object.values(views).forEach(v=>v.classList.add("hidden"));views[n].classList.remove("hidden");}
+
+function renderSection(section){
+const s=State[section];
+const cards=DATA[section];
+const card=cards[s.idx]; s.flipped=false;
+const flip=$("card-"+section); flip.classList.remove("flipped");
+
+if(card.type==='quiz'){ flip.onclick=null;flip.style.cursor='default';
+var adat=card.adat?'<span class="ar" style="font-family:Amiri,serif;font-size:1.8rem;color:var(--gold);direction:rtl;font-weight:700;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+card.adat+'</span> ':''; $(section+"-front").innerHTML= '<div class="card-brand" style="margin-bottom:8px;"><div class="card-brand-ar ar" style="font-size:2rem;">دار الكلمة</div>' +'<div class="card-brand-fr serif" style="font-size:0.8rem;letter-spacing:2px;color:var(--burgundy);opacity:0.8;">تَعْزِيزُ الْقِرَاءَة</div></div>' +'<div class="card-sep"></div>' +'<div class="quiz-num">QUESTION '+card.num+' / 3 &nbsp;·&nbsp; PREGUNTA '+card.num+' / 3</div>' +'<div style="text-align:center;margin:6px 0 10px;">'+adat+'</div>' +'<div class="quiz-q-ar ar">'+card.ar+'</div>' +'<div class="quiz-q-fr">'+card.fr+'</div>' +'<div class="quiz-q-es">'+card.es+'</div>' +'<div class="quiz-btns">' +'<button class="quiz-btn quiz-btn-oui" onclick="answerQuiz(\''+section+'\',true)">نعم<br><small>Oui · Sí</small></button>' +'<button class="quiz-btn quiz-btn-non" onclick="answerQuiz(\''+section+'\',false)">لا<br><small>Non · No</small></button>' +'</div><div class="quiz-feedback" id="qfb-'+section+'"></div>'; $(section+"-back").innerHTML='';
+  } else if(card.type==='mcq'){ flip.onclick=null;flip.style.cursor='default';
+var adat2=card.adat?'<span class="ar" style="font-family:Amiri,serif;font-size:1.8rem;color:var(--gold);direction:rtl;font-weight:700;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+card.adat+'</span> ':'';
+var optsHtml=''; card.opts.forEach(function(opt,i){ optsHtml+='<button class="mcq-btn" onclick="answerMCQ(\''+section+'\','+i+')" data-idx="'+i+'">' +'<span class="ar" style="font-family:Amiri,serif;font-size:clamp(1rem,3.5vw,1.3rem);direction:rtl;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+opt+'</span></button>';
+    }); $(section+"-front").innerHTML= '<div class="card-brand" style="margin-bottom:8px;"><div class="card-brand-ar ar" style="font-size:2rem;">دار الكلمة</div>' +'<div class="card-brand-fr serif" style="font-size:0.8rem;letter-spacing:2px;color:var(--burgundy);opacity:0.8;">تَعْزِيزُ الْقِرَاءَة</div></div>' +'<div class="card-sep"></div>' +'<div style="text-align:center;margin:6px 0 10px;">'+adat2+'</div>' +'<div class="quiz-q-ar ar">'+card.ar+'</div>' +'<div class="quiz-q-fr">'+card.fr+'</div>' +'<div class="quiz-q-es" style="margin-bottom:12px;">'+card.es+'</div>' +'<div style="width:100%;margin-bottom:10px;">'+optsHtml+'</div>' +'<div class="quiz-feedback" id="qfb-'+section+'"></div>'; $(section+"-back").innerHTML='';
+  } else { flip.onclick=function(){flipCard(section);}; flip.style.cursor='pointer'; $(section+"-front").innerHTML=card.front; $(section+"-back").innerHTML=card.back;
+  }
+ $(section+"-curr").textContent=s.idx+1;
+if($(section+"-tot"))$(section+"-tot").textContent=cards.length; $(section+"-prev").disabled=(s.idx===0); $(section+"-next").disabled=(s.idx===cards.length-1); $(section+"-front").scrollTop=0; $(section+"-back").scrollTop=0;
+// DAK Tracker — dernière section 'qiraa'
+if(section==='qiraa'&&s.idx===cards.length-1){
+enrLecon16(cards.length);
+}
+}
+
+window.answerQuiz=function(section,chosen){
+var card=DATA[section][State[section].idx];
+var fb=document.getElementById('qfb-'+section);
+var correct=(chosen===card.answer); document.querySelectorAll('#view-'+section+' .quiz-btn').forEach(function(b){b.disabled=true;}); fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+var ar=correct?card.ok_ar:card.ko_ar;
+var fr=correct?card.ok_fr:card.ko_fr;
+var es=correct?card.ok_es:card.ko_es; fb.innerHTML='<div style="font-family:Amiri,serif;font-size:1rem;direction:rtl;margin-bottom:5px;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+ar+'</div><div style="margin-bottom:3px;font-weight:600;">'+fr+'</div><em>'+es+'</em>';
+};
+
+window.answerMCQ=function(section,chosen){
+var card=DATA[section][State[section].idx];
+var fb=document.getElementById('qfb-'+section);
+var correct=(chosen===card.correct); document.querySelectorAll('#view-'+section+' .mcq-btn').forEach(function(b){b.disabled=true;});
+var chosenBtn=document.querySelector('#view-'+section+' .mcq-btn[data-idx="'+chosen+'"]');
+var correctBtn=document.querySelector('#view-'+section+' .mcq-btn[data-idx="'+card.correct+'"]');
+if(correct){chosenBtn.classList.add('mcq-correct');} else{chosenBtn.classList.add('mcq-wrong');if(correctBtn)correctBtn.classList.add('mcq-correct');} fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+var ar=correct?card.fb_ok_ar:card.fb_ko_ar;
+var fr=correct?card.fb_ok_fr:card.fb_ko_fr;
+var es=correct?card.fb_ok_es:card.fb_ko_es; fb.innerHTML='<div style="font-family:Amiri,serif;font-size:1rem;direction:rtl;margin-bottom:5px;font-feature-settings:\'liga\' 1,\'calt\' 1,\'mark\' 1,\'mkmk\' 1;">'+ar+'</div><div style="margin-bottom:3px;font-weight:600;">'+fr+'</div><em>'+es+'</em>';
+};
+
+window.openSection=function(section){
+State[section].idx=0;State[section].flipped=false; renderSection(section);showView(section);
+};
+window.goHome=function(){showView("select");};
+window.flipCard=function(section){
+State[section].flipped=!State[section].flipped; $("card-"+section).classList.toggle("flipped",State[section].flipped);
+};
+
+    // DAK Tracker — anti-doublon
+    var _enrLecon16Enregistree = false;
+    function enrLecon16(cartesTotal) {
+        if (_enrLecon16Enregistree) return;
+        if (window.DAK_enregistrerLecon) {
+            _enrLecon16Enregistree = true;
+            window.DAK_enregistrerLecon({ module: 'Module 16', lecon: 'Leçon 16', total: cartesTotal });
+            return;
+        }
+        var _t = 0;
+        var _iv = setInterval(function() {
+            _t++;
+            if (window.DAK_enregistrerLecon && !_enrLecon16Enregistree) {
+                _enrLecon16Enregistree = true;
+                clearInterval(_iv);
+                window.DAK_enregistrerLecon({ module: 'Module 16', lecon: 'Leçon 16', total: cartesTotal });
+            } else if (_t >= 15) { clearInterval(_iv); }
+        }, 200);
+    }
+    window.navigate=function(section,dir){
+var s=State[section];
+var next=s.idx+dir;
+if(next<0||next>=DATA[section].length)return; s.idx=next;renderSection(section);
+};
+
+["fil","madhi","mudhari","amr","laysa","qiraa"].forEach(function(section){
+var tx=0;
+var el=$("view-"+section); el.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},{passive:true}); el.addEventListener("touchend",function(e){
+var dx=tx-e.changedTouches[0].clientX;
+if(Math.abs(dx)>55){dx>0?navigate(section,1):navigate(section,-1);}
+  },{passive:true});
+});
+
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>
