@@ -171,6 +171,19 @@
       "partie": 2,
       "icone": "fa-solid fa-scale-balanced",
       "lien": "fiches/partie2/fiche-m16-passe.html"
+    },
+    {
+      "id": "fiche-m17-present",
+      "titre_fr": "Le Verbe au Présent",
+      "sous_titre_fr": "Al-Fi'l Al-Mudāri' — Module 17",
+      "titre_ar": "اَلْفِعْلُ الْمُضَارِعُ",
+      "description_fr": "11 āyāt (rīwaya Warsh) pour apprendre à lire le début ET la fin du verbe au présent, et reconnaître qui fait l'action.",
+      "description_es": "11 āyāt (riwaya Warsh) para aprender a leer el principio Y el final del verbo en presente, y reconocer quién hace la acción.",
+      "type": "fiche",
+      "public": "tous",
+      "partie": 2,
+      "icone": "fa-solid fa-arrows-spin",
+      "lien": "fiches/partie2/fiche-m17-present.html"
     }
   ]
 }

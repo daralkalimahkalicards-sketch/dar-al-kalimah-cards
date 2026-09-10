@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>Fiche — Le Verbe au Présent (Module 17)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --bordeaux:#5D1828;
+    --bordeaux-dark:#3a0f19;
+    --gold:#C8A462;
+    --gold-light:#dfc28b;
+    --white:#FFFFFF;
+    --ink:#2a1810;
+    --ink-soft:#7a6552;
+    --hairline:rgba(93,24,40,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; visibility:hidden;
+    background:#fdfbf8; color:var(--ink);
+    font-family:'Montserrat',sans-serif; line-height:1.6;
+    padding:0 0 60px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+      radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+  }
+  .ar-text{ direction:rtl; unicode-bidi:isolate; font-family:'Amiri', serif; }
+  .wrap{ max-width:820px; margin:0 auto; padding:24px 16px 0; }
+
+  .btn-back{
+    display:inline-flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid var(--gold); color:var(--bordeaux);
+    padding:8px 18px; border-radius:25px; font-size:0.8rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:1px; text-decoration:none; margin-bottom:22px;
+  }
+  .btn-back:hover{ background:rgba(200,164,98,0.12); }
+
+  .fiche-header{
+    position:relative; background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+    border-radius:24px; padding:34px 26px; color:var(--white); overflow:hidden;
+    box-shadow:0 18px 40px rgba(58,15,25,0.22); text-align:center;
+  }
+  .fiche-header::before{
+    content:""; position:absolute; inset:9px; border:1px solid rgba(200,164,98,0.30); border-radius:18px; pointer-events:none;
+  }
+  .fiche-home-icon{
+    position:absolute; top:12px; right:12px; z-index:2;
+    width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+    color:var(--gold); text-decoration:none; font-size:1.3rem; border-radius:50%;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .fiche-home-icon:hover{ background:rgba(200,164,98,0.16); transform:scale(1.06); }
+  .fiche-home-icon:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .fiche-brand{ font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:2.4px; text-transform:uppercase; color:var(--gold-light); opacity:0.9; margin-bottom:14px; }
+  .fiche-title-ar{ font-size:2.2rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+  .fiche-title-fr{ font-family:'Cinzel',serif; font-size:1.15rem; text-transform:uppercase; letter-spacing:1px; }
+  .fiche-title-es{ font-size:0.85rem; color:var(--gold-light); font-style:italic; margin-top:4px; opacity:0.9; }
+  .fiche-intro{ font-size:0.88rem; color:var(--gold-light); margin-top:16px; line-height:1.6; max-width:560px; margin-left:auto; margin-right:auto; }
+  .fiche-intro .es-line{ display:block; opacity:0.8; font-style:italic; margin-top:3px; }
+
+  .verse-card{
+    background:var(--white); border:1px solid var(--hairline); border-radius:20px;
+    padding:26px 22px; margin-top:26px; box-shadow:0 6px 20px rgba(93,24,40,0.06);
+  }
+  .verse-head{
+    display:flex; align-items:center; justify-content:flex-start; direction:rtl; gap:12px; margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .verse-num{
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+    width:34px; height:34px; border-radius:50%; background:var(--bordeaux); color:var(--gold-light);
+    font-family:'Cinzel',serif; font-weight:700; font-size:0.95rem;
+  }
+  .verse-particle-label{
+    font-family:'Amiri',serif; font-weight:700; color:var(--bordeaux);
+    font-size:1.9rem; line-height:1.6; padding-top:0.2em;
+  }
+  @media (max-width:600px){
+    .verse-particle-label{ font-size:1.6rem; }
+  }
+
+  .ayah-block{
+    background:#fdfaf5; border:1px solid var(--hairline); border-radius:14px;
+    padding:22px 18px; text-align:center; margin-bottom:16px;
+  }
+  .ayah-ar{ font-size:1.5rem; font-weight:700; color:var(--bordeaux); line-height:2.15; }
+  .ayah-ref{ font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1px; color:var(--ink-soft); margin-top:10px; text-transform:uppercase; }
+  .ayah-riwaya{ font-family:'Amiri',serif; font-size:0.78rem; color:var(--gold); margin-top:4px; direction:rtl; }
+
+  .step{ margin-bottom:16px; }
+  .step-label{
+    display:flex; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:0.75rem;
+    letter-spacing:1.2px; text-transform:uppercase; color:var(--bordeaux); font-weight:700; margin-bottom:10px;
+  }
+  .step-label i{ color:var(--gold); }
+
+  .repere-ar{ font-size:1.4rem; font-weight:700; text-align:center; line-height:2.1; background:#fdfaf5; border-radius:12px; padding:16px 10px; }
+  .hl{ color:var(--bordeaux); background:rgba(200,164,98,0.28); padding:2px 8px; border-radius:8px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+
+  /* direction:rtl sur les conteneurs flex (pas seulement dir="rtl" sur le texte) : correction
+     validee sur M13-M16. IMPORTANT M17 : pour un SUFFIXE, le mot de base est lu EN PREMIER
+     (donc a DROITE) et le suffixe EN DERNIER (donc a GAUCHE) -- modele M15/M16. Pour un
+     PREFIXE (comme les huruf al-mudara3a), c'est l'inverse : le prefixe est lu EN PREMIER
+     (donc a DROITE) et le coeur du verbe le suit (a GAUCHE) -- modele M13. M17 combine les
+     deux dans .decoupe-triple (prefixe + coeur + suffixe) : ordre DOM [prefixe, coeur, suffixe]
+     avec direction:rtl => prefixe a droite, coeur au milieu, suffixe a gauche. Verifie
+     physiquement avec getBoundingClientRect() a chaque decomposition (section 20 du brief). */
+  .decoupe-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:stretch; direction:rtl; }
+  .decoupe-pair{ display:flex; align-items:center; gap:8px; background:#fdfaf5; border:1px solid var(--hairline); border-radius:12px; padding:10px 14px; direction:rtl; }
+  .decoupe-part{ text-align:center; }
+  .decoupe-part .ar-text{ font-size:1.15rem; font-weight:700; color:var(--bordeaux); display:block; }
+  .decoupe-part.particle .ar-text{ color:var(--white); }
+  .decoupe-part.particle{ background:var(--bordeaux); border-radius:8px; padding:6px 10px; }
+  .decoupe-part small{ display:block; font-size:0.68rem; color:var(--ink-soft); margin-top:3px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+  .decoupe-plus{ color:var(--gold); font-weight:700; font-size:1.1rem; }
+  .suffix-hl{ color:var(--gold); border-bottom:2px solid var(--gold); }
+  .prefix-hl{ color:var(--gold); border-bottom:2px solid var(--gold); }
+
+  .observe-box{
+    background:#fdfaf5; border:1px solid var(--hairline); border-radius:12px; padding:16px;
+    display:flex; flex-wrap:wrap; gap:18px; justify-content:center; align-items:center; direction:rtl;
+  }
+  .observe-item{ text-align:center; }
+  .observe-item .ar-text{ font-size:1.3rem; font-weight:700; color:var(--bordeaux); display:block; }
+  .observe-item .tag{
+    display:inline-block; margin-top:6px; font-size:0.68rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.6px; color:var(--white); background:var(--bordeaux); border-radius:20px; padding:3px 12px;
+  }
+  .observe-item .tag.gold{ background:var(--gold); color:var(--bordeaux-dark); }
+
+  .comprends-box{ background:rgba(200,164,98,0.10); border-left:4px solid var(--gold); border-radius:0 12px 12px 0; padding:14px 18px; }
+  .comprends-fr{ font-size:0.92rem; color:var(--ink); font-weight:500; }
+  .comprends-es{ font-size:0.85rem; color:var(--ink-soft); font-style:italic; margin-top:6px; }
+  .comprends-fr + .comprends-fr{ margin-top:8px; }
+
+  .child-quote{
+    text-align:center; font-family:'Cinzel',serif; font-style:italic; font-size:0.85rem;
+    color:var(--bordeaux); margin:14px 0; padding:10px; border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+  }
+  .bi-es{ display:block; opacity:0.78; font-size:0.85em; margin-top:4px; }
+
+  .code-row{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; align-items:center; margin:14px 0; direction:rtl; }
+  .code-pill{
+    display:flex; align-items:center; gap:8px; background:#fdfaf5; border:1px solid var(--hairline);
+    border-radius:30px; padding:8px 16px;
+  }
+  .code-pill .ar-text{ font-size:1.1rem; font-weight:700; color:var(--bordeaux); }
+  .code-pill i{ color:var(--gold); }
+  .num-badge{
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+    width:30px; height:30px; border-radius:50%; background:var(--bordeaux); color:var(--gold-light);
+    font-family:'Cinzel',serif; font-weight:700; font-size:0.95rem;
+  }
+
+  .retiens-box{
+    text-align:center; margin-top:16px; padding:16px; background:var(--bordeaux); border-radius:14px; color:var(--white);
+  }
+  .retiens-box .ar-text{ font-size:1.4rem; font-weight:700; color:var(--gold); }
+  .retiens-box .retiens-fr{ font-size:0.85rem; margin-top:6px; }
+  .retiens-box .retiens-es{ font-size:0.78rem; opacity:0.8; font-style:italic; margin-top:2px; }
+
+  /* Decomposition a 3 blocs : prefixe + coeur + suffixe (huruf al-mudara3a + racine + marque finale) */
+  .decoupe-triple{ display:flex; align-items:center; gap:8px; justify-content:center; direction:rtl; flex-wrap:wrap; }
+  .triple-part{ background:#fdfaf5; border:1px solid var(--hairline); border-radius:12px; padding:10px 14px; text-align:center; }
+  .triple-part.prefix{ background:var(--gold); border-color:var(--gold); }
+  .triple-part.prefix .ar-text{ color:var(--bordeaux-dark); }
+  .triple-part.core .ar-text{ color:var(--bordeaux); }
+  .triple-part.suffix{ background:var(--bordeaux); border-color:var(--bordeaux); }
+  .triple-part.suffix .ar-text{ color:var(--white); }
+  .triple-part .ar-text{ font-size:1.15rem; font-weight:700; }
+  .triple-part small{ display:block; font-size:0.62rem; margin-top:3px; text-transform:uppercase; letter-spacing:0.4px; opacity:0.85; }
+  .triple-part.prefix small{ color:var(--bordeaux-dark); }
+  .triple-part.core small{ color:var(--ink-soft); }
+  .triple-part.suffix small{ color:var(--gold-light); }
+
+  /* Balance / familles (reprend M16) */
+  .balance-compare{ display:flex; align-items:center; justify-content:center; gap:16px; margin:18px 0; direction:rtl; }
+  .balance-compare .ar-text{ font-size:1.6rem; font-weight:700; }
+  .balance-compare .root-word{ color:var(--bordeaux); }
+  .balance-compare .gabarit-word{ color:var(--gold); }
+  .balance-compare i{ color:var(--ink-soft); font-size:1rem; }
+
+  /* Huruf al-mudara3a : 4 grandes lettres */
+  .huruf-row{ display:flex; justify-content:center; gap:16px; margin:20px 0; direction:rtl; }
+  .huruf-item{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    background:var(--bordeaux); border-radius:16px; padding:16px 14px; min-width:64px;
+    box-shadow:0 8px 20px rgba(93,24,40,0.15);
+  }
+  .huruf-item .ar-text{ font-size:2rem; font-weight:700; color:var(--gold); }
+  .huruf-item .huruf-label{ font-size:0.62rem; color:var(--gold-light); text-transform:uppercase; letter-spacing:0.4px; text-align:center; }
+
+  .warning-box{
+    background:rgba(93,24,40,0.06); border:1.5px dashed var(--bordeaux); border-radius:12px; padding:14px 18px; margin-top:16px;
+  }
+  .warning-box .warn-title{ font-family:'Cinzel',serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--bordeaux); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .warning-box p{ font-size:0.88rem; margin:0; }
+  .warning-box .bi-es{ margin-top:6px; }
+
+  .sub-part-title{
+    font-family:'Cinzel',serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;
+    color:var(--gold); text-align:center; margin:22px 0 12px; padding-top:18px; border-top:1px dashed var(--hairline);
+  }
+  .sub-part-title:first-of-type{ border-top:none; padding-top:0; margin-top:6px; }
+
+  .transition-card{
+    background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%); border-radius:20px;
+    padding:28px 22px; margin-top:26px; color:var(--white); text-align:center; box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .transition-title{ font-size:1.9rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+  .transition-sub{ font-size:0.85rem; color:var(--gold-light); margin-bottom:18px; }
+  .transition-sub .bi-es{ opacity:0.85; }
+
+  .synth-card{
+    background:var(--bordeaux); color:var(--white); border-radius:20px; padding:26px 22px; margin-top:30px;
+    box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .synth-title{ font-family:'Cinzel',serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:var(--gold); text-align:center; margin-bottom:6px; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .synth-title-ar{ text-align:center; font-size:1.3rem; color:var(--gold-light); margin-bottom:18px; }
+  .synth-table{ width:100%; border-collapse:collapse; font-size:0.82rem; }
+  .synth-table th, .synth-table td{ padding:8px 6px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.15); }
+  .synth-table th{ color:var(--gold-light); font-family:'Cinzel',serif; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.6px; }
+  .synth-table td.ar-text{ font-size:1.05rem; font-weight:700; color:var(--gold); }
+  .synth-rule{ text-align:center; margin-top:20px; padding-top:18px; border-top:1px solid rgba(255,255,255,0.15); }
+  .synth-rule .ar-text{ font-size:1.5rem; font-weight:700; color:var(--gold); display:block; }
+  .synth-rule .fr-rule{ font-size:0.82rem; color:var(--gold-light); margin-top:8px; font-style:italic; }
+
+  .final-card{
+    background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%); border-radius:20px;
+    padding:32px 24px; margin-top:30px; color:var(--white); text-align:center; box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .final-question{ font-size:2.4rem; font-weight:700; color:var(--gold); }
+  .final-question-fr{ font-family:'Cinzel',serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; margin-top:6px; }
+  .final-question-es{ font-size:0.82rem; color:var(--gold-light); font-style:italic; margin-top:2px; }
+  .mechanism{ margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.15); display:flex; flex-direction:column; gap:10px; align-items:center; }
+  .mech-step{ display:flex; align-items:center; gap:10px; }
+  .mech-num{ width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.1); border:1px solid var(--gold); color:var(--gold); font-size:0.75rem; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; flex-shrink:0; }
+  .mech-text .ar-text{ color:var(--gold); font-weight:700; font-size:1.05rem; }
+  .mech-text .mech-fr{ font-size:0.82rem; color:var(--white); }
+  .mech-text .mech-es{ font-size:0.76rem; color:var(--gold-light); font-style:italic; }
+  .mechanism i{ color:var(--gold); }
+
+  @media (max-width:600px){
+    .fiche-title-ar{ font-size:1.7rem; }
+    .ayah-ar{ font-size:1.2rem; }
+    .repere-ar{ font-size:1.1rem; }
+    .final-question{ font-size:2rem; }
+    .huruf-item .ar-text{ font-size:1.6rem; }
+    .balance-compare .ar-text{ font-size:1.3rem; }
+    /* Le triple prefixe+coeur+suffixe (3 boites) depassait la largeur disponible a 375px et
+       le suffixe se retrouvait seul sur une 2e ligne (toujours dans le bon ordre de lecture,
+       mais casse l'alignement cote-a-cote voulu) -- on resserre padding/gap et on force les
+       boites a pouvoir retrecir (min-width:0, sinon flexbox ne les compresse pas sous leur
+       contenu minimal) sans reduire la taille de l'arabe lui-meme (priorite : lisibilite). */
+    .decoupe-triple{ gap:4px; flex-wrap:nowrap; }
+    .triple-part{ padding:8px 5px; min-width:0; flex:1 1 0; }
+    .triple-part small{ font-size:0.54rem; line-height:1.25; word-break:break-word; }
+  }
+</style>
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  const _db = getFirestore(_app);
+  // Verrou Partie 2 (fiches Bibliotheque M13 a M18) : reutilise EXACTEMENT la meme
+  // source d'autorisation que module17.html -- meme ordre de verification :
+  // 1) profs/{uid} (acces enseignant illimite)
+  // 2) eleves/{uid}.partie2Debloquee (deverrouillage individuel)
+  // Seule difference avec module17.html : redirection vers bibliotheque.html
+  // (et non modules.html) en cas de refus, car cette fiche est ouverte depuis la Bibliotheque.
+  onAuthStateChanged(_auth, async (user) => {
+    if (!user) { window.location.href = '../../auth.html'; return; }
+    try {
+      const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+      if (profSnap.exists()) {
+        document.body.style.visibility = 'visible';
+        return;
+      }
+    } catch (eProf) {
+      console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+    }
+    try {
+      const snap = await getDoc(doc(_db, 'eleves', user.uid));
+      const autorise = snap.exists() && snap.data().partie2Debloquee === true;
+      if (!autorise) { window.location.href = '../../bibliotheque.html'; return; }
+      document.body.style.visibility = 'visible';
+    } catch (e) {
+      console.error('Verification acces Partie 2 impossible :', e);
+      window.location.href = '../../bibliotheque.html';
+    }
+  });
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../../bibliotheque.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Bibliothèque / Biblioteca</a>
+
+  <div class="fiche-header">
+    <a href="../../modules.html" class="fiche-home-icon" aria-label="Retour au menu / Volver al menú" title="Retour au menu / Volver al menú">
+      <i class="fa-solid fa-house"></i>
+    </a>
+    <div class="fiche-brand">دار الكلمة · Module 17</div>
+    <div class="fiche-title-ar ar-text">اَلْفِعْلُ الْمُضَارِعُ</div>
+    <div class="fiche-title-fr">Le Verbe au Présent</div>
+    <div class="fiche-title-es">El Verbo en Presente</div>
+    <p class="fiche-intro">
+      Au passé, j'observais surtout la fin du verbe. Au présent, j'observe le début ET la fin — pour répondre : مَنْ يَفْعَلُ ؟
+      <span class="es-line">En pasado, observaba sobre todo el final del verbo. En presente, observo el principio Y el final — para responder: مَنْ يَفْعَلُ ؟</span>
+    </p>
+  </div>
+
+  <!-- ═══════════ PARTIE 1 — يَـ → هُوَ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">1</span><span class="verse-particle-label ar-text">يَـ ← هُوَ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">كُتِبَ عَلَيْكُمُ اُ۬لْقِتَالُ وَهُوَ كُرْهٞ لَّكُمْۖ وَعَس۪ىٰٓ أَن تَكْرَهُواْ شَئْاٗ وَهُوَ خَيْرٞ لَّكُمْۖ وَعَس۪ىٰٓ أَن تُحِبُّواْ شَئْاٗ وَهُوَ شَرّٞ لَّكُمْۖ وَاللَّهُ يَعْلَمُۖ وَأَنتُمْ لَا تَعْلَمُونَۖ</div>
+      <div class="ayah-ref">Sourate Al-Baqara 2:214</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">...وَاللَّهُ <span class="hl">يَعْلَمُ</span>ۖ وَأَنتُمْ لَا تَعْلَمُونَۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-triple">
+        <div class="triple-part prefix"><span class="ar-text">يَـ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">يَـ</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item"><span class="ar-text">اَللَّهُ / هُوَ</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">Dans cette āyah, يَعْلَمُ signifie « Il sait » (Allah). Le début يَـ me donne un premier indice sur celui qui réalise l'action.</p>
+        <p class="comprends-es">En esta āyah, يَعْلَمُ significa « Él sabe » (Allah). El principio يَـ me da una primera pista sobre quien realiza la acción.</p>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">يَـ ← هُوَ</div>
+      <div class="retiens-fr">dans cette forme étudiée</div>
+      <div class="retiens-es">en esta forma estudiada</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 2 — أَ → أَنَا ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">2</span><span class="verse-particle-label ar-text">أَ ← أَنَا</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">وَإِذْ قَالَ رَبُّكَ لِلْمَلَٰٓئِكَةِ إِنِّے جَاعِلٞ فِے اِ۬لَارْضِ خَلِيفَةٗۖ قَالُوٓاْ أَتَجْعَلُ فِيهَا مَنْ يُّفْسِدُ فِيهَا وَيَسْفِكُ اُ۬لدِّمَآءَ وَنَحْنُ نُسَبِّحُ بِحَمْدِكَ وَنُقَدِّسُ لَكَۖ قَالَ إِنِّيَ أَعْلَمُ مَا لَا تَعْلَمُونَۖ</div>
+      <div class="ayah-ref">Sourate Al-Baqara 2:29</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">...قَالَ إِنِّيَ <span class="hl">أَعْلَمُ</span> مَا لَا تَعْلَمُونَۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-triple">
+        <div class="triple-part prefix"><span class="ar-text">أَ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">أَ</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item"><span class="ar-text">أَنَا</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">أَعْلَمُ → je sais</p>
+        <p class="comprends-es">أَعْلَمُ → yo sé</p>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">أَ... ← أَنَا</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 3 — نَـ → نَحْنُ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">3</span><span class="verse-particle-label ar-text">نَـ ← نَحْنُ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">قَدْ نَعْلَمُ إِنَّهُۥ لَيُحْزِنُكَ اَ۬لذِے يَقُولُونَۖ فَإِنَّهُمْ لَا يُكْذِبُونَكَۖ وَلَٰكِنَّ اَ۬لظَّٰلِمِينَ بِـَٔايَٰتِ اِ۬للَّهِ يَجْحَدُونَۖ</div>
+      <div class="ayah-ref">Sourate Al-Anʿām 6:34</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">قَدْ <span class="hl">نَعْلَمُ</span> إِنَّهُۥ لَيُحْزِنُكَ اَ۬لذِے يَقُولُونَۖ...</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-triple">
+        <div class="triple-part prefix"><span class="ar-text">نَـ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">نَـ</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item"><span class="ar-text">نَحْنُ</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">نَعْلَمُ → nous savons</p>
+        <p class="comprends-es">نَعْلَمُ → sabemos</p>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">نَـ ← نَحْنُ</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 4 — تَـ → أَنْتَ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">4</span><span class="verse-particle-label ar-text">تَـ ← أَنْتَ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">...اِن كُنتُ قُلْتُهُۥ فَقَدْ عَلِمْتَهُۥۖ تَعْلَمُ مَا فِے نَفْسِے وَلَآ أَعْلَمُ مَا فِے نَفْسِكَۖ إِنَّكَ أَنتَ عَلَّٰمُ اُ۬لْغُيُوبِۖ</div>
+      <div class="ayah-ref">Sourate Al-Māʾida 5:118</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">...<span class="hl">تَعْلَمُ</span> مَا فِے نَفْسِے وَلَآ <span class="hl">أَعْلَمُ</span> مَا فِے نَفْسِكَ...</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-triple">
+        <div class="triple-part prefix"><span class="ar-text">تَـ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+      </div>
+      <div class="decoupe-triple" style="margin-top:10px;">
+        <div class="triple-part prefix"><span class="ar-text">أَ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <p class="child-quote">Même cœur : ع ل م — mais le début change.<span class="bi-es">Mismo corazón: ع ل م — pero el principio cambia.</span></p>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">تَـ</span></div>
+        <div class="observe-item" style="font-size:0.75rem;color:var(--ink-soft);">vs · vs</div>
+        <div class="observe-item"><span class="ar-text">أَ</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">تَعْلَمُ → tu sais. أَعْلَمُ → je sais. Ici, تَـ → أَنْتَ et أَ → أَنَا, dans le contexte de cette āyah (Jésus s'adresse à Dieu).</p>
+        <p class="comprends-es">تَعْلَمُ → tú sabes. أَعْلَمُ → yo sé. Aquí, تَـ → أَنْتَ y أَ → أَنَا, en el contexto de esta āyah (Jesús se dirige a Dios).</p>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">تَـ ← أَنْتَ &nbsp;/&nbsp; أَ ← أَنَا</div>
+      <div class="retiens-fr">deux débuts différents, deux personnes différentes</div>
+      <div class="retiens-es">dos principios diferentes, dos personas diferentes</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PREMIER GRAND DÉCLIC — حُرُوفُ الْمُضَارَعَةِ ═══════════ -->
+  <div class="transition-card">
+    <div class="transition-title ar-text">حُرُوفُ الْمُضَارَعَةِ</div>
+    <div class="transition-sub">Les lettres du présent<span class="bi-es">Las letras del presente</span></div>
+    <div class="huruf-row">
+      <div class="huruf-item"><span class="ar-text">أ</span><span class="huruf-label">أَنَا</span></div>
+      <div class="huruf-item"><span class="ar-text">ن</span><span class="huruf-label">نَحْنُ</span></div>
+      <div class="huruf-item"><span class="ar-text">ي</span><span class="huruf-label">هُوَ</span></div>
+      <div class="huruf-item"><span class="ar-text">ت</span><span class="huruf-label">أَنْتَ / هِيَ</span></div>
+    </div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">Ces lettres apparaissent au début des formes du verbe au présent et m'aident à reconnaître la personne.<span class="bi-es">Estas letras aparecen al principio de las formas del verbo en presente y me ayudan a reconocer la persona.</span></p>
+    <div class="warning-box" style="background:rgba(255,255,255,0.06); border-color:var(--gold);">
+      <div class="warn-title" style="color:var(--gold);"><i class="fa-solid fa-triangle-exclamation"></i> Attention · Atención</div>
+      <p style="color:var(--white);">تَـ ne suffit pas toujours : أَنْتَ → تَفْعَلُ, mais هِيَ → تَفْعَلُ aussi — même forme !</p>
+      <span class="bi-es" style="color:var(--gold-light);">تَـ no siempre es suficiente: أَنْتَ → تَفْعَلُ, ¡pero هِيَ → تَفْعَلُ también — misma forma!</span>
+    </div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold); font-weight:700;">JE NE DEVINE PAS. J'OBSERVE.<span class="bi-es" style="color:var(--gold-light); font-weight:400;">NO ADIVINO. OBSERVO.</span></p>
+  </div>
+
+  <!-- ═══════════ PARTIE 5 — تَـ ... ـونَ → أَنْتُمْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">5</span><span class="verse-particle-label ar-text">تَـ...ـونَ ← أَنْتُمْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">...قَالَ إِنِّيَ أَعْلَمُ مَا لَا تَعْلَمُونَۖ</div>
+      <div class="ayah-ref">Sourate Al-Baqara 2:29 — même āyah que la partie 2 · misma āyah que la parte 2</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">...قَالَ إِنِّيَ أَعْلَمُ مَا لَا <span class="hl">تَعْلَمُونَ</span>ۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <p class="child-quote">Le préfixe est au début réel du mot (à droite). La terminaison est à la fin réelle (à gauche).<span class="bi-es">El prefijo está al principio real de la palabra (a la derecha). La terminación está al final real (a la izquierda).</span></p>
+      <div class="decoupe-triple">
+        <div class="triple-part prefix"><span class="ar-text">تَـ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+        <div class="triple-part suffix"><span class="ar-text">ـونَ</span><small>fin · final</small></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">تَـ</span><span class="tag">début · principio</span></div>
+        <div class="observe-item"><span class="ar-text">ـونَ</span><span class="tag gold">fin · final</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">Le début du verbe ne suffit pas toujours. Sa fin me donne aussi des informations.</p>
+        <p class="comprends-es">El principio del verbo no siempre es suficiente. Su final también me da información.</p>
+      </div>
+      <p class="child-quote">تَـ ... ـونَ ← أَنْتُمْ<span class="bi-es">dans cette construction · en esta construcción</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 6 — يَـ ... ـونَ → هُمْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">6</span><span class="verse-particle-label ar-text">يَـ...ـونَ ← هُمْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">وَعْدَ اَ۬للَّهِ لَا يُخْلِفُ اُ۬للَّهُ وَعْدَهُۥۖ وَلَٰكِنَّ أَكْثَرَ اَ۬لنَّاسِ لَا يَعْلَمُونَۖ</div>
+      <div class="ayah-ref">Sourate Ar-Rūm 30:5</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">وَعْدَ اَ۬للَّهِ لَا يُخْلِفُ اُ۬للَّهُ وَعْدَهُۥۖ وَلَٰكِنَّ أَكْثَرَ اَ۬لنَّاسِ لَا <span class="hl">يَعْلَمُونَ</span>ۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-triple">
+        <div class="triple-part prefix"><span class="ar-text">يَـ</span><small>début · principio</small></div>
+        <div class="triple-part core"><span class="ar-text">عْلَمُ</span><small>cœur · corazón</small></div>
+        <div class="triple-part suffix"><span class="ar-text">ـونَ</span><small>fin · final</small></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-code-compare"></i> Je compare · Comparo</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">تَعْلَمُونَ</span></div>
+        <div class="observe-item" style="font-size:0.75rem;color:var(--ink-soft);">vs · vs</div>
+        <div class="observe-item"><span class="ar-text">يَعْلَمُونَ</span></div>
+      </div>
+      <p class="child-quote">Même fin : ـونَ. Mais début différent : تَـ vs يَـ.<span class="bi-es">Misma terminación: ـونَ. Pero principio diferente: تَـ vs يَـ.</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Le déclic · El clic</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">تَـ ... ـونَ → أَنْتُمْ. يَـ ... ـونَ → هُمْ.</p>
+        <p class="comprends-es">تَـ ... ـونَ → أَنْتُمْ. يَـ ... ـونَ → هُمْ.</p>
+      </div>
+      <p class="child-quote">Je dois regarder les deux côtés du verbe.<span class="bi-es">Tengo que observar los dos lados del verbo.</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ GRANDE CARTE — الْبِدَايَةُ + النِّهَايَةُ ═══════════ -->
+  <div class="synth-card">
+    <div class="synth-title"><i class="fa-solid fa-brain"></i> Le début + la fin · El principio + el final</div>
+    <div class="synth-title-ar ar-text">اَلْبِدَايَةُ + النِّهَايَةُ</div>
+    <table class="synth-table" dir="rtl">
+      <thead><tr><th>Pronom · Pronombre</th><th>Début · Principio</th><th>Fin · Final</th></tr></thead>
+      <tbody>
+        <tr><td class="ar-text">أَنَا</td><td class="ar-text">أَ...</td><td class="ar-text">ـُ</td></tr>
+        <tr><td class="ar-text">نَحْنُ</td><td class="ar-text">نَـ...</td><td class="ar-text">ـُ</td></tr>
+        <tr><td class="ar-text">أَنْتَ</td><td class="ar-text">تَـ...</td><td class="ar-text">ـُ</td></tr>
+        <tr><td class="ar-text">أَنْتِ</td><td class="ar-text">تَـ...</td><td class="ar-text">ـِينَ</td></tr>
+        <tr><td class="ar-text">أَنْتُمَا</td><td class="ar-text">تَـ...</td><td class="ar-text">ـَانِ</td></tr>
+        <tr><td class="ar-text">أَنْتُمْ</td><td class="ar-text">تَـ...</td><td class="ar-text">ـُونَ</td></tr>
+        <tr><td class="ar-text">أَنْتُنَّ</td><td class="ar-text">تَـ...</td><td class="ar-text">ـْنَ</td></tr>
+        <tr><td class="ar-text">هُوَ</td><td class="ar-text">يَـ...</td><td class="ar-text">ـُ</td></tr>
+        <tr><td class="ar-text">هِيَ</td><td class="ar-text">تَـ...</td><td class="ar-text">ـُ</td></tr>
+        <tr><td class="ar-text">هُمَا ♂</td><td class="ar-text">يَـ...</td><td class="ar-text">ـَانِ</td></tr>
+        <tr><td class="ar-text">هُمَا ♀</td><td class="ar-text">تَـ...</td><td class="ar-text">ـَانِ</td></tr>
+        <tr><td class="ar-text">هُمْ</td><td class="ar-text">يَـ...</td><td class="ar-text">ـُونَ</td></tr>
+        <tr><td class="ar-text">هُنَّ</td><td class="ar-text">يَـ...</td><td class="ar-text">ـْنَ</td></tr>
+      </tbody>
+    </table>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">Cette carte est une synthèse grammaticale — elle n'a pas besoin d'une āyah différente pour chaque ligne.<span class="bi-es">Esta ficha es una síntesis gramatical — no necesita una āyah diferente para cada línea.</span></p>
+  </div>
+
+  <!-- ═══════════ CARTE COMPLÈTE DU مُضَارِع ═══════════ -->
+  <div class="synth-card">
+    <div class="synth-title"><i class="fa-solid fa-brain"></i> Le gabarit complet · El modelo completo</div>
+    <div class="synth-title-ar ar-text">فَعَلَ ← يَفْعَلُ</div>
+    <table class="synth-table">
+      <thead><tr><th>Pronom · Pronombre</th><th class="ar-text" style="font-size:0.95rem;">يَفْعَلُ</th></tr></thead>
+      <tbody>
+        <tr><td class="ar-text">أَنَا</td><td class="ar-text">أَفْعَلُ</td></tr>
+        <tr><td class="ar-text">نَحْنُ</td><td class="ar-text">نَفْعَلُ</td></tr>
+        <tr><td class="ar-text">أَنْتَ</td><td class="ar-text">تَفْعَلُ</td></tr>
+        <tr><td class="ar-text">أَنْتِ</td><td class="ar-text">تَفْعَلِينَ</td></tr>
+        <tr><td class="ar-text">أَنْتُمَا</td><td class="ar-text">تَفْعَلَانِ</td></tr>
+        <tr><td class="ar-text">أَنْتُمْ</td><td class="ar-text">تَفْعَلُونَ</td></tr>
+        <tr><td class="ar-text">أَنْتُنَّ</td><td class="ar-text">تَفْعَلْنَ</td></tr>
+        <tr><td class="ar-text">هُوَ</td><td class="ar-text">يَفْعَلُ</td></tr>
+        <tr><td class="ar-text">هِيَ</td><td class="ar-text">تَفْعَلُ</td></tr>
+        <tr><td class="ar-text">هُمَا ♂</td><td class="ar-text">يَفْعَلَانِ</td></tr>
+        <tr><td class="ar-text">هُمَا ♀</td><td class="ar-text">تَفْعَلَانِ</td></tr>
+        <tr><td class="ar-text">هُمْ</td><td class="ar-text">يَفْعَلُونَ</td></tr>
+        <tr><td class="ar-text">هُنَّ</td><td class="ar-text">يَفْعَلْنَ</td></tr>
+      </tbody>
+    </table>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">فعل est ici un GABARIT grammatical, pas une citation coranique.<span class="bi-es">فعل es aquí un MODELO gramatical, no una cita coránica.</span></p>
+  </div>
+
+  <!-- ═══════════ LIEN M16 → M17 ═══════════ -->
+  <div class="transition-card">
+    <div class="sub-part-title" style="border-top:none; margin-top:0; color:var(--gold-light);">M16 · اَلْفِعْلُ الْمَاضِي</div>
+    <div class="transition-sub" style="margin-bottom:6px;">PASSÉ · PASADO</div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--white); margin-top:0;">Au passé, les marques personnelles apparaissent notamment à la fin : فَعَلْتُ (ـتُ → أَنَا), فَعَلْنَا (ـنَا → نَحْنُ).<span class="bi-es" style="color:var(--gold-light);">En pasado, las marcas personales aparecen sobre todo al final: فَعَلْتُ (ـتُ → أَنَا), فَعَلْنَا (ـنَا → نَحْنُ).</span></p>
+    <div class="sub-part-title" style="color:var(--gold-light);">M17 · اَلْفِعْلُ الْمُضَارِعُ</div>
+    <div class="transition-sub" style="margin-bottom:6px;">PRÉSENT · PRESENTE</div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--white); margin-top:0;">Au présent : أَفْعَلُ (أَ... → أَنَا), نَفْعَلُ (نَـ... → نَحْنُ).<span class="bi-es" style="color:var(--gold-light);">En presente: أَفْعَلُ (أَ... → أَنَا), نَفْعَلُ (نَـ... → نَحْنُ).</span></p>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold); font-weight:700; margin-top:18px;">Au passé et au présent, je n'observe pas les mêmes indices au même endroit.<span class="bi-es" style="color:var(--gold-light); font-weight:400;">En pasado y en presente, no observo las mismas pistas en el mismo lugar.</span></p>
+  </div>
+
+  <!-- ═══════════ LES FAMILLES DU PRÉSENT ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num"><i class="fa-solid fa-layer-group" style="font-size:0.9rem;"></i></span><span class="verse-particle-label ar-text">عَائِلَاتُ الْمُضَارِعِ</span>
+    </div>
+    <p class="child-quote">Trois familles, trois voyelles, trois couples réels du Coran.<span class="bi-es">Tres familias, tres vocales, tres parejas reales del Corán.</span></p>
+
+    <div class="sub-part-title">فَعَلَ ← يَفْعُلُ</div>
+    <div class="ayah-block">
+      <div class="ayah-ar">وَدَخَلَ مَعَهُ اُ۬لسِّجْنَ فَتَيَٰنِۖ</div>
+      <div class="ayah-ref">Sourate Yūsuf 12:36</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+    <div class="ayah-block">
+      <div class="ayah-ar">وَرَأَيْتَ اَ۬لنَّاسَ يَدْخُلُونَ فِے دِينِ اِ۬للَّهِ أَفْوَاجاٗ</div>
+      <div class="ayah-ref">Sourate An-Naṣr 110:2</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+    <div class="balance-compare">
+      <span class="ar-text root-word hl">دَخَلَ</span>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span class="ar-text gabarit-word hl">يَدْخُلُ</span>
+    </div>
+    <p class="child-quote">دَخَلَ (il est entré) → يَدْخُلُونَ (ils entrent) — la voyelle du cœur devient ـُـ.<span class="bi-es">دَخَلَ (entró) → يَدْخُلُونَ (entran) — la vocal del corazón se vuelve ـُـ.</span></p>
+
+    <div class="sub-part-title">فَعَلَ ← يَفْعِلُ</div>
+    <div class="ayah-block">
+      <div class="ayah-ar">اَلَمْ تَرَ كَيْفَ ضَرَبَ اَ۬للَّهُ مَثَلاٗ كَلِمَةٗ طَيِّبَةٗ كَشَجَرَةٖ طَيِّبَةٍ اَصْلُهَا ثَابِتٞ وَفَرْعُهَا فِے اِ۬لسَّمَآءِ</div>
+      <div class="ayah-ref">Sourate Ibrāhīm 14:26</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+    <div class="ayah-block">
+      <div class="ayah-ar">تُوتِےٓ أُكْلَهَا كُلَّ حِينِۢ بِإِذْنِ رَبِّهَاۖ وَيَضْرِبُ اُ۬للَّهُ اُ۬لَامْثَالَ لِلنَّاسِ لَعَلَّهُمْ يَتَذَكَّرُونَۖ</div>
+      <div class="ayah-ref">Sourate Ibrāhīm 14:27 — suite de la même parabole · continuación de la misma parábola</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+    <div class="balance-compare">
+      <span class="ar-text root-word hl">ضَرَبَ</span>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span class="ar-text gabarit-word hl">يَضْرِبُ</span>
+    </div>
+    <p class="child-quote">ضَرَبَ (Il a proposé) → يَضْرِبُ (Il propose) — même sujet (اللَّهُ), deux āyāt qui se suivent.<span class="bi-es">ضَرَبَ (Él propuso) → يَضْرِبُ (Él propone) — mismo sujeto (اللَّهُ), dos āyāt seguidas.</span></p>
+
+    <div class="sub-part-title">فَعَلَ ← يَفْعَلُ</div>
+    <div class="ayah-block">
+      <div class="ayah-ar">إِنَّا فَتَحْنَا لَكَ فَتْحاٗ مُّبِيناٗ</div>
+      <div class="ayah-ref">Sourate Al-Fatḥ 48:1</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+    <div class="ayah-block">
+      <div class="ayah-ar">مَّا يَفْتَحِ اِ۬للَّهُ لِلنَّاسِ مِن رَّحْمَةٖ فَلَا مُمْسِكَ لَهَاۖ</div>
+      <div class="ayah-ref">Sourate Fāṭir 35:2</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+    <div class="balance-compare">
+      <span class="ar-text root-word hl">فَتَحْنَا</span>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span class="ar-text gabarit-word hl">يَفْتَحِ</span>
+    </div>
+    <p class="child-quote">فَتَحْنَا (Nous avons ouvert) et يَفْتَحِ (Il ouvre) : même racine ف ت ح, dans deux āyāt différentes.<span class="bi-es">فَتَحْنَا (Abrimos) y يَفْتَحِ (Él abre): misma raíz ف ت ح, en dos āyāt diferentes.</span></p>
+
+    <div class="warning-box">
+      <div class="warn-title"><i class="fa-solid fa-triangle-exclamation"></i> Important · Importante</div>
+      <p>La voyelle du présent ne se devine pas toujours à partir du passé. J'apprends le verbe avec son passé ET son présent.</p>
+      <span class="bi-es">La vocal del presente no siempre se puede adivinar a partir del pasado. Aprendo el verbo con su pasado Y su presente.</span>
+    </div>
+    <div class="code-row">
+      <div class="code-pill"><span class="ar-text">الْمَاضِي</span><i class="fa-solid fa-arrow-right-arrow-left"></i><span class="ar-text">الْمُضَارِعُ</span></div>
+    </div>
+    <p class="child-quote" style="border:none;">PASSÉ ↔ PRÉSENT<span class="bi-es">PASADO ↔ PRESENTE</span></p>
+  </div>
+
+  <!-- ═══════════ CARTE FINALE — MÉTHODE DAK ═══════════ -->
+  <div class="final-card">
+    <div class="mechanism" style="border-top:none; padding-top:0; margin-top:0;">
+      <div class="mech-step">
+        <span class="mech-num">1</span>
+        <div class="mech-text">
+          <span class="ar-text">أَجِدُ</span> — JE TROUVE / ENCUENTRO
+          <div class="mech-fr">Je trouve le verbe dans l'āyah.</div>
+          <div class="mech-es">Encuentro el verbo en la āyah.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">2</span>
+        <div class="mech-text">
+          <span class="ar-text">أَزِنُ</span> — JE PÈSE / PESO
+          <div class="mech-fr">Je retrouve ses lettres et son modèle.</div>
+          <div class="mech-es">Encuentro sus letras y su modelo.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">3</span>
+        <div class="mech-text">
+          <span class="ar-text">أُرَاقِبُ</span> — J'OBSERVE / OBSERVO
+          <div class="mech-fr">الْبِدَايَةَ + النِّهَايَةَ — le début + la fin.</div>
+          <div class="mech-es">El principio + el final.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">4</span>
+        <div class="mech-text">
+          <span class="ar-text">أَسْأَلُ</span> — JE DEMANDE / PREGUNTO
+          <div class="mech-fr">مَنْ يَفْعَلُ ؟ — Qui fait l'action ?</div>
+          <div class="mech-es">¿Quién realiza la acción?</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">5</span>
+        <div class="mech-text">
+          <span class="ar-text">أَفْهَمُ</span> — JE COMPRENDS / COMPRENDO
+        </div>
+      </div>
+    </div>
+    <div class="final-question ar-text" style="margin-top:26px;">مَنْ يَفْعَلُ؟</div>
+    <div class="final-question-fr">Qui fait l'action ?</div>
+    <div class="final-question-es">¿Quién realiza la acción?</div>
+  </div>
+
+</div>
+</body>
+</html>
