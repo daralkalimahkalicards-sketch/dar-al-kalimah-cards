@@ -158,6 +158,19 @@
       "partie": 2,
       "icone": "fa-solid fa-user",
       "lien": "fiches/partie2/fiche-m15-pronoms.html"
+    },
+    {
+      "id": "fiche-m16-passe",
+      "titre_fr": "Le Verbe au Passé",
+      "sous_titre_fr": "Al-Fi'l Al-Mādī — Module 16",
+      "titre_ar": "اَلْفِعْلُ الْمَاضِي",
+      "description_fr": "8 āyāt (rīwaya Warsh) pour apprendre à décomposer le verbe au passé et reconnaître qui a fait l'action.",
+      "description_es": "8 āyāt (riwaya Warsh) para aprender a descomponer el verbo en pasado y reconocer quién hizo la acción.",
+      "type": "fiche",
+      "public": "tous",
+      "partie": 2,
+      "icone": "fa-solid fa-scale-balanced",
+      "lien": "fiches/partie2/fiche-m16-passe.html"
     }
   ]
 }
