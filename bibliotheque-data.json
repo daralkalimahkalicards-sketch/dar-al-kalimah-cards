@@ -132,6 +132,19 @@
       "partie": 2,
       "icone": "fa-solid fa-ban",
       "lien": "fiches/partie2/fiche-m13-negation.html"
+    },
+    {
+      "id": "fiche-m14-accords",
+      "titre_fr": "Le Nom et son Adjectif",
+      "sous_titre_fr": "An-Na't wal-Man'out — Module 14",
+      "titre_ar": "اَلنَّعْتُ وَالمَنْعُوتُ",
+      "description_fr": "7 notions retrouvées dans le Coran : le nom et son adjectif, masculin/féminin, singulier/duel/pluriel, défini/indéfini.",
+      "description_es": "7 nociones encontradas en el Corán: el nombre y su adjetivo, masculino/femenino, singular/dual/plural, definido/indefinido.",
+      "type": "fiche",
+      "public": "tous",
+      "partie": 2,
+      "icone": "fa-solid fa-link",
+      "lien": "fiches/partie2/fiche-m14-accords.html"
     }
   ]
 }
