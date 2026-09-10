@@ -105,6 +105,15 @@
             color: var(--text-muted); font-size: 0.95rem; text-align: center; padding: 40px 20px;
         }
 
+        /* Partie 2 (fiches M13-M18) : meme langage visuel que les cartes verrouillees de modules.html */
+        .resource-card.locked { cursor: not-allowed; border: 2px dashed rgba(200, 164, 98, 0.5); box-shadow: none; }
+        .resource-card.locked:hover { transform: none; box-shadow: none; border-color: rgba(200, 164, 98, 0.5); }
+        .resource-card.locked .icon-wrapper { opacity: 0.55; }
+        .resource-badge.badge-partie2 { background: var(--burgundy); color: var(--gold-light); border-color: var(--burgundy); }
+        .resource-status-locked { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+        .resource-status-locked .es-line { display: block; font-style: italic; opacity: 0.85; margin-top: 3px; }
+        .resource-card.locked .btn-open { background: var(--text-muted); cursor: not-allowed; }
+
         @media (max-width: 600px) {
             .header-container { padding: 30px 20px; }
             .btn-back-home { position: static; margin-bottom: 20px; display: inline-flex; justify-content: center; }
@@ -136,6 +145,65 @@
             tous: 'Tous / Todos'
         };
 
+        // Cartes Partie 2 (fiches M13-M18) rendues verrouillees par defaut : reference
+        // conservee ici pour le deverrouillage dynamique une fois l'autorisation Firebase
+        // verifiee. Cle = r.id, valeur = { card, lien }.
+        const partie2Cards = {};
+        let partie2Autorise = false;
+
+        function renderLockedPartie2(card, r) {
+            card.classList.add('locked');
+            card.href = 'javascript:void(0);';
+            card.setAttribute('onclick', 'return false;');
+            const titreAr = r.titre_ar ? `<div class="resource-title-ar ar-text">${r.titre_ar}</div>` : '';
+            card.innerHTML = `
+                <div class="resource-badge badge-partie2">Partie 2</div>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-lock visual-main"></i>
+                </div>
+                ${titreAr}
+                <div class="resource-title-fr">${r.titre_fr || ''}</div>
+                <div class="resource-subtitle-fr">${r.sous_titre_fr || ''}</div>
+                <div class="resource-status-locked">
+                    Fiche réservée — débloquée individuellement par l'enseignante.
+                    <span class="es-line">Ficha reservada — desbloqueada individualmente por la profesora.</span>
+                </div>
+                <button class="btn-open">Réservé / Reservado <i class="fa-solid fa-lock"></i></button>
+            `;
+        }
+
+        function unlockPartie2Card(id) {
+            const entry = partie2Cards[id];
+            if (!entry) return;
+            const { card, r } = entry;
+            const isExternal = /^https?:\/\//i.test(r.lien || '');
+            card.classList.remove('locked');
+            card.removeAttribute('onclick');
+            card.href = r.lien || '#';
+            if (isExternal) {
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+            }
+            const titreAr = r.titre_ar ? `<div class="resource-title-ar ar-text">${r.titre_ar}</div>` : '';
+            card.innerHTML = `
+                <div class="resource-badge badge-partie2">Partie 2</div>
+                <div class="icon-wrapper">
+                    <i class="${r.icone || 'fa-solid fa-book'} visual-main"></i>
+                </div>
+                ${titreAr}
+                <div class="resource-title-fr">${r.titre_fr || ''}</div>
+                <div class="resource-subtitle-fr">${r.sous_titre_fr || ''}</div>
+                <p class="resource-desc-fr">${r.description_fr || ''}</p>
+                <p class="resource-desc-es">${r.description_es || ''}</p>
+                <button class="btn-open">Ouvrir / Abrir <i class="fa-solid ${isExternal ? 'fa-arrow-up-right-from-square' : 'fa-chevron-right'}"></i></button>
+            `;
+        }
+
+        function unlockAllPartie2Cards() {
+            partie2Autorise = true;
+            Object.keys(partie2Cards).forEach(unlockPartie2Card);
+        }
+
         async function loadBibliotheque() {
             const grid = document.getElementById('resource-grid');
             try {
@@ -151,6 +219,7 @@
 
                 grid.innerHTML = '';
                 resources.forEach((r) => {
+                    const isPartie2 = r.partie === 2;
                     const isExternal = /^https?:\/\//i.test(r.lien || '');
                     const card = document.createElement('a');
                     card.className = 'resource-card';
@@ -158,6 +227,14 @@
                     if (isExternal) {
                         card.target = '_blank';
                         card.rel = 'noopener noreferrer';
+                    }
+
+                    if (isPartie2) {
+                        renderLockedPartie2(card, r);
+                        partie2Cards[r.id] = { card, r };
+                        grid.appendChild(card);
+                        if (partie2Autorise) unlockPartie2Card(r.id); // autorisation deja connue avant que la carte n'existe
+                        return;
                     }
 
                     const badgeLabel = PUBLIC_LABELS[r.public] || '';
@@ -184,6 +261,50 @@
         }
 
         document.addEventListener('DOMContentLoaded', loadBibliotheque);
+    </script>
+    <script type="module">
+        import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        const _cfg = {
+            apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+            authDomain: "dar-al-kalimah.firebaseapp.com",
+            projectId: "dar-al-kalimah",
+            storageBucket: "dar-al-kalimah.firebasestorage.app",
+            messagingSenderId: "472629258",
+            appId: "1:472629258:web:29b755d38efe89421f1ff3"
+        };
+        const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+        const _auth = getAuth(_app);
+        const _db = getFirestore(_app);
+
+        // Deverrouillage des fiches Partie 2 (M13-M18) dans la Bibliotheque : reutilise
+        // EXACTEMENT la meme source d'autorisation que modules.html -- meme ordre de
+        // verification : 1) profs/{uid} 2) eleves/{uid}.partie2Debloquee. Aucun gate
+        // global sur cette page : les ressources Partie 1 restent toujours accessibles ;
+        // seules les cartes Partie 2 restent verrouillees si non autorise.
+        onAuthStateChanged(_auth, async (user) => {
+            if (!user) return; // pas connecte : les fiches Partie 2 restent simplement verrouillees
+
+            try {
+                const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+                if (profSnap.exists()) {
+                    unlockAllPartie2Cards();
+                    return;
+                }
+            } catch (eProf) {
+                console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+            }
+
+            try {
+                const eleveSnap = await getDoc(doc(_db, 'eleves', user.uid));
+                if (eleveSnap.exists() && eleveSnap.data().partie2Debloquee === true) {
+                    unlockAllPartie2Cards();
+                }
+            } catch (eP2) {
+                console.error('Verification acces Partie 2 impossible :', eP2);
+            }
+        });
     </script>
 <script>
 if ('serviceWorker' in navigator) {

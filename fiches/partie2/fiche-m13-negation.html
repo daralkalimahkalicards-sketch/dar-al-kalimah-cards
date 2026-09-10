@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>Fiche — La Négation (Module 13)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --bordeaux:#5D1828;
+    --bordeaux-dark:#3a0f19;
+    --gold:#C8A462;
+    --gold-light:#dfc28b;
+    --white:#FFFFFF;
+    --ink:#2a1810;
+    --ink-soft:#7a6552;
+    --hairline:rgba(93,24,40,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; visibility:hidden;
+    background:#fdfbf8; color:var(--ink);
+    font-family:'Montserrat',sans-serif; line-height:1.6;
+    padding:0 0 60px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+      radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+  }
+  .ar-text{ direction:rtl; unicode-bidi:isolate; font-family:'Amiri', serif; }
+  .wrap{ max-width:820px; margin:0 auto; padding:24px 16px 0; }
+
+  .btn-back{
+    display:inline-flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid var(--gold); color:var(--bordeaux);
+    padding:8px 18px; border-radius:25px; font-size:0.8rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:1px; text-decoration:none; margin-bottom:22px;
+  }
+  .btn-back:hover{ background:rgba(200,164,98,0.12); }
+
+  .fiche-header{
+    position:relative; background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+    border-radius:24px; padding:34px 26px; color:var(--white); overflow:hidden;
+    box-shadow:0 18px 40px rgba(58,15,25,0.22); text-align:center;
+  }
+  .fiche-header::before{
+    content:""; position:absolute; inset:9px; border:1px solid rgba(200,164,98,0.30); border-radius:18px; pointer-events:none;
+  }
+  /* Icone maison : reutilise le meme langage visuel que .home-icon (module-home.css,
+     utilise par tous les modules) -- gold, sobre, sans emoji -- agrandie a 44x44px pour
+     une zone tactile mobile confortable. Coin superieur DROIT, visible des l'ouverture. */
+  .fiche-home-icon{
+    position:absolute; top:12px; right:12px; z-index:2;
+    width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+    color:var(--gold); text-decoration:none; font-size:1.3rem; border-radius:50%;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .fiche-home-icon:hover{ background:rgba(200,164,98,0.16); transform:scale(1.06); }
+  .fiche-home-icon:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .fiche-brand{ font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:2.4px; text-transform:uppercase; color:var(--gold-light); opacity:0.9; margin-bottom:14px; }
+  .fiche-title-ar{ font-size:2.4rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+  .fiche-title-fr{ font-family:'Cinzel',serif; font-size:1.15rem; text-transform:uppercase; letter-spacing:1px; }
+  .fiche-title-es{ font-size:0.85rem; color:var(--gold-light); font-style:italic; margin-top:4px; opacity:0.9; }
+  .fiche-intro{ font-size:0.88rem; color:var(--gold-light); margin-top:16px; line-height:1.6; max-width:520px; margin-left:auto; margin-right:auto; }
+  .fiche-intro .es-line{ display:block; opacity:0.8; font-style:italic; margin-top:3px; }
+
+  .verse-card{
+    background:var(--white); border:1px solid var(--hairline); border-radius:20px;
+    padding:26px 22px; margin-top:26px; box-shadow:0 6px 20px rgba(93,24,40,0.06);
+  }
+  /* Groupe numero + mot arabe : aligne sur le bord DROIT du contenu ET numero avant le mot
+     en ordre de lecture RTL. direction:rtl sur le conteneur flex inverse l'ordre visuel des
+     enfants (1er enfant DOM = le numero = place a DROITE), et flex-start correspond alors au
+     bord DROIT (pas au bord gauche comme en ltr) -- donc le groupe reste bien colle a droite.
+     Le mot arabe est la notion a memoriser : nettement agrandi (Amiri, bordeaux) au lieu du
+     petit label discret d'origine. */
+  .verse-head{
+    display:flex; align-items:center; justify-content:flex-start; direction:rtl; gap:12px; margin-bottom:16px;
+  }
+  .verse-num{
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+    width:34px; height:34px; border-radius:50%; background:var(--bordeaux); color:var(--gold-light);
+    font-family:'Cinzel',serif; font-weight:700; font-size:0.95rem;
+  }
+  .verse-particle-label{
+    font-family:'Amiri',serif; font-weight:700; color:var(--bordeaux);
+    font-size:2.2rem; line-height:1.6; padding-top:0.2em;
+  }
+  @media (max-width:600px){
+    .verse-particle-label{ font-size:1.9rem; }
+  }
+
+  .ayah-block{
+    background:#fdfaf5; border:1px solid var(--hairline); border-radius:14px;
+    padding:22px 18px; text-align:center; margin-bottom:16px;
+  }
+  .ayah-ar{ font-size:1.7rem; font-weight:700; color:var(--bordeaux); line-height:2.1; }
+  .ayah-ref{ font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1px; color:var(--ink-soft); margin-top:10px; text-transform:uppercase; }
+
+  .step{ margin-bottom:16px; }
+  .step-label{
+    display:flex; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:0.75rem;
+    letter-spacing:1.2px; text-transform:uppercase; color:var(--bordeaux); font-weight:700; margin-bottom:10px;
+  }
+  .step-label i{ color:var(--gold); }
+
+  .repere-ar{ font-size:1.5rem; font-weight:700; text-align:center; line-height:2; background:#fdfaf5; border-radius:12px; padding:16px 10px; }
+  .neg{ color:var(--bordeaux); background:rgba(200,164,98,0.28); padding:2px 8px; border-radius:8px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+
+  /* direction:rtl (et pas seulement dir="rtl" sur le texte) : sans ca, flexbox place
+     le 1er enfant DOM a GAUCHE (comportement par defaut du document, dir="ltr" sur <html>),
+     ce qui inversait visuellement l'ordre pedagogique [particule] + [reste du mot] -- la
+     particule doit apparaitre a DROITE, comme en lecture arabe naturelle. */
+  .decoupe-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:stretch; direction:rtl; }
+  .decoupe-pair{ display:flex; align-items:center; gap:8px; background:#fdfaf5; border:1px solid var(--hairline); border-radius:12px; padding:10px 14px; direction:rtl; }
+  .decoupe-part{ text-align:center; }
+  .decoupe-part .ar-text{ font-size:1.15rem; font-weight:700; color:var(--bordeaux); display:block; }
+  .decoupe-part.particle .ar-text{ color:var(--white); }
+  .decoupe-part.particle{ background:var(--bordeaux); border-radius:8px; padding:6px 10px; }
+  .decoupe-part small{ display:block; font-size:0.68rem; color:var(--ink-soft); margin-top:3px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+  .decoupe-plus{ color:var(--gold); font-weight:700; font-size:1.1rem; }
+
+  .comprends-box{ background:rgba(200,164,98,0.10); border-left:4px solid var(--gold); border-radius:0 12px 12px 0; padding:14px 18px; }
+  .comprends-fr{ font-size:0.92rem; color:var(--ink); font-weight:500; }
+  .comprends-es{ font-size:0.85rem; color:var(--ink-soft); font-style:italic; margin-top:6px; }
+
+  .synth-card{
+    background:var(--bordeaux); color:var(--white); border-radius:20px; padding:26px 22px; margin-top:30px;
+    box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .synth-title{ font-family:'Cinzel',serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:var(--gold); text-align:center; margin-bottom:18px; }
+  .synth-table{ width:100%; border-collapse:collapse; font-size:0.85rem; }
+  .synth-table th, .synth-table td{ padding:9px 8px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.15); }
+  .synth-table th{ color:var(--gold-light); font-family:'Cinzel',serif; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.8px; }
+  .synth-table td.ar-text{ font-size:1.05rem; font-weight:700; color:var(--gold); }
+
+  @media (max-width:600px){
+    .fiche-title-ar{ font-size:1.9rem; }
+    .ayah-ar{ font-size:1.35rem; }
+    .repere-ar{ font-size:1.2rem; }
+  }
+</style>
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  const _db = getFirestore(_app);
+  // Verrou Partie 2 (fiches Bibliotheque M13 a M18) : reutilise EXACTEMENT la meme
+  // source d'autorisation que module13.html -- meme ordre de verification :
+  // 1) profs/{uid} (acces enseignant illimite)
+  // 2) eleves/{uid}.partie2Debloquee (deverrouillage individuel)
+  // Seule difference avec module13.html : redirection vers bibliotheque.html
+  // (et non modules.html) en cas de refus, car cette fiche est ouverte depuis la Bibliotheque.
+  onAuthStateChanged(_auth, async (user) => {
+    if (!user) { window.location.href = '../../auth.html'; return; }
+    try {
+      const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+      if (profSnap.exists()) {
+        document.body.style.visibility = 'visible';
+        return;
+      }
+    } catch (eProf) {
+      console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+    }
+    try {
+      const snap = await getDoc(doc(_db, 'eleves', user.uid));
+      const autorise = snap.exists() && snap.data().partie2Debloquee === true;
+      if (!autorise) { window.location.href = '../../bibliotheque.html'; return; }
+      document.body.style.visibility = 'visible';
+    } catch (e) {
+      console.error('Verification acces Partie 2 impossible :', e);
+      window.location.href = '../../bibliotheque.html';
+    }
+  });
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../../bibliotheque.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Bibliothèque / Biblioteca</a>
+
+  <div class="fiche-header">
+    <a href="../../modules.html" class="fiche-home-icon" aria-label="Retour au menu / Volver al menú" title="Retour au menu / Volver al menú">
+      <i class="fa-solid fa-house"></i>
+    </a>
+    <div class="fiche-brand">دار الكلمة · Module 13</div>
+    <div class="fiche-title-ar ar-text">اَلنَّفْي</div>
+    <div class="fiche-title-fr">La Négation</div>
+    <div class="fiche-title-es">La Negación</div>
+    <p class="fiche-intro">
+      5 versets, 5 façons de dire « ne...pas » en arabe. Pour chaque verset : je repère, je découpe, je comprends.
+      <span class="es-line">5 versículos, 5 formas de decir «no» en árabe. Para cada versículo: repero, descompongo, comprendo.</span>
+    </p>
+  </div>
+
+  <!-- ═══════════ VERSET 1 — مَا ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">1</span><span class="verse-particle-label ar-text">مَا</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ</div>
+      <div class="ayah-ref">Sourate Ad-Duha 93:3</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Repero</div>
+      <div class="repere-ar ar-text"><span class="neg">مَا</span> وَدَّعَكَ رَبُّكَ وَ<span class="neg">مَا</span> قَلَىٰ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-row">
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">مَا</span><small>ne...pas</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">وَدَّعَكَ</span><small>il a délaissé</small></div>
+        </div>
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">مَا</span><small>ne...pas</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">قَلَى</span><small>il a été fâché</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr"><strong>مَا</strong> + un verbe au passé = dire que quelque chose <strong>ne s'est pas passé</strong>. « Ton Seigneur ne t'a pas délaissé et n'a pas été fâché contre toi. »</p>
+        <p class="comprends-es"><strong>مَا</strong> + un verbo en pasado = decir que algo <strong>no ocurrió</strong>. «Tu Señor no te ha abandonado ni se ha enfadado contigo.»</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ VERSET 2 — لَمْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">2</span><span class="verse-particle-label ar-text">لَمْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">لَمْ يَلِدْ وَلَمْ يُولَدْ</div>
+      <div class="ayah-ref">Sourate Al-Ikhlas 112:3</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Repero</div>
+      <div class="repere-ar ar-text"><span class="neg">لَمْ</span> يَلِدْ وَ<span class="neg">لَمْ</span> يُولَدْ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-row">
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">لَمْ</span><small>ne...pas</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">يَلِدْ</span><small>il engendre</small></div>
+        </div>
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">لَمْ</span><small>ne...pas</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">يُولَدْ</span><small>il est engendré</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr"><strong>لَمْ</strong> se met aussi devant un verbe qui ressemble au présent, mais parle du <strong>passé</strong> — une autre façon que مَا. « Il n'a pas engendré et n'a pas été engendré. »</p>
+        <p class="comprends-es"><strong>لَمْ</strong> también se coloca delante de un verbo que se parece al presente, pero habla del <strong>pasado</strong> — otra forma distinta de مَا. «Él no ha engendrado ni ha sido engendrado.»</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ VERSET 3 — لَا ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">3</span><span class="verse-particle-label ar-text">لَا</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ</div>
+      <div class="ayah-ref">Sourate Al-Baqara 2:255</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Repero</div>
+      <div class="repere-ar ar-text"><span class="neg">لَا</span> تَأْخُذُهُ سِنَةٌ وَ<span class="neg">لَا</span> نَوْمٌ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-row">
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">لَا</span><small>ne...jamais</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">تَأْخُذُهُ سِنَةٌ</span><small>la somnolence Le saisit</small></div>
+        </div>
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">لَا</span><small>ni</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">نَوْمٌ</span><small>sommeil</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr"><strong>لَا</strong> devant un verbe au présent = dire que ça <strong>n'arrive jamais, toujours pas</strong>. « Ni somnolence ni sommeil ne Le saisissent. »</p>
+        <p class="comprends-es"><strong>لَا</strong> delante de un verbo en presente = decir que algo <strong>nunca ocurre</strong>. «Ni la somnolencia ni el sueño Le alcanzan.»</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ VERSET 4 — لَنْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">4</span><span class="verse-particle-label ar-text">لَنْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">لَنْ تَنَالُوا الْبِرَّ حَتَّىٰ تُنْفِقُوا مِمَّا تُحِبُّونَ</div>
+      <div class="ayah-ref">Sourate Al-Imran 3:92</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Repero</div>
+      <div class="repere-ar ar-text"><span class="neg">لَنْ</span> تَنَالُوا الْبِرَّ حَتَّىٰ تُنْفِقُوا مِمَّا تُحِبُّونَ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-row">
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">لَنْ</span><small>ne...jamais</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">تَنَالُوا الْبِرَّ</span><small>vous atteindrez la piété</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr"><strong>لَنْ</strong> se met devant un verbe pour dire « <strong>jamais</strong> », au futur — une négation forte. « Vous n'atteindrez jamais la piété tant que vous ne dépensez pas de ce que vous aimez. »</p>
+        <p class="comprends-es"><strong>لَنْ</strong> se coloca delante de un verbo para decir «<strong>nunca</strong>», en futuro — una negación fuerte. «Nunca alcanzaréis la piedad hasta que gastéis de lo que amáis.»</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ VERSET 5 — لَيْسَ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">5</span><span class="verse-particle-label ar-text">لَيْسَ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">لَيْسَ كَمِثْلِهِ شَيْءٌ</div>
+      <div class="ayah-ref">Sourate Ash-Shura 42:11</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Repero</div>
+      <div class="repere-ar ar-text"><span class="neg">لَيْسَ</span> كَمِثْلِهِ شَيْءٌ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-puzzle-piece"></i> Je découpe · Descompongo</div>
+      <div class="decoupe-row">
+        <div class="decoupe-pair">
+          <div class="decoupe-part particle"><span class="ar-text">لَيْسَ</span><small>n'est pas</small></div>
+          <span class="decoupe-plus">+</span>
+          <div class="decoupe-part"><span class="ar-text">كَمِثْلِهِ شَيْءٌ</span><small>quelque chose comme Lui</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr"><strong>لَيْسَ</strong> ne s'accroche pas à un verbe : il nie une <strong>phrase entière</strong>, sans verbe. « Rien ne Lui ressemble. »</p>
+        <p class="comprends-es"><strong>لَيْسَ</strong> no se une a un verbo: niega una <strong>frase entera</strong>, sin verbo. «Nada se parece a Él.»</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SYNTHÈSE ═══════════ -->
+  <div class="synth-card">
+    <div class="synth-title">Les 5 façons de dire « non » · Las 5 formas de decir «no»</div>
+    <table class="synth-table">
+      <thead><tr><th>Particule</th><th>Quand ? / ¿Cuándo?</th></tr></thead>
+      <tbody>
+        <tr><td class="ar-text">مَا</td><td>Passé · Pasado</td></tr>
+        <tr><td class="ar-text">لَمْ</td><td>Passé (forme présent) · Pasado (forma presente)</td></tr>
+        <tr><td class="ar-text">لَا</td><td>Présent / toujours · Presente / siempre</td></tr>
+        <tr><td class="ar-text">لَنْ</td><td>Futur · Futuro</td></tr>
+        <tr><td class="ar-text">لَيْسَ</td><td>Phrase sans verbe · Frase sin verbo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

@@ -119,6 +119,19 @@
       "public": "enfant",
       "icone": "fa-solid fa-font",
       "lien": "fiches/fr-es/familles-lettres-fr-es.html"
+    },
+    {
+      "id": "fiche-m13-negation",
+      "titre_fr": "La Négation",
+      "sous_titre_fr": "An-Nafy — Module 13",
+      "titre_ar": "اَلنَّفْي",
+      "description_fr": "5 versets du Coran pour découvrir les 5 façons de dire « ne...pas » en arabe.",
+      "description_es": "5 versículos del Corán para descubrir las 5 formas de decir «no» en árabe.",
+      "type": "fiche",
+      "public": "tous",
+      "partie": 2,
+      "icone": "fa-solid fa-ban",
+      "lien": "fiches/partie2/fiche-m13-negation.html"
     }
   ]
 }
