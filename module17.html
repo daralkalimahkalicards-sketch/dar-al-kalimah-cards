@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Kalicards - Module 17</title>
+  <meta name="theme-color" content="#FAF6F0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600&family=Montserrat:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="module-home.css">
+  <style>body{visibility:hidden;}</style>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    const _db = getFirestore(_app);
+    // Verrou Partie 2 (Modules 13 a 18) : reutilise EXACTEMENT la meme source
+    // d'autorisation que modules.html -- meme ordre de verification :
+    // 1) profs/{uid} (acces enseignant illimite, comme pour l'evaluation finale)
+    // 2) eleves/{uid}.partie2Debloquee (deverrouillage individuel)
+    onAuthStateChanged(_auth, async (user) => {
+      if (!user) { window.location.href = 'auth.html'; return; }
+      try {
+        const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+        if (profSnap.exists()) {
+          document.body.style.visibility = 'visible';
+          return;
+        }
+      } catch (eProf) {
+        console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+      }
+      try {
+        const snap = await getDoc(doc(_db, 'eleves', user.uid));
+        const autorise = snap.exists() && snap.data().partie2Debloquee === true;
+        if (!autorise) { window.location.href = 'modules.html'; return; }
+        document.body.style.visibility = 'visible';
+      } catch (e) {
+        console.error('Verification acces Partie 2 impossible :', e);
+        window.location.href = 'modules.html';
+      }
+    });
+  </script>
+</head>
+<body ontouchstart="">
+  <div class="menu-card">
+    <a href="modules.html" class="home-icon" aria-label="Accueil"><i class="fa-solid fa-house"></i></a>
+    <h1 class="brand-ar">دار الكلمة</h1>
+    <h2 class="module-title">KALICARDS – MODULE 17</h2>
+    <h3 class="module-subtitle-ar">اَلْفِعْلُ الْمُضَارِع</h3>
+    <h4 class="module-subtitle">Le Verbe au Présent</h4>
+    <div class="divider"></div>
+    <p class="instruction-fr">Sélectionnez une activité</p>
+    <p class="instruction-es">Selecciona una actividad</p>
+    <div class="btn-group">
+      <a href="lecon17.html"   class="menu-btn">LA LEÇON</a>
+      <a href="quiz1-m17.html" class="menu-btn">QUIZ 1</a>
+      <a href="quiz2-m17.html" class="menu-btn">QUIZ 2</a>
+      <a href="quiz3-m17.html" class="menu-btn">QUIZ 3</a>
+    </div>
+  </div>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>

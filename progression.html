@@ -736,9 +736,9 @@ function afficherModules(lecons, quiz, partie2Debloquee) {
   const grid = document.getElementById('modules-grid');
   const rows = [];
 
-  // Modules 13-16 (Partie 2) n'apparaissent dans la grille que pour les élèves
+  // Modules 13-18 (Partie 2) n'apparaissent dans la grille que pour les élèves
   // qui y ont explicitement accès — cohérent avec le verrou de modules.html.
-  const dernierModule = partie2Debloquee ? 16 : 12;
+  const dernierModule = partie2Debloquee ? 18 : 12;
   for (let i = 1; i <= dernierModule; i++) {
     const modKey = 'Module ' + i;
     const leconsMod = lecons.filter(l => l.module === modKey);
