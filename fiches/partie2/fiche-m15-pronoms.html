@@ -191,6 +191,31 @@
   .compare-attach-item .ar-text{ font-size:1.3rem; font-weight:700; color:var(--gold); display:block; }
   .compare-attach-item .attach-label{ font-size:0.68rem; color:var(--gold-light); margin-top:6px; text-transform:uppercase; letter-spacing:0.5px; }
   .compare-attach-arrow{ align-self:center; color:var(--gold); font-size:1rem; }
+
+  /* Grille complete des 12 correspondances (synthese "le pronom s'attache") : chaque paire
+     reutilise .compare-attach-row/.compare-attach-item existants (design inchange), rangees
+     dans une grille qui s'adapte -- 2 paires/ligne sur desktop, 1/ligne sur mobile. */
+  .attach-grid{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .attach-grid .compare-attach-row{
+    flex:1 1 230px; max-width:280px; margin-bottom:0; flex-wrap:nowrap; gap:8px;
+    background:rgba(255,255,255,0.03); border:1px solid rgba(200,164,98,0.18); border-radius:14px; padding:10px 8px;
+  }
+  /* Les items de la grille des 12 correspondances n'ont pas besoin du min-width:110px pense
+     pour les 4 paires pleine largeur d'origine -- sans cette surcharge, chaque paire depassait
+     la largeur max de sa carte et provoquait un retour a la ligne systematique (meme pour les
+     formes courtes comme هُوَ/ـهُ), cassant la presentation cote-a-cote voulue. */
+  .attach-grid .compare-attach-item{ min-width:0; flex:1 1 auto; padding:10px 8px; }
+  .attach-grid .compare-attach-item .ar-text{ font-size:1.15rem; white-space:nowrap; }
+  .attach-grid .compare-attach-item .attach-label{ font-size:0.6rem; line-height:1.3; }
+  .attach-grid .compare-attach-arrow{ flex-shrink:0; }
+  .attach-group-title{
+    text-align:center; font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1px; text-transform:uppercase;
+    color:var(--gold-light); margin:20px 0 10px; opacity:0.9;
+  }
+  .attach-group-title:first-of-type{ margin-top:2px; }
+  .attach-group-title .es{ display:block; font-size:0.68rem; opacity:0.8; font-style:italic; text-transform:none; letter-spacing:0; margin-top:2px; }
+  .attach-note{ font-size:0.72rem; color:var(--gold-light); opacity:0.85; margin-top:8px; text-align:center; }
+  .attach-note .es{ display:block; font-style:italic; opacity:0.85; margin-top:2px; }
   .munfasil-muttasil{ display:flex; justify-content:center; gap:24px; margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.15); direction:rtl; }
   .munfasil-muttasil .mm-item{ text-align:center; }
   .munfasil-muttasil .ar-text{ font-size:1.3rem; font-weight:700; color:var(--gold); }
@@ -547,26 +572,79 @@
   <div class="transition-card">
     <div class="transition-title ar-text">اَلضَّمِيرُ الْمُتَّصِلُ</div>
     <div class="transition-sub">Le pronom s'attache.<span class="bi-es">El pronombre se une.</span></div>
-    <div class="compare-attach-row">
-      <div class="compare-attach-item"><span class="ar-text">هُوَ</span><div class="attach-label">seul · solo</div></div>
-      <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
-      <div class="compare-attach-item"><span class="ar-text">ـهُ</span><div class="attach-label">attaché · unido</div></div>
+    <div class="attach-group-title">1ʳᵉ personne<span class="es">1.ª persona</span></div>
+    <div class="attach-grid">
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">أَنَا</span><div class="attach-label">moi / je · yo</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـِي / ـي</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">نَحْنُ</span><div class="attach-label">nous · nosotros</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـنَا</span><div class="attach-label">attaché · unido</div></div>
+      </div>
     </div>
-    <div class="compare-attach-row">
-      <div class="compare-attach-item"><span class="ar-text">هِيَ</span><div class="attach-label">seule · sola</div></div>
-      <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
-      <div class="compare-attach-item"><span class="ar-text">ـهَا</span><div class="attach-label">attaché · unido</div></div>
+    <p class="attach-note">La graphie de ـِي peut varier selon le mot auquel elle s'attache (ex. كِتَابِي, رَأَيْتَنِي).<span class="es">La grafía de ـِي puede variar según la palabra a la que se une (ej. كِتَابِي, رَأَيْتَنِي).</span></p>
+
+    <div class="attach-group-title">2ᵉ personne<span class="es">2.ª persona</span></div>
+    <div class="attach-grid">
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">أَنْتَ</span><div class="attach-label">toi / tu ♂ · tú ♂</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـكَ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">أَنْتِ</span><div class="attach-label">toi / tu ♀ · tú ♀</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـكِ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">أَنْتُمَا</span><div class="attach-label">vous deux · vosotros/as dos</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـكُمَا</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">أَنْتُمْ</span><div class="attach-label">vous ♂ · vosotros</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـكُمْ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">أَنْتُنَّ</span><div class="attach-label">vous ♀ · vosotras</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـكُنَّ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
     </div>
-    <div class="compare-attach-row">
-      <div class="compare-attach-item"><span class="ar-text">نَحْنُ</span><div class="attach-label">nous · nosotros</div></div>
-      <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
-      <div class="compare-attach-item"><span class="ar-text">ـنَا</span><div class="attach-label">attaché · unido</div></div>
+
+    <div class="attach-group-title">3ᵉ personne<span class="es">3.ª persona</span></div>
+    <div class="attach-grid">
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">هُوَ</span><div class="attach-label">lui / il · él</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـهُ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">هِيَ</span><div class="attach-label">elle · ella</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـهَا</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">هُمَا</span><div class="attach-label">eux/elles deux · ellos/ellas dos</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـهُمَا</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">هُمْ</span><div class="attach-label">eux / ils · ellos</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـهُمْ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
+      <div class="compare-attach-row">
+        <div class="compare-attach-item"><span class="ar-text">هُنَّ</span><div class="attach-label">elles · ellas</div></div>
+        <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+        <div class="compare-attach-item"><span class="ar-text">ـهُنَّ</span><div class="attach-label">attaché · unido</div></div>
+      </div>
     </div>
-    <div class="compare-attach-row">
-      <div class="compare-attach-item"><span class="ar-text">أَنْتَ</span><div class="attach-label">toi · tú</div></div>
-      <div class="compare-attach-arrow"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
-      <div class="compare-attach-item"><span class="ar-text">ـكَ</span><div class="attach-label">attaché · unido</div></div>
-    </div>
+
     <div class="munfasil-muttasil">
       <div class="mm-item"><span class="ar-text">مُنْفَصِل</span><div class="mm-label">séparé · separado</div></div>
       <div class="mm-item"><span class="ar-text">مُتَّصِل</span><div class="mm-label">attaché · unido</div></div>
