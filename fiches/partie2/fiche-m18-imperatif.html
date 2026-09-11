@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>Fiche — L'Impératif &amp; Construire le Sens (Module 18)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --bordeaux:#5D1828;
+    --bordeaux-dark:#3a0f19;
+    --gold:#C8A462;
+    --gold-light:#dfc28b;
+    --white:#FFFFFF;
+    --ink:#2a1810;
+    --ink-soft:#7a6552;
+    --hairline:rgba(93,24,40,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; visibility:hidden;
+    background:#fdfbf8; color:var(--ink);
+    font-family:'Montserrat',sans-serif; line-height:1.6;
+    padding:0 0 60px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+      radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+  }
+  /* font-style:normal est indispensable : Amiri n'a pas de graisse italique chargee, et le
+     faux-italique (cisaillement synthetise par le navigateur) casse des ligatures obligatoires
+     de l'arabe -- ex. لَا (lam-alif) rendu comme un glyphe corrompu quand herite d'un parent
+     italique (.child-quote). Decouvert en testant M18 : jamais d'italique sur l'arabe. */
+  .ar-text{ direction:rtl; unicode-bidi:isolate; font-family:'Amiri', serif; font-style:normal; }
+  .wrap{ max-width:820px; margin:0 auto; padding:24px 16px 0; }
+
+  .btn-back{
+    display:inline-flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid var(--gold); color:var(--bordeaux);
+    padding:8px 18px; border-radius:25px; font-size:0.8rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:1px; text-decoration:none; margin-bottom:22px;
+  }
+  .btn-back:hover{ background:rgba(200,164,98,0.12); }
+
+  .fiche-header{
+    position:relative; background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%);
+    border-radius:24px; padding:34px 26px; color:var(--white); overflow:hidden;
+    box-shadow:0 18px 40px rgba(58,15,25,0.22); text-align:center;
+  }
+  .fiche-header::before{
+    content:""; position:absolute; inset:9px; border:1px solid rgba(200,164,98,0.30); border-radius:18px; pointer-events:none;
+  }
+  .fiche-home-icon{
+    position:absolute; top:12px; right:12px; z-index:2;
+    width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+    color:var(--gold); text-decoration:none; font-size:1.3rem; border-radius:50%;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .fiche-home-icon:hover{ background:rgba(200,164,98,0.16); transform:scale(1.06); }
+  .fiche-home-icon:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .fiche-brand{ font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:2.4px; text-transform:uppercase; color:var(--gold-light); opacity:0.9; margin-bottom:14px; }
+  .fiche-title-ar{ font-size:1.9rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+  .fiche-title-fr{ font-family:'Cinzel',serif; font-size:1.1rem; text-transform:uppercase; letter-spacing:1px; }
+  .fiche-title-es{ font-size:0.85rem; color:var(--gold-light); font-style:italic; margin-top:4px; opacity:0.9; }
+  .fiche-intro{ font-size:0.88rem; color:var(--gold-light); margin-top:16px; line-height:1.6; max-width:560px; margin-left:auto; margin-right:auto; }
+  .fiche-intro .es-line{ display:block; opacity:0.8; font-style:italic; margin-top:3px; }
+
+  .verse-card{
+    background:var(--white); border:1px solid var(--hairline); border-radius:20px;
+    padding:26px 22px; margin-top:26px; box-shadow:0 6px 20px rgba(93,24,40,0.06);
+  }
+  .verse-head{
+    display:flex; align-items:center; justify-content:flex-start; direction:rtl; gap:12px; margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .verse-num{
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+    width:34px; height:34px; border-radius:50%; background:var(--bordeaux); color:var(--gold-light);
+    font-family:'Cinzel',serif; font-weight:700; font-size:0.95rem;
+  }
+  .verse-particle-label{
+    font-family:'Amiri',serif; font-weight:700; color:var(--bordeaux);
+    font-size:1.9rem; line-height:1.6; padding-top:0.2em;
+  }
+  @media (max-width:600px){
+    .verse-particle-label{ font-size:1.6rem; }
+  }
+
+  .ayah-block{
+    background:#fdfaf5; border:1px solid var(--hairline); border-radius:14px;
+    padding:22px 18px; text-align:center; margin-bottom:16px;
+  }
+  .ayah-ar{ font-size:1.5rem; font-weight:700; color:var(--bordeaux); line-height:2.15; }
+  .ayah-ref{ font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1px; color:var(--ink-soft); margin-top:10px; text-transform:uppercase; }
+  .ayah-riwaya{ font-family:'Amiri',serif; font-size:0.78rem; color:var(--gold); margin-top:4px; direction:rtl; }
+
+  .step{ margin-bottom:16px; }
+  .step-label{
+    display:flex; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:0.75rem;
+    letter-spacing:1.2px; text-transform:uppercase; color:var(--bordeaux); font-weight:700; margin-bottom:10px;
+  }
+  .step-label i{ color:var(--gold); }
+
+  .repere-ar{ font-size:1.4rem; font-weight:700; text-align:center; line-height:2.1; background:#fdfaf5; border-radius:12px; padding:16px 10px; }
+  .hl{ color:var(--bordeaux); background:rgba(200,164,98,0.28); padding:2px 8px; border-radius:8px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+
+  .observe-box{
+    background:#fdfaf5; border:1px solid var(--hairline); border-radius:12px; padding:16px;
+    display:flex; flex-wrap:wrap; gap:18px; justify-content:center; align-items:center; direction:rtl;
+  }
+  .observe-item{ text-align:center; }
+  .observe-item .ar-text{ font-size:1.3rem; font-weight:700; color:var(--bordeaux); display:block; }
+  .observe-item .tag{
+    display:inline-block; margin-top:6px; font-size:0.68rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.6px; color:var(--white); background:var(--bordeaux); border-radius:20px; padding:3px 12px;
+  }
+  .observe-item .tag.gold{ background:var(--gold); color:var(--bordeaux-dark); }
+
+  .comprends-box{ background:rgba(200,164,98,0.10); border-left:4px solid var(--gold); border-radius:0 12px 12px 0; padding:14px 18px; }
+  .comprends-fr{ font-size:0.92rem; color:var(--ink); font-weight:500; }
+  .comprends-es{ font-size:0.85rem; color:var(--ink-soft); font-style:italic; margin-top:6px; }
+  .comprends-fr + .comprends-fr{ margin-top:8px; }
+
+  .child-quote{
+    text-align:center; font-family:'Cinzel',serif; font-style:italic; font-size:0.85rem;
+    color:var(--bordeaux); margin:14px 0; padding:10px; border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+  }
+  .bi-es{ display:block; opacity:0.78; font-size:0.85em; margin-top:4px; }
+
+  .code-row{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; align-items:center; margin:14px 0; direction:rtl; }
+  .code-pill{
+    display:flex; align-items:center; gap:8px; background:#fdfaf5; border:1px solid var(--hairline);
+    border-radius:30px; padding:8px 16px;
+  }
+  .code-pill .ar-text{ font-size:1.1rem; font-weight:700; color:var(--bordeaux); }
+  .code-pill i{ color:var(--gold); }
+  .num-badge{
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+    width:30px; height:30px; border-radius:50%; background:var(--bordeaux); color:var(--gold-light);
+    font-family:'Cinzel',serif; font-weight:700; font-size:0.95rem;
+  }
+
+  .retiens-box{
+    text-align:center; margin-top:16px; padding:16px; background:var(--bordeaux); border-radius:14px; color:var(--white);
+  }
+  .retiens-box .ar-text{ font-size:1.4rem; font-weight:700; color:var(--gold); }
+  .retiens-box .retiens-fr{ font-size:0.85rem; margin-top:6px; }
+  .retiens-box .retiens-es{ font-size:0.78rem; opacity:0.8; font-style:italic; margin-top:2px; }
+
+  .balance-compare{ display:flex; align-items:center; justify-content:center; gap:16px; margin:18px 0; direction:rtl; }
+  .balance-compare .ar-text{ font-size:1.6rem; font-weight:700; }
+  .balance-compare .root-word{ color:var(--bordeaux); }
+  .balance-compare .gabarit-word{ color:var(--gold); }
+  .balance-compare i{ color:var(--ink-soft); font-size:1rem; }
+
+  .huruf-row{ display:flex; justify-content:center; gap:16px; margin:20px 0; direction:rtl; flex-wrap:wrap; }
+  .huruf-item{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    background:var(--bordeaux); border-radius:16px; padding:16px 14px; min-width:64px;
+    box-shadow:0 8px 20px rgba(93,24,40,0.15);
+  }
+  .huruf-item .ar-text{ font-size:2rem; font-weight:700; color:var(--gold); }
+  .huruf-item .huruf-label{ font-size:0.62rem; color:var(--gold-light); text-transform:uppercase; letter-spacing:0.4px; text-align:center; }
+  .huruf-item.gold-bg{ background:var(--gold); }
+  .huruf-item.gold-bg .ar-text{ color:var(--bordeaux-dark); }
+  .huruf-item.gold-bg .huruf-label{ color:var(--bordeaux); }
+
+  .warning-box{
+    background:rgba(93,24,40,0.06); border:1.5px dashed var(--bordeaux); border-radius:12px; padding:14px 18px; margin-top:16px;
+  }
+  .warning-box .warn-title{ font-family:'Cinzel',serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--bordeaux); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .warning-box p{ font-size:0.88rem; margin:0; }
+  .warning-box .bi-es{ margin-top:6px; }
+
+  .sub-part-title{
+    font-family:'Cinzel',serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;
+    color:var(--gold); text-align:center; margin:22px 0 12px; padding-top:18px; border-top:1px dashed var(--hairline);
+  }
+  .sub-part-title:first-of-type{ border-top:none; padding-top:0; margin-top:6px; }
+
+  .transition-card{
+    background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%); border-radius:20px;
+    padding:28px 22px; margin-top:26px; color:var(--white); text-align:center; box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .transition-title{ font-size:1.9rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+  .transition-sub{ font-size:0.85rem; color:var(--gold-light); margin-bottom:18px; }
+  .transition-sub .bi-es{ opacity:0.85; }
+
+  .synth-card{
+    background:var(--bordeaux); color:var(--white); border-radius:20px; padding:26px 22px; margin-top:30px;
+    box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .synth-title{ font-family:'Cinzel',serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; color:var(--gold); text-align:center; margin-bottom:6px; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .synth-title-ar{ text-align:center; font-size:1.3rem; color:var(--gold-light); margin-bottom:18px; }
+  .synth-table{ width:100%; border-collapse:collapse; font-size:0.82rem; }
+  .synth-table th, .synth-table td{ padding:8px 6px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.15); }
+  .synth-table th{ color:var(--gold-light); font-family:'Cinzel',serif; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.6px; }
+  .synth-table td.ar-text{ font-size:1.05rem; font-weight:700; color:var(--gold); }
+
+  .final-card{
+    background:linear-gradient(150deg, var(--bordeaux) 0%, var(--bordeaux-dark) 100%); border-radius:20px;
+    padding:32px 24px; margin-top:30px; color:var(--white); text-align:center; box-shadow:0 12px 30px rgba(93,24,40,0.2);
+  }
+  .final-question{ font-size:1.7rem; font-weight:700; color:var(--gold); line-height:1.7; }
+  .final-question-fr{ font-family:'Cinzel',serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.6px; margin-top:10px; }
+  .final-question-es{ font-size:0.82rem; color:var(--gold-light); font-style:italic; margin-top:4px; }
+  .mechanism{ margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.15); display:flex; flex-direction:column; gap:10px; align-items:center; }
+  .mech-step{ display:flex; align-items:center; gap:10px; }
+  .mech-num{ width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.1); border:1px solid var(--gold); color:var(--gold); font-size:0.75rem; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; flex-shrink:0; }
+  .mech-num.wide{ width:auto; min-width:26px; padding:0 7px; }
+  .mech-text .ar-text{ color:var(--gold); font-weight:700; font-size:1.05rem; }
+  .mech-text .mech-fr{ font-size:0.82rem; color:var(--white); }
+  .mech-text .mech-es{ font-size:0.76rem; color:var(--gold-light); font-style:italic; }
+  .mechanism i{ color:var(--gold); }
+
+  /* Analyse DAK du passage final : 6 questions oui/non/absent, chacune bilingue */
+  .qa-block{ background:#fdfaf5; border:1px solid var(--hairline); border-radius:12px; padding:14px 16px; margin-bottom:10px; }
+  .qa-question{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; font-family:'Cinzel',serif; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.7px; color:var(--bordeaux); margin-bottom:8px; }
+  .qa-question .ar-text{ font-size:1.15rem; font-family:'Amiri',serif; text-transform:none; letter-spacing:0; color:var(--bordeaux); }
+  .qa-answer{ font-size:0.88rem; color:var(--ink); }
+  .qa-answer .es{ display:block; font-size:0.82rem; color:var(--ink-soft); font-style:italic; margin-top:4px; }
+  .qa-answer.absent{ color:var(--ink-soft); }
+  .qa-answer .ar-text{ font-weight:700; color:var(--bordeaux); }
+
+  @media (max-width:600px){
+    .fiche-title-ar{ font-size:1.5rem; }
+    .ayah-ar{ font-size:1.2rem; }
+    .repere-ar{ font-size:1.1rem; }
+    .final-question{ font-size:1.35rem; }
+    .huruf-item .ar-text{ font-size:1.6rem; }
+    .balance-compare .ar-text{ font-size:1.3rem; }
+    .qa-question{ font-size:0.62rem; }
+  }
+</style>
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  const _db = getFirestore(_app);
+  // Verrou Partie 2 (fiches Bibliotheque M13 a M18) : reutilise EXACTEMENT la meme
+  // source d'autorisation que module18.html -- meme ordre de verification :
+  // 1) profs/{uid} (acces enseignant illimite)
+  // 2) eleves/{uid}.partie2Debloquee (deverrouillage individuel)
+  // Seule difference avec module18.html : redirection vers bibliotheque.html
+  // (et non modules.html) en cas de refus, car cette fiche est ouverte depuis la Bibliotheque.
+  onAuthStateChanged(_auth, async (user) => {
+    if (!user) { window.location.href = '../../auth.html'; return; }
+    try {
+      const profSnap = await getDoc(doc(_db, 'profs', user.uid));
+      if (profSnap.exists()) {
+        document.body.style.visibility = 'visible';
+        return;
+      }
+    } catch (eProf) {
+      console.error('Verification statut prof impossible (on continue avec la logique eleve) :', eProf);
+    }
+    try {
+      const snap = await getDoc(doc(_db, 'eleves', user.uid));
+      const autorise = snap.exists() && snap.data().partie2Debloquee === true;
+      if (!autorise) { window.location.href = '../../bibliotheque.html'; return; }
+      document.body.style.visibility = 'visible';
+    } catch (e) {
+      console.error('Verification acces Partie 2 impossible :', e);
+      window.location.href = '../../bibliotheque.html';
+    }
+  });
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../../bibliotheque.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Bibliothèque / Biblioteca</a>
+
+  <div class="fiche-header">
+    <a href="../../modules.html" class="fiche-home-icon" aria-label="Retour au menu / Volver al menú" title="Retour au menu / Volver al menú">
+      <i class="fa-solid fa-house"></i>
+    </a>
+    <div class="fiche-brand">دار الكلمة · Module 18</div>
+    <div class="fiche-title-ar ar-text">فِعْلُ الْأَمْرِ وَبِنَاءُ الْمَعْنَى</div>
+    <div class="fiche-title-fr">L'Impératif &amp; Construire le Sens</div>
+    <div class="fiche-title-es">El Imperativo y la Construcción del Sentido</div>
+    <p class="fiche-intro">
+      Depuis M13, j'ai appris à observer une āyah. Maintenant, je reconnais aussi une demande, un ordre, une invitation — et je commence à construire le sens.
+      <span class="es-line">Desde M13, he aprendido a observar una āyah. Ahora, también reconozco una petición, una orden, una invitación — y empiezo a construir el sentido.</span>
+    </p>
+  </div>
+
+  <!-- ═══════════ PARTIE 1 — اِقْرَأْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">1</span><span class="verse-particle-label ar-text">اِقْرَأْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar"><span class="hl">اِ۪قْرَأْ</span> بِاسْمِ رَبِّكَ اَ۬لذِے خَلَقَۖ</div>
+      <div class="ayah-ref">Sourate Al-ʿAlaq 96:1</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text"><span class="hl">اِقْرَأْ</span> بِاسْمِ رَبِّكَ اَ۬لذِے خَلَقَۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <p class="child-quote">Que demande cette āyah ?<span class="bi-es">¿Qué pide esta āyah?</span></p>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">اِقْرَأْ</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item" dir="ltr">Lis !<span style="display:block;font-size:0.75rem;color:var(--ink-soft);font-style:italic;">¡Lee!</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">Cette forme s'appelle فِعْلُ الْأَمْرِ — l'impératif. Il sert notamment à demander ou ordonner à quelqu'un de réaliser une action. Selon le contexte, il peut exprimer un ordre, une demande, une instruction ou une invitation.</p>
+        <p class="comprends-es">Esta forma se llama فِعْلُ الْأَمْرِ — el imperativo. Sirve, entre otras cosas, para pedir u ordenar a alguien que realice una acción. Según el contexto, puede expresar una orden, una petición, una instrucción o una invitación.</p>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">اِقْرَأْ</div>
+      <div class="retiens-fr">un impératif qui ouvre toute la Révélation</div>
+      <div class="retiens-es">un imperativo que abre toda la Revelación</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 2 — قُلْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">2</span><span class="verse-particle-label ar-text">قُلْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar"><span class="hl">قُلْ</span> هُوَ اَ۬للَّهُ أَحَدٌۖ</div>
+      <div class="ayah-ref">Sourate Al-Ikhlāṣ 112:1</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text"><span class="hl">قُلْ</span> هُوَ اَ۬للَّهُ أَحَدٌۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">قُلْ → Dis !</p>
+        <p class="comprends-es">قُلْ → ¡Di!</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-link"></i> Je relie · Relaciono</div>
+      <div class="observe-box" style="flex-direction:column;">
+        <div class="observe-item"><span class="ar-text">قَالَ</span><span class="tag">passé · pasado</span></div>
+        <i class="fa-solid fa-arrow-down"></i>
+        <div class="observe-item"><span class="ar-text">يَقُولُ</span><span class="tag">présent · presente</span></div>
+        <i class="fa-solid fa-arrow-down"></i>
+        <div class="observe-item"><span class="ar-text">قُلْ</span><span class="tag gold">impératif · imperativo</span></div>
+      </div>
+      <div class="warning-box">
+        <div class="warn-title"><i class="fa-solid fa-triangle-exclamation"></i> Attention · Atención</div>
+        <p>قَالَ est un verbe faible (racine ق و ل, son milieu est une lettre faible). Sa transformation n'est donc PAS le modèle régulier de l'impératif — elle sert seulement à faire sentir le lien de sens : il a dit → il dit → dis !</p>
+        <span class="bi-es">قَالَ es un verbo débil (raíz ق و ل, su letra central es una letra débil). Su transformación NO es el modelo regular del imperativo — sirve solo para sentir el vínculo de sentido: dijo → dice → ¡di!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 3 — اُنْظُرْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">3</span><span class="verse-particle-label ar-text">اُنْظُرْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar"><span class="hl">اُ۟نظُرْ</span> كَيْفَ فَضَّلْنَا بَعْضَهُمْ عَلَىٰ بَعْضٖۖ وَلَلَاخِرَةُ أَكْبَرُ دَرَجَٰتٖ وَأَكْبَرُ تَفْضِيلاٗۖ</div>
+      <div class="ayah-ref">Sourate Al-Isrāʾ 17:21</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text"><span class="hl">اُنظُرْ</span> كَيْفَ فَضَّلْنَا بَعْضَهُمْ عَلَىٰ بَعْضٖۖ...</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">اُنظُرْ → Regarde ! / Observe !</p>
+        <p class="comprends-es">اُنظُرْ → ¡Mira! / ¡Observa!</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-link"></i> Je relie · Relaciono</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">يَنظُرُ</span><span class="tag">présent · presente</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item"><span class="ar-text">اُنظُرْ</span><span class="tag gold">impératif · imperativo</span></div>
+      </div>
+      <p class="child-quote">Je remarque un lien entre les deux formes, sans encore en faire une règle automatique.<span class="bi-es">Noto un vínculo entre las dos formas, sin convertirlo todavía en una regla automática.</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 4 — اُدْخُلِي ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">4</span><span class="verse-particle-label ar-text">اُدْخُلِي</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">قِيلَ لَهَا <span class="hl">اَ۟دْخُلِے</span> اِ۬لصَّرْحَۖ فَلَمَّا رَأَتْهُ حَسِبَتْهُ لُجَّةٗ وَكَشَفَتْ عَن سَاقَيْهَاۖ قَالَ إِنَّهُۥ صَرْحٞ مُّمَرَّدٞ مِّن قَوَارِيرَۖ</div>
+      <div class="ayah-ref">Sourate An-Naml 27:45</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">قِيلَ لَهَا <span class="hl">اَ۟دْخُلِے</span> اِ۬لصَّرْحَۖ...</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-code-compare"></i> Dans l'āyah · En la āyah</div>
+      <div class="observe-box" style="flex-direction:column;">
+        <div class="observe-item"><span class="ar-text">اَ۟دْخُلِے</span><span class="tag">dans l'āyah · en la āyah</span></div>
+        <i class="fa-solid fa-equals" style="font-size:0.85rem;"></i>
+        <div class="observe-item"><span class="ar-text">اُدْخُلِي</span><span class="tag gold">forme à retenir · forma que recordar</span></div>
+      </div>
+      <p class="child-quote">Le petit signe sur la hamza indique qu'elle ne se prononce pas ici, car le mot précédent (لَهَا) se termine par une voyelle. Isolée, la forme garde sa vraie voyelle : اُدْخُلِي.<span class="bi-es">El pequeño signo sobre la hamza indica que no se pronuncia aquí, porque la palabra anterior (لَهَا) termina en vocal. Aislada, la forma conserva su vocal real: اُدْخُلِي.</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">اُدْخُلِي → Entre ! Ici, l'ordre est adressé à une femme (la reine de Saba') : c'est la forme أَنْتِ, avec un ي à la fin.</p>
+        <p class="comprends-es">اُدْخُلِي → ¡Entra! Aquí, la orden se dirige a una mujer (la reina de Saba'): es la forma أَنْتِ, con una ي al final.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-link"></i> Je relie · Relaciono</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">يَدْخُلُ</span><span class="tag">présent · presente</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item"><span class="ar-text">اُدْخُلْ / اُدْخُلِي</span><span class="tag gold">impératif · imperativo</span></div>
+      </div>
+      <p class="child-quote">Même racine <span class="ar-text">د خ ل</span> que dans M17 (<span class="ar-text">دَخَلَ / يَدْخُلُونَ</span>). J'observe la relation avec ce que je connais déjà.<span class="bi-es">Misma raíz <span class="ar-text">د خ ل</span> que en M17 (<span class="ar-text">دَخَلَ / يَدْخُلُونَ</span>). Observo la relación con lo que ya conozco.</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ PARTIE 5 — اِذْهَبْ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">5</span><span class="verse-particle-label ar-text">اِذْهَبْ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar"><span class="hl">اَ۪ذْهَبِ</span> اِلَىٰ فِرْعَوْنَ إِنَّهۥ طَغ۪ىٰۖ</div>
+      <div class="ayah-ref">Sourate Ṭā-Hā 20:23</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text"><span class="hl">اَ۪ذْهَبِ</span> اِلَىٰ فِرْعَوْنَ إِنَّهۥ طَغ۪ىٰۖ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-code-compare"></i> Dans l'āyah · En la āyah</div>
+      <div class="observe-box" style="flex-direction:column;">
+        <div class="observe-item"><span class="ar-text">اَ۪ذْهَبِ</span><span class="tag">dans l'āyah · en la āyah</span></div>
+        <i class="fa-solid fa-equals" style="font-size:0.85rem;"></i>
+        <div class="observe-item"><span class="ar-text">اِذْهَبْ</span><span class="tag gold">forme à retenir · forma que recordar</span></div>
+      </div>
+      <p class="child-quote">La voyelle finale vient ici d'une liaison propre à la rīwaya Warsh avec le mot suivant. Isolé, l'impératif se termine par un سُكُون : اِذْهَبْ.<span class="bi-es">La vocal final proviene aquí de un enlace propio de la riwaya Warsh con la palabra siguiente. Aislado, el imperativo termina en سُكُون: اِذْهَبْ.</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">اِذْهَبْ → Va ! Allah s'adresse ici à Mūsā (Moïse), et l'envoie vers Pharaon.</p>
+        <p class="comprends-es">اِذْهَبْ → ¡Ve! Aquí Allah se dirige a Mūsā (Moisés), y lo envía hacia Faraón.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-link"></i> Je relie · Relaciono</div>
+      <div class="observe-box">
+        <div class="observe-item"><span class="ar-text">يَذْهَبُ</span><span class="tag">présent · presente</span></div>
+        <div class="observe-item"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="observe-item"><span class="ar-text">اِذْهَبْ</span><span class="tag gold">impératif · imperativo</span></div>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">اِقْرَأْ · قُلْ · اُنظُرْ · اُدْخُلْ · اِذْهَبْ</div>
+      <div class="retiens-fr">cinq impératifs réels, cinq formes différentes</div>
+      <div class="retiens-es">cinco imperativos reales, cinco formas diferentes</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ GRAND DÉCLIC — DU PRÉSENT À L'IMPÉRATIF ═══════════ -->
+  <div class="transition-card">
+    <div class="transition-title ar-text">مِنَ الْمُضَارِعِ إِلَى الْأَمْرِ</div>
+    <div class="transition-sub">Du présent à l'impératif<span class="bi-es">Del presente al imperativo</span></div>
+    <div class="synth-card" style="margin-top:0; background:rgba(255,255,255,0.06); box-shadow:none;">
+      <table class="synth-table" dir="rtl">
+        <thead><tr><th>Présent · Presente</th><th>Impératif · Imperativo</th></tr></thead>
+        <tbody>
+          <tr><td class="ar-text">يَقُولُ</td><td class="ar-text">قُلْ</td></tr>
+          <tr><td class="ar-text">يَنظُرُ</td><td class="ar-text">اُنظُرْ</td></tr>
+          <tr><td class="ar-text">يَدْخُلُ</td><td class="ar-text">اُدْخُلْ</td></tr>
+          <tr><td class="ar-text">يَذْهَبُ</td><td class="ar-text">اِذْهَبْ</td></tr>
+          <tr><td class="ar-text">يَقْرَأُ</td><td class="ar-text">اِقْرَأْ</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--white);">Pour comprendre l'impératif, je pars de la forme du présent et j'observe comment le verbe se transforme.<span class="bi-es" style="color:var(--gold-light);">Para comprender el imperativo, parto de la forma del presente y observo cómo se transforma el verbo.</span></p>
+    <div class="warning-box" style="background:rgba(255,255,255,0.06); border-color:var(--gold);">
+      <div class="warn-title" style="color:var(--gold);"><i class="fa-solid fa-triangle-exclamation"></i> Attention · Atención</div>
+      <p style="color:var(--white);">Il n'existe pas de règle simple du type « j'enlève <span class="ar-text">ي</span> et je mets <span class="ar-text">اِ</span> » — cela ne fonctionne pas pour tous les verbes. Chaque verbe garde sa propre famille.</p>
+      <span class="bi-es" style="color:var(--gold-light);">No existe una regla simple del tipo «quito la <span class="ar-text">ي</span> y pongo <span class="ar-text">اِ</span>» — esto no funciona para todos los verbos. Cada verbo conserva su propia familia.</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ اِ أَوْ اُ ؟ — هَمْزَةُ الْوَصْلِ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num"><i class="fa-solid fa-question" style="font-size:0.9rem;"></i></span><span class="verse-particle-label ar-text">اِ أَوْ اُ ؟</span>
+    </div>
+    <p class="child-quote"><span class="ar-text">هَمْزَةُ الْوَصْلِ</span> — la hamzat al-waṣl<span class="bi-es">La hamzat al-waṣl</span></p>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-eye"></i> J'observe · Observo</div>
+      <div class="huruf-row">
+        <div class="huruf-item gold-bg"><span class="ar-text">اُنظُرْ</span><span class="huruf-label">اُ</span></div>
+        <div class="huruf-item gold-bg"><span class="ar-text">اُدْخُلْ</span><span class="huruf-label">اُ</span></div>
+        <div class="huruf-item"><span class="ar-text">اِذْهَبْ</span><span class="huruf-label">اِ</span></div>
+        <div class="huruf-item"><span class="ar-text">اِقْرَأْ</span><span class="huruf-label">اِ</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">La voyelle de départ dépend de la construction du verbe — précisément, de la voyelle du cœur du verbe (عَيْنُ الْفِعْلِ) au présent : si cette voyelle est ـُـ (comme dans يَنظُرُ, يَدْخُلُ), la hamzat al-waṣl prend اُ. Si elle est ـَـ ou ـِـ (comme dans يَذْهَبُ, يَقْرَأُ), la hamzat al-waṣl prend اِ.</p>
+        <p class="comprends-es">La vocal inicial depende de la construcción del verbo — precisamente, de la vocal del corazón del verbo (عَيْنُ الْفِعْلِ) en presente: si esa vocal es ـُـ (como en يَنظُرُ, يَدْخُلُ), la hamzat al-waṣl toma اُ. Si es ـَـ o ـِـ (como en يَذْهَبُ, يَقْرَأُ), la hamzat al-waṣl toma اِ.</p>
+      </div>
+      <p class="child-quote" style="font-weight:700;">❌ Impératif ≠ toujours <span class="ar-text">اِفْعَلْ</span><span class="bi-es" style="font-weight:400;">❌ Imperativo ≠ siempre <span class="ar-text">اِفْعَلْ</span></span></p>
+      <p class="child-quote">🧠 J'observe la famille du verbe.<span class="bi-es">🧠 Observo la familia del verbo.</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOUS LES IMPÉRATIFS NE COMMENCENT PAS PAR اِ / اُ ═══════════ -->
+  <div class="transition-card">
+    <div class="transition-title ar-text" style="font-size:1.3rem;">لَيْسَ كُلُّ أَمْرٍ يَبْدَأُ بِـ اِ / اُ</div>
+    <div class="transition-sub">Tous les impératifs ne commencent pas par اِ / اُ<span class="bi-es">No todos los imperativos comienzan por اِ / اُ</span></div>
+    <div class="huruf-row">
+      <div class="huruf-item"><span class="ar-text">اِقْرَأْ</span></div>
+      <div class="huruf-item gold-bg"><span class="ar-text">اُنظُرْ</span></div>
+      <div class="huruf-item gold-bg"><span class="ar-text">اُدْخُلْ</span></div>
+      <div class="huruf-item"><span class="ar-text">اِذْهَبْ</span></div>
+    </div>
+    <div class="code-row">
+      <div class="code-pill"><i class="fa-solid fa-plus"></i><span class="ar-text">قُلْ</span></div>
+    </div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold); font-weight:700;">Je reconnais l'impératif par sa forme ET par son sens dans la phrase.<span class="bi-es" style="color:var(--gold-light); font-weight:400;">Reconozco el imperativo por su forma Y por su sentido en la frase.</span></p>
+  </div>
+
+  <!-- ═══════════ À QUI S'ADRESSE L'IMPÉRATIF ═══════════ -->
+  <div class="synth-card">
+    <div class="synth-title"><i class="fa-solid fa-user"></i> À qui s'adresse l'impératif ? · ¿A quién se dirige el imperativo?</div>
+    <div class="synth-title-ar ar-text">اَلْمُخَاطَبُ</div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">Comme dans M15 (<span class="ar-text">اَلضَّمَائِرُ</span>), l'impératif s'adresse toujours à <span class="ar-text">الْمُخَاطَب</span> — la personne à qui l'on parle.<span class="bi-es">Como en M15 (<span class="ar-text">اَلضَّمَائِرُ</span>), el imperativo siempre se dirige a <span class="ar-text">الْمُخَاطَب</span> — la persona a quien se habla.</span></p>
+    <table class="synth-table" dir="rtl">
+      <thead><tr><th>Pronom · Pronombre</th><th>Impératif · Imperativo</th></tr></thead>
+      <tbody>
+        <tr><td class="ar-text">أَنْتَ</td><td class="ar-text">اُكْتُبْ</td></tr>
+        <tr><td class="ar-text">أَنْتِ</td><td class="ar-text">اُكْتُبِي</td></tr>
+        <tr><td class="ar-text">أَنْتُمَا</td><td class="ar-text">اُكْتُبَا</td></tr>
+        <tr><td class="ar-text">أَنْتُمْ</td><td class="ar-text">اُكْتُبُوا</td></tr>
+        <tr><td class="ar-text">أَنْتُنَّ</td><td class="ar-text">اُكْتُبْنَ</td></tr>
+      </tbody>
+    </table>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">Cette carte est une SYNTHÈSE GRAMMATICALE (verbe <span class="ar-text">كَتَبَ</span>, même famille que <span class="ar-text">دَخَلَ</span> vu en M17) — pas une citation coranique.<span class="bi-es">Esta ficha es una SÍNTESIS GRAMATICAL (verbo <span class="ar-text">كَتَبَ</span>, misma familia que <span class="ar-text">دَخَلَ</span> visto en M17) — no una cita coránica.</span></p>
+  </div>
+
+  <!-- ═══════════ PARTIE 6 — L'INTERDICTION — لَا النَّاهِيَةُ ═══════════ -->
+  <div class="verse-card">
+    <div class="verse-head">
+      <span class="verse-num">6</span><span class="verse-particle-label ar-text">لَا النَّاهِيَةُ</span>
+    </div>
+
+    <div class="ayah-block">
+      <div class="ayah-ar">قُلْنَا <span class="hl">لَا تَخَفِ</span> اِنَّكَ أَنتَ اَ۬لَاعْل۪ىٰۖ</div>
+      <div class="ayah-ref">Sourate Ṭā-Hā 20:67</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> Je repère · Identifico</div>
+      <div class="repere-ar ar-text">قُلْنَا <span class="hl">لَا تَخَفِ</span> اِنَّكَ أَنتَ اَ۬لَاعْل۪ىٰۖ</div>
+      <p class="child-quote"><span class="ar-text">لَا</span> + verbe au présent<span class="bi-es"><span class="ar-text">لَا</span> + verbo en presente</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-code-compare"></i> Dans l'āyah · En la āyah</div>
+      <div class="observe-box" style="flex-direction:column;">
+        <div class="observe-item"><span class="ar-text">تَخَفِ</span><span class="tag">dans l'āyah · en la āyah</span></div>
+        <i class="fa-solid fa-equals" style="font-size:0.85rem;"></i>
+        <div class="observe-item"><span class="ar-text">تَخَفْ</span><span class="tag gold">forme à retenir · forma que recordar</span></div>
+      </div>
+      <p class="child-quote">Ici aussi, la voyelle finale vient d'une liaison propre à la rīwaya Warsh avec le mot suivant. Isolé, le verbe se termine par un سُكُون : تَخَفْ.<span class="bi-es">Aquí también, la vocal final proviene de un enlace propio de la riwaya Warsh con la palabra siguiente. Aislado, el verbo termina en سُكُون: تَخَفْ.</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-code-compare"></i> J'observe · Observo</div>
+      <div class="observe-box">
+        <div class="observe-item" dir="ltr">FAIS !<span style="display:block;font-size:0.7rem;color:var(--ink-soft);font-style:italic;">HAZ</span></div>
+        <div class="observe-item" style="font-size:0.75rem;color:var(--ink-soft);">vs · vs</div>
+        <div class="observe-item" dir="ltr">NE FAIS PAS !<span style="display:block;font-size:0.7rem;color:var(--ink-soft);font-style:italic;">NO LO HAGAS</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-lightbulb"></i> Je comprends · Comprendo</div>
+      <div class="comprends-box">
+        <p class="comprends-fr">Pour interdire une action, on peut utiliser <span class="ar-text">لَا النَّاهِيَةُ</span> avec le verbe au présent dans la forme grammaticale appropriée (ici <span class="ar-text">تَخَفْ</span>, discrètement <span class="ar-text">الْمُضَارِعُ الْمَجْزُومُ</span>). Cette <span class="ar-text">لَا الناهية</span> est différente de la <span class="ar-text">لَا</span> simple de négation vue en M13 : même lettre, rôle grammatical différent.</p>
+        <p class="comprends-es">Para prohibir una acción, se puede utilizar <span class="ar-text">لَا النَّاهِيَةُ</span> con el verbo en presente en la forma gramatical correspondiente (aquí <span class="ar-text">تَخَفْ</span>, discretamente <span class="ar-text">الْمُضَارِعُ الْمَجْزُومُ</span>). Esta <span class="ar-text">لَا الناهية</span> es diferente de la <span class="ar-text">لَا</span> simple de negación vista en M13: misma letra, función gramatical diferente.</p>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text">لَا تَخَفْ</div>
+      <div class="retiens-fr">M13 (<span class="ar-text">النفي</span>) + M17 (<span class="ar-text">المضارع</span>) + M18 (<span class="ar-text">الأمر</span>) réunis dans une seule āyah</div>
+      <div class="retiens-es">M13 (la negación) + M17 (el presente) + M18 (el imperativo) reunidos en una sola āyah</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ GRAND PASSAGE — بِنَاءُ الْمَعْنَى ═══════════ -->
+  <div class="transition-card">
+    <div class="transition-title ar-text">بِنَاءُ الْمَعْنَى</div>
+    <div class="transition-sub">Je construis le sens<span class="bi-es">Construyo el sentido</span></div>
+  </div>
+
+  <div class="verse-card">
+    <div class="ayah-block">
+      <div class="ayah-ar">
+        اِ۪قْرَأْ بِاسْمِ رَبِّكَ اَ۬لذِے خَلَقَۖ<br>
+        خَلَقَ اَ۬لِانسَٰنَ مِنْ عَلَقٍۖ<br>
+        اِ۪قْرَأْ وَرَبُّكَ اَ۬لَاكْرَمُ<br>
+        اُ۬لذِے عَلَّمَ بِالْقَلَمِ<br>
+        عَلَّمَ اَ۬لِانسَٰنَ مَا لَمْ يَعْلَمْۖ
+      </div>
+      <div class="ayah-ref">Sourate Al-ʿAlaq 96:1-5</div>
+      <div class="ayah-riwaya">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+    </div>
+
+    <p class="child-quote">Le même passage qui ouvre cette fiche. Tout ce que j'ai appris commence maintenant à fonctionner ensemble.<span class="bi-es">El mismo pasaje que abre esta ficha. Todo lo que he aprendido ahora empieza a funcionar junto.</span></p>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-magnifying-glass"></i> <span class="ar-text">أَيْنَ الْفِعْلُ ؟</span> · Où est le verbe ? · ¿Dónde está el verbo?</div>
+      <div class="qa-block">
+        <div class="qa-answer"><span class="ar-text">اِقْرَأْ</span> (×2) · <span class="ar-text">خَلَقَ</span> (×2) · <span class="ar-text">عَلَّمَ</span> (×2) · <span class="ar-text">يَعْلَمْ</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-clock"></i> <span class="ar-text">مَا زَمَنُهُ ؟</span> · Quel temps ? · ¿Qué tiempo?</div>
+      <div class="qa-block">
+        <div class="qa-answer">
+          <span class="ar-text">اِقْرَأْ</span> → <span class="ar-text">الْأَمْرُ</span> (impératif · imperativo)<br>
+          <span class="ar-text">خَلَقَ، عَلَّمَ</span> → <span class="ar-text">الْمَاضِي</span> (passé · pasado)<br>
+          <span class="ar-text">يَعْلَمْ</span> → <span class="ar-text">الْمُضَارِعُ</span> (mode <span class="ar-text">مَجْزُوم</span> après <span class="ar-text">لَمْ</span> · modo <span class="ar-text">مَجْزُوم</span> después de <span class="ar-text">لَمْ</span>)
+        </div>
+      </div>
+      <p class="child-quote">La forme du verbe est celle du <span class="ar-text">مُضَارِع</span>, mais <span class="ar-text">لَمْ</span> donne ici une négation liée au passé.<span class="bi-es">La forma del verbo es la del <span class="ar-text">مُضَارِع</span>, pero <span class="ar-text">لَمْ</span> expresa aquí una negación relacionada con el pasado.</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-user"></i> <span class="ar-text">مَنْ يَفْعَلُ ؟</span> · Qui fait l'action ? · ¿Quién realiza la acción?</div>
+      <div class="qa-block">
+        <div class="qa-answer"><span class="ar-text">اِقْرَأْ</span> → <span class="ar-text">أَنْتَ</span> (le Prophète ﷺ). <span class="ar-text">خَلَقَ، عَلَّمَ</span> → <span class="ar-text">هُوَ</span> (Allah, par <span class="ar-text">اَلذِے</span>).<span class="es"><span class="ar-text">اِقْرَأْ</span> → <span class="ar-text">أَنْتَ</span> (el Profeta ﷺ). <span class="ar-text">خَلَقَ، عَلَّمَ</span> → <span class="ar-text">هُوَ</span> (Allah, mediante <span class="ar-text">اَلذِے</span>).</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-hand-point-right"></i> <span class="ar-text">هَلْ هُنَاكَ ضَمِيرٌ ؟</span> · Y a-t-il un pronom ? · ¿Hay un pronombre?</div>
+      <div class="qa-block">
+        <div class="qa-answer"><span class="ar-text">نَعَمْ</span> — <span class="ar-text">رَبِّكَ</span> (×2) : le ـكَ attaché, « ton Seigneur ».<span class="es"><span class="ar-text">نَعَمْ</span> — <span class="ar-text">رَبِّكَ</span> (×2): el ـكَ unido, «tu Señor».</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-ban"></i> <span class="ar-text">هَلْ هُنَاكَ نَفْيٌ ؟</span> · Y a-t-il une négation ? · ¿Hay una negación?</div>
+      <div class="qa-block">
+        <div class="qa-answer"><span class="ar-text">نَعَمْ</span> — <span class="ar-text">لَمْ</span> (<span class="ar-text">لَمْ يَعْلَمْ</span>), la même particule que M13.<span class="es"><span class="ar-text">نَعَمْ</span> — <span class="ar-text">لَمْ</span> (<span class="ar-text">لَمْ يَعْلَمْ</span>), la misma partícula que M13.</span></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-label"><i class="fa-solid fa-link"></i> <span class="ar-text">هَلْ هُنَاكَ نَعْتٌ وَمَنْعُوتٌ ؟</span> · Y a-t-il un nom + adjectif ? · ¿Hay un sustantivo + adjetivo?</div>
+      <div class="qa-block">
+        <div class="qa-answer absent">Cette notion n'apparaît pas clairement dans ce passage.<span class="es">Esta noción no aparece claramente en este pasaje.</span></div>
+      </div>
+    </div>
+
+    <div class="retiens-box">
+      <div class="ar-text" style="font-size:1.1rem;">مَا الْمَعْنَى ؟</div>
+      <div class="retiens-fr">« Lis, au nom de ton Seigneur qui a créé — a créé l'homme d'une adhérence. Lis ! Ton Seigneur est le Très Généreux, qui a enseigné par la plume, a enseigné à l'homme ce qu'il ne savait pas. »</div>
+      <div class="retiens-es">«Lee, en el nombre de tu Señor que creó — creó al hombre de un coágulo. ¡Lee! Tu Señor es el Generosísimo, quien enseñó por medio del cálamo, enseñó al hombre lo que no sabía.»</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ GRANDE CARTE M13 → M18 ═══════════ -->
+  <div class="final-card">
+    <div class="transition-title ar-text" style="margin-bottom:20px;">مِنْ M13 إِلَى M18</div>
+    <div class="mechanism" style="border-top:none; padding-top:0; margin-top:0;">
+      <div class="mech-step">
+        <span class="mech-num wide">M13</span>
+        <div class="mech-text">
+          <span class="ar-text">اَلنَّفْي</span>
+          <div class="mech-fr">Je reconnais la négation.</div>
+          <div class="mech-es">Reconozco la negación.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num wide">M14</span>
+        <div class="mech-text">
+          <span class="ar-text">اَلنَّعْتُ وَالْمَنْعُوتُ</span>
+          <div class="mech-fr">Je reconnais les accords.</div>
+          <div class="mech-es">Reconozco las concordancias.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num wide">M15</span>
+        <div class="mech-text">
+          <span class="ar-text">اَلضَّمَائِرُ</span>
+          <div class="mech-fr">Je comprends de qui on parle.</div>
+          <div class="mech-es">Comprendo de quién hablamos.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num wide">M16</span>
+        <div class="mech-text">
+          <span class="ar-text">اَلْفِعْلُ الْمَاضِي</span>
+          <div class="mech-fr">Je reconnais qui a fait l'action.</div>
+          <div class="mech-es">Reconozco quién realizó la acción.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num wide">M17</span>
+        <div class="mech-text">
+          <span class="ar-text">اَلْفِعْلُ الْمُضَارِعُ</span>
+          <div class="mech-fr">Je décode le présent.</div>
+          <div class="mech-es">Descodifico el presente.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num wide">M18</span>
+        <div class="mech-text">
+          <span class="ar-text">فِعْلُ الْأَمْرِ</span>
+          <div class="mech-fr">Je reconnais une demande ou un ordre.</div>
+          <div class="mech-es">Reconozco una petición o una orden.</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num wide" style="background:var(--gold); color:var(--bordeaux-dark); border-color:var(--gold);"><i class="fa-solid fa-star"></i></span>
+        <div class="mech-text">
+          <span class="ar-text">بِنَاءُ الْمَعْنَى</span>
+          <div class="mech-fr" style="font-weight:700;">JE CONSTRUIS LE SENS.</div>
+          <div class="mech-es">CONSTRUYO EL SENTIDO.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ RENFORCEMENT DE LA LECTURE ═══════════ -->
+  <div class="synth-card">
+    <div class="synth-title"><i class="fa-solid fa-book-open"></i> Renforcement de la lecture · Refuerzo de la lectura</div>
+    <div class="synth-title-ar ar-text">تَعْزِيزُ الْقِرَاءَةِ</div>
+    <div class="ayah-block" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15);">
+      <div class="ayah-ar" style="color:var(--gold);">
+        اِ۪قْرَأْ بِاسْمِ رَبِّكَ اَ۬لذِے خَلَقَۖ<br>
+        خَلَقَ اَ۬لِانسَٰنَ مِنْ عَلَقٍۖ<br>
+        اِ۪قْرَأْ وَرَبُّكَ اَ۬لَاكْرَمُ<br>
+        اُ۬لذِے عَلَّمَ بِالْقَلَمِ<br>
+        عَلَّمَ اَ۬لِانسَٰنَ مَا لَمْ يَعْلَمْۖ
+      </div>
+      <div class="ayah-ref" style="color:var(--gold-light);">Sourate Al-ʿAlaq 96:1-5</div>
+    </div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">Je cherche dans ce passage ce que je connais déjà.<span class="bi-es">Busco en este pasaje lo que ya conozco.</span></p>
+    <div class="code-row" style="direction:ltr; flex-direction:column; align-items:stretch; gap:8px;">
+      <div class="code-pill" style="justify-content:space-between; direction:rtl;"><span class="ar-text">الْأَمْرُ</span><i class="fa-solid fa-check" style="color:var(--gold);"></i></div>
+      <div class="code-pill" style="justify-content:space-between; direction:rtl;"><span class="ar-text">الْمَاضِي</span><i class="fa-solid fa-check" style="color:var(--gold);"></i></div>
+      <div class="code-pill" style="justify-content:space-between; direction:rtl;"><span class="ar-text">الْمُضَارِعُ</span><i class="fa-solid fa-check" style="color:var(--gold);"></i></div>
+      <div class="code-pill" style="justify-content:space-between; direction:rtl;"><span class="ar-text">النَّفْي</span><i class="fa-solid fa-check" style="color:var(--gold);"></i></div>
+      <div class="code-pill" style="justify-content:space-between; direction:rtl;"><span class="ar-text">الضَّمَائِرُ</span><i class="fa-solid fa-check" style="color:var(--gold);"></i></div>
+      <div class="code-pill" style="justify-content:space-between; direction:rtl; opacity:0.5;"><span class="ar-text">النَّعْتُ وَالْمَنْعُوتُ</span><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <p class="child-quote" style="border-color:rgba(255,255,255,0.15); color:var(--gold-light);">Je ne force pas ce passage à contenir toutes les notions — je regarde seulement ce qui y est réellement.<span class="bi-es">No obligo a este pasaje a contener todas las nociones — solo miro lo que realmente hay en él.</span></p>
+  </div>
+
+  <!-- ═══════════ CARTE FINALE DAK ═══════════ -->
+  <div class="final-card">
+    <div class="mechanism" style="border-top:none; padding-top:0; margin-top:0;">
+      <div class="mech-step">
+        <span class="mech-num">1</span>
+        <div class="mech-text">
+          <span class="ar-text">أَقْرَأُ</span> — JE LIS / LEO
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">2</span>
+        <div class="mech-text">
+          <span class="ar-text">أَجِدُ</span> — JE REPÈRE / IDENTIFICO
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">3</span>
+        <div class="mech-text">
+          <span class="ar-text">أُحَلِّلُ</span> — J'ANALYSE / ANALIZO
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">4</span>
+        <div class="mech-text">
+          <span class="ar-text">أَرْبِطُ</span> — JE RELIE / RELACIONO
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-down"></i>
+      <div class="mech-step">
+        <span class="mech-num">5</span>
+        <div class="mech-text">
+          <span class="ar-text">أَفْهَمُ</span> — JE COMPRENDS / COMPRENDO
+        </div>
+      </div>
+    </div>
+    <div class="final-question ar-text" style="margin-top:26px;">لَمْ أَعُدْ أَقْرَأُ الْكَلِمَاتِ فَقَطْ...<br>بَلْ أَبْدَأُ فِي بِنَاءِ الْمَعْنَى.</div>
+    <div class="final-question-fr">Je ne lis plus seulement des mots.<br>Je commence à construire le sens.</div>
+    <div class="final-question-es">Ya no leo solamente palabras.<br>Empiezo a construir el sentido.</div>
+  </div>
+
+</div>
+</body>
+</html>

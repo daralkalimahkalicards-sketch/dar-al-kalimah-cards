@@ -184,6 +184,19 @@
       "partie": 2,
       "icone": "fa-solid fa-arrows-spin",
       "lien": "fiches/partie2/fiche-m17-present.html"
+    },
+    {
+      "id": "fiche-m18-imperatif",
+      "titre_fr": "L'Impératif & Construire le Sens",
+      "sous_titre_fr": "Fi'l Al-Amr — Module 18",
+      "titre_ar": "فِعْلُ الْأَمْرِ وَبِنَاءُ الْمَعْنَى",
+      "description_fr": "10 āyāt (rīwaya Warsh) pour reconnaître l'impératif du Coran et relier M13 à M18 pour commencer à construire le sens.",
+      "description_es": "10 āyāt (riwaya Warsh) para reconocer el imperativo del Corán y relacionar M13 con M18 para empezar a construir el sentido.",
+      "type": "fiche",
+      "public": "tous",
+      "partie": 2,
+      "icone": "fa-solid fa-hand-point-right",
+      "lien": "fiches/partie2/fiche-m18-imperatif.html"
     }
   ]
 }
