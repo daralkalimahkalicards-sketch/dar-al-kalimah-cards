@@ -214,10 +214,16 @@ const oneSignalReadyAuth = new Promise((resolve) => { _resolveOneSignalAuth = re
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 window.OneSignalDeferred.push(async function (OneSignal) {
   try {
+    // Pas de serviceWorkerPath/serviceWorkerParam ici : sw.js importe deja le script
+    // worker OneSignal (importScripts dans sw.js) et est enregistre manuellement plus
+    // bas sur cette page. Fournir serviceWorkerPath faisait enregistrer a OneSignal SA
+    // PROPRE copie a une URL differente (sw.js?appId=...&sdkVersion=...), en concurrence
+    // avec l'enregistrement simple (/sw.js) de la page pour le meme scope -- cause exacte
+    // du "va et vient" constate le 12/09/2026 (controllerScriptURL confirme le
+    // parametrage OneSignal via navigator.serviceWorker.controller). Sans ces options,
+    // OneSignal utilise le service worker deja actif plutot que d'en enregistrer un autre.
     await OneSignal.init({
-      appId: DAK_ONESIGNAL_APP_ID,
-      serviceWorkerPath: "sw.js",
-      serviceWorkerParam: { scope: "/" }
+      appId: DAK_ONESIGNAL_APP_ID
     });
     _resolveOneSignalAuth(OneSignal);
   } catch (e) {
