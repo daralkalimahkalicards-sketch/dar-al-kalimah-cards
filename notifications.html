@@ -414,13 +414,35 @@ async function handleActivateClick(fromStatusRetry) {
       } catch (eLogin) {
         console.error("Notifications — erreur OneSignal.login (on continue quand même) :", eLogin);
       }
-      // Attend jusqu'à 5s de plus qu'un identifiant d'abonnement push reel
-      // apparaisse avant de considerer l'activation comme reussie.
+      // Attend jusqu'à 5s de plus qu'un identifiant ET un vrai token push reel
+      // apparaissent avant de considerer l'activation comme reussie. Un id peut exister
+      // cote SDK sans token persiste cote OneSignal ("abonnement fantome" -- audit du
+      // 11/09/2026 : 2 abonnements exactement dans ce cas trouves dans l'export reel,
+      // token vide + invalid_identifier=true). Verifier .id seul ne suffit donc pas.
       let subscriptionId = OneSignal.User.PushSubscription.id;
+      let subscriptionToken = OneSignal.User.PushSubscription.token;
       const subscriptionDeadline = Date.now() + 5000;
-      while (!subscriptionId && Date.now() < subscriptionDeadline) {
+      while ((!subscriptionId || !subscriptionToken) && Date.now() < subscriptionDeadline) {
         await new Promise((resolve) => setTimeout(resolve, 250));
         subscriptionId = OneSignal.User.PushSubscription.id;
+        subscriptionToken = OneSignal.User.PushSubscription.token;
+      }
+      // Abonnement fantome detecte : un id existe mais aucun token reel. Une reparation
+      // (desabonnement puis reabonnement) est tentee avant d'abandonner, plutot que de
+      // laisser passer un "accepted" qui ne recevra jamais rien.
+      if (subscriptionId && !subscriptionToken) {
+        try {
+          await OneSignal.User.PushSubscription.optOut();
+          await OneSignal.User.PushSubscription.optIn();
+          const repairDeadline = Date.now() + 5000;
+          while (!OneSignal.User.PushSubscription.token && Date.now() < repairDeadline) {
+            await new Promise((resolve) => setTimeout(resolve, 250));
+          }
+          subscriptionId = OneSignal.User.PushSubscription.id;
+          subscriptionToken = OneSignal.User.PushSubscription.token;
+        } catch (eRepair) {
+          console.error("Notifications — réparation abonnement fantôme impossible :", eRepair);
+        }
       }
       // Tag OneSignal pour identifier l'administratrice (notifications ciblées)
       if (_auth.currentUser.email === "sunfertity2080@gmail.com") {
@@ -430,7 +452,7 @@ async function handleActivateClick(fromStatusRetry) {
           console.error("Erreur ajout tag role=prof :", eTag);
         }
       }
-      if (!subscriptionId) {
+      if (!subscriptionId || !subscriptionToken) {
         throw new Error("Permission accordée mais abonnement push non confirmé côté OneSignal");
       }
       await setDoc(ref, { notifications: {
