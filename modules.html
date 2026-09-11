@@ -539,42 +539,5 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-
-<!-- Resynchronisation silencieuse OneSignal (audit du 11/09/2026) : modules.html est la
-     page visitee a chaque connexion, contrairement a notifications.html vue une seule fois.
-     OneSignal.init() y est donc charge aussi ici pour que la reparation d'un abonnement
-     "fantome" (token push vide cote OneSignal alors que le navigateur a bien accorde la
-     permission) ait lieu en navigation normale, sans que l'eleve ait a revisiter
-     notifications.html. Ne demande JAMAIS la permission ici (uniquement si deja accordee) :
-     aucun nouveau prompt, aucune interaction requise, echec toujours silencieux. -->
-<script type="module">
-  const DAK_ONESIGNAL_APP_ID = "45f20a47-8afe-4b34-b847-8493041430bf";
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  window.OneSignalDeferred.push(async function (OneSignal) {
-    try {
-      await OneSignal.init({
-        appId: DAK_ONESIGNAL_APP_ID,
-        serviceWorkerPath: "sw.js",
-        serviceWorkerParam: { scope: "/" }
-      });
-      if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
-      const sub = OneSignal.User.PushSubscription;
-      if (sub.optedIn && !sub.token) {
-        // Abonnement fantome : opte-in cote OneSignal mais aucun token push reel persiste
-        // (cf. audit du 11/09/2026 -- 2 abonnements dans ce cas exact trouves dans l'export).
-        await sub.optOut();
-        await sub.optIn();
-      } else if (!sub.optedIn) {
-        // Permission navigateur deja accordee mais OneSignal ne le sait pas (ex. changement
-        // d'appareil, reinstallation) : reactivation silencieuse, aucun nouveau prompt
-        // necessaire puisque la permission est deja acquise au niveau du navigateur.
-        await sub.optIn();
-      }
-    } catch (e) {
-      console.error('Resync OneSignal (modules.html) impossible :', e);
-    }
-  });
-</script>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 </body>
 </html>

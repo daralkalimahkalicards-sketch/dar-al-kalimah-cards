@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dar Al-Kalimah — Connexion</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root { --burgundy: #5D1828; --gold: #C8A462; --white: #FFFFFF; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,17 +67,6 @@
   .user-email { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 24px; }
   .btn-secondary { width: 100%; padding: 14px; background: transparent; color: rgba(200,164,98,0.7); border: 1px solid rgba(200,164,98,0.3); border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; cursor: pointer; margin-top: 10px; transition: all 0.3s; }
   .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* Bouton cloche "Activer mes rappels" -- meme identite que .btn-secondary (contour or,
-     transparent) puisqu'il ne doit pas rivaliser visuellement avec le bouton dore plein
-     "Continuer l'apprentissage". Classe separee (pas une simple reutilisation de
-     .btn-secondary) pour permettre l'icone + le layout flex sans toucher au bouton
-     "Se deconnecter" existant. */
-  .btn-notif { width: 100%; padding: 14px; background: transparent; color: var(--gold); border: 1px solid rgba(200,164,98,0.5); border-radius: 999px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 9px; }
-  .btn-notif:hover:not(:disabled) { background: rgba(200,164,98,0.08); border-color: var(--gold); }
-  .btn-notif:disabled { cursor: default; }
-  .btn-notif.is-active { color: rgba(200,164,98,0.55); border-color: rgba(200,164,98,0.22); background: rgba(200,164,98,0.05); }
-  .btn-notif .btn-es { display: block; font-size: 0.72em; font-weight: 500; opacity: 0.85; margin-top: 1px; text-transform: none; letter-spacing: 0.3px; }
   .link-forgot { display: block; text-align: center; margin-top: 14px; color: rgba(200,164,98,0.75); font-size: 0.8rem; text-decoration: none; cursor: pointer; background: none; border: none; font-family: 'Montserrat', sans-serif; width: 100%; }
   .link-forgot:hover { color: var(--gold); text-decoration: underline; }
   .lbl-es { display: block; text-transform: none; font-weight: 400; font-style: italic; letter-spacing: 0; color: rgba(200,164,98,0.5); margin-top: 3px; font-size: 0.7rem; }
@@ -104,10 +92,6 @@
   <div class="user-info" id="user-info">
     <div class="user-name" id="user-display-name"></div>
     <div class="user-email" id="user-display-email"></div>
-    <button class="btn-notif" id="btn-notif-bell" type="button" onclick="activateNotifBell()">
-      <i class="fa-solid fa-bell"></i>
-      <span>Activer mes rappels<span class="btn-es">Activar mis recordatorios</span></span>
-    </button>
     <button class="btn-main" onclick="goToApp()">▶ Continuer l'apprentissage</button>
     <button class="btn-secondary" onclick="logout()">Se déconnecter</button>
   </div>
@@ -204,34 +188,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// OneSignal (bouton cloche "Activer mes rappels" sur l'ecran "Bonjour ...") : meme
-// pattern deferred que notifications.html, meme App ID. Ne bloque jamais l'ecran de
-// connexion en l'attendant -- getOneSignalAuth() se resout avec l'instance des qu'elle
-// est prete, ou avec null apres un delai raisonnable si le SDK ne repond jamais.
-const DAK_ONESIGNAL_APP_ID = "45f20a47-8afe-4b34-b847-8493041430bf";
-let _resolveOneSignalAuth;
-const oneSignalReadyAuth = new Promise((resolve) => { _resolveOneSignalAuth = resolve; });
-window.OneSignalDeferred = window.OneSignalDeferred || [];
-window.OneSignalDeferred.push(async function (OneSignal) {
-  try {
-    await OneSignal.init({
-      appId: DAK_ONESIGNAL_APP_ID,
-      serviceWorkerPath: "sw.js",
-      serviceWorkerParam: { scope: "/" }
-    });
-    _resolveOneSignalAuth(OneSignal);
-  } catch (e) {
-    console.error("auth.html — erreur init OneSignal:", e);
-    _resolveOneSignalAuth(null);
-  }
-});
-function getOneSignalAuth(timeoutMs = 8000) {
-  return Promise.race([
-    oneSignalReadyAuth,
-    new Promise((resolve) => setTimeout(() => resolve(null), timeoutMs))
-  ]);
-}
-
 // Persistance locale — l'élève reste connecté même après fermeture du navigateur
 await setPersistence(auth, browserLocalPersistence);
 
@@ -270,116 +226,8 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById('user-info').style.display = 'block';
     document.getElementById('user-display-name').textContent = '👋 Bonjour ' + (user.displayName || '');
     document.getElementById('user-display-email').textContent = user.email;
-    initNotifBell(user.uid);
   }
 });
-
-// Etat initial du bouton cloche : refletee eleves/{uid}.notifications.statut deja
-// enregistre (meme champ que notifications.html), pour ne jamais redemander si
-// l'activation a deja ete faite depuis cet ecran ou depuis notifications.html.
-async function initNotifBell(uid) {
-  const btn = document.getElementById('btn-notif-bell');
-  if (!btn) return;
-  try {
-    const snap = await getDoc(doc(db, 'eleves', uid));
-    const notif = snap.exists() ? snap.data().notifications : null;
-    if (notif && notif.statut === 'accepted') setNotifBellActive();
-  } catch (e) {
-    console.error('auth.html — lecture statut notifications impossible :', e);
-  }
-}
-
-function setNotifBellActive() {
-  const btn = document.getElementById('btn-notif-bell');
-  if (!btn) return;
-  btn.classList.add('is-active');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-bell"></i><span>Rappels activés<span class="btn-es">Recordatorios activados</span></span>';
-}
-
-// Meme logique que handleActivateClick() de notifications.html (y compris la
-// reparation d'un abonnement fantome, cf. correctif du 11/09/2026), rejouee ici pour
-// que l'activation se fasse en un clic sans quitter cet ecran.
-window.activateNotifBell = async () => {
-  const btn = document.getElementById('btn-notif-bell');
-  if (!btn || btn.disabled) return;
-  btn.disabled = true;
-  const originalHTML = btn.innerHTML;
-  btn.innerHTML = '<i class="fa-solid fa-bell"></i><span>Vérification en cours…<span class="btn-es">Comprobando…</span></span>';
-  try {
-    const OneSignal = await getOneSignalAuth();
-    if (!OneSignal) throw new Error('OneSignal indisponible (SDK non chargé)');
-    await OneSignal.Notifications.requestPermission();
-    const optedIn = OneSignal.User.PushSubscription.optedIn === true;
-    const uid = auth.currentUser.uid;
-    const ref = doc(db, 'eleves', uid);
-    if (optedIn) {
-      try {
-        await Promise.race([
-          OneSignal.login(uid),
-          new Promise((resolve) => setTimeout(resolve, 5000))
-        ]);
-      } catch (eLogin) {
-        console.error('auth.html — erreur OneSignal.login (on continue quand même) :', eLogin);
-      }
-      let subscriptionId = OneSignal.User.PushSubscription.id;
-      let subscriptionToken = OneSignal.User.PushSubscription.token;
-      const subscriptionDeadline = Date.now() + 5000;
-      while ((!subscriptionId || !subscriptionToken) && Date.now() < subscriptionDeadline) {
-        await new Promise((resolve) => setTimeout(resolve, 250));
-        subscriptionId = OneSignal.User.PushSubscription.id;
-        subscriptionToken = OneSignal.User.PushSubscription.token;
-      }
-      // Abonnement fantome (id present, token absent) : tentative de reparation
-      // avant d'abandonner, meme correctif que notifications.html.
-      if (subscriptionId && !subscriptionToken) {
-        try {
-          await OneSignal.User.PushSubscription.optOut();
-          await OneSignal.User.PushSubscription.optIn();
-          const repairDeadline = Date.now() + 5000;
-          while (!OneSignal.User.PushSubscription.token && Date.now() < repairDeadline) {
-            await new Promise((resolve) => setTimeout(resolve, 250));
-          }
-          subscriptionId = OneSignal.User.PushSubscription.id;
-          subscriptionToken = OneSignal.User.PushSubscription.token;
-        } catch (eRepair) {
-          console.error('auth.html — réparation abonnement fantôme impossible :', eRepair);
-        }
-      }
-      if (auth.currentUser.email === 'sunfertity2080@gmail.com') {
-        try {
-          await OneSignal.User.addTag('role', 'prof');
-        } catch (eTag) {
-          console.error('Erreur ajout tag role=prof :', eTag);
-        }
-      }
-      if (!subscriptionId || !subscriptionToken) {
-        throw new Error('Permission accordée mais abonnement push non confirmé côté OneSignal');
-      }
-      await setDoc(ref, { notifications: {
-        statut: 'accepted',
-        dateDernierChoix: serverTimestamp(),
-        dateActivation: serverTimestamp(),
-        dateDerniereVerification: serverTimestamp(),
-        oneSignalSubscribed: true
-      }}, { merge: true });
-      setNotifBellActive();
-    } else {
-      await setDoc(ref, { notifications: {
-        statut: 'denied',
-        dateDernierChoix: serverTimestamp(),
-        dateDerniereVerification: serverTimestamp(),
-        oneSignalSubscribed: false
-      }}, { merge: true });
-      btn.disabled = false;
-      btn.innerHTML = originalHTML;
-    }
-  } catch (e) {
-    console.error('auth.html — erreur activation notifications:', e);
-    btn.disabled = false;
-    btn.innerHTML = originalHTML;
-  }
-};
 
 window.togglePwd = (btn) => {
   const input = btn.parentElement.querySelector('input');
@@ -522,7 +370,6 @@ window.logout = async () => {
   document.getElementById('user-info').style.display = 'none';
 };
 </script>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
