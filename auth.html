@@ -526,10 +526,18 @@ window.logout = async () => {
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
-  let dakSwRefreshing = false;
+  // Garde-fou en sessionStorage (pas une simple variable JS) : une variable se
+  // reinitialise a chaque rechargement, donc ne peut pas empecher une CASCADE de
+  // rechargements successifs (chacun se croit "le premier"). Constate en prod le
+  // 12/09/2026 : juste apres un deploiement, plusieurs evenements controllerchange
+  // rapproches declenchaient chacun leur propre reload avant stabilisation -- visible
+  // comme "ça bug un moment puis se stabilise". Un seul reload autorise toutes les 8s,
+  // quel que soit le nombre d'evenements controllerchange recus entre-temps.
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (dakSwRefreshing) return;
-    dakSwRefreshing = true;
+    const last = Number(sessionStorage.getItem('dakSwLastReload') || 0);
+    const now = Date.now();
+    if (now - last < 8000) return;
+    sessionStorage.setItem('dakSwLastReload', String(now));
     window.location.reload();
   });
 }

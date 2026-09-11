@@ -583,10 +583,15 @@ onAuthStateChanged(_auth, (user) => {
 
 <script>
 if ('serviceWorker' in navigator) {
-  let dakSwRefreshing = false;
+  // Garde-fou en sessionStorage (pas une simple variable JS) : une variable se
+  // reinitialise a chaque rechargement, donc ne peut pas empecher une CASCADE de
+  // rechargements successifs (chacun se croit "le premier"). Meme correctif que
+  // auth.html/modules.html (constate en prod le 12/09/2026).
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (dakSwRefreshing) return;
-    dakSwRefreshing = true;
+    const last = Number(sessionStorage.getItem('dakSwLastReload') || 0);
+    const now = Date.now();
+    if (now - last < 8000) return;
+    sessionStorage.setItem('dakSwLastReload', String(now));
     window.location.reload();
   });
 }
