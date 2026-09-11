@@ -526,14 +526,22 @@ window.logout = async () => {
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  // Cause exacte du "va et vient" constatee le 12/09/2026 : controllerchange se
+  // declenche aussi bien lors de la PREMIERE prise de controle d'une page (aucun
+  // controleur au chargement -> la page n'a alors RIEN a gagner a se recharger,
+  // elle vient deja d'etre servie fraiche par le reseau) que lors d'une vraie MISE A
+  // JOUR (un controleur deja actif se fait remplacer par une version plus recente,
+  // la seule situation ou le reload sert a quelque chose). Le code precedent
+  // rechargeait dans les deux cas -- reproduit avec des onglets neufs, memes
+  // plusieurs minutes apres tout deploiement (donc pas seulement un residu de
+  // deploiement recent) : hadControllerAtLoad distingue desormais les deux cas.
+  const hadControllerAtLoad = !!navigator.serviceWorker.controller;
   // Garde-fou en sessionStorage (pas une simple variable JS) : une variable se
   // reinitialise a chaque rechargement, donc ne peut pas empecher une CASCADE de
-  // rechargements successifs (chacun se croit "le premier"). Constate en prod le
-  // 12/09/2026 : juste apres un deploiement, plusieurs evenements controllerchange
-  // rapproches declenchaient chacun leur propre reload avant stabilisation -- visible
-  // comme "ça bug un moment puis se stabilise". Un seul reload autorise toutes les 8s,
-  // quel que soit le nombre d'evenements controllerchange recus entre-temps.
+  // rechargements successifs (chacun se croit "le premier") lors d'une vraie mise
+  // a jour avec plusieurs evenements controllerchange rapproches.
   navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadControllerAtLoad) return;
     const last = Number(sessionStorage.getItem('dakSwLastReload') || 0);
     const now = Date.now();
     if (now - last < 8000) return;
