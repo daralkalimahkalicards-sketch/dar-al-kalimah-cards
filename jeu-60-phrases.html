@@ -1,0 +1,2765 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Dar Al-Kalimah - Le grand jeu des phrases</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<script id="app-data" type="application/json">
+{
+  "meta": {
+    "pageTitle": "Dar Al-Kalimah - Le grand jeu des phrases",
+    "appTitle": "Dar Al-Kalimah – Le grand jeu des phrases",
+    "homeHref": "kalijeux.html",
+    "successAudio": "mabruk.mp3"
+  },
+  "ordre": [
+    {
+      "words": [
+        "أَنَا",
+        "بِنْتٌ",
+        "سَعِيدَةٌ"
+      ],
+      "fr": "Je suis une fille heureuse.",
+      "es": "Soy una chica feliz."
+    },
+    {
+      "words": [
+        "هَذَا",
+        "كِتَابٌ",
+        "جَمِيلٌ"
+      ],
+      "fr": "Ceci est un beau livre.",
+      "es": "Esto es un libro bonito."
+    },
+    {
+      "words": [
+        "تُحِبُّ",
+        "الْبِنْتُ",
+        "أُمَّهَا"
+      ],
+      "words2": [
+        "الْبِنْتُ",
+        "تُحِبُّ",
+        "أُمَّهَا"
+      ],
+      "fr": "La fille aime sa mère.",
+      "es": "La chica ama a su madre."
+    },
+    {
+      "words": [
+        "تَجْتَمِعُ",
+        "الْأُسْرَةُ",
+        "يَوْمَ",
+        "الْجُمُعَةِ"
+      ],
+      "words2": [
+        "الْأُسْرَةُ",
+        "تَجْتَمِعُ",
+        "يَوْمَ",
+        "الْجُمُعَةِ"
+      ],
+      "fr": "La famille se réunit le vendredi.",
+      "es": "La familia se reúne el viernes."
+    },
+    {
+      "words": [
+        "أَقْرَأُ",
+        "الْقُرْآنَ",
+        "كُلَّ",
+        "يَوْمٍ"
+      ],
+      "fr": "Je lis le Coran chaque jour.",
+      "es": "Leo el Corán cada día."
+    },
+    {
+      "words": [
+        "نَتَعَلَّمُ",
+        "اللُّغَةَ",
+        "الْعَرَبِيَّةَ",
+        "مَعًا"
+      ],
+      "fr": "Nous apprenons la langue arabe ensemble.",
+      "es": "Aprendemos el idioma árabe juntos."
+    },
+    {
+      "words": [
+        "يَلْعَبُ",
+        "أَخِي",
+        "فِي",
+        "الْحَدِيقَةِ"
+      ],
+      "words2": [
+        "أَخِي",
+        "يَلْعَبُ",
+        "فِي",
+        "الْحَدِيقَةِ"
+      ],
+      "fr": "Mon frère joue dans le jardin.",
+      "es": "Mi hermano juega en el jardín."
+    },
+    {
+      "words": [
+        "هَذِهِ",
+        "أُخْتِي",
+        "الصَّغِيرَةُ"
+      ],
+      "fr": "Voici ma petite sœur.",
+      "es": "Esta es mi hermana pequeña."
+    },
+    {
+      "words": [
+        "يَذْهَبُ",
+        "أَبِي",
+        "إِلَى",
+        "الْمَسْجِدِ"
+      ],
+      "words2": [
+        "أَبِي",
+        "يَذْهَبُ",
+        "إِلَى",
+        "الْمَسْجِدِ"
+      ],
+      "fr": "Mon père va à la mosquée.",
+      "es": "Mi padre va a la mezquita."
+    },
+    {
+      "words": [
+        "تَنَامُ",
+        "الْقِطَّةُ",
+        "عَلَى",
+        "السَّرِيرِ"
+      ],
+      "words2": [
+        "الْقِطَّةُ",
+        "تَنَامُ",
+        "عَلَى",
+        "السَّرِيرِ"
+      ],
+      "fr": "Le chat dort sur le lit.",
+      "es": "El gato duerme en la cama."
+    },
+    {
+      "words": [
+        "جَدَّتِي",
+        "تَحْكِي",
+        "لَنَا",
+        "قِصَّةً",
+        "جَمِيلَةً"
+      ],
+      "words2": [
+        "تَحْكِي",
+        "جَدَّتِي",
+        "لَنَا",
+        "قِصَّةً",
+        "جَمِيلَةً"
+      ],
+      "fr": "Ma grand-mère nous raconte une belle histoire.",
+      "es": "Mi abuela nos cuenta una historia bonita."
+    },
+    {
+      "words": [
+        "نَحْنُ",
+        "نُصَلِّي",
+        "خَمْسَ",
+        "مَرَّاتٍ",
+        "فِي",
+        "الْيَوْمِ"
+      ],
+      "fr": "Nous prions cinq fois par jour.",
+      "es": "Rezamos cinco veces al día."
+    },
+    {
+      "words": [
+        "الْمُعَلِّمَةُ",
+        "تَشْرَحُ",
+        "الدَّرْسَ",
+        "بِصَبْرٍ"
+      ],
+      "words2": [
+        "تَشْرَحُ",
+        "الْمُعَلِّمَةُ",
+        "الدَّرْسَ",
+        "بِصَبْرٍ"
+      ],
+      "fr": "La maîtresse explique la leçon avec patience.",
+      "es": "La maestra explica la lección con paciencia."
+    },
+    {
+      "words": [
+        "أَنَا",
+        "أُسَاعِدُ",
+        "أُمِّي",
+        "فِي",
+        "الْمَطْبَخِ"
+      ],
+      "fr": "J'aide ma mère dans la cuisine.",
+      "es": "Ayudo a mi madre en la cocina."
+    },
+    {
+      "words": [
+        "اللَّهُ",
+        "يُحِبُّ",
+        "الصَّادِقِينَ"
+      ],
+      "words2": [
+        "يُحِبُّ",
+        "اللَّهُ",
+        "الصَّادِقِينَ"
+      ],
+      "fr": "Allah aime les sincères.",
+      "es": "Alá ama a los sinceros."
+    },
+    {
+      "words": [
+        "أَنْتَ",
+        "وَلَدٌ",
+        "مُجْتَهِدٌ"
+      ],
+      "fr": "Tu es un garçon appliqué.",
+      "es": "Eres un niño aplicado."
+    },
+    {
+      "words": [
+        "هَؤُلَاءِ",
+        "إِخْوَتِي",
+        "الثَّلَاثَةُ"
+      ],
+      "fr": "Voici mes trois frères.",
+      "es": "Estos son mis tres hermanos."
+    },
+    {
+      "words": [
+        "تَقْرَأُ",
+        "الْمُعَلِّمَةُ",
+        "آيَةً",
+        "مِنَ",
+        "الْقُرْآنِ"
+      ],
+      "words2": [
+        "الْمُعَلِّمَةُ",
+        "تَقْرَأُ",
+        "آيَةً",
+        "مِنَ",
+        "الْقُرْآنِ"
+      ],
+      "fr": "La maîtresse lit un verset du Coran.",
+      "es": "La maestra lee un versículo del Corán."
+    },
+    {
+      "words": [
+        "يَغْسِلُ",
+        "الْوَلَدُ",
+        "يَدَيْهِ",
+        "قَبْلَ",
+        "الْأَكْلِ"
+      ],
+      "words2": [
+        "الْوَلَدُ",
+        "يَغْسِلُ",
+        "يَدَيْهِ",
+        "قَبْلَ",
+        "الْأَكْلِ"
+      ],
+      "fr": "Le garçon se lave les mains avant de manger.",
+      "es": "El niño se lava las manos antes de comer."
+    },
+    {
+      "words": [
+        "تَفْتَحُ",
+        "الْبِنْتُ",
+        "نَافِذَةَ",
+        "غُرْفَتِهَا"
+      ],
+      "words2": [
+        "الْبِنْتُ",
+        "تَفْتَحُ",
+        "نَافِذَةَ",
+        "غُرْفَتِهَا"
+      ],
+      "fr": "La fille ouvre la fenêtre de sa chambre.",
+      "es": "La chica abre la ventana de su habitación."
+    }
+  ],
+  "verbe": [
+    {
+      "before": [
+        "الْبِنْتُ"
+      ],
+      "after": [
+        "الْقُرْآنَ"
+      ],
+      "correct": "تَقْرَأُ",
+      "wrongs": [
+        "تَأْكُلُ",
+        "تَلْعَبُ"
+      ],
+      "fr": "La fille lit le Coran.",
+      "es": "La chica lee el Corán."
+    },
+    {
+      "before": [],
+      "after": [
+        "الْوَلَدُ",
+        "الْكُرَةَ",
+        "فِي",
+        "الْحَدِيقَةِ"
+      ],
+      "correct": "يَلْعَبُ",
+      "wrongs": [
+        "يَنَامُ",
+        "يَكْتُبُ"
+      ],
+      "fr": "Le garçon joue au ballon dans le jardin.",
+      "es": "El niño juega a la pelota en el jardín."
+    },
+    {
+      "before": [],
+      "after": [
+        "الْمَاءَ",
+        "عِنْدَمَا",
+        "أَعْطَشُ"
+      ],
+      "correct": "أَشْرَبُ",
+      "wrongs": [
+        "أَقْرَأُ",
+        "أَرْكُضُ"
+      ],
+      "fr": "Je bois de l'eau quand j'ai soif.",
+      "es": "Bebo agua cuando tengo sed."
+    },
+    {
+      "before": [
+        "الْأُمُّ"
+      ],
+      "after": [
+        "الطَّعَامَ",
+        "فِي",
+        "الْمَطْبَخِ"
+      ],
+      "correct": "تَطْبُخُ",
+      "wrongs": [
+        "تَنَامُ",
+        "تَقْرَأُ"
+      ],
+      "fr": "La mère cuisine dans la cuisine.",
+      "es": "La madre cocina en la cocina."
+    },
+    {
+      "before": [],
+      "after": [
+        "الْأَوْلَادُ",
+        "فِي",
+        "الْمَدْرَسَةِ"
+      ],
+      "correct": "يَتَعَلَّمُ",
+      "wrongs": [
+        "يَنَامُ",
+        "يَسْبَحُ"
+      ],
+      "fr": "Les garçons apprennent à l'école.",
+      "es": "Los niños aprenden en la escuela."
+    },
+    {
+      "before": [],
+      "after": [
+        "إِلَى",
+        "الْمَسْجِدِ",
+        "يَوْمَ",
+        "الْجُمُعَةِ"
+      ],
+      "correct": "نَذْهَبُ",
+      "wrongs": [
+        "نَطْبُخُ",
+        "نَنَامُ"
+      ],
+      "fr": "Nous allons à la mosquée le vendredi.",
+      "es": "Vamos a la mezquita el viernes."
+    },
+    {
+      "before": [
+        "الطِّفْلُ"
+      ],
+      "after": [
+        "عِنْدَمَا",
+        "يَتْعَبُ"
+      ],
+      "correct": "يَنَامُ",
+      "wrongs": [
+        "يَجْرِي",
+        "يَضْحَكُ"
+      ],
+      "fr": "L'enfant dort quand il est fatigué.",
+      "es": "El niño duerme cuando se cansa."
+    },
+    {
+      "before": [],
+      "after": [
+        "أَبِي",
+        "وَأُمِّي",
+        "كَثِيرًا"
+      ],
+      "correct": "أُحِبُّ",
+      "wrongs": [
+        "أَكْرَهُ",
+        "أَنْسَى"
+      ],
+      "fr": "J'aime beaucoup mon père et ma mère.",
+      "es": "Amo mucho a mi padre y a mi madre."
+    },
+    {
+      "before": [
+        "الْبِنْتُ"
+      ],
+      "after": [
+        "فُسْتَانًا",
+        "جَمِيلًا"
+      ],
+      "correct": "تَلْبَسُ",
+      "wrongs": [
+        "تَأْكُلُ",
+        "تَقْرَأُ"
+      ],
+      "fr": "La fille porte une belle robe.",
+      "es": "La chica se pone un vestido bonito."
+    },
+    {
+      "before": [],
+      "after": [
+        "الطُّيُورُ",
+        "فِي",
+        "السَّمَاءِ"
+      ],
+      "correct": "تَطِيرُ",
+      "wrongs": [
+        "تَسْبَحُ",
+        "تَنَامُ"
+      ],
+      "fr": "Les oiseaux volent dans le ciel.",
+      "es": "Los pájaros vuelan en el cielo."
+    },
+    {
+      "before": [
+        "أَنْتِ"
+      ],
+      "after": [
+        "رِسَالَةً",
+        "لِصَدِيقَتِكِ"
+      ],
+      "correct": "تَكْتُبِينَ",
+      "wrongs": [
+        "تَأْكُلِينَ",
+        "تَنَامِينَ"
+      ],
+      "fr": "Tu écris une lettre à ton amie.",
+      "es": "Escribes una carta a tu amiga."
+    },
+    {
+      "before": [],
+      "after": [
+        "السَّمَكُ",
+        "فِي",
+        "الْمَاءِ"
+      ],
+      "correct": "يَسْبَحُ",
+      "wrongs": [
+        "يَطِيرُ",
+        "يَمْشِي"
+      ],
+      "fr": "Le poisson nage dans l'eau.",
+      "es": "El pez nada en el agua."
+    },
+    {
+      "before": [
+        "الْمُسْلِمُ"
+      ],
+      "after": [
+        "رَبَّهُ",
+        "كُلَّ",
+        "يَوْمٍ"
+      ],
+      "correct": "يَشْكُرُ",
+      "wrongs": [
+        "يَنْسَى",
+        "يَغْضَبُ"
+      ],
+      "fr": "Le musulman remercie son Seigneur chaque jour.",
+      "es": "El musulmán agradece a su Señor cada día."
+    },
+    {
+      "before": [],
+      "after": [
+        "الْحَقِيبَةَ",
+        "قَبْلَ",
+        "الْمَدْرَسَةِ"
+      ],
+      "correct": "نُحَضِّرُ",
+      "wrongs": [
+        "نَأْكُلُ",
+        "نَنَامُ"
+      ],
+      "fr": "Nous préparons le cartable avant l'école.",
+      "es": "Preparamos la mochila antes de la escuela."
+    },
+    {
+      "before": [
+        "الشَّمْسُ"
+      ],
+      "after": [
+        "فِي",
+        "الصَّبَاحِ"
+      ],
+      "correct": "تُشْرِقُ",
+      "wrongs": [
+        "تَنَامُ",
+        "تَبْكِي"
+      ],
+      "fr": "Le soleil se lève le matin.",
+      "es": "El sol sale por la mañana."
+    },
+    {
+      "before": [
+        "الطَّالِبُ"
+      ],
+      "after": [
+        "وَاجِبَهُ",
+        "كُلَّ",
+        "يَوْمٍ"
+      ],
+      "correct": "يَكْتُبُ",
+      "wrongs": [
+        "يَنْسَى",
+        "يُمَزِّقُ"
+      ],
+      "fr": "L'élève écrit ses devoirs chaque jour.",
+      "es": "El alumno escribe su tarea cada día."
+    },
+    {
+      "before": [],
+      "after": [
+        "الْأَطْفَالُ",
+        "بَعْدَ",
+        "الْغَدَاءِ"
+      ],
+      "correct": "يَنَامُ",
+      "wrongs": [
+        "يَجْرِي",
+        "يَصْرُخُ"
+      ],
+      "fr": "Les enfants dorment après le déjeuner.",
+      "es": "Los niños duermen después del almuerzo."
+    },
+    {
+      "before": [
+        "نَحْنُ"
+      ],
+      "after": [
+        "أَيْدِيَنَا",
+        "قَبْلَ",
+        "الطَّعَامِ"
+      ],
+      "correct": "نَغْسِلُ",
+      "wrongs": [
+        "نَكْسِرُ",
+        "نَخْبِزُ"
+      ],
+      "fr": "Nous lavons nos mains avant de manger.",
+      "es": "Lavamos nuestras manos antes de comer."
+    },
+    {
+      "before": [],
+      "after": [
+        "الْقِطَّةُ",
+        "تَحْتَ",
+        "الطَّاوِلَةِ"
+      ],
+      "correct": "تَخْتَبِئُ",
+      "wrongs": [
+        "تَطْبُخُ",
+        "تَكْتُبُ"
+      ],
+      "fr": "Le chat se cache sous la table.",
+      "es": "El gato se esconde debajo de la mesa."
+    },
+    {
+      "before": [
+        "الْغُيُومُ"
+      ],
+      "after": [
+        "فِي",
+        "السَّمَاءِ"
+      ],
+      "correct": "تَتَحَرَّكُ",
+      "wrongs": [
+        "تَنْفَجِرُ",
+        "تَتَكَلَّمُ"
+      ],
+      "fr": "Les nuages bougent dans le ciel.",
+      "es": "Las nubes se mueven en el cielo."
+    }
+  ],
+  "sens": [
+    {
+      "ar": "تَحْمِلُ الْأُمُّ طِفْلَهَا بِحُبٍّ.",
+      "correct": "La mère porte son enfant avec amour.",
+      "correctEs": "La madre lleva a su hijo con amor.",
+      "wrongs": [
+        "Le père porte son enfant avec amour.",
+        "La mère porte son enfant avec colère."
+      ],
+      "wrongsEs": [
+        "El padre lleva a su hijo con amor.",
+        "La madre lleva a su hijo con enojo."
+      ]
+    },
+    {
+      "ar": "يَشْرَحُ الْمُعَلِّمُ الدَّرْسَ بِوُضُوحٍ.",
+      "correct": "Le maître explique la leçon clairement.",
+      "correctEs": "El maestro explica la lección claramente.",
+      "wrongs": [
+        "L'élève explique la leçon clairement.",
+        "Le maître cache la leçon."
+      ],
+      "wrongsEs": [
+        "El alumno explica la lección claramente.",
+        "El maestro esconde la lección."
+      ]
+    },
+    {
+      "ar": "يَحْتَرِمُ الطُّلَّابُ مُعَلِّمَهُمْ.",
+      "correct": "Les élèves respectent leur maître.",
+      "correctEs": "Los alumnos respetan a su maestro.",
+      "wrongs": [
+        "Les élèves ignorent leur maître.",
+        "Le maître respecte ses élèves."
+      ],
+      "wrongsEs": [
+        "Los alumnos ignoran a su maestro.",
+        "El maestro respeta a sus alumnos."
+      ]
+    },
+    {
+      "ar": "يَزْرَعُ الْفَلَّاحُ الْأَرْضَ فِي الصَّبَاحِ.",
+      "correct": "Le fermier cultive la terre le matin.",
+      "correctEs": "El agricultor cultiva la tierra por la mañana.",
+      "wrongs": [
+        "Le fermier cultive la terre le soir.",
+        "Le fermier vend la terre le matin."
+      ],
+      "wrongsEs": [
+        "El agricultor cultiva la tierra por la tarde.",
+        "El agricultor vende la tierra por la mañana."
+      ]
+    },
+    {
+      "ar": "يَبْتَسِمُ الطِّفْلُ لِأُمِّهِ.",
+      "correct": "L'enfant sourit à sa mère.",
+      "correctEs": "El niño le sonríe a su madre.",
+      "wrongs": [
+        "L'enfant pleure devant sa mère.",
+        "La mère sourit à l'enfant."
+      ],
+      "wrongsEs": [
+        "El niño llora delante de su madre.",
+        "La madre le sonríe al niño."
+      ]
+    },
+    {
+      "ar": "يَصُومُ الْمُسْلِمُونَ فِي رَمَضَانَ.",
+      "correct": "Les musulmans jeûnent pendant le Ramadan.",
+      "correctEs": "Los musulmanes ayunan durante el Ramadán.",
+      "wrongs": [
+        "Les musulmans mangent pendant le Ramadan.",
+        "Les musulmans voyagent pendant le Ramadan."
+      ],
+      "wrongsEs": [
+        "Los musulmanes comen durante el Ramadán.",
+        "Los musulmanes viajan durante el Ramadán."
+      ]
+    },
+    {
+      "ar": "تُغَرِّدُ الطُّيُورُ فِي الصَّبَاحِ الْبَاكِرِ.",
+      "correct": "Les oiseaux chantent tôt le matin.",
+      "correctEs": "Los pájaros cantan temprano por la mañana.",
+      "wrongs": [
+        "Les oiseaux dorment tôt le matin.",
+        "Les oiseaux chantent le soir."
+      ],
+      "wrongsEs": [
+        "Los pájaros duermen temprano por la mañana.",
+        "Los pájaros cantan por la tarde."
+      ]
+    },
+    {
+      "ar": "تُسَاعِدُ الْبِنْتُ جَدَّتَهَا فِي الْبَيْتِ.",
+      "correct": "La fille aide sa grand-mère à la maison.",
+      "correctEs": "La chica ayuda a su abuela en casa.",
+      "wrongs": [
+        "La fille aide son frère à l'école.",
+        "La grand-mère aide la fille à la maison."
+      ],
+      "wrongsEs": [
+        "La chica ayuda a su hermano en la escuela.",
+        "La abuela ayuda a la chica en casa."
+      ]
+    },
+    {
+      "ar": "السَّمَاءُ زَرْقَاءُ الْيَوْمَ.",
+      "correct": "Le ciel est bleu aujourd'hui.",
+      "correctEs": "El cielo está azul hoy.",
+      "wrongs": [
+        "Le ciel est gris aujourd'hui.",
+        "La mer est bleue aujourd'hui."
+      ],
+      "wrongsEs": [
+        "El cielo está gris hoy.",
+        "El mar está azul hoy."
+      ]
+    },
+    {
+      "ar": "الصَّلَاةُ نُورٌ.",
+      "correct": "La prière est une lumière.",
+      "correctEs": "La oración es una luz.",
+      "wrongs": [
+        "Le jeûne est une lumière.",
+        "La prière est difficile."
+      ],
+      "wrongsEs": [
+        "El ayuno es una luz.",
+        "La oración es difícil."
+      ]
+    },
+    {
+      "ar": "أُمِّي أَجْمَلُ امْرَأَةٍ فِي الدُّنْيَا.",
+      "correct": "Ma mère est la plus belle femme du monde.",
+      "correctEs": "Mi madre es la mujer más bella del mundo.",
+      "wrongs": [
+        "Ma sœur est la plus belle femme du monde.",
+        "Ma mère est la plus forte femme du monde."
+      ],
+      "wrongsEs": [
+        "Mi hermana es la mujer más bella del mundo.",
+        "Mi madre es la mujer más fuerte del mundo."
+      ]
+    },
+    {
+      "ar": "الصَّبْرُ مِفْتَاحُ الْفَرَجِ.",
+      "correct": "La patience est la clé du soulagement.",
+      "correctEs": "La paciencia es la llave del alivio.",
+      "wrongs": [
+        "La patience est une perte de temps.",
+        "L'argent est la clé du soulagement."
+      ],
+      "wrongsEs": [
+        "La paciencia es una pérdida de tiempo.",
+        "El dinero es la llave del alivio."
+      ]
+    },
+    {
+      "ar": "الِابْتِسَامَةُ صَدَقَةٌ.",
+      "correct": "Le sourire est une aumône.",
+      "correctEs": "La sonrisa es una limosna.",
+      "wrongs": [
+        "Le silence est une aumône.",
+        "La colère est une aumône."
+      ],
+      "wrongsEs": [
+        "El silencio es una limosna.",
+        "El enojo es una limosna."
+      ]
+    },
+    {
+      "ar": "الْعَائِلَةُ كَنْزٌ ثَمِينٌ.",
+      "correct": "La famille est un trésor précieux.",
+      "correctEs": "La familia es un tesoro precioso.",
+      "wrongs": [
+        "L'argent est un trésor précieux.",
+        "La famille est un fardeau lourd."
+      ],
+      "wrongsEs": [
+        "El dinero es un tesoro precioso.",
+        "La familia es una carga pesada."
+      ]
+    },
+    {
+      "ar": "تَجْتَمِعُ الْأُسْرَةُ كُلَّ مَسَاءٍ حَوْلَ الْمَائِدَةِ.",
+      "correct": "La famille se réunit chaque soir autour de la table.",
+      "correctEs": "La familia se reúne cada tarde alrededor de la mesa.",
+      "wrongs": [
+        "La famille se dispute chaque soir autour de la table.",
+        "Les amis se réunissent chaque soir autour de la table."
+      ],
+      "wrongsEs": [
+        "La familia discute cada tarde alrededor de la mesa.",
+        "Los amigos se reúnen cada tarde alrededor de la mesa."
+      ]
+    },
+    {
+      "ar": "الْمَسْجِدُ قَرِيبٌ مِنْ بَيْتِنَا.",
+      "correct": "La mosquée est proche de notre maison.",
+      "correctEs": "La mezquita está cerca de nuestra casa.",
+      "wrongs": [
+        "La mosquée est loin de notre maison.",
+        "L'école est proche de notre maison."
+      ],
+      "wrongsEs": [
+        "La mezquita está lejos de nuestra casa.",
+        "La escuela está cerca de nuestra casa."
+      ]
+    },
+    {
+      "ar": "الْأَخَوَانِ مُتَشَابِهَانِ كَثِيرًا.",
+      "correct": "Les deux frères se ressemblent beaucoup.",
+      "correctEs": "Los dos hermanos se parecen mucho.",
+      "wrongs": [
+        "Les deux frères sont très différents.",
+        "Les deux sœurs se ressemblent beaucoup."
+      ],
+      "wrongsEs": [
+        "Los dos hermanos son muy diferentes.",
+        "Las dos hermanas se parecen mucho."
+      ]
+    },
+    {
+      "ar": "الْوَقْتُ كَالسَّيْفِ إِنْ لَمْ تَقْطَعْهُ قَطَعَكَ.",
+      "correct": "Le temps est comme une épée, si tu ne le tranches pas, il te tranche.",
+      "correctEs": "El tiempo es como una espada, si no la cortas, te corta.",
+      "wrongs": [
+        "Le temps est un ami qui attend toujours.",
+        "L'argent est comme une épée tranchante."
+      ],
+      "wrongsEs": [
+        "El tiempo es un amigo que siempre espera.",
+        "El dinero es como una espada afilada."
+      ]
+    },
+    {
+      "ar": "النَّظَافَةُ مِنَ الْإِيمَانِ.",
+      "correct": "La propreté fait partie de la foi.",
+      "correctEs": "La limpieza forma parte de la fe.",
+      "wrongs": [
+        "La richesse fait partie de la foi.",
+        "La propreté n'a aucune importance."
+      ],
+      "wrongsEs": [
+        "La riqueza forma parte de la fe.",
+        "La limpieza no tiene ninguna importancia."
+      ]
+    },
+    {
+      "ar": "يَحْفَظُ الطَّالِبُ آيَاتٍ جَدِيدَةً كُلَّ أُسْبُوعٍ.",
+      "correct": "L'élève mémorise de nouveaux versets chaque semaine.",
+      "correctEs": "El alumno memoriza nuevos versículos cada semana.",
+      "wrongs": [
+        "L'élève oublie les versets chaque semaine.",
+        "Le maître mémorise les versets chaque semaine."
+      ],
+      "wrongsEs": [
+        "El alumno olvida los versículos cada semana.",
+        "El maestro memoriza los versículos cada semana."
+      ]
+    }
+  ],
+  "lexique": {
+    "آيَاتٍ": {
+      "fr": "versets",
+      "es": "versículos"
+    },
+    "آيَةً": {
+      "fr": "un verset",
+      "es": "un versículo"
+    },
+    "أَبِي": {
+      "fr": "mon père",
+      "es": "mi padre"
+    },
+    "أَجْمَلُ": {
+      "fr": "la plus belle",
+      "es": "la más bella"
+    },
+    "أَخِي": {
+      "fr": "mon frère",
+      "es": "mi hermano"
+    },
+    "أَشْرَبُ": {
+      "fr": "je bois",
+      "es": "bebo"
+    },
+    "أَعْطَشُ": {
+      "fr": "j'ai soif",
+      "es": "tengo sed"
+    },
+    "أَقْرَأُ": {
+      "fr": "je lis",
+      "es": "leo"
+    },
+    "أَنَا": {
+      "fr": "je",
+      "es": "yo"
+    },
+    "أَنْتَ": {
+      "fr": "tu",
+      "es": "tú"
+    },
+    "أَنْتِ": {
+      "fr": "tu",
+      "es": "tú"
+    },
+    "أَيْدِيَنَا": {
+      "fr": "nos mains",
+      "es": "nuestras manos"
+    },
+    "أُحِبُّ": {
+      "fr": "j'aime",
+      "es": "amo"
+    },
+    "أُخْتِي": {
+      "fr": "ma sœur",
+      "es": "mi hermana"
+    },
+    "أُسَاعِدُ": {
+      "fr": "j'aide",
+      "es": "ayudo"
+    },
+    "أُسْبُوعٍ": {
+      "fr": "une semaine",
+      "es": "una semana"
+    },
+    "أُمَّهَا": {
+      "fr": "sa mère",
+      "es": "su madre"
+    },
+    "أُمِّي": {
+      "fr": "ma mère",
+      "es": "mi madre"
+    },
+    "إِخْوَتِي": {
+      "fr": "mes frères",
+      "es": "mis hermanos"
+    },
+    "إِلَى": {
+      "fr": "vers",
+      "es": "hacia"
+    },
+    "إِنْ": {
+      "fr": "si",
+      "es": "si"
+    },
+    "الثَّلَاثَةُ": {
+      "fr": "les trois",
+      "es": "los tres"
+    },
+    "الدَّرْسَ": {
+      "fr": "la leçon",
+      "es": "la lección"
+    },
+    "الدُّنْيَا": {
+      "fr": "le monde",
+      "es": "el mundo"
+    },
+    "السَّرِيرِ": {
+      "fr": "le lit",
+      "es": "la cama"
+    },
+    "السَّمَاءُ": {
+      "fr": "le ciel",
+      "es": "el cielo"
+    },
+    "السَّمَاءِ": {
+      "fr": "le ciel",
+      "es": "el cielo"
+    },
+    "السَّمَكُ": {
+      "fr": "le poisson",
+      "es": "el pez"
+    },
+    "الشَّمْسُ": {
+      "fr": "le soleil",
+      "es": "el sol"
+    },
+    "الصَّادِقِينَ": {
+      "fr": "les sincères",
+      "es": "los sinceros"
+    },
+    "الصَّبَاحِ": {
+      "fr": "le matin",
+      "es": "la mañana"
+    },
+    "الصَّبْرُ": {
+      "fr": "la patience",
+      "es": "la paciencia"
+    },
+    "الصَّغِيرَةُ": {
+      "fr": "la petite",
+      "es": "la pequeña"
+    },
+    "الصَّلَاةُ": {
+      "fr": "la prière",
+      "es": "la oración"
+    },
+    "الطَّالِبُ": {
+      "fr": "l'élève",
+      "es": "el alumno"
+    },
+    "الطَّاوِلَةِ": {
+      "fr": "la table",
+      "es": "la mesa"
+    },
+    "الطَّعَامَ": {
+      "fr": "la nourriture",
+      "es": "la comida"
+    },
+    "الطَّعَامِ": {
+      "fr": "la nourriture",
+      "es": "la comida"
+    },
+    "الطُّلَّابُ": {
+      "fr": "les élèves",
+      "es": "los alumnos"
+    },
+    "الطُّيُورُ": {
+      "fr": "les oiseaux",
+      "es": "los pájaros"
+    },
+    "الطِّفْلُ": {
+      "fr": "l'enfant",
+      "es": "el niño"
+    },
+    "اللَّهُ": {
+      "fr": "Allah",
+      "es": "Alá"
+    },
+    "اللُّغَةَ": {
+      "fr": "la langue",
+      "es": "la lengua"
+    },
+    "النَّظَافَةُ": {
+      "fr": "la propreté",
+      "es": "la limpieza"
+    },
+    "الِابْتِسَامَةُ": {
+      "fr": "le sourire",
+      "es": "la sonrisa"
+    },
+    "الْأَخَوَانِ": {
+      "fr": "les deux frères",
+      "es": "los dos hermanos"
+    },
+    "الْأَرْضَ": {
+      "fr": "la terre",
+      "es": "la tierra"
+    },
+    "الْأَطْفَالُ": {
+      "fr": "les enfants",
+      "es": "los niños"
+    },
+    "الْأَكْلِ": {
+      "fr": "manger",
+      "es": "comer"
+    },
+    "الْأَوْلَادُ": {
+      "fr": "les garçons",
+      "es": "los niños"
+    },
+    "الْأُسْرَةُ": {
+      "fr": "la famille",
+      "es": "la familia"
+    },
+    "الْأُمُّ": {
+      "fr": "la mère",
+      "es": "la madre"
+    },
+    "الْإِيمَانِ": {
+      "fr": "la foi",
+      "es": "la fe"
+    },
+    "الْبَاكِرِ": {
+      "fr": "tôt",
+      "es": "temprano"
+    },
+    "الْبَيْتِ": {
+      "fr": "la maison",
+      "es": "la casa"
+    },
+    "الْبِنْتُ": {
+      "fr": "la fille",
+      "es": "la chica"
+    },
+    "الْجُمُعَةِ": {
+      "fr": "le vendredi",
+      "es": "el viernes"
+    },
+    "الْحَدِيقَةِ": {
+      "fr": "le jardin",
+      "es": "el jardín"
+    },
+    "الْحَقِيبَةَ": {
+      "fr": "le cartable",
+      "es": "la mochila"
+    },
+    "الْعَائِلَةُ": {
+      "fr": "la famille",
+      "es": "la familia"
+    },
+    "الْعَرَبِيَّةَ": {
+      "fr": "l'arabe",
+      "es": "el árabe"
+    },
+    "الْغَدَاءِ": {
+      "fr": "le déjeuner",
+      "es": "el almuerzo"
+    },
+    "الْغُيُومُ": {
+      "fr": "les nuages",
+      "es": "las nubes"
+    },
+    "الْفَرَجِ": {
+      "fr": "le soulagement",
+      "es": "el alivio"
+    },
+    "الْفَلَّاحُ": {
+      "fr": "le fermier",
+      "es": "el agricultor"
+    },
+    "الْقُرْآنَ": {
+      "fr": "le Coran",
+      "es": "el Corán"
+    },
+    "الْقُرْآنِ": {
+      "fr": "le Coran",
+      "es": "el Corán"
+    },
+    "الْقِطَّةُ": {
+      "fr": "le chat",
+      "es": "el gato"
+    },
+    "الْكُرَةَ": {
+      "fr": "le ballon",
+      "es": "la pelota"
+    },
+    "الْمَاءَ": {
+      "fr": "l'eau",
+      "es": "el agua"
+    },
+    "الْمَاءِ": {
+      "fr": "l'eau",
+      "es": "el agua"
+    },
+    "الْمَائِدَةِ": {
+      "fr": "la table",
+      "es": "la mesa"
+    },
+    "الْمَدْرَسَةِ": {
+      "fr": "l'école",
+      "es": "la escuela"
+    },
+    "الْمَسْجِدُ": {
+      "fr": "la mosquée",
+      "es": "la mezquita"
+    },
+    "الْمَسْجِدِ": {
+      "fr": "la mosquée",
+      "es": "la mezquita"
+    },
+    "الْمَطْبَخِ": {
+      "fr": "la cuisine",
+      "es": "la cocina"
+    },
+    "الْمُسْلِمُ": {
+      "fr": "le musulman",
+      "es": "el musulmán"
+    },
+    "الْمُسْلِمُونَ": {
+      "fr": "les musulmans",
+      "es": "los musulmanes"
+    },
+    "الْمُعَلِّمَةُ": {
+      "fr": "la maîtresse",
+      "es": "la maestra"
+    },
+    "الْمُعَلِّمُ": {
+      "fr": "le maître",
+      "es": "el maestro"
+    },
+    "الْوَقْتُ": {
+      "fr": "le temps",
+      "es": "el tiempo"
+    },
+    "الْوَلَدُ": {
+      "fr": "le garçon",
+      "es": "el niño"
+    },
+    "الْيَوْمَ": {
+      "fr": "aujourd'hui",
+      "es": "hoy"
+    },
+    "الْيَوْمِ": {
+      "fr": "le jour",
+      "es": "el día"
+    },
+    "امْرَأَةٍ": {
+      "fr": "une femme",
+      "es": "una mujer"
+    },
+    "بَعْدَ": {
+      "fr": "après",
+      "es": "después"
+    },
+    "بَيْتِنَا": {
+      "fr": "notre maison",
+      "es": "nuestra casa"
+    },
+    "بِحُبٍّ": {
+      "fr": "avec amour",
+      "es": "con amor"
+    },
+    "بِصَبْرٍ": {
+      "fr": "avec patience",
+      "es": "con paciencia"
+    },
+    "بِنْتٌ": {
+      "fr": "une fille",
+      "es": "una chica"
+    },
+    "بِوُضُوحٍ": {
+      "fr": "clairement",
+      "es": "claramente"
+    },
+    "تَتَحَرَّكُ": {
+      "fr": "bougent",
+      "es": "se mueven"
+    },
+    "تَجْتَمِعُ": {
+      "fr": "se réunit",
+      "es": "se reúne"
+    },
+    "تَحْتَ": {
+      "fr": "sous",
+      "es": "debajo de"
+    },
+    "تَحْكِي": {
+      "fr": "raconte",
+      "es": "cuenta"
+    },
+    "تَحْمِلُ": {
+      "fr": "porte",
+      "es": "lleva"
+    },
+    "تَخْتَبِئُ": {
+      "fr": "se cache",
+      "es": "se esconde"
+    },
+    "تَشْرَحُ": {
+      "fr": "explique",
+      "es": "explica"
+    },
+    "تَطِيرُ": {
+      "fr": "volent",
+      "es": "vuelan"
+    },
+    "تَطْبُخُ": {
+      "fr": "cuisine",
+      "es": "cocina"
+    },
+    "تَفْتَحُ": {
+      "fr": "ouvre",
+      "es": "abre"
+    },
+    "تَقْرَأُ": {
+      "fr": "lit",
+      "es": "lee"
+    },
+    "تَقْطَعْهُ": {
+      "fr": "tu le coupes",
+      "es": "lo cortas"
+    },
+    "تَكْتُبِينَ": {
+      "fr": "tu écris",
+      "es": "escribes"
+    },
+    "تَلْبَسُ": {
+      "fr": "porte",
+      "es": "se pone"
+    },
+    "تَنَامُ": {
+      "fr": "dort",
+      "es": "duerme"
+    },
+    "تُحِبُّ": {
+      "fr": "aime",
+      "es": "ama"
+    },
+    "تُسَاعِدُ": {
+      "fr": "aide",
+      "es": "ayuda"
+    },
+    "تُشْرِقُ": {
+      "fr": "se lève",
+      "es": "sale"
+    },
+    "تُغَرِّدُ": {
+      "fr": "chantent",
+      "es": "cantan"
+    },
+    "ثَمِينٌ": {
+      "fr": "précieux",
+      "es": "precioso"
+    },
+    "جَدَّتَهَا": {
+      "fr": "sa grand-mère",
+      "es": "su abuela"
+    },
+    "جَدَّتِي": {
+      "fr": "ma grand-mère",
+      "es": "mi abuela"
+    },
+    "جَدِيدَةً": {
+      "fr": "nouveaux",
+      "es": "nuevos"
+    },
+    "جَمِيلًا": {
+      "fr": "beau",
+      "es": "bonito"
+    },
+    "جَمِيلٌ": {
+      "fr": "beau",
+      "es": "bonito"
+    },
+    "جَمِيلَةً": {
+      "fr": "belle",
+      "es": "bonita"
+    },
+    "حَوْلَ": {
+      "fr": "autour de",
+      "es": "alrededor de"
+    },
+    "خَمْسَ": {
+      "fr": "cinq",
+      "es": "cinco"
+    },
+    "رَبَّهُ": {
+      "fr": "son Seigneur",
+      "es": "su Señor"
+    },
+    "رَمَضَانَ": {
+      "fr": "le Ramadan",
+      "es": "el Ramadán"
+    },
+    "رِسَالَةً": {
+      "fr": "une lettre",
+      "es": "una carta"
+    },
+    "زَرْقَاءُ": {
+      "fr": "bleu",
+      "es": "azul"
+    },
+    "سَعِيدَةٌ": {
+      "fr": "heureuse",
+      "es": "feliz"
+    },
+    "صَدَقَةٌ": {
+      "fr": "une aumône",
+      "es": "una limosna"
+    },
+    "طِفْلَهَا": {
+      "fr": "son enfant",
+      "es": "su hijo"
+    },
+    "عَلَى": {
+      "fr": "sur",
+      "es": "sobre"
+    },
+    "عِنْدَمَا": {
+      "fr": "quand",
+      "es": "cuando"
+    },
+    "غُرْفَتِهَا": {
+      "fr": "sa chambre",
+      "es": "su habitación"
+    },
+    "فُسْتَانًا": {
+      "fr": "une robe",
+      "es": "un vestido"
+    },
+    "فِي": {
+      "fr": "dans",
+      "es": "en"
+    },
+    "قَبْلَ": {
+      "fr": "avant",
+      "es": "antes"
+    },
+    "قَرِيبٌ": {
+      "fr": "proche",
+      "es": "cerca"
+    },
+    "قَطَعَكَ": {
+      "fr": "il te coupe",
+      "es": "te corta"
+    },
+    "قِصَّةً": {
+      "fr": "une histoire",
+      "es": "una historia"
+    },
+    "كَالسَّيْفِ": {
+      "fr": "comme l'épée",
+      "es": "como la espada"
+    },
+    "كَثِيرًا": {
+      "fr": "beaucoup",
+      "es": "mucho"
+    },
+    "كَنْزٌ": {
+      "fr": "un trésor",
+      "es": "un tesoro"
+    },
+    "كُلَّ": {
+      "fr": "chaque",
+      "es": "cada"
+    },
+    "كِتَابٌ": {
+      "fr": "un livre",
+      "es": "un libro"
+    },
+    "لَمْ": {
+      "fr": "ne...pas",
+      "es": "no"
+    },
+    "لَنَا": {
+      "fr": "à nous",
+      "es": "a nosotros"
+    },
+    "لِأُمِّهِ": {
+      "fr": "à sa mère",
+      "es": "a su madre"
+    },
+    "لِصَدِيقَتِكِ": {
+      "fr": "à ton amie",
+      "es": "a tu amiga"
+    },
+    "مَرَّاتٍ": {
+      "fr": "fois",
+      "es": "veces"
+    },
+    "مَسَاءٍ": {
+      "fr": "soir",
+      "es": "tarde"
+    },
+    "مَعًا": {
+      "fr": "ensemble",
+      "es": "juntos"
+    },
+    "مُتَشَابِهَانِ": {
+      "fr": "se ressemblent",
+      "es": "se parecen"
+    },
+    "مُجْتَهِدٌ": {
+      "fr": "appliqué",
+      "es": "aplicado"
+    },
+    "مُعَلِّمَهُمْ": {
+      "fr": "leur maître",
+      "es": "su maestro"
+    },
+    "مِفْتَاحُ": {
+      "fr": "la clé",
+      "es": "la llave"
+    },
+    "مِنَ": {
+      "fr": "de",
+      "es": "de"
+    },
+    "مِنْ": {
+      "fr": "de",
+      "es": "de"
+    },
+    "نَافِذَةَ": {
+      "fr": "la fenêtre",
+      "es": "la ventana"
+    },
+    "نَتَعَلَّمُ": {
+      "fr": "nous apprenons",
+      "es": "aprendemos"
+    },
+    "نَحْنُ": {
+      "fr": "nous",
+      "es": "nosotros"
+    },
+    "نَذْهَبُ": {
+      "fr": "nous allons",
+      "es": "vamos"
+    },
+    "نَغْسِلُ": {
+      "fr": "nous lavons",
+      "es": "lavamos"
+    },
+    "نُحَضِّرُ": {
+      "fr": "nous préparons",
+      "es": "preparamos"
+    },
+    "نُصَلِّي": {
+      "fr": "nous prions",
+      "es": "rezamos"
+    },
+    "نُورٌ": {
+      "fr": "une lumière",
+      "es": "una luz"
+    },
+    "هَؤُلَاءِ": {
+      "fr": "voici",
+      "es": "estos son"
+    },
+    "هَذَا": {
+      "fr": "ceci",
+      "es": "esto"
+    },
+    "هَذِهِ": {
+      "fr": "voici",
+      "es": "esta es"
+    },
+    "وَأُمِّي": {
+      "fr": "et ma mère",
+      "es": "y mi madre"
+    },
+    "وَاجِبَهُ": {
+      "fr": "ses devoirs",
+      "es": "su tarea"
+    },
+    "وَلَدٌ": {
+      "fr": "un garçon",
+      "es": "un niño"
+    },
+    "يَبْتَسِمُ": {
+      "fr": "sourit",
+      "es": "sonríe"
+    },
+    "يَتَعَلَّمُ": {
+      "fr": "apprend",
+      "es": "aprende"
+    },
+    "يَتْعَبُ": {
+      "fr": "il est fatigué",
+      "es": "se cansa"
+    },
+    "يَحْتَرِمُ": {
+      "fr": "respectent",
+      "es": "respetan"
+    },
+    "يَحْفَظُ": {
+      "fr": "mémorise",
+      "es": "memoriza"
+    },
+    "يَدَيْهِ": {
+      "fr": "ses mains",
+      "es": "sus manos"
+    },
+    "يَذْهَبُ": {
+      "fr": "va",
+      "es": "va"
+    },
+    "يَزْرَعُ": {
+      "fr": "cultive",
+      "es": "cultiva"
+    },
+    "يَسْبَحُ": {
+      "fr": "nage",
+      "es": "nada"
+    },
+    "يَشْرَحُ": {
+      "fr": "explique",
+      "es": "explica"
+    },
+    "يَشْكُرُ": {
+      "fr": "remercie",
+      "es": "agradece"
+    },
+    "يَصُومُ": {
+      "fr": "jeûnent",
+      "es": "ayunan"
+    },
+    "يَغْسِلُ": {
+      "fr": "lave",
+      "es": "lava"
+    },
+    "يَكْتُبُ": {
+      "fr": "écrit",
+      "es": "escribe"
+    },
+    "يَلْعَبُ": {
+      "fr": "joue",
+      "es": "juega"
+    },
+    "يَنَامُ": {
+      "fr": "dort",
+      "es": "duerme"
+    },
+    "يَوْمٍ": {
+      "fr": "un jour",
+      "es": "un día"
+    },
+    "يَوْمَ": {
+      "fr": "le jour de",
+      "es": "el día de"
+    },
+    "يُحِبُّ": {
+      "fr": "aime",
+      "es": "ama"
+    }
+  }
+}
+</script>
+
+<style>
+:root{
+  --bordeaux:#5D1828;
+  --bordeaux-dark:#3a0f19;
+  --gold:#C8A462;
+  --gold-light:#dfc28b;
+  --white:#FFFFFF;
+  --ink:#2b1c1f;
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+  margin:0; padding:0; min-height:100%;
+  background:#FFFFFF;
+  font-family:'Montserrat', sans-serif;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+    radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+}
+
+.ar-text{
+  font-family:'Amiri', serif;
+  direction:rtl;
+  unicode-bidi:isolate;
+  font-feature-settings:"liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+}
+
+#app{
+  max-width:640px;
+  margin:0 auto;
+  padding: calc(16px + var(--safe-top)) 20px calc(28px + var(--safe-bottom));
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}
+
+.top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.lang-toggle{
+  display:inline-flex;
+  border-radius:999px;
+  background:rgba(93,24,40,0.06);
+  border:1px solid rgba(200,164,98,0.32);
+  overflow:hidden;
+}
+.lang-toggle button{
+  border:none; background:transparent; cursor:pointer;
+  padding:8px 14px;
+  font-family:'Montserrat', sans-serif;
+  font-weight:700;
+  font-size:0.78rem;
+  color:var(--bordeaux);
+  transition:background .15s ease, color .15s ease;
+}
+.lang-toggle button.active{
+  background:linear-gradient(135deg, var(--bordeaux), var(--bordeaux-dark));
+  color:#fff;
+}
+
+.btn-house{
+  width:44px; height:44px;
+  border-radius:999px;
+  background:rgba(93,24,40,0.06);
+  border:1px solid rgba(200,164,98,0.32);
+  backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--bordeaux);
+  cursor:pointer;
+  transition:transform .15s ease;
+}
+.btn-house:active{ transform:scale(0.92); }
+.btn-house i{ font-size:1.05rem; color:var(--gold); }
+
+.badge-type{
+  display:none;
+  align-items:center; gap:6px;
+  background:rgba(200,164,98,0.14);
+  border:1px solid rgba(200,164,98,0.4);
+  color:var(--bordeaux);
+  font-size:0.72rem;
+  font-weight:700;
+  padding:6px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.badge-type.visible{ display:inline-flex; }
+.badge-type i{ color:var(--gold); }
+
+.view{ display:none; flex:1; flex-direction:column; align-items:center; text-align:center; }
+.view.active{ display:flex; }
+
+.app-title{
+  font-family:'Cinzel', serif;
+  color:var(--bordeaux);
+  font-size:clamp(1.4rem, 5vw, 2rem);
+  margin:0 0 8px;
+}
+.app-subtitle{
+  color:#6b4b53;
+  font-size:0.98rem;
+  margin:0 0 24px;
+  line-height:1.5;
+}
+
+.intro-container{
+  width:100%;
+  background:var(--white);
+  border-radius:var(--radius-xl);
+  padding:36px 26px;
+  box-shadow:0 12px 40px rgba(93,24,40,0.10);
+  border:1px solid rgba(200,164,98,0.20);
+  position:relative;
+}
+.intro-container::before{
+  content:""; position:absolute; inset:12px; border-radius:20px;
+  border:1px solid rgba(200,164,98,0.18); pointer-events:none;
+}
+
+.intro-icon{
+  width:78px; height:78px; margin:0 auto 18px;
+  border-radius:999px;
+  background:linear-gradient(145deg, var(--bordeaux), var(--bordeaux-dark));
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 20px rgba(93,24,40,0.25);
+}
+.intro-icon i{ font-size:2rem; color:var(--gold); }
+.intro-icon.success{ background:linear-gradient(145deg, var(--gold), var(--gold-light)); }
+.intro-icon.success i{ color:var(--bordeaux); }
+.intro-logo{
+  font-family:'Cinzel', serif;
+  font-weight:700;
+  font-size:1.35rem;
+  letter-spacing:0.06em;
+  color:var(--gold);
+}
+
+.rules-list{
+  list-style:none; padding:0; margin:0 0 26px;
+}
+.rules-list li{
+  display:flex; align-items:flex-start; gap:12px;
+  font-size:0.94rem; color:#4a3338;
+  margin-bottom:12px; line-height:1.5;
+  text-align:left;
+}
+.rules-list i{ color:var(--gold); margin-top:3px; min-width:18px; }
+.rules-list .step-num{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:20px; height:20px; border-radius:999px;
+  background:var(--bordeaux); color:#fff; font-size:0.72rem; font-weight:700;
+  margin-top:1px; flex-shrink:0;
+}
+
+.btn-primary{
+  border:none; cursor:pointer;
+  border-radius:999px;
+  background:linear-gradient(135deg, var(--bordeaux), var(--bordeaux-dark));
+  color:#fff;
+  font-family:'Montserrat', sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  padding:14px 30px;
+  display:inline-flex; align-items:center; gap:10px;
+  box-shadow:0 8px 20px rgba(93,24,40,0.25);
+  transition:transform .15s ease, opacity .15s ease;
+}
+.btn-primary:active{ transform:scale(0.96); }
+.btn-primary:disabled{ opacity:0.35; cursor:not-allowed; box-shadow:none; }
+.btn-primary i{ color:var(--gold-light); }
+
+.progress-wrap{
+  width:100%;
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:18px;
+}
+.progress-bar{
+  flex:1; height:10px; border-radius:999px;
+  background:rgba(93,24,40,0.08);
+  overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, var(--gold-light), var(--gold));
+  border-radius:999px;
+  transition:width .35s ease;
+}
+#progress-label{
+  font-size:0.8rem; font-weight:700; color:var(--bordeaux); white-space:nowrap;
+}
+
+.quiz-container{
+  width:100%;
+  background:var(--white);
+  border-radius:var(--radius-xl);
+  padding:28px 22px;
+  box-shadow:0 12px 40px rgba(93,24,40,0.10);
+  border:1px solid rgba(200,164,98,0.20);
+  position:relative;
+}
+.quiz-container::before{
+  content:""; position:absolute; inset:14px; border-radius:20px;
+  border:1px solid rgba(200,164,98,0.16); pointer-events:none;
+}
+
+.instruction-line{
+  font-size:0.92rem; color:#6b4b53; margin:0 0 18px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.instruction-line i{ color:var(--gold); }
+
+.sentence-slots{
+  direction:rtl;
+  display:flex; flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  min-height:78px;
+  padding:14px;
+  margin-bottom:18px;
+  border-radius:var(--radius-md);
+  background:rgba(93,24,40,0.035);
+  border:1px dashed rgba(200,164,98,0.5);
+}
+
+.slot{
+  min-width:64px; height:58px;
+  border-radius:var(--radius-sm);
+  border:2px dashed rgba(93,24,40,0.22);
+  background:rgba(255,255,255,0.6);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s ease, background .2s ease, transform .12s ease;
+}
+.slot.filled{
+  border-style:solid;
+  border-color:rgba(200,164,98,0.55);
+  background:#ffffff;
+}
+.slot.correct{
+  border-color:#2e7d4f;
+  background:rgba(46,125,79,0.08);
+}
+.slot.wrong{
+  border-color:#b3352c;
+  background:rgba(179,53,44,0.08);
+  animation:shake .35s ease;
+}
+.slot.drag-over{
+  border-color:var(--gold);
+  background:rgba(200,164,98,0.12);
+  transform:scale(1.05);
+}
+
+@keyframes shake{
+  0%,100%{ transform:translateX(0); }
+  25%{ transform:translateX(-4px); }
+  75%{ transform:translateX(4px); }
+}
+
+.word-tile{
+  font-size:clamp(1.15rem, 4.6vw, 1.55rem);
+  font-family:'Amiri', serif;
+  color:var(--bordeaux);
+  background:#ffffff;
+  border:2px solid var(--gold);
+  border-radius:var(--radius-sm);
+  padding:8px 16px;
+  cursor:grab;
+  user-select:none;
+  touch-action:none;
+  box-shadow:0 4px 10px rgba(93,24,40,0.10);
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  white-space:nowrap;
+}
+.word-tile:active{ cursor:grabbing; }
+.word-tile.dragging{ opacity:0.35; }
+.word-tile.floating{
+  position:fixed;
+  z-index:50;
+  pointer-events:none;
+  box-shadow:0 14px 30px rgba(93,24,40,0.30);
+  transform:scale(1.08) rotate(-2deg);
+}
+
+.word-bank{
+  direction:rtl;
+  display:flex; flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  min-height:64px;
+  padding:10px 4px 4px;
+}
+
+.feedback-msg{
+  min-height:26px;
+  font-weight:700;
+  font-size:0.95rem;
+  margin:14px 0 4px;
+}
+.feedback-msg.ok{ color:#2e7d4f; }
+.feedback-msg.ko{ color:#b3352c; }
+
+.choice-prompt{
+  font-weight:700; color:var(--bordeaux); margin:0 0 14px; font-size:0.95rem;
+}
+.sentence-recap{
+  font-size:clamp(1.3rem, 5.6vw, 1.8rem);
+  color:var(--ink);
+  margin:0 0 22px;
+  line-height:2;
+}
+.blank-slot{
+  display:inline-block;
+  min-width:60px;
+  height:1.1em;
+  border-bottom:3px solid var(--gold);
+  margin:0 6px;
+  vertical-align:middle;
+}
+
+.choice-options{ display:flex; flex-direction:column; gap:12px; margin-bottom:8px; }
+.option-card{
+  background:#ffffff;
+  border:2px solid rgba(93,24,40,0.15);
+  border-radius:var(--radius-md);
+  padding:14px 18px;
+  font-size:0.98rem;
+  text-align:left;
+  cursor:pointer;
+  transition:border-color .15s ease, background .15s ease, transform .12s ease;
+}
+.option-card.ar-text{ font-size:clamp(1.1rem, 4.6vw, 1.4rem); text-align:center; }
+.option-card:active{ transform:scale(0.98); }
+.option-card.correct{
+  border-color:#2e7d4f; background:rgba(46,125,79,0.08); color:#1f5c3a; font-weight:700;
+}
+.option-card.wrong{
+  border-color:#b3352c; background:rgba(179,53,44,0.08); animation:shake .35s ease;
+}
+.option-card.disabled{ pointer-events:none; opacity:0.55; }
+
+/* Reveal panel (translations) */
+.reveal-status{
+  font-weight:700; color:#2e7d4f; font-size:1rem; margin:0 0 18px;
+}
+.reveal-subtitle{
+  font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+  color:var(--gold); margin:0 0 10px; text-align:left;
+}
+.reveal-words{
+  direction:rtl;
+  display:flex; flex-wrap:wrap; gap:10px;
+  justify-content:center;
+  margin-bottom:22px;
+}
+.reveal-word-chip{
+  background:#fffaf0;
+  border:1px solid rgba(200,164,98,0.4);
+  border-radius:var(--radius-sm);
+  padding:8px 12px;
+  min-width:64px;
+}
+.reveal-word-chip .ar{
+  font-family:'Amiri', serif;
+  font-size:1.15rem;
+  color:var(--bordeaux);
+  direction:rtl;
+  display:block;
+}
+.reveal-word-chip .gloss{
+  font-family:'Montserrat', sans-serif;
+  font-size:0.68rem;
+  color:#8a6a70;
+  display:block;
+  margin-top:3px;
+  direction:ltr;
+}
+.reveal-sentence-box{
+  background:rgba(200,164,98,0.08);
+  border-left:3px solid var(--gold);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  margin-bottom:24px;
+  text-align:left;
+}
+.reveal-sentence-box p{
+  margin:0; font-size:1.02rem; color:var(--ink); font-style:italic;
+}
+.reveal-alt-box{
+  background:rgba(93,24,40,0.04);
+  border:1px dashed rgba(200,164,98,0.5);
+  border-radius:var(--radius-sm);
+  padding:12px 16px;
+  margin:-10px 0 24px;
+  text-align:center;
+}
+.reveal-alt-title{
+  margin:0 0 6px; font-size:0.76rem; color:#6b4b53; font-weight:700;
+}
+.reveal-alt-sentence{
+  margin:0; font-size:1.2rem; color:var(--bordeaux);
+}
+
+.end-score{
+  font-size:1.15rem; color:var(--bordeaux); font-weight:700; margin:0 0 8px;
+}
+.end-detail{
+  font-size:0.9rem; color:#6b4b53; margin:0 0 26px;
+}
+
+@media (max-width:768px){
+  #app{ padding-left:16px; padding-right:16px; }
+  .quiz-container, .intro-container{ padding:24px 16px; }
+}
+@media (max-width:480px){
+  .slot{ min-width:52px; height:50px; }
+  .word-tile{ padding:7px 12px; }
+  .rules-list li{ font-size:0.88rem; }
+  .badge-type span{ display:none; }
+  .lang-toggle button{ padding:7px 10px; font-size:0.72rem; }
+}
+@media (max-width:360px){
+  .app-title{ font-size:1.25rem; }
+  .sentence-recap{ font-size:1.25rem; }
+}
+@media print{
+  .btn-house, .btn-primary, .badge-type, .lang-toggle{ display:none !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="top-bar">
+    <div class="lang-toggle" id="lang-toggle">
+      <button type="button" data-lang="fr" id="lang-btn-fr">FR</button>
+      <button type="button" data-lang="es" id="lang-btn-es">ES</button>
+    </div>
+    <button class="btn-house" onclick="goHome()" id="btn-home" aria-label="Retour à l'accueil"><i class="fa-solid fa-house"></i></button>
+  </div>
+
+  <section id="view-intro" class="view active">
+    <div class="intro-container">
+      <div class="intro-icon"><span class="intro-logo">DAK</span></div>
+      <h1 class="app-title" id="intro-title"></h1>
+      <p class="app-subtitle" id="intro-subtitle"></p>
+      <ul class="rules-list">
+        <li><span class="step-num">1</span><span id="step1-text"></span></li>
+        <li><span class="step-num">2</span><span id="step2-text"></span></li>
+        <li><span class="step-num">3</span><span id="step3-text"></span></li>
+        <li><i class="fa-solid fa-shuffle"></i><span id="shuffle-text"></span></li>
+      </ul>
+      <button id="btn-start" class="btn-primary"></button>
+    </div>
+  </section>
+
+  <section id="view-game" class="view">
+    <div class="progress-wrap">
+      <div class="badge-type" id="badge-type"><i class="fa-solid fa-shapes"></i><span id="badge-type-label"></span></div>
+      <div class="progress-bar"><div id="progress-fill" class="progress-bar-fill"></div></div>
+      <span id="progress-label"></span>
+    </div>
+    <div class="quiz-container">
+      <p class="instruction-line"><i class="fa-solid fa-arrow-right-arrow-left"></i><span id="instruction-ordre-text"></span></p>
+      <div class="sentence-slots" id="sentence-slots"></div>
+      <div class="word-bank" id="word-bank"></div>
+      <div class="feedback-msg" id="order-feedback"></div>
+      <button id="btn-check" class="btn-primary" disabled></button>
+    </div>
+  </section>
+
+  <section id="view-choice" class="view">
+    <div class="progress-wrap">
+      <div class="badge-type" id="badge-type-2"><i class="fa-solid fa-shapes"></i><span id="badge-type-label-2"></span></div>
+      <div class="progress-bar"><div id="progress-fill-2" class="progress-bar-fill"></div></div>
+      <span id="progress-label-2"></span>
+    </div>
+    <div class="quiz-container">
+      <p class="choice-prompt" id="choice-prompt"></p>
+      <p class="sentence-recap ar-text" id="choice-recap"></p>
+      <div class="choice-options" id="choice-options"></div>
+      <div class="feedback-msg" id="choice-feedback"></div>
+    </div>
+  </section>
+
+  <section id="view-reveal" class="view">
+    <div class="quiz-container">
+      <p class="reveal-status" id="reveal-status"></p>
+      <p class="reveal-subtitle" id="reveal-word-title"></p>
+      <div class="reveal-words" id="reveal-words"></div>
+      <p class="reveal-subtitle" id="reveal-sentence-title"></p>
+      <div class="reveal-sentence-box"><p id="reveal-sentence"></p></div>
+      <div class="reveal-alt-box" id="reveal-alt-box" style="display:none;">
+        <p class="reveal-alt-title" id="reveal-alt-title"></p>
+        <p class="reveal-alt-sentence ar-text" id="reveal-alt-sentence"></p>
+      </div>
+      <button id="btn-continue" class="btn-primary"></button>
+    </div>
+  </section>
+
+  <section id="view-end" class="view">
+    <div class="intro-container">
+      <div class="intro-icon success"><i class="fa-solid fa-star"></i></div>
+      <h1 class="app-title" id="end-title"></h1>
+      <p class="end-score" id="end-score"></p>
+      <p class="end-detail" id="end-detail"></p>
+      <button id="btn-restart" class="btn-primary"></button>
+    </div>
+  </section>
+</div>
+
+<script>
+const DATA = JSON.parse(document.getElementById('app-data').textContent);
+const LEXIQUE = DATA.lexique;
+
+const UI_TEXT = {
+  fr: {
+    introTitle: "Le grand jeu des phrases",
+    introSubtitle: "60 questions en 3 étapes pour progresser en arabe, en t'amusant !",
+    step1: "20 questions — Remets les mots en ordre : déplace ou touche les mots pour reconstituer la phrase.",
+    step2: "20 questions — Choisis le bon verbe : complète la phrase avec le mot qui convient.",
+    step3: "20 questions — Devine le sens : trouve la bonne traduction.",
+    shuffleNote: "Les questions de chaque étape sont mélangées : chaque partie est différente !",
+    start: "Commencer",
+    instructionOrdre: "Remets les mots dans le bon ordre :",
+    verify: "Vérifier",
+    orderOk: "أَحْسَنْتِ! Phrase correcte !",
+    orderKo: "Presque ! Corrige les cases en rouge.",
+    choicePromptVerbe: "Choisis le bon verbe pour compléter la phrase :",
+    choicePromptSens: "Que veut dire cette phrase ?",
+    choiceOk: "مُمْتَاز! Exactement !",
+    choiceKo: "Pas tout à fait, essaie encore.",
+    revealWordTitle: "Mot à mot",
+    revealSentenceTitle: "Traduction de la phrase",
+    continueBtn: "Continuer",
+    endTitle: "مُمْتَاز! Bravo !",
+    endDetail: "Rejoue pour un ordre différent à l'intérieur de chaque étape !",
+    restart: "Rejouer (nouvelle partie)",
+    home: "Retour à l'accueil",
+    altOrderNote: "Autre ordre possible, même sens (phrase verbale ou phrase nominale) :",
+    scoreText: (x,n) => "Score : " + x + " / " + n + " réussies du premier coup",
+    progressText: (i,n) => "Question " + i + " / " + n,
+    badge: { ordre:"Remets en ordre", verbe:"Bon verbe", sens:"Devine le sens" }
+  },
+  es: {
+    introTitle: "El gran juego de las frases",
+    introSubtitle: "60 preguntas en 3 etapas para progresar en árabe, ¡divirtiéndote!",
+    step1: "20 preguntas — Ordena las palabras: mueve o toca las palabras para reconstruir la frase.",
+    step2: "20 preguntas — Elige el verbo correcto: completa la frase con la palabra adecuada.",
+    step3: "20 preguntas — Adivina el significado: encuentra la traducción correcta.",
+    shuffleNote: "Las preguntas de cada etapa se mezclan: ¡cada partida es diferente!",
+    start: "Empezar",
+    instructionOrdre: "Ordena las palabras correctamente:",
+    verify: "Comprobar",
+    orderOk: "أَحْسَنْتِ! ¡Frase correcta!",
+    orderKo: "¡Casi! Corrige las casillas en rojo.",
+    choicePromptVerbe: "Elige el verbo correcto para completar la frase:",
+    choicePromptSens: "¿Qué significa esta frase?",
+    choiceOk: "مُمْتَاز! ¡Exacto!",
+    choiceKo: "No exactamente, inténtalo de nuevo.",
+    revealWordTitle: "Palabra por palabra",
+    revealSentenceTitle: "Traducción de la frase",
+    continueBtn: "Continuar",
+    endTitle: "مُمْتَاز! ¡Bravo!",
+    endDetail: "¡Vuelve a jugar para un orden diferente dentro de cada etapa!",
+    restart: "Jugar de nuevo (nueva partida)",
+    home: "Volver al inicio",
+    altOrderNote: "Otro orden posible, mismo significado (frase verbal o frase nominal):",
+    scoreText: (x,n) => "Puntuación: " + x + " / " + n + " logradas a la primera",
+    progressText: (i,n) => "Pregunta " + i + " / " + n,
+    badge: { ordre:"Ordena las palabras", verbe:"Buen verbo", sens:"Adivina el significado" }
+  }
+};
+
+function goHome(){ window.location.href = DATA.meta.homeHref; }
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function glossOf(word){
+  const g = LEXIQUE[word];
+  if(!g) return word;
+  return g[state.lang] || g.fr || word;
+}
+
+const AudioController = {
+  player: new Audio(),
+  init(){ this.player.preload = "none"; this.player.playsInline = true; this.player.volume = 1; },
+  async playMain(src){
+    if(!src) return;
+    try{ this.player.pause(); this.player.currentTime = 0; this.player.src = src; this.player.load(); await this.player.play(); }catch(_){}
+  }
+};
+AudioController.init();
+
+function newGameQuestions(){
+  const ordreBlock = shuffle(DATA.ordre).map(q => ({ type:'ordre', data:q }));
+  const verbeBlock = shuffle(DATA.verbe).map(q => ({ type:'verbe', data:q }));
+  const sensBlock  = shuffle(DATA.sens).map(q => ({ type:'sens', data:q }));
+  return [...ordreBlock, ...verbeBlock, ...sensBlock];
+}
+
+const state = {
+  lang: 'fr',
+  questions: [],
+  currentIndex: 0,
+  perfectCount: 0,
+  currentAttempted: false,
+  isStarting: false,
+  isChecking: false,
+  hasFinished: false,
+  choiceLocked: false,
+  slots: [],
+  bank: [],
+  currentOptionPairs: null, // for 'sens' re-render on lang toggle
+  currentReveal: null // { words, fr, es }
+};
+
+const views = {
+  intro: document.getElementById('view-intro'),
+  game: document.getElementById('view-game'),
+  choice: document.getElementById('view-choice'),
+  reveal: document.getElementById('view-reveal'),
+  end: document.getElementById('view-end')
+};
+
+function switchView(name){
+  Object.values(views).forEach(v=>v.classList.remove('active'));
+  views[name].classList.add('active');
+}
+
+/* ---------- LANGUE FR/ES ---------- */
+
+document.getElementById('lang-btn-fr').addEventListener('click', ()=>setLang('fr'));
+document.getElementById('lang-btn-es').addEventListener('click', ()=>setLang('es'));
+
+function setLang(lang){
+  state.lang = lang;
+  document.getElementById('lang-btn-fr').classList.toggle('active', lang==='fr');
+  document.getElementById('lang-btn-es').classList.toggle('active', lang==='es');
+  refreshUITexts();
+}
+
+function refreshUITexts(){
+  const t = UI_TEXT[state.lang];
+
+  document.getElementById('intro-title').textContent = t.introTitle;
+  document.getElementById('intro-subtitle').textContent = t.introSubtitle;
+  document.getElementById('step1-text').innerHTML = t.step1;
+  document.getElementById('step2-text').innerHTML = t.step2;
+  document.getElementById('step3-text').innerHTML = t.step3;
+  document.getElementById('shuffle-text').textContent = t.shuffleNote;
+  document.getElementById('btn-start').innerHTML = t.start + ' <i class="fa-solid fa-arrow-left"></i>';
+  document.getElementById('btn-check').innerHTML = t.verify + ' <i class="fa-solid fa-check"></i>';
+  document.getElementById('btn-continue').innerHTML = t.continueBtn + ' <i class="fa-solid fa-arrow-left"></i>';
+  document.getElementById('btn-restart').innerHTML = t.restart + ' <i class="fa-solid fa-rotate-left"></i>';
+  document.getElementById('btn-home').setAttribute('aria-label', t.home);
+  document.getElementById('instruction-ordre-text').textContent = t.instructionOrdre;
+  document.getElementById('reveal-word-title').textContent = t.revealWordTitle;
+  document.getElementById('reveal-sentence-title').textContent = t.revealSentenceTitle;
+  document.getElementById('end-title').textContent = t.endTitle;
+  document.getElementById('end-detail').textContent = t.endDetail;
+
+  if(state.questions.length && state.currentIndex < state.questions.length){
+    const q = state.questions[state.currentIndex];
+    updateBadge(q.type);
+    updateProgress();
+    if(q.type === 'verbe') document.getElementById('choice-prompt').textContent = t.choicePromptVerbe;
+    if(q.type === 'sens'){
+      document.getElementById('choice-prompt').textContent = t.choicePromptSens;
+      if(state.currentOptionPairs && !state.choiceLocked){
+        drawSensOptions(state.currentOptionPairs);
+      }
+    }
+  }
+
+  if(state.currentReveal){
+    renderRevealTexts();
+  }
+
+  if(state.hasFinished){
+    document.getElementById('end-score').textContent = t.scoreText(state.perfectCount, state.questions.length);
+  }
+}
+
+/* ---------- DEMARRAGE ---------- */
+
+document.getElementById('btn-start').addEventListener('click', ()=>{
+  if(state.isStarting) return;
+  state.isStarting = true;
+  startNewGame();
+});
+
+document.getElementById('btn-restart').addEventListener('click', startNewGame);
+
+function startNewGame(){
+  state.questions = newGameQuestions();
+  state.currentIndex = 0;
+  state.perfectCount = 0;
+  state.hasFinished = false;
+  renderCurrentQuestion();
+}
+
+function updateProgress(){
+  const total = state.questions.length;
+  const pct = (state.currentIndex/total*100) + '%';
+  const label = UI_TEXT[state.lang].progressText(state.currentIndex+1, total);
+  document.getElementById('progress-fill').style.width = pct;
+  document.getElementById('progress-label').textContent = label;
+  document.getElementById('progress-fill-2').style.width = pct;
+  document.getElementById('progress-label-2').textContent = label;
+}
+
+function updateBadge(type){
+  const info = { ordre:'fa-arrow-right-arrow-left', verbe:'fa-pen', sens:'fa-lightbulb' }[type];
+  const label = UI_TEXT[state.lang].badge[type];
+  [['badge-type','badge-type-label'], ['badge-type-2','badge-type-label-2']].forEach(([boxId,labelId])=>{
+    const box = document.getElementById(boxId);
+    box.classList.add('visible');
+    box.querySelector('i').className = 'fa-solid ' + info;
+    document.getElementById(labelId).textContent = label;
+  });
+}
+
+function renderCurrentQuestion(){
+  if(state.currentIndex >= state.questions.length){
+    endGame();
+    return;
+  }
+  state.currentAttempted = false;
+  state.currentReveal = null;
+  state.currentOptionPairs = null;
+  const q = state.questions[state.currentIndex];
+  updateProgress();
+  updateBadge(q.type);
+
+  if(q.type === 'ordre'){
+    switchView('game');
+    renderOrder(q.data);
+  }else if(q.type === 'verbe'){
+    switchView('choice');
+    renderVerbe(q.data);
+  }else if(q.type === 'sens'){
+    switchView('choice');
+    renderSens(q.data);
+  }
+}
+
+document.getElementById('btn-continue').addEventListener('click', ()=>{
+  state.currentIndex += 1;
+  renderCurrentQuestion();
+});
+
+/* ---------- TYPE: ORDRE ---------- */
+
+const slotsEl = document.getElementById('sentence-slots');
+const bankEl = document.getElementById('word-bank');
+const checkBtn = document.getElementById('btn-check');
+const orderFeedback = document.getElementById('order-feedback');
+
+function renderOrder(sentence){
+  orderFeedback.textContent = '';
+  orderFeedback.className = 'feedback-msg';
+  checkBtn.disabled = true;
+  state.isChecking = false;
+
+  state.slots = sentence.words.map(()=>null);
+  state.bank = shuffle(sentence.words.map((w,i)=>({ id:'w'+i, text:w })));
+
+  drawSlots();
+  drawBank();
+}
+
+function drawSlots(){
+  slotsEl.innerHTML = '';
+  state.slots.forEach((word, i)=>{
+    const slot = document.createElement('div');
+    slot.className = 'slot' + (word ? ' filled' : '');
+    slot.dataset.index = i;
+    if(word) slot.appendChild(makeTile(word, 'slot', i));
+    slotsEl.appendChild(slot);
+  });
+}
+
+function drawBank(){
+  bankEl.innerHTML = '';
+  state.bank.forEach(item => bankEl.appendChild(makeTile(item, 'bank', null)));
+}
+
+function makeTile(item, origin, slotIndex){
+  const tile = document.createElement('div');
+  tile.className = 'word-tile ar-text';
+  tile.textContent = item.text;
+  tile.dataset.id = item.id;
+  tile.dataset.origin = origin;
+  if(slotIndex !== null) tile.dataset.slotIndex = slotIndex;
+  attachDragHandlers(tile, item);
+  return tile;
+}
+
+function firstEmptySlot(){ return state.slots.findIndex(s=>s===null); }
+
+function placeInSlot(item, index){
+  state.slots[index] = item;
+  state.bank = state.bank.filter(b=>b.id !== item.id);
+  drawSlots(); drawBank();
+  checkBtn.disabled = firstEmptySlot() !== -1;
+}
+
+function returnToBank(item, fromIndex){
+  state.slots[fromIndex] = null;
+  state.bank.push(item);
+  drawSlots(); drawBank();
+  checkBtn.disabled = true;
+}
+
+function attachDragHandlers(tile, item){
+  let startX, startY, moved, floating, pointerId;
+
+  tile.addEventListener('pointerdown', (e)=>{
+    if(state.isChecking) return;
+    pointerId = e.pointerId;
+    startX = e.clientX; startY = e.clientY;
+    moved = false;
+    tile.setPointerCapture(pointerId);
+  });
+
+  tile.addEventListener('pointermove', (e)=>{
+    if(pointerId === undefined || e.pointerId !== pointerId) return;
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+    if(!moved && Math.hypot(dx,dy) > 8){
+      moved = true;
+      tile.classList.add('dragging');
+      floating = tile.cloneNode(true);
+      floating.classList.add('floating');
+      floating.style.width = tile.offsetWidth + 'px';
+      document.body.appendChild(floating);
+    }
+    if(moved && floating){
+      floating.style.left = (e.clientX - floating.offsetWidth/2) + 'px';
+      floating.style.top = (e.clientY - floating.offsetHeight/2) + 'px';
+      document.querySelectorAll('.slot.drag-over').forEach(s=>s.classList.remove('drag-over'));
+      const under = document.elementFromPoint(e.clientX, e.clientY);
+      const slotUnder = under ? under.closest('.slot') : null;
+      if(slotUnder) slotUnder.classList.add('drag-over');
+    }
+  });
+
+  tile.addEventListener('pointerup', (e)=>{
+    if(pointerId === undefined || e.pointerId !== pointerId) return;
+    document.querySelectorAll('.slot.drag-over').forEach(s=>s.classList.remove('drag-over'));
+    tile.classList.remove('dragging');
+    if(floating){ floating.remove(); floating = null; }
+
+    const origin = tile.dataset.origin;
+    const slotIndexAttr = tile.dataset.slotIndex;
+
+    if(!moved){
+      if(origin === 'bank'){
+        const idx = firstEmptySlot();
+        if(idx !== -1) placeInSlot(item, idx);
+      }else{
+        returnToBank(item, parseInt(slotIndexAttr,10));
+      }
+    }else{
+      const under = document.elementFromPoint(e.clientX, e.clientY);
+      const slotUnder = under ? under.closest('.slot') : null;
+      const bankUnder = under ? under.closest('#word-bank') : null;
+
+      if(slotUnder){
+        const targetIndex = parseInt(slotUnder.dataset.index,10);
+        if(origin === 'bank'){
+          if(state.slots[targetIndex] === null){
+            placeInSlot(item, targetIndex);
+          }else{
+            const idx = firstEmptySlot();
+            if(idx !== -1) placeInSlot(item, idx);
+          }
+        }else{
+          const fromIndex = parseInt(slotIndexAttr,10);
+          if(targetIndex !== fromIndex){
+            const swapped = state.slots[targetIndex];
+            state.slots[targetIndex] = item;
+            state.slots[fromIndex] = swapped;
+            drawSlots(); drawBank();
+            checkBtn.disabled = firstEmptySlot() !== -1;
+          }
+        }
+      }else if(bankUnder && origin === 'slot'){
+        returnToBank(item, parseInt(slotIndexAttr,10));
+      }
+    }
+    pointerId = undefined;
+  });
+}
+
+function arraysEqual(a, b){
+  return a.length === b.length && a.every((w,i)=>w===b[i]);
+}
+
+checkBtn.addEventListener('click', ()=>{
+  if(state.isChecking) return;
+  const t = UI_TEXT[state.lang];
+  const sentence = state.questions[state.currentIndex].data;
+  const currentOrder = state.slots.map(s=>s.text);
+  const validOrders = [sentence.words];
+  if(sentence.words2) validOrders.push(sentence.words2);
+
+  const matchedOrder = validOrders.find(order => arraysEqual(order, currentOrder));
+  const allCorrect = !!matchedOrder;
+
+  // Pour le surlignage, on compare a l'ordre valide le plus proche (le plus de cases correctes)
+  let bestOrder = validOrders[0], bestScore = -1;
+  validOrders.forEach(order=>{
+    let score = 0;
+    order.forEach((w,i)=>{ if(currentOrder[i]===w) score++; });
+    if(score > bestScore){ bestScore = score; bestOrder = order; }
+  });
+  const referenceOrder = matchedOrder || bestOrder;
+
+  document.querySelectorAll('.slot').forEach((slotEl, i)=>{
+    slotEl.classList.remove('correct','wrong');
+    if(currentOrder[i] === referenceOrder[i]){
+      slotEl.classList.add('correct');
+    }else{
+      slotEl.classList.add('wrong');
+    }
+  });
+
+  if(allCorrect){
+    orderFeedback.textContent = t.orderOk;
+    orderFeedback.classList.add('ok');
+    state.isChecking = true;
+    checkBtn.disabled = true;
+    if(!state.currentAttempted) state.perfectCount += 1;
+    const altOrder = sentence.words2
+      ? (arraysEqual(matchedOrder, sentence.words) ? sentence.words2 : sentence.words)
+      : null;
+    setTimeout(()=> showReveal(sentence.words, sentence.fr, sentence.es, altOrder), 700);
+  }else{
+    state.currentAttempted = true;
+    orderFeedback.textContent = t.orderKo;
+    orderFeedback.classList.add('ko');
+  }
+});
+
+/* ---------- TYPE: VERBE / SENS (choix multiple) ---------- */
+
+const choicePrompt = document.getElementById('choice-prompt');
+const choiceRecap = document.getElementById('choice-recap');
+const choiceOptionsEl = document.getElementById('choice-options');
+const choiceFeedback = document.getElementById('choice-feedback');
+
+function renderVerbe(item){
+  const t = UI_TEXT[state.lang];
+  choicePrompt.textContent = t.choicePromptVerbe;
+  choiceRecap.innerHTML = '';
+  if(item.before.length){
+    choiceRecap.appendChild(document.createTextNode(item.before.join(' ') + ' '));
+  }
+  const blank = document.createElement('span');
+  blank.className = 'blank-slot';
+  choiceRecap.appendChild(blank);
+  choiceRecap.appendChild(document.createTextNode(' ' + item.after.join(' ') + '.'));
+
+  choiceFeedback.textContent = '';
+  choiceFeedback.className = 'feedback-msg';
+  state.choiceLocked = false;
+
+  const options = shuffle([item.correct, ...item.wrongs]);
+  choiceOptionsEl.innerHTML = '';
+  options.forEach(text=>{
+    const card = document.createElement('div');
+    card.className = 'option-card ar-text';
+    card.textContent = text;
+    card.addEventListener('click', ()=>{
+      if(state.choiceLocked) return;
+      if(text === item.correct){
+        state.choiceLocked = true;
+        card.classList.add('correct');
+        choiceFeedback.textContent = UI_TEXT[state.lang].choiceOk;
+        choiceFeedback.classList.add('ok');
+        document.querySelectorAll('#choice-options .option-card').forEach(c=>c.classList.add('disabled'));
+        if(!state.currentAttempted) state.perfectCount += 1;
+        const fullWords = [...item.before, item.correct, ...item.after];
+        setTimeout(()=> showReveal(fullWords, item.fr, item.es, null), 700);
+      }else{
+        state.currentAttempted = true;
+        card.classList.add('wrong');
+        choiceFeedback.textContent = UI_TEXT[state.lang].choiceKo;
+        choiceFeedback.classList.add('ko');
+        setTimeout(()=>card.classList.remove('wrong'), 500);
+      }
+    });
+    choiceOptionsEl.appendChild(card);
+  });
+}
+
+function tokenizeAr(ar){
+  return ar.replace(/[.]+$/,'').trim().split(' ').filter(Boolean);
+}
+
+function renderSens(item){
+  const t = UI_TEXT[state.lang];
+  choicePrompt.textContent = t.choicePromptSens;
+  choiceRecap.textContent = item.ar;
+
+  choiceFeedback.textContent = '';
+  choiceFeedback.className = 'feedback-msg';
+  state.choiceLocked = false;
+
+  const pairs = shuffle([
+    { fr:item.correct, es:item.correctEs, correct:true },
+    { fr:item.wrongs[0], es:item.wrongsEs[0], correct:false },
+    { fr:item.wrongs[1], es:item.wrongsEs[1], correct:false }
+  ]);
+  state.currentOptionPairs = pairs;
+  drawSensOptions(pairs, item);
+}
+
+function drawSensOptions(pairs, item){
+  const currentItem = item || state.questions[state.currentIndex].data;
+  choiceOptionsEl.innerHTML = '';
+  pairs.forEach(pair=>{
+    const card = document.createElement('div');
+    card.className = 'option-card';
+    card.textContent = pair[state.lang];
+    card.addEventListener('click', ()=>{
+      if(state.choiceLocked) return;
+      if(pair.correct){
+        state.choiceLocked = true;
+        card.classList.add('correct');
+        choiceFeedback.textContent = UI_TEXT[state.lang].choiceOk;
+        choiceFeedback.classList.add('ok');
+        document.querySelectorAll('#choice-options .option-card').forEach(c=>c.classList.add('disabled'));
+        if(!state.currentAttempted) state.perfectCount += 1;
+        const fullWords = tokenizeAr(currentItem.ar);
+        setTimeout(()=> showReveal(fullWords, currentItem.correct, currentItem.correctEs, null), 700);
+      }else{
+        state.currentAttempted = true;
+        card.classList.add('wrong');
+        choiceFeedback.textContent = UI_TEXT[state.lang].choiceKo;
+        choiceFeedback.classList.add('ko');
+        setTimeout(()=>card.classList.remove('wrong'), 500);
+      }
+    });
+    choiceOptionsEl.appendChild(card);
+  });
+}
+
+/* ---------- REVEAL (traduction mot a mot + phrase) ---------- */
+
+function showReveal(words, fr, es, altOrder){
+  state.currentReveal = { words, fr, es, altOrder };
+  switchView('reveal');
+  renderRevealTexts();
+}
+
+function renderRevealTexts(){
+  const t = UI_TEXT[state.lang];
+  document.getElementById('reveal-status').textContent = t.choiceOk;
+  document.getElementById('reveal-word-title').textContent = t.revealWordTitle;
+  document.getElementById('reveal-sentence-title').textContent = t.revealSentenceTitle;
+  document.getElementById('btn-continue').innerHTML = t.continueBtn + ' <i class="fa-solid fa-arrow-left"></i>';
+
+  const wordsEl = document.getElementById('reveal-words');
+  wordsEl.innerHTML = '';
+  state.currentReveal.words.forEach(w=>{
+    const chip = document.createElement('div');
+    chip.className = 'reveal-word-chip';
+    const ar = document.createElement('span');
+    ar.className = 'ar';
+    ar.textContent = w;
+    const gloss = document.createElement('span');
+    gloss.className = 'gloss';
+    gloss.textContent = glossOf(w);
+    chip.appendChild(ar);
+    chip.appendChild(gloss);
+    wordsEl.appendChild(chip);
+  });
+
+  document.getElementById('reveal-sentence').textContent =
+    state.lang === 'es' ? state.currentReveal.es : state.currentReveal.fr;
+
+  const altBox = document.getElementById('reveal-alt-box');
+  if(state.currentReveal.altOrder){
+    altBox.style.display = 'block';
+    document.getElementById('reveal-alt-title').textContent = t.altOrderNote;
+    document.getElementById('reveal-alt-sentence').textContent = state.currentReveal.altOrder.join(' ');
+  }else{
+    altBox.style.display = 'none';
+  }
+}
+
+/* ---------- FIN DE PARTIE ---------- */
+
+function endGame(){
+  if(state.hasFinished) return;
+  state.hasFinished = true;
+  switchView('end');
+  const t = UI_TEXT[state.lang];
+  const total = state.questions.length;
+  document.getElementById('end-score').textContent = t.scoreText(state.perfectCount, total);
+  document.getElementById('end-detail').textContent = t.endDetail;
+
+  const end = Date.now() + 2500;
+  (function frame(){
+    if(typeof confetti === 'function'){
+      confetti({ particleCount:5, angle:60, spread:55, origin:{x:0}, colors:['#C8A462','#5D1828','#dfc28b'] });
+      confetti({ particleCount:5, angle:120, spread:55, origin:{x:1}, colors:['#C8A462','#5D1828','#dfc28b'] });
+    }
+    if(Date.now() < end) requestAnimationFrame(frame);
+  })();
+
+  AudioController.playMain(DATA.meta.successAudio);
+}
+
+/* ---------- INIT ---------- */
+setLang('fr');
+</script>
+</body>
+</html>

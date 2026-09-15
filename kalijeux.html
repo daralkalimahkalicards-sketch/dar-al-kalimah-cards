@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - KaliJeux</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #7F8C8D;
+            --border-soft: #E5E7EB;
+            --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            padding: 30px 15px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        .ar-text { font-family: "Amiri", serif; direction: rtl; unicode-bidi: isolate; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        .header-container {
+            background: var(--burgundy); padding: 40px 30px; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); width: 100%; max-width: 900px; margin-bottom: 40px;
+            position: relative; text-align: center;
+        }
+        .btn-back-home {
+            position: absolute; top: 25px; left: 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;
+        }
+        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+        .brand-ar { font-size: 3.2rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.2; }
+        .app-title { font-size: 1.1rem; color: #d09470; letter-spacing: 4px; text-transform: uppercase; font-weight: 600;}
+        .divider { width: 50px; height: 1px; background-color: var(--gold); margin: 25px auto; opacity: 0.5; }
+        .header-desc { font-size: 0.95rem; color: var(--gold-light); font-weight: 500; line-height: 1.6; opacity: 0.9; }
+        .header-desc .es-line { font-size: 0.85rem; opacity: 0.8; }
+
+        .resource-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px; width: 100%; max-width: 950px;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 35px 25px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease;
+            text-decoration: none; color: inherit; position: relative;
+        }
+        .resource-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+
+        .resource-badge {
+            position: absolute; top: 16px; right: 16px;
+            border: 1px solid var(--gold); color: var(--burgundy); background: var(--bg-beige);
+            font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            padding: 4px 10px; border-radius: 50px;
+        }
+
+        .icon-wrapper {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: transparent; border: 1.5px solid var(--gold);
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 22px; transition: all 0.3s ease;
+        }
+        .resource-card:hover .icon-wrapper { background: var(--bg-beige); transform: scale(1.05); }
+        .visual-main { font-size: 2rem; color: var(--gold); }
+
+        .resource-title-ar { font-size: 1.7rem; font-weight: 700; color: var(--burgundy); line-height: 1.3; margin-bottom: 6px; min-height: 1.3em; }
+        .resource-title-fr { font-size: 1.05rem; font-weight: 600; color: var(--text-dark); font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .resource-desc-fr { font-size: 0.88rem; color: var(--text-dark); margin-top: 12px; margin-bottom: 6px; line-height: 1.5; }
+        .resource-desc-es { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-bottom: 25px; line-height: 1.5; }
+
+        .btn-open {
+            margin-top: auto; background: var(--burgundy); color: var(--white);
+            padding: 12px 0; width: 90%; border-radius: 50px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .resource-card:hover .btn-open { background: var(--burgundy-dark); }
+
+        .empty-state { color: var(--text-muted); font-size: 0.95rem; text-align: center; padding: 40px 20px; }
+
+        @media (max-width: 600px) {
+            .header-container { padding: 30px 20px; }
+            .btn-back-home { position: static; margin-bottom: 20px; display: inline-flex; justify-content: center; }
+            .resource-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-left"></i> Accueil</a>
+        <div class="brand-ar app-title serif-text" style="direction:ltr; color:var(--gold); font-size:2.4rem; margin-bottom:5px;">KaliJeux</div>
+        <div class="divider"></div>
+        <p class="header-desc">Apprendre en jouant</p>
+        <p class="header-desc es-line">Aprender jugando</p>
+    </div>
+
+    <div class="resource-grid" id="games-grid">
+        <div class="empty-state">Chargement des jeux...</div>
+    </div>
+
+<script>
+// Catalogue des jeux KaliJeux — ajouter un objet ici suffit pour qu'un nouveau
+// jeu apparaisse dans la grille, sans toucher au reste de cette page.
+const GAMES = [
+    {
+        href: 'jeu-60-phrases.html',
+        icon: 'fa-solid fa-puzzle-piece',
+        titleAr: 'لعبة الجمل',
+        titleFr: 'Le grand jeu des phrases',
+        badge: '60 questions',
+        descFr: 'Ordre des mots, choix du verbe, sens de la phrase — teste ta maîtrise de la phrase arabe.',
+        descEs: 'Orden de las palabras, elección del verbo, sentido de la frase — pon a prueba tu dominio de la frase árabe.'
+    }
+];
+
+function renderGames() {
+    const grid = document.getElementById('games-grid');
+    if (!GAMES.length) {
+        grid.innerHTML = '<div class="empty-state">Aucun jeu disponible pour l\'instant.<br><span style="font-style:italic;">Ningún juego disponible por el momento.</span></div>';
+        return;
+    }
+    grid.innerHTML = GAMES.map(g => `
+        <a href="${g.href}" class="resource-card">
+            ${g.badge ? `<span class="resource-badge">${g.badge}</span>` : ''}
+            <div class="icon-wrapper">
+                <i class="${g.icon} visual-main"></i>
+            </div>
+            <div class="resource-title-ar ar-text">${g.titleAr}</div>
+            <div class="resource-title-fr">${g.titleFr}</div>
+            <div class="resource-desc-fr">${g.descFr}</div>
+            <div class="resource-desc-es">${g.descEs}</div>
+            <button class="btn-open">Jouer / Jugar</button>
+        </a>
+    `).join('');
+}
+
+renderGames();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+
+</body>
+</html>
