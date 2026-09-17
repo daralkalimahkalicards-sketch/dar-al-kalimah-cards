@@ -223,6 +223,16 @@
     .tilawa-flux{font-size:clamp(1.7rem,5.5vw,2.4rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2.6;direction:rtl;font-family:"Amiri",serif;font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;}
     .sep-num{color:#6a9c99;font-size:0.85em;}
     .hl-gold{color:var(--gold);}
+    .tw-wrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:baseline;cursor:pointer;}
+    .tw-ar{transition:background 0.2s ease,color 0.2s ease;border-radius:5px;}
+    .tw-ar.role-fil{color:#2d7a3a;}
+    .tw-ar.role-allah{color:var(--gold);}
+    .tw-ar.role-ism{color:var(--burgundy);text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;}
+    .tw-wrap.open .tw-ar{background:var(--gold);color:var(--white)!important;text-decoration:none;padding:1px 4px;}
+    .tw-cap{display:none;text-align:center;direction:ltr;}
+    .tw-wrap.open .tw-cap{display:block;margin-top:3px;}
+    .tw-cap-fr{display:block;font-size:0.6rem;font-weight:700;color:var(--burgundy);font-family:"Montserrat",sans-serif;line-height:1.3;}
+    .tw-cap-es{display:block;font-size:0.56rem;color:#888;font-style:italic;font-family:"Montserrat",sans-serif;line-height:1.3;}
     .t-flip-hint{text-align:center;font-size:0.7rem;color:var(--gold);opacity:0.6;font-family:"Cinzel",serif;letter-spacing:1px;margin-top:12px;animation:pulse 2.5s infinite;}
     .btn-audio7{background:var(--bg-beige);border:1px solid var(--gold);color:var(--burgundy);width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 15px rgba(200,164,98,0.2);transition:all 0.3s ease;flex-shrink:0;margin:8px auto;}
     .btn-audio7:hover{transform:scale(1.08);background:var(--gold);color:var(--white);}
@@ -837,6 +847,47 @@ const SURAHS = {
       {ar:"النَّفَّاثَات",fr:"Celles qui soufflent (sorcières)",es:"Las que soplan (brujas)",root:"\u0646 \u0641 \u062b"},
       {ar:"الْعُقَدِ",fr:"Les n\u0153uds / Les liens",es:"Los nudos / Los lazos",root:"\u0639 \u0642 \u062f"},
       {ar:"حَاسِدٍ",fr:"L'envieux / Celui qui envie",es:"El envidioso",root:"\u062d \u0633 \u062f"}
+    ],
+    basmalahWords:[
+      {ar:"بِسْمِ", fr:"Au nom de", es:"En el nombre de", role:null, audio:"audio/sourates/mots/basmalah-w1.mp3"},
+      {ar:"اللَّهِ", fr:"Allah", es:"Alá", role:"allah", audio:"audio/sourates/mots/basmalah-w2.mp3"},
+      {ar:"الرَّحْمَنِ", fr:"le Tout Miséricordieux", es:"el Clemente", role:"n", audio:"audio/sourates/mots/basmalah-w3.mp3"},
+      {ar:"الرَّحِيمِ", fr:"le Très Miséricordieux", es:"el Misericordioso", role:"n", audio:"audio/sourates/mots/basmalah-w4.mp3"}
+    ],
+    wordsByAyah:[
+      [
+        {ar:"قُلْ", fr:"Dis !", es:"¡Di!", role:"v", audio:"audio/sourates/mots/falaq-v1-1.mp3"},
+        {ar:"اَعُوذُ", fr:"Je cherche refuge", es:"Me refugio", role:"v", audio:"audio/sourates/mots/aaudhu.mp3"},
+        {ar:"بِرَبِّ", fr:"auprès du Seigneur", es:"en el Señor", role:"allah", audio:"audio/sourates/mots/falaq-v1-3.mp3"},
+        {ar:"الْفَلَقِ", fr:"de l'Aube", es:"del Amanecer", role:"n", audio:"audio/sourates/mots/falaq-v1-4.mp3"}
+      ],
+      [
+        {ar:"مِن", fr:"contre", es:"contra", role:null, audio:"audio/sourates/mots/falaq-v2-1.mp3"},
+        {ar:"شَرِّ", fr:"le mal", es:"el mal", role:"n", audio:"audio/sourates/mots/falaq-v2-2.mp3"},
+        {ar:"مَا", fr:"ce que", es:"lo que", role:null, audio:"audio/sourates/mots/falaq-v2-3.mp3"},
+        {ar:"خَلَقَ", fr:"Il a créé", es:"Él creó", role:"v", audio:"audio/sourates/mots/falaq-v2-4.mp3"}
+      ],
+      [
+        {ar:"وَمِن", fr:"et contre", es:"y contra", role:null, audio:"audio/sourates/mots/falaq-v3-1.mp3"},
+        {ar:"شَرِّ", fr:"le mal", es:"el mal", role:"n", audio:"audio/sourates/mots/falaq-v3-2.mp3"},
+        {ar:"غَاسِقٍ", fr:"de l'obscurité", es:"de la oscuridad", role:"n", audio:"audio/sourates/mots/falaq-v3-3.mp3"},
+        {ar:"إِذَا", fr:"quand", es:"cuando", role:null, audio:"audio/sourates/mots/falaq-v3-4.mp3"},
+        {ar:"وَقَبَ", fr:"elle s'étend", es:"cae", role:"v", audio:"audio/sourates/mots/falaq-v3-5.mp3"}
+      ],
+      [
+        {ar:"وَمِن", fr:"et contre", es:"y contra", role:null, audio:"audio/sourates/mots/falaq-v4-1.mp3"},
+        {ar:"شَرِّ", fr:"le mal", es:"el mal", role:"n", audio:"audio/sourates/mots/falaq-v4-2.mp3"},
+        {ar:"النَّفَّاثَاتِ", fr:"des sorcières qui soufflent", es:"de las que soplan", role:"n", audio:"audio/sourates/mots/falaq-v4-3.mp3"},
+        {ar:"فِي", fr:"sur", es:"sobre", role:null, audio:"audio/sourates/mots/falaq-v4-4.mp3"},
+        {ar:"الْعُقَدِ", fr:"les nœuds", es:"los nudos", role:"n", audio:"audio/sourates/mots/falaq-v4-5.mp3"}
+      ],
+      [
+        {ar:"وَمِن", fr:"et contre", es:"y contra", role:null, audio:"audio/sourates/mots/falaq-v5-1.mp3"},
+        {ar:"شَرِّ", fr:"le mal", es:"el mal", role:"n", audio:"audio/sourates/mots/falaq-v5-2.mp3"},
+        {ar:"حَاسِدٍ", fr:"de l'envieux", es:"del envidioso", role:"n", audio:"audio/sourates/mots/falaq-v5-3.mp3"},
+        {ar:"إِذَا", fr:"quand", es:"cuando", role:null, audio:"audio/sourates/mots/falaq-v5-4.mp3"},
+        {ar:"حَسَدَ", fr:"il envie", es:"envidia", role:"v", audio:"audio/sourates/mots/falaq-v5-5.mp3"}
+      ]
     ]
   },
   nas:{
@@ -882,6 +933,46 @@ const SURAHS = {
       {ar:"يُوَسْوِسُ",fr:"Il murmure / Il souffle des tentations",es:"Susurra / Sopla tentaciones",root:"\u0648 \u0633 \u0633"},
       {ar:"صُدُورِ",fr:"Les poitrines / Les c\u0153urs",es:"Los pechos / Los corazones",root:"\u0635 \u062f \u0631"},
       {ar:"الْجِنَّةِ",fr:"Les djinns / Les g\u00e9nies",es:"Los genios / Los djinns",root:"\u062c \u0646 \u0646"}
+    ],
+    basmalahWords:[
+      {ar:"بِسْمِ", fr:"Au nom de", es:"En el nombre de", role:null, audio:"audio/sourates/mots/basmalah-w1.mp3"},
+      {ar:"اللَّهِ", fr:"Allah", es:"Alá", role:"allah", audio:"audio/sourates/mots/basmalah-w2.mp3"},
+      {ar:"الرَّحْمَنِ", fr:"le Tout Miséricordieux", es:"el Clemente", role:"n", audio:"audio/sourates/mots/basmalah-w3.mp3"},
+      {ar:"الرَّحِيمِ", fr:"le Très Miséricordieux", es:"el Misericordioso", role:"n", audio:"audio/sourates/mots/basmalah-w4.mp3"}
+    ],
+    wordsByAyah:[
+      [
+        {ar:"قُلْ", fr:"Dis !", es:"¡Di!", role:"v", audio:"audio/sourates/mots/nas-v1-1.mp3"},
+        {ar:"اَعُوذُ", fr:"Je cherche refuge", es:"Me refugio", role:"v", audio:"audio/sourates/mots/aaudhu.mp3"},
+        {ar:"بِرَبِّ", fr:"auprès du Seigneur", es:"en el Señor", role:"allah", audio:"audio/sourates/mots/nas-v1-3.mp3"},
+        {ar:"النَّاسِ", fr:"des hommes", es:"de la humanidad", role:"n", audio:"audio/sourates/mots/nas-v1-4.mp3"}
+      ],
+      [
+        {ar:"مَلِكِ", fr:"Le Roi", es:"El Rey", role:"n", audio:"audio/sourates/mots/nas-v2-1.mp3"},
+        {ar:"النَّاسِ", fr:"des hommes", es:"de la humanidad", role:"n", audio:"audio/sourates/mots/nas-v2-2.mp3"}
+      ],
+      [
+        {ar:"إِلَهِ", fr:"Le Dieu", es:"El Dios", role:"n", audio:"audio/sourates/mots/nas-v3-1.mp3"},
+        {ar:"النَّاسِ", fr:"des hommes", es:"de la humanidad", role:"n", audio:"audio/sourates/mots/nas-v3-2.mp3"}
+      ],
+      [
+        {ar:"مِن", fr:"contre", es:"contra", role:null, audio:"audio/sourates/mots/nas-v4-1.mp3"},
+        {ar:"شَرِّ", fr:"le mal", es:"el mal", role:"n", audio:"audio/sourates/mots/nas-v4-2.mp3"},
+        {ar:"الْوَسْوَاسِ", fr:"du Tentateur", es:"del Susurrador", role:"n", audio:"audio/sourates/mots/nas-v4-3.mp3"},
+        {ar:"الْخَنَّاسِ", fr:"le Furtif", es:"el Furtivo", role:"n", audio:"audio/sourates/mots/nas-v4-4.mp3"}
+      ],
+      [
+        {ar:"الَّذِي", fr:"Celui qui", es:"Que", role:null, audio:"audio/sourates/mots/nas-v5-1.mp3"},
+        {ar:"يُوَسْوِسُ", fr:"murmure", es:"susurra", role:"v", audio:"audio/sourates/mots/nas-v5-2.mp3"},
+        {ar:"فِي", fr:"dans", es:"en", role:null, audio:"audio/sourates/mots/nas-v5-3.mp3"},
+        {ar:"صُدُورِ", fr:"les poitrines", es:"los pechos", role:"n", audio:"audio/sourates/mots/nas-v5-4.mp3"},
+        {ar:"النَّاسِ", fr:"des hommes", es:"de la humanidad", role:"n", audio:"audio/sourates/mots/nas-v5-5.mp3"}
+      ],
+      [
+        {ar:"مِنَ", fr:"issu de", es:"proveniente de", role:null, audio:"audio/sourates/mots/nas-v6-1.mp3"},
+        {ar:"الْجِنَّةِ", fr:"les djinns", es:"los genios", role:"n", audio:"audio/sourates/mots/nas-v6-2.mp3"},
+        {ar:"وَالنَّاسِ", fr:"et des hommes", es:"y de los hombres", role:"n", audio:"audio/sourates/mots/nas-v6-3.mp3"}
+      ]
     ]
   }
 };
@@ -1089,13 +1180,20 @@ window.openTilawa7=function(){
   $('tilawa7-brand-ar').textContent=s.titleAr;
   $('tilawa7-brand-fr').textContent=s.titleFr+' · WARSH';
   $('tilawa7-surah-title').textContent=s.titleAr;
-  const basmalah=s.ayahs[0].ar;
-  const reste=s.ayahs.slice(1).map(a=>
-    a.ar
-      .replace(/(﴿[^﴾]*﴾)/g,'<span class="sep-num">$1</span>')
-      .replace(/اللَّهِ|اللَّهُ|اللَّهَ/g,'<span class="hl-gold">$&</span>')
-      .replace(/رَبِّ/g,'<span class="hl-gold">$&</span>')
-  ).join(' ');
+  const marks7=["﴿١﴾","﴿٢﴾","﴿٣﴾","﴿٤﴾","﴿٥﴾","﴿٦﴾"];
+  const wordEl7=w=>{
+    const roleCls=w.role==="v"?" role-fil":w.role==="n"?" role-ism":w.role==="allah"?" role-allah":"";
+    return '<span class="tw-wrap" data-audio="'+w.audio+'"><span class="tw-ar'+roleCls+'">'+w.ar+'</span><span class="tw-cap"><span class="tw-cap-fr">'+w.fr+'</span><span class="tw-cap-es">'+w.es+'</span></span></span>';
+  };
+  const basmalah=s.basmalahWords?s.basmalahWords.map(wordEl7).join(' '):s.ayahs[0].ar;
+  const reste=s.wordsByAyah
+    ? s.wordsByAyah.map((words,i)=>words.map(wordEl7).join(' ')+' <span class="sep-num">'+marks7[i]+'</span>').join(' ')
+    : s.ayahs.slice(1).map(a=>
+        a.ar
+          .replace(/(﴿[^﴾]*﴾)/g,'<span class="sep-num">$1</span>')
+          .replace(/اللَّهِ|اللَّهُ|اللَّهَ/g,'<span class="hl-gold">$&</span>')
+          .replace(/رَبِّ/g,'<span class="hl-gold">$&</span>')
+      ).join(' ');
   $('tilawa7-full-text').innerHTML=
     '<div class="tilawa-basmalah ar">'+basmalah+'</div>'+
     '<div class="tilawa-flux ar">'+reste+'</div>';
@@ -1125,6 +1223,17 @@ window.flipTilawa7=function(){
 
 $('btn-tilawa7-audio').addEventListener('click',()=>{
   DAKAudio.play(SURAHS[State.currentSurah].audioFull,$('btn-tilawa7-audio'));
+});
+
+// Mot-a-mot Tilawa : clic sur un mot = traduction sous le mot + audio du mot
+// (pas de micro visible), meme systeme que Module 7.
+$('tilawa7-full-text').addEventListener('click',(e)=>{
+  const wrap=e.target.closest('.tw-wrap');
+  if(!wrap)return;
+  e.stopPropagation();
+  document.querySelectorAll('.tw-wrap.open').forEach(el=>{if(el!==wrap)el.classList.remove('open');});
+  wrap.classList.toggle('open');
+  DAKAudio.play(wrap.dataset.audio);
 });
 
 })();
