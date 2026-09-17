@@ -157,13 +157,16 @@
     .tilawa-flux{font-size:clamp(1.8rem,6vw,2.6rem);color:var(--burgundy);font-weight:700;text-align:center;line-height:2.4;direction:rtl;font-family:"Amiri",serif;}
     .tilawa-text .sep-num{color:#6a9c99;font-size:0.85em;}
     .tilawa-text .hl-gold{color:var(--gold);}
-    .tilawa-word-click{cursor:pointer;}
-    .tilawa-word-click.role-fil{color:#2d7a3a;}
-    .tilawa-word-click.role-ism{color:var(--burgundy);text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;}
-    .tilawa-word-translation{min-height:0;text-align:center;font-size:0.85rem;margin:0;max-height:0;overflow:hidden;opacity:0;transition:all 0.25s ease;}
-    .tilawa-word-translation.show{min-height:1.6em;max-height:60px;opacity:1;margin:10px 0 4px;padding:8px 14px;background:var(--bg-beige);border-radius:10px;}
-    .tilawa-word-translation .tw-fr{font-weight:700;color:var(--burgundy);}
-    .tilawa-word-translation .tw-es{color:#888;font-style:italic;margin-left:8px;}
+    .tw-wrap{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;margin:0 2px;cursor:pointer;}
+    .tw-ar{transition:background 0.2s ease,color 0.2s ease;border-radius:5px;padding:1px 4px;}
+    .tw-ar.role-fil{color:#2d7a3a;}
+    .tw-ar.role-allah{color:var(--gold);}
+    .tw-ar.role-ism{color:var(--burgundy);text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;}
+    .tw-wrap.open .tw-ar{background:var(--gold);color:var(--white)!important;text-decoration:none;}
+    .tw-cap{max-height:0;opacity:0;overflow:hidden;transition:all 0.2s ease;text-align:center;direction:ltr;}
+    .tw-wrap.open .tw-cap{max-height:40px;opacity:1;margin-top:3px;}
+    .tw-cap-fr{display:block;font-size:0.62rem;font-weight:700;color:var(--burgundy);font-family:"Montserrat",sans-serif;line-height:1.3;}
+    .tw-cap-es{display:block;font-size:0.58rem;color:#888;font-style:italic;font-family:"Montserrat",sans-serif;line-height:1.3;}
     @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}}
 
         /* Guard auth */
@@ -367,7 +370,6 @@
           <div class="tilawa-surah-title ar" id="tilawa-surah-title"></div>
           <div class="tilawa-surah-line"></div>
           <button class="btn-audio" id="btn-tilawa-audio" type="button" onclick="event.stopPropagation()" title="Écouter la sourate">🎙️</button>
-          <div class="tilawa-word-translation" id="tilawa-word-translation"></div>
           <div class="tilawa-text ar" id="tilawa-full-text"></div>
         </div>
         <div class="t-flip-hint serif"><i class="fa-solid fa-rotate"></i> &nbsp;Infos sourate</div>
@@ -498,11 +500,11 @@
         [
           {ar:"قُلْ", fr:"Dis !", es:"¡Di!", role:"v", audio:"audio/sourates/mots/ikhlas-v1-1.mp3"},
           {ar:"هُوَ", fr:"Il", es:"Él", role:null, audio:"audio/sourates/mots/ikhlas-v1-2.mp3"},
-          {ar:"ٱللَّهُ", fr:"Allah", es:"Alá", role:"n", audio:"audio/sourates/mots/ikhlas-v1-3.mp3"},
+          {ar:"ٱللَّهُ", fr:"Allah", es:"Alá", role:"allah", audio:"audio/sourates/mots/ikhlas-v1-3.mp3"},
           {ar:"أَحَدٌ", fr:"Unique", es:"Único", role:"n", audio:"audio/sourates/mots/ikhlas-v1-4.mp3"}
         ],
         [
-          {ar:"ٱللَّهُ", fr:"Allah", es:"Alá", role:"n", audio:"audio/sourates/mots/ikhlas-v2-1.mp3"},
+          {ar:"ٱللَّهُ", fr:"Allah", es:"Alá", role:"allah", audio:"audio/sourates/mots/ikhlas-v2-1.mp3"},
           {ar:"ٱلصَّمَدُ", fr:"L'Éternel Seigneur, le soutien universel vers qui tout converge", es:"El Eterno Señor, el sostén universal hacia quien todo converge", role:"n", audio:"audio/sourates/mots/ikhlas-v2-2.mp3"}
         ],
         [
@@ -574,17 +576,17 @@
     DAKAudio.play(SURAHS[currentSurahId].audioFull, $("btn-tilawa-audio"));
   });
 
-  // Mot-a-mot Tilawa : clic sur un mot = traduction affichee + audio du mot
-  // (pas de micro visible ; ne s'applique qu'aux sourates ayant wordsByAyah,
-  // c-a-d Al-Ikhlas pour l'instant — Al-Kawthar garde son rendu inchange).
+  // Mot-a-mot Tilawa : clic sur un mot = traduction sous le mot + audio du
+  // mot + couleur du mot inversee (pas de micro visible ; ne s'applique
+  // qu'aux sourates ayant wordsByAyah, c-a-d Al-Ikhlas pour l'instant —
+  // Al-Kawthar garde son rendu inchange).
   $("tilawa-full-text").addEventListener("click", (e) => {
-    const w = e.target.closest(".tilawa-word-click");
-    if (!w) return;
+    const wrap = e.target.closest(".tw-wrap");
+    if (!wrap) return;
     e.stopPropagation();
-    const box = $("tilawa-word-translation");
-    box.innerHTML = `<span class="tw-fr">${w.dataset.fr}</span><span class="tw-es">${w.dataset.es}</span>`;
-    box.classList.add("show");
-    DAKAudio.play(w.dataset.audio);
+    document.querySelectorAll(".tw-wrap.open").forEach(el => { if (el !== wrap) el.classList.remove("open"); });
+    wrap.classList.toggle("open");
+    DAKAudio.play(wrap.dataset.audio);
   });
 
   window.openTilawa = () => {
@@ -602,8 +604,8 @@
     const basmalah = s.ayahs[0].ar;
     const marks = ["﴿١﴾","﴿٢﴾","﴿٣﴾","﴿٤﴾","﴿٥﴾","﴿٦﴾"];
     const wordEl = w => {
-      const roleCls = w.role === "v" ? " role-fil" : w.role === "n" ? " role-ism" : "";
-      return `<span class="tilawa-word-click${roleCls}" data-fr="${w.fr}" data-es="${w.es}" data-audio="${w.audio}">${w.ar}</span>`;
+      const roleCls = w.role === "v" ? " role-fil" : w.role === "n" ? " role-ism" : w.role === "allah" ? " role-allah" : "";
+      return `<span class="tw-wrap" data-audio="${w.audio}"><span class="tw-ar${roleCls}">${w.ar}</span><span class="tw-cap"><span class="tw-cap-fr">${w.fr}</span><span class="tw-cap-es">${w.es}</span></span></span>`;
     };
     const reste = s.wordsByAyah
       ? s.wordsByAyah.map((words, i) =>
@@ -618,8 +620,6 @@
     $("tilawa-full-text").innerHTML =
       `<div class="tilawa-basmalah">${basmalah}</div>` +
       `<div class="tilawa-flux ar">${reste}</div>`;
-    $("tilawa-word-translation").className = "tilawa-word-translation";
-    $("tilawa-word-translation").innerHTML = "";
 
     // VERSO
     $("verso-title-ar").textContent = s.titleAr;
