@@ -162,9 +162,9 @@
     .tw-ar.role-fil{color:#2d7a3a;}
     .tw-ar.role-allah{color:var(--gold);}
     .tw-ar.role-ism{color:var(--burgundy);text-decoration:underline;text-decoration-color:rgba(93,24,40,0.3);text-underline-offset:4px;}
-    .tw-wrap.open .tw-ar{background:rgba(200,164,98,0.22);box-shadow:0 0 0 1px rgba(200,164,98,0.55);padding:1px 4px;}
-    .tw-cap{max-height:0;opacity:0;overflow:hidden;transition:all 0.2s ease;text-align:center;direction:ltr;}
-    .tw-wrap.open .tw-cap{max-height:40px;opacity:1;margin-top:3px;}
+    .tw-wrap.open .tw-ar{background:var(--gold);color:var(--white)!important;text-decoration:none;padding:1px 4px;}
+    .tw-cap{display:none;text-align:center;direction:ltr;}
+    .tw-wrap.open .tw-cap{display:block;margin-top:3px;}
     .tw-cap-fr{display:block;font-size:0.62rem;font-weight:700;color:var(--burgundy);font-family:"Montserrat",sans-serif;line-height:1.3;}
     .tw-cap-es{display:block;font-size:0.58rem;color:#888;font-style:italic;font-family:"Montserrat",sans-serif;line-height:1.3;}
     @media(max-width:480px){.flashcard{min-height:520px;padding:30px 15px;}.word-ar{font-size:clamp(1.3rem,5vw,1.9rem);}.trans-fr{font-size:1rem;}.text-line{gap:10px;}.line-emoji{font-size:1.3rem;}.root-block{font-size:1.1rem;min-width:80px;}.btn-audio{width:48px;height:48px;font-size:1.3rem;}}
@@ -496,6 +496,12 @@
       // pas encore enregistres par Houda, chemins prepares a l'avance :
       // tant que le fichier n'existe pas, le clic affiche juste "audio non
       // disponible" (comportement normal de DAKAudio.play), rien ne casse.
+      basmalahWords:[
+        {ar:"بِسْمِ", fr:"Au nom de", es:"En el nombre de", role:null, audio:"audio/sourates/mots/basmalah-w1.mp3"},
+        {ar:"ٱللَّهِ", fr:"Allah", es:"Alá", role:"allah", audio:"audio/sourates/mots/basmalah-w2.mp3"},
+        {ar:"ٱلرَّحْمَنِ", fr:"le Tout Miséricordieux", es:"el Clemente", role:"n", audio:"audio/sourates/mots/basmalah-w3.mp3"},
+        {ar:"ٱلرَّحِيمِ", fr:"le Très Miséricordieux", es:"el Misericordioso", role:"n", audio:"audio/sourates/mots/basmalah-w4.mp3"}
+      ],
       wordsByAyah:[
         [
           {ar:"قُلْ", fr:"Dis !", es:"¡Di!", role:"v", audio:"audio/sourates/mots/ikhlas-v1-1.mp3"},
@@ -601,12 +607,12 @@
 
     // RECTO
     $("tilawa-surah-title").textContent = s.titleAr;
-    const basmalah = s.ayahs[0].ar;
     const marks = ["﴿١﴾","﴿٢﴾","﴿٣﴾","﴿٤﴾","﴿٥﴾","﴿٦﴾"];
     const wordEl = w => {
       const roleCls = w.role === "v" ? " role-fil" : w.role === "n" ? " role-ism" : w.role === "allah" ? " role-allah" : "";
       return `<span class="tw-wrap" data-audio="${w.audio}"><span class="tw-ar${roleCls}">${w.ar}</span><span class="tw-cap"><span class="tw-cap-fr">${w.fr}</span><span class="tw-cap-es">${w.es}</span></span></span>`;
     };
+    const basmalah = s.basmalahWords ? s.basmalahWords.map(wordEl).join(" ") : s.ayahs[0].ar;
     const reste = s.wordsByAyah
       ? s.wordsByAyah.map((words, i) =>
           words.map(wordEl).join(" ") + ` <span class="sep-num">${marks[i]}</span>`
