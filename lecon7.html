@@ -457,6 +457,34 @@
         {ar:"فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾", fr:"Accomplis la prière pour ton Seigneur et sacrifie.", es:"Reza a tu Señor y sacrifica.", icon:"fa-person-praying", emoji:"🙇🐑", noteFr:"Verset 2 — Prière et Sacrifice 🙇🐑", noteEs:"Versículo 2 — Oración y Sacrificio 🙇🐑", aud:"audio/sourates/kawthar-v2.mp3"},
         {ar:"اِنَّ شَانِئَكَ هُوَ ٱلاَبْتَرُ ﴿٣﴾", fr:"Celui qui te hait sera certes sans postérité.", es:"Ciertamente, quien te odia es el que está cortado.", icon:"fa-scissors", emoji:"✂️", noteFr:"Verset 3 — La fin des ennemis", noteEs:"Versículo 3 — El fin de los enemigos", aud:"audio/sourates/kawthar-v3.mp3"}
       ],
+      // Mot-a-mot de la recitation complete (vue Tilawa) — meme systeme
+      // qu'Al-Ikhlas. Audios pas encore enregistres, chemins prepares a
+      // l'avance. La Basmalah reutilise les memes fichiers que pour
+      // Al-Ikhlas (texte identique, pas besoin de les enregistrer deux fois).
+      basmalahWords:[
+        {ar:"بِسْمِ", fr:"Au nom de", es:"En el nombre de", role:null, audio:"audio/sourates/mots/basmalah-w1.mp3"},
+        {ar:"ٱللَّهِ", fr:"Allah", es:"Alá", role:"allah", audio:"audio/sourates/mots/basmalah-w2.mp3"},
+        {ar:"ٱلرَّحْمَنِ", fr:"le Tout Miséricordieux", es:"el Clemente", role:"n", audio:"audio/sourates/mots/basmalah-w3.mp3"},
+        {ar:"ٱلرَّحِيمِ", fr:"le Très Miséricordieux", es:"el Misericordioso", role:"n", audio:"audio/sourates/mots/basmalah-w4.mp3"}
+      ],
+      wordsByAyah:[
+        [
+          {ar:"إِنَّا", fr:"Nous, certes", es:"Nosotros, ciertamente", role:null, audio:"audio/sourates/mots/kawthar-v1-1.mp3"},
+          {ar:"أَعْطَيْنَاكَ", fr:"Nous t'avons accordé", es:"Te hemos concedido", role:"v", audio:"audio/sourates/mots/kawthar-v1-2.mp3"},
+          {ar:"ٱلْكَوْثَرَ", fr:"l'Abondance", es:"la Abundancia", role:"n", audio:"audio/sourates/mots/kawthar-v1-3.mp3"}
+        ],
+        [
+          {ar:"فَصَلِّ", fr:"Prie !", es:"¡Reza!", role:"v", audio:"audio/sourates/mots/kawthar-v2-1.mp3"},
+          {ar:"لِرَبِّكَ", fr:"pour ton Seigneur", es:"para tu Señor", role:"allah", audio:"audio/sourates/mots/kawthar-v2-2.mp3"},
+          {ar:"وَانْحَرْ", fr:"et sacrifie", es:"y sacrifica", role:"v", audio:"audio/sourates/mots/kawthar-v2-3.mp3"}
+        ],
+        [
+          {ar:"اِنَّ", fr:"Certes", es:"Ciertamente", role:null, audio:"audio/sourates/mots/kawthar-v3-1.mp3"},
+          {ar:"شَانِئَكَ", fr:"Celui qui te hait", es:"El que te odia", role:"n", audio:"audio/sourates/mots/kawthar-v3-2.mp3"},
+          {ar:"هُوَ", fr:"il", es:"él", role:null, audio:"audio/sourates/mots/kawthar-v3-3.mp3"},
+          {ar:"ٱلاَبْتَرُ", fr:"sans postérité", es:"sin descendencia", role:"n", audio:"audio/sourates/mots/kawthar-v3-4.mp3"}
+        ]
+      ],
       vocab:[
         {ar:"ٱلْكَوْثَرَ", fr:"L'Abondance / Fleuve au Paradis", es:"La Abundancia / Río en el Paraíso", root:"ك و ث ر"},
         {ar:"فَصَلِّ", fr:"Prie ! (Impératif)", es:"¡Reza! (Imperativo)", root:"ص ل و"},
