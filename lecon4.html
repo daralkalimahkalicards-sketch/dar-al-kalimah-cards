@@ -310,6 +310,14 @@
       padding-top: 0;
     }
 
+    .example-block[data-audio-key] {
+      cursor: pointer;
+    }
+
+    .example-block[data-audio-key]:active {
+      opacity: 0.7;
+    }
+
     .example-word-ar {
       font-family: "Amiri", serif;
       font-size: clamp(2.3rem, 7vw, 4rem);
@@ -575,10 +583,10 @@
         "customAlign": null,
         "nounRuleTemplate": "tanwin-signs",
         "examples": [
-          { "word": "كِتَاب<span class='gold-mark'>اً</span>", "transFr": "Un livre (Kitāban)", "transEs": "Un libro (Kitāban)", "audio": "ex-kitaban" },
-          { "word": "بَيْت<span class='gold-mark'>&#x200B;ٌ</span>", "transFr": "Une maison (Baytun)", "transEs": "Una casa (Baytun)", "audio": "ex-baytun" },
-          { "word": "قَلَم<span class='gold-mark'>&#x200B;ٍ</span>", "transFr": "Un stylo (Qalamin)", "transEs": "Un bolígrafo (Qalamin)", "audio": "ex-qalamin" },
-          { "word": "مَدْرَسَة<span class='gold-mark'>&#x200B;ً</span>", "transFr": "Exception ة (Madrasatan)", "transEs": "Excepción ة (Madrasatan)", "audio": "ex-madrasatan" }
+          { "word": "كِتَاب<span class='gold-mark'>اً</span>", "transFr": "Un livre (Kitāban)", "transEs": "Un libro (Kitāban)" },
+          { "word": "بَيْت<span class='gold-mark'>&#x200B;ٌ</span>", "transFr": "Une maison (Baytun)", "transEs": "Una casa (Baytun)" },
+          { "word": "قَلَم<span class='gold-mark'>&#x200B;ٍ</span>", "transFr": "Un stylo (Qalamin)", "transEs": "Un bolígrafo (Qalamin)" },
+          { "word": "مَدْرَسَة<span class='gold-mark'>&#x200B;ً</span>", "transFr": "Exception ة (Madrasatan)", "transEs": "Excepción ة (Madrasatan)" }
         ]
       },
       {
@@ -688,7 +696,7 @@
         "nounRuleTemplate": "wasl-exemples-sign",
         "examples": [
           { "word": "<span class='gold-mark'>ٱ</span>قْرَأْ", "transFr": "Lis (Iqra')", "transEs": "Lee (Iqra')", "audio": "ex-iqra" },
-          { "word": "بِ<span class='gold-mark'>ٱ</span>سْمِ", "transFr": "Au nom de (Bismi)", "transEs": "En el nombre de (Bismi)", "audio": "ex-bismi" }
+          { "word": "بِ<span class='gold-mark'>ٱ</span>سْمِ", "transFr": "Au nom de (Bismi)", "transEs": "En el nombre de (Bismi)" }
         ]
       }
     ]
@@ -933,9 +941,8 @@
             back.className = "face";
             back.style.cssText = "position:relative;transform:none;height:auto;";
             const examplesHtml = data.examples.map(ex => `
-              <div class="example-block">
+              <div class="example-block"${ex.audio ? ` data-audio-key="${ex.audio}"` : ""}>
                 <div class="example-word-ar ar-text">${ex.word}</div>
-                ${ex.audio ? Templates.audioBtn(ex.audio) : ""}
                 <div class="latin-example-trans">
                   <span class="trans-fr">${ex.transFr}</span>
                   <span class="trans-es">${ex.transEs}</span>
@@ -1024,9 +1031,8 @@
 
         updateBack(data) {
           const examplesHtml = data.examples.map(ex => `
-            <div class="example-block">
+            <div class="example-block"${ex.audio ? ` data-audio-key="${ex.audio}"` : ""}>
               <div class="example-word-ar ar-text">${ex.word}</div>
-              ${ex.audio ? Templates.audioBtn(ex.audio) : ""}
               <div class="latin-example-trans">
                 <span class="trans-fr">${ex.transFr}</span>
                 <span class="trans-es">${ex.transEs}</span>
@@ -1074,6 +1080,16 @@
 
         bindEvents() {
           DOM.flashcard.addEventListener("click", () => this.toggleFlip());
+
+          DOM.backFace.addEventListener("click", (e) => {
+            const block = e.target.closest(".example-block[data-audio-key]");
+            if (!block) return;
+            e.stopPropagation();
+            if (!DATA.settings.enableAudio) return;
+            const src = DATA.audioMap[block.dataset.audioKey] || "";
+            if (!src) return;
+            DAKAudio.play(src);
+          });
 
           DOM.flashcard.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
