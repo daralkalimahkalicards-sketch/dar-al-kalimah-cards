@@ -814,6 +814,29 @@ const wordsDatabase = [
     { id: 964, type: "word", arabe: "الضَّالِّينَ", icon: "fa-solid fa-person-circle-question", fr: "Les égarés", es: "Los extraviados", audio: "audio/sourates/mots/ad-dallin.mp3" },
 
     // ==========================================
+    // Mots coraniques complementaires (17 nouveaux) - ajoutes pour le
+    // mot-a-mot de la vue Recitation Complete des lecons 7/11/12
+    // (particules et formes non couvertes par le lot precedent).
+    // ==========================================
+    { id: 982, type: "word", arabe: "ٱللَّهُ", icon: "fa-solid fa-star-and-crescent", fr: "Allah", es: "Alá", audio: "audio/sourates/mots/allahu.mp3" },
+    { id: 983, type: "word", arabe: "النَّاسِ", icon: "fa-solid fa-people-group", fr: "Les hommes / L'humanité", es: "La humanidad", audio: "audio/sourates/mots/an-nasi.mp3" },
+    { id: 984, type: "word", arabe: "اِنَّ", icon: "fa-solid fa-quote-left", fr: "Certes", es: "Ciertamente", audio: "audio/sourates/mots/inna-b.mp3" },
+    { id: 985, type: "word", arabe: "بِرَبِّ", icon: "fa-solid fa-hands-praying", fr: "Auprès du Seigneur", es: "En el Señor", audio: "audio/sourates/mots/bi-rabbi.mp3" },
+    { id: 986, type: "word", arabe: "خَلَقَ", icon: "fa-solid fa-hand-sparkles", fr: "Il a créé", es: "Él creó", audio: "audio/sourates/mots/khalaqa.mp3" },
+    { id: 987, type: "word", arabe: "رَبِّ", icon: "fa-solid fa-crown", fr: "Seigneur", es: "Señor", audio: "audio/sourates/mots/rabbi.mp3" },
+    { id: 988, type: "word", arabe: "صِرَاطَ", icon: "fa-solid fa-road", fr: "Le chemin de", es: "El camino de", audio: "audio/sourates/mots/sirata-b.mp3" },
+    { id: 989, type: "word", arabe: "لَمْ", icon: "fa-solid fa-ban", fr: "ne...pas", es: "no", audio: "audio/sourates/mots/lam.mp3" },
+    { id: 990, type: "word", arabe: "لِلَّهِ", icon: "fa-solid fa-star-and-crescent", fr: "Pour Allah", es: "Para Alá", audio: "audio/sourates/mots/lillahi.mp3" },
+    { id: 991, type: "word", arabe: "مَلِكِ", icon: "fa-solid fa-crown", fr: "Le Roi / Souverain", es: "El Rey / Soberano", audio: "audio/sourates/mots/maliki.mp3" },
+    { id: 992, type: "word", arabe: "مِنَ", icon: "fa-solid fa-arrow-right-from-bracket", fr: "Issu de", es: "Proveniente de", audio: "audio/sourates/mots/mina.mp3" },
+    { id: 993, type: "word", arabe: "وَإِيَّاكَ", icon: "fa-solid fa-hand-point-up", fr: "Et c'est Toi", es: "Y a Ti", audio: "audio/sourates/mots/wa-iyyaka.mp3" },
+    { id: 994, type: "word", arabe: "وَالنَّاسِ", icon: "fa-solid fa-people-group", fr: "Et les hommes", es: "Y los hombres", audio: "audio/sourates/mots/wan-nasi.mp3" },
+    { id: 995, type: "word", arabe: "وَلَا", icon: "fa-solid fa-ban", fr: "Et non / ni", es: "Y no / ni", audio: "audio/sourates/mots/wa-la.mp3" },
+    { id: 996, type: "word", arabe: "وَلَمْ", icon: "fa-solid fa-ban", fr: "Et ne...pas", es: "Y no", audio: "audio/sourates/mots/wa-lam.mp3" },
+    { id: 997, type: "word", arabe: "وَمِن", icon: "fa-solid fa-arrow-right-from-bracket", fr: "Et contre", es: "Y contra", audio: "audio/sourates/mots/wa-min.mp3" },
+    { id: 998, type: "word", arabe: "يَوْمِ", icon: "fa-solid fa-calendar-day", fr: "Du Jour", es: "Del Día", audio: "audio/sourates/mots/yawmi.mp3" },
+
+    // ==========================================
     // MODULE 12 - Mots de revision globale et de la Lecture Structuree (15 nouveaux)
     // Les familles de racines (ex. ح-م-د, ر-ح-م) affichees dans le Quiz 3
     // sont un outil d'analyse morphologique, pas du vocabulaire autonome :
