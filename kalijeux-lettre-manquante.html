@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dar Al-Kalimah - Kalijeux : La lettre manquante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.2/confetti.browser.min.js"></script>
+<style>
+  :root{
+    --bordeaux:#5D1828; --bordeaux-dark:#3a0f19; --gold:#C8A462; --gold-light:#dfc28b;
+    --radius-xl:28px; --radius-lg:22px; --radius-md:18px; --radius-sm:12px;
+    --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; min-height:100vh; font-family:'Montserrat',sans-serif;
+    background:#f6f1ea;
+    padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+      radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+  }
+  .quiz-container{
+    position:relative; width:100%; max-width:480px; background:#fff;
+    border-radius:var(--radius-xl); box-shadow:0 20px 50px rgba(58,15,25,0.18);
+    overflow:hidden; padding:20px;
+  }
+  .quiz-container::before{ content:""; position:absolute; inset:14px; border-radius:20px; border:1px solid rgba(200,164,98,0.16); pointer-events:none; }
+
+  header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .btn-house{
+    width:42px; height:42px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+    background:var(--bordeaux); color:var(--gold); border:1px solid rgba(200,164,98,0.32); cursor:pointer;
+  }
+  h1{ font-family:'Cinzel',serif; font-size:1rem; color:var(--bordeaux-dark); text-align:center; flex:1; margin:0 8px; }
+  #scoreBadge{ font-weight:700; color:var(--bordeaux); font-size:0.85rem; min-width:42px; text-align:center; }
+
+  .progress-bar{ height:8px; background:#f0e6d8; border-radius:999px; overflow:hidden; margin-bottom:20px; }
+  .progress-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--gold-light), var(--gold)); border-radius:999px; transition:width .4s ease; }
+
+  .hidden{ display:none !important; }
+
+  /* ---- Ecran de selection de module ---- */
+  #view-modules{ padding:4px 2px 2px; }
+  #view-modules p{ color:#6b5a4a; font-size:.88rem; line-height:1.5; text-align:center; margin:0 0 10px; }
+  .module-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-top:6px; }
+  .module-card{
+    background:#fff; border:1px solid rgba(200,164,98,0.3); border-radius:var(--radius-md);
+    padding:12px 8px; text-align:center; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .module-card:active{ transform:scale(0.96); }
+  .module-card:hover{ border-color:var(--gold); box-shadow:0 6px 16px rgba(93,24,40,0.10); }
+  .module-card .module-num{
+    display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px;
+    border-radius:999px; background:var(--bordeaux); color:var(--gold);
+    font-family:'Cinzel',serif; font-weight:700; font-size:.82rem; margin-bottom:6px;
+  }
+  .module-card .module-label{ display:block; font-size:.74rem; font-weight:600; color:var(--bordeaux-dark); line-height:1.25; }
+  .module-card .module-count{ display:block; font-size:.65rem; color:#8a7a68; margin-top:3px; }
+  .module-card.module-all{
+    grid-column:1 / -1; background:linear-gradient(90deg, var(--gold), var(--gold-light)); border:none;
+    box-shadow:0 8px 20px rgba(200,164,98,0.35);
+  }
+  .module-card.module-all .module-num{ background:var(--bordeaux-dark); }
+  .module-card.module-all .module-label{ font-size:.85rem; }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px; background:none; border:none;
+    color:var(--bordeaux); font-family:'Montserrat',sans-serif; font-size:.78rem; font-weight:600;
+    cursor:pointer; margin-bottom:10px; padding:4px 0;
+  }
+  .selected-module-line{ font-size:.82rem; color:var(--bordeaux); font-weight:600; text-align:center; margin:0 0 4px; }
+
+  /* ---- Ecran de depart ---- */
+  #view-start{ text-align:center; padding:20px 6px 6px; }
+  #view-start p{ color:#6b5a4a; font-size:.92rem; line-height:1.5; }
+  #playerName{
+    width:100%; padding:14px; border-radius:var(--radius-md); border:1px solid rgba(93,24,40,0.2);
+    font-family:'Montserrat',sans-serif; font-size:1rem; text-align:center; margin:14px 0;
+  }
+  .btn-gold{
+    background:linear-gradient(90deg, var(--gold), var(--gold-light)); color:var(--bordeaux-dark);
+    border:none; border-radius:999px; padding:14px 28px; font-weight:700; font-size:1rem; cursor:pointer;
+    font-family:'Montserrat',sans-serif; box-shadow:0 8px 20px rgba(200,164,98,0.35);
+  }
+  .btn-gold:disabled{ opacity:.5; cursor:not-allowed; }
+
+  /* ---- Ecran de jeu ---- */
+  .word-card{
+    background:#fdfaf5; border:1px solid rgba(200,164,98,0.24); border-radius:var(--radius-lg);
+    padding:26px 16px; display:flex; flex-direction:column; align-items:center; gap:12px; margin-bottom:20px;
+  }
+  .word-display{
+    direction:rtl; unicode-bidi:isolate; display:flex; flex-direction:row; align-items:baseline; gap:2px;
+    font-family:'Amiri',serif; font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;
+    font-size:clamp(2.4rem, 11vw, 3.6rem); color:var(--bordeaux-dark);
+  }
+  .letter-chunk.blank{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:1.1em; height:1.1em; border:2px dashed var(--gold);
+    border-radius:8px; background:rgba(200,164,98,0.08); position:relative;
+  }
+  .letter-chunk.blank .placeholder{ color:var(--gold); font-family:'Montserrat',sans-serif; font-size:.5em; }
+  .letter-chunk.filled{ color:var(--bordeaux); }
+  .letter-chunk.correct{ color:#2e7d32; }
+  .letter-chunk.wrong{ color:#c0392b; }
+
+  .audio-btn{
+    width:44px; height:44px; border-radius:999px; border:1px solid rgba(200,164,98,0.35);
+    background:var(--bordeaux); color:var(--gold); font-size:1.1rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .audio-btn.no-audio{ opacity:.35; cursor:default; }
+
+  .tiles-row{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; min-height:96px; }
+  .drag-tile{
+    touch-action:none; user-select:none; -webkit-user-select:none;
+    width:78px; height:78px; background:#ffffff; border:1px solid rgba(200,164,98,0.3);
+    border-radius:var(--radius-sm); box-shadow:0 6px 16px rgba(93,24,40,0.10);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Amiri',serif; font-size:2.1rem; color:var(--bordeaux-dark);
+    cursor:grab; position:relative; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .drag-tile.dragging{ cursor:grabbing; z-index:50; box-shadow:0 14px 30px rgba(93,24,40,0.28); transform:scale(1.06); }
+  .drag-tile.used{ opacity:0; pointer-events:none; }
+  .word-card.drop-hover .letter-chunk.blank{ background:rgba(200,164,98,0.22); border-style:solid; }
+
+  .feedback-msg{ text-align:center; font-weight:700; min-height:22px; font-size:.9rem; margin-top:2px; }
+  .feedback-msg.ok{ color:#2e7d32; }
+  .feedback-msg.ko{ color:#c0392b; }
+
+  /* ---- Certificat ---- */
+  .diploma-paper{
+    position:relative; text-align:center; padding:34px 20px; border:1px solid var(--gold);
+    border-radius:var(--radius-lg); background:#fffdf9;
+  }
+  .diploma-paper::before{ content:""; position:absolute; inset:12px; border:1px solid rgba(200,164,98,0.20); border-radius:14px; pointer-events:none; }
+  .diploma-paper i.fa-award{ color:var(--gold); font-size:2.4rem; margin-bottom:6px; }
+  .diploma-paper h2{ font-family:'Cinzel',serif; color:var(--bordeaux-dark); margin:6px 0; }
+  .diploma-paper .cert-name{ font-family:'Amiri',serif; font-size:1.6rem; color:var(--bordeaux); margin:10px 0; }
+  .diploma-paper .cert-score{ font-weight:700; color:var(--gold); font-size:1.2rem; }
+  .diploma-paper .cert-module{ color:var(--bordeaux); font-size:.85rem; font-weight:600; margin-top:4px; }
+  .diploma-paper .cert-date{ color:#8a7a68; font-size:.85rem; margin-top:6px; }
+
+  @media (max-width:768px){ .quiz-container{ max-width:440px; } }
+  @media (max-width:480px){
+    .drag-tile{ width:68px; height:68px; font-size:1.8rem; }
+    .word-display{ font-size:clamp(2.1rem, 12vw, 3rem); }
+    .module-card .module-label{ font-size:.7rem; }
+  }
+  @media (max-width:360px){
+    .drag-tile{ width:60px; height:60px; font-size:1.6rem; }
+    .tiles-row{ gap:10px; }
+    .module-card{ padding:10px 6px; }
+  }
+  @media print{ .btn-house, .audio-btn, header{ display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+
+  <header>
+    <button class="btn-house" id="homeBtn" aria-label="Accueil"><i class="fa-solid fa-house"></i></button>
+    <h1 id="appTitleEl">Kalijeux – La lettre manquante</h1>
+    <span id="scoreBadge">0/0</span>
+  </header>
+
+  <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
+
+  <section id="view-modules">
+    <p>Choisis un module pour jouer, ou lance le mode complet pour un tirage aléatoire dans toute la banque de mots.</p>
+    <div class="module-grid" id="moduleGrid"></div>
+  </section>
+
+  <section id="view-start" class="hidden">
+    <button class="back-link" id="backToModulesLink"><i class="fa-solid fa-chevron-left"></i> Changer de module</button>
+    <p class="selected-module-line" id="selectedModuleName"></p>
+    <p>Écoute le mot, regarde la case vide, et fais glisser la bonne lettre à sa place.</p>
+    <input type="text" id="playerName" placeholder="Ton prénom">
+    <button class="btn-gold" id="startBtn">Commencer</button>
+  </section>
+
+  <main id="view-quiz" class="hidden">
+    <div class="word-card" id="wordCard">
+      <div class="word-display" id="wordDisplay"></div>
+      <button class="audio-btn" id="playWordBtn" aria-label="Écouter le mot"><i class="fa-solid fa-volume-high"></i></button>
+    </div>
+    <div class="tiles-row" id="tilesRow"></div>
+    <div class="feedback-msg" id="feedbackMsg"></div>
+  </main>
+
+  <section id="view-certificate" class="hidden">
+    <div class="diploma-paper">
+      <i class="fa-solid fa-award"></i>
+      <h2>Mabrouk !</h2>
+      <div class="cert-name" id="certName"></div>
+      <div class="cert-score" id="certScore"></div>
+      <div class="cert-module" id="certModule"></div>
+      <div class="cert-date" id="certDate"></div>
+      <button class="btn-gold" id="replayBtn" style="margin-top:20px;">Rejouer</button>
+    </div>
+  </section>
+
+</div>
+
+<script id="app-data" type="application/json">
+{
+  "meta": {
+    "pageTitle": "Dar Al-Kalimah - Kalijeux",
+    "appTitle": "Kalijeux – La lettre manquante",
+    "moduleId": "kalijeux-lettre-manquante",
+    "homeHref": "kalijeux.html",
+    "successAudio": "mabruk.mp3",
+    "silentUnlockAudio": "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=",
+    "storage": { "playerName": "dak_kalijeux_lettre_manquante_name" }
+  },
+  "settings": {
+    "optionsCount": 3,
+    "delayNextCard": 1200,
+    "shuffleQuestions": true
+  },
+  "moduleLabels": {
+    "1": "Les Lettres Arabes",
+    "2": "Al-Harakat",
+    "3": "Al-Modoud",
+    "4": "At-Tanwīn &amp; Al-Hamza",
+    "5": "Ash-Shamsiyya &amp; Al-Qamariyya",
+    "6": "Vocabulaire &amp; Lecture",
+    "8": "Le Nom",
+    "9": "La Phrase Nominale",
+    "10": "Le Verbe",
+    "11": "Phrase Verbale",
+    "12": "Révision &amp; Lecture"
+  },
+  "wordsByModule": {"1":[{"id":29,"audio":"audio/asad.mp3","chunks":["أَ","سَ","د"],"missingIndex":1,"distractors":["بَ","نَ"]},{"id":30,"audio":"audio/kas.mp3","chunks":["كَ","أْ","س"],"missingIndex":1,"distractors":["ءْ","ؤْ"]},{"id":31,"audio":"audio/malja.mp3","chunks":["مَ","لْ","جَ","أ"],"missingIndex":2,"distractors":["حَ","خَ"]},{"id":33,"audio":"audio/kabir.mp3","chunks":["كَ","بِ","ي","ر"],"missingIndex":1,"distractors":["نِ","ثِ"]},{"id":34,"audio":"audio/kitab.mp3","chunks":["كِ","تَ","ا","ب"],"missingIndex":3,"distractors":["ت","ث"]},{"id":35,"audio":"audio/tamr.mp3","chunks":["تَ","مْ","ر"],"missingIndex":1,"distractors":["ةْ","هْ"]},{"id":36,"audio":null,"chunks":["بَ","يْ","ت"],"missingIndex":2,"distractors":["ك","ث"]},{"id":37,"audio":"audio/thawb.mp3","chunks":["ثَ","وْ","ب"],"missingIndex":0,"distractors":["نَ","بَ"]},{"id":38,"audio":"audio/mathal.mp3","chunks":["مَ","ثَ","ل"],"missingIndex":2,"distractors":["ك","ت"]},{"id":39,"audio":"audio/bahath.mp3","chunks":["بَ","حَ","ث"],"missingIndex":0,"distractors":["ثَ","تَ"]},{"id":40,"audio":"audio/jamal.mp3","chunks":["جَ","مَ","ل"],"missingIndex":1,"distractors":["ةَ","هَ"]},{"id":41,"audio":"audio/rajul.mp3","chunks":["رَ","جُ","ل"],"missingIndex":1,"distractors":["حُ","خُ"]},{"id":42,"audio":"audio/burj.mp3","chunks":["بُ","رْ","ج"],"missingIndex":0,"distractors":["ثُ","تُ"]},{"id":43,"audio":"audio/habl.mp3","chunks":["حَ","بْ","ل"],"missingIndex":1,"distractors":["تْ","يْ"]},{"id":44,"audio":"audio/bahr.mp3","chunks":["بَ","حْ","ر"],"missingIndex":1,"distractors":["جْ","خْ"]},{"id":46,"audio":"audio/khobz.mp3","chunks":["خُ","بْ","ز"],"missingIndex":2,"distractors":["ت","م"]},{"id":47,"audio":"audio/nakhl.mp3","chunks":["نَ","خْ","ل"],"missingIndex":0,"distractors":["يَ","تَ"]},{"id":48,"audio":"audio/matbakh.mp3","chunks":["مَ","طْ","بَ","خ"],"missingIndex":2,"distractors":["نَ","ثَ"]},{"id":49,"audio":"audio/dub.mp3","chunks":["دُ","ب"],"missingIndex":1,"distractors":["ي","ت"]},{"id":50,"audio":"audio/madrasa.mp3","chunks":["مَ","دْ","رَ","سَ","ة"],"missingIndex":1,"distractors":["تْ","بْ"]},{"id":51,"audio":"audio/walad.mp3","chunks":["وَ","لَ","د"],"missingIndex":1,"distractors":["ٱَ","اَ"]},{"id":52,"audio":"audio/dhahab.mp3","chunks":["ذَ","هَ","ب"],"missingIndex":0,"distractors":["سَ","بَ"]},{"id":53,"audio":"audio/hadha.mp3","chunks":["هَ","ذَ","ا"],"missingIndex":1,"distractors":["دَ","رَ"]},{"id":54,"audio":"audio/ladhidh.mp3","chunks":["لَ","ذِ","ي","ذ"],"missingIndex":0,"distractors":["اَ","تَ"]},{"id":55,"audio":"audio/warda.mp3","chunks":["وَ","رْ","دَ","ة"],"missingIndex":2,"distractors":["كَ","بَ"]},{"id":56,"audio":"audio/qamar.mp3","chunks":["قَ","مَ","ر"],"missingIndex":1,"distractors":["هَ","ةَ"]},{"id":57,"audio":"audio/zayt.mp3","chunks":["زَ","يْ","ت"],"missingIndex":0,"distractors":["مَ","سَ"]},{"id":58,"audio":"audio/mawza.mp3","chunks":["مَ","وْ","زَ","ة"],"missingIndex":0,"distractors":["ةَ","هَ"]},{"id":59,"audio":"audio/samak.mp3","chunks":["سَ","مَ","ك"],"missingIndex":0,"distractors":["لَ","نَ"]},{"id":60,"audio":"audio/masjid.mp3","chunks":["مَ","سْ","جِ","د"],"missingIndex":3,"distractors":["ر","ك"]},{"id":61,"audio":"audio/dars.mp3","chunks":["دَ","رْ","س"],"missingIndex":0,"distractors":["بَ","تَ"]},{"id":62,"audio":"audio/shams.mp3","chunks":["شَ","مْ","س"],"missingIndex":0,"distractors":["رَ","سَ"]},{"id":63,"audio":"audio/mishmish.mp3","chunks":["مِ","شْ","مِ","ش"],"missingIndex":2,"distractors":["هِ","ةِ"]},{"id":64,"audio":"audio/arsh.mp3","chunks":["عَ","رْ","ش"],"missingIndex":0,"distractors":["نَ","بَ"]},{"id":65,"audio":"audio/sabr.mp3","chunks":["صَ","بْ","ر"],"missingIndex":1,"distractors":["ثْ","نْ"]},{"id":66,"audio":"audio/basir.mp3","chunks":["بَ","صِ","ي","ر"],"missingIndex":0,"distractors":["يَ","نَ"]},{"id":67,"audio":"audio/nass.mp3","chunks":["نَ","ص"],"missingIndex":0,"distractors":["يَ","تَ"]},{"id":68,"audio":"audio/daw.mp3","chunks":["ضَ","وْ","ء"],"missingIndex":0,"distractors":["تَ","كَ"]},{"id":69,"audio":"audio/marid.mp3","chunks":["مَ","رِ","ي","ض"],"missingIndex":1,"distractors":["نِ","مِ"]},{"id":70,"audio":"audio/ard.mp3","chunks":["أَ","رْ","ض"],"missingIndex":1,"distractors":["زْ","كْ"]},{"id":71,"audio":"audio/tin.mp3","chunks":["طِ","ي","ن"],"missingIndex":0,"distractors":["تِ","سِ"]},{"id":72,"audio":"audio/matar.mp3","chunks":["مَ","طَ","ر"],"missingIndex":2,"distractors":["م","ل"]},{"id":73,"audio":"audio/qitt.mp3","chunks":["قِ","ط"],"missingIndex":1,"distractors":["ل","ب"]},{"id":74,"audio":"audio/zill.mp3","chunks":["ظِ","ل"],"missingIndex":0,"distractors":["تِ","طِ"]},{"id":75,"audio":"audio/azim.mp3","chunks":["عَ","ظِ","ي","م"],"missingIndex":0,"distractors":["نَ","كَ"]},{"id":76,"audio":"audio/haz.mp3","chunks":["حَ","ظ"],"missingIndex":0,"distractors":["جَ","خَ"]},{"id":77,"audio":"audio/ayn.mp3","chunks":["عَ","يْ","ن"],"missingIndex":0,"distractors":["كَ","تَ"]},{"id":78,"audio":"audio/malab.mp3","chunks":["مَ","لْ","عَ","ب"],"missingIndex":2,"distractors":["نَ","كَ"]},{"id":79,"audio":"audio/jam.mp3","chunks":["جَ","مْ","ع"],"missingIndex":2,"distractors":["ن","ك"]},{"id":80,"audio":"audio/ghaym.mp3","chunks":["غَ","يْ","م"],"missingIndex":1,"distractors":["نْ","بْ"]},{"id":81,"audio":"audio/maghrib.mp3","chunks":["مَ","غْ","رِ","ب"],"missingIndex":0,"distractors":["ةَ","هَ"]},{"id":82,"audio":"audio/sibgh.mp3","chunks":["صِ","بْ","غ"],"missingIndex":2,"distractors":["ر","ل"]},{"id":84,"audio":"audio/sayf.mp3","chunks":["صَ","يْ","ف"],"missingIndex":1,"distractors":["ثْ","تْ"]},{"id":85,"audio":"audio/baqara.mp3","chunks":["بَ","قَ","رَ","ة"],"missingIndex":0,"distractors":["نَ","تَ"]},{"id":87,"audio":"audio/maktaba.mp3","chunks":["مَ","كْ","تَ","بَ","ة"],"missingIndex":1,"distractors":["لْ","تْ"]},{"id":88,"audio":"audio/laban.mp3","chunks":["لَ","بَ","ن"],"missingIndex":1,"distractors":["يَ","ثَ"]},{"id":89,"audio":"audio/qalam.mp3","chunks":["قَ","لَ","م"],"missingIndex":2,"distractors":["ة","ه"]},{"id":90,"audio":"audio/jabal.mp3","chunks":["جَ","بَ","ل"],"missingIndex":1,"distractors":["تَ","ثَ"]},{"id":91,"audio":"audio/ma.mp3","chunks":["مَ","ا","ء"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":92,"audio":"audio/najm.mp3","chunks":["نَ","جْ","م"],"missingIndex":1,"distractors":["خْ","حْ"]},{"id":93,"audio":"audio/inab.mp3","chunks":["عِ","نَ","ب"],"missingIndex":0,"distractors":["بِ","مِ"]},{"id":94,"audio":"audio/hilal.mp3","chunks":["هِ","لَ","ا","ل"],"missingIndex":2,"distractors":["ل","ٱ"]},{"id":95,"audio":"audio/nahr.mp3","chunks":["نَ","هْ","ر"],"missingIndex":0,"distractors":["ثَ","يَ"]},{"id":96,"audio":"audio/wajh.mp3","chunks":["وَ","جْ","ه"],"missingIndex":1,"distractors":["خْ","حْ"]},{"id":97,"audio":"audio/ward.mp3","chunks":["وَ","رْ","د"],"missingIndex":2,"distractors":["ب","ذ"]},{"id":98,"audio":"audio/qaws.mp3","chunks":["قَ","وْ","س"],"missingIndex":2,"distractors":["م","ل"]},{"id":99,"audio":"audio/yad.mp3","chunks":["يَ","د"],"missingIndex":1,"distractors":["س","ب"]},{"id":100,"audio":"audio/kursi.mp3","chunks":["كُ","رْ","سِ","ي"],"missingIndex":0,"distractors":["تُ","لُ"]}],"2":[{"id":101,"audio":"audio/module2/maa.mp3","chunks":["مَ","عَ"],"missingIndex":0,"distractors":["هَ","ةَ"]},{"id":102,"audio":"audio/module2/laka.mp3","chunks":["لَ","كَ"],"missingIndex":1,"distractors":["تَ","لَ"]},{"id":103,"audio":"audio/module2/qum.mp3","chunks":["قُ","مْ"],"missingIndex":0,"distractors":["رُ","لُ"]},{"id":104,"audio":"audio/module2/khudh.mp3","chunks":["خُ","ذْ"],"missingIndex":1,"distractors":["بْ","تْ"]},{"id":105,"audio":"audio/module2/kul.mp3","chunks":["كُ","لْ"],"missingIndex":1,"distractors":["تْ","اْ"]},{"id":106,"audio":"audio/module2/hum.mp3","chunks":["هُ","مْ"],"missingIndex":1,"distractors":["هْ","ةْ"]},{"id":107,"audio":"audio/module2/lahu.mp3","chunks":["لَ","هُ"],"missingIndex":1,"distractors":["ةُ","مُ"]},{"id":108,"audio":"audio/module2/ud.mp3","chunks":["عُ","دْ"],"missingIndex":0,"distractors":["تُ","بُ"]},{"id":109,"audio":"audio/module2/ghil.mp3","chunks":["غِ","لْ"],"missingIndex":1,"distractors":["كْ","ٱْ"]},{"id":110,"audio":"audio/module2/sir.mp3","chunks":["سِ","رْ"],"missingIndex":1,"distractors":["زْ","لْ"]},{"id":111,"audio":"audio/module2/qif.mp3","chunks":["قِ","فْ"],"missingIndex":0,"distractors":["فِ","كِ"]},{"id":112,"audio":"audio/module2/sif.mp3","chunks":["صِ","فْ"],"missingIndex":0,"distractors":["بِ","كِ"]},{"id":113,"audio":"audio/module2/zid.mp3","chunks":["زِ","دْ"],"missingIndex":1,"distractors":["كْ","رْ"]},{"id":114,"audio":"audio/module2/ghib.mp3","chunks":["غِ","بْ"],"missingIndex":1,"distractors":["تْ","ثْ"]},{"id":115,"audio":"audio/module2/bika.mp3","chunks":["بِ","كَ"],"missingIndex":0,"distractors":["نِ","ثِ"]},{"id":116,"audio":"audio/module2/bihi.mp3","chunks":["بِ","هِ"],"missingIndex":0,"distractors":["نِ","ثِ"]},{"id":117,"audio":"audio/module2/sum.mp3","chunks":["صُ","مْ"],"missingIndex":0,"distractors":["بُ","ضُ"]},{"id":118,"audio":"audio/module2/mut.mp3","chunks":["مُ","تْ"],"missingIndex":1,"distractors":["ثْ","لْ"]},{"id":119,"audio":"audio/module2/abu.mp3","chunks":["أَ","ب"],"missingIndex":1,"distractors":["ن","ث"]},{"id":120,"audio":"audio/module2/akhu.mp3","chunks":["أَ","خ"],"missingIndex":0,"distractors":["ءَ","ئَ"]},{"id":121,"audio":"audio/module2/damu.mp3","chunks":["دَ","م"],"missingIndex":0,"distractors":["بَ","سَ"]},{"id":122,"audio":"audio/module2/famu.mp3","chunks":["فَ","م"],"missingIndex":1,"distractors":["ة","ه"]},{"id":123,"audio":"audio/module2/man.mp3","chunks":["مَ","نْ"],"missingIndex":1,"distractors":["يْ","ثْ"]},{"id":124,"audio":"audio/module2/bal.mp3","chunks":["بَ","لْ"],"missingIndex":1,"distractors":["اْ","ٱْ"]},{"id":125,"audio":"audio/module2/an.mp3","chunks":["عَ","نْ"],"missingIndex":1,"distractors":["ثْ","تْ"]},{"id":126,"audio":"audio/module2/qad.mp3","chunks":["قَ","دْ"],"missingIndex":1,"distractors":["ذْ","نْ"]},{"id":127,"audio":"audio/module2/lam.mp3","chunks":["لَ","مْ"],"missingIndex":0,"distractors":["تَ","كَ"]},{"id":128,"audio":"audio/module2/lan.mp3","chunks":["لَ","نْ"],"missingIndex":0,"distractors":["تَ","اَ"]},{"id":129,"audio":"audio/module2/kam.mp3","chunks":["كَ","مْ"],"missingIndex":0,"distractors":["لَ","تَ"]},{"id":130,"audio":"audio/module2/kataba.mp3","chunks":["كَ","تَ","بَ"],"missingIndex":0,"distractors":["لَ","تَ"]},{"id":131,"audio":"audio/module2/dakhala.mp3","chunks":["دَ","خَ","لَ"],"missingIndex":2,"distractors":["ٱَ","كَ"]},{"id":132,"audio":"audio/module2/jalasa.mp3","chunks":["جَ","لَ","سَ"],"missingIndex":0,"distractors":["خَ","حَ"]},{"id":133,"audio":"audio/module2/shariba.mp3","chunks":["شَ","رِ","بَ"],"missingIndex":0,"distractors":["سَ","كَ"]},{"id":134,"audio":"audio/module2/samia.mp3","chunks":["سَ","مِ","عَ"],"missingIndex":0,"distractors":["شَ","لَ"]},{"id":135,"audio":"audio/module2/laiba.mp3","chunks":["لَ","عِ","بَ"],"missingIndex":2,"distractors":["نَ","يَ"]},{"id":136,"audio":"audio/module2/hasuna.mp3","chunks":["حَ","سُ","نَ"],"missingIndex":2,"distractors":["ثَ","تَ"]},{"id":137,"audio":"audio/module2/kabura.mp3","chunks":["كَ","بُ","رَ"],"missingIndex":0,"distractors":["لَ","تَ"]},{"id":138,"audio":"audio/module2/saghura.mp3","chunks":["صَ","غُ","رَ"],"missingIndex":0,"distractors":["بَ","تَ"]},{"id":139,"audio":"audio/module2/amila.mp3","chunks":["عَ","مِ","لَ"],"missingIndex":1,"distractors":["هِ","ةِ"]},{"id":140,"audio":"audio/module2/bint.mp3","chunks":["بِ","نْ","ت"],"missingIndex":2,"distractors":["ل","ك"]},{"id":141,"audio":"audio/module2/qalb.mp3","chunks":["قَ","لْ","ب"],"missingIndex":1,"distractors":["اْ","تْ"]},{"id":142,"audio":"audio/module2/udhun.mp3","chunks":["أُ","ذُ","ن"],"missingIndex":1,"distractors":["نُ","سُ"]},{"id":143,"audio":"audio/module2/rijl.mp3","chunks":["رِ","جْ","ل"],"missingIndex":2,"distractors":["ا","ت"]},{"id":144,"audio":"audio/module2/qird.mp3","chunks":["قِ","رْ","د"],"missingIndex":2,"distractors":["ت","م"]},{"id":145,"audio":"audio/module2/dhib.mp3","chunks":["ذِ","ئْ","ب"],"missingIndex":1,"distractors":["إْ","ؤْ"]},{"id":146,"audio":"audio/module2/maktab.mp3","chunks":["مَ","كْ","تَ","ب"],"missingIndex":0,"distractors":["ةَ","هَ"]},{"id":147,"audio":"audio/module2/muslim.mp3","chunks":["مُ","سْ","لِ","م"],"missingIndex":1,"distractors":["كْ","تْ"]},{"id":148,"audio":"audio/module2/daftar.mp3","chunks":["دَ","فْ","تَ","ر"],"missingIndex":1,"distractors":["وْ","قْ"]},{"id":209,"audio":"audio/module2/fataha.mp3","chunks":["فَ","تَ","حَ"],"missingIndex":2,"distractors":["جَ","خَ"]},{"id":210,"audio":"audio/module2/qaraa.mp3","chunks":["قَ","رَ","أَ"],"missingIndex":2,"distractors":["إَ","ؤَ"]},{"id":211,"audio":"audio/module2/nazhara.mp3","chunks":["نَ","ظَ","رَ"],"missingIndex":0,"distractors":["تَ","ثَ"]},{"id":212,"audio":"audio/module2/ghasala.mp3","chunks":["غَ","سَ","لَ"],"missingIndex":1,"distractors":["نَ","كَ"]},{"id":213,"audio":"audio/module2/akala.mp3","chunks":["أَ","كَ","لَ"],"missingIndex":2,"distractors":["ٱَ","تَ"]},{"id":214,"audio":"audio/module2/rasama.mp3","chunks":["رَ","سَ","مَ"],"missingIndex":1,"distractors":["تَ","شَ"]},{"id":215,"audio":"audio/module2/tabakha.mp3","chunks":["طَ","بَ","خَ"],"missingIndex":1,"distractors":["نَ","ثَ"]},{"id":216,"audio":"audio/module2/qafaza.mp3","chunks":["قَ","فَ","زَ"],"missingIndex":2,"distractors":["مَ","نَ"]},{"id":217,"audio":"audio/module2/masaha.mp3","chunks":["مَ","سَ","حَ"],"missingIndex":2,"distractors":["جَ","خَ"]},{"id":218,"audio":"audio/module2/dahika.mp3","chunks":["ضَ","حِ","كَ"],"missingIndex":2,"distractors":["لَ","تَ"]},{"id":219,"audio":"audio/module2/rakaa.mp3","chunks":["رَ","كَ","عَ"],"missingIndex":2,"distractors":["رَ","بَ"]}],"3":[{"id":149,"audio":"audio/module3/bab.mp3","chunks":["بَ","ا","ب"],"missingIndex":2,"distractors":["ن","ي"]},{"id":150,"audio":"audio/module3/taj.mp3","chunks":["تَ","ا","ج"],"missingIndex":0,"distractors":["بَ","لَ"]},{"id":151,"audio":"audio/module3/nar.mp3","chunks":["نَ","ا","ر"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":152,"audio":"audio/module3/ud.mp3","chunks":["عُ","و","د"],"missingIndex":2,"distractors":["م","ل"]},{"id":153,"audio":"audio/module3/ghar.mp3","chunks":["غَ","ا","ر"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":154,"audio":"audio/module3/dar.mp3","chunks":["دَ","ا","ر"],"missingIndex":1,"distractors":["ٱ","ل"]},{"id":155,"audio":"audio/module3/jar.mp3","chunks":["جَ","ا","ر"],"missingIndex":2,"distractors":["ب","س"]},{"id":156,"audio":"audio/module3/sam.mp3","chunks":["صَ","ا","م"],"missingIndex":2,"distractors":["ة","ه"]},{"id":157,"audio":"audio/module3/qam.mp3","chunks":["قَ","ا","م"],"missingIndex":0,"distractors":["فَ","نَ"]},{"id":158,"audio":"audio/module3/tar.mp3","chunks":["طَ","ا","ر"],"missingIndex":2,"distractors":["ك","ل"]},{"id":159,"audio":"audio/module3/nam.mp3","chunks":["نَ","ا","م"],"missingIndex":0,"distractors":["ثَ","بَ"]},{"id":160,"audio":"audio/module3/am.mp3","chunks":["عَ","ا","م"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":161,"audio":"audio/module3/khal.mp3","chunks":["خَ","ا","ل"],"missingIndex":2,"distractors":["ا","ك"]},{"id":162,"audio":"audio/module3/ghab.mp3","chunks":["غَ","ا","ب"],"missingIndex":0,"distractors":["عَ","مَ"]},{"id":163,"audio":"audio/module3/saq.mp3","chunks":["سَ","ا","ق"],"missingIndex":0,"distractors":["لَ","نَ"]},{"id":164,"audio":"audio/module3/kub.mp3","chunks":["كُ","و","ب"],"missingIndex":1,"distractors":["ف","ر"]},{"id":165,"audio":"audio/module3/tut.mp3","chunks":["تُ","و","ت"],"missingIndex":1,"distractors":["م","ك"]},{"id":166,"audio":"audio/module3/hut.mp3","chunks":["حُ","و","ت"],"missingIndex":2,"distractors":["ي","ن"]},{"id":167,"audio":"audio/module3/dud.mp3","chunks":["دُ","و","د"],"missingIndex":2,"distractors":["س","ت"]},{"id":168,"audio":"audio/module3/nur.mp3","chunks":["نُ","و","ر"],"missingIndex":0,"distractors":["ثُ","يُ"]},{"id":169,"audio":"audio/module3/suf.mp3","chunks":["صُ","و","ف"],"missingIndex":0,"distractors":["مُ","تُ"]},{"id":170,"audio":"audio/module3/suq.mp3","chunks":["سُ","و","ق"],"missingIndex":1,"distractors":["س","ت"]},{"id":171,"audio":"audio/module3/sur.mp3","chunks":["سُ","و","ر"],"missingIndex":2,"distractors":["م","ب"]},{"id":172,"audio":"audio/module3/ruh.mp3","chunks":["رُ","و","ح"],"missingIndex":0,"distractors":["سُ","مُ"]},{"id":173,"audio":"audio/module3/ghul.mp3","chunks":["غُ","و","ل"],"missingIndex":0,"distractors":["لُ","عُ"]},{"id":174,"audio":"audio/module3/tin.mp3","chunks":["تِ","ي","ن"],"missingIndex":1,"distractors":["ت","ن"]},{"id":175,"audio":"audio/module3/din.mp3","chunks":["دِ","ي","ن"],"missingIndex":1,"distractors":["ن","ت"]},{"id":176,"audio":"audio/module3/rih.mp3","chunks":["رِ","ي","ح"],"missingIndex":0,"distractors":["سِ","زِ"]},{"id":177,"audio":"audio/module3/jil.mp3","chunks":["جِ","ي","ل"],"missingIndex":2,"distractors":["ت","ا"]},{"id":178,"audio":"audio/module3/fil.mp3","chunks":["فِ","ي","ل"],"missingIndex":0,"distractors":["وِ","قِ"]},{"id":179,"audio":"audio/module3/taira.mp3","chunks":["طَ","ا","ئِ","رَ","ة"],"missingIndex":0,"distractors":["مَ","بَ"]},{"id":180,"audio":"audio/module3/nafidhah.mp3","chunks":["نَ","ا","فِ","ذَ","ة"],"missingIndex":1,"distractors":["ٱ","ل"]},{"id":181,"audio":"audio/module3/haqibah.mp3","chunks":["حَ","قِ","ي","بَ","ة"],"missingIndex":3,"distractors":["نَ","يَ"]},{"id":182,"audio":"audio/module3/safinah.mp3","chunks":["سَ","فِ","ي","نَ","ة"],"missingIndex":4,"distractors":["م","ه"]},{"id":183,"audio":"audio/module3/burtuqal.mp3","chunks":["بُ","رْ","تُ","قَ","ا","ل"],"missingIndex":3,"distractors":["مَ","نَ"]},{"id":184,"audio":"audio/module3/sarukh.mp3","chunks":["صَ","ا","رُ","و","خ"],"missingIndex":0,"distractors":["كَ","مَ"]},{"id":185,"audio":"audio/module3/timsah.mp3","chunks":["تِ","مْ","سَ","ا","ح"],"missingIndex":3,"distractors":["ٱ","ل"]},{"id":186,"audio":"audio/module3/usfur.mp3","chunks":["عُ","صْ","فُ","و","ر"],"missingIndex":1,"distractors":["سْ","مْ"]},{"id":187,"audio":"audio/module3/farashah.mp3","chunks":["فَ","رَ","ا","شَ","ة"],"missingIndex":0,"distractors":["قَ","وَ"]},{"id":188,"audio":"audio/module3/halazun.mp3","chunks":["حَ","لَ","زُ","و","ن"],"missingIndex":0,"distractors":["جَ","خَ"]},{"id":189,"audio":"audio/module3/hasub.mp3","chunks":["حَ","ا","سُ","و","ب"],"missingIndex":4,"distractors":["ن","ي"]},{"id":190,"audio":"audio/module3/miftah.mp3","chunks":["مِ","فْ","تَ","ا","ح"],"missingIndex":2,"distractors":["يَ","نَ"]},{"id":191,"audio":"audio/module3/tilfaz.mp3","chunks":["تِ","لْ","فَ","ا","ز"],"missingIndex":4,"distractors":["ك","س"]},{"id":192,"audio":"audio/module3/qamus.mp3","chunks":["قَ","ا","مُ","و","س"],"missingIndex":1,"distractors":["ٱ","ل"]},{"id":193,"audio":"audio/module3/misbah.mp3","chunks":["مِ","صْ","بَ","ا","ح"],"missingIndex":1,"distractors":["كْ","مْ"]},{"id":194,"audio":"audio/module3/sunduq.mp3","chunks":["صُ","نْ","دُ","و","ق"],"missingIndex":1,"distractors":["بْ","تْ"]},{"id":195,"audio":"audio/module3/asimah.mp3","chunks":["عَ","ا","صِ","مَ","ة"],"missingIndex":3,"distractors":["ةَ","هَ"]},{"id":196,"audio":"audio/module3/dajajah.mp3","chunks":["دَ","جَ","ا","جَ","ة"],"missingIndex":1,"distractors":["حَ","خَ"]},{"id":197,"audio":"audio/module3/zarafah.mp3","chunks":["زَ","رَ","ا","فَ","ة"],"missingIndex":3,"distractors":["وَ","قَ"]},{"id":198,"audio":"audio/module3/sulahfah.mp3","chunks":["سُ","لَ","حْ","فَ","ا","ة"],"missingIndex":1,"distractors":["كَ","اَ"]},{"id":199,"audio":"audio/module3/fanus.mp3","chunks":["فَ","ا","نُ","و","س"],"missingIndex":3,"distractors":["ك","ب"]},{"id":200,"audio":"audio/module3/maktub.mp3","chunks":["مَ","كْ","تُ","و","ب"],"missingIndex":2,"distractors":["نُ","ثُ"]},{"id":201,"audio":"audio/module3/khizanah.mp3","chunks":["خِ","زَ","ا","نَ","ة"],"missingIndex":3,"distractors":["يَ","بَ"]},{"id":202,"audio":"audio/module3/maidah.mp3","chunks":["مَ","ا","ئِ","دَ","ة"],"missingIndex":3,"distractors":["سَ","رَ"]},{"id":203,"audio":"audio/module3/faturah.mp3","chunks":["فَ","ا","تُ","و","رَ","ة"],"missingIndex":2,"distractors":["يُ","بُ"]},{"id":204,"audio":"audio/module3/jamiah.mp3","chunks":["جَ","ا","مِ","عَ","ة"],"missingIndex":3,"distractors":["لَ","كَ"]},{"id":205,"audio":"audio/module3/kamira.mp3","chunks":["كَ","ا","مِ","ي","رَ","ا"],"missingIndex":4,"distractors":["تَ","كَ"]},{"id":206,"audio":"audio/module3/shahinah.mp3","chunks":["شَ","ا","حِ","نَ","ة"],"missingIndex":0,"distractors":["تَ","نَ"]},{"id":207,"audio":"audio/module3/thaalib.mp3","chunks":["ثَ","عَ","ا","لِ","ب"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":208,"audio":"audio/module3/usbu.mp3","chunks":["أُ","سْ","بُ","و","ع"],"missingIndex":4,"distractors":["ت","غ"]}],"4":[{"id":500,"audio":"audio/quiz-tanwin/tabib-un.mp3","chunks":["طَ","بِ","ي","ب"],"missingIndex":1,"distractors":["ثِ","نِ"]},{"id":501,"audio":"audio/quiz-tanwin/mouallim-un.mp3","chunks":["مُ","عَ","لِّ","م"],"missingIndex":1,"distractors":["سَ","كَ"]},{"id":502,"audio":"audio/quiz-tanwin/hadiqa-un.mp3","chunks":["حَ","دِ","ي","قَ","ة"],"missingIndex":3,"distractors":["كَ","نَ"]},{"id":503,"audio":"audio/quiz-tanwin/madina-un.mp3","chunks":["مَ","دِ","ي","نَ","ة"],"missingIndex":0,"distractors":["ةَ","هَ"]},{"id":504,"audio":"audio/quiz-tanwin/sadiq-un.mp3","chunks":["صَ","دِ","ي","ق"],"missingIndex":0,"distractors":["كَ","تَ"]},{"id":505,"audio":"audio/quiz-tanwin/malik-un.mp3","chunks":["مَ","لِ","ك"],"missingIndex":1,"distractors":["اِ","ٱِ"]},{"id":506,"audio":"audio/quiz-tanwin/sarir-un.mp3","chunks":["سَ","رِ","ي","ر"],"missingIndex":0,"distractors":["نَ","تَ"]},{"id":507,"audio":"audio/quiz-tanwin/saaa-un.mp3","chunks":["سَ","ا","عَ","ة"],"missingIndex":1,"distractors":["ٱ","ل"]},{"id":508,"audio":null,"chunks":["قَ","ا","رِ","ب"],"missingIndex":3,"distractors":["ت","ي"]},{"id":509,"audio":"audio/quiz-tanwin/sura-un.mp3","chunks":["صُ","و","رَ","ة"],"missingIndex":3,"distractors":["ه","م"]},{"id":510,"audio":"audio/quiz-tanwin/matam-un.mp3","chunks":["مَ","طْ","عَ","م"],"missingIndex":2,"distractors":["مَ","كَ"]},{"id":511,"audio":"audio/quiz-tanwin/shari-un.mp3","chunks":["شَ","ا","رِ","ع"],"missingIndex":3,"distractors":["ر","ب"]},{"id":512,"audio":"audio/quiz-tanwin/jawab-un.mp3","chunks":["جَ","وَ","ا","ب"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":513,"audio":"audio/quiz-tanwin/hanut-un.mp3","chunks":["حَ","ا","نُ","و","ت"],"missingIndex":4,"distractors":["ث","ك"]},{"id":514,"audio":"audio/quiz-tanwin/tariq-un.mp3","chunks":["طَ","رِ","ي","ق"],"missingIndex":0,"distractors":["مَ","تَ"]},{"id":515,"audio":"audio/quiz-tanwin/qala-un.mp3","chunks":["قَ","لْ","عَ","ة"],"missingIndex":1,"distractors":["اْ","كْ"]},{"id":516,"audio":"audio/quiz-tanwin/miqass-un.mp3","chunks":["مِ","قَ","صّ"],"missingIndex":2,"distractors":["تّ","كّ"]},{"id":517,"audio":"audio/quiz-tanwin/moumarrid-un.mp3","chunks":["مُ","مَ","رِّ","ض"],"missingIndex":1,"distractors":["ةَ","هَ"]},{"id":518,"audio":"audio/quiz-tanwin/fasl-un.mp3","chunks":["فَ","صْ","ل"],"missingIndex":0,"distractors":["قَ","وَ"]},{"id":519,"audio":"audio/quiz-tanwin/tifl-un.mp3","chunks":["طِ","فْ","ل"],"missingIndex":1,"distractors":["قْ","وْ"]},{"id":520,"audio":"audio/module6/qitar.mp3","chunks":["قِ","طَ","ا","ر"],"missingIndex":0,"distractors":["فِ","نِ"]},{"id":521,"audio":"audio/quiz-qat/ibriq.mp3","chunks":["إِ","بْ","رِ","ي","ق"],"missingIndex":0,"distractors":["أِ","ءِ"]},{"id":522,"audio":"audio/quiz-qat/umm.mp3","chunks":["أُ","مّ"],"missingIndex":0,"distractors":["إُ","ئُ"]},{"id":523,"audio":"audio/quiz-qat/ras.mp3","chunks":["رَ","أْ","س"],"missingIndex":0,"distractors":["سَ","كَ"]},{"id":524,"audio":"audio/quiz-qat/bir.mp3","chunks":["بِ","ئْ","ر"],"missingIndex":2,"distractors":["ل","ت"]},{"id":525,"audio":"audio/quiz-qat/fas.mp3","chunks":["فَ","أْ","س"],"missingIndex":0,"distractors":["قَ","وَ"]},{"id":526,"audio":"audio/quiz-qat/mumin.mp3","chunks":["مُ","ؤْ","مِ","ن"],"missingIndex":0,"distractors":["هُ","ةُ"]},{"id":527,"audio":"audio/quiz-qat/sual.mp3","chunks":["سُ","ؤَ","ا","ل"],"missingIndex":1,"distractors":["ءَ","أَ"]},{"id":528,"audio":"audio/quiz-qat/sama.mp3","chunks":["سَ","مَ","ا","ء"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":529,"audio":"audio/quiz-qat/shay.mp3","chunks":["شَ","يْ","ء"],"missingIndex":1,"distractors":["نْ","ثْ"]},{"id":530,"audio":"audio/quiz-qat/badaa.mp3","chunks":["بَ","دَ","أَ"],"missingIndex":0,"distractors":["تَ","يَ"]},{"id":531,"audio":"audio/quiz-qat/yakul.mp3","chunks":["يَ","أْ","كُ","لُ"],"missingIndex":0,"distractors":["بَ","ثَ"]},{"id":532,"audio":"audio/quiz-qat/muassasa.mp3","chunks":["مُ","ؤَ","سَّ","سَ","ة"],"missingIndex":4,"distractors":["م","ه"]},{"id":533,"audio":"audio/quiz-qat/arnab.mp3","chunks":["أَ","رْ","نَ","ب"],"missingIndex":2,"distractors":["يَ","تَ"]},{"id":534,"audio":"audio/quiz-qat/islam.mp3","chunks":["إِ","سْ","لَ","ا","م"],"missingIndex":4,"distractors":["ه","ة"]},{"id":535,"audio":"audio/quiz-qat/usra.mp3","chunks":["أُ","سْ","رَ","ة"],"missingIndex":1,"distractors":["نْ","شْ"]},{"id":536,"audio":"audio/quiz-qat/masa.mp3","chunks":["مَ","سَ","ا","ء"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":537,"audio":"audio/quiz-qat/shati.mp3","chunks":["شَ","ا","طِ","ئ"],"missingIndex":2,"distractors":["مِ","نِ"]},{"id":538,"audio":"audio/quiz-qat/qari.mp3","chunks":["قَ","ا","رِ","ئ"],"missingIndex":3,"distractors":["ء","إ"]},{"id":539,"audio":"audio/quiz-qat/dif.mp3","chunks":["دِ","فْ","ء"],"missingIndex":2,"distractors":["ؤ","ئ"]},{"id":540,"audio":"audio/quiz-qat/but.mp3","chunks":["بُ","طْ","ء"],"missingIndex":2,"distractors":["ؤ","إ"]},{"id":541,"audio":"audio/quiz-qat/ruya.mp3","chunks":["رُ","ؤْ","يَ","ة"],"missingIndex":0,"distractors":["سُ","كُ"]},{"id":542,"audio":"audio/quiz-qat/far.mp3","chunks":["فَ","أْ","ر"],"missingIndex":2,"distractors":["ك","ت"]},{"id":543,"audio":"audio/quiz-qat/midhana.mp3","chunks":["مِ","ئْ","ذَ","نَ","ة"],"missingIndex":3,"distractors":["تَ","بَ"]},{"id":544,"audio":"audio/quiz-qat/ria.mp3","chunks":["رِ","ئَ","ة"],"missingIndex":1,"distractors":["أَ","إَ"]},{"id":545,"audio":"audio/quiz-qat/yaqrau.mp3","chunks":["يَ","قْ","رَ","أُ"],"missingIndex":3,"distractors":["ئُ","ءُ"]},{"id":546,"audio":"audio/quiz-hamza/suila.mp3","chunks":["سُ","ئِ","لَ"],"missingIndex":2,"distractors":["تَ","ٱَ"]},{"id":547,"audio":"audio/quiz-hamza/ism.mp3","chunks":["ٱ","سْ","م"],"missingIndex":2,"distractors":["ه","ة"]},{"id":548,"audio":"audio/quiz-hamza/albayt.mp3","chunks":["ٱ","لْ","بَ","يْ","ت"],"missingIndex":1,"distractors":["كْ","تْ"]},{"id":549,"audio":"audio/quiz-hamza/uktub.mp3","chunks":["ٱ","كْ","تُ","بْ"],"missingIndex":3,"distractors":["ثْ","نْ"]},{"id":550,"audio":"audio/quiz-hamza/iftah.mp3","chunks":["ٱ","فْ","تَ","حْ"],"missingIndex":1,"distractors":["قْ","وْ"]},{"id":551,"audio":"audio/quiz-hamza/ijlis.mp3","chunks":["ٱ","جْ","لِ","سْ"],"missingIndex":1,"distractors":["حْ","خْ"]},{"id":552,"audio":"audio/quiz-hamza/juz.mp3","chunks":["جُ","زْ","ء"],"missingIndex":0,"distractors":["حُ","خُ"]},{"id":553,"audio":"audio/quiz-hamza/huduu.mp3","chunks":["هُ","دُ","و","ء"],"missingIndex":2,"distractors":["م","ر"]},{"id":554,"audio":null,"chunks":["ٱ","بْ","ن"],"missingIndex":2,"distractors":["ث","ب"]},{"id":555,"audio":"audio/quiz-hamza/ishrab.mp3","chunks":["ٱ","شْ","رَ","بْ"],"missingIndex":1,"distractors":["كْ","سْ"]}],"5":[{"id":556,"audio":"audio/shamsiyya/ash-shams.mp3","chunks":["ا","ل","شَّ","مْ","س"],"missingIndex":3,"distractors":["ةْ","هْ"]},{"id":557,"audio":"audio/shamsiyya/at-tuffah.mp3","chunks":["ا","ل","تُّ","فَّ","ا","ح"],"missingIndex":2,"distractors":["يُّ","ثُّ"]},{"id":558,"audio":"audio/shamsiyya/ath-thalj.mp3","chunks":["ا","ل","ثَّ","لْ","ج"],"missingIndex":3,"distractors":["ٱْ","تْ"]},{"id":559,"audio":"audio/shamsiyya/ad-dik.mp3","chunks":["ا","ل","دِّ","ي","ك"],"missingIndex":1,"distractors":["ٱ","ا"]},{"id":560,"audio":"audio/shamsiyya/ash-shajara.mp3","chunks":["ا","ل","شَّ","جَ","رَ","ة"],"missingIndex":1,"distractors":["ٱ","ا"]},{"id":561,"audio":"audio/shamsiyya/as-saqr.mp3","chunks":["ا","ل","صَّ","قْ","ر"],"missingIndex":3,"distractors":["سْ","تْ"]},{"id":562,"audio":"audio/shamsiyya/at-tayr.mp3","chunks":["ا","ل","طَّ","يْ","ر"],"missingIndex":3,"distractors":["تْ","ثْ"]},{"id":563,"audio":"audio/shamsiyya/al-layl.mp3","chunks":["ا","ل","لَّ","يْ","ل"],"missingIndex":2,"distractors":["تَّ","اَّ"]},{"id":564,"audio":"audio/shamsiyya/at-tajir.mp3","chunks":["ا","ل","تَّ","ا","جِ","ر"],"missingIndex":2,"distractors":["ثَّ","نَّ"]},{"id":565,"audio":"audio/shamsiyya/ath-thalab.mp3","chunks":["ا","ل","ثَّ","عْ","لَ","ب"],"missingIndex":1,"distractors":["ت","ٱ"]},{"id":566,"audio":"audio/shadda/sayyara.mp3","chunks":["ا","ل","سَّ","يَّ","ا","رَ","ة"],"missingIndex":5,"distractors":["نَ","سَ"]},{"id":567,"audio":"audio/shamsiyya/ad-difda.mp3","chunks":["ا","ل","ضِّ","فْ","دَ","ع"],"missingIndex":1,"distractors":["ا","ك"]},{"id":568,"audio":"audio/shamsiyya/at-talib.mp3","chunks":["ا","ل","طَّ","ا","لِ","ب"],"missingIndex":4,"distractors":["تِ","اِ"]},{"id":569,"audio":"audio/shamsiyya/az-zarf.mp3","chunks":["ا","ل","ظَّ","رْ","ف"],"missingIndex":2,"distractors":["رَّ","سَّ"]},{"id":570,"audio":"audio/shamsiyya/al-lisan.mp3","chunks":["ا","ل","لِّ","سَ","ا","ن"],"missingIndex":2,"distractors":["كِّ","تِّ"]},{"id":571,"audio":"audio/qamariyya/al-amir.mp3","chunks":["ا","ل","أَ","مِ","ي","ر"],"missingIndex":4,"distractors":["ب","ن"]},{"id":572,"audio":"audio/qamariyya/al-bayt.mp3","chunks":["ا","ل","بَ","يْ","ت"],"missingIndex":3,"distractors":["بْ","ثْ"]},{"id":573,"audio":"audio/qamariyya/al-hisan.mp3","chunks":["ا","ل","حِ","صَ","ا","ن"],"missingIndex":4,"distractors":["ٱ","ل"]},{"id":574,"audio":"audio/qamariyya/al-halib.mp3","chunks":["ا","ل","حَ","لِ","ي","ب"],"missingIndex":1,"distractors":["ا","ٱ"]},{"id":575,"audio":"audio/qamariyya/al-kharuf.mp3","chunks":["ا","ل","خَ","رُ","و","ف"],"missingIndex":4,"distractors":["م","س"]},{"id":576,"audio":"audio/qamariyya/al-asal.mp3","chunks":["ا","ل","عَ","سَ","ل"],"missingIndex":2,"distractors":["تَ","لَ"]},{"id":577,"audio":"audio/qamariyya/al-ghurab.mp3","chunks":["ا","ل","غُ","رَ","ا","ب"],"missingIndex":2,"distractors":["كُ","بُ"]},{"id":578,"audio":"audio/qamariyya/al-kalb.mp3","chunks":["ا","ل","كَ","لْ","ب"],"missingIndex":2,"distractors":["تَ","لَ"]},{"id":579,"audio":"audio/qamariyya/al-hawa.mp3","chunks":["ا","ل","هَ","وَ","ا","ء"],"missingIndex":5,"distractors":["ئ","ؤ"]},{"id":580,"audio":"audio/qamariyya/al-yasamin.mp3","chunks":["ا","ل","يَ","ا","سَ","مِ","ي","ن"],"missingIndex":4,"distractors":["تَ","مَ"]},{"id":581,"audio":"audio/shadda/qitta.mp3","chunks":["قِ","طَّ","ة"],"missingIndex":1,"distractors":["بَّ","تَّ"]},{"id":582,"audio":"audio/shadda/sullam.mp3","chunks":["سُ","لَّ","م"],"missingIndex":2,"distractors":["ه","ة"]},{"id":583,"audio":"audio/shadda/rumman.mp3","chunks":["رُ","مَّ","ا","ن"],"missingIndex":2,"distractors":["ل","ٱ"]},{"id":584,"audio":"audio/shadda/sukkar.mp3","chunks":["سُ","كَّ","ر"],"missingIndex":1,"distractors":["تَّ","لَّ"]},{"id":585,"audio":"audio/shadda/darraja.mp3","chunks":["دَ","رَّ","ا","جَ","ة"],"missingIndex":3,"distractors":["حَ","خَ"]},{"id":586,"audio":"audio/shadda/sabbura.mp3","chunks":["سَ","بُّ","و","رَ","ة"],"missingIndex":2,"distractors":["ت","ك"]},{"id":587,"audio":"audio/shadda/rassam.mp3","chunks":["رَ","سَّ","ا","م"],"missingIndex":2,"distractors":["ل","ٱ"]},{"id":588,"audio":"audio/shadda/najjar.mp3","chunks":["نَ","جَّ","ا","ر"],"missingIndex":0,"distractors":["تَ","يَ"]},{"id":589,"audio":"audio/shadda/khabbaz.mp3","chunks":["خَ","بَّ","ا","ز"],"missingIndex":3,"distractors":["ل","ب"]},{"id":590,"audio":"audio/shadda/shammam.mp3","chunks":["شَ","مَّ","ا","م"],"missingIndex":2,"distractors":["ل","ٱ"]},{"id":591,"audio":"audio/shadda/sayyad.mp3","chunks":["صَ","يَّ","ا","د"],"missingIndex":0,"distractors":["لَ","ضَ"]},{"id":592,"audio":"audio/shadda/jadda.mp3","chunks":["جَ","دَّ","ة"],"missingIndex":1,"distractors":["سَّ","لَّ"]},{"id":593,"audio":"audio/shadda/jadd.mp3","chunks":["جَ","دّ"],"missingIndex":1,"distractors":["مّ","كّ"]},{"id":594,"audio":"audio/shadda/batta.mp3","chunks":["بَ","طَّ","ة"],"missingIndex":2,"distractors":["م","ه"]},{"id":595,"audio":"audio/shadda/mudarris.mp3","chunks":["مُ","دَ","رِّ","س"],"missingIndex":1,"distractors":["ذَ","لَ"]},{"id":596,"audio":"audio/shadda/ummi.mp3","chunks":["أُ","مِّ","ي"],"missingIndex":1,"distractors":["ةِّ","هِّ"]},{"id":597,"audio":"audio/shadda/dukkan.mp3","chunks":["دُ","كَّ","ا","ن"],"missingIndex":0,"distractors":["لُ","نُ"]},{"id":598,"audio":"audio/shadda/tabbakh.mp3","chunks":["طَ","بَّ","ا","خ"],"missingIndex":1,"distractors":["يَّ","تَّ"]},{"id":599,"audio":"audio/shadda/fallah.mp3","chunks":["فَ","لَّ","ا","ح"],"missingIndex":3,"distractors":["خ","ج"]},{"id":600,"audio":"audio/shadda/baqqal.mp3","chunks":["بَ","قَّ","ا","ل"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":601,"audio":"audio/shadda/sayyid.mp3","chunks":["سَ","يِّ","د"],"missingIndex":0,"distractors":["تَ","رَ"]},{"id":602,"audio":"audio/shadda/sikkin.mp3","chunks":["سِ","كِّ","ي","ن"],"missingIndex":0,"distractors":["رِ","تِ"]},{"id":603,"audio":"audio/shadda/mikhadda.mp3","chunks":["مِ","خَ","دَّ","ة"],"missingIndex":0,"distractors":["ةِ","هِ"]},{"id":604,"audio":"audio/shadda/dabbus.mp3","chunks":["دَ","بُّ","و","س"],"missingIndex":3,"distractors":["ر","م"]},{"id":605,"audio":"audio/shadda/nazzara.mp3","chunks":["نَ","ظَّ","ا","رَ","ة"],"missingIndex":1,"distractors":["لَّ","نَّ"]}],"6":[{"id":606,"audio":"audio/module6/al-ithnayn.mp3","chunks":["ا","ل","ا","ثْ","نَ","يْ","ن"],"missingIndex":3,"distractors":["نْ","يْ"]},{"id":607,"audio":"audio/module6/ath-thulatha.mp3","chunks":["ا","ل","ثُّ","لَ","ا","ثَ","ا","ء"],"missingIndex":6,"distractors":["ل","ٱ"]},{"id":608,"audio":"audio/module6/al-arbia.mp3","chunks":["ا","ل","أَ","رْ","بِ","عَ","ا","ء"],"missingIndex":6,"distractors":["ل","ٱ"]},{"id":609,"audio":"audio/module6/al-khamis.mp3","chunks":["ا","ل","خَ","مِ","ي","س"],"missingIndex":2,"distractors":["جَ","حَ"]},{"id":610,"audio":"audio/module6/al-jumua.mp3","chunks":["ا","ل","جُ","مُ","عَ","ة"],"missingIndex":4,"distractors":["سَ","غَ"]},{"id":611,"audio":"audio/module6/as-sabt.mp3","chunks":["ا","ل","سَّ","بْ","ت"],"missingIndex":2,"distractors":["شَّ","رَّ"]},{"id":612,"audio":"audio/module6/al-ahad.mp3","chunks":["ا","ل","أَ","حَ","د"],"missingIndex":4,"distractors":["ذ","ل"]},{"id":613,"audio":"audio/module6/al-fajr.mp3","chunks":["ا","ل","فَ","جْ","ر"],"missingIndex":3,"distractors":["خْ","حْ"]},{"id":614,"audio":"audio/module6/as-subh.mp3","chunks":["ا","ل","صُّ","بْ","ح"],"missingIndex":1,"distractors":["ٱ","ا"]},{"id":615,"audio":"audio/module6/ad-duha.mp3","chunks":["ا","ل","ضُّ","حَ","ى"],"missingIndex":4,"distractors":["ر","ل"]},{"id":616,"audio":"audio/module6/as-sabah.mp3","chunks":["ا","ل","صَّ","بَ","ا","ح"],"missingIndex":2,"distractors":["سَّ","مَّ"]},{"id":617,"audio":"audio/module6/az-zuhr.mp3","chunks":["ا","ل","ظُّ","هْ","ر"],"missingIndex":1,"distractors":["ك","ا"]},{"id":618,"audio":"audio/module6/al-asr.mp3","chunks":["ا","ل","عَ","صْ","ر"],"missingIndex":1,"distractors":["ا","ت"]},{"id":619,"audio":"audio/module6/al-masa.mp3","chunks":["ا","ل","مَ","سَ","ا","ء"],"missingIndex":5,"distractors":["إ","ؤ"]},{"id":620,"audio":"audio/module6/al-maghrib.mp3","chunks":["ا","ل","مَ","غْ","رِ","ب"],"missingIndex":5,"distractors":["ث","ن"]},{"id":621,"audio":"audio/module6/al-isha.mp3","chunks":["ا","ل","عِ","شَ","ا","ء"],"missingIndex":3,"distractors":["سَ","بَ"]},{"id":622,"audio":"audio/module6/ukht.mp3","chunks":["أُ","خْ","ت"],"missingIndex":0,"distractors":["ئُ","إُ"]},{"id":623,"audio":null,"chunks":["اِ","بْ","ن"],"missingIndex":1,"distractors":["يْ","ثْ"]},{"id":624,"audio":"audio/module6/hafid.mp3","chunks":["حَ","فِ","ي","د"],"missingIndex":3,"distractors":["ك","ب"]},{"id":625,"audio":"audio/module6/hafida.mp3","chunks":["حَ","فِ","ي","دَ","ة"],"missingIndex":2,"distractors":["ب","ن"]},{"id":626,"audio":"audio/module6/amm.mp3","chunks":["عَ","مّ"],"missingIndex":1,"distractors":["ةّ","هّ"]},{"id":627,"audio":"audio/module6/amma.mp3","chunks":["عَ","مَّ","ة"],"missingIndex":1,"distractors":["ةَّ","هَّ"]},{"id":628,"audio":"audio/module6/khala.mp3","chunks":["خَ","ا","لَ","ة"],"missingIndex":2,"distractors":["تَ","اَ"]},{"id":629,"audio":"audio/module6/ibn-al-amm.mp3","chunks":["اِ","بْ","نُ"," ","ا","ل","عَ","مّ"],"missingIndex":2,"distractors":["بُ","تُ"]},{"id":630,"audio":"audio/module6/ibn-al-amma.mp3","chunks":["اِ","بْ","نُ"," ","ا","ل","عَ","مَّ","ة"],"missingIndex":7,"distractors":["ةَّ","هَّ"]},{"id":631,"audio":"audio/module6/ibn-al-khal.mp3","chunks":["اِ","بْ","نُ"," ","ا","ل","خَ","ا","ل"],"missingIndex":4,"distractors":["ل","ٱ"]},{"id":632,"audio":"audio/module6/ibn-al-khala.mp3","chunks":["اِ","بْ","نُ"," ","ا","ل","خَ","ا","لَ","ة"],"missingIndex":2,"distractors":["تُ","يُ"]},{"id":633,"audio":"audio/module6/sifr.mp3","chunks":["صِ","فْ","ر"],"missingIndex":0,"distractors":["كِ","نِ"]},{"id":634,"audio":"audio/module6/wahid.mp3","chunks":["وَ","ا","حِ","د"],"missingIndex":1,"distractors":["ٱ","ل"]},{"id":635,"audio":"audio/module6/ithnan.mp3","chunks":["اِ","ثْ","نَ","ا","ن"],"missingIndex":0,"distractors":["ٱِ","لِ"]},{"id":636,"audio":"audio/module6/thalatha.mp3","chunks":["ثَ","لَ","ا","ثَ","ة"],"missingIndex":4,"distractors":["م","ه"]},{"id":637,"audio":"audio/module6/arbaa.mp3","chunks":["أَ","رْ","بَ","عَ","ة"],"missingIndex":4,"distractors":["م","ه"]},{"id":638,"audio":"audio/module6/khamsa.mp3","chunks":["خَ","مْ","سَ","ة"],"missingIndex":1,"distractors":["هْ","ةْ"]},{"id":639,"audio":"audio/module6/sitta.mp3","chunks":["سِ","تَّ","ة"],"missingIndex":1,"distractors":["بَّ","نَّ"]},{"id":640,"audio":"audio/module6/sabaa.mp3","chunks":["سَ","بْ","عَ","ة"],"missingIndex":2,"distractors":["بَ","غَ"]},{"id":641,"audio":"audio/module6/thamaniya.mp3","chunks":["ثَ","مَ","ا","نِ","يَ","ة"],"missingIndex":0,"distractors":["يَ","نَ"]},{"id":642,"audio":"audio/module6/tisaa.mp3","chunks":["تِ","سْ","عَ","ة"],"missingIndex":2,"distractors":["رَ","لَ"]},{"id":643,"audio":"audio/module6/ashara.mp3","chunks":["عَ","شَ","رَ","ة"],"missingIndex":2,"distractors":["كَ","بَ"]},{"id":644,"audio":"audio/module6/ahada-ashar.mp3","chunks":["أَ","حَ","دَ"," ","عَ","شَ","ر"],"missingIndex":0,"distractors":["ءَ","إَ"]},{"id":645,"audio":"audio/module6/ithna-ashar.mp3","chunks":["ا","ثْ","نَ","ا"," ","عَ","شَ","ر"],"missingIndex":2,"distractors":["تَ","ثَ"]},{"id":646,"audio":"audio/module6/thalathata-ashar.mp3","chunks":["ثَ","لَ","ا","ثَ","ةَ"," ","عَ","شَ","ر"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":647,"audio":"audio/module6/arbaata-ashar.mp3","chunks":["أَ","رْ","بَ","عَ","ةَ"," ","عَ","شَ","ر"],"missingIndex":1,"distractors":["لْ","زْ"]},{"id":648,"audio":"audio/module6/khamsata-ashar.mp3","chunks":["خَ","مْ","سَ","ةَ"," ","عَ","شَ","ر"],"missingIndex":0,"distractors":["جَ","حَ"]},{"id":649,"audio":"audio/module6/sittata-ashar.mp3","chunks":["سِ","تَّ","ةَ"," ","عَ","شَ","ر"],"missingIndex":2,"distractors":["هَ","مَ"]},{"id":650,"audio":"audio/module6/sabaata-ashar.mp3","chunks":["سَ","بْ","عَ","ةَ"," ","عَ","شَ","ر"],"missingIndex":4,"distractors":["ك","ب"]},{"id":651,"audio":"audio/module6/thamaniyata-ashar.mp3","chunks":["ثَ","مَ","ا","نِ","يَ","ةَ"," ","عَ","شَ","ر"],"missingIndex":3,"distractors":["ثِ","تِ"]},{"id":652,"audio":"audio/module6/tisaata-ashar.mp3","chunks":["تِ","سْ","عَ","ةَ"," ","عَ","شَ","ر"],"missingIndex":7,"distractors":["م","ك"]},{"id":653,"audio":"audio/module6/ishrun.mp3","chunks":["عِ","شْ","رُ","و","ن"],"missingIndex":2,"distractors":["بُ","زُ"]},{"id":654,"audio":"audio/module6/thalathun.mp3","chunks":["ثَ","لَ","ا","ثُ","و","ن"],"missingIndex":1,"distractors":["تَ","كَ"]},{"id":655,"audio":"audio/module6/arbaun.mp3","chunks":["أَ","رْ","بَ","عُ","و","ن"],"missingIndex":0,"distractors":["ئَ","إَ"]},{"id":656,"audio":"audio/module6/khamsun.mp3","chunks":["خَ","مْ","سُ","و","ن"],"missingIndex":0,"distractors":["حَ","جَ"]},{"id":657,"audio":"audio/module6/sittun.mp3","chunks":["سِ","تُّ","و","ن"],"missingIndex":2,"distractors":["ب","ف"]},{"id":658,"audio":"audio/module6/sabuun.mp3","chunks":["سَ","بْ","عُ","و","ن"],"missingIndex":4,"distractors":["ت","ي"]},{"id":659,"audio":"audio/module6/thamanun.mp3","chunks":["ثَ","مَ","ا","نُ","و","ن"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":660,"audio":"audio/module6/miah.mp3","chunks":["مِ","ئَ","ة"],"missingIndex":1,"distractors":["أَ","ؤَ"]},{"id":661,"audio":"audio/module6/alf.mp3","chunks":["أَ","لْ","ف"],"missingIndex":1,"distractors":["ٱْ","اْ"]},{"id":662,"audio":"audio/module6/darraja-hawaiya.mp3","chunks":["دَ","رَّ","ا","جَ","ة"," ","هَ","وَ","ا","ئِ","يَّ","ة"],"missingIndex":4,"distractors":["ه","م"]},{"id":663,"audio":"audio/module6/darraja-nariya.mp3","chunks":["دَ","رَّ","ا","جَ","ة"," ","نَ","ا","رِ","يَّ","ة"],"missingIndex":1,"distractors":["زَّ","كَّ"]},{"id":664,"audio":"audio/module6/hafila.mp3","chunks":["حَ","ا","فِ","لَ","ة"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":665,"audio":"audio/module6/qitar-sari.mp3","chunks":["قِ","طَ","ا","رٌ"," ","سَ","رِ","ي","ع"],"missingIndex":6,"distractors":["سِ","تِ"]},{"id":666,"audio":"audio/module6/taxi.mp3","chunks":["تَ","ا","كْ","سِ","ي"],"missingIndex":4,"distractors":["ت","ب"]},{"id":667,"audio":"audio/module6/metro.mp3","chunks":["مِ","تْ","رُ","و"],"missingIndex":2,"distractors":["كُ","تُ"]},{"id":668,"audio":"audio/module6/scooter.mp3","chunks":["سْ","كُ","و","تَ","ر"],"missingIndex":2,"distractors":["ت","ل"]},{"id":669,"audio":"audio/module6/ahmar.mp3","chunks":["أَ","حْ","مَ","ر"],"missingIndex":2,"distractors":["ةَ","هَ"]},{"id":670,"audio":"audio/module6/azraq.mp3","chunks":["أَ","زْ","رَ","ق"],"missingIndex":3,"distractors":["ت","س"]},{"id":671,"audio":"audio/module6/akhdar.mp3","chunks":["أَ","خْ","ضَ","ر"],"missingIndex":0,"distractors":["إَ","ئَ"]},{"id":672,"audio":"audio/module6/aswad.mp3","chunks":["أَ","سْ","وَ","د"],"missingIndex":2,"distractors":["رَ","بَ"]},{"id":673,"audio":"audio/module6/abyad.mp3","chunks":["أَ","بْ","يَ","ض"],"missingIndex":3,"distractors":["س","ت"]},{"id":674,"audio":"audio/module6/bunni.mp3","chunks":["بُ","نِّ","ي"],"missingIndex":1,"distractors":["ثِّ","يِّ"]},{"id":675,"audio":"audio/module6/banafsaji.mp3","chunks":["بَ","نَ","فْ","سَ","جِ","ي"],"missingIndex":3,"distractors":["كَ","نَ"]},{"id":676,"audio":"audio/module6/asfar.mp3","chunks":["أَ","صْ","فَ","ر"],"missingIndex":2,"distractors":["قَ","وَ"]},{"id":677,"audio":"audio/module6/burtuqali.mp3","chunks":["بُ","رْ","تُ","قَ","ا","لِ","ي"],"missingIndex":5,"distractors":["اِ","تِ"]},{"id":678,"audio":"audio/module6/nili.mp3","chunks":["نِ","ي","لِ","ي"],"missingIndex":1,"distractors":["ت","ث"]},{"id":679,"audio":"audio/module6/yastayqidh.mp3","chunks":["يَ","سْ","تَ","يْ","قِ","ظُ"],"missingIndex":2,"distractors":["يَ","بَ"]},{"id":680,"audio":"audio/module6/yatawadda.mp3","chunks":["يَ","تَ","وَ","ضَّ","أُ"],"missingIndex":4,"distractors":["ؤُ","ئُ"]},{"id":681,"audio":"audio/module6/yusalli.mp3","chunks":["يُ","صَ","لِّ","ي"],"missingIndex":0,"distractors":["ثُ","بُ"]},{"id":683,"audio":"audio/module6/yalbas.mp3","chunks":["يَ","لْ","بَ","سُ"],"missingIndex":3,"distractors":["تُ","لُ"]},{"id":684,"audio":"audio/module6/yajlis.mp3","chunks":["يَ","جْ","لِ","سُ"],"missingIndex":1,"distractors":["خْ","حْ"]},{"id":685,"audio":"audio/module6/yadhhab.mp3","chunks":["يَ","ذْ","هَ","بُ"],"missingIndex":2,"distractors":["ةَ","مَ"]},{"id":686,"audio":"audio/module6/yadrus.mp3","chunks":["يَ","دْ","رُ","سُ"],"missingIndex":3,"distractors":["لُ","تُ"]},{"id":687,"audio":"audio/module6/yaktub.mp3","chunks":["يَ","كْ","تُ","بُ"],"missingIndex":0,"distractors":["نَ","ثَ"]},{"id":688,"audio":"audio/module6/yalab.mp3","chunks":["يَ","لْ","عَ","بُ"],"missingIndex":3,"distractors":["تُ","ثُ"]},{"id":689,"audio":"audio/module6/yaud.mp3","chunks":["يَ","عُ","و","دُ"],"missingIndex":2,"distractors":["ر","ن"]},{"id":690,"audio":"audio/module6/yataasha.mp3","chunks":["يَ","تَ","عَ","شَّ","ى"],"missingIndex":3,"distractors":["لَّ","كَّ"]},{"id":691,"audio":"audio/module6/yanam.mp3","chunks":["يَ","نَ","ا","مُ"],"missingIndex":3,"distractors":["ةُ","هُ"]},{"id":692,"audio":"audio/module6/yaoudd.mp3","chunks":["يَ","عُ","دُّ"],"missingIndex":1,"distractors":["رُ","نُ"]}],"8":[{"id":715,"audio":"audio/module8/fi.mp3","chunks":["فِ","ي"],"missingIndex":1,"distractors":["ث","ب"]},{"id":716,"audio":"audio/module8/min.mp3","chunks":["مِ","ن"],"missingIndex":1,"distractors":["ت","ب"]},{"id":717,"audio":"audio/module8/ila.mp3","chunks":["إِ","لَ","ى"],"missingIndex":2,"distractors":["ب","ل"]},{"id":718,"audio":"audio/module8/ala.mp3","chunks":["عَ","لَ","ى"],"missingIndex":2,"distractors":["ر","ن"]},{"id":721,"audio":"audio/module8/ahmad.mp3","chunks":["أَ","حْ","مَ","دُ"],"missingIndex":0,"distractors":["إَ","ءَ"]},{"id":722,"audio":"audio/module8/rahma.mp3","chunks":["رَ","حْ","مَ","ة"],"missingIndex":2,"distractors":["هَ","ةَ"]},{"id":723,"audio":"audio/module8/al-quran.mp3","chunks":["ا","لْ","قُ","رْ","آ","ن"],"missingIndex":4,"distractors":["س","ت"]},{"id":724,"audio":"audio/module8/rabb.mp3","chunks":["رَ","بّ"],"missingIndex":0,"distractors":["سَ","تَ"]},{"id":725,"audio":"audio/module8/at-tawila.mp3","chunks":["ا","ل","طَّ","ا","وِ","لَ","ة"],"missingIndex":2,"distractors":["تَّ","سَّ"]},{"id":726,"audio":"audio/module8/salat.mp3","chunks":["صَ","لَ","ا","ة"],"missingIndex":1,"distractors":["كَ","ٱَ"]},{"id":727,"audio":"audio/module8/waqt.mp3","chunks":["وَ","قْ","ت"],"missingIndex":2,"distractors":["ي","ب"]},{"id":728,"audio":"audio/module8/ad-dirasa.mp3","chunks":["ا","ل","دِّ","رَ","ا","سَ","ة"],"missingIndex":3,"distractors":["لَ","تَ"]},{"id":729,"audio":"audio/module8/safara.mp3","chunks":["سَ","ا","فَ","رَ"],"missingIndex":0,"distractors":["رَ","تَ"]},{"id":730,"audio":"audio/module8/dhahaba.mp3","chunks":["ذَ","هَ","بَ"],"missingIndex":0,"distractors":["كَ","تَ"]},{"id":731,"audio":"audio/module8/aziz.mp3","chunks":["عَ","زِ","ي","ز"],"missingIndex":0,"distractors":["نَ","غَ"]},{"id":732,"audio":"audio/module8/al-arabiyya.mp3","chunks":["ا","لْ","عَ","رَ","بِ","يَّ","ة"],"missingIndex":6,"distractors":["ه","م"]},{"id":733,"audio":"audio/module8/hayawan.mp3","chunks":["حَ","يَ","وَ","ا","ن"],"missingIndex":0,"distractors":["جَ","خَ"]},{"id":734,"audio":"audio/module8/al-bawwaba.mp3","chunks":["ا","لْ","بَ","وَّ","ا","بَ","ة"],"missingIndex":4,"distractors":["ٱ","ل"]},{"id":735,"audio":"audio/module8/ustadh.mp3","chunks":["أُ","سْ","تَ","ا","ذ"],"missingIndex":1,"distractors":["نْ","لْ"]},{"id":736,"audio":"audio/module8/al-ushb.mp3","chunks":["ا","لْ","عُ","شْ","ب"],"missingIndex":2,"distractors":["لُ","تُ"]},{"id":737,"audio":"audio/module8/at-taam.mp3","chunks":["ا","ل","طَّ","عَ","ا","م"],"missingIndex":2,"distractors":["ظَّ","مَّ"]},{"id":738,"audio":"audio/module8/asdiqa.mp3","chunks":["أَ","صْ","دِ","قَ","ا","ء"],"missingIndex":4,"distractors":["ٱ","ل"]},{"id":739,"audio":"audio/module8/al-yawm.mp3","chunks":["ا","لْ","يَ","وْ","م"],"missingIndex":1,"distractors":["تْ","اْ"]},{"id":740,"audio":"audio/module8/ayyam.mp3","chunks":["أَ","يَّ","ا","م"],"missingIndex":1,"distractors":["تَّ","نَّ"]},{"id":741,"audio":"audio/module8/makan.mp3","chunks":["مَ","كَ","ا","ن"],"missingIndex":0,"distractors":["هَ","ةَ"]},{"id":742,"audio":"audio/module8/al-jami.mp3","chunks":["ا","لْ","جَ","مِ","ي","ع"],"missingIndex":4,"distractors":["ت","ب"]},{"id":743,"audio":"audio/module8/al-matar.mp3","chunks":["ا","لْ","مَ","طَ","ا","ر"],"missingIndex":5,"distractors":["ل","ك"]},{"id":744,"audio":"audio/module8/ilm.mp3","chunks":["عِ","لْ","م"],"missingIndex":1,"distractors":["تْ","اْ"]},{"id":745,"audio":"audio/module8/faras.mp3","chunks":["فَ","رَ","س"],"missingIndex":2,"distractors":["ش","ل"]},{"id":746,"audio":"audio/module8/as-sajjada.mp3","chunks":["ا","ل","سَّ","جَّ","ا","دَ","ة"],"missingIndex":2,"distractors":["لَّ","بَّ"]},{"id":747,"audio":"audio/module8/salla.mp3","chunks":["صَ","لَّ","ى"],"missingIndex":1,"distractors":["اَّ","تَّ"]},{"id":748,"audio":"audio/module8/rajaa.mp3","chunks":["رَ","جَ","عَ"],"missingIndex":1,"distractors":["حَ","خَ"]},{"id":749,"audio":"audio/module8/aada.mp3","chunks":["عَ","ا","دَ"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":750,"audio":"audio/module8/rakiba.mp3","chunks":["رَ","كِ","بَ"],"missingIndex":1,"distractors":["تِ","لِ"]},{"id":751,"audio":"audio/module8/hamala.mp3","chunks":["حَ","مَ","لَ"],"missingIndex":0,"distractors":["خَ","جَ"]},{"id":752,"audio":"audio/module8/kharaja.mp3","chunks":["خَ","رَ","جَ"],"missingIndex":0,"distractors":["حَ","جَ"]},{"id":753,"audio":"audio/module8/waqafa.mp3","chunks":["وَ","قَ","فَ"],"missingIndex":0,"distractors":["مَ","نَ"]},{"id":754,"audio":"audio/module8/allama.mp3","chunks":["عَ","لَّ","مَ"],"missingIndex":1,"distractors":["ٱَّ","اَّ"]},{"id":755,"audio":"audio/module8/saala.mp3","chunks":["سَ","أَ","لَ"],"missingIndex":1,"distractors":["إَ","ءَ"]},{"id":756,"audio":"audio/module8/ghanna.mp3","chunks":["غَ","نَّ","ى"],"missingIndex":1,"distractors":["يَّ","بَّ"]},{"id":757,"audio":"audio/module8/wasala.mp3","chunks":["وَ","صَ","لَ"],"missingIndex":2,"distractors":["اَ","ٱَ"]},{"id":758,"audio":"audio/module8/taallama.mp3","chunks":["تَ","عَ","لَّ","مَ"],"missingIndex":3,"distractors":["هَ","ةَ"]},{"id":759,"audio":"audio/module8/fahima.mp3","chunks":["فَ","هِ","مَ"],"missingIndex":2,"distractors":["ةَ","هَ"]},{"id":760,"audio":"audio/module8/nazala.mp3","chunks":["نَ","زَ","لَ"],"missingIndex":2,"distractors":["ٱَ","تَ"]},{"id":761,"audio":"audio/module8/rahima.mp3","chunks":["رَ","حِ","مَ"],"missingIndex":2,"distractors":["هَ","ةَ"]},{"id":762,"audio":"audio/module8/ghafara.mp3","chunks":["غَ","فَ","رَ"],"missingIndex":1,"distractors":["قَ","وَ"]},{"id":763,"audio":"audio/module8/jara.mp3","chunks":["جَ","رَ","ى"],"missingIndex":1,"distractors":["بَ","نَ"]},{"id":764,"audio":"audio/module8/zara.mp3","chunks":["زَ","ا","رَ"],"missingIndex":2,"distractors":["كَ","سَ"]},{"id":765,"audio":"audio/module8/mawja.mp3","chunks":["مَ","وْ","جَ","ة"],"missingIndex":1,"distractors":["لْ","مْ"]},{"id":766,"audio":"audio/module8/raml.mp3","chunks":["رَ","مْ","ل"],"missingIndex":0,"distractors":["نَ","تَ"]},{"id":767,"audio":"audio/module8/lawha.mp3","chunks":["لَ","وْ","حَ","ة"],"missingIndex":0,"distractors":["تَ","اَ"]},{"id":768,"audio":"audio/module8/waraqa.mp3","chunks":["وَ","رَ","قَ","ة"],"missingIndex":3,"distractors":["ه","م"]},{"id":769,"audio":"audio/module8/kura.mp3","chunks":["كُ","رَ","ة"],"missingIndex":1,"distractors":["تَ","زَ"]},{"id":770,"audio":"audio/module8/laib.mp3","chunks":["ل","اَ","عِ","ب"],"missingIndex":2,"distractors":["رِ","سِ"]},{"id":771,"audio":"audio/module8/hakam.mp3","chunks":["حَ","كَ","م"],"missingIndex":0,"distractors":["خَ","جَ"]},{"id":772,"audio":"audio/module8/asir.mp3","chunks":["عَ","صِ","ي","ر"],"missingIndex":0,"distractors":["سَ","تَ"]},{"id":773,"audio":"audio/module8/houbb.mp3","chunks":["حُ","بّ"],"missingIndex":1,"distractors":["يّ","ثّ"]},{"id":774,"audio":"audio/module8/amal.mp3","chunks":["أَ","مَ","ل"],"missingIndex":1,"distractors":["هَ","ةَ"]},{"id":775,"audio":"audio/module8/sakhra.mp3","chunks":["صَ","خْ","رَ","ة"],"missingIndex":1,"distractors":["جْ","حْ"]},{"id":776,"audio":"audio/module8/hajar.mp3","chunks":["حَ","جَ","ر"],"missingIndex":1,"distractors":["حَ","خَ"]},{"id":777,"audio":"audio/module8/sharab.mp3","chunks":["شَ","رَ","ا","ب"],"missingIndex":1,"distractors":["لَ","سَ"]},{"id":778,"audio":"audio/module8/halwa.mp3","chunks":["حَ","لْ","وَ","ى"],"missingIndex":3,"distractors":["ب","ك"]},{"id":779,"audio":"audio/module8/ar-raff.mp3","chunks":["ا","ل","رَّ","فّ"],"missingIndex":3,"distractors":["وّ","قّ"]},{"id":780,"audio":"audio/module8/al-wisada.mp3","chunks":["ا","لْ","وِ","سَ","ا","دَ","ة"],"missingIndex":5,"distractors":["ذَ","تَ"]},{"id":781,"audio":"audio/module8/al-burka.mp3","chunks":["ا","لْ","بُ","رْ","كَ","ة"],"missingIndex":4,"distractors":["لَ","تَ"]},{"id":782,"audio":"audio/module8/al-maqad.mp3","chunks":["ا","لْ","مَ","قْ","عَ","د"],"missingIndex":5,"distractors":["ذ","ت"]},{"id":783,"audio":"audio/module8/al-ushsh.mp3","chunks":["ا","لْ","عُ","شّ"],"missingIndex":3,"distractors":["لّ","مّ"]}],"9":[{"id":785,"audio":"audio/module9/hadhihi.mp3","chunks":["هَ","ذِ","هِ"],"missingIndex":0,"distractors":["ةَ","مَ"]},{"id":786,"audio":"audio/module9/dhalika.mp3","chunks":["ذَ","لِ","كَ"],"missingIndex":2,"distractors":["لَ","تَ"]},{"id":787,"audio":"audio/module9/tilka.mp3","chunks":["تِ","لْ","كَ"],"missingIndex":1,"distractors":["تْ","ٱْ"]},{"id":788,"audio":"audio/module9/haulai.mp3","chunks":["هَ","ؤُ","لَ","ا","ءِ"],"missingIndex":1,"distractors":["أُ","إُ"]},{"id":789,"audio":"audio/module9/ulaika.mp3","chunks":["أُ","و","لَ","ئِ","كَ"],"missingIndex":1,"distractors":["ك","ت"]},{"id":790,"audio":"audio/module9/al-lawati.mp3","chunks":["ا","ل","لَّ","وَ","ا","تِ","ي"],"missingIndex":6,"distractors":["ت","ن"]},{"id":791,"audio":"audio/module9/huna.mp3","chunks":["هُ","نَ","ا"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":792,"audio":"audio/module9/hunaka.mp3","chunks":["هُ","نَ","ا","كَ"],"missingIndex":1,"distractors":["يَ","ثَ"]},{"id":793,"audio":"audio/module9/hal.mp3","chunks":["هَ","لْ"],"missingIndex":0,"distractors":["مَ","ةَ"]},{"id":794,"audio":"audio/module9/madha.mp3","chunks":["مَ","ا","ذَ","ا"],"missingIndex":0,"distractors":["ةَ","هَ"]},{"id":795,"audio":"audio/module9/ayna.mp3","chunks":["أَ","يْ","نَ"],"missingIndex":1,"distractors":["ثْ","نْ"]},{"id":796,"audio":"audio/module9/kayfa.mp3","chunks":["كَ","يْ","فَ"],"missingIndex":2,"distractors":["وَ","قَ"]},{"id":797,"audio":"audio/module9/mata.mp3","chunks":["مَ","تَ","ى"],"missingIndex":2,"distractors":["م","ر"]},{"id":798,"audio":"audio/module9/limadha.mp3","chunks":["لِ","مَ","ا","ذَ","ا"],"missingIndex":0,"distractors":["اِ","ٱِ"]},{"id":799,"audio":"audio/module9/jamil.mp3","chunks":["جَ","مِ","ي","ل"],"missingIndex":3,"distractors":["ا","ٱ"]},{"id":800,"audio":"audio/module9/dhaki.mp3","chunks":["ذَ","كِ","يّ"],"missingIndex":2,"distractors":["نّ","ثّ"]},{"id":801,"audio":"audio/module9/al-awlad.mp3","chunks":["ا","ل","أَ","وْ","لَ","ا","د"],"missingIndex":4,"distractors":["ٱَ","كَ"]},{"id":802,"audio":null,"chunks":["غُ","رْ","فَ","ة"],"missingIndex":3,"distractors":["ه","م"]},{"id":803,"audio":"audio/module9/karim.mp3","chunks":["كَ","رِ","ي","م"],"missingIndex":3,"distractors":["ه","ة"]},{"id":804,"audio":"audio/module9/nazifa.mp3","chunks":["نَ","ظِ","ي","فَ","ة"],"missingIndex":3,"distractors":["قَ","وَ"]},{"id":805,"audio":"audio/module9/al-jidar.mp3","chunks":["ا","لْ","جِ","دَ","ا","ر"],"missingIndex":5,"distractors":["ز","ك"]},{"id":806,"audio":"audio/module9/tazaj.mp3","chunks":["طَ","ا","زَ","ج"],"missingIndex":0,"distractors":["لَ","نَ"]},{"id":807,"audio":"audio/module9/hulwa.mp3","chunks":["حُ","لْ","وَ","ة"],"missingIndex":2,"distractors":["رَ","فَ"]},{"id":808,"audio":null,"chunks":["قَ","رِ","ي","ب"],"missingIndex":1,"distractors":["تِ","زِ"]},{"id":809,"audio":"audio/module9/baid.mp3","chunks":["بَ","عِ","ي","د"],"missingIndex":3,"distractors":["ن","ل"]},{"id":810,"audio":"audio/module9/huda.mp3","chunks":["هُ","دً","ى"],"missingIndex":1,"distractors":["سً","مً"]},{"id":811,"audio":"audio/module9/al-muflihun.mp3","chunks":["ا","لْ","مُ","فْ","لِ","حُ","و","ن"],"missingIndex":2,"distractors":["هُ","ةُ"]},{"id":812,"audio":"audio/module9/bayan.mp3","chunks":["بَ","يَ","ا","ن"],"missingIndex":0,"distractors":["نَ","تَ"]},{"id":813,"audio":"audio/module9/an-nas.mp3","chunks":["ا","ل","نَّ","ا","س"],"missingIndex":3,"distractors":["ل","ٱ"]},{"id":814,"audio":"audio/module9/hudud.mp3","chunks":["حُ","دُ","و","د"],"missingIndex":3,"distractors":["ل","ذ"]},{"id":815,"audio":"audio/module9/saghir.mp3","chunks":["صَ","غِ","ي","ر"],"missingIndex":3,"distractors":["ت","ز"]},{"id":816,"audio":"audio/module9/mujtahid.mp3","chunks":["مُ","جْ","تَ","هِ","د"],"missingIndex":2,"distractors":["كَ","لَ"]},{"id":817,"audio":"audio/module9/al-jaww.mp3","chunks":["ا","لْ","جَ","وّ"],"missingIndex":3,"distractors":["رّ","نّ"]},{"id":818,"audio":"audio/module9/barid.mp3","chunks":["بَ","ا","رِ","د"],"missingIndex":2,"distractors":["تِ","سِ"]},{"id":819,"audio":"audio/module9/tayyib.mp3","chunks":["طَ","يِّ","ب"],"missingIndex":2,"distractors":["ي","ن"]},{"id":820,"audio":"audio/module9/mufid.mp3","chunks":["مُ","فِ","ي","د"],"missingIndex":1,"distractors":["وِ","قِ"]},{"id":821,"audio":"audio/module9/amiq.mp3","chunks":["عَ","مِ","ي","ق"],"missingIndex":0,"distractors":["لَ","غَ"]},{"id":822,"audio":"audio/module9/safiya.mp3","chunks":["صَ","ا","فِ","يَ","ة"],"missingIndex":2,"distractors":["قِ","وِ"]},{"id":823,"audio":"audio/module9/wasi.mp3","chunks":["وَ","ا","سِ","ع"],"missingIndex":3,"distractors":["س","ل"]},{"id":824,"audio":"audio/module9/sahl.mp3","chunks":["سَ","هْ","ل"],"missingIndex":1,"distractors":["ةْ","مْ"]},{"id":825,"audio":"audio/module9/qadim.mp3","chunks":["قَ","دِ","ي","م"],"missingIndex":1,"distractors":["رِ","كِ"]},{"id":826,"audio":"audio/module9/nashit.mp3","chunks":["نَ","شِ","ي","ط"],"missingIndex":2,"distractors":["ث","ب"]},{"id":827,"audio":"audio/module9/ash-shita.mp3","chunks":["ا","ل","شَّ","تَ","ا","ء"],"missingIndex":2,"distractors":["بَّ","كَّ"]},{"id":828,"audio":"audio/module9/qaris.mp3","chunks":["قَ","ا","رِ","س"],"missingIndex":2,"distractors":["مِ","بِ"]},{"id":829,"audio":"audio/module9/wafi.mp3","chunks":["وَ","فِ","يّ"],"missingIndex":2,"distractors":["بّ","نّ"]},{"id":830,"audio":"audio/module9/al-bahr.mp3","chunks":["ا","لْ","بَ","حْ","ر"],"missingIndex":2,"distractors":["ثَ","يَ"]},{"id":831,"audio":"audio/module9/hadi.mp3","chunks":["هَ","ا","دِ","ئ"],"missingIndex":2,"distractors":["مِ","بِ"]},{"id":832,"audio":"audio/module9/mudi.mp3","chunks":["مُ","ضِ","ي","ء"],"missingIndex":3,"distractors":["ئ","ؤ"]},{"id":833,"audio":"audio/module9/harr.mp3","chunks":["حَ","ا","رّ"],"missingIndex":0,"distractors":["خَ","جَ"]},{"id":834,"audio":"audio/module9/hakima.mp3","chunks":["حَ","كِ","ي","مَ","ة"],"missingIndex":0,"distractors":["جَ","خَ"]},{"id":835,"audio":"audio/module9/sari.mp3","chunks":["سَ","رِ","ي","ع"],"missingIndex":2,"distractors":["ب","ث"]},{"id":836,"audio":"audio/module9/azima.mp3","chunks":["عَ","ظِ","ي","مَ","ة"],"missingIndex":1,"distractors":["نِ","كِ"]},{"id":837,"audio":"audio/module9/ali.mp3","chunks":["عَ","ا","لٍ"],"missingIndex":2,"distractors":["تٍ","كٍ"]},{"id":838,"audio":"audio/module9/maftuha.mp3","chunks":["مَ","فْ","تُ","و","حَ","ة"],"missingIndex":4,"distractors":["جَ","خَ"]},{"id":839,"audio":"audio/module9/at-taliba.mp3","chunks":["ا","ل","طَّ","ا","لِ","بَ","ة"],"missingIndex":1,"distractors":["ا","ٱ"]}],"10":[{"id":840,"audio":"audio/module10/katib.mp3","chunks":["كَ","ا","تِ","ب"],"missingIndex":2,"distractors":["نِ","ثِ"]},{"id":841,"audio":null,"chunks":["ذَ","هَ","ا","ب"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":842,"audio":"audio/module10/madhhab.mp3","chunks":["مَ","ذْ","هَ","ب"],"missingIndex":2,"distractors":["مَ","ةَ"]},{"id":843,"audio":"audio/module10/dhahib.mp3","chunks":["ذَ","ا","هِ","ب"],"missingIndex":3,"distractors":["ث","ن"]},{"id":844,"audio":"audio/module10/qiraa.mp3","chunks":["قِ","رَ","ا","ءَ","ة"],"missingIndex":0,"distractors":["لِ","رِ"]},{"id":845,"audio":"audio/module10/alima.mp3","chunks":["عَ","لِ","مَ"],"missingIndex":1,"distractors":["تِ","كِ"]},{"id":846,"audio":"audio/module10/akhadha.mp3","chunks":["أَ","خَ","ذَ"],"missingIndex":2,"distractors":["تَ","دَ"]},{"id":847,"audio":null,"chunks":["تَ","وَ","ضَّ","أَ"],"missingIndex":3,"distractors":["ئَ","ءَ"]},{"id":848,"audio":"audio/module10/sabbaha.mp3","chunks":["سَ","بَّ","حَ"],"missingIndex":0,"distractors":["تَ","لَ"]},{"id":849,"audio":"audio/module10/khalaqa.mp3","chunks":["خَ","لَ","قَ"],"missingIndex":2,"distractors":["تَ","مَ"]},{"id":850,"audio":"audio/module10/tusalli.mp3","chunks":["تُ","صَ","لِّ","ي"],"missingIndex":2,"distractors":["تِّ","ٱِّ"]},{"id":851,"audio":"audio/module10/yartajifu.mp3","chunks":["يَ","رْ","تَ","جِ","فُ"],"missingIndex":3,"distractors":["خِ","حِ"]},{"id":852,"audio":"audio/module10/yahmika.mp3","chunks":["يَ","حْ","مِ","ي","كَ"],"missingIndex":0,"distractors":["نَ","ثَ"]},{"id":853,"audio":"audio/module10/yataabbadu.mp3","chunks":["يَ","تَ","عَ","بَّ","دُ"],"missingIndex":0,"distractors":["نَ","تَ"]},{"id":854,"audio":"audio/module10/yuhibbu.mp3","chunks":["يُ","حِ","بُّ"],"missingIndex":2,"distractors":["ثُّ","يُّ"]},{"id":855,"audio":"audio/module10/idhhab.mp3","chunks":["اِ","ذْ","هَ","بْ"],"missingIndex":1,"distractors":["بْ","مْ"]},{"id":856,"audio":"audio/module10/iqra.mp3","chunks":["اِ","قْ","رَ","أْ"],"missingIndex":3,"distractors":["إْ","ءْ"]},{"id":857,"audio":"audio/module10/kulu.mp3","chunks":["كُ","لُ","و","ا"],"missingIndex":2,"distractors":["ل","ب"]},{"id":858,"audio":"audio/module10/ushkuru.mp3","chunks":["ا","شْ","كُ","رُ","و","ا"],"missingIndex":5,"distractors":["ل","ٱ"]},{"id":859,"audio":"audio/module10/ushkur.mp3","chunks":["ا","شْ","كُ","رْ"],"missingIndex":3,"distractors":["بْ","سْ"]},{"id":860,"audio":"audio/module10/qalat.mp3","chunks":["قَ","ا","لَ","تْ"],"missingIndex":2,"distractors":["ٱَ","اَ"]},{"id":861,"audio":"audio/module10/qala.mp3","chunks":["قَ","ا","لَ"],"missingIndex":2,"distractors":["تَ","كَ"]},{"id":862,"audio":null,"chunks":["كَ","ا","نَ"],"missingIndex":0,"distractors":["تَ","لَ"]},{"id":863,"audio":null,"chunks":["ضَ","مَّ"],"missingIndex":1,"distractors":["هَّ","ةَّ"]},{"id":864,"audio":"audio/module10/takhaf.mp3","chunks":["تَ","خَ","فْ"],"missingIndex":0,"distractors":["كَ","نَ"]},{"id":865,"audio":"audio/module10/tara.mp3","chunks":["تَ","رَ"],"missingIndex":1,"distractors":["بَ","زَ"]},{"id":866,"audio":"audio/module10/qaddarahu.mp3","chunks":["قَ","دَّ","رَ","هُ"],"missingIndex":3,"distractors":["ةُ","مُ"]},{"id":867,"audio":null,"chunks":["يُ","سَ","بِّ","حُ"],"missingIndex":3,"distractors":["جُ","خُ"]},{"id":868,"audio":"audio/module10/an-nabiyy.mp3","chunks":["ا","ل","نَّ","بِ","يّ"],"missingIndex":2,"distractors":["ثَّ","بَّ"]},{"id":869,"audio":"audio/module10/ghar-hira.mp3","chunks":["غَ","ا","رُ"," ","حِ","رَ","ا","ء"],"missingIndex":2,"distractors":["لُ","نُ"]},{"id":870,"audio":"audio/module10/jibril.mp3","chunks":["جِ","بْ","رِ","ي","ل"],"missingIndex":3,"distractors":["ن","ت"]},{"id":871,"audio":"audio/module10/khadija.mp3","chunks":["خَ","دِ","ي","جَ","ة"],"missingIndex":2,"distractors":["ن","ب"]},{"id":872,"audio":"audio/module10/al-insan.mp3","chunks":["ا","ل","إِ","ن","سَ","ا","ن"],"missingIndex":2,"distractors":["ئِ","ءِ"]},{"id":873,"audio":"audio/module10/alaq.mp3","chunks":["عَ","لَ","ق"],"missingIndex":1,"distractors":["تَ","اَ"]},{"id":874,"audio":"audio/module10/adam.mp3","chunks":["آ","دَ","مَ"],"missingIndex":0,"distractors":["ت","ن"]},{"id":875,"audio":"audio/module10/al-asma.mp3","chunks":["ا","ل","أَ","سْ","مَ","ا","ء"],"missingIndex":1,"distractors":["ت","ا"]},{"id":876,"audio":"audio/module10/taqdiran.mp3","chunks":["تَ","قْ","دِ","ي","ر","اً"],"missingIndex":1,"distractors":["بْ","مْ"]},{"id":879,"audio":"audio/module10/sawfa.mp3","chunks":["سَ","وْ","فَ"],"missingIndex":0,"distractors":["نَ","تَ"]},{"id":880,"audio":"audio/module10/imam.mp3","chunks":["اِ","مَ","ا","م"],"missingIndex":3,"distractors":["ه","ة"]},{"id":881,"audio":"audio/module10/wudu.mp3","chunks":["وُ","ضُ","و","ء"],"missingIndex":3,"distractors":["أ","ؤ"]},{"id":882,"audio":"audio/module10/kalam.mp3","chunks":["كَ","لَ","ا","م"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":883,"audio":"audio/module10/lugha.mp3","chunks":["لُ","غَ","ة"],"missingIndex":2,"distractors":["م","ه"]},{"id":884,"audio":"audio/module10/sawt.mp3","chunks":["صَ","وْ","ت"],"missingIndex":1,"distractors":["سْ","لْ"]},{"id":885,"audio":"audio/module10/hibr.mp3","chunks":["حِ","بْ","ر"],"missingIndex":2,"distractors":["س","ك"]},{"id":886,"audio":"audio/module10/nuzul.mp3","chunks":["نُ","زُ","و","ل"],"missingIndex":1,"distractors":["مُ","بُ"]},{"id":887,"audio":"audio/module10/safar.mp3","chunks":["سَ","فَ","ر"],"missingIndex":1,"distractors":["وَ","قَ"]},{"id":888,"audio":"audio/module10/kalima.mp3","chunks":["كَ","لِ","مَ","ة"],"missingIndex":1,"distractors":["ٱِ","كِ"]},{"id":889,"audio":"audio/module10/jumla.mp3","chunks":["جُ","مْ","لَ","ة"],"missingIndex":3,"distractors":["م","ه"]},{"id":890,"audio":"audio/module10/khalq.mp3","chunks":["خَ","لْ","ق"],"missingIndex":2,"distractors":["ر","ل"]},{"id":891,"audio":"audio/module10/makhluq.mp3","chunks":["مَ","خْ","لُ","و","ق"],"missingIndex":3,"distractors":["ر","م"]},{"id":892,"audio":"audio/module10/kawn.mp3","chunks":["كَ","وْ","ن"],"missingIndex":0,"distractors":["تَ","لَ"]},{"id":893,"audio":"audio/module10/bard.mp3","chunks":["بَ","رْ","د"],"missingIndex":0,"distractors":["ثَ","نَ"]},{"id":894,"audio":"audio/module10/khawf.mp3","chunks":["خَ","وْ","ف"],"missingIndex":0,"distractors":["جَ","حَ"]},{"id":895,"audio":"audio/module10/dua.mp3","chunks":["دُ","عَ","ا","ء"],"missingIndex":2,"distractors":["ل","ٱ"]},{"id":896,"audio":"audio/module10/niyya.mp3","chunks":["نِ","يَّ","ة"],"missingIndex":2,"distractors":["ه","م"]},{"id":897,"audio":"audio/module10/luqma.mp3","chunks":["لُ","قْ","مَ","ة"],"missingIndex":3,"distractors":["ه","م"]},{"id":898,"audio":"audio/module10/shawka.mp3","chunks":["شَ","وْ","كَ","ة"],"missingIndex":1,"distractors":["بْ","لْ"]},{"id":899,"audio":"audio/module10/milaqa.mp3","chunks":["مِ","لْ","عَ","قَ","ة"],"missingIndex":0,"distractors":["ةِ","هِ"]},{"id":900,"audio":"audio/module10/himaya.mp3","chunks":["حِ","مَ","ا","يَ","ة"],"missingIndex":4,"distractors":["ه","م"]},{"id":901,"audio":"audio/module10/aman.mp3","chunks":["أَ","مَ","ا","ن"],"missingIndex":0,"distractors":["ئَ","ءَ"]},{"id":902,"audio":"audio/module10/quwwa.mp3","chunks":["قُ","وَّ","ة"],"missingIndex":1,"distractors":["كَّ","تَّ"]},{"id":903,"audio":"audio/module10/sabun.mp3","chunks":["صَ","ا","بُ","و","ن"],"missingIndex":2,"distractors":["ثُ","تُ"]},{"id":904,"audio":"audio/module10/arika.mp3","chunks":["أَ","رِ","ي","كَ","ة"],"missingIndex":4,"distractors":["ه","م"]},{"id":905,"audio":"audio/module10/manzar.mp3","chunks":["مَ","نْ","ظَ","ر"],"missingIndex":3,"distractors":["ن","ب"]},{"id":906,"audio":"audio/module10/hidn.mp3","chunks":["حِ","ضْ","ن"],"missingIndex":0,"distractors":["خِ","جِ"]},{"id":907,"audio":"audio/module10/qurb.mp3","chunks":["قُ","رْ","ب"],"missingIndex":1,"distractors":["نْ","تْ"]},{"id":908,"audio":"audio/module10/shukr.mp3","chunks":["شُ","كْ","ر"],"missingIndex":2,"distractors":["ب","ل"]},{"id":909,"audio":"audio/module10/nima.mp3","chunks":["نِ","عْ","مَ","ة"],"missingIndex":0,"distractors":["يِ","بِ"]},{"id":910,"audio":null,"chunks":["كَ","رَ","م"],"missingIndex":0,"distractors":["تَ","لَ"]},{"id":911,"audio":"audio/module10/ibada.mp3","chunks":["عِ","بَ","ا","دَ","ة"],"missingIndex":0,"distractors":["تِ","بِ"]}],"11":[{"id":930,"audio":"audio/module11/fawqa.mp3","chunks":["فَ","وْ","قَ"],"missingIndex":0,"distractors":["وَ","قَ"]},{"id":931,"audio":"audio/module11/la.mp3","chunks":["لَ","ا"],"missingIndex":1,"distractors":["ل","ٱ"]},{"id":932,"audio":"audio/module11/anta.mp3","chunks":["أَ","نْ","تَ"],"missingIndex":1,"distractors":["تْ","يْ"]},{"id":933,"audio":"audio/module11/ana.mp3","chunks":["أَ","نَ","ا"],"missingIndex":1,"distractors":["تَ","بَ"]},{"id":934,"audio":"audio/module11/kull.mp3","chunks":["كُ","لّ"],"missingIndex":1,"distractors":["تّ","اّ"]},{"id":935,"audio":"audio/module11/amana.mp3","chunks":["آ","مَ","نَ"],"missingIndex":1,"distractors":["هَ","ةَ"]},{"id":936,"audio":"audio/module11/ballagha.mp3","chunks":["بَ","لَّ","غَ"],"missingIndex":1,"distractors":["ٱَّ","اَّ"]},{"id":937,"audio":"audio/module11/al-anbiya.mp3","chunks":["ا","ل","أَ","نْ","بِ","يَ","ا","ء"],"missingIndex":7,"distractors":["ئ","ؤ"]},{"id":938,"audio":"audio/module11/malak.mp3","chunks":["مَ","لَ","ك"],"missingIndex":2,"distractors":["ت","ل"]},{"id":939,"audio":"audio/module11/ar-ruh.mp3","chunks":["ا","ل","رُّ","و","ح"],"missingIndex":3,"distractors":["م","ن"]},{"id":940,"audio":"audio/module11/al-amana.mp3","chunks":["ا","ل","أَ","مَ","ا","نَ","ة"],"missingIndex":3,"distractors":["ةَ","هَ"]},{"id":941,"audio":"audio/module11/ar-rasul.mp3","chunks":["ا","ل","رَّ","سُ","و","ل"],"missingIndex":1,"distractors":["ك","ٱ"]},{"id":942,"audio":"audio/module11/al-wahy.mp3","chunks":["ا","لْ","وَ","حْ","ي"],"missingIndex":3,"distractors":["جْ","خْ"]},{"id":943,"audio":null,"chunks":["ا","ل","شَّ","يْ","طَ","ا","ن"],"missingIndex":1,"distractors":["ٱ","ا"]},{"id":944,"audio":null,"chunks":["ا","ل","نَّ","وْ","م"],"missingIndex":1,"distractors":["ٱ","ت"]},{"id":945,"audio":null,"chunks":["ا","ل","طُّ","لَّ","ا","ب"],"missingIndex":5,"distractors":["ت","ن"]},{"id":946,"audio":"audio/module11/al-ummahat.mp3","chunks":["ا","ل","أُ","مَّ","هَ","ا","ت"],"missingIndex":4,"distractors":["مَ","ةَ"]},{"id":947,"audio":"audio/module11/risala.mp3","chunks":["رِ","سَ","ا","لَ","ة"],"missingIndex":2,"distractors":["ٱ","ل"]},{"id":948,"audio":"audio/module11/al-banat.mp3","chunks":["ا","لْ","بَ","نَ","ا","ت"],"missingIndex":5,"distractors":["ي","ن"]},{"id":949,"audio":"audio/module11/al-ughniya.mp3","chunks":["ا","ل","أُ","غْ","نِ","يَ","ة"],"missingIndex":2,"distractors":["ءُ","ؤُ"]}],"12":[{"id":968,"audio":"audio/module12/thumma.mp3","chunks":["ثُ","مَّ"],"missingIndex":1,"distractors":["هَّ","ةَّ"]},{"id":969,"audio":"audio/module12/aw.mp3","chunks":["أَ","وْ"],"missingIndex":0,"distractors":["ئَ","إَ"]},{"id":970,"audio":"audio/module12/hin.mp3","chunks":["حِ","ي","نِ"],"missingIndex":1,"distractors":["ت","ب"]},{"id":971,"audio":"audio/module12/nashkuru.mp3","chunks":["نَ","شْ","كُ","رُ"],"missingIndex":3,"distractors":["نُ","تُ"]},{"id":972,"audio":null,"chunks":["ا","لْ","جَ","نَّ","ةَ"],"missingIndex":3,"distractors":["يَّ","بَّ"]},{"id":973,"audio":"audio/module12/amin.mp3","chunks":["أَ","مِ","ي","نٌ"],"missingIndex":3,"distractors":["تٌ","يٌ"]},{"id":974,"audio":"audio/module12/atina.mp3","chunks":["أَ","عْ","طِ","نَ","ا"],"missingIndex":1,"distractors":["نْ","بْ"]},{"id":975,"audio":null,"chunks":["ا","نْ","صُ","رْ","نَ","ا"],"missingIndex":0,"distractors":["ٱ","ل"]},{"id":976,"audio":"audio/module12/irhamna.mp3","chunks":["ا","رْ","حَ","مْ","نَ","ا"],"missingIndex":1,"distractors":["تْ","مْ"]},{"id":977,"audio":"audio/module12/hadayta.mp3","chunks":["هَ","دَ","يْ","تَ"],"missingIndex":3,"distractors":["نَ","لَ"]},{"id":978,"audio":"audio/module12/rahimta.mp3","chunks":["رَ","حِ","مْ","تَ"],"missingIndex":3,"distractors":["كَ","نَ"]},{"id":979,"audio":"audio/module12/atayta.mp3","chunks":["أَ","عْ","طَ","يْ","تَ"],"missingIndex":1,"distractors":["بْ","سْ"]},{"id":980,"audio":null,"chunks":["زُ","جَ","ا","ج"],"missingIndex":0,"distractors":["بُ","سُ"]},{"id":981,"audio":"audio/module10/thaniya.mp3","chunks":["ثَ","ا","نِ","يَ","ة"],"missingIndex":3,"distractors":["نَ","ثَ"]}]}
+}
+</script>
+
+<script>
+const DATA = JSON.parse(document.getElementById('app-data').textContent);
+document.getElementById('appTitleEl').textContent = DATA.meta.appTitle;
+document.title = DATA.meta.pageTitle;
+
+const DOM = {
+  viewModules: document.getElementById('view-modules'),
+  viewStart: document.getElementById('view-start'),
+  viewQuiz: document.getElementById('view-quiz'),
+  viewCert: document.getElementById('view-certificate'),
+  moduleGrid: document.getElementById('moduleGrid'),
+  backToModulesLink: document.getElementById('backToModulesLink'),
+  selectedModuleName: document.getElementById('selectedModuleName'),
+  playerName: document.getElementById('playerName'),
+  startBtn: document.getElementById('startBtn'),
+  homeBtn: document.getElementById('homeBtn'),
+  progressFill: document.getElementById('progressFill'),
+  scoreBadge: document.getElementById('scoreBadge'),
+  wordCard: document.getElementById('wordCard'),
+  wordDisplay: document.getElementById('wordDisplay'),
+  playWordBtn: document.getElementById('playWordBtn'),
+  tilesRow: document.getElementById('tilesRow'),
+  feedbackMsg: document.getElementById('feedbackMsg'),
+  certName: document.getElementById('certName'),
+  certScore: document.getElementById('certScore'),
+  certModule: document.getElementById('certModule'),
+  certDate: document.getElementById('certDate'),
+  replayBtn: document.getElementById('replayBtn')
+};
+
+const AudioController = {
+  player: new Audio(), effectPlayer: new Audio(), isUnlocked: false,
+  init() {
+    this.player.preload = "none"; this.effectPlayer.preload = "none";
+    this.player.playsInline = true; this.effectPlayer.playsInline = true;
+    this.player.volume = 1; this.effectPlayer.volume = 1;
+  },
+  async unlock() {
+    if (this.isUnlocked) return true;
+    try {
+      const s = DATA.meta.silentUnlockAudio;
+      this.player.pause(); this.effectPlayer.pause();
+      this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
+      this.player.src = s; this.effectPlayer.src = s;
+      this.player.muted = true; this.effectPlayer.muted = true;
+      await this.player.play().catch(() => {});
+      this.player.pause(); this.player.currentTime = 0;
+      await this.effectPlayer.play().catch(() => {});
+      this.effectPlayer.pause(); this.effectPlayer.currentTime = 0;
+      this.player.muted = false; this.effectPlayer.muted = false;
+      this.player.removeAttribute("src"); this.effectPlayer.removeAttribute("src");
+      this.player.load(); this.effectPlayer.load();
+      this.isUnlocked = true; return true;
+    } catch(_) { this.player.muted = false; this.effectPlayer.muted = false; return false; }
+  },
+  async playMain(src) {
+    if (!src) return;
+    try { this.player.pause(); this.player.currentTime = 0; this.player.src = src; this.player.load(); await this.player.play(); } catch(_) {}
+  },
+  async playEffect(src) {
+    if (!src) return;
+    try { this.effectPlayer.pause(); this.effectPlayer.currentTime = 0; this.effectPlayer.src = src; this.effectPlayer.load(); await this.effectPlayer.play(); } catch(_) {}
+  },
+  stopAll() {
+    this.player.pause(); this.effectPlayer.pause();
+    this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
+  }
+};
+AudioController.init();
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function formatDateFr(){
+  return new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+}
+
+const App = {
+  state: {
+    isStarting: false,
+    hasFinished: false,
+    hasPlayedSuccess: false,
+    pendingTimer: null,
+    questionToken: 0,
+    questions: [],
+    index: 0,
+    score: 0,
+    playerName: '',
+    selectedModule: null,
+    selectedModuleLabel: ''
+  },
+  clearTimer(){
+    if (this.state.pendingTimer) { clearTimeout(this.state.pendingTimer); this.state.pendingTimer = null; }
+  },
+  renderModuleGrid(){
+    const keys = Object.keys(DATA.wordsByModule);
+    let totalCount = 0;
+    DOM.moduleGrid.innerHTML = '';
+    keys.forEach(k => {
+      const words = DATA.wordsByModule[k];
+      totalCount += words.length;
+      const label = DATA.moduleLabels[k] || ('Module ' + k);
+      const card = document.createElement('div');
+      card.className = 'module-card';
+      card.innerHTML = `<span class="module-num">${k}</span><span class="module-label">${label}</span><span class="module-count">${words.length} mots</span>`;
+      card.addEventListener('click', () => this.selectModule(k, label));
+      DOM.moduleGrid.appendChild(card);
+    });
+    const allCard = document.createElement('div');
+    allCard.className = 'module-card module-all';
+    allCard.innerHTML = `<span class="module-num"><i class="fa-solid fa-shuffle"></i></span><span class="module-label">Mode Complet</span><span class="module-count">${totalCount} mots, aléatoire</span>`;
+    allCard.addEventListener('click', () => this.selectModule('all', 'Mode Complet'));
+    DOM.moduleGrid.appendChild(allCard);
+  },
+  selectModule(key, label){
+    this.state.selectedModule = key;
+    this.state.selectedModuleLabel = label;
+    DOM.selectedModuleName.textContent = label;
+    DOM.viewModules.classList.add('hidden');
+    DOM.viewStart.classList.remove('hidden');
+  },
+  showModules(){
+    DOM.viewStart.classList.add('hidden');
+    DOM.viewModules.classList.remove('hidden');
+  },
+  buildQuestions(){
+    const mod = this.state.selectedModule;
+    let pool;
+    if (mod === 'all') {
+      pool = [];
+      Object.keys(DATA.wordsByModule).forEach(k => { pool = pool.concat(DATA.wordsByModule[k]); });
+    } else {
+      pool = (DATA.wordsByModule[mod] || []).slice();
+    }
+    return DATA.settings.shuffleQuestions ? shuffle(pool) : pool;
+  },
+  async startQuiz(){
+    if (this.state.isStarting) return;
+    if (!this.state.selectedModule) return;
+    this.state.isStarting = true;
+    await AudioController.unlock();
+    this.state.playerName = DOM.playerName.value.trim() || 'Ami(e)';
+    this.state.questions = this.buildQuestions();
+    this.state.index = 0;
+    this.state.score = 0;
+    this.state.hasFinished = false;
+    this.state.hasPlayedSuccess = false;
+    DOM.viewStart.classList.add('hidden');
+    DOM.viewCert.classList.add('hidden');
+    DOM.viewQuiz.classList.remove('hidden');
+    this.renderQuestion();
+    this.state.isStarting = false;
+  },
+  updateProgressAndScore(){
+    const total = this.state.questions.length;
+    DOM.progressFill.style.width = `${(this.state.index / total) * 100}%`;
+    DOM.scoreBadge.textContent = `${this.state.score}/${total}`;
+  },
+  renderQuestion(){
+    this.state.questionToken += 1;
+    const token = this.state.questionToken;
+    DOM.feedbackMsg.textContent = '';
+    DOM.feedbackMsg.className = 'feedback-msg';
+    this.updateProgressAndScore();
+
+    const q = this.state.questions[this.state.index];
+    if (!q) { this.endQuiz(); return; }
+
+    DOM.wordDisplay.innerHTML = '';
+    q.chunks.forEach((chunk, i) => {
+      const span = document.createElement('span');
+      if (i === q.missingIndex) {
+        span.className = 'letter-chunk blank';
+        span.dataset.blank = 'true';
+        span.innerHTML = '<span class="placeholder">؟</span>';
+      } else {
+        span.className = 'letter-chunk filled';
+        span.textContent = chunk;
+      }
+      DOM.wordDisplay.appendChild(span);
+    });
+
+    const correctLetter = q.chunks[q.missingIndex];
+    const options = shuffle([correctLetter, ...q.distractors]);
+    DOM.tilesRow.innerHTML = '';
+    options.forEach(letter => {
+      const tile = document.createElement('div');
+      tile.className = 'drag-tile';
+      tile.textContent = letter;
+      tile.dataset.value = letter;
+      this.attachDrag(tile, correctLetter, token);
+      DOM.tilesRow.appendChild(tile);
+    });
+
+    DOM.playWordBtn.classList.toggle('no-audio', !q.audio);
+    DOM.playWordBtn.onclick = () => AudioController.playMain(q.audio);
+  },
+  attachDrag(tile, correctLetter, token){
+    let startX, startY, origX, origY, dragging = false;
+
+    const onPointerDown = (e) => {
+      if (this.state.questionToken !== token) return;
+      tile.setPointerCapture(e.pointerId);
+      dragging = true;
+      tile.classList.add('dragging');
+      const rect = tile.getBoundingClientRect();
+      origX = rect.left; origY = rect.top;
+      tile.style.position = 'fixed';
+      tile.style.left = origX + 'px';
+      tile.style.top = origY + 'px';
+      tile.style.width = rect.width + 'px';
+      tile.style.height = rect.height + 'px';
+      startX = e.clientX; startY = e.clientY;
+    };
+    const onPointerMove = (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      tile.style.left = (origX + dx) + 'px';
+      tile.style.top = (origY + dy) + 'px';
+      const blank = DOM.wordDisplay.querySelector('.letter-chunk.blank');
+      if (blank && this.isOverlapping(tile, blank)) {
+        DOM.wordCard.classList.add('drop-hover');
+      } else {
+        DOM.wordCard.classList.remove('drop-hover');
+      }
+    };
+    const onPointerUp = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      tile.classList.remove('dragging');
+      DOM.wordCard.classList.remove('drop-hover');
+      const blank = DOM.wordDisplay.querySelector('.letter-chunk.blank');
+      if (blank && this.isOverlapping(tile, blank)) {
+        this.handleDrop(tile, blank, correctLetter, token);
+      } else {
+        tile.style.position = '';
+        tile.style.left = ''; tile.style.top = '';
+        tile.style.width = ''; tile.style.height = '';
+      }
+    };
+    tile.addEventListener('pointerdown', onPointerDown);
+    tile.addEventListener('pointermove', onPointerMove);
+    tile.addEventListener('pointerup', onPointerUp);
+    tile.addEventListener('pointercancel', onPointerUp);
+  },
+  isOverlapping(tile, blank){
+    const t = tile.getBoundingClientRect();
+    const b = blank.getBoundingClientRect();
+    const tCenterX = t.left + t.width / 2, tCenterY = t.top + t.height / 2;
+    return tCenterX > b.left && tCenterX < b.right && tCenterY > b.top && tCenterY < b.bottom;
+  },
+  handleDrop(tile, blank, correctLetter, token){
+    if (this.state.questionToken !== token) return;
+    const isCorrect = tile.dataset.value === correctLetter;
+    tile.style.position = ''; tile.style.left = ''; tile.style.top = '';
+    tile.style.width = ''; tile.style.height = '';
+
+    if (isCorrect) {
+      blank.classList.remove('blank');
+      blank.classList.add('filled', 'correct');
+      blank.textContent = correctLetter;
+      tile.classList.add('used');
+      DOM.feedbackMsg.textContent = 'Ahsant ! ✓';
+      DOM.feedbackMsg.className = 'feedback-msg ok';
+      this.state.score += 1;
+      AudioController.playEffect(DATA.meta.successAudio);
+      this.updateProgressAndScore();
+      this.clearTimer();
+      this.state.pendingTimer = setTimeout(() => {
+        this.state.index += 1;
+        this.renderQuestion();
+      }, DATA.settings.delayNextCard);
+    } else {
+      DOM.feedbackMsg.textContent = 'Essaie encore';
+      DOM.feedbackMsg.className = 'feedback-msg ko';
+      blank.classList.add('wrong');
+      setTimeout(() => blank.classList.remove('wrong'), 500);
+    }
+  },
+  endQuiz(){
+    if (this.state.hasFinished) return;
+    this.clearTimer();
+    this.state.hasFinished = true;
+    this.state.questionToken += 1;
+    AudioController.stopAll();
+
+    DOM.viewQuiz.classList.add('hidden');
+    DOM.viewCert.classList.remove('hidden');
+    DOM.certName.textContent = this.state.playerName;
+    DOM.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+    DOM.certModule.textContent = this.state.selectedModuleLabel;
+    DOM.certDate.textContent = `Fait le ${formatDateFr()}`;
+
+    const end = Date.now() + 3000;
+    (function frame(){
+      if (typeof confetti === "function") {
+        confetti({ particleCount:5, angle:60, spread:55, origin:{x:0}, colors:["#C8A462","#5D1828","#dfc28b"] });
+        confetti({ particleCount:5, angle:120, spread:55, origin:{x:1}, colors:["#C8A462","#5D1828","#dfc28b"] });
+      }
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+
+    if (this.state.hasPlayedSuccess) return;
+    this.state.hasPlayedSuccess = true;
+    AudioController.playEffect(DATA.meta.successAudio);
+  }
+};
+
+App.renderModuleGrid();
+
+DOM.startBtn.addEventListener('click', () => App.startQuiz());
+DOM.playerName.addEventListener('keydown', (e) => { if (e.key === 'Enter') App.startQuiz(); });
+DOM.homeBtn.addEventListener('click', () => { window.location.href = DATA.meta.homeHref; });
+DOM.backToModulesLink.addEventListener('click', () => App.showModules());
+DOM.replayBtn.addEventListener('click', () => {
+  DOM.viewCert.classList.add('hidden');
+  DOM.viewStart.classList.remove('hidden');
+});
+</script>
+</body>
+</html>
