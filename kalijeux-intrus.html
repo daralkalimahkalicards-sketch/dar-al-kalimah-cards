@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dar Al-Kalimah - Kalijeux : Chasse à l'intrus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.2/confetti.browser.min.js"></script>
+<style>
+  :root{
+    --bordeaux:#5D1828; --bordeaux-dark:#3a0f19; --gold:#C8A462; --gold-light:#dfc28b;
+    --radius-xl:28px; --radius-lg:22px; --radius-md:18px; --radius-sm:12px;
+    --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; min-height:100vh; font-family:'Montserrat',sans-serif;
+    background:#f6f1ea;
+    padding-top:var(--safe-top); padding-bottom:var(--safe-bottom);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+      radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+  }
+  .quiz-container{
+    position:relative; width:100%; max-width:560px; background:#fff;
+    border-radius:var(--radius-xl); box-shadow:0 20px 50px rgba(58,15,25,0.18);
+    overflow:hidden; padding:26px;
+  }
+  .quiz-container::before{ content:""; position:absolute; inset:14px; border-radius:20px; border:1px solid rgba(200,164,98,0.16); pointer-events:none; }
+
+  header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .btn-house{
+    width:42px; height:42px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+    background:var(--bordeaux); color:var(--gold); border:1px solid rgba(200,164,98,0.32); cursor:pointer;
+  }
+  h1{ font-family:'Cinzel',serif; font-size:1rem; color:var(--bordeaux-dark); text-align:center; flex:1; margin:0 8px; }
+  #scoreBadge{ font-weight:700; color:var(--bordeaux); font-size:0.85rem; min-width:42px; text-align:center; }
+
+  .progress-bar{ height:8px; background:#f0e6d8; border-radius:999px; overflow:hidden; margin-bottom:20px; }
+  .progress-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--gold-light), var(--gold)); border-radius:999px; transition:width .4s ease; }
+
+  .hidden{ display:none !important; }
+
+  /* ---- Ecran de selection de categorie ---- */
+  #view-modules{ padding:4px 2px 2px; }
+  #view-modules p{ color:#6b5a4a; font-size:.88rem; line-height:1.5; text-align:center; margin:0 0 10px; }
+  .module-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-top:6px; }
+  .module-card{
+    background:#fff; border:1px solid rgba(200,164,98,0.3); border-radius:var(--radius-md);
+    padding:14px 8px; text-align:center; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .module-card:active{ transform:scale(0.96); }
+  .module-card:hover{ border-color:var(--gold); box-shadow:0 6px 16px rgba(93,24,40,0.10); }
+  .module-card .module-icon{
+    display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px;
+    border-radius:999px; background:var(--bordeaux); color:var(--gold); font-size:1rem; margin-bottom:6px;
+  }
+  .module-card .module-label{ display:block; font-size:.76rem; font-weight:600; color:var(--bordeaux-dark); line-height:1.25; }
+  .module-card .module-count{ display:block; font-size:.65rem; color:#8a7a68; margin-top:3px; }
+  .module-card.module-all{
+    grid-column:1 / -1; background:linear-gradient(90deg, var(--gold), var(--gold-light)); border:none;
+    box-shadow:0 8px 20px rgba(200,164,98,0.35);
+  }
+  .module-card.module-all .module-icon{ background:var(--bordeaux-dark); }
+  .module-card.module-all .module-label{ font-size:.85rem; }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px; background:none; border:none;
+    color:var(--bordeaux); font-family:'Montserrat',sans-serif; font-size:.78rem; font-weight:600;
+    cursor:pointer; margin-bottom:10px; padding:4px 0;
+  }
+  .selected-module-line{ font-size:.82rem; color:var(--bordeaux); font-weight:600; text-align:center; margin:0 0 4px; }
+
+  /* ---- Ecran de depart ---- */
+  #view-start{ text-align:center; padding:20px 6px 6px; }
+  #view-start p{ color:#6b5a4a; font-size:.92rem; line-height:1.5; }
+  #playerName{
+    width:100%; padding:14px; border-radius:var(--radius-md); border:1px solid rgba(93,24,40,0.2);
+    font-family:'Montserrat',sans-serif; font-size:1rem; text-align:center; margin:14px 0;
+  }
+  .btn-gold{
+    background:linear-gradient(90deg, var(--gold), var(--gold-light)); color:var(--bordeaux-dark);
+    border:none; border-radius:999px; padding:14px 28px; font-weight:700; font-size:1rem; cursor:pointer;
+    font-family:'Montserrat',sans-serif; box-shadow:0 8px 20px rgba(200,164,98,0.35);
+  }
+  .btn-gold:disabled{ opacity:.5; cursor:not-allowed; }
+
+  /* ---- Ecran de jeu ---- */
+  .round-instruction{
+    text-align:center; font-family:'Cinzel',serif; font-size:1rem; color:var(--bordeaux-dark);
+    margin:0 0 16px;
+  }
+  .cards-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; }
+  .word-tile{
+    position:relative; background:#fdfaf5; border:2px solid rgba(200,164,98,0.28); border-radius:var(--radius-lg);
+    padding:22px 10px 14px; display:flex; flex-direction:column; align-items:center; gap:8px;
+    cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .word-tile:active{ transform:scale(0.97); }
+  .word-tile .tile-icon{
+    width:44px; height:44px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+    background:rgba(200,164,98,0.14); color:var(--bordeaux); font-size:1.3rem;
+  }
+  .word-tile .tile-word{
+    direction:rtl; unicode-bidi:isolate; font-family:'Amiri',serif;
+    font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;
+    font-size:clamp(1.3rem, 6vw, 1.8rem); color:var(--bordeaux-dark); text-align:center;
+  }
+  .tile-audio-btn{
+    position:absolute; top:8px; right:8px; width:30px; height:30px; border-radius:999px;
+    border:1px solid rgba(200,164,98,0.35); background:var(--bordeaux); color:var(--gold);
+    font-size:.75rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .cards-grid.answered .word-tile{ cursor:default; }
+  .word-tile.correct{ border-color:#2e7d32; background:rgba(46,125,50,0.08); }
+  .word-tile.correct .tile-icon{ background:rgba(46,125,50,0.18); color:#2e7d32; }
+  .word-tile.wrong{ border-color:#c0392b; background:rgba(192,57,43,0.08); }
+  .word-tile.wrong .tile-icon{ background:rgba(192,57,43,0.18); color:#c0392b; }
+
+  .feedback-msg{ text-align:center; font-weight:700; min-height:22px; font-size:.9rem; margin-top:16px; }
+  .feedback-msg.ok{ color:#2e7d32; }
+  .feedback-msg.ko{ color:#c0392b; }
+
+  /* ---- Certificat ---- */
+  .diploma-paper{
+    position:relative; text-align:center; padding:34px 20px; border:1px solid var(--gold);
+    border-radius:var(--radius-lg); background:#fffdf9;
+  }
+  .diploma-paper::before{ content:""; position:absolute; inset:12px; border:1px solid rgba(200,164,98,0.20); border-radius:14px; pointer-events:none; }
+  .diploma-paper i.fa-award{ color:var(--gold); font-size:2.4rem; margin-bottom:6px; }
+  .diploma-paper h2{ font-family:'Cinzel',serif; color:var(--bordeaux-dark); margin:6px 0; }
+  .diploma-paper .cert-name{ font-family:'Amiri',serif; font-size:1.6rem; color:var(--bordeaux); margin:10px 0; }
+  .diploma-paper .cert-score{ font-weight:700; color:var(--gold); font-size:1.2rem; }
+  .diploma-paper .cert-module{ color:var(--bordeaux); font-size:.85rem; font-weight:600; margin-top:4px; }
+  .diploma-paper .cert-date{ color:#8a7a68; font-size:.85rem; margin-top:6px; }
+
+  @media (max-width:768px){ .quiz-container{ max-width:500px; } }
+  @media (max-width:480px){
+    .module-card .module-label{ font-size:.7rem; }
+    .word-tile{ padding:18px 8px 12px; }
+    .word-tile .tile-icon{ width:38px; height:38px; font-size:1.1rem; }
+  }
+  @media (max-width:360px){
+    .module-card{ padding:10px 6px; }
+    .cards-grid{ gap:10px; }
+  }
+  @media print{ .btn-house, header{ display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+
+  <header>
+    <span id="scoreBadge">0/0</span>
+    <h1 id="appTitleEl">Kalijeux – Chasse à l'intrus</h1>
+    <button class="btn-house" id="homeBtn" aria-label="Accueil"><i class="fa-solid fa-house"></i></button>
+  </header>
+
+  <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
+
+  <section id="view-modules">
+    <p>Choisis une catégorie, ou lance le mode toutes catégories mélangées.</p>
+    <div class="module-grid" id="moduleGrid"></div>
+  </section>
+
+  <section id="view-start" class="hidden">
+    <button class="back-link" id="backToModulesLink"><i class="fa-solid fa-chevron-left"></i> Changer de catégorie</button>
+    <p class="selected-module-line" id="selectedModuleName"></p>
+    <p>Regarde les 4 mots. Trois vont ensemble, un seul est l'intrus. Tape sur l'intrus !</p>
+    <input type="text" id="playerName" placeholder="Ton prénom">
+    <button class="btn-gold" id="startBtn">Commencer</button>
+  </section>
+
+  <main id="view-quiz" class="hidden">
+    <p class="round-instruction">Trouve l'intrus !</p>
+    <div class="cards-grid" id="cardsGrid"></div>
+    <div class="feedback-msg" id="feedbackMsg"></div>
+  </main>
+
+  <section id="view-certificate" class="hidden">
+    <div class="diploma-paper">
+      <i class="fa-solid fa-award"></i>
+      <h2>Mabrouk !</h2>
+      <div class="cert-name" id="certName"></div>
+      <div class="cert-score" id="certScore"></div>
+      <div class="cert-module" id="certModule"></div>
+      <div class="cert-date" id="certDate"></div>
+      <button class="btn-gold" id="replayBtn" style="margin-top:20px;">Rejouer</button>
+    </div>
+  </section>
+
+</div>
+
+<script id="app-data" type="application/json">
+{
+  "meta": {
+    "pageTitle": "Dar Al-Kalimah - Kalijeux",
+    "appTitle": "Kalijeux – Chasse à l'intrus",
+    "moduleId": "kalijeux-intrus",
+    "homeHref": "kalijeux.html",
+    "successAudio": "mabruk.mp3",
+    "silentUnlockAudio": "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=",
+    "storage": { "playerName": "dak_kalijeux_intrus_name" }
+  },
+  "settings": {
+    "roundCount": 12,
+    "delayNextCard": 1600
+  },
+  "categoryLabels": {
+    "jours": "Les Jours de la Semaine",
+    "horaires": "Horaires & Prières",
+    "famille": "La Famille",
+    "nombres": "Les Nombres",
+    "transports": "Les Transports",
+    "couleurs": "Les Couleurs",
+    "actions": "Actions du Quotidien"
+  },
+  "wordsByCategory": {"jours":[{"id":606,"arabe":"الاثْنَيْن","icon":"fa-solid fa-calendar-day","iconColor":null,"fr":"Lundi","es":"Lunes","audio":"audio/module6/al-ithnayn.mp3"},{"id":607,"arabe":"الثُّلَاثَاء","icon":"fa-solid fa-calendar-day","iconColor":null,"fr":"Mardi","es":"Martes","audio":"audio/module6/ath-thulatha.mp3"},{"id":608,"arabe":"الأَرْبِعَاء","icon":"fa-solid fa-calendar-day","iconColor":null,"fr":"Mercredi","es":"Miércoles","audio":"audio/module6/al-arbia.mp3"},{"id":609,"arabe":"الخَمِيس","icon":"fa-solid fa-calendar-day","iconColor":null,"fr":"Jeudi","es":"Jueves","audio":"audio/module6/al-khamis.mp3"},{"id":610,"arabe":"الجُمُعَة","icon":"fa-solid fa-mosque","iconColor":null,"fr":"Vendredi","es":"Viernes","audio":"audio/module6/al-jumua.mp3"},{"id":611,"arabe":"السَّبْت","icon":"fa-solid fa-calendar-day","iconColor":null,"fr":"Samedi","es":"Sábado","audio":"audio/module6/as-sabt.mp3"},{"id":612,"arabe":"الأَحَد","icon":"fa-solid fa-calendar-day","iconColor":null,"fr":"Dimanche","es":"Domingo","audio":"audio/module6/al-ahad.mp3"}],"horaires":[{"id":613,"arabe":"الفَجْر","icon":"fa-solid fa-cloud-sun","iconColor":null,"fr":"L'Aube","es":"El amanecer","audio":"audio/module6/al-fajr.mp3"},{"id":614,"arabe":"الصُّبْح","icon":"fa-solid fa-sun","iconColor":null,"fr":"Le Matin","es":"La mañana","audio":"audio/module6/as-subh.mp3"},{"id":615,"arabe":"الضُّحَى","icon":"fa-solid fa-sun","iconColor":null,"fr":"La Matinée","es":"Media mañana","audio":"audio/module6/ad-duha.mp3"},{"id":616,"arabe":"الصَّبَاح","icon":"fa-solid fa-mug-hot","iconColor":null,"fr":"Le Matin","es":"La mañana","audio":"audio/module6/as-sabah.mp3"},{"id":617,"arabe":"الظُّهْر","icon":"fa-solid fa-sun","iconColor":null,"fr":"Midi","es":"El mediodía","audio":"audio/module6/az-zuhr.mp3"},{"id":618,"arabe":"العَصْر","icon":"fa-solid fa-cloud-sun","iconColor":null,"fr":"L'Après-midi","es":"La tarde","audio":"audio/module6/al-asr.mp3"},{"id":619,"arabe":"المَسَاء","icon":"fa-solid fa-cloud-moon","iconColor":null,"fr":"Le Soir","es":"La tarde","audio":"audio/module6/al-masa.mp3"},{"id":620,"arabe":"المَغْرِب","icon":"fa-solid fa-moon","iconColor":null,"fr":"Le Coucher","es":"El atardecer","audio":"audio/module6/al-maghrib.mp3"},{"id":621,"arabe":"العِشَاء","icon":"fa-solid fa-moon","iconColor":null,"fr":"La Nuit","es":"La noche","audio":"audio/module6/al-isha.mp3"}],"famille":[{"id":622,"arabe":"أُخْت","icon":"fa-solid fa-child-dress","iconColor":null,"fr":"Sœur","es":"Hermana","audio":"audio/module6/ukht.mp3"},{"id":623,"arabe":"اِبْن","icon":"fa-solid fa-baby","iconColor":null,"fr":"Fils","es":"Hijo","audio":"audio/module6/ibn.mp3"},{"id":624,"arabe":"حَفِيد","icon":"fa-solid fa-child","iconColor":null,"fr":"Petit-fils","es":"Nieto","audio":"audio/module6/hafid.mp3"},{"id":625,"arabe":"حَفِيدَة","icon":"fa-solid fa-child-dress","iconColor":null,"fr":"Petite-fille","es":"Nieta","audio":"audio/module6/hafida.mp3"},{"id":626,"arabe":"عَمّ","icon":"fa-solid fa-user-tie","iconColor":null,"fr":"Oncle (côté père)","es":"Tío (paterno)","audio":"audio/module6/amm.mp3"},{"id":627,"arabe":"عَمَّة","icon":"fa-solid fa-user-tie","iconColor":null,"fr":"Tante (côté père)","es":"Tía (paterna)","audio":"audio/module6/amma.mp3"},{"id":628,"arabe":"خَالَة","icon":"fa-solid fa-user-tie","iconColor":null,"fr":"Tante (côté mère)","es":"Tía (materna)","audio":"audio/module6/khala.mp3"},{"id":629,"arabe":"اِبْنُ العَمّ","icon":"fa-solid fa-people-arrows","iconColor":null,"fr":"Cousin (oncle pat.)","es":"Primo (tío paterno)","audio":"audio/module6/ibn-al-amm.mp3"},{"id":630,"arabe":"اِبْنُ العَمَّة","icon":"fa-solid fa-people-arrows","iconColor":null,"fr":"Cousin (tante pat.)","es":"Primo (tía paterna)","audio":"audio/module6/ibn-al-amma.mp3"},{"id":631,"arabe":"اِبْنُ الخَال","icon":"fa-solid fa-people-arrows","iconColor":null,"fr":"Cousin (oncle mat.)","es":"Primo (tío materno)","audio":"audio/module6/ibn-al-khal.mp3"},{"id":632,"arabe":"اِبْنُ الخَالَة","icon":"fa-solid fa-people-arrows","iconColor":null,"fr":"Cousin (tante mat.)","es":"Primo (tía materna)","audio":"audio/module6/ibn-al-khala.mp3"}],"nombres":[{"id":633,"arabe":"صِفْر","icon":"fa-solid fa-0","iconColor":null,"fr":"Zéro","es":"Cero","audio":"audio/module6/sifr.mp3"},{"id":634,"arabe":"وَاحِد","icon":"fa-solid fa-1","iconColor":null,"fr":"Un","es":"Uno","audio":"audio/module6/wahid.mp3"},{"id":635,"arabe":"اِثْنَان","icon":"fa-solid fa-2","iconColor":null,"fr":"Deux","es":"Dos","audio":"audio/module6/ithnan.mp3"},{"id":636,"arabe":"ثَلَاثَة","icon":"fa-solid fa-3","iconColor":null,"fr":"Trois","es":"Tres","audio":"audio/module6/thalatha.mp3"},{"id":637,"arabe":"أَرْبَعَة","icon":"fa-solid fa-4","iconColor":null,"fr":"Quatre","es":"Cuatro","audio":"audio/module6/arbaa.mp3"},{"id":638,"arabe":"خَمْسَة","icon":"fa-solid fa-5","iconColor":null,"fr":"Cinq","es":"Cinco","audio":"audio/module6/khamsa.mp3"},{"id":639,"arabe":"سِتَّة","icon":"fa-solid fa-6","iconColor":null,"fr":"Six","es":"Seis","audio":"audio/module6/sitta.mp3"},{"id":640,"arabe":"سَبْعَة","icon":"fa-solid fa-7","iconColor":null,"fr":"Sept","es":"Siete","audio":"audio/module6/sabaa.mp3"},{"id":641,"arabe":"ثَمَانِيَة","icon":"fa-solid fa-8","iconColor":null,"fr":"Huit","es":"Ocho","audio":"audio/module6/thamaniya.mp3"},{"id":642,"arabe":"تِسْعَة","icon":"fa-solid fa-9","iconColor":null,"fr":"Neuf","es":"Nueve","audio":"audio/module6/tisaa.mp3"},{"id":643,"arabe":"عَشَرَة","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Dix","es":"Diez","audio":"audio/module6/ashara.mp3"},{"id":644,"arabe":"أَحَدَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Onze","es":"Once","audio":"audio/module6/ahada-ashar.mp3"},{"id":645,"arabe":"اثْنَا عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Douze","es":"Doce","audio":"audio/module6/ithna-ashar.mp3"},{"id":646,"arabe":"ثَلَاثَةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Treize","es":"Trece","audio":"audio/module6/thalathata-ashar.mp3"},{"id":647,"arabe":"أَرْبَعَةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Quatorze","es":"Catorce","audio":"audio/module6/arbaata-ashar.mp3"},{"id":648,"arabe":"خَمْسَةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Quinze","es":"Quince","audio":"audio/module6/khamsata-ashar.mp3"},{"id":649,"arabe":"سِتَّةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Seize","es":"Dieciséis","audio":"audio/module6/sittata-ashar.mp3"},{"id":650,"arabe":"سَبْعَةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Dix-sept","es":"Diecisiete","audio":"audio/module6/sabaata-ashar.mp3"},{"id":651,"arabe":"ثَمَانِيَةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Dix-huit","es":"Dieciocho","audio":"audio/module6/thamaniyata-ashar.mp3"},{"id":652,"arabe":"تِسْعَةَ عَشَر","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Dix-neuf","es":"Diecinueve","audio":"audio/module6/tisaata-ashar.mp3"},{"id":653,"arabe":"عِشْرُون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Vingt","es":"Veinte","audio":"audio/module6/ishrun.mp3"},{"id":654,"arabe":"ثَلَاثُون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Trente","es":"Treinta","audio":"audio/module6/thalathun.mp3"},{"id":655,"arabe":"أَرْبَعُون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Quarante","es":"Cuarenta","audio":"audio/module6/arbaun.mp3"},{"id":656,"arabe":"خَمْسُون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Cinquante","es":"Cincuenta","audio":"audio/module6/khamsun.mp3"},{"id":657,"arabe":"سِتُّون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Soixante","es":"Sesenta","audio":"audio/module6/sittun.mp3"},{"id":658,"arabe":"سَبْعُون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Soixante-dix","es":"Setenta","audio":"audio/module6/sabuun.mp3"},{"id":659,"arabe":"ثَمَانُون","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Quatre-vingts","es":"Ochenta","audio":"audio/module6/thamanun.mp3"},{"id":660,"arabe":"مِئَة","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Cent","es":"Cien","audio":"audio/module6/miah.mp3"},{"id":661,"arabe":"أَلْف","icon":"fa-solid fa-list-ol","iconColor":null,"fr":"Mille","es":"Mil","audio":"audio/module6/alf.mp3"}],"transports":[{"id":662,"arabe":"دَرَّاجَة هَوَائِيَّة","icon":"fa-solid fa-bicycle","iconColor":null,"fr":"Vélo","es":"Bicicleta","audio":"audio/module6/darraja-hawaiya.mp3"},{"id":663,"arabe":"دَرَّاجَة نَارِيَّة","icon":"fa-solid fa-motorcycle","iconColor":null,"fr":"Moto","es":"Moto","audio":"audio/module6/darraja-nariya.mp3"},{"id":664,"arabe":"حَافِلَة","icon":"fa-solid fa-bus","iconColor":null,"fr":"Bus","es":"Autobús","audio":"audio/module6/hafila.mp3"},{"id":665,"arabe":"قِطَارٌ سَرِيع","icon":"fa-solid fa-train","iconColor":null,"fr":"TGV","es":"Tren de alta velocidad","audio":"audio/module6/qitar-sari.mp3"},{"id":666,"arabe":"تَاكْسِي","icon":"fa-solid fa-taxi","iconColor":null,"fr":"Taxi","es":"Taxi","audio":"audio/module6/taxi.mp3"},{"id":667,"arabe":"مِتْرُو","icon":"fa-solid fa-train-subway","iconColor":null,"fr":"Métro","es":"Metro","audio":"audio/module6/metro.mp3"},{"id":668,"arabe":"سْكُوتَر","icon":"fa-solid fa-motorcycle","iconColor":null,"fr":"Scooter","es":"Scooter","audio":"audio/module6/scooter.mp3"}],"couleurs":[{"id":669,"arabe":"أَحْمَر","icon":"fa-solid fa-circle","iconColor":"#C0392B","fr":"Rouge","es":"Rojo","audio":"audio/module6/ahmar.mp3"},{"id":670,"arabe":"أَزْرَق","icon":"fa-solid fa-circle","iconColor":"#2C4F7C","fr":"Bleu","es":"Azul","audio":"audio/module6/azraq.mp3"},{"id":671,"arabe":"أَخْضَر","icon":"fa-solid fa-circle","iconColor":"#2F6F4F","fr":"Vert","es":"Verde","audio":"audio/module6/akhdar.mp3"},{"id":672,"arabe":"أَسْوَد","icon":"fa-solid fa-circle","iconColor":"#1a1a1a","fr":"Noir","es":"Negro","audio":"audio/module6/aswad.mp3"},{"id":673,"arabe":"أَبْيَض","icon":"fa-regular fa-circle","iconColor":"#7F8C8D","fr":"Blanc","es":"Blanco","audio":"audio/module6/abyad.mp3"},{"id":674,"arabe":"بُنِّي","icon":"fa-solid fa-circle","iconColor":"#7B4B2A","fr":"Marron","es":"Marrón","audio":"audio/module6/bunni.mp3"},{"id":675,"arabe":"بَنَفْسَجِي","icon":"fa-solid fa-circle","iconColor":"#6B4670","fr":"Violet","es":"Violeta","audio":"audio/module6/banafsaji.mp3"},{"id":676,"arabe":"أَصْفَر","icon":"fa-solid fa-circle","iconColor":"#D9B310","fr":"Jaune","es":"Amarillo","audio":"audio/module6/asfar.mp3"},{"id":677,"arabe":"بُرْتُقَالِي","icon":"fa-solid fa-circle","iconColor":"#C1652F","fr":"Orange","es":"Naranja","audio":"audio/module6/burtuqali.mp3"},{"id":678,"arabe":"نِيلِي","icon":"fa-solid fa-circle","iconColor":"#2E4A8E","fr":"Indigo","es":"Índigo","audio":"audio/module6/nili.mp3"}],"actions":[{"id":679,"arabe":"يَسْتَيْقِظُ","icon":"fa-solid fa-sun","iconColor":null,"fr":"Il se réveille","es":"Se despierta","audio":"audio/module6/yastayqidh.mp3"},{"id":680,"arabe":"يَتَوَضَّأُ","icon":"fa-solid fa-hands-bubbles","iconColor":null,"fr":"Il fait ses ablutions","es":"Hace la ablución","audio":"audio/module6/yatawadda.mp3"},{"id":681,"arabe":"يُصَلِّي","icon":"fa-solid fa-person-praying","iconColor":null,"fr":"Il prie","es":"Reza","audio":"audio/module6/yusalli.mp3"},{"id":683,"arabe":"يَلْبَسُ","icon":"fa-solid fa-shirt","iconColor":null,"fr":"Il s'habille","es":"Se viste","audio":"audio/module6/yalbas.mp3"},{"id":684,"arabe":"يَجْلِسُ","icon":"fa-solid fa-chair","iconColor":null,"fr":"Il s'assoit","es":"Se sienta","audio":"audio/module6/yajlis.mp3"},{"id":685,"arabe":"يَذْهَبُ","icon":"fa-solid fa-person-walking","iconColor":null,"fr":"Il va / il part","es":"Va / se va","audio":"audio/module6/yadhhab.mp3"},{"id":686,"arabe":"يَدْرُسُ","icon":"fa-solid fa-book-open","iconColor":null,"fr":"Il étudie","es":"Estudia","audio":"audio/module6/yadrus.mp3"},{"id":687,"arabe":"يَكْتُبُ","icon":"fa-solid fa-pen","iconColor":null,"fr":"Il écrit","es":"Escribe","audio":"audio/module6/yaktub.mp3"},{"id":688,"arabe":"يَلْعَبُ","icon":"fa-solid fa-gamepad","iconColor":null,"fr":"Il joue","es":"Juega","audio":"audio/module6/yalab.mp3"},{"id":689,"arabe":"يَعُودُ","icon":"fa-solid fa-rotate-left","iconColor":null,"fr":"Il revient / rentre","es":"Vuelve / regresa","audio":"audio/module6/yaud.mp3"},{"id":690,"arabe":"يَتَعَشَّى","icon":"fa-solid fa-utensils","iconColor":null,"fr":"Il dîne","es":"Cena","audio":"audio/module6/yataasha.mp3"},{"id":691,"arabe":"يَنَامُ","icon":"fa-solid fa-bed","iconColor":null,"fr":"Il dort / s'endort","es":"Duerme / se duerme","audio":"audio/module6/yanam.mp3"},{"id":692,"arabe":"يَعُدُّ","icon":"fa-solid fa-calculator","iconColor":null,"fr":"Il compte","es":"Cuenta","audio":"audio/module6/yaoudd.mp3"}]}
+}
+</script>
+
+<script>
+const DATA = JSON.parse(document.getElementById('app-data').textContent);
+document.title = DATA.meta.pageTitle;
+
+const DOM = {
+  appTitleEl: document.getElementById('appTitleEl'),
+  viewModules: document.getElementById('view-modules'),
+  viewStart: document.getElementById('view-start'),
+  viewQuiz: document.getElementById('view-quiz'),
+  viewCert: document.getElementById('view-certificate'),
+  moduleGrid: document.getElementById('moduleGrid'),
+  backToModulesLink: document.getElementById('backToModulesLink'),
+  selectedModuleName: document.getElementById('selectedModuleName'),
+  playerName: document.getElementById('playerName'),
+  startBtn: document.getElementById('startBtn'),
+  homeBtn: document.getElementById('homeBtn'),
+  progressFill: document.getElementById('progressFill'),
+  scoreBadge: document.getElementById('scoreBadge'),
+  cardsGrid: document.getElementById('cardsGrid'),
+  feedbackMsg: document.getElementById('feedbackMsg'),
+  certName: document.getElementById('certName'),
+  certScore: document.getElementById('certScore'),
+  certModule: document.getElementById('certModule'),
+  certDate: document.getElementById('certDate'),
+  replayBtn: document.getElementById('replayBtn')
+};
+
+const AudioController = {
+  player: new Audio(), effectPlayer: new Audio(), isUnlocked: false,
+  init() {
+    this.player.preload = "none"; this.effectPlayer.preload = "none";
+    this.player.playsInline = true; this.effectPlayer.playsInline = true;
+    this.player.volume = 1; this.effectPlayer.volume = 1;
+  },
+  async unlock() {
+    if (this.isUnlocked) return true;
+    try {
+      const s = DATA.meta.silentUnlockAudio;
+      this.player.pause(); this.effectPlayer.pause();
+      this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
+      this.player.src = s; this.effectPlayer.src = s;
+      this.player.muted = true; this.effectPlayer.muted = true;
+      await this.player.play().catch(() => {});
+      this.player.pause(); this.player.currentTime = 0;
+      await this.effectPlayer.play().catch(() => {});
+      this.effectPlayer.pause(); this.effectPlayer.currentTime = 0;
+      this.player.muted = false; this.effectPlayer.muted = false;
+      this.player.removeAttribute("src"); this.effectPlayer.removeAttribute("src");
+      this.player.load(); this.effectPlayer.load();
+      this.isUnlocked = true; return true;
+    } catch(_) { this.player.muted = false; this.effectPlayer.muted = false; return false; }
+  },
+  async playMain(src) {
+    if (!src) return;
+    try { this.player.pause(); this.player.currentTime = 0; this.player.src = src; this.player.load(); await this.player.play(); } catch(_) {}
+  },
+  async playEffect(src) {
+    if (!src) return;
+    try { this.effectPlayer.pause(); this.effectPlayer.currentTime = 0; this.effectPlayer.src = src; this.effectPlayer.load(); await this.effectPlayer.play(); } catch(_) {}
+  },
+  stopAll() {
+    this.player.pause(); this.effectPlayer.pause();
+    this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
+  }
+};
+AudioController.init();
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function formatDateFr(){
+  return new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+}
+
+const App = {
+  state: {
+    isStarting: false,
+    hasFinished: false,
+    hasPlayedSuccess: false,
+    pendingTimer: null,
+    questionToken: 0,
+    questions: [],
+    index: 0,
+    score: 0,
+    playerName: '',
+    selectedCategory: null,
+    selectedCategoryLabel: '',
+    roundAnswered: false
+  },
+  clearTimer(){
+    if (this.state.pendingTimer) { clearTimeout(this.state.pendingTimer); this.state.pendingTimer = null; }
+  },
+  getCategoryLabel(key){
+    if (key === 'all') return 'Toutes catégories';
+    return DATA.categoryLabels[key] || key;
+  },
+  renderModuleGrid(){
+    const keys = Object.keys(DATA.wordsByCategory);
+    let totalCount = 0;
+    DOM.moduleGrid.innerHTML = '';
+    keys.forEach(k => {
+      const words = DATA.wordsByCategory[k];
+      totalCount += words.length;
+      const label = this.getCategoryLabel(k);
+      const icon = words[0].icon || 'fa-solid fa-star';
+      const card = document.createElement('div');
+      card.className = 'module-card';
+      card.innerHTML = `<span class="module-icon"><i class="${icon}"></i></span><span class="module-label">${label}</span><span class="module-count">${words.length} mots</span>`;
+      card.addEventListener('click', () => this.selectCategory(k));
+      DOM.moduleGrid.appendChild(card);
+    });
+    const allCard = document.createElement('div');
+    allCard.className = 'module-card module-all';
+    allCard.innerHTML = `<span class="module-icon"><i class="fa-solid fa-shuffle"></i></span><span class="module-label">Toutes catégories</span><span class="module-count">${totalCount} mots, mélangées</span>`;
+    allCard.addEventListener('click', () => this.selectCategory('all'));
+    DOM.moduleGrid.appendChild(allCard);
+  },
+  selectCategory(key){
+    this.state.selectedCategory = key;
+    this.state.selectedCategoryLabel = this.getCategoryLabel(key);
+    DOM.selectedModuleName.textContent = this.state.selectedCategoryLabel;
+    DOM.viewModules.classList.add('hidden');
+    DOM.viewStart.classList.remove('hidden');
+  },
+  showModules(){
+    DOM.viewStart.classList.add('hidden');
+    DOM.viewModules.classList.remove('hidden');
+  },
+  buildQuestions(){
+    const catKeys = Object.keys(DATA.wordsByCategory);
+    const selected = this.state.selectedCategory;
+    const rounds = [];
+    for (let r = 0; r < DATA.settings.roundCount; r++) {
+      const groupCat = selected === 'all' ? catKeys[Math.floor(Math.random() * catKeys.length)] : selected;
+      const otherCats = catKeys.filter(c => c !== groupCat);
+      const intrusCat = otherCats[Math.floor(Math.random() * otherCats.length)];
+      const groupWords = shuffle(DATA.wordsByCategory[groupCat]).slice(0, 3);
+      const intrusWord = shuffle(DATA.wordsByCategory[intrusCat])[0];
+      const cards = shuffle([
+        ...groupWords.map(w => ({ ...w, isIntrus: false })),
+        { ...intrusWord, isIntrus: true }
+      ]);
+      rounds.push({ cards });
+    }
+    return rounds;
+  },
+  async startQuiz(){
+    if (this.state.isStarting) return;
+    if (!this.state.selectedCategory) return;
+    this.state.isStarting = true;
+    await AudioController.unlock();
+    this.state.playerName = DOM.playerName.value.trim() || 'Ami(e)';
+    this.state.questions = this.buildQuestions();
+    this.state.index = 0;
+    this.state.score = 0;
+    this.state.hasFinished = false;
+    this.state.hasPlayedSuccess = false;
+    DOM.viewStart.classList.add('hidden');
+    DOM.viewCert.classList.add('hidden');
+    DOM.viewQuiz.classList.remove('hidden');
+    this.renderRound();
+    this.state.isStarting = false;
+  },
+  updateProgressAndScore(){
+    const total = this.state.questions.length;
+    DOM.progressFill.style.width = `${(this.state.index / total) * 100}%`;
+    DOM.scoreBadge.textContent = `${this.state.score}/${total}`;
+  },
+  renderRound(){
+    this.state.questionToken += 1;
+    const token = this.state.questionToken;
+    this.state.roundAnswered = false;
+    DOM.feedbackMsg.textContent = '';
+    DOM.feedbackMsg.className = 'feedback-msg';
+    DOM.cardsGrid.classList.remove('answered');
+    this.updateProgressAndScore();
+
+    const round = this.state.questions[this.state.index];
+    if (!round) { this.endQuiz(); return; }
+
+    DOM.cardsGrid.innerHTML = '';
+    round.cards.forEach((card, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'word-tile';
+      tile.dataset.index = i;
+      const audioBtn = document.createElement('button');
+      audioBtn.className = 'tile-audio-btn';
+      audioBtn.setAttribute('aria-label', 'Écouter le mot');
+      audioBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+      audioBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        AudioController.playMain(card.audio);
+      });
+      const iconWrap = document.createElement('div');
+      iconWrap.className = 'tile-icon';
+      const iconEl = document.createElement('i');
+      iconEl.className = card.icon || 'fa-solid fa-star';
+      if (card.iconColor) iconWrap.style.color = card.iconColor;
+      iconWrap.appendChild(iconEl);
+      const wordEl = document.createElement('div');
+      wordEl.className = 'tile-word';
+      wordEl.textContent = card.arabe;
+      tile.appendChild(audioBtn);
+      tile.appendChild(iconWrap);
+      tile.appendChild(wordEl);
+      tile.addEventListener('click', () => this.handleCardSelect(i, token));
+      DOM.cardsGrid.appendChild(tile);
+    });
+  },
+  handleCardSelect(index, token){
+    if (this.state.questionToken !== token) return;
+    if (this.state.roundAnswered) return;
+    this.state.roundAnswered = true;
+    DOM.cardsGrid.classList.add('answered');
+
+    const round = this.state.questions[this.state.index];
+    const tiles = DOM.cardsGrid.querySelectorAll('.word-tile');
+    const chosen = round.cards[index];
+    const correctIndex = round.cards.findIndex(c => c.isIntrus);
+
+    if (chosen.isIntrus) {
+      tiles[index].classList.add('correct');
+      DOM.feedbackMsg.textContent = 'Ahsant ! ✓';
+      DOM.feedbackMsg.className = 'feedback-msg ok';
+      this.state.score += 1;
+    } else {
+      tiles[index].classList.add('wrong');
+      tiles[correctIndex].classList.add('correct');
+      DOM.feedbackMsg.textContent = 'Essaie encore la prochaine fois';
+      DOM.feedbackMsg.className = 'feedback-msg ko';
+    }
+    this.updateProgressAndScore();
+    this.clearTimer();
+    this.state.pendingTimer = setTimeout(() => {
+      if (this.state.questionToken !== token) return;
+      this.state.index += 1;
+      this.renderRound();
+    }, DATA.settings.delayNextCard);
+  },
+  endQuiz(){
+    if (this.state.hasFinished) return;
+    this.clearTimer();
+    this.state.hasFinished = true;
+    this.state.questionToken += 1;
+    AudioController.stopAll();
+
+    DOM.viewQuiz.classList.add('hidden');
+    DOM.viewCert.classList.remove('hidden');
+    DOM.certName.textContent = this.state.playerName;
+    DOM.certScore.textContent = `${this.state.score} / ${this.state.questions.length}`;
+    DOM.certModule.textContent = this.state.selectedCategoryLabel;
+    DOM.certDate.textContent = `Fait le ${formatDateFr()}`;
+
+    const end = Date.now() + 3000;
+    (function frame(){
+      if (typeof confetti === "function") {
+        confetti({ particleCount:5, angle:60, spread:55, origin:{x:0}, colors:["#C8A462","#5D1828","#dfc28b"] });
+        confetti({ particleCount:5, angle:120, spread:55, origin:{x:1}, colors:["#C8A462","#5D1828","#dfc28b"] });
+      }
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+
+    if (this.state.hasPlayedSuccess) return;
+    this.state.hasPlayedSuccess = true;
+    AudioController.playEffect(DATA.meta.successAudio);
+  }
+};
+
+App.renderModuleGrid();
+
+DOM.startBtn.addEventListener('click', () => App.startQuiz());
+DOM.playerName.addEventListener('keydown', (e) => { if (e.key === 'Enter') App.startQuiz(); });
+DOM.homeBtn.addEventListener('click', () => { window.location.href = DATA.meta.homeHref; });
+DOM.backToModulesLink.addEventListener('click', () => App.showModules());
+DOM.replayBtn.addEventListener('click', () => {
+  DOM.viewCert.classList.add('hidden');
+  DOM.viewStart.classList.remove('hidden');
+});
+</script>
+</body>
+</html>
