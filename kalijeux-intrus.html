@@ -52,6 +52,13 @@
   /* ---- Ecran de selection de categorie ---- */
   #view-modules{ padding:4px 2px 2px; }
   #view-modules p{ color:#6b5a4a; font-size:.88rem; line-height:1.5; text-align:center; margin:0 0 10px; }
+  .main-lang-toggle{ display:flex; justify-content:center; gap:8px; margin:0 0 14px; }
+  .lang-btn{
+    border:1px solid rgba(200,164,98,0.4); background:#fff; color:var(--bordeaux-dark);
+    font-family:'Montserrat',sans-serif; font-weight:700; font-size:.72rem; letter-spacing:.5px;
+    border-radius:999px; padding:7px 16px; cursor:pointer; transition:background .15s ease, color .15s ease;
+  }
+  .lang-btn.active{ background:var(--bordeaux); color:var(--gold); border-color:var(--bordeaux); }
   .module-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-top:6px; }
   .module-card{
     background:#fff; border:1px solid rgba(200,164,98,0.3); border-radius:var(--radius-md);
@@ -115,6 +122,12 @@
     font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;
     font-size:clamp(1.3rem, 6vw, 1.8rem); color:var(--bordeaux-dark); text-align:center;
   }
+  .tile-translation{
+    font-family:'Montserrat',sans-serif; font-size:.78rem; font-weight:600;
+    color:var(--bordeaux); text-align:center; min-height:1em; opacity:0;
+    transition:opacity .25s ease;
+  }
+  .cards-grid.answered .tile-translation{ opacity:1; }
   .tile-audio-btn{
     position:absolute; top:8px; right:8px; width:30px; height:30px; border-radius:999px;
     border:1px solid rgba(200,164,98,0.35); background:var(--bordeaux); color:var(--gold);
@@ -169,6 +182,10 @@
   <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
 
   <section id="view-modules">
+    <div class="lang-toggle main-lang-toggle" id="mainLangToggle">
+      <button class="lang-btn" id="mainLangFrBtn">FR</button>
+      <button class="lang-btn" id="mainLangEsBtn">ES</button>
+    </div>
     <p>Choisis une catégorie, ou lance le mode toutes catégories mélangées.</p>
     <div class="module-grid" id="moduleGrid"></div>
   </section>
@@ -240,6 +257,8 @@ const DOM = {
   viewQuiz: document.getElementById('view-quiz'),
   viewCert: document.getElementById('view-certificate'),
   moduleGrid: document.getElementById('moduleGrid'),
+  mainLangFrBtn: document.getElementById('mainLangFrBtn'),
+  mainLangEsBtn: document.getElementById('mainLangEsBtn'),
   backToModulesLink: document.getElementById('backToModulesLink'),
   selectedModuleName: document.getElementById('selectedModuleName'),
   playerName: document.getElementById('playerName'),
@@ -321,10 +340,20 @@ const App = {
     playerName: '',
     selectedCategory: null,
     selectedCategoryLabel: '',
-    roundAnswered: false
+    roundAnswered: false,
+    language: 'fr'
   },
   clearTimer(){
     if (this.state.pendingTimer) { clearTimeout(this.state.pendingTimer); this.state.pendingTimer = null; }
+  },
+  syncLangButtons(){
+    const isFr = this.state.language === 'fr';
+    DOM.mainLangFrBtn.classList.toggle('active', isFr);
+    DOM.mainLangEsBtn.classList.toggle('active', !isFr);
+  },
+  setLanguage(lang){
+    this.state.language = lang;
+    this.syncLangButtons();
   },
   getCategoryLabel(key){
     if (key === 'all') return 'Toutes catégories';
@@ -436,9 +465,12 @@ const App = {
       const wordEl = document.createElement('div');
       wordEl.className = 'tile-word';
       wordEl.textContent = card.arabe;
+      const translationEl = document.createElement('div');
+      translationEl.className = 'tile-translation';
       tile.appendChild(audioBtn);
       tile.appendChild(iconWrap);
       tile.appendChild(wordEl);
+      tile.appendChild(translationEl);
       tile.addEventListener('click', () => this.handleCardSelect(i, token));
       DOM.cardsGrid.appendChild(tile);
     });
@@ -451,6 +483,9 @@ const App = {
 
     const round = this.state.questions[this.state.index];
     const tiles = DOM.cardsGrid.querySelectorAll('.word-tile');
+    round.cards.forEach((c, i) => {
+      tiles[i].querySelector('.tile-translation').textContent = this.state.language === 'es' ? c.es : c.fr;
+    });
     const chosen = round.cards[index];
     const correctIndex = round.cards.findIndex(c => c.isIntrus);
 
@@ -503,6 +538,7 @@ const App = {
 };
 
 App.renderModuleGrid();
+App.syncLangButtons();
 
 DOM.startBtn.addEventListener('click', () => App.startQuiz());
 DOM.playerName.addEventListener('keydown', (e) => { if (e.key === 'Enter') App.startQuiz(); });
@@ -512,6 +548,8 @@ DOM.replayBtn.addEventListener('click', () => {
   DOM.viewCert.classList.add('hidden');
   DOM.viewStart.classList.remove('hidden');
 });
+DOM.mainLangFrBtn.addEventListener('click', () => App.setLanguage('fr'));
+DOM.mainLangEsBtn.addEventListener('click', () => App.setLanguage('es'));
 </script>
 </body>
 </html>
