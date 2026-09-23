@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
@@ -572,9 +572,9 @@
           this.player.currentTime = 0; this.effectPlayer.currentTime = 0;
           this.player.src = s; this.effectPlayer.src = s;
           this.player.muted = true; this.effectPlayer.muted = true;
-          await this.player.play().catch(() => {});
+          await Promise.race([this.player.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);
           this.player.pause(); this.player.currentTime = 0;
-          await this.effectPlayer.play().catch(() => {});
+          await Promise.race([this.effectPlayer.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);
           this.effectPlayer.pause(); this.effectPlayer.currentTime = 0;
           this.player.muted = false; this.effectPlayer.muted = false;
           this.player.removeAttribute("src"); this.effectPlayer.removeAttribute("src");

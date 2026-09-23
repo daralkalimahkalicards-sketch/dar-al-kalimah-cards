@@ -1,4 +1,4 @@
-﻿  <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
@@ -266,8 +266,8 @@
         if(this.unlocked) return;
         try{
           [this.main,this.fx].forEach(a=>{a.src=SILENT;a.muted=true;});
-          await this.main.play().catch(()=>{});  this.main.pause();  this.main.currentTime=0;
-          await this.fx.play().catch(()=>{});    this.fx.pause();    this.fx.currentTime=0;
+          await Promise.race([this.main.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);  this.main.pause();  this.main.currentTime=0;
+          await Promise.race([this.fx.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);    this.fx.pause();    this.fx.currentTime=0;
           [this.main,this.fx].forEach(a=>{a.muted=false;a.removeAttribute("src");a.load();});
           this.unlocked=true;
         }catch(_){ [this.main,this.fx].forEach(a=>a.muted=false); }

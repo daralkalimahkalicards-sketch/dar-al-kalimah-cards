@@ -76,9 +76,9 @@ const DAKAudio = (() => {
       player.currentTime = 0; effectPlayer.currentTime = 0;
       player.src = SILENT_WAV; effectPlayer.src = SILENT_WAV;
       player.muted = true; effectPlayer.muted = true;
-      await player.play().catch(() => {});
+      await Promise.race([player.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);
       player.pause(); player.currentTime = 0;
-      await effectPlayer.play().catch(() => {});
+      await Promise.race([effectPlayer.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);
       effectPlayer.pause(); effectPlayer.currentTime = 0;
       player.muted = false; effectPlayer.muted = false;
       player.removeAttribute("src"); effectPlayer.removeAttribute("src");
