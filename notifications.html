@@ -235,34 +235,10 @@ import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const DAK_ONESIGNAL_APP_ID = "45f20a47-8afe-4b34-b847-8493041430bf";
-
-// OneSignal se charge en parallèle. On ne bloque jamais la page en l'attendant :
-// getOneSignal() se résout avec l'instance dès qu'elle est prête, ou avec null après
-// un délai raisonnable si le SDK ne répond jamais (échec technique, pas une décision
-// de l'élève — traité comme une erreur, cf. handleActivateClick).
-let _resolveOneSignal;
-const oneSignalReady = new Promise((resolve) => { _resolveOneSignal = resolve; });
-window.OneSignalDeferred = window.OneSignalDeferred || [];
-window.OneSignalDeferred.push(async function (OneSignal) {
-  try {
-    await OneSignal.init({
-      appId: DAK_ONESIGNAL_APP_ID,
-      serviceWorkerPath: "sw.js",
-      serviceWorkerParam: { scope: "/" }
-    });
-    _resolveOneSignal(OneSignal);
-  } catch (e) {
-    console.error("Notifications — erreur init OneSignal:", e);
-    _resolveOneSignal(null);
-  }
-});
-function getOneSignal(timeoutMs = 8000) {
-  return Promise.race([
-    oneSignalReady,
-    new Promise((resolve) => setTimeout(() => resolve(null), timeoutMs))
-  ]);
-}
+// OneSignal : init + rattachement automatique OneSignal.login(uid) geres par le
+// script partage onesignal-init.js (charge plus bas), qui expose window.getOneSignal().
+// On ne bloque jamais la page en l'attendant.
+const getOneSignal = (...args) => window.getOneSignal(...args);
 
 const _cfg = {
   apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
@@ -580,6 +556,7 @@ onAuthStateChanged(_auth, (user) => {
        6. سَلَامٌ — la paix / la paz
        7. قَلْبٌ — un cœur / un corazón -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="onesignal-init.js" type="module"></script>
 
 <script>
 if ('serviceWorker' in navigator) {
