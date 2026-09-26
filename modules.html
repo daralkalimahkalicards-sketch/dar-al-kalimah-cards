@@ -549,20 +549,22 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <!-- Resynchronisation silencieuse OneSignal (audit du 11/09/2026) : modules.html est la
-     page visitee a chaque connexion. Init + rattachement OneSignal.login(uid) geres par
-     le script partage onesignal-init.js (charge juste avant, dans l'ordre du document)
-     sur TOUTES les pages desormais -- ce bloc ne fait plus que la reparation d'un
-     abonnement "fantome" (token push vide cote OneSignal alors que le navigateur a bien
-     accorde la permission), en plus de ce que fait deja le script partage. Ne demande
-     JAMAIS la permission ici (uniquement si deja accordee) : aucun nouveau prompt,
-     aucune interaction requise, echec toujours silencieux. -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script src="onesignal-init.js" type="module"></script>
+     page visitee a chaque connexion, contrairement a notifications.html vue une seule fois.
+     OneSignal.init() y est donc charge aussi ici pour que la reparation d'un abonnement
+     "fantome" (token push vide cote OneSignal alors que le navigateur a bien accorde la
+     permission) ait lieu en navigation normale, sans que l'eleve ait a revisiter
+     notifications.html. Ne demande JAMAIS la permission ici (uniquement si deja accordee) :
+     aucun nouveau prompt, aucune interaction requise, echec toujours silencieux. -->
 <script type="module">
-  (async () => {
-    const OneSignal = await window.getOneSignal();
-    if (!OneSignal) return;
+  const DAK_ONESIGNAL_APP_ID = "45f20a47-8afe-4b34-b847-8493041430bf";
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function (OneSignal) {
     try {
+      await OneSignal.init({
+        appId: DAK_ONESIGNAL_APP_ID,
+        serviceWorkerPath: "sw.js",
+        serviceWorkerParam: { scope: "/" }
+      });
       if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
       const sub = OneSignal.User.PushSubscription;
       if (sub.optedIn && !sub.token) {
@@ -579,7 +581,8 @@ if ('serviceWorker' in navigator) {
     } catch (e) {
       console.error('Resync OneSignal (modules.html) impossible :', e);
     }
-  })();
+  });
 </script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 </body>
 </html>
