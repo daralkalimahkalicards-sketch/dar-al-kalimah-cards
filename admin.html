@@ -128,6 +128,18 @@
 <!-- APP -->
 <div id="section-app">
 
+  <!-- Alerte email non verifie -->
+  <div class="card" id="verif-card" style="display:none;max-width:700px;border-color:#f0c419;background:#fffbea;">
+    <h2 style="color:#8a6d00;">⚠️ Email non vérifié</h2>
+    <p style="font-size:0.85rem;color:#5a4a00;margin-bottom:14px;line-height:1.5;">
+      Ton compte administratrice n'a pas encore confirmé son adresse email. Tant que ce n'est pas fait,
+      Firestore refuse certaines actions ici (ex. ajouter une élève) avec l'erreur
+      "missing or insufficient permissions".
+    </p>
+    <button class="btn btn-primary" onclick="envoyerVerificationEmail()">Envoyer l'email de vérification</button>
+    <div id="verif-msg" class="msg"></div>
+  </div>
+
   <!-- Stat -->
   <div class="card" style="max-width:700px;">
     <div class="user-bar">
@@ -165,7 +177,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const ADMIN_EMAIL = "sunfertity2080@gmail.com";
@@ -187,6 +199,7 @@ onAuthStateChanged(auth, (user) => {
   if (user && user.email === ADMIN_EMAIL) {
     document.getElementById('section-login').style.display = 'none';
     document.getElementById('section-app').style.display = 'block';
+    document.getElementById('verif-card').style.display = user.emailVerified ? 'none' : 'block';
     loadEmails();
   } else if (user && user.email !== ADMIN_EMAIL) {
     signOut(auth);
@@ -238,6 +251,15 @@ window.adminLogin = async () => {
 
 window.adminLogout = async () => {
   await signOut(auth);
+};
+
+window.envoyerVerificationEmail = async () => {
+  try {
+    await sendEmailVerification(auth.currentUser);
+    showMsg('verif-msg', 'success', '✅ Email envoyé — vérifie ta boîte de réception (et les spams), clique sur le lien, puis déconnecte-toi/reconnecte-toi ici.');
+  } catch(e) {
+    showMsg('verif-msg', 'error', `❌ Erreur : ${e.message}`);
+  }
 };
 
 window.addEmail = async () => {
