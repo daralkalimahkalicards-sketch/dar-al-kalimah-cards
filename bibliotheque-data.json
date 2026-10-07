@@ -121,6 +121,18 @@
       "lien": "fiches/fr-es/familles-lettres-fr-es.html"
     },
     {
+      "id": "fiche-lettres-fr-es",
+      "titre_fr": "Fiche des lettres",
+      "sous_titre_fr": "Début, milieu, fin",
+      "titre_ar": "بِطَاقَةُ الْحُرُوف",
+      "description_fr": "Reconnaître chaque lettre au début, au milieu et à la fin du mot, avec un exemple et le son.",
+      "description_es": "Reconocer cada letra al inicio, en medio y al final de la palabra, con un ejemplo y el sonido.",
+      "type": "fiche",
+      "public": "tous",
+      "icone": "fa-solid fa-font",
+      "lien": "fiches/fr-es/fiche-lettres-fr-es.html"
+    },
+    {
       "id": "fiche-m13-negation",
       "titre_fr": "La Négation",
       "sous_titre_fr": "An-Nafy — Module 13",
