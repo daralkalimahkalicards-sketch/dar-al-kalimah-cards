@@ -133,6 +133,18 @@
       "lien": "fiches/fr-es/fiche-lettres-fr-es.html"
     },
     {
+      "id": "fiche-hamza",
+      "titre_fr": "La Hamza",
+      "sous_titre_fr": "Module 4",
+      "titre_ar": "اَلْهَمْزَة",
+      "description_fr": "Où l'écrire, sur quel support, comment la lire. Version petits et version grands.",
+      "description_es": "Dónde escribirla, sobre qué soporte y cómo leerla. Versión para pequeños y versión para mayores.",
+      "type": "fiche",
+      "public": "tous",
+      "icone": "fa-solid fa-feather-pointed",
+      "lien": "fiche-hamza.html"
+    },
+    {
       "id": "fiche-m13-negation",
       "titre_fr": "La Négation",
       "sous_titre_fr": "An-Nafy — Module 13",

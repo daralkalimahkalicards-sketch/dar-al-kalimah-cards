@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dar Al-Kalimah - Fiche Hamza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --bordeaux:#5D1828; --bordeaux-dark:#3a0f19; --gold:#C8A462; --gold-light:#dfc28b;
+  --ink:#2a1a1e; --muted:#6f5b60; --line:rgba(200,164,98,0.35);
+  --radius-xl:28px; --radius-lg:22px; --radius-md:18px; --radius-sm:12px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Montserrat',sans-serif; color:var(--ink); background:#fff;
+  line-height:1.65; font-size:16px; padding:calc(16px + var(--safe-top)) 16px 40px;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(200,164,98,0.13), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(93,24,40,0.08), transparent 28%),
+    radial-gradient(circle at 50% 92%, rgba(200,164,98,0.10), transparent 34%);
+}
+.ar{
+  font-family:'Amiri',serif; direction:rtl; unicode-bidi:isolate;
+  font-feature-settings:"liga" 1,"calt" 1,"mark" 1,"mkmk" 1;
+}
+.sheet{max-width:860px;margin:0 auto}
+
+/* En-tête */
+.hero{
+  position:relative; background:linear-gradient(160deg,var(--bordeaux),var(--bordeaux-dark));
+  border-radius:var(--radius-xl); padding:34px 24px 30px; text-align:center; color:#fff;
+  box-shadow:0 18px 40px rgba(58,15,25,0.22);
+}
+.hero::before{content:"";position:absolute;inset:10px;border:1px solid rgba(200,164,98,0.34);border-radius:22px;pointer-events:none}
+.hero .brand{font-size:1.9rem;color:var(--gold);line-height:1.3}
+.hero .kicker{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);margin-top:2px}
+.hero h1{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(2rem,7vw,3.1rem);letter-spacing:.06em;margin-top:14px}
+.hero .big{font-size:clamp(4rem,16vw,6.5rem);color:var(--gold);line-height:1;margin:6px 0 2px}
+.hero p{font-size:.95rem;color:#f3e9da;max-width:520px;margin:6px auto 0}
+
+/* Barre de choix */
+.bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0 6px}
+.bar button{
+  font-family:'Montserrat',sans-serif;font-weight:600;font-size:.92rem;cursor:pointer;
+  padding:11px 22px;border-radius:999px;border:1.5px solid var(--gold);background:#fff;color:var(--bordeaux);
+  display:inline-flex;align-items:center;gap:9px;transition:all .2s;
+}
+.bar button i{color:var(--gold)}
+.bar button.on{background:var(--bordeaux);color:#fff;box-shadow:0 8px 18px rgba(93,24,40,0.22)}
+.bar button:focus-visible{outline:3px solid var(--gold-light);outline-offset:2px}
+.langgrp{display:inline-flex;gap:6px}
+.bar .langgrp button{padding:11px 16px;letter-spacing:.08em}
+.hint{text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:8px}
+
+body[data-mode="kids"] .adults{display:none}
+body[data-mode="adults"] .kids{display:none}
+
+/* Sections */
+section{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:26px 24px;margin-top:20px;box-shadow:0 10px 26px rgba(93,24,40,0.06);
+}
+.num{
+  display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;
+  background:var(--bordeaux);color:var(--gold);font-family:'Cinzel',serif;font-weight:700;font-size:.95rem;margin-right:10px;flex:none;
+}
+h2{font-family:'Cinzel',serif;font-size:1.28rem;color:var(--bordeaux);letter-spacing:.03em;display:flex;align-items:center;margin-bottom:12px;line-height:1.3}
+h3{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:20px 0 10px;font-weight:700}
+p+p{margin-top:10px}
+b,strong{color:var(--bordeaux);font-weight:700}
+.inl{font-size:1.5em;line-height:1;color:var(--bordeaux);padding:0 3px}
+body[data-mode="kids"] section p{font-size:1.05rem}
+
+/* Grilles de cartes */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin-top:14px}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+.grid.two{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:14px 10px;text-align:center;
+}
+.card .glyph{font-size:3.4rem;line-height:1.5;color:var(--bordeaux)}
+.card .lbl{font-weight:700;color:var(--bordeaux);font-size:.92rem}
+.card .sub{font-size:.8rem;color:var(--muted);line-height:1.4;margin-top:2px}
+
+/* Mots exemples */
+.word{
+  background:linear-gradient(160deg,var(--bordeaux),var(--bordeaux-dark));color:#fff;border-radius:var(--radius-md);
+  font-size:clamp(2.6rem,9vw,3.4rem);line-height:1.9;text-align:center;padding:4px 10px 10px;
+}
+.word .hz{color:var(--gold)}
+.ex{border:1px solid var(--line);border-radius:var(--radius-md);padding:10px;background:#fff}
+.ex .meta{text-align:center;font-size:.88rem;margin-top:8px;color:var(--muted)}
+.ex .meta b{font-size:.98rem}
+.duel{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.84rem}
+.duel span{border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff}
+.duel i{color:var(--gold)}
+.win{
+  margin-top:10px;text-align:center;font-weight:700;color:var(--bordeaux);font-size:.92rem;
+  border-top:1px dashed var(--line);padding-top:9px;
+}
+.win i{color:var(--gold);margin-right:6px}
+
+/* Podium */
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin-top:18px}
+.step{flex:1;max-width:150px;text-align:center}
+.step .sign{font-size:3rem;line-height:1.4;color:var(--bordeaux)}
+.step .name{font-weight:700;color:var(--bordeaux);font-size:.92rem}
+.step .block{
+  margin-top:8px;border-radius:14px 14px 0 0;background:linear-gradient(180deg,var(--bordeaux),var(--bordeaux-dark));
+  color:var(--gold);font-family:'Cinzel',serif;font-weight:700;font-size:1.5rem;display:flex;align-items:center;justify-content:center;
+}
+.step.s1 .block{height:110px}.step.s2 .block{height:80px}.step.s3 .block{height:54px}
+.step.s4 .block{height:26px;background:#fff;border:1.5px dashed var(--gold);color:var(--muted);font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:600}
+
+/* Tableau */
+table{width:100%;border-collapse:separate;border-spacing:0;margin-top:14px;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;font-size:.92rem}
+th{background:var(--bordeaux);color:var(--gold);font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;padding:11px 10px;text-align:left}
+td{padding:11px 10px;border-top:1px solid var(--line);vertical-align:middle;background:#fff}
+td .ar{font-size:1.9rem;line-height:1.3;color:var(--bordeaux)}
+
+/* Encadrés */
+.note{
+  margin-top:16px;border-left:4px solid var(--gold);background:#fff;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:12px 16px;box-shadow:0 6px 16px rgba(93,24,40,0.06);font-size:.94rem;
+}
+.note .t{font-weight:700;color:var(--bordeaux);display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.note .t i{color:var(--gold)}
+
+/* Exercice */
+.quiz{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-top:14px}
+.q{border:1px solid var(--line);border-radius:var(--radius-md);padding:14px;background:#fff}
+.q .clue{font-size:.9rem}
+.q .clue b{display:block;font-size:1.05rem;margin-bottom:2px}
+.q > button{
+  margin-top:10px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;
+  border-radius:999px;border:1.5px solid var(--gold);background:#fff;color:var(--bordeaux);padding:8px 16px;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.q > button i{color:var(--gold)}
+.q .ans{display:none;margin-top:10px}
+.q.open .ans{display:block}
+.q.open > button{display:none}
+.q .ans .word{font-size:2.6rem}
+.q .ans p{font-size:.86rem;text-align:center;margin-top:8px;font-weight:600;color:var(--bordeaux)}
+
+footer{text-align:center;margin-top:28px;font-size:.82rem;color:var(--muted)}
+footer .ar{font-size:1.5rem;color:var(--bordeaux);display:block}
+footer .sig{font-family:'Cinzel',serif;color:var(--bordeaux);letter-spacing:.14em;font-size:.8rem}
+
+/* Boutons d'écoute (même rendu que la fiche des lettres) */
+.snd-btn{
+  flex:none;display:inline-grid;place-items:center;width:40px;height:40px;padding:0;
+  border:1.5px solid var(--gold);border-radius:999px;background:#fff;color:var(--gold);
+  font-size:1rem;line-height:1;cursor:pointer;vertical-align:middle;
+  -webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,transform .1s;
+}
+.snd-btn.sm{width:34px;height:34px;font-size:.85rem;margin-right:8px}
+.snd-btn.sm.aft{margin:0 0 0 8px}
+.snd-btn:active{transform:scale(.94)}
+.snd-btn:focus-visible{outline:2px solid var(--bordeaux);outline-offset:2px}
+.snd-btn.dak-playing{background:var(--gold);color:#fff}
+.snd-row{display:flex;justify-content:center;margin-top:8px}
+.dak-toast{
+  position:fixed;left:50%;bottom:calc(24px + var(--safe-bottom));transform:translate(-50%,12px);
+  max-width:calc(100vw - 32px);padding:10px 18px;border-radius:999px;background:var(--bordeaux);color:#fff;
+  border:1px solid var(--gold);font-size:.85rem;font-weight:600;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50;
+}
+.dak-toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:768px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  section{padding:22px 18px}
+}
+@media (max-width:480px){
+  body{padding-left:12px;padding-right:12px;font-size:15px}
+  .grid.three,.grid.two,.quiz{grid-template-columns:1fr}
+  .hero{padding:28px 18px 24px}
+  h2{font-size:1.1rem}
+  .step .sign{font-size:2.4rem}
+  th,td{padding:9px 8px}
+}
+@media (max-width:360px){
+  .grid{grid-template-columns:1fr}
+  .podium{gap:6px}
+  .step .name{font-size:.8rem}
+}
+@media print{
+  body{padding:0;font-size:12.5px}
+  body::before,.bar,.hint,.q > button,.snd-btn,.dak-toast{display:none}
+  section,.ex,.q,.card{box-shadow:none;break-inside:avoid}
+  .q .ans{display:block}
+  .hero{box-shadow:none}
+}
+</style>
+</head>
+<body data-mode="kids">
+<div class="sheet">
+
+  <header class="hero">
+    <div class="brand ar">دار الكلمة</div>
+    <div class="kicker" data-i18n="kicker">Méthode Kalicards · Module 4</div>
+    <div class="big ar">ء</div>
+    <h1>La Hamza</h1>
+    <p class="kids" data-i18n="hk">La petite lettre capricieuse qui veut toujours une chaise.</p>
+    <p class="adults" data-i18n="ha">Où l'écrire, sur quel support, et comment la lire : toute la règle sur une fiche.</p>
+  </header>
+
+  <div class="bar" role="group" aria-label="Choisir la version">
+    <button type="button" id="btn-kids" class="on"><i class="fa-solid fa-child-reaching"></i><span data-i18n="b_kids">Version petits</span></button>
+    <button type="button" id="btn-adults"><i class="fa-solid fa-user-graduate"></i><span data-i18n="b_adults">Version grands</span></button>
+    <button type="button" id="btn-print"><i class="fa-solid fa-print"></i><span data-i18n="b_print">Imprimer</span></button>
+    <span class="langgrp" role="group" aria-label="Langue / Idioma">
+      <button type="button" id="btn-fr" class="on" data-lang="fr">FR</button>
+      <button type="button" id="btn-es" data-lang="es">ES</button>
+    </span>
+  </div>
+  <p class="hint" data-i18n="hint">Les exemples sont les mêmes dans les deux versions, seule l'explication change.</p>
+
+  <!-- 1 -->
+  <section>
+    <h2><span class="num">1</span><span data-i18n="h1">Qui est la Hamza ?</span></h2>
+    <div class="kids">
+      <p data-i18n="s1k1">La Hamza <span class="ar inl">ء</span> est une toute petite lettre, et elle est <strong>capricieuse</strong>. Elle ne reste jamais debout : elle demande toujours une <strong>chaise</strong> pour s'asseoir.</p>
+      <p data-i18n="s1k2">Elle a trois chaises possibles. Et quand personne ne lui en donne, elle s'assoit <strong>par terre</strong>, sur la ligne.</p>
+    </div>
+    <div class="adults">
+      <p data-i18n="s1a1">La Hamza <span class="ar inl">ء</span> (<strong>hamzat al-qat'</strong>) est une lettre à part entière : un petit coup de gorge qu'on <strong>prononce toujours</strong>, au début, au milieu ou à la fin du mot.</p>
+      <p data-i18n="s1a2">À l'écrit, elle a besoin d'un <strong>support</strong>. Il n'en existe que trois, alif, waw et ya, sinon elle s'écrit seule sur la ligne. Aucune autre lettre ne peut la porter.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="glyph ar">أ</div><div class="lbl">Alif</div><div class="sub"><span class="kids" data-i18n="c1k">la chaise haute</span><span class="adults" data-i18n="c1a">support alif</span></div></div>
+      <div class="card"><div class="glyph ar">ؤ</div><div class="lbl">Waw</div><div class="sub"><span class="kids" data-i18n="c2k">la chaise ronde</span><span class="adults" data-i18n="c2a">support waw</span></div></div>
+      <div class="card"><div class="glyph ar">ئ</div><div class="lbl">Ya</div><div class="sub"><span class="kids" data-i18n="c3k">la chaise basse, sans ses points</span><span class="adults" data-i18n="c3a">support ya, sans points</span></div></div>
+      <div class="card"><div class="glyph ar">ء</div><div class="lbl" data-i18n="c4l">Sur la ligne</div><div class="sub"><span class="kids" data-i18n="c4k">par terre, sans chaise</span><span class="adults" data-i18n="c4a">sans support</span></div></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2><span class="num">2</span><span data-i18n="h2">Le classement des harakat</span></h2>
+    <div class="kids">
+      <p data-i18n="s2k1">Pour savoir sur quelle chaise la Hamza va s'asseoir, on regarde les harakat. Dans leur classe, il y a un <strong>classement</strong> : la kasra est la plus forte, puis la damma, puis la fatha. Le soukoun, lui, est <strong>le dernier de la classe</strong> : il ne donne rien du tout.</p>
+      <p data-i18n="s2k2">La plus forte gagne, et elle apporte <strong>sa chaise à elle</strong>.</p>
+    </div>
+    <div class="adults">
+      <p data-i18n="s2a">Le support dépend d'une hiérarchie des voyelles : <strong>kasra &gt; damma &gt; fatha &gt; soukoun</strong>. La voyelle la plus forte l'emporte et impose son support. Le soukoun est le plus faible : il ne donne aucun support.</p>
+    </div>
+    <div class="podium">
+      <div class="step s2"><div class="sign ar">ـُ</div><div class="name">Damma</div><div class="block">2</div></div>
+      <div class="step s1"><div class="sign ar">ـِ</div><div class="name">Kasra</div><div class="block">1</div></div>
+      <div class="step s3"><div class="sign ar">ـَ</div><div class="name">Fatha</div><div class="block">3</div></div>
+      <div class="step s4"><div class="sign ar">ـْ</div><div class="name" data-i18n="sou">Soukoun</div><div class="block" data-i18n="last">dernier</div></div>
+    </div>
+    <table>
+      <tr><th data-i18n="th_gagne">Qui gagne</th><th data-i18n="th_chaise">Sa chaise</th><th data-i18n="th_pourquoi">Pourquoi</th></tr>
+      <tr><td><b>Kasra</b></td><td><span class="ar">ئ</span></td><td data-i18n="r_kasra">La kasra va toujours avec le ya : <span class="ar inl">بِي</span></td></tr>
+      <tr><td><b>Damma</b></td><td><span class="ar">ؤ</span></td><td data-i18n="r_damma">La damma va toujours avec le waw : <span class="ar inl">بُو</span></td></tr>
+      <tr><td><b>Fatha</b></td><td><span class="ar">أ</span></td><td data-i18n="r_fatha">La fatha est la copine du alif : <span class="ar inl">بَا</span></td></tr>
+      <tr><td><b data-i18n="sou">Soukoun</b></td><td><span class="ar">ء</span></td><td data-i18n="r_sou">Il ne donne rien : la Hamza reste sur la ligne</td></tr>
+    </table>
+    <div class="note">
+      <div class="t"><i class="fa-solid fa-lightbulb"></i><span data-i18n="nt1">Tu le sais déjà</span></div>
+      <span class="kids" data-i18n="nt1k">C'est comme pour les lettres qui rallongent : pour dire « baa » on ajoute un alif, pour « bouu » un waw, pour « bii » un ya. Chaque haraka a sa copine, et c'est cette copine qu'elle prête à la Hamza.</span>
+      <span class="adults" data-i18n="nt1a">Ce sont les mêmes couples que pour les voyelles longues (moudoud) vues au module 3. Chaque voyelle prête à la Hamza la lettre qui lui correspond.</span>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <h2><span class="num">3</span><span data-i18n="h3">La Hamza au début du mot</span></h2>
+    <div class="kids">
+      <p data-i18n="s3k1">Au début, c'est facile : elle s'assoit <strong>toujours sur un alif</strong>. Il n'y a rien à comparer.</p>
+      <p data-i18n="s3k2">Si on entend « a » ou « ou », elle monte <strong>en haut</strong> du alif. Si on entend « i », elle descend <strong>en bas</strong>, avec la kasra.</p>
+    </div>
+    <div class="adults">
+      <p data-i18n="s3a">En début de mot, le support est <strong>toujours un alif</strong> : il n'y a aucune lettre avant elle, donc rien à comparer. Seule sa place change : <strong>au-dessus</strong> avec fatha ou damma, <strong>en dessous</strong> avec kasra.</p>
+    </div>
+    <div class="grid three">
+      <div class="ex"><div class="word ar"><span class="hz">أَ</span>سَد</div><div class="meta"><button type="button" class="snd-btn sm" data-audio="asad"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>asad</b> · <span data-i18n="m_asad">lion</span></div><div class="win"><i class="fa-solid fa-arrow-up"></i><span data-i18n="w_a_up">« a » : en haut</span></div></div>
+      <div class="ex"><div class="word ar"><span class="hz">أُ</span>مّ</div><div class="meta"><button type="button" class="snd-btn sm" data-audio="umm"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>oumm</b> · <span data-i18n="m_umm">mère</span></div><div class="win"><i class="fa-solid fa-arrow-up"></i><span data-i18n="w_u_up">« ou » : en haut</span></div></div>
+      <div class="ex"><div class="word ar"><span class="hz">إِ</span>مَام</div><div class="meta"><button type="button" class="snd-btn sm" data-audio="imam"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>imam</b> · <span data-i18n="m_imam">imam</span></div><div class="win"><i class="fa-solid fa-arrow-down"></i><span data-i18n="w_i_down">« i » : en bas</span></div></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2><span class="num">4</span><span data-i18n="h4">La Hamza au milieu du mot</span></h2>
+    <div class="kids">
+      <p data-i18n="s4k1">C'est ici qu'il faut réfléchir. On organise un <strong>duel</strong> entre deux harakat : celle de la <strong>Hamza</strong> et celle de la <strong>lettre juste avant elle</strong>.</p>
+      <p data-i18n="s4k2">La plus forte gagne et donne sa chaise. Si la Hamza porte déjà une kasra, pas besoin de chercher midi à quatorze heures : la kasra est numéro 1, c'est le ya.</p>
+    </div>
+    <div class="adults">
+      <p data-i18n="s4a1">En milieu de mot, on compare <strong>deux voyelles</strong> : celle que porte la Hamza et celle de la lettre qui la précède. <strong>La plus forte l'emporte</strong> et donne son support.</p>
+      <p data-i18n="s4a2">Raccourci : si l'une des deux est une kasra, c'est forcément le ya.</p>
+    </div>
+    <div class="grid two">
+      <div class="ex">
+        <div class="word ar">سُ<span class="hz">ئِ</span>لَ</div>
+        <div class="meta"><button type="button" class="snd-btn sm" data-audio="suila"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b data-i18n="t_suila">sou'ila</b> · <span data-i18n="m_suila">il a été interrogé</span></div>
+        <div class="duel"><span data-i18n="d_hk">Hamza : kasra</span><i class="fa-solid fa-bolt"></i><span data-i18n="d_ad">Lettre d'avant : damma</span></div>
+        <div class="win"><i class="fa-solid fa-trophy"></i><span data-i18n="w_kasra">Kasra gagne : chaise ya</span></div>
+      </div>
+      <div class="ex">
+        <div class="word ar">مُ<span class="hz">ؤْ</span>مِن</div>
+        <div class="meta"><button type="button" class="snd-btn sm" data-audio="mumin"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b data-i18n="t_mumin">mou'min</b> · <span data-i18n="m_mumin">croyant</span></div>
+        <div class="duel"><span data-i18n="d_hs">Hamza : soukoun</span><i class="fa-solid fa-bolt"></i><span data-i18n="d_ad">Lettre d'avant : damma</span></div>
+        <div class="win"><i class="fa-solid fa-trophy"></i><span data-i18n="w_damma">Damma gagne : chaise waw</span></div>
+      </div>
+      <div class="ex">
+        <div class="word ar">فَ<span class="hz">أْ</span>ر</div>
+        <div class="meta"><button type="button" class="snd-btn sm" data-audio="far"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>fa'r</b> · <span data-i18n="m_far">souris</span></div>
+        <div class="duel"><span data-i18n="d_hs">Hamza : soukoun</span><i class="fa-solid fa-bolt"></i><span data-i18n="d_af">Lettre d'avant : fatha</span></div>
+        <div class="win"><i class="fa-solid fa-trophy"></i><span data-i18n="w_fatha">Fatha gagne : chaise alif</span></div>
+      </div>
+      <div class="ex">
+        <div class="word ar">رَ<span class="hz">أْ</span>س</div>
+        <div class="meta"><button type="button" class="snd-btn sm" data-audio="ras"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>ra's</b> · <span data-i18n="m_ras">tête</span></div>
+        <div class="duel"><span data-i18n="d_hs">Hamza : soukoun</span><i class="fa-solid fa-bolt"></i><span data-i18n="d_af">Lettre d'avant : fatha</span></div>
+        <div class="win"><i class="fa-solid fa-trophy"></i><span data-i18n="w_fatha">Fatha gagne : chaise alif</span></div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="t"><i class="fa-solid fa-triangle-exclamation"></i><span data-i18n="nt2">Le piège</span></div>
+      <span data-i18n="nt2b">La chaise n'est <strong>pas</strong> une lettre du mot. Dans <span class="ar inl">فَأْر</span>, la Hamza n'est pas assise sur le fa : le fa est la lettre d'avant, et c'est sa fatha qui apporte le alif.</span>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2><span class="num">5</span><span data-i18n="h5">La Hamza à la fin du mot</span></h2>
+    <div class="kids">
+      <p data-i18n="s5k">À la fin, c'est plus simple : on ne regarde <strong>qu'une seule haraka</strong>, celle de la <strong>lettre juste avant</strong> la Hamza. La haraka de la Hamza, on ne la calcule même pas.</p>
+    </div>
+    <div class="adults">
+      <p data-i18n="s5a">En fin de mot, <strong>plus de comparaison</strong> : seule compte la voyelle de la lettre qui précède la Hamza. La voyelle de la Hamza elle-même n'a plus d'importance.</p>
+    </div>
+    <div class="grid">
+      <div class="ex"><div class="word ar">شَاطِ<span class="hz">ئ</span></div><div class="meta"><button type="button" class="snd-btn sm" data-audio="shati"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b data-i18n="t_shati">châti'</b> · <span data-i18n="m_shati">plage</span></div><div class="win"><span data-i18n="e_kasra">Avant : kasra<br>chaise ya</span></div></div>
+      <div class="ex"><div class="word ar">قَرَ<span class="hz">أَ</span></div><div class="meta"><button type="button" class="snd-btn sm" data-audio="qaraa"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>qara'a</b> · <span data-i18n="m_qaraa">il a lu</span></div><div class="win"><span data-i18n="e_fatha">Avant : fatha<br>chaise alif</span></div></div>
+      <div class="ex"><div class="word ar">لُؤْلُ<span class="hz">ؤ</span></div><div class="meta"><b data-i18n="t_lulu">lou'lou'</b> · <span data-i18n="m_lulu">perle</span></div><div class="win"><span data-i18n="e_damma">Avant : damma<br>chaise waw</span></div></div>
+      <div class="ex"><div class="word ar">شَيْ<span class="hz">ء</span></div><div class="meta"><button type="button" class="snd-btn sm" data-audio="shay"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b data-i18n="t_shay">chay'</b> · <span data-i18n="m_shay">chose</span></div><div class="win"><span data-i18n="e_sou">Avant : soukoun<br>sur la ligne</span></div></div>
+    </div>
+    <div class="note">
+      <div class="t"><i class="fa-solid fa-lightbulb"></i><span data-i18n="nt3">L'astuce</span></div>
+      <span data-i18n="nt3b">Prononce le mot à voix haute : <strong>qa – ra – a</strong>. Quelle lettre as-tu dite juste avant la Hamza ? Le <strong>ra</strong>. C'est sa haraka qu'on regarde. Attention à ne pas compter la chaise : dans <span class="ar inl">شَاطِئ</span> il y a quatre lettres (chin, alif, ta, hamza), et la lettre d'avant est le <strong>ta</strong>.</span>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2><span class="num">6</span><span data-i18n="h6">Le résumé à retenir</span></h2>
+    <table>
+      <tr><th data-i18n="th_pos">Position</th><th data-i18n="th_look">Ce que je regarde</th><th data-i18n="th_res">Résultat</th></tr>
+      <tr><td><b data-i18n="x_deb">Au début</b></td><td data-i18n="x_deb_l">Rien à comparer</td><td data-i18n="x_deb_r">Toujours sur alif : en haut pour « a » et « ou », en bas pour « i »</td></tr>
+      <tr><td><b data-i18n="x_mil">Au milieu</b></td><td data-i18n="x_mil_l">La haraka de la Hamza <b>et</b> celle de la lettre d'avant</td><td data-i18n="x_mil_r">La plus forte donne sa chaise</td></tr>
+      <tr><td><b data-i18n="x_fin">À la fin</b></td><td data-i18n="x_fin_l"><b>Seulement</b> la haraka de la lettre d'avant</td><td data-i18n="x_fin_r">Elle donne sa chaise. Soukoun : sur la ligne</td></tr>
+    </table>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <h2><span class="num">7</span><span data-i18n="h7">Hamzat al-wasl : la cousine discrète</span></h2>
+    <div class="kids">
+      <p data-i18n="s7k1">La vraie Hamza <span class="ar inl">ء</span>, on la prononce <strong>tout le temps</strong>. Mais elle a une cousine, <strong>hamzat al-wasl</strong> : un alif tout seul <span class="ar inl">ا</span>, sans petite Hamza dessus.</p>
+      <p data-i18n="s7k2">Si le mot est <strong>au début</strong>, on la prononce. S'il y a quelque chose <strong>avant</strong>, on la zappe : c'est comme si elle n'avait jamais existé.</p>
+    </div>
+    <div class="adults">
+      <p data-i18n="s7a"><strong>Hamzat al-qat'</strong> <span class="ar inl">ء</span> se prononce toujours. <strong>Hamzat al-wasl</strong> s'écrit avec un alif nu <span class="ar inl">ا</span>, sans signe de Hamza : on la prononce uniquement quand on <strong>commence</strong> par ce mot. Dès qu'un mot ou une lettre la précède, elle disparaît à l'oral.</p>
+    </div>
+    <div class="grid two">
+      <div class="ex"><div class="word ar"><span class="hz">اِ</span>سْم</div><div class="meta"><button type="button" class="snd-btn sm" data-audio="ism"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>ism</b> · <span data-i18n="m_ism">nom</span></div><div class="win" data-i18n="w_wasl1">Au début : on la prononce</div></div>
+      <div class="ex"><div class="word ar">بِ<span class="hz">ٱ</span>سْمِ</div><div class="meta"><button type="button" class="snd-btn sm" data-audio="bismi"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button><b>bismi</b> · <span data-i18n="m_bismi">au nom de</span></div><div class="win" data-i18n="w_wasl2">Au milieu : on la saute</div></div>
+    </div>
+    <h3 data-i18n="h7b">Comment la lire au début ?</h3>
+    <table>
+      <tr><th data-i18n="th_mot">Le mot</th><th data-i18n="th_lis">Je lis</th><th data-i18n="th_ex">Exemple</th></tr>
+      <tr><td data-i18n="y_nom"><b>Un nom</b></td><td>« i »</td><td><span class="ar">اِسْم</span><button type="button" class="snd-btn sm aft" data-audio="ism"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button> ism</td></tr>
+      <tr><td data-i18n="y_v1"><b>Un verbe</b>, 3<sup>e</sup> lettre avec damma</td><td data-i18n="y_ou">« ou »</td><td><span class="ar">اُكْتُبْ</span><button type="button" class="snd-btn sm aft" data-audio="uktub"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button> <span data-i18n="e_uktub">ouktoub · écris</span></td></tr>
+      <tr><td data-i18n="y_v2"><b>Un verbe</b>, 3<sup>e</sup> lettre avec fatha ou kasra</td><td>« i »</td><td><span class="ar">اِفْتَحْ</span><button type="button" class="snd-btn sm aft" data-audio="iftah"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button> <span data-i18n="e_iftah">iftah · ouvre</span><br><span class="ar">اِجْلِسْ</span><button type="button" class="snd-btn sm aft" data-audio="ijlis"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button> <span data-i18n="e_ijlis">ijlis · assieds-toi</span><br><span class="ar">اِقْرَأْ</span><button type="button" class="snd-btn sm aft" data-audio="iqra"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button> <span data-i18n="e_iqra">iqra' · lis</span></td></tr>
+      <tr><td data-i18n="y_al"><b>Alif-lam</b> (le, la)</td><td>« a »</td><td><span class="ar">اَلشَّمْس</span><button type="button" class="snd-btn sm aft" data-audio="shams"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button> <span data-i18n="e_shams">ach-chams · le soleil</span></td></tr>
+    </table>
+  </section>
+
+  <!-- 8 -->
+  <section>
+    <h2><span class="num">8</span><span data-i18n="h8">À toi de jouer</span></h2>
+    <p class="kids" data-i18n="s8k">Lis l'indice, trouve la chaise dans ta tête, puis clique pour vérifier.</p>
+    <p class="adults" data-i18n="s8a">Déterminez le support avant d'afficher la réponse.</p>
+    <div class="quiz">
+      <div class="q"><div class="clue"><b data-i18n="q1t">bi'r · puits</b><span data-i18n="q1c">Hamza au milieu avec soukoun. Lettre d'avant : kasra.</span></div><button type="button"><i class="fa-solid fa-eye"></i><span data-i18n="b_voir">Voir la réponse</span></button><div class="ans"><div class="word ar">بِ<span class="hz">ئْ</span>ر</div><div class="snd-row"><button type="button" class="snd-btn" data-audio="bir"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button></div><p data-i18n="w_kasra">Kasra gagne : chaise ya</p></div></div>
+      <div class="q"><div class="clue"><b data-i18n="q2t">sou'âl · question</b><span data-i18n="q2c">Hamza au milieu avec fatha. Lettre d'avant : damma.</span></div><button type="button"><i class="fa-solid fa-eye"></i><span data-i18n="b_voir">Voir la réponse</span></button><div class="ans"><div class="word ar">سُ<span class="hz">ؤَ</span>ال</div><div class="snd-row"><button type="button" class="snd-btn" data-audio="sual"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button></div><p data-i18n="w_damma">Damma gagne : chaise waw</p></div></div>
+      <div class="q"><div class="clue"><b data-i18n="q3t">ka's · verre</b><span data-i18n="q3c">Hamza au milieu avec soukoun. Lettre d'avant : fatha.</span></div><button type="button"><i class="fa-solid fa-eye"></i><span data-i18n="b_voir">Voir la réponse</span></button><div class="ans"><div class="word ar">كَ<span class="hz">أْ</span>س</div><div class="snd-row"><button type="button" class="snd-btn" data-audio="kas"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button></div><p data-i18n="w_fatha">Fatha gagne : chaise alif</p></div></div>
+      <div class="q"><div class="clue"><b data-i18n="q4t">sa'ala · il a demandé</b><span data-i18n="q4c">Hamza au milieu avec fatha. Lettre d'avant : fatha.</span></div><button type="button"><i class="fa-solid fa-eye"></i><span data-i18n="b_voir">Voir la réponse</span></button><div class="ans"><div class="word ar">سَ<span class="hz">أَ</span>لَ</div><div class="snd-row"><button type="button" class="snd-btn" data-audio="saala"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button></div><p data-i18n="q4a">Fatha des deux côtés : chaise alif</p></div></div>
+      <div class="q"><div class="clue"><b data-i18n="q5t">qâri' · lecteur</b><span data-i18n="q5c">Hamza à la fin. Lettre d'avant : kasra.</span></div><button type="button"><i class="fa-solid fa-eye"></i><span data-i18n="b_voir">Voir la réponse</span></button><div class="ans"><div class="word ar">قَارِ<span class="hz">ئ</span></div><div class="snd-row"><button type="button" class="snd-btn" data-audio="qari"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button></div><p data-i18n="q5a">À la fin, la kasra d'avant décide : chaise ya</p></div></div>
+      <div class="q"><div class="clue"><b data-i18n="q6t">jouz' · partie</b><span data-i18n="q6c">Hamza à la fin. Lettre d'avant : soukoun.</span></div><button type="button"><i class="fa-solid fa-eye"></i><span data-i18n="b_voir">Voir la réponse</span></button><div class="ans"><div class="word ar">جُزْ<span class="hz">ء</span></div><div class="snd-row"><button type="button" class="snd-btn" data-audio="juz"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button></div><p data-i18n="q6a">Le soukoun ne donne rien : sur la ligne</p></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="ar">دار الكلمة</span>
+    <span class="sig" data-i18n="sig">DAR AL-KALIMAH · MÉTHODE KALICARDS</span>
+  </footer>
+</div>
+
+<script id="app-data" type="application/json">
+{
+  "audio": {
+    "asad": "audio/asad.mp3",
+    "umm": "audio/quiz-qat/umm.mp3",
+    "imam": "audio/module10/imam.mp3",
+    "suila": "audio/quiz-hamza/suila.mp3",
+    "mumin": "audio/quiz-qat/mumin.mp3",
+    "far": "audio/quiz-qat/far.mp3",
+    "ras": "audio/quiz-qat/ras.mp3",
+    "shati": "audio/quiz-qat/shati.mp3",
+    "qaraa": "audio/module2/qaraa.mp3",
+    "shay": "audio/quiz-qat/shay.mp3",
+    "ism": "audio/quiz-hamza/ism.mp3",
+    "bismi": "audio/sourates/mots/bismi.mp3",
+    "uktub": "audio/banque/uktub.mp3",
+    "iftah": "audio/banque/iftah.mp3",
+    "ijlis": "audio/banque/ijlis.mp3",
+    "iqra": "audio/module10/iqra.mp3",
+    "shams": "audio/shamsiyya/ash-shams.mp3",
+    "bir": "audio/quiz-qat/bir.mp3",
+    "sual": "audio/quiz-qat/sual.mp3",
+    "kas": "audio/kas.mp3",
+    "saala": "audio/module8/saala.mp3",
+    "qari": "audio/quiz-qat/qari.mp3",
+    "juz": "audio/quiz-hamza/juz.mp3"
+  }
+}
+</script>
+
+<script>
+/* Lecteur audio : copie autonome de audio-controller.js (DAKAudio), pour que la fiche reste
+   indépendante : un seul canal, déblocage iOS au premier geste, état .dak-playing sur le bouton,
+   toast si le fichier est absent. */
+const DAKAudio = (() => {
+  "use strict";
+
+  const SILENT_WAV = "data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=";
+
+  const player = new Audio();
+  const effectPlayer = new Audio();
+  player.preload = "none"; effectPlayer.preload = "none";
+  player.playsInline = true; effectPlayer.playsInline = true;
+  player.volume = 1; effectPlayer.volume = 1;
+
+  let isUnlocked = false;
+  let currentButton = null;
+  let toastTimeout = null;
+  let playToken = 0;
+
+  function getToast() {
+    let t = document.getElementById("dak-toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "dak-toast";
+      t.className = "dak-toast";
+      t.innerHTML = 'Audio non disponible pour le moment.<br><span style="font-size:0.85em;opacity:0.9;">Audio no disponible por el momento.</span>';
+      document.body.appendChild(t);
+    }
+    return t;
+  }
+
+  function showToast() {
+    const t = getToast();
+    clearTimeout(toastTimeout);
+    t.classList.add("show");
+    toastTimeout = setTimeout(() => t.classList.remove("show"), 2500);
+  }
+
+  function setButtonState(btn) {
+    if (currentButton && currentButton !== btn) {
+      currentButton.classList.remove("dak-playing");
+    }
+    currentButton = btn || null;
+    if (currentButton) currentButton.classList.add("dak-playing");
+  }
+
+  function releaseButton() {
+    if (currentButton) currentButton.classList.remove("dak-playing");
+    currentButton = null;
+  }
+
+  async function unlock() {
+    if (isUnlocked) return true;
+    try {
+      player.pause(); effectPlayer.pause();
+      player.currentTime = 0; effectPlayer.currentTime = 0;
+      player.src = SILENT_WAV; effectPlayer.src = SILENT_WAV;
+      player.muted = true; effectPlayer.muted = true;
+      await Promise.race([player.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);
+      player.pause(); player.currentTime = 0;
+      await Promise.race([effectPlayer.play().catch(() => {}), new Promise(r => setTimeout(r, 1200))]);
+      effectPlayer.pause(); effectPlayer.currentTime = 0;
+      player.muted = false; effectPlayer.muted = false;
+      player.removeAttribute("src"); effectPlayer.removeAttribute("src");
+      player.load(); effectPlayer.load();
+      isUnlocked = true;
+      return true;
+    } catch (_) {
+      player.muted = false; effectPlayer.muted = false;
+      return false;
+    }
+  }
+
+  player.addEventListener("ended", releaseButton);
+
+  function play(src, button) {
+    const myToken = ++playToken;
+    player.pause();
+    player.currentTime = 0;
+
+    if (!src) {
+      releaseButton();
+      showToast();
+      return;
+    }
+
+    setButtonState(button);
+    player.src = src;
+    player.load();
+    const p = player.play();
+    if (p !== undefined) {
+      p.catch(err => {
+        if (myToken !== playToken) return;
+
+        console.error("Audio error:", err);
+        releaseButton();
+
+        if (err && (err.name === "AbortError" || err.name === "NotAllowedError")) return;
+
+        showToast();
+      });
+    }
+  }
+
+  function stopAll() {
+    player.pause(); player.currentTime = 0;
+    effectPlayer.pause(); effectPlayer.currentTime = 0;
+    releaseButton();
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopAll();
+  });
+
+  return { play, stopAll, unlock, showToast, isUnlocked: () => isUnlocked };
+})();
+
+(function(){
+  var DATA = JSON.parse(document.getElementById('app-data').textContent);
+  var AUDIO = DATA.audio;
+
+  /* ---------- Textes espagnols (le français reste dans le HTML) ---------- */
+  var ES = {
+    kicker: `Método Kalicards · Módulo 4`,
+    hk: `La pequeña letra caprichosa que siempre quiere una silla.`,
+    ha: `Dónde se escribe, sobre qué soporte y cómo se lee: toda la regla en una sola ficha.`,
+    b_kids: `Versión pequeños`,
+    b_adults: `Versión mayores`,
+    b_print: `Imprimir`,
+    hint: `Los ejemplos son los mismos en las dos versiones; solo cambia la explicación.`,
+
+    h1: `¿Quién es la hamza?`,
+    s1k1: `La hamza <span class="ar inl">ء</span> es una letra muy pequeñita, y es <strong>caprichosa</strong>. Nunca se queda de pie: siempre pide una <strong>silla</strong> para sentarse.`,
+    s1k2: `Tiene tres sillas posibles. Y cuando nadie le da una, se sienta <strong>en el suelo</strong>, sobre la línea.`,
+    s1a1: `La hamza <span class="ar inl">ء</span> (<strong>hamzat al-qat'</strong>) es una letra de pleno derecho: una pequeña oclusión de la garganta que <strong>siempre se pronuncia</strong>, al principio, en medio o al final de la palabra.`,
+    s1a2: `Por escrito, necesita un <strong>soporte</strong>. Solo existen tres: alif, waw y ya; si no, se escribe sola sobre la línea. Ninguna otra letra puede llevarla.`,
+    c1k: `la silla alta`, c1a: `soporte alif`,
+    c2k: `la silla redonda`, c2a: `soporte waw`,
+    c3k: `la silla baja, sin sus puntos`, c3a: `soporte ya, sin puntos`,
+    c4l: `Sobre la línea`, c4k: `en el suelo, sin silla`, c4a: `sin soporte`,
+
+    h2: `La clasificación de las harakat`,
+    s2k1: `Para saber en qué silla se sentará la hamza, miramos las harakat. En su clase hay una <strong>clasificación</strong>: la kasra es la más fuerte, luego la damma, luego la fatha. El sukun, en cambio, es <strong>el último de la clase</strong>: no da nada de nada.`,
+    s2k2: `La más fuerte gana, y trae <strong>su propia silla</strong>.`,
+    s2a: `El soporte depende de una jerarquía de las vocales: <strong>kasra &gt; damma &gt; fatha &gt; sukun</strong>. La vocal más fuerte se impone y determina su soporte. El sukun es el más débil: no da ningún soporte.`,
+    sou: `Sukun`,
+    last: `último`,
+    th_gagne: `Quién gana`, th_chaise: `Su silla`, th_pourquoi: `Por qué`,
+    r_kasra: `La kasra siempre va con la ya: <span class="ar inl">بِي</span>`,
+    r_damma: `La damma siempre va con la waw: <span class="ar inl">بُو</span>`,
+    r_fatha: `La fatha es la amiga de la alif: <span class="ar inl">بَا</span>`,
+    r_sou: `No da nada: la hamza se queda sobre la línea`,
+    nt1: `Ya lo sabes`,
+    nt1k: `Es como con las letras que alargan: para decir « baa » se añade una alif, para « buu » una waw, para « bii » una ya. Cada haraka tiene su amiga, y es esa amiga la que le presta a la hamza.`,
+    nt1a: `Son las mismas parejas que en las vocales largas (mudud) vistas en el módulo 3. Cada vocal le presta a la hamza la letra que le corresponde.`,
+
+    h3: `La hamza al principio de la palabra`,
+    s3k1: `Al principio es fácil: <strong>siempre se sienta sobre una alif</strong>. No hay nada que comparar.`,
+    s3k2: `Si se oye « a » o « u », sube <strong>arriba</strong> de la alif. Si se oye « i », baja <strong>abajo</strong>, con la kasra.`,
+    s3a: `A principio de palabra, el soporte es <strong>siempre una alif</strong>: no hay ninguna letra antes, así que no hay nada que comparar. Solo cambia su posición: <strong>encima</strong> con fatha o damma, <strong>debajo</strong> con kasra.`,
+    m_asad: `león`,
+    m_umm: `madre`,
+    m_imam: `imán`,
+    w_a_up: `« a » : arriba`,
+    w_u_up: `« u » : arriba`,
+    w_i_down: `« i » : abajo`,
+
+    h4: `La hamza en medio de la palabra`,
+    s4k1: `Aquí hay que pensar. Organizamos un <strong>duelo</strong> entre dos harakat: la de la <strong>hamza</strong> y la de la <strong>letra justo anterior</strong>.`,
+    s4k2: `La más fuerte gana y da su silla. Si la hamza ya lleva una kasra, no hace falta buscarle tres pies al gato: la kasra es la número 1, es la ya.`,
+    s4a1: `En medio de la palabra se comparan <strong>dos vocales</strong>: la que lleva la hamza y la de la letra que la precede. <strong>La más fuerte se impone</strong> y da su soporte.`,
+    s4a2: `Atajo: si una de las dos es una kasra, es forzosamente la ya.`,
+    t_suila: `su'ila`, m_suila: `fue interrogado`,
+    t_mumin: `mu'min`, m_mumin: `creyente`,
+    m_far: `ratón`,
+    m_ras: `cabeza`,
+    d_hk: `Hamza: kasra`,
+    d_hs: `Hamza: sukun`,
+    d_ad: `Letra anterior: damma`,
+    d_af: `Letra anterior: fatha`,
+    w_kasra: `Gana la kasra: silla ya`,
+    w_damma: `Gana la damma: silla waw`,
+    w_fatha: `Gana la fatha: silla alif`,
+    nt2: `La trampa`,
+    nt2b: `La silla <strong>no</strong> es una letra de la palabra. En <span class="ar inl">فَأْر</span>, la hamza no está sentada sobre la fa: la fa es la letra anterior, y es su fatha la que aporta la alif.`,
+
+    h5: `La hamza al final de la palabra`,
+    s5k: `Al final es más sencillo: solo miramos <strong>una única haraka</strong>, la de la <strong>letra justo anterior</strong> a la hamza. La haraka de la hamza ni siquiera se tiene en cuenta.`,
+    s5a: `A final de palabra, <strong>ya no hay comparación</strong>: solo cuenta la vocal de la letra que precede a la hamza. La vocal de la propia hamza ya no importa.`,
+    t_shati: `shati'`, m_shati: `playa`,
+    m_qaraa: `leyó`,
+    t_lulu: `lu'lu'`, m_lulu: `perla`,
+    t_shay: `shay'`, m_shay: `cosa`,
+    e_kasra: `Antes: kasra<br>silla ya`,
+    e_fatha: `Antes: fatha<br>silla alif`,
+    e_damma: `Antes: damma<br>silla waw`,
+    e_sou: `Antes: sukun<br>sobre la línea`,
+    nt3: `El truco`,
+    nt3b: `Pronuncia la palabra en voz alta: <strong>qa – ra – a</strong>. ¿Qué letra dijiste justo antes de la hamza? La <strong>ra</strong>. Es su haraka la que se mira. Cuidado con contar la silla: en <span class="ar inl">شَاطِئ</span> hay cuatro letras (shin, alif, ta, hamza), y la letra anterior es la <strong>ta</strong>.`,
+
+    h6: `El resumen para recordar`,
+    th_pos: `Posición`, th_look: `Qué miro`, th_res: `Resultado`,
+    x_deb: `Al principio`,
+    x_deb_l: `Nada que comparar`,
+    x_deb_r: `Siempre sobre alif: arriba para « a » y « u », abajo para « i »`,
+    x_mil: `En medio`,
+    x_mil_l: `La haraka de la hamza <b>y</b> la de la letra anterior`,
+    x_mil_r: `La más fuerte da su silla`,
+    x_fin: `Al final`,
+    x_fin_l: `<b>Solo</b> la haraka de la letra anterior`,
+    x_fin_r: `Da su silla. Sukun: sobre la línea`,
+
+    h7: `Hamzat al-wasl: la prima discreta`,
+    s7k1: `A la verdadera hamza <span class="ar inl">ء</span> se la pronuncia <strong>siempre</strong>. Pero tiene una prima, <strong>hamzat al-wasl</strong>: una alif solita <span class="ar inl">ا</span>, sin la hamza pequeña encima.`,
+    s7k2: `Si la palabra está <strong>al principio</strong>, se pronuncia. Si hay algo <strong>antes</strong>, se la salta: es como si nunca hubiera existido.`,
+    s7a: `<strong>Hamzat al-qat'</strong> <span class="ar inl">ء</span> siempre se pronuncia. <strong>Hamzat al-wasl</strong> se escribe con una alif desnuda <span class="ar inl">ا</span>, sin signo de hamza: solo se pronuncia cuando se <strong>empieza</strong> por esa palabra. En cuanto una palabra o una letra la precede, desaparece al hablar.`,
+    m_ism: `nombre`,
+    m_bismi: `en el nombre de`,
+    w_wasl1: `Al principio: se pronuncia`,
+    w_wasl2: `En medio: se salta`,
+    h7b: `¿Cómo se lee al principio?`,
+    th_mot: `La palabra`, th_lis: `Leo`, th_ex: `Ejemplo`,
+    y_nom: `<b>Un nombre</b>`,
+    y_v1: `<b>Un verbo</b>, 3.<sup>a</sup> letra con damma`,
+    y_ou: `« u »`,
+    e_uktub: `uktub · escribe`,
+    y_v2: `<b>Un verbo</b>, 3.<sup>a</sup> letra con fatha o kasra`,
+    e_iftah: `iftah · abre`,
+    e_ijlis: `ijlis · siéntate`,
+    e_iqra: `iqra' · lee`,
+    y_al: `<b>Alif-lam</b> (el, la)`,
+    e_shams: `ash-shams · el sol`,
+
+    h8: `¡Te toca jugar!`,
+    s8k: `Lee la pista, encuentra la silla en tu cabeza y luego haz clic para comprobar.`,
+    s8a: `Determine el soporte antes de mostrar la respuesta.`,
+    b_voir: `Ver la respuesta`,
+    q1t: `bi'r · pozo`, q1c: `Hamza en medio con sukun. Letra anterior: kasra.`,
+    q2t: `su'al · pregunta`, q2c: `Hamza en medio con fatha. Letra anterior: damma.`,
+    q3t: `ka's · vaso`, q3c: `Hamza en medio con sukun. Letra anterior: fatha.`,
+    q4t: `sa'ala · preguntó`, q4c: `Hamza en medio con fatha. Letra anterior: fatha.`, q4a: `Fatha a ambos lados: silla alif`,
+    q5t: `qari' · lector`, q5c: `Hamza al final. Letra anterior: kasra.`, q5a: `Al final decide la kasra anterior: silla ya`,
+    q6t: `yuz' · parte`, q6c: `Hamza al final. Letra anterior: sukun.`, q6a: `El sukun no da nada: sobre la línea`,
+    sig: `DAR AL-KALIMAH · MÉTODO KALICARDS`
+  };
+  var TITLE = { fr: 'Dar Al-Kalimah - Fiche Hamza', es: 'Dar Al-Kalimah - Ficha Hamza' };
+  var LISTEN = { fr: 'Écouter la prononciation', es: 'Escuchar la pronunciación' };
+  var LS_LANG = 'dak_fiche_hamza_lang';
+
+  /* ---------- Langue FR / ES (le français est lu dans le HTML au chargement) ---------- */
+  var nodes = document.querySelectorAll('[data-i18n]');
+  for (var n = 0; n < nodes.length; n++) nodes[n]._fr = nodes[n].innerHTML;
+  var btnFr = document.getElementById('btn-fr'), btnEs = document.getElementById('btn-es');
+  var lang = 'fr';
+  try { var s = localStorage.getItem(LS_LANG); if (s === 'fr' || s === 'es') lang = s; } catch (_) {}
+
+  function setLang(l, save){
+    lang = l;
+    document.documentElement.lang = l;
+    document.title = TITLE[l];
+    for (var i = 0; i < nodes.length; i++) {
+      var k = nodes[i].getAttribute('data-i18n');
+      nodes[i].innerHTML = (l === 'es' && ES[k] !== undefined) ? ES[k] : nodes[i]._fr;
+    }
+    btnFr.classList.toggle('on', l === 'fr');
+    btnEs.classList.toggle('on', l === 'es');
+    var snd = document.querySelectorAll('.snd-btn');
+    for (var j = 0; j < snd.length; j++) snd[j].setAttribute('aria-label', LISTEN[l]);
+    if (save) { try { localStorage.setItem(LS_LANG, l); } catch (_) {} }
+  }
+  btnFr.addEventListener('click', function(){ setLang('fr', true); });
+  btnEs.addEventListener('click', function(){ setLang('es', true); });
+  setLang(lang, false);
+
+  /* ---------- Version petits / grands, impression, réponses ---------- */
+  var kids = document.getElementById('btn-kids'), adults = document.getElementById('btn-adults');
+  function setMode(m){
+    document.body.setAttribute('data-mode', m);
+    kids.classList.toggle('on', m === 'kids');
+    adults.classList.toggle('on', m === 'adults');
+  }
+  kids.addEventListener('click', function(){ setMode('kids'); });
+  adults.addEventListener('click', function(){ setMode('adults'); });
+  document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+
+  /* Déblocage audio iOS : une seule fois, au premier geste (clic sur « Voir la réponse » ou sur un bouton d'écoute) */
+  var unlockP = null;
+  function ensureUnlock(){
+    if (!unlockP) unlockP = DAKAudio.unlock();
+    return unlockP;
+  }
+
+  var qs = document.querySelectorAll('.q');
+  for (var i = 0; i < qs.length; i++) {
+    (function(q){
+      q.querySelector(':scope > button').addEventListener('click', function(){
+        q.classList.add('open');
+        ensureUnlock();
+      });
+    })(qs[i]);
+  }
+
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.snd-btn');
+    if (!b) return;
+    var src = AUDIO[b.getAttribute('data-audio')];
+    if (DAKAudio.isUnlocked()) { DAKAudio.play(src, b); return; }
+    ensureUnlock().then(function(){ DAKAudio.play(src, b); });
+  });
+})();
+</script>
+</body>
+</html>
