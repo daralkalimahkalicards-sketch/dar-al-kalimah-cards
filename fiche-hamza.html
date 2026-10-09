@@ -219,15 +219,12 @@ footer .sig{font-family:'Cinzel',serif;color:var(--bordeaux);letter-spacing:.14e
   </header>
 
   <div class="bar" role="group" aria-label="Choisir la version">
-    <button type="button" id="btn-kids" class="on"><i class="fa-solid fa-child-reaching"></i><span data-i18n="b_kids">Version petits</span></button>
-    <button type="button" id="btn-adults"><i class="fa-solid fa-user-graduate"></i><span data-i18n="b_adults">Version grands</span></button>
     <button type="button" id="btn-print"><i class="fa-solid fa-print"></i><span data-i18n="b_print">Imprimer</span></button>
     <span class="langgrp" role="group" aria-label="Langue / Idioma">
       <button type="button" id="btn-fr" class="on" data-lang="fr">FR</button>
       <button type="button" id="btn-es" data-lang="es">ES</button>
     </span>
   </div>
-  <p class="hint" data-i18n="hint">Les exemples sont les mêmes dans les deux versions, seule l'explication change.</p>
 
   <!-- 1 -->
   <section>
@@ -572,10 +569,7 @@ const DAKAudio = (() => {
     kicker: `Método Kalicards · Módulo 4`,
     hk: `La pequeña letra caprichosa que siempre quiere una silla.`,
     ha: `Dónde se escribe, sobre qué soporte y cómo se lee: toda la regla en una sola ficha.`,
-    b_kids: `Versión pequeños`,
-    b_adults: `Versión mayores`,
     b_print: `Imprimir`,
-    hint: `Los ejemplos son los mismos en las dos versiones; solo cambia la explicación.`,
 
     h1: `¿Quién es la hamza?`,
     s1k1: `La hamza <span class="ar inl">ء</span> es una letra muy pequeñita, y es <strong>caprichosa</strong>. Nunca se queda de pie: siempre pide una <strong>silla</strong> para sentarse.`,
@@ -720,15 +714,7 @@ const DAKAudio = (() => {
   btnEs.addEventListener('click', function(){ setLang('es', true); });
   setLang(lang, false);
 
-  /* ---------- Version petits / grands, impression, réponses ---------- */
-  var kids = document.getElementById('btn-kids'), adults = document.getElementById('btn-adults');
-  function setMode(m){
-    document.body.setAttribute('data-mode', m);
-    kids.classList.toggle('on', m === 'kids');
-    adults.classList.toggle('on', m === 'adults');
-  }
-  kids.addEventListener('click', function(){ setMode('kids'); });
-  adults.addEventListener('click', function(){ setMode('adults'); });
+  /* ---------- Impression, réponses ---------- */
   document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
 
   /* Déblocage audio iOS : une seule fois, au premier geste (clic sur « Voir la réponse » ou sur un bouton d'écoute) */
