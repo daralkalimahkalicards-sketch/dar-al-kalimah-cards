@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - Choisir un parcours</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           VARIABLES — identiques à la page d'accueil actuelle
+           ========================================= */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #888888;
+            --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px 20px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            visibility: hidden;
+        }
+
+        .ar-text { font-family: "Amiri", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        /* =========================================
+           EN-TÊTE — identique à la page d'accueil actuelle
+           ========================================= */
+        .header-container {
+            background: var(--burgundy);
+            padding: 40px 30px; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
+        }
+        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .app-title { font-size: 1.4rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; }
+        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5; }
+        .subtitle { font-size: 1.1rem; color: var(--gold); font-weight: 500; margin-bottom: 5px; }
+        .subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
+
+        /* =========================================
+           LES DEUX PARCOURS
+           ========================================= */
+        .parcours-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 30px; width: 100%; max-width: 850px;
+            margin-bottom: 40px;
+        }
+
+        .parcours-card {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; overflow: hidden;
+            display: flex; flex-direction: column; text-align: center;
+            box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease;
+            text-decoration: none; color: inherit;
+        }
+        .parcours-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+        .parcours-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+        /* Zone visuelle (haut de carte) */
+        .pc-visual {
+            position: relative; height: 230px; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* DAK Arabe : même bordeaux que l'en-tête actuel, sans décor ajouté */
+        .pc-visual.arabe { background: var(--burgundy); }
+
+        /* DAK Darija : photographie officielle de la porte, non retouchée ; les inscriptions sont du texte */
+        .pc-visual.darija { background: var(--burgundy-dark); }
+        .pc-visual.darija img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+        }
+
+        /* Inscriptions : MÊMES classes, donc mêmes tailles et mêmes couleurs sur les deux cartes,
+           couleurs de DAK Arabe : arabe et 3e ligne en doré, « DAR AL-KALIMAH » en cuivre #d09470 (pas en doré). */
+        .pc-inscriptions {
+            position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;
+            gap: 8px; padding: 0 14px;
+        }
+        .pc-visual.darija .pc-inscriptions { text-shadow: 0 2px 10px rgba(30, 6, 12, 0.65), 0 0 2px rgba(30, 6, 12, 0.5); }
+        .pc-ins-ar { font-family: "Amiri", serif; direction: rtl; font-size: 3rem; font-weight: 700; line-height: 1.4; color: var(--gold); }
+        .pc-ins-brand { font-family: "Cinzel", "Georgia", serif; font-size: 1.05rem; font-weight: 600; letter-spacing: 4px; color: #d09470; text-transform: uppercase; }
+        .pc-ins-label { font-family: "Cinzel", "Georgia", serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.28em; padding-left: 0.28em; color: var(--gold); margin-top: 6px; }
+
+        /* Corps de carte : fond blanc */
+        .pc-body { display: flex; flex-direction: column; align-items: center; flex: 1; padding: 28px 20px 32px; background: var(--white); }
+        .pc-title { font-family: "Cinzel", "Georgia", serif; font-size: 1.6rem; font-weight: 700; color: var(--burgundy); letter-spacing: 1px; margin-bottom: 10px; }
+        .pc-sub { font-size: 0.95rem; font-weight: 500; color: var(--text-dark); margin-bottom: 4px; }
+        .pc-sub-es { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 28px; }
+
+        /* =========================================
+           BOUTONS — même système que les pages d'accueil des modules (module6, module10 : module-home.css)
+           Bouton transparent à bordure dorée ; au survol / au toucher / au clic : se remplit en doré, texte bordeaux.
+           Seule différence : sur fond blanc le texte est bordeaux au repos (le doré serait illisible).
+           À utiliser pour TOUS les boutons du parcours.
+           ========================================= */
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            border: 1.5px solid var(--gold);
+            border-radius: 50px;
+            background: transparent;
+            color: var(--burgundy);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+        .menu-btn:hover,
+        .menu-btn:active,
+        .menu-btn:focus {
+            background-color: var(--gold);
+            color: var(--burgundy);
+            outline: none;
+        }
+
+        /* Ici toute la carte est cliquable : le bouton se remplit en doré quand on survole / touche / clique la carte */
+        .pc-body .menu-btn { margin-top: auto; width: 85%; white-space: nowrap; }
+        @media (max-width: 420px) { .pc-body .menu-btn { width: 100%; padding-left: 10px; padding-right: 10px; } }
+        .parcours-card:hover .menu-btn,
+        .parcours-card:active .menu-btn,
+        .parcours-card:focus-visible .menu-btn {
+            background-color: var(--gold);
+            color: var(--burgundy);
+        }
+
+        /* =========================================
+           À VENIR — rubrique discrète
+           ========================================= */
+        .a-venir {
+            width: 100%; max-width: 850px; text-align: center; padding: 22px 20px;
+            border: 2px dashed rgba(200, 164, 98, 0.4); border-radius: 12px; margin-bottom: 40px;
+        }
+        .a-venir-title { font-family: "Cinzel", "Georgia", serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        .a-venir-text { font-size: 0.9rem; color: var(--text-muted); }
+        .a-venir-text-es { font-size: 0.82rem; color: var(--text-muted); font-style: italic; opacity: 0.85; margin-top: 2px; }
+
+        .page-footer { width: 100%; text-align: center; margin-top: 10px; }
+        .page-footer a {
+            color: var(--text-muted); font-size: 0.78rem; text-decoration: none;
+            border-bottom: 1px dotted rgba(93,24,40,0.25); padding-bottom: 2px;
+        }
+        .page-footer a:hover { color: var(--burgundy); }
+        .lang-es-inline { font-style: italic; }
+
+        /* =========================================
+           RESPONSIVE MOBILE
+           ========================================= */
+        @media (max-width: 768px) {
+            .parcours-grid { grid-template-columns: 1fr; gap: 20px; }
+            .header-container { padding: 30px 20px; margin-bottom: 30px; }
+            .brand-ar { font-size: 3rem; }
+            .pc-visual { height: 210px; }
+            .pc-ins-ar { font-size: 2.8rem; }
+            .pc-ins-label { font-size: 1.05rem; letter-spacing: 0.22em; padding-left: 0.22em; }
+        }
+        @media (max-width: 360px) {
+            .pc-ins-ar { font-size: 2.4rem; }
+            .pc-ins-brand { font-size: 0.9rem; letter-spacing: 3px; }
+            .pc-ins-label { font-size: 0.95rem; letter-spacing: 0.18em; padding-left: 0.18em; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .parcours-card, .parcours-card:hover { transition: none; transform: none; }
+        }
+    </style>
+</head>
+<body ontouchstart="">
+
+    <div class="header-container">
+        <div class="brand-ar ar-text">دار الكلمة</div>
+        <div class="app-title serif-text">Dar Al-Kalimah</div>
+        <div class="divider"></div>
+        <p class="subtitle">Choisissez votre parcours.</p>
+        <p class="subtitle-es">Elige tu itinerario.</p>
+    </div>
+
+    <div class="parcours-grid">
+
+        <!-- Parcours 1 : DAK Arabe -> plateforme existante, inchangée -->
+        <a href="index.html" class="parcours-card">
+            <div class="pc-visual arabe">
+                <div class="pc-inscriptions">
+                    <div class="pc-ins-ar">دار الكلمة</div>
+                    <div class="pc-ins-brand">DAR AL-KALIMAH</div>
+                    <div class="pc-ins-label">ARABE LITTÉRAIRE</div>
+                </div>
+            </div>
+            <div class="pc-body">
+                <div class="pc-title">DAK Arabe</div>
+                <div class="pc-sub">Lire · Écrire · Comprendre</div>
+                <div class="pc-sub-es">Leer · Escribir · Comprender</div>
+                <span class="menu-btn">Ouvrir / Abrir</span>
+            </div>
+        </a>
+
+        <!-- Parcours 2 : DAK Darija (la structure du parcours est créée à l'étape suivante) -->
+        <a href="darija.html" class="parcours-card">
+            <div class="pc-visual darija">
+                <img src="images/darija/porte-darija.webp" alt="Grande porte marocaine sculptée" width="2000" height="600">
+                <div class="pc-inscriptions">
+                    <div class="pc-ins-ar">دار الكلمة</div>
+                    <div class="pc-ins-brand">DAR AL-KALIMAH</div>
+                    <div class="pc-ins-label">DARIJA</div>
+                </div>
+            </div>
+            <div class="pc-body">
+                <div class="pc-title">DAK Darija</div>
+                <div class="pc-sub">Écouter · Comprendre · Parler · Converser · Écrire</div>
+                <div class="pc-sub-es">Escuchar · Comprender · Hablar · Conversar · Escribir</div>
+                <span class="menu-btn">Ouvrir / Abrir</span>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="a-venir">
+        <div class="a-venir-title">À venir</div>
+        <p class="a-venir-text">De nouveaux parcours rejoindront prochainement Dar Al-Kalimah.</p>
+        <p class="a-venir-text-es">Nuevos itinerarios se unirán próximamente a Dar Al-Kalimah.</p>
+    </div>
+
+    <div class="page-footer">
+        <a href="/confidentialite.html">Politique de confidentialité <span class="lang-es-inline">· Política de privacidad</span></a>
+    </div>
+
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  onAuthStateChanged(_auth, (user) => {
+    if (!user) { window.location.href = 'auth.html'; return; }
+    document.body.style.visibility = 'visible';
+  });
+  // Filet de securite : la page ne doit jamais rester invisible indefiniment
+  // (meme garde-fou que la page d'accueil).
+  setTimeout(() => { document.body.style.visibility = 'visible'; }, 3000);
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+
+</body>
+</html>
