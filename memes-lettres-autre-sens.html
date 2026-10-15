@@ -1,0 +1,2557 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - Mêmes lettres, autre sens</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --success-green: #e8f5e9;
+            --success-border: #4CAF50;
+            --error-red: #ffebee;
+            --error-border: #f44336;
+            --shadow-soft: 0 15px 35px rgba(93, 24, 40, 0.08);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-beige);
+            background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-beige) 80%);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; font-family: 'Montserrat', system-ui, sans-serif;
+            padding: 20px; overflow-x: hidden; color: var(--burgundy);
+        }
+
+        .ar-text { font-family: "Amiri", serif; line-height: 1.2; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; }
+
+        .view { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: floatIn 0.5s ease-out forwards; }
+        .hidden { display: none !important; }
+
+        @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-main, .btn-secondary, .btn-link {
+            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark)); color: var(--white); border: 2px solid var(--burgundy);
+            padding: 16px 45px; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(93, 24, 40, 0.25); display: inline-block; text-decoration: none; text-align: center;
+        }
+        .btn-main:hover, .btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(93, 24, 40, 0.35); border-color: var(--gold); }
+        .btn-main:active, .btn-link:active { transform: translateY(1px); }
+
+        .btn-secondary { background: var(--bg-beige); color: var(--burgundy); border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 164, 98, 0.2); }
+        .btn-secondary:hover { background: var(--gold); color: var(--white); }
+
+        .btn-house{position:absolute;top:18px;right:18px;color:var(--gold);font-size:1.6rem;text-decoration:none;transition:transform 0.3s ease,color 0.3s ease;z-index:10;padding:5px;}
+        .btn-house:hover{transform:scale(1.1);color:var(--gold-light);}
+
+        .menu-container { text-align: center; background: var(--burgundy); padding: 50px 40px; border-radius: 24px; box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25); max-width: 600px; width: 100%; position: relative; }
+        .menu-container .brand-ar { font-size: 3.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .menu-container .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .menu-container .app-subtitle { font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-bottom: 20px;}
+        .menu-container .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 25px auto; border-radius: 2px; opacity: 0.5; }
+        
+        .menu-container .subtitle-group { margin-bottom: 30px; }
+        .menu-container .subtitle { font-size: 1.05rem; font-weight: 500; margin-bottom: 5px; color: var(--white); }
+        .menu-container .subtitle.es { font-size: 0.95rem; opacity: 0.9; color: var(--gold-light); font-style: italic; }
+
+        .input-group { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; }
+        .menu-container .input-group label { font-size: 0.9rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; opacity: 0.9; }
+        .menu-container .input-group input { width: 100%; max-width: 350px; padding: 15px; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; text-align: center; border: 2px solid var(--gold); border-radius: 12px; background-color: var(--white); color: var(--burgundy); outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .menu-container .input-group input:focus { border-color: var(--gold-light); box-shadow: 0 0 0 4px rgba(200, 164, 98, 0.3); }
+
+        .menu-container .btn-main { background: transparent; color: var(--gold); border: 2px solid var(--gold); width: 100%; max-width: 350px; box-shadow: none; }
+        .menu-container .btn-main:hover { background-color: rgba(200, 164, 98, 0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-3px); }
+
+        .quiz-container { text-align: center; background: var(--white); padding: 50px 40px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: inset 0 0 0 5px var(--white), inset 0 0 0 6px var(--gold-light), var(--shadow-soft); max-width: 600px; width: 100%; }
+        .quiz-header { width: 100%; max-width: 600px; margin-bottom: 20px; }
+        .progress-info { text-align: right; margin-bottom: 8px; }
+        .progress-text { font-weight: 700; color: var(--burgundy); font-size: 1rem; letter-spacing: 1px; }
+        .progress-bar-container { width: 100%; height: 8px; background-color: var(--white); border: 1px solid var(--gold-light); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: var(--gold); width: 0%; transition: width 0.4s ease; }
+
+        .instruction-text { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--burgundy); }
+        .instruction-text small { opacity: 0.8; font-weight: 500; display: block; margin-top: 5px; font-style: italic; color: #777;}
+
+        .question-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-beige); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 2px dashed var(--gold-light); }
+        .btn-audio.big-audio { width: 80px; height: 80px; font-size: 2.5rem; background: linear-gradient(135deg, var(--white), var(--bg-beige)); border: 2px solid var(--gold); color: var(--burgundy); border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(200, 164, 98, 0.3); transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; }
+        .btn-audio.big-audio:hover { transform: scale(1.1) translateY(-3px); background: var(--gold); }
+        .btn-audio.big-audio:active { transform: scale(0.95); }
+
+        .word-translation { margin-top: 15px; text-align: center; }
+        .word-fr { font-weight: 600; color: var(--burgundy); font-size: 1.15rem; margin-bottom: 5px; }
+        .word-es { font-style: italic; color: #8c775a; font-size: 1rem; }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+        .option-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 16px; aspect-ratio: 2; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; color: var(--burgundy); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s ease; font-weight: bold; line-height: 1.4; font-feature-settings: "mark" 1; padding: 10px; }
+        .option-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(200, 164, 98, 0.2); }
+        .option-card:active { transform: scale(0.95); }
+
+        .option-card.correct { border: 3px solid var(--success-border) !important; background-color: var(--success-green); color: var(--success-border); pointer-events: none; }
+        .option-card.wrong { border: 3px solid var(--error-border) !important; background-color: var(--error-red); animation: gentleShake 0.4s; pointer-events: none; opacity: 0.7; }
+        @keyframes gentleShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+        .diploma-paper { background: linear-gradient(145deg, #ffffff, #fcfcfc); border: 8px double var(--gold); padding: 40px; border-radius: 16px; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; margin-bottom: 30px; }
+        .cert-ar { font-size: 4.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .cert-title { color: var(--burgundy); font-size: 2rem; margin-bottom: 20px; }
+        .cert-messages { margin-bottom: 25px; }
+        .cert-msg { font-weight: 600; color: #444; }
+        .cert-msg.es { font-size: 0.9rem; color: #777; margin-top: 5px; }
+        .cert-name { font-size: 3rem; color: var(--burgundy); border-bottom: 1px solid var(--gold-light); padding-bottom: 10px; margin-bottom: 25px; word-break: break-word; }
+        .cert-score-box { background-color: var(--bg-beige); border: 2px solid var(--gold); border-radius: 12px; padding: 15px; display: inline-block; margin-bottom: 20px; }
+        .score-label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+        .score-value { font-size: 1.8rem; font-weight: bold; color: var(--burgundy); }
+        .cert-date { font-size: 0.95rem; color: #888; font-weight: 500; }
+        .cert-icon { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; background: var(--bg-beige); border-radius: 50%; padding: 5px; }
+        .cert-actions { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+        @media (max-width: 768px) { .menu-container, .quiz-container { padding: 40px 20px; } .option-card { font-size: 2.2rem; } .diploma-paper { padding: 30px 20px; } }
+        @media (max-width: 480px) { .menu-container .brand-ar { font-size: 3rem; } .menu-container .app-title { font-size: 1.1rem; } .btn-audio.big-audio { width: 65px; height: 65px; font-size: 2rem; } .option-card { font-size: 1.8rem; aspect-ratio: 1.8; } .cert-ar { font-size: 3.5rem; } .cert-title { font-size: 1.5rem; } .cert-name { font-size: 2.5rem; } .cert-actions { flex-direction: column; width: 100%; max-width: 300px; } .btn-main, .btn-secondary, .btn-link { width: 100%; text-align: center; } }
+        @media print { body * { visibility: hidden; } #view-certificate, #view-certificate * { visibility: visible; } #view-certificate { position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; align-items: center; background: white; } .no-print { display: none !important; } .diploma-paper { border: 10px double var(--gold); box-shadow: none; max-width: 100%; } }
+
+    #view-welcome { visibility: hidden; }
+
+        /* ===== Spécifique au jeu « Mêmes lettres, autre sens » ===== */
+        .lang-switch { display: inline-flex; gap: 6px; }
+        .lang-switch button { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px; padding: 6px 16px; border-radius: 999px; border: 1.5px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .lang-switch button.on { background: var(--gold); color: var(--white); }
+        .lang-switch button:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 2px; }
+        .menu-container .lang-switch { margin-bottom: 22px; }
+        .quiz-header .progress-info { display: flex; justify-content: space-between; align-items: center; text-align: left; }
+        .quiz-header .lang-switch button { color: var(--burgundy); }
+        .quiz-header .lang-switch button.on { background: var(--gold); color: var(--white); }
+
+        .target-word { font-family: "Amiri", serif; direction: rtl; unicode-bidi: isolate; font-size: clamp(3.4rem, 15vw, 4.8rem); line-height: 1.7; color: var(--burgundy); font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1; }
+        .hint-text { font-size: 0.9rem; color: #8c775a; font-style: italic; margin-top: 6px; }
+
+        .option-card.opt-text { font-family: 'Montserrat', system-ui, sans-serif; font-size: 1.02rem; font-weight: 600; line-height: 1.35; aspect-ratio: auto; min-height: 76px; padding: 12px 10px; text-align: center; -webkit-appearance: none; appearance: none; }
+
+        .reveal { display: none; margin-top: 26px; text-align: center; border-top: 1px dashed var(--gold-light); padding-top: 22px; }
+        .reveal.show { display: block; animation: floatIn 0.4s ease-out forwards; }
+        .feedback { font-weight: 700; font-size: 1.05rem; margin-bottom: 12px; }
+        .feedback.ok { color: var(--success-border); }
+        .feedback.ko { color: var(--error-border); }
+        .reveal-title { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
+        .reveal-root { font-size: 0.95rem; color: #8c775a; margin-top: 4px; }
+        .reveal-root .ar-text { font-size: 1.5rem; color: var(--burgundy); display: inline-block; vertical-align: middle; margin: 0 4px; }
+        .rv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 22px; }
+        .rv-card { background: var(--white); border: 2px solid var(--gold-light); border-radius: 14px; padding: 8px 6px 10px; }
+        .rv-card.target { border-color: var(--gold); background: var(--bg-beige); box-shadow: 0 4px 14px rgba(200, 164, 98, 0.3); }
+        .rv-ar { font-family: "Amiri", serif; direction: rtl; font-size: 2.1rem; line-height: 1.7; color: var(--burgundy); }
+        .rv-tr { font-size: 0.8rem; color: #8c775a; font-style: italic; }
+        .rv-mean { font-size: 0.88rem; font-weight: 600; color: var(--burgundy); line-height: 1.3; margin-top: 2px; }
+
+        @media (max-width: 480px) { .option-card.opt-text { font-size: 0.95rem; min-height: 68px; } .rv-ar { font-size: 1.8rem; } .rv-mean { font-size: 0.82rem; } }
+        @media print { .lang-switch { display: none !important; } }
+    </style>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    onAuthStateChanged(_auth, (user) => {
+      if (user) {
+        document.getElementById('view-welcome').style.visibility = 'visible';
+      } else {
+        window.location.href = 'auth.html';
+      }
+    });
+  </script>
+    <link rel="stylesheet" href="quiz-common.css">
+    <link rel="stylesheet" href="audio-controller.css">
+    <script src="audio-controller.js"></script>
+</head>
+<body>
+
+    <div id="view-welcome" class="view">
+        <div class="menu-container">
+            <div class="brand-ar ar-text">حُرُوفٌ وَاحِدَةٌ</div>
+            <div class="app-title serif-text" data-i="appTitle">Kalicards · Jeu</div>
+            <div class="app-subtitle" data-i="appSubtitle">JEU : Mêmes lettres, autre sens</div>
+            <div class="divider"></div>
+
+            <div class="lang-switch" role="group" aria-label="Langue / Idioma">
+                <button type="button" data-lang="fr" class="on">FR</button>
+                <button type="button" data-lang="es">ES</button>
+            </div>
+
+            <div class="subtitle-group">
+                <p class="subtitle" data-i="subtitle">Les mêmes lettres, des voyelles différentes. Devine le sens du mot !</p>
+            </div>
+
+            <div class="input-group">
+                <label for="player-name" data-i="nameLabel">Nom du participant</label>
+                <input type="text" id="player-name" placeholder="Ex : Rayan..." autocomplete="off">
+            </div>
+
+            <button class="btn-main" id="btn-start" onclick="startGame()" data-i="start">Commencer le jeu</button>
+            <a href="kalijeux.html" class="btn-house" aria-label="KaliJeux"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
+    <div id="view-quiz" class="view hidden">
+        <div class="quiz-header">
+            <div class="progress-info">
+                <div class="lang-switch" role="group" aria-label="Langue / Idioma">
+                    <button type="button" data-lang="fr" class="on">FR</button>
+                    <button type="button" data-lang="es">ES</button>
+                </div>
+                <span id="progress-text" class="progress-text">Carte 1 / 60</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <div class="instruction-text"><span data-i="instruction">Quel est le sens de ce mot ?</span></div>
+            <div class="question-focus">
+                <div id="target-word" class="target-word"></div>
+                <div class="hint-text" data-i="hint">Regarde bien les voyelles (harakat) !</div>
+            </div>
+            <div class="options-grid" id="options-grid"></div>
+
+            <div id="reveal" class="reveal" aria-live="polite">
+                <div id="feedback" class="feedback"></div>
+                <div class="reveal-title" data-i="revealTitle">Les 4 mots de la famille</div>
+                <div class="reveal-root"><span data-i="same">Mêmes lettres :</span> <span id="reveal-root" class="ar-text"></span></div>
+                <div id="rv-grid" class="rv-grid"></div>
+                <button type="button" id="btn-next" class="btn-main" onclick="nextCard()" data-i="next">Suivant</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-certificate" class="view hidden">
+        <div class="diploma-paper">
+            <a href="kalijeux.html" class="btn-house no-print" aria-label="KaliJeux"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+            <div class="cert-ar ar-text">مبروك</div>
+            <h2 class="cert-title serif-text">Certificat de réussite</h2>
+            <div class="cert-messages">
+                <p class="cert-msg fr">Félicitations, vous avez terminé le jeu « Mêmes lettres, autre sens ».</p>
+                <p class="cert-msg es">Felicidades, has completado el juego « Mismas letras, otro sentido ».</p>
+            </div>
+            <div id="cert-name" class="cert-name ar-text">Participant</div>
+            <div class="cert-score-box">
+                <span class="score-label">Score Final</span>
+                <div id="cert-score" class="score-value">0 / 0</div>
+            </div>
+            <div id="cert-date" class="cert-date"></div>
+            <div class="cert-icon">📖</div>
+        </div>
+
+        <div class="cert-actions no-print">
+            <button class="btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-main" onclick="restartGame()">Recommencer ↺</button>
+            <a href="kalijeux.html" class="btn-link">KaliJeux</a>
+        </div>
+    </div>
+
+    <script id="app-data" type="application/json">
+{
+    "questionsPerRound":  60,
+    "families":  [
+                     {
+                         "id":  "f01",
+                         "root":  "م ل ك",
+                         "words":  [
+                                       {
+                                           "id":  "f01-1",
+                                           "ar":  "مَلَكَ",
+                                           "tr":  "malaka",
+                                           "fr":  "il a possédé",
+                                           "es":  "poseyó"
+                                       },
+                                       {
+                                           "id":  "f01-2",
+                                           "ar":  "مَلَك",
+                                           "tr":  "malak",
+                                           "fr":  "ange",
+                                           "es":  "ángel"
+                                       },
+                                       {
+                                           "id":  "f01-3",
+                                           "ar":  "مَلِك",
+                                           "tr":  "malik",
+                                           "fr":  "roi",
+                                           "es":  "rey"
+                                       },
+                                       {
+                                           "id":  "f01-4",
+                                           "ar":  "مُلْك",
+                                           "tr":  "mulk",
+                                           "fr":  "royauté",
+                                           "es":  "reino"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f02",
+                         "root":  "ع ل م",
+                         "words":  [
+                                       {
+                                           "id":  "f02-1",
+                                           "ar":  "عَلِمَ",
+                                           "tr":  "ʿalima",
+                                           "fr":  "il a su",
+                                           "es":  "supo"
+                                       },
+                                       {
+                                           "id":  "f02-2",
+                                           "ar":  "عَلَّمَ",
+                                           "tr":  "ʿallama",
+                                           "fr":  "il a enseigné",
+                                           "es":  "enseñó"
+                                       },
+                                       {
+                                           "id":  "f02-3",
+                                           "ar":  "عِلْم",
+                                           "tr":  "ʿilm",
+                                           "fr":  "science, savoir",
+                                           "es":  "ciencia, conocimiento"
+                                       },
+                                       {
+                                           "id":  "f02-4",
+                                           "ar":  "عَلَم",
+                                           "tr":  "ʿalam",
+                                           "fr":  "drapeau",
+                                           "es":  "bandera"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f03",
+                         "root":  "ح ك م",
+                         "words":  [
+                                       {
+                                           "id":  "f03-1",
+                                           "ar":  "حَكَمَ",
+                                           "tr":  "ḥakama",
+                                           "fr":  "il a jugé",
+                                           "es":  "juzgó"
+                                       },
+                                       {
+                                           "id":  "f03-2",
+                                           "ar":  "حُكْم",
+                                           "tr":  "ḥukm",
+                                           "fr":  "jugement, règle",
+                                           "es":  "juicio, norma"
+                                       },
+                                       {
+                                           "id":  "f03-3",
+                                           "ar":  "حَكَم",
+                                           "tr":  "ḥakam",
+                                           "fr":  "arbitre",
+                                           "es":  "árbitro"
+                                       },
+                                       {
+                                           "id":  "f03-4",
+                                           "ar":  "حِكَم",
+                                           "tr":  "ḥikam",
+                                           "fr":  "sagesses",
+                                           "es":  "sabidurías"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f04",
+                         "root":  "ق د م",
+                         "words":  [
+                                       {
+                                           "id":  "f04-1",
+                                           "ar":  "قَدَم",
+                                           "tr":  "qadam",
+                                           "fr":  "pied",
+                                           "es":  "pie"
+                                       },
+                                       {
+                                           "id":  "f04-2",
+                                           "ar":  "قَدِمَ",
+                                           "tr":  "qadima",
+                                           "fr":  "il est arrivé",
+                                           "es":  "llegó"
+                                       },
+                                       {
+                                           "id":  "f04-3",
+                                           "ar":  "قَدَّمَ",
+                                           "tr":  "qaddama",
+                                           "fr":  "il a offert, présenté",
+                                           "es":  "ofreció, presentó"
+                                       },
+                                       {
+                                           "id":  "f04-4",
+                                           "ar":  "قِدَم",
+                                           "tr":  "qidam",
+                                           "fr":  "ancienneté",
+                                           "es":  "antigüedad"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f05",
+                         "root":  "ح ب ب",
+                         "words":  [
+                                       {
+                                           "id":  "f05-1",
+                                           "ar":  "حَبّ",
+                                           "tr":  "ḥabb",
+                                           "fr":  "grain",
+                                           "es":  "grano"
+                                       },
+                                       {
+                                           "id":  "f05-2",
+                                           "ar":  "حُبّ",
+                                           "tr":  "ḥubb",
+                                           "fr":  "amour",
+                                           "es":  "amor"
+                                       },
+                                       {
+                                           "id":  "f05-3",
+                                           "ar":  "حِبّ",
+                                           "tr":  "ḥibb",
+                                           "fr":  "bien-aimé",
+                                           "es":  "amado"
+                                       },
+                                       {
+                                           "id":  "f05-4",
+                                           "ar":  "حَبَّ",
+                                           "tr":  "ḥabba",
+                                           "fr":  "il a aimé",
+                                           "es":  "amó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f06",
+                         "root":  "ج م ل",
+                         "words":  [
+                                       {
+                                           "id":  "f06-1",
+                                           "ar":  "جَمَل",
+                                           "tr":  "jamal",
+                                           "fr":  "chameau",
+                                           "es":  "camello"
+                                       },
+                                       {
+                                           "id":  "f06-2",
+                                           "ar":  "جَمُلَ",
+                                           "tr":  "jamula",
+                                           "fr":  "il a été beau",
+                                           "es":  "fue hermoso"
+                                       },
+                                       {
+                                           "id":  "f06-3",
+                                           "ar":  "جَمَّلَ",
+                                           "tr":  "jammala",
+                                           "fr":  "il a embelli",
+                                           "es":  "embelleció"
+                                       },
+                                       {
+                                           "id":  "f06-4",
+                                           "ar":  "جُمَل",
+                                           "tr":  "jumal",
+                                           "fr":  "phrases",
+                                           "es":  "frases"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f07",
+                         "root":  "ك ر م",
+                         "words":  [
+                                       {
+                                           "id":  "f07-1",
+                                           "ar":  "كَرَم",
+                                           "tr":  "karam",
+                                           "fr":  "générosité",
+                                           "es":  "generosidad"
+                                       },
+                                       {
+                                           "id":  "f07-2",
+                                           "ar":  "كَرُمَ",
+                                           "tr":  "karuma",
+                                           "fr":  "il a été généreux",
+                                           "es":  "fue generoso"
+                                       },
+                                       {
+                                           "id":  "f07-3",
+                                           "ar":  "كَرْم",
+                                           "tr":  "karm",
+                                           "fr":  "vigne",
+                                           "es":  "viña"
+                                       },
+                                       {
+                                           "id":  "f07-4",
+                                           "ar":  "كَرَّمَ",
+                                           "tr":  "karrama",
+                                           "fr":  "il a honoré",
+                                           "es":  "honró"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f08",
+                         "root":  "ف ت ح",
+                         "words":  [
+                                       {
+                                           "id":  "f08-1",
+                                           "ar":  "فَتَحَ",
+                                           "tr":  "fataḥa",
+                                           "fr":  "il a ouvert",
+                                           "es":  "abrió"
+                                       },
+                                       {
+                                           "id":  "f08-2",
+                                           "ar":  "فُتِحَ",
+                                           "tr":  "futiḥa",
+                                           "fr":  "il a été ouvert",
+                                           "es":  "fue abierto"
+                                       },
+                                       {
+                                           "id":  "f08-3",
+                                           "ar":  "فَتْح",
+                                           "tr":  "fatḥ",
+                                           "fr":  "conquête, ouverture",
+                                           "es":  "conquista, apertura"
+                                       },
+                                       {
+                                           "id":  "f08-4",
+                                           "ar":  "فَتَّحَ",
+                                           "tr":  "fattaḥa",
+                                           "fr":  "il a ouvert grand, fait éclore",
+                                           "es":  "abrió de par en par"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f09",
+                         "root":  "ك س ر",
+                         "words":  [
+                                       {
+                                           "id":  "f09-1",
+                                           "ar":  "كَسَرَ",
+                                           "tr":  "kasara",
+                                           "fr":  "il a cassé",
+                                           "es":  "rompió"
+                                       },
+                                       {
+                                           "id":  "f09-2",
+                                           "ar":  "كُسِرَ",
+                                           "tr":  "kusira",
+                                           "fr":  "il a été cassé",
+                                           "es":  "fue roto"
+                                       },
+                                       {
+                                           "id":  "f09-3",
+                                           "ar":  "كَسَّرَ",
+                                           "tr":  "kassara",
+                                           "fr":  "il a mis en morceaux",
+                                           "es":  "hizo pedazos"
+                                       },
+                                       {
+                                           "id":  "f09-4",
+                                           "ar":  "كَسْر",
+                                           "tr":  "kasr",
+                                           "fr":  "fracture",
+                                           "es":  "fractura"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f10",
+                         "root":  "ح م ل",
+                         "words":  [
+                                       {
+                                           "id":  "f10-1",
+                                           "ar":  "حَمَلَ",
+                                           "tr":  "ḥamala",
+                                           "fr":  "il a porté",
+                                           "es":  "llevó, cargó"
+                                       },
+                                       {
+                                           "id":  "f10-2",
+                                           "ar":  "حَمَل",
+                                           "tr":  "ḥamal",
+                                           "fr":  "agneau",
+                                           "es":  "cordero"
+                                       },
+                                       {
+                                           "id":  "f10-3",
+                                           "ar":  "حِمْل",
+                                           "tr":  "ḥiml",
+                                           "fr":  "charge",
+                                           "es":  "carga"
+                                       },
+                                       {
+                                           "id":  "f10-4",
+                                           "ar":  "حُمِلَ",
+                                           "tr":  "ḥumila",
+                                           "fr":  "il a été porté",
+                                           "es":  "fue llevado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f11",
+                         "root":  "س ل م",
+                         "words":  [
+                                       {
+                                           "id":  "f11-1",
+                                           "ar":  "سَلِمَ",
+                                           "tr":  "salima",
+                                           "fr":  "il est sain et sauf",
+                                           "es":  "quedó a salvo"
+                                       },
+                                       {
+                                           "id":  "f11-2",
+                                           "ar":  "سَلَّمَ",
+                                           "tr":  "sallama",
+                                           "fr":  "il a salué, remis",
+                                           "es":  "saludó, entregó"
+                                       },
+                                       {
+                                           "id":  "f11-3",
+                                           "ar":  "سِلْم",
+                                           "tr":  "silm",
+                                           "fr":  "paix",
+                                           "es":  "paz"
+                                       },
+                                       {
+                                           "id":  "f11-4",
+                                           "ar":  "سُلَّم",
+                                           "tr":  "sullam",
+                                           "fr":  "échelle",
+                                           "es":  "escalera"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f12",
+                         "root":  "و ل د",
+                         "words":  [
+                                       {
+                                           "id":  "f12-1",
+                                           "ar":  "وَلَد",
+                                           "tr":  "walad",
+                                           "fr":  "garçon, enfant",
+                                           "es":  "niño, hijo"
+                                       },
+                                       {
+                                           "id":  "f12-2",
+                                           "ar":  "وَلَدَ",
+                                           "tr":  "walada",
+                                           "fr":  "il a enfanté",
+                                           "es":  "dio a luz"
+                                       },
+                                       {
+                                           "id":  "f12-3",
+                                           "ar":  "وُلِدَ",
+                                           "tr":  "wulida",
+                                           "fr":  "il est né",
+                                           "es":  "nació"
+                                       },
+                                       {
+                                           "id":  "f12-4",
+                                           "ar":  "وَلَّدَ",
+                                           "tr":  "wallada",
+                                           "fr":  "il a engendré, produit",
+                                           "es":  "generó, produjo"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f13",
+                         "root":  "ب ع د",
+                         "words":  [
+                                       {
+                                           "id":  "f13-1",
+                                           "ar":  "بَعْد",
+                                           "tr":  "baʿd",
+                                           "fr":  "après",
+                                           "es":  "después"
+                                       },
+                                       {
+                                           "id":  "f13-2",
+                                           "ar":  "بُعْد",
+                                           "tr":  "buʿd",
+                                           "fr":  "distance",
+                                           "es":  "distancia"
+                                       },
+                                       {
+                                           "id":  "f13-3",
+                                           "ar":  "بَعُدَ",
+                                           "tr":  "baʿuda",
+                                           "fr":  "il s\u0027est éloigné",
+                                           "es":  "se alejó"
+                                       },
+                                       {
+                                           "id":  "f13-4",
+                                           "ar":  "بَعَّدَ",
+                                           "tr":  "baʿʿada",
+                                           "fr":  "il a éloigné",
+                                           "es":  "alejó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f14",
+                         "root":  "ع ب د",
+                         "words":  [
+                                       {
+                                           "id":  "f14-1",
+                                           "ar":  "عَبَدَ",
+                                           "tr":  "ʿabada",
+                                           "fr":  "il a adoré",
+                                           "es":  "adoró"
+                                       },
+                                       {
+                                           "id":  "f14-2",
+                                           "ar":  "عَبْد",
+                                           "tr":  "ʿabd",
+                                           "fr":  "serviteur",
+                                           "es":  "siervo"
+                                       },
+                                       {
+                                           "id":  "f14-3",
+                                           "ar":  "عُبِدَ",
+                                           "tr":  "ʿubida",
+                                           "fr":  "il a été adoré",
+                                           "es":  "fue adorado"
+                                       },
+                                       {
+                                           "id":  "f14-4",
+                                           "ar":  "عَبَّدَ",
+                                           "tr":  "ʿabbada",
+                                           "fr":  "il a aplani (une route)",
+                                           "es":  "allanó (un camino)"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f15",
+                         "root":  "خ ل ق",
+                         "words":  [
+                                       {
+                                           "id":  "f15-1",
+                                           "ar":  "خَلَقَ",
+                                           "tr":  "khalaqa",
+                                           "fr":  "il a créé",
+                                           "es":  "creó"
+                                       },
+                                       {
+                                           "id":  "f15-2",
+                                           "ar":  "خُلِقَ",
+                                           "tr":  "khuliqa",
+                                           "fr":  "il a été créé",
+                                           "es":  "fue creado"
+                                       },
+                                       {
+                                           "id":  "f15-3",
+                                           "ar":  "خَلْق",
+                                           "tr":  "khalq",
+                                           "fr":  "création",
+                                           "es":  "creación"
+                                       },
+                                       {
+                                           "id":  "f15-4",
+                                           "ar":  "خُلُق",
+                                           "tr":  "khuluq",
+                                           "fr":  "caractère",
+                                           "es":  "carácter"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f16",
+                         "root":  "ع ر ف",
+                         "words":  [
+                                       {
+                                           "id":  "f16-1",
+                                           "ar":  "عَرَفَ",
+                                           "tr":  "ʿarafa",
+                                           "fr":  "il a connu",
+                                           "es":  "conoció"
+                                       },
+                                       {
+                                           "id":  "f16-2",
+                                           "ar":  "عَرَّفَ",
+                                           "tr":  "ʿarrafa",
+                                           "fr":  "il a fait connaître, défini",
+                                           "es":  "dio a conocer, definió"
+                                       },
+                                       {
+                                           "id":  "f16-3",
+                                           "ar":  "عُرْف",
+                                           "tr":  "ʿurf",
+                                           "fr":  "coutume",
+                                           "es":  "costumbre"
+                                       },
+                                       {
+                                           "id":  "f16-4",
+                                           "ar":  "عُرِفَ",
+                                           "tr":  "ʿurifa",
+                                           "fr":  "il a été connu",
+                                           "es":  "fue conocido"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f17",
+                         "root":  "ن ف س",
+                         "words":  [
+                                       {
+                                           "id":  "f17-1",
+                                           "ar":  "نَفَس",
+                                           "tr":  "nafas",
+                                           "fr":  "souffle",
+                                           "es":  "aliento"
+                                       },
+                                       {
+                                           "id":  "f17-2",
+                                           "ar":  "نَفْس",
+                                           "tr":  "nafs",
+                                           "fr":  "âme, soi-même",
+                                           "es":  "alma, uno mismo"
+                                       },
+                                       {
+                                           "id":  "f17-3",
+                                           "ar":  "نَفَّسَ",
+                                           "tr":  "naffasa",
+                                           "fr":  "il a soulagé",
+                                           "es":  "alivió"
+                                       },
+                                       {
+                                           "id":  "f17-4",
+                                           "ar":  "نَفُسَ",
+                                           "tr":  "nafusa",
+                                           "fr":  "il a été précieux",
+                                           "es":  "fue precioso"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f18",
+                         "root":  "ف ه م",
+                         "words":  [
+                                       {
+                                           "id":  "f18-1",
+                                           "ar":  "فَهِمَ",
+                                           "tr":  "fahima",
+                                           "fr":  "il a compris",
+                                           "es":  "entendió"
+                                       },
+                                       {
+                                           "id":  "f18-2",
+                                           "ar":  "فَهَّمَ",
+                                           "tr":  "fahhama",
+                                           "fr":  "il a fait comprendre",
+                                           "es":  "hizo entender"
+                                       },
+                                       {
+                                           "id":  "f18-3",
+                                           "ar":  "فُهِمَ",
+                                           "tr":  "fuhima",
+                                           "fr":  "il a été compris",
+                                           "es":  "fue entendido"
+                                       },
+                                       {
+                                           "id":  "f18-4",
+                                           "ar":  "فَهْم",
+                                           "tr":  "fahm",
+                                           "fr":  "compréhension",
+                                           "es":  "comprensión"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f19",
+                         "root":  "ح س ن",
+                         "words":  [
+                                       {
+                                           "id":  "f19-1",
+                                           "ar":  "حَسُنَ",
+                                           "tr":  "ḥasuna",
+                                           "fr":  "il a été bon, beau",
+                                           "es":  "fue bueno, bello"
+                                       },
+                                       {
+                                           "id":  "f19-2",
+                                           "ar":  "حَسَن",
+                                           "tr":  "ḥasan",
+                                           "fr":  "bon, beau",
+                                           "es":  "bueno, bello"
+                                       },
+                                       {
+                                           "id":  "f19-3",
+                                           "ar":  "حُسْن",
+                                           "tr":  "ḥusn",
+                                           "fr":  "beauté",
+                                           "es":  "belleza"
+                                       },
+                                       {
+                                           "id":  "f19-4",
+                                           "ar":  "حَسَّنَ",
+                                           "tr":  "ḥassana",
+                                           "fr":  "il a amélioré",
+                                           "es":  "mejoró"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f20",
+                         "root":  "س ف ر",
+                         "words":  [
+                                       {
+                                           "id":  "f20-1",
+                                           "ar":  "سَفَرَ",
+                                           "tr":  "safara",
+                                           "fr":  "il a voyagé",
+                                           "es":  "viajó"
+                                       },
+                                       {
+                                           "id":  "f20-2",
+                                           "ar":  "سَفَر",
+                                           "tr":  "safar",
+                                           "fr":  "voyage",
+                                           "es":  "viaje"
+                                       },
+                                       {
+                                           "id":  "f20-3",
+                                           "ar":  "سِفْر",
+                                           "tr":  "sifr",
+                                           "fr":  "grand livre",
+                                           "es":  "libro (grande)"
+                                       },
+                                       {
+                                           "id":  "f20-4",
+                                           "ar":  "سَفَّرَ",
+                                           "tr":  "saffara",
+                                           "fr":  "il a envoyé en voyage",
+                                           "es":  "mandó de viaje"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f21",
+                         "root":  "ن ظ م",
+                         "words":  [
+                                       {
+                                           "id":  "f21-1",
+                                           "ar":  "نَظَمَ",
+                                           "tr":  "nazama",
+                                           "fr":  "il a composé (en vers), aligné",
+                                           "es":  "compuso (en verso), alineó"
+                                       },
+                                       {
+                                           "id":  "f21-2",
+                                           "ar":  "نَظَّمَ",
+                                           "tr":  "nazzama",
+                                           "fr":  "il a organisé",
+                                           "es":  "organizó"
+                                       },
+                                       {
+                                           "id":  "f21-3",
+                                           "ar":  "نُظِمَ",
+                                           "tr":  "nuzima",
+                                           "fr":  "il a été composé",
+                                           "es":  "fue compuesto"
+                                       },
+                                       {
+                                           "id":  "f21-4",
+                                           "ar":  "نَظْم",
+                                           "tr":  "nazm",
+                                           "fr":  "poésie versifiée, arrangement",
+                                           "es":  "poesía en verso, ordenamiento"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f22",
+                         "root":  "ذ ك ر",
+                         "words":  [
+                                       {
+                                           "id":  "f22-1",
+                                           "ar":  "ذَكَرَ",
+                                           "tr":  "dhakara",
+                                           "fr":  "il a mentionné",
+                                           "es":  "mencionó"
+                                       },
+                                       {
+                                           "id":  "f22-2",
+                                           "ar":  "ذَكَّرَ",
+                                           "tr":  "dhakkara",
+                                           "fr":  "il a rappelé",
+                                           "es":  "recordó"
+                                       },
+                                       {
+                                           "id":  "f22-3",
+                                           "ar":  "ذِكْر",
+                                           "tr":  "dhikr",
+                                           "fr":  "rappel, invocation",
+                                           "es":  "recuerdo, invocación"
+                                       },
+                                       {
+                                           "id":  "f22-4",
+                                           "ar":  "ذَكَر",
+                                           "tr":  "dhakar",
+                                           "fr":  "mâle",
+                                           "es":  "macho"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f23",
+                         "root":  "ح ل م",
+                         "words":  [
+                                       {
+                                           "id":  "f23-1",
+                                           "ar":  "حَلَمَ",
+                                           "tr":  "ḥalama",
+                                           "fr":  "il a rêvé",
+                                           "es":  "soñó"
+                                       },
+                                       {
+                                           "id":  "f23-2",
+                                           "ar":  "حَلُمَ",
+                                           "tr":  "ḥaluma",
+                                           "fr":  "il a été patient, clément",
+                                           "es":  "fue paciente, clemente"
+                                       },
+                                       {
+                                           "id":  "f23-3",
+                                           "ar":  "حُلْم",
+                                           "tr":  "ḥulm",
+                                           "fr":  "rêve",
+                                           "es":  "sueño"
+                                       },
+                                       {
+                                           "id":  "f23-4",
+                                           "ar":  "حِلْم",
+                                           "tr":  "ḥilm",
+                                           "fr":  "patience, clémence",
+                                           "es":  "paciencia, clemencia"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f24",
+                         "root":  "ق ص ر",
+                         "words":  [
+                                       {
+                                           "id":  "f24-1",
+                                           "ar":  "قَصَرَ",
+                                           "tr":  "qaṣara",
+                                           "fr":  "il a raccourci",
+                                           "es":  "acortó"
+                                       },
+                                       {
+                                           "id":  "f24-2",
+                                           "ar":  "قَصْر",
+                                           "tr":  "qaṣr",
+                                           "fr":  "château",
+                                           "es":  "castillo"
+                                       },
+                                       {
+                                           "id":  "f24-3",
+                                           "ar":  "قِصَر",
+                                           "tr":  "qiṣar",
+                                           "fr":  "brièveté, petite taille",
+                                           "es":  "brevedad, baja estatura"
+                                       },
+                                       {
+                                           "id":  "f24-4",
+                                           "ar":  "قَصَّرَ",
+                                           "tr":  "qaṣṣara",
+                                           "fr":  "il a écourté",
+                                           "es":  "recortó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f25",
+                         "root":  "د ر س",
+                         "words":  [
+                                       {
+                                           "id":  "f25-1",
+                                           "ar":  "دَرَسَ",
+                                           "tr":  "darasa",
+                                           "fr":  "il a étudié",
+                                           "es":  "estudió"
+                                       },
+                                       {
+                                           "id":  "f25-2",
+                                           "ar":  "دَرَّسَ",
+                                           "tr":  "darrasa",
+                                           "fr":  "il a enseigné",
+                                           "es":  "enseñó"
+                                       },
+                                       {
+                                           "id":  "f25-3",
+                                           "ar":  "دَرْس",
+                                           "tr":  "dars",
+                                           "fr":  "leçon",
+                                           "es":  "lección"
+                                       },
+                                       {
+                                           "id":  "f25-4",
+                                           "ar":  "دُرِسَ",
+                                           "tr":  "durisa",
+                                           "fr":  "il a été étudié",
+                                           "es":  "fue estudiado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f26",
+                         "root":  "ش ر ح",
+                         "words":  [
+                                       {
+                                           "id":  "f26-1",
+                                           "ar":  "شَرَحَ",
+                                           "tr":  "sharaḥa",
+                                           "fr":  "il a expliqué",
+                                           "es":  "explicó"
+                                       },
+                                       {
+                                           "id":  "f26-2",
+                                           "ar":  "شُرِحَ",
+                                           "tr":  "shuriḥa",
+                                           "fr":  "il a été expliqué",
+                                           "es":  "fue explicado"
+                                       },
+                                       {
+                                           "id":  "f26-3",
+                                           "ar":  "شَرْح",
+                                           "tr":  "sharḥ",
+                                           "fr":  "explication",
+                                           "es":  "explicación"
+                                       },
+                                       {
+                                           "id":  "f26-4",
+                                           "ar":  "شَرَّحَ",
+                                           "tr":  "sharraḥa",
+                                           "fr":  "il a disséqué",
+                                           "es":  "disecó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f27",
+                         "root":  "ح ف ظ",
+                         "words":  [
+                                       {
+                                           "id":  "f27-1",
+                                           "ar":  "حَفِظَ",
+                                           "tr":  "ḥafiẓa",
+                                           "fr":  "il a mémorisé",
+                                           "es":  "memorizó"
+                                       },
+                                       {
+                                           "id":  "f27-2",
+                                           "ar":  "حَفَّظَ",
+                                           "tr":  "ḥaffaẓa",
+                                           "fr":  "il a fait apprendre par cœur",
+                                           "es":  "hizo memorizar"
+                                       },
+                                       {
+                                           "id":  "f27-3",
+                                           "ar":  "حُفِظَ",
+                                           "tr":  "ḥufiẓa",
+                                           "fr":  "il a été mémorisé, protégé",
+                                           "es":  "fue memorizado, protegido"
+                                       },
+                                       {
+                                           "id":  "f27-4",
+                                           "ar":  "حِفْظ",
+                                           "tr":  "ḥifẓ",
+                                           "fr":  "mémorisation",
+                                           "es":  "memorización"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f28",
+                         "root":  "ح ر م",
+                         "words":  [
+                                       {
+                                           "id":  "f28-1",
+                                           "ar":  "حَرَمَ",
+                                           "tr":  "ḥarama",
+                                           "fr":  "il a privé",
+                                           "es":  "privó"
+                                       },
+                                       {
+                                           "id":  "f28-2",
+                                           "ar":  "حَرُمَ",
+                                           "tr":  "ḥaruma",
+                                           "fr":  "il a été interdit",
+                                           "es":  "fue prohibido"
+                                       },
+                                       {
+                                           "id":  "f28-3",
+                                           "ar":  "حُرِمَ",
+                                           "tr":  "ḥurima",
+                                           "fr":  "il a été privé",
+                                           "es":  "fue privado"
+                                       },
+                                       {
+                                           "id":  "f28-4",
+                                           "ar":  "حَرَّمَ",
+                                           "tr":  "ḥarrama",
+                                           "fr":  "il a interdit",
+                                           "es":  "prohibió"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f29",
+                         "root":  "ج م ع",
+                         "words":  [
+                                       {
+                                           "id":  "f29-1",
+                                           "ar":  "جَمَعَ",
+                                           "tr":  "jamaʿa",
+                                           "fr":  "il a rassemblé",
+                                           "es":  "reunió"
+                                       },
+                                       {
+                                           "id":  "f29-2",
+                                           "ar":  "جُمِعَ",
+                                           "tr":  "jumiʿa",
+                                           "fr":  "il a été rassemblé",
+                                           "es":  "fue reunido"
+                                       },
+                                       {
+                                           "id":  "f29-3",
+                                           "ar":  "جَمْع",
+                                           "tr":  "jamʿ",
+                                           "fr":  "pluriel, rassemblement",
+                                           "es":  "plural, reunión"
+                                       },
+                                       {
+                                           "id":  "f29-4",
+                                           "ar":  "جَمَّعَ",
+                                           "tr":  "jammaʿa",
+                                           "fr":  "il a amassé",
+                                           "es":  "acumuló"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f30",
+                         "root":  "س م ع",
+                         "words":  [
+                                       {
+                                           "id":  "f30-1",
+                                           "ar":  "سَمِعَ",
+                                           "tr":  "samiʿa",
+                                           "fr":  "il a entendu",
+                                           "es":  "oyó"
+                                       },
+                                       {
+                                           "id":  "f30-2",
+                                           "ar":  "سُمِعَ",
+                                           "tr":  "sumiʿa",
+                                           "fr":  "il a été entendu",
+                                           "es":  "fue oído"
+                                       },
+                                       {
+                                           "id":  "f30-3",
+                                           "ar":  "سَمْع",
+                                           "tr":  "samʿ",
+                                           "fr":  "ouïe",
+                                           "es":  "oído (sentido)"
+                                       },
+                                       {
+                                           "id":  "f30-4",
+                                           "ar":  "سَمَّعَ",
+                                           "tr":  "sammaʿa",
+                                           "fr":  "il a fait entendre",
+                                           "es":  "hizo oír"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f31",
+                         "root":  "ل ع ب",
+                         "words":  [
+                                       {
+                                           "id":  "f31-1",
+                                           "ar":  "لَعِبَ",
+                                           "tr":  "laʿiba",
+                                           "fr":  "il a joué",
+                                           "es":  "jugó"
+                                       },
+                                       {
+                                           "id":  "f31-2",
+                                           "ar":  "لَعِب",
+                                           "tr":  "laʿib",
+                                           "fr":  "jeu (action de jouer)",
+                                           "es":  "juego (acción de jugar)"
+                                       },
+                                       {
+                                           "id":  "f31-3",
+                                           "ar":  "لُعِبَ",
+                                           "tr":  "luʿiba",
+                                           "fr":  "on a joué",
+                                           "es":  "se jugó"
+                                       },
+                                       {
+                                           "id":  "f31-4",
+                                           "ar":  "لُعَب",
+                                           "tr":  "luʿab",
+                                           "fr":  "jouets",
+                                           "es":  "juguetes"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f32",
+                         "root":  "ر ق ص",
+                         "words":  [
+                                       {
+                                           "id":  "f32-1",
+                                           "ar":  "رَقَصَ",
+                                           "tr":  "raqaṣa",
+                                           "fr":  "il a dansé",
+                                           "es":  "bailó"
+                                       },
+                                       {
+                                           "id":  "f32-2",
+                                           "ar":  "رَقْص",
+                                           "tr":  "raqṣ",
+                                           "fr":  "danse",
+                                           "es":  "baile"
+                                       },
+                                       {
+                                           "id":  "f32-3",
+                                           "ar":  "رَقَّصَ",
+                                           "tr":  "raqqaṣa",
+                                           "fr":  "il a fait danser",
+                                           "es":  "hizo bailar"
+                                       },
+                                       {
+                                           "id":  "f32-4",
+                                           "ar":  "رُقِصَ",
+                                           "tr":  "ruqiṣa",
+                                           "fr":  "on a dansé",
+                                           "es":  "se bailó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f33",
+                         "root":  "ق ط ع",
+                         "words":  [
+                                       {
+                                           "id":  "f33-1",
+                                           "ar":  "قَطَعَ",
+                                           "tr":  "qaṭaʿa",
+                                           "fr":  "il a coupé",
+                                           "es":  "cortó"
+                                       },
+                                       {
+                                           "id":  "f33-2",
+                                           "ar":  "قَطَّعَ",
+                                           "tr":  "qaṭṭaʿa",
+                                           "fr":  "il a découpé",
+                                           "es":  "troceó"
+                                       },
+                                       {
+                                           "id":  "f33-3",
+                                           "ar":  "قُطِعَ",
+                                           "tr":  "quṭiʿa",
+                                           "fr":  "il a été coupé",
+                                           "es":  "fue cortado"
+                                       },
+                                       {
+                                           "id":  "f33-4",
+                                           "ar":  "قِطَع",
+                                           "tr":  "qiṭaʿ",
+                                           "fr":  "morceaux",
+                                           "es":  "pedazos"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f34",
+                         "root":  "ق ف ل",
+                         "words":  [
+                                       {
+                                           "id":  "f34-1",
+                                           "ar":  "قَفَلَ",
+                                           "tr":  "qafala",
+                                           "fr":  "il est rentré (de voyage)",
+                                           "es":  "regresó (de viaje)"
+                                       },
+                                       {
+                                           "id":  "f34-2",
+                                           "ar":  "قَفَّلَ",
+                                           "tr":  "qaffala",
+                                           "fr":  "il a verrouillé",
+                                           "es":  "cerró con llave"
+                                       },
+                                       {
+                                           "id":  "f34-3",
+                                           "ar":  "قُفْل",
+                                           "tr":  "qufl",
+                                           "fr":  "cadenas",
+                                           "es":  "candado"
+                                       },
+                                       {
+                                           "id":  "f34-4",
+                                           "ar":  "قُفِلَ",
+                                           "tr":  "qufila",
+                                           "fr":  "il a été verrouillé",
+                                           "es":  "fue cerrado con llave"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f35",
+                         "root":  "س ح ر",
+                         "words":  [
+                                       {
+                                           "id":  "f35-1",
+                                           "ar":  "سَحَرَ",
+                                           "tr":  "saḥara",
+                                           "fr":  "il a ensorcelé",
+                                           "es":  "hechizó"
+                                       },
+                                       {
+                                           "id":  "f35-2",
+                                           "ar":  "سَحَر",
+                                           "tr":  "saḥar",
+                                           "fr":  "aube",
+                                           "es":  "alba"
+                                       },
+                                       {
+                                           "id":  "f35-3",
+                                           "ar":  "سِحْر",
+                                           "tr":  "siḥr",
+                                           "fr":  "magie",
+                                           "es":  "magia"
+                                       },
+                                       {
+                                           "id":  "f35-4",
+                                           "ar":  "سُحِرَ",
+                                           "tr":  "suḥira",
+                                           "fr":  "il a été ensorcelé",
+                                           "es":  "fue hechizado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f36",
+                         "root":  "ح ج ر",
+                         "words":  [
+                                       {
+                                           "id":  "f36-1",
+                                           "ar":  "حَجَر",
+                                           "tr":  "ḥajar",
+                                           "fr":  "pierre",
+                                           "es":  "piedra"
+                                       },
+                                       {
+                                           "id":  "f36-2",
+                                           "ar":  "حَجَرَ",
+                                           "tr":  "ḥajara",
+                                           "fr":  "il a interdit",
+                                           "es":  "prohibió"
+                                       },
+                                       {
+                                           "id":  "f36-3",
+                                           "ar":  "حِجْر",
+                                           "tr":  "ḥijr",
+                                           "fr":  "giron",
+                                           "es":  "regazo"
+                                       },
+                                       {
+                                           "id":  "f36-4",
+                                           "ar":  "حُجَر",
+                                           "tr":  "ḥujar",
+                                           "fr":  "chambres",
+                                           "es":  "habitaciones"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f37",
+                         "root":  "م د د",
+                         "words":  [
+                                       {
+                                           "id":  "f37-1",
+                                           "ar":  "مَدَّ",
+                                           "tr":  "madda",
+                                           "fr":  "il a étendu",
+                                           "es":  "extendió"
+                                       },
+                                       {
+                                           "id":  "f37-2",
+                                           "ar":  "مُدَّ",
+                                           "tr":  "mudda",
+                                           "fr":  "il a été étendu",
+                                           "es":  "fue extendido"
+                                       },
+                                       {
+                                           "id":  "f37-3",
+                                           "ar":  "مَدّ",
+                                           "tr":  "madd",
+                                           "fr":  "allongement",
+                                           "es":  "alargamiento"
+                                       },
+                                       {
+                                           "id":  "f37-4",
+                                           "ar":  "مُدّ",
+                                           "tr":  "mudd",
+                                           "fr":  "mesure de volume",
+                                           "es":  "medida de capacidad"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f38",
+                         "root":  "ل ب س",
+                         "words":  [
+                                       {
+                                           "id":  "f38-1",
+                                           "ar":  "لَبِسَ",
+                                           "tr":  "labisa",
+                                           "fr":  "il a porté (un vêtement)",
+                                           "es":  "se puso (ropa)"
+                                       },
+                                       {
+                                           "id":  "f38-2",
+                                           "ar":  "لَبَّسَ",
+                                           "tr":  "labbasa",
+                                           "fr":  "il a embrouillé",
+                                           "es":  "confundió"
+                                       },
+                                       {
+                                           "id":  "f38-3",
+                                           "ar":  "لُبِسَ",
+                                           "tr":  "lubisa",
+                                           "fr":  "il a été porté",
+                                           "es":  "fue puesto"
+                                       },
+                                       {
+                                           "id":  "f38-4",
+                                           "ar":  "لَبْس",
+                                           "tr":  "labs",
+                                           "fr":  "confusion",
+                                           "es":  "confusión"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f39",
+                         "root":  "ف ص ل",
+                         "words":  [
+                                       {
+                                           "id":  "f39-1",
+                                           "ar":  "فَصَلَ",
+                                           "tr":  "faṣala",
+                                           "fr":  "il a séparé",
+                                           "es":  "separó"
+                                       },
+                                       {
+                                           "id":  "f39-2",
+                                           "ar":  "فَصَّلَ",
+                                           "tr":  "faṣṣala",
+                                           "fr":  "il a détaillé",
+                                           "es":  "detalló"
+                                       },
+                                       {
+                                           "id":  "f39-3",
+                                           "ar":  "فَصْل",
+                                           "tr":  "faṣl",
+                                           "fr":  "saison, chapitre",
+                                           "es":  "estación, capítulo"
+                                       },
+                                       {
+                                           "id":  "f39-4",
+                                           "ar":  "فُصِلَ",
+                                           "tr":  "fuṣila",
+                                           "fr":  "il a été séparé",
+                                           "es":  "fue separado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f40",
+                         "root":  "ط ع م",
+                         "words":  [
+                                       {
+                                           "id":  "f40-1",
+                                           "ar":  "طَعِمَ",
+                                           "tr":  "ṭaʿima",
+                                           "fr":  "il a goûté",
+                                           "es":  "probó"
+                                       },
+                                       {
+                                           "id":  "f40-2",
+                                           "ar":  "طَعَّمَ",
+                                           "tr":  "ṭaʿʿama",
+                                           "fr":  "il a fait goûter, vacciné",
+                                           "es":  "dio a probar, vacunó"
+                                       },
+                                       {
+                                           "id":  "f40-3",
+                                           "ar":  "طَعْم",
+                                           "tr":  "ṭaʿm",
+                                           "fr":  "goût",
+                                           "es":  "sabor"
+                                       },
+                                       {
+                                           "id":  "f40-4",
+                                           "ar":  "طُعْم",
+                                           "tr":  "ṭuʿm",
+                                           "fr":  "appât",
+                                           "es":  "cebo"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f41",
+                         "root":  "ب ر د",
+                         "words":  [
+                                       {
+                                           "id":  "f41-1",
+                                           "ar":  "بَرْد",
+                                           "tr":  "bard",
+                                           "fr":  "froid",
+                                           "es":  "frío"
+                                       },
+                                       {
+                                           "id":  "f41-2",
+                                           "ar":  "بَرَد",
+                                           "tr":  "barad",
+                                           "fr":  "grêle",
+                                           "es":  "granizo"
+                                       },
+                                       {
+                                           "id":  "f41-3",
+                                           "ar":  "بُرْد",
+                                           "tr":  "burd",
+                                           "fr":  "manteau, étoffe",
+                                           "es":  "manto, tela"
+                                       },
+                                       {
+                                           "id":  "f41-4",
+                                           "ar":  "بَرَّدَ",
+                                           "tr":  "barrada",
+                                           "fr":  "il a rafraîchi",
+                                           "es":  "enfrió"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f42",
+                         "root":  "ث ق ل",
+                         "words":  [
+                                       {
+                                           "id":  "f42-1",
+                                           "ar":  "ثَقُلَ",
+                                           "tr":  "thaqula",
+                                           "fr":  "il a été lourd",
+                                           "es":  "fue pesado"
+                                       },
+                                       {
+                                           "id":  "f42-2",
+                                           "ar":  "ثِقَل",
+                                           "tr":  "thiqal",
+                                           "fr":  "poids",
+                                           "es":  "peso"
+                                       },
+                                       {
+                                           "id":  "f42-3",
+                                           "ar":  "ثَقَل",
+                                           "tr":  "thaqal",
+                                           "fr":  "bagage",
+                                           "es":  "equipaje"
+                                       },
+                                       {
+                                           "id":  "f42-4",
+                                           "ar":  "ثَقَّلَ",
+                                           "tr":  "thaqqala",
+                                           "fr":  "il a alourdi",
+                                           "es":  "hizo pesado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f43",
+                         "root":  "ف ض ل",
+                         "words":  [
+                                       {
+                                           "id":  "f43-1",
+                                           "ar":  "فَضَلَ",
+                                           "tr":  "faḍala",
+                                           "fr":  "il a dépassé, il est resté",
+                                           "es":  "sobró"
+                                       },
+                                       {
+                                           "id":  "f43-2",
+                                           "ar":  "فَضُلَ",
+                                           "tr":  "faḍula",
+                                           "fr":  "il a été supérieur",
+                                           "es":  "fue superior"
+                                       },
+                                       {
+                                           "id":  "f43-3",
+                                           "ar":  "فَضَّلَ",
+                                           "tr":  "faḍḍala",
+                                           "fr":  "il a préféré",
+                                           "es":  "prefirió"
+                                       },
+                                       {
+                                           "id":  "f43-4",
+                                           "ar":  "فَضْل",
+                                           "tr":  "faḍl",
+                                           "fr":  "grâce, mérite",
+                                           "es":  "favor, mérito"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f44",
+                         "root":  "غ ر ب",
+                         "words":  [
+                                       {
+                                           "id":  "f44-1",
+                                           "ar":  "غَرَبَ",
+                                           "tr":  "gharaba",
+                                           "fr":  "il s\u0027est couché (le soleil)",
+                                           "es":  "se puso (el sol)"
+                                       },
+                                       {
+                                           "id":  "f44-2",
+                                           "ar":  "غَرُبَ",
+                                           "tr":  "gharuba",
+                                           "fr":  "il a été étrange",
+                                           "es":  "fue extraño"
+                                       },
+                                       {
+                                           "id":  "f44-3",
+                                           "ar":  "غَرْب",
+                                           "tr":  "gharb",
+                                           "fr":  "ouest",
+                                           "es":  "oeste"
+                                       },
+                                       {
+                                           "id":  "f44-4",
+                                           "ar":  "غَرَّبَ",
+                                           "tr":  "gharraba",
+                                           "fr":  "il est allé à l\u0027ouest",
+                                           "es":  "fue hacia el oeste"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f45",
+                         "root":  "ص ر ف",
+                         "words":  [
+                                       {
+                                           "id":  "f45-1",
+                                           "ar":  "صَرَفَ",
+                                           "tr":  "ṣarafa",
+                                           "fr":  "il a dépensé",
+                                           "es":  "gastó"
+                                       },
+                                       {
+                                           "id":  "f45-2",
+                                           "ar":  "صُرِفَ",
+                                           "tr":  "ṣurifa",
+                                           "fr":  "il a été dépensé",
+                                           "es":  "fue gastado"
+                                       },
+                                       {
+                                           "id":  "f45-3",
+                                           "ar":  "صَرْف",
+                                           "tr":  "ṣarf",
+                                           "fr":  "morphologie, dépense",
+                                           "es":  "morfología, gasto"
+                                       },
+                                       {
+                                           "id":  "f45-4",
+                                           "ar":  "صَرَّفَ",
+                                           "tr":  "ṣarrafa",
+                                           "fr":  "il a conjugué",
+                                           "es":  "conjugó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f46",
+                         "root":  "ق ب ل",
+                         "words":  [
+                                       {
+                                           "id":  "f46-1",
+                                           "ar":  "قَبِلَ",
+                                           "tr":  "qabila",
+                                           "fr":  "il a accepté",
+                                           "es":  "aceptó"
+                                       },
+                                       {
+                                           "id":  "f46-2",
+                                           "ar":  "قَبَّلَ",
+                                           "tr":  "qabbala",
+                                           "fr":  "il a embrassé",
+                                           "es":  "besó"
+                                       },
+                                       {
+                                           "id":  "f46-3",
+                                           "ar":  "قَبْل",
+                                           "tr":  "qabl",
+                                           "fr":  "avant",
+                                           "es":  "antes"
+                                       },
+                                       {
+                                           "id":  "f46-4",
+                                           "ar":  "قُبِلَ",
+                                           "tr":  "qubila",
+                                           "fr":  "il a été accepté",
+                                           "es":  "fue aceptado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f47",
+                         "root":  "ض ح ك",
+                         "words":  [
+                                       {
+                                           "id":  "f47-1",
+                                           "ar":  "ضَحِكَ",
+                                           "tr":  "ḍaḥika",
+                                           "fr":  "il a ri",
+                                           "es":  "se rió"
+                                       },
+                                       {
+                                           "id":  "f47-2",
+                                           "ar":  "ضَحَّكَ",
+                                           "tr":  "ḍaḥḥaka",
+                                           "fr":  "il a fait rire",
+                                           "es":  "hizo reír"
+                                       },
+                                       {
+                                           "id":  "f47-3",
+                                           "ar":  "ضُحِكَ",
+                                           "tr":  "ḍuḥika",
+                                           "fr":  "on a ri",
+                                           "es":  "se rio (impersonal)"
+                                       },
+                                       {
+                                           "id":  "f47-4",
+                                           "ar":  "ضَحِك",
+                                           "tr":  "ḍaḥik",
+                                           "fr":  "rire",
+                                           "es":  "risa"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f48",
+                         "root":  "غ س ل",
+                         "words":  [
+                                       {
+                                           "id":  "f48-1",
+                                           "ar":  "غَسَلَ",
+                                           "tr":  "ghasala",
+                                           "fr":  "il a lavé",
+                                           "es":  "lavó"
+                                       },
+                                       {
+                                           "id":  "f48-2",
+                                           "ar":  "غُسِلَ",
+                                           "tr":  "ghusila",
+                                           "fr":  "il a été lavé",
+                                           "es":  "fue lavado"
+                                       },
+                                       {
+                                           "id":  "f48-3",
+                                           "ar":  "غَسْل",
+                                           "tr":  "ghasl",
+                                           "fr":  "lavage",
+                                           "es":  "lavado"
+                                       },
+                                       {
+                                           "id":  "f48-4",
+                                           "ar":  "غُسْل",
+                                           "tr":  "ghusl",
+                                           "fr":  "grande ablution",
+                                           "es":  "ablución mayor"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f49",
+                         "root":  "ج ه ل",
+                         "words":  [
+                                       {
+                                           "id":  "f49-1",
+                                           "ar":  "جَهِلَ",
+                                           "tr":  "jahila",
+                                           "fr":  "il a ignoré",
+                                           "es":  "ignoró"
+                                       },
+                                       {
+                                           "id":  "f49-2",
+                                           "ar":  "جُهِلَ",
+                                           "tr":  "juhila",
+                                           "fr":  "il a été ignoré",
+                                           "es":  "fue ignorado"
+                                       },
+                                       {
+                                           "id":  "f49-3",
+                                           "ar":  "جَهْل",
+                                           "tr":  "jahl",
+                                           "fr":  "ignorance",
+                                           "es":  "ignorancia"
+                                       },
+                                       {
+                                           "id":  "f49-4",
+                                           "ar":  "جَهَّلَ",
+                                           "tr":  "jahhala",
+                                           "fr":  "il a traité d\u0027ignorant",
+                                           "es":  "tachó de ignorante"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f50",
+                         "root":  "ق د ر",
+                         "words":  [
+                                       {
+                                           "id":  "f50-1",
+                                           "ar":  "قَدَرَ",
+                                           "tr":  "qadara",
+                                           "fr":  "il a pu",
+                                           "es":  "pudo"
+                                       },
+                                       {
+                                           "id":  "f50-2",
+                                           "ar":  "قَدَّرَ",
+                                           "tr":  "qaddara",
+                                           "fr":  "il a estimé, décrété",
+                                           "es":  "estimó, decretó"
+                                       },
+                                       {
+                                           "id":  "f50-3",
+                                           "ar":  "قَدَر",
+                                           "tr":  "qadar",
+                                           "fr":  "destin",
+                                           "es":  "destino"
+                                       },
+                                       {
+                                           "id":  "f50-4",
+                                           "ar":  "قِدْر",
+                                           "tr":  "qidr",
+                                           "fr":  "marmite",
+                                           "es":  "olla"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f51",
+                         "root":  "ح س ب",
+                         "words":  [
+                                       {
+                                           "id":  "f51-1",
+                                           "ar":  "حَسَبَ",
+                                           "tr":  "ḥasaba",
+                                           "fr":  "il a compté",
+                                           "es":  "contó"
+                                       },
+                                       {
+                                           "id":  "f51-2",
+                                           "ar":  "حَسِبَ",
+                                           "tr":  "ḥasiba",
+                                           "fr":  "il a pensé, cru",
+                                           "es":  "pensó, creyó"
+                                       },
+                                       {
+                                           "id":  "f51-3",
+                                           "ar":  "حَسْب",
+                                           "tr":  "ḥasb",
+                                           "fr":  "suffisant",
+                                           "es":  "suficiente"
+                                       },
+                                       {
+                                           "id":  "f51-4",
+                                           "ar":  "حَسَب",
+                                           "tr":  "ḥasab",
+                                           "fr":  "selon",
+                                           "es":  "según"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f52",
+                         "root":  "ض ع ف",
+                         "words":  [
+                                       {
+                                           "id":  "f52-1",
+                                           "ar":  "ضَعُفَ",
+                                           "tr":  "ḍaʿufa",
+                                           "fr":  "il a été faible",
+                                           "es":  "fue débil"
+                                       },
+                                       {
+                                           "id":  "f52-2",
+                                           "ar":  "ضَعَّفَ",
+                                           "tr":  "ḍaʿʿafa",
+                                           "fr":  "il a doublé, affaibli",
+                                           "es":  "dobló, debilitó"
+                                       },
+                                       {
+                                           "id":  "f52-3",
+                                           "ar":  "ضَعْف",
+                                           "tr":  "ḍaʿf",
+                                           "fr":  "faiblesse",
+                                           "es":  "debilidad"
+                                       },
+                                       {
+                                           "id":  "f52-4",
+                                           "ar":  "ضِعْف",
+                                           "tr":  "ḍiʿf",
+                                           "fr":  "double",
+                                           "es":  "doble"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f53",
+                         "root":  "ك ر ه",
+                         "words":  [
+                                       {
+                                           "id":  "f53-1",
+                                           "ar":  "كَرِهَ",
+                                           "tr":  "kariha",
+                                           "fr":  "il a détesté",
+                                           "es":  "detestó"
+                                       },
+                                       {
+                                           "id":  "f53-2",
+                                           "ar":  "كَرَّهَ",
+                                           "tr":  "karraha",
+                                           "fr":  "il a fait détester",
+                                           "es":  "hizo detestar"
+                                       },
+                                       {
+                                           "id":  "f53-3",
+                                           "ar":  "كُرِهَ",
+                                           "tr":  "kuriha",
+                                           "fr":  "il a été détesté",
+                                           "es":  "fue detestado"
+                                       },
+                                       {
+                                           "id":  "f53-4",
+                                           "ar":  "كَرْه",
+                                           "tr":  "karh",
+                                           "fr":  "contrainte",
+                                           "es":  "coacción"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f54",
+                         "root":  "ص د ر",
+                         "words":  [
+                                       {
+                                           "id":  "f54-1",
+                                           "ar":  "صَدَرَ",
+                                           "tr":  "ṣadara",
+                                           "fr":  "il est paru, sorti",
+                                           "es":  "salió, apareció"
+                                       },
+                                       {
+                                           "id":  "f54-2",
+                                           "ar":  "صَدْر",
+                                           "tr":  "ṣadr",
+                                           "fr":  "poitrine",
+                                           "es":  "pecho"
+                                       },
+                                       {
+                                           "id":  "f54-3",
+                                           "ar":  "صَدَّرَ",
+                                           "tr":  "ṣaddara",
+                                           "fr":  "il a exporté",
+                                           "es":  "exportó"
+                                       },
+                                       {
+                                           "id":  "f54-4",
+                                           "ar":  "صُدِّرَ",
+                                           "tr":  "ṣuddira",
+                                           "fr":  "il a été exporté",
+                                           "es":  "fue exportado"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f55",
+                         "root":  "ر ج ع",
+                         "words":  [
+                                       {
+                                           "id":  "f55-1",
+                                           "ar":  "رَجَعَ",
+                                           "tr":  "rajaʿa",
+                                           "fr":  "il est revenu",
+                                           "es":  "volvió"
+                                       },
+                                       {
+                                           "id":  "f55-2",
+                                           "ar":  "رَجَّعَ",
+                                           "tr":  "rajjaʿa",
+                                           "fr":  "il a répété (écho)",
+                                           "es":  "repitió (eco)"
+                                       },
+                                       {
+                                           "id":  "f55-3",
+                                           "ar":  "رُجِعَ",
+                                           "tr":  "rujiʿa",
+                                           "fr":  "on est revenu",
+                                           "es":  "se volvió"
+                                       },
+                                       {
+                                           "id":  "f55-4",
+                                           "ar":  "رَجْع",
+                                           "tr":  "rajʿ",
+                                           "fr":  "retour, écho",
+                                           "es":  "retorno, eco"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f56",
+                         "root":  "ص ن ع",
+                         "words":  [
+                                       {
+                                           "id":  "f56-1",
+                                           "ar":  "صَنَعَ",
+                                           "tr":  "ṣanaʿa",
+                                           "fr":  "il a fabriqué",
+                                           "es":  "fabricó"
+                                       },
+                                       {
+                                           "id":  "f56-2",
+                                           "ar":  "صُنِعَ",
+                                           "tr":  "ṣuniʿa",
+                                           "fr":  "il a été fabriqué",
+                                           "es":  "fue fabricado"
+                                       },
+                                       {
+                                           "id":  "f56-3",
+                                           "ar":  "صُنْع",
+                                           "tr":  "ṣunʿ",
+                                           "fr":  "fabrication",
+                                           "es":  "fabricación"
+                                       },
+                                       {
+                                           "id":  "f56-4",
+                                           "ar":  "صَنَّعَ",
+                                           "tr":  "ṣannaʿa",
+                                           "fr":  "il a industrialisé",
+                                           "es":  "industrializó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f57",
+                         "root":  "ر ك ب",
+                         "words":  [
+                                       {
+                                           "id":  "f57-1",
+                                           "ar":  "رَكِبَ",
+                                           "tr":  "rakiba",
+                                           "fr":  "il a monté",
+                                           "es":  "montó"
+                                       },
+                                       {
+                                           "id":  "f57-2",
+                                           "ar":  "رُكِبَ",
+                                           "tr":  "rukiba",
+                                           "fr":  "il a été monté",
+                                           "es":  "fue montado"
+                                       },
+                                       {
+                                           "id":  "f57-3",
+                                           "ar":  "رَكْب",
+                                           "tr":  "rakb",
+                                           "fr":  "cavaliers (groupe)",
+                                           "es":  "jinetes (grupo)"
+                                       },
+                                       {
+                                           "id":  "f57-4",
+                                           "ar":  "رَكَّبَ",
+                                           "tr":  "rakkaba",
+                                           "fr":  "il a assemblé",
+                                           "es":  "ensambló"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f58",
+                         "root":  "ش ر ق",
+                         "words":  [
+                                       {
+                                           "id":  "f58-1",
+                                           "ar":  "شَرِقَ",
+                                           "tr":  "shariqa",
+                                           "fr":  "il s\u0027est étouffé",
+                                           "es":  "se atragantó"
+                                       },
+                                       {
+                                           "id":  "f58-2",
+                                           "ar":  "شَرَقَ",
+                                           "tr":  "sharaqa",
+                                           "fr":  "le soleil s\u0027est levé",
+                                           "es":  "salió el sol"
+                                       },
+                                       {
+                                           "id":  "f58-3",
+                                           "ar":  "شَرْق",
+                                           "tr":  "sharq",
+                                           "fr":  "orient",
+                                           "es":  "oriente"
+                                       },
+                                       {
+                                           "id":  "f58-4",
+                                           "ar":  "شَرَّقَ",
+                                           "tr":  "sharraqa",
+                                           "fr":  "il est allé à l\u0027est",
+                                           "es":  "fue hacia el este"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f59",
+                         "root":  "ج ن ب",
+                         "words":  [
+                                       {
+                                           "id":  "f59-1",
+                                           "ar":  "جَنَبَ",
+                                           "tr":  "janaba",
+                                           "fr":  "il a écarté",
+                                           "es":  "apartó"
+                                       },
+                                       {
+                                           "id":  "f59-2",
+                                           "ar":  "جَنْب",
+                                           "tr":  "janb",
+                                           "fr":  "côté",
+                                           "es":  "lado"
+                                       },
+                                       {
+                                           "id":  "f59-3",
+                                           "ar":  "جُنُب",
+                                           "tr":  "junub",
+                                           "fr":  "en état d\u0027impureté rituelle",
+                                           "es":  "en estado de impureza ritual"
+                                       },
+                                       {
+                                           "id":  "f59-4",
+                                           "ar":  "جَنَّبَ",
+                                           "tr":  "jannaba",
+                                           "fr":  "il a épargné, éloigné",
+                                           "es":  "evitó, alejó"
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "f60",
+                         "root":  "ق ر ن",
+                         "words":  [
+                                       {
+                                           "id":  "f60-1",
+                                           "ar":  "قَرَنَ",
+                                           "tr":  "qarana",
+                                           "fr":  "il a associé, joint",
+                                           "es":  "unió, asoció"
+                                       },
+                                       {
+                                           "id":  "f60-2",
+                                           "ar":  "قُرِنَ",
+                                           "tr":  "qurina",
+                                           "fr":  "il a été associé",
+                                           "es":  "fue unido"
+                                       },
+                                       {
+                                           "id":  "f60-3",
+                                           "ar":  "قَرْن",
+                                           "tr":  "qarn",
+                                           "fr":  "siècle",
+                                           "es":  "siglo",
+                                           "ask":  false
+                                       },
+                                       {
+                                           "id":  "f60-4",
+                                           "ar":  "قَرْن",
+                                           "tr":  "qarn",
+                                           "fr":  "corne (de l\u0027animal)",
+                                           "es":  "cuerno (del animal)",
+                                           "ask":  false
+                                       }
+                                   ]
+                     }
+                 ]
+}
+    </script>
+
+    <script>
+        const APP_DATA = JSON.parse(document.getElementById('app-data').textContent);
+        const FAMILIES = APP_DATA.families;
+        const QUESTIONS_PER_ROUND = APP_DATA.questionsPerRound; // 60 : toutes les cartes, une fois chacune
+
+        const TEXTS = {
+            fr: {
+                appTitle: "Kalicards · Jeu",
+                appSubtitle: "JEU : Mêmes lettres, autre sens",
+                subtitle: "Les mêmes lettres, des voyelles différentes. Devine le sens du mot !",
+                nameLabel: "Nom du participant",
+                namePlaceholder: "Ex : Rayan...",
+                start: "Commencer le jeu",
+                card: "Carte",
+                instruction: "Quel est le sens de ce mot ?",
+                hint: "Regarde bien les voyelles (harakat) !",
+                revealTitle: "Les 4 mots de la famille",
+                same: "Mêmes lettres :",
+                ok: "Bravo !",
+                ko: "Pas tout à fait… la bonne réponse est en vert.",
+                next: "Suivant"
+            },
+            es: {
+                appTitle: "Kalicards · Juego",
+                appSubtitle: "JUEGO: Mismas letras, otro sentido",
+                subtitle: "Las mismas letras, vocales distintas. ¡Adivina el sentido de la palabra!",
+                nameLabel: "Nombre del participante",
+                namePlaceholder: "Ej.: Rayan...",
+                start: "Empezar el juego",
+                card: "Tarjeta",
+                instruction: "¿Cuál es el sentido de esta palabra?",
+                hint: "¡Fíjate bien en las vocales (harakat)!",
+                revealTitle: "Las 4 palabras de la familia",
+                same: "Mismas letras:",
+                ok: "¡Bien hecho!",
+                ko: "No exactamente… la respuesta correcta está en verde.",
+                next: "Siguiente"
+            }
+        };
+
+        const LS_LANG = 'dak_memes_lettres_lang';
+        let lang = 'fr';
+        try { const saved = localStorage.getItem(LS_LANG); if (saved === 'fr' || saved === 'es') lang = saved; } catch (_) {}
+
+        let playerName = "";
+        let questions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let mabroukPlayed = false;
+
+        const viewWelcome = document.getElementById('view-welcome');
+        const viewQuiz = document.getElementById('view-quiz');
+        const viewCertificate = document.getElementById('view-certificate');
+        const nameInput = document.getElementById('player-name');
+
+        // Fisher-Yates
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function applyLang() {
+            const L = TEXTS[lang];
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i]').forEach(el => { el.textContent = L[el.dataset.i]; });
+            nameInput.placeholder = L.namePlaceholder;
+            document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+            if (!viewQuiz.classList.contains('hidden')) renderQuestion();
+        }
+
+        function setLang(l) {
+            lang = l;
+            try { localStorage.setItem(LS_LANG, l); } catch (_) {}
+            applyLang();
+        }
+
+        document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+        // DAKAudio.unlock() est appelé directement dans le clic sur « Commencer » (déblocage iPhone).
+        async function startGame() {
+            playerName = nameInput.value.trim();
+            if (playerName === "") playerName = "Participant";
+
+            score = 0;
+            currentIndex = 0;
+            mabroukPlayed = false;
+
+            await DAKAudio.unlock();
+            generateQuestions();
+
+            viewWelcome.classList.add('hidden');
+            viewCertificate.classList.add('hidden');
+            viewQuiz.classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        // Une carte = une famille. Le mot posé est tiré au hasard dans la famille ; les 4 options sont
+        // les 4 sens de la famille. Un mot écrit deux fois (ask:false) n'est jamais posé : ce serait ambigu.
+        function generateQuestions() {
+            const cards = shuffle(FAMILIES).slice(0, QUESTIONS_PER_ROUND);
+            questions = cards.map(family => {
+                const askable = family.words.filter(w => w.ask !== false);
+                const target = askable[Math.floor(Math.random() * askable.length)];
+                return { family, target, options: shuffle(family.words), chosenId: null };
+            });
+        }
+
+        function renderQuestion() {
+            const L = TEXTS[lang];
+            const q = questions[currentIndex];
+
+            document.getElementById('progress-text').innerText = `${L.card} ${currentIndex + 1} / ${questions.length}`;
+            document.getElementById('progress-fill').style.width = `${(currentIndex / questions.length) * 100}%`;
+            document.getElementById('target-word').innerText = q.target.ar;
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = "";
+            q.options.forEach(word => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'option-card opt-text';
+                btn.innerText = word[lang];
+                if (q.chosenId) {
+                    if (word.id === q.target.id) btn.classList.add('correct');
+                    else if (word.id === q.chosenId) btn.classList.add('wrong');
+                    btn.style.pointerEvents = 'none';
+                } else {
+                    btn.onclick = () => handleAnswer(word);
+                }
+                grid.appendChild(btn);
+            });
+
+            const reveal = document.getElementById('reveal');
+            if (q.chosenId) {
+                const isRight = q.chosenId === q.target.id;
+                const feedback = document.getElementById('feedback');
+                feedback.className = 'feedback ' + (isRight ? 'ok' : 'ko');
+                feedback.innerText = isRight ? L.ok : L.ko;
+                document.getElementById('reveal-root').innerText = q.family.root;
+                const rv = document.getElementById('rv-grid');
+                rv.innerHTML = "";
+                q.family.words.forEach(word => {
+                    const card = document.createElement('div');
+                    card.className = 'rv-card' + (word.id === q.target.id ? ' target' : '');
+                    card.innerHTML = '<div class="rv-ar"></div><div class="rv-tr"></div><div class="rv-mean"></div>';
+                    card.children[0].innerText = word.ar;
+                    card.children[1].innerText = word.tr;
+                    card.children[2].innerText = word[lang];
+                    rv.appendChild(card);
+                });
+                reveal.classList.add('show');
+            } else {
+                reveal.classList.remove('show');
+            }
+        }
+
+        function handleAnswer(word) {
+            const q = questions[currentIndex];
+            if (q.chosenId) return;
+            q.chosenId = word.id;
+            if (word.id === q.target.id) {
+                score++;
+            } else if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            renderQuestion();
+            document.getElementById('btn-next').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function nextCard() {
+            currentIndex++;
+            if (currentIndex < questions.length) {
+                renderQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                finishGame();
+            }
+        }
+
+        function finishGame() {
+            viewQuiz.classList.add('hidden');
+            viewCertificate.classList.remove('hidden');
+            document.getElementById('progress-fill').style.width = `100%`;
+            document.getElementById('cert-name').innerText = playerName;
+            document.getElementById('cert-score').innerText = `${score} / ${questions.length}`;
+
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const dateStr = new Date().toLocaleDateString('fr-FR', options);
+            document.getElementById('cert-date').innerText = `Fait le ${dateStr}`;
+
+            window.scrollTo({ top: 0 });
+            triggerConfetti();
+
+            // Le son mabruk ne joue qu'une fois, après avoir coupé tout autre audio.
+            if (!mabroukPlayed) {
+                mabroukPlayed = true;
+                DAKAudio.stopAll();
+                DAKAudio.playEffect("mabruk.mp3");
+            }
+        }
+
+        function triggerConfetti() {
+            const duration = 3000; const end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#C8A462', '#5D1828'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#C8A462', '#5D1828'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        function restartGame() {
+            viewCertificate.classList.add('hidden');
+            viewWelcome.classList.remove('hidden');
+            nameInput.value = "";
+        }
+
+        applyLang();
+    </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>
