@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dar Al-Kalimah - DAK Darija</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Variables, en-tête et cartes de module : mêmes que la page des modules de DAK Arabe (modules.html) */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #888888;
+            --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px 20px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            visibility: hidden;
+        }
+
+        .ar-text { font-family: "Amiri", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        /* =========================================
+           EN-TÊTE
+           ========================================= */
+        .header-container {
+            background: var(--burgundy);
+            padding: 40px 30px; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
+            position: relative;
+        }
+        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .app-title { font-size: 1.4rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; }
+        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5; }
+        .subtitle { font-size: 1.1rem; color: var(--white); font-weight: 500; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitle-es { font-size: 0.95rem; color: var(--gold-light); opacity: 0.9; letter-spacing: 1px; }
+
+        .btn-back-home {
+            position: absolute; top: 20px; right: 20px;
+            color: var(--gold); text-decoration: none; font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        .btn-back-home:hover { color: var(--gold); transform: scale(1.1); }
+
+        /* Bouton FR / ES (visible sur toutes les pages du parcours) */
+        .lang-switch { position: absolute; top: 20px; left: 20px; display: inline-flex; gap: 6px; }
+        .lang-switch button {
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+            padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--gold);
+            background: transparent; color: var(--gold); cursor: pointer; transition: background 0.2s, color 0.2s;
+        }
+        .lang-switch button.on { background: var(--gold); color: var(--burgundy); }
+        .lang-switch button:hover { background: var(--gold); color: var(--burgundy); }
+        .lang-switch button:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 2px; }
+
+        /* =========================================
+           LES TROIS PARTIES
+           ========================================= */
+        .parcours { width: 100%; max-width: 800px; }
+
+        .partie { margin-bottom: 50px; }
+        .partie-head { text-align: center; margin-bottom: 22px; }
+        .partie-kicker { font-family: "Cinzel", "Georgia", serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+        .partie-title { font-family: "Cinzel", "Georgia", serif; font-size: 1.7rem; font-weight: 700; color: var(--burgundy); line-height: 1.25; margin-bottom: 6px; }
+        .partie-range { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+        .partie-head .divider { margin: 16px auto 0; }
+
+        /* =========================================
+           LISTE DES MODULES (cartes : même style que modules.html, non cliquables pour l'instant)
+           ========================================= */
+        .modules-grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+
+        .modules-grid { gap: 12px; }
+
+        /* Carte horizontale compacte : grande image à gauche (≈ 38 %), textes à droite */
+        .module-card {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.3); border-radius: 14px; overflow: hidden;
+            display: flex; align-items: stretch; min-height: 140px;
+            box-shadow: var(--shadow-card);
+        }
+        a.module-card { text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        a.module-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(93, 24, 40, 0.12); border-color: var(--gold); }
+
+        .mod-media {
+            position: relative; flex: 0 0 38%; background: linear-gradient(135deg, #f7ecd8, #e6cf9f); overflow: hidden;
+        }
+        .mod-media img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: var(--pos, center);
+            /* aucune retouche CSS : la lumière naturelle est réglée dans les fichiers image eux-mêmes */
+            transition: transform 0.5s ease;
+        }
+        a.module-card:hover .mod-media img { transform: scale(1.05); }
+        /* Module sans photo pour l'instant : emplacement doré, même taille */
+        .mod-media.vide { display: flex; align-items: center; justify-content: center; }
+        .mod-media.vide span { font-family: "Cinzel", "Georgia", serif; font-size: 2.6rem; font-weight: 700; color: rgba(93, 24, 40, 0.28); }
+
+        .module-info { flex: 1; min-width: 0; padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+        .mod-number { font-size: 0.78rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .mod-title { font-size: 1.08rem; font-weight: 700; color: var(--burgundy); margin-bottom: 4px; line-height: 1.35; overflow-wrap: break-word; }
+        .mod-sub { font-size: 0.86rem; color: var(--text-muted); line-height: 1.5; overflow-wrap: break-word; }
+
+        .mod-status {
+            align-self: flex-end; margin-top: 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            color: var(--gold); border: 1.5px dashed rgba(200, 164, 98, 0.55); border-radius: 999px; padding: 5px 13px; white-space: nowrap;
+        }
+
+        .page-footer { width: 100%; text-align: center; margin-top: 10px; }
+        .page-footer a {
+            color: var(--text-muted); font-size: 0.78rem; text-decoration: none;
+            border-bottom: 1px dotted rgba(93,24,40,0.25); padding-bottom: 2px;
+        }
+        .page-footer a:hover { color: var(--burgundy); }
+
+        @media (max-width: 768px) {
+            .header-container { padding: 70px 20px 30px; margin-bottom: 30px; }
+            .brand-ar { font-size: 3rem; }
+            .partie { margin-bottom: 40px; }
+            .partie-title { font-size: 1.4rem; }
+            /* Mobile et tablette : l'image reste à gauche et bien visible, les textes à droite */
+            .module-card { min-height: 130px; }
+            .mod-media { flex-basis: 37%; }
+            .module-info { padding: 12px 14px; }
+            .mod-title { font-size: 1rem; }
+            .mod-sub { font-size: 0.8rem; }
+            .mod-number { font-size: 0.72rem; }
+            .mod-status { font-size: 0.64rem; padding: 4px 10px; margin-top: 8px; }
+        }
+        @media (max-width: 400px) {
+            .mod-media { flex-basis: 35%; }
+            .module-info { padding: 10px 12px; }
+            .mod-title { font-size: 0.95rem; }
+            .mod-sub { font-size: 0.78rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="lang-switch" role="group" aria-label="Langue / Idioma">
+            <button type="button" data-lang="fr" class="on">FR</button>
+            <button type="button" data-lang="es">ES</button>
+        </div>
+        <a href="parcours.html" class="btn-back-home" aria-label="Choisir un parcours"><i class="fa-solid fa-house"></i></a>
+        <div class="brand-ar ar-text">دار الكلمة</div>
+        <div class="app-title serif-text">Dar Al-Kalimah</div>
+        <div class="divider"></div>
+        <p class="subtitle">DAK Darija</p>
+        <p class="subtitle-es" id="tagline"></p>
+    </div>
+
+    <div class="parcours" id="parcours" aria-live="polite"></div>
+
+    <div class="page-footer">
+        <a href="/confidentialite.html" id="privacy-link"></a>
+    </div>
+
+<script id="app-data" type="application/json">
+{
+  "tagline": {
+    "fr": "Écouter · Comprendre · Parler · Converser · Écrire",
+    "es": "Escuchar · Comprender · Hablar · Conversar · Escribir"
+  },
+  "ui": {
+    "partie": { "fr": "Partie", "es": "Parte" },
+    "module": { "fr": "Module", "es": "Módulo" },
+    "bientot": { "fr": "Bientôt", "es": "Próximamente" },
+    "privacy": { "fr": "Politique de confidentialité", "es": "Política de privacidad" },
+    "pageTitle": { "fr": "Dar Al-Kalimah - DAK Darija", "es": "Dar Al-Kalimah - DAK Darija" }
+  },
+  "images": {
+    "1":  { "src": "images/darija/modules/m01.jpg", "pos": "25% 30%" },
+    "2":  { "src": "images/darija/modules/m02.jpg", "pos": "45% 35%" },
+    "3":  { "src": "images/darija/modules/m03.jpg", "pos": "30% 50%" },
+    "4":  { "src": "images/darija/modules/m04.jpg", "pos": "35% 40%" },
+    "5":  { "src": "images/darija/modules/m05.jpg", "pos": "32% 40%" },
+    "6":  { "src": "images/darija/modules/m06.jpg", "pos": "center" },
+    "7":  { "src": "images/darija/modules/m07.jpg", "pos": "50% 55%" },
+    "8":  { "src": "images/darija/modules/m08.jpg", "pos": "center" },
+    "9":  { "src": "images/darija/modules/m09.jpg", "pos": "center 30%" },
+    "10": { "src": "images/darija/modules/m10.jpg", "pos": "60% 35%" },
+    "11": { "src": "images/darija/modules/m11.jpg", "pos": "45% 55%" },
+    "12": { "src": "images/darija/modules/m12.jpg", "pos": "65% 35%" },
+    "13": { "src": "images/darija/modules/m13.jpg", "pos": "center 28%" },
+    "14": { "src": "images/darija/modules/m14.jpg", "pos": "40% 45%" },
+    "15": { "src": "images/darija/modules/m15.jpg", "pos": "center" },
+    "16": { "src": "images/darija/modules/m16.jpg", "pos": "center" },
+    "17": { "src": "images/darija/modules/m17.jpg", "pos": "20% 40%" },
+    "18": { "src": "images/darija/modules/m18.jpg", "pos": "50% 30%" },
+    "19": { "src": "images/darija/modules/m19.jpg", "pos": "55% 30%" },
+    "20": { "src": "images/darija/modules/m20.jpg", "pos": "50% 30%" },
+    "21": { "src": "images/darija/modules/m21.jpg", "pos": "50% 12%" },
+    "22": { "src": "images/darija/modules/m22.jpg", "pos": "24% 40%" },
+    "23": { "src": "images/darija/modules/m23.jpg", "pos": "45% 55%" },
+    "24": { "src": "images/darija/modules/m24.jpg", "pos": "48% 55%" }
+  },
+  "parties": [
+    {
+      "id": 1,
+      "title": { "fr": "Je me débrouille", "es": "Me defiendo" },
+      "range": { "fr": "Modules 1 à 8", "es": "Módulos 1 a 8" },
+      "modules": [
+        { "n": 1, "title": { "fr": "Saluer, se présenter et faire connaissance", "es": "Saludar, presentarse y conocerse" }, "sub": { "fr": "Mes premières conversations en darija.", "es": "Mis primeras conversaciones en darija." } },
+        { "n": 2, "title": { "fr": "La famille et les relations", "es": "La familia y las relaciones" }, "sub": { "fr": "Parler avec mes proches et garder le contact.", "es": "Hablar con mis seres queridos y mantener el contacto." } },
+        { "n": 3, "title": { "fr": "Les nombres, l'argent et les prix", "es": "Los números, el dinero y los precios" }, "sub": { "fr": "Compter, comprendre les montants et payer.", "es": "Contar, entender los importes y pagar." } },
+        { "n": 4, "title": { "fr": "Les courses et les commerces", "es": "Las compras y los comercios" }, "sub": { "fr": "Acheter ce dont j'ai besoin au quotidien.", "es": "Comprar lo que necesito en el día a día." } },
+        { "n": 5, "title": { "fr": "Les transports et les déplacements", "es": "El transporte y los desplazamientos" }, "sub": { "fr": "Me déplacer partout au Maroc : bus, train, taxi, tramway, autocar, avion, bateau et voiture.", "es": "Moverme por todo Marruecos: autobús, tren, taxi, tranvía, autocar, avión, barco y coche." } },
+        { "n": 6, "title": { "fr": "Manger, boire et cuisiner", "es": "Comer, beber y cocinar" }, "sub": { "fr": "Partager les repas et exprimer mes goûts.", "es": "Compartir las comidas y expresar mis gustos." } },
+        { "n": 7, "title": { "fr": "La maison et la vie domestique", "es": "La casa y la vida doméstica" }, "sub": { "fr": "Communiquer naturellement à la maison.", "es": "Comunicarme con naturalidad en casa." } },
+        { "n": 8, "title": { "fr": "Le temps et l'organisation quotidienne", "es": "El tiempo y la organización diaria" }, "sub": { "fr": "Organiser mes journées, mes activités et mes rendez-vous.", "es": "Organizar mis días, mis actividades y mis citas." } }
+      ]
+    },
+    {
+      "id": 2,
+      "title": { "fr": "Je communique au quotidien", "es": "Me comunico en el día a día" },
+      "range": { "fr": "Modules 9 à 16", "es": "Módulos 9 a 16" },
+      "modules": [
+        { "n": 9, "title": { "fr": "L'école et les enfants", "es": "La escuela y los niños" }, "sub": { "fr": "Accompagner les enfants dans leur quotidien.", "es": "Acompañar a los niños en su día a día." } },
+        { "n": 10, "title": { "fr": "La santé et les soins", "es": "La salud y los cuidados" }, "sub": { "fr": "Expliquer un problème et demander de l'aide.", "es": "Explicar un problema y pedir ayuda." } },
+        { "n": 11, "title": { "fr": "Restaurants, cafés et sorties", "es": "Restaurantes, cafés y salidas" }, "sub": { "fr": "Commander, inviter et profiter d'une sortie.", "es": "Pedir, invitar y disfrutar de una salida." } },
+        { "n": 12, "title": { "fr": "Hygiène, vêtements et apparence", "es": "Higiene, ropa y apariencia" }, "sub": { "fr": "Prendre soin de soi et parler de son apparence.", "es": "Cuidar de uno mismo y hablar de su apariencia." } },
+        { "n": 13, "title": { "fr": "Fêtes, traditions et invitations", "es": "Fiestas, tradiciones e invitaciones" }, "sub": { "fr": "Participer à la vie familiale et aux traditions marocaines.", "es": "Participar en la vida familiar y en las tradiciones marroquíes." } },
+        { "n": 14, "title": { "fr": "Téléphone, WhatsApp et communication numérique", "es": "Teléfono, WhatsApp y comunicación digital" }, "sub": { "fr": "Garder le contact avec ses proches, même à distance.", "es": "Mantener el contacto con los seres queridos, incluso a distancia." } },
+        { "n": 15, "title": { "fr": "Services et démarches administratives", "es": "Servicios y trámites administrativos" }, "sub": { "fr": "Effectuer ses démarches avec confiance.", "es": "Realizar los trámites con confianza." } },
+        { "n": 16, "title": { "fr": "Voyages, vacances et hébergement", "es": "Viajes, vacaciones y alojamiento" }, "sub": { "fr": "Organiser son séjour au Maroc.", "es": "Organizar su estancia en Marruecos." } }
+      ]
+    },
+    {
+      "id": 3,
+      "title": { "fr": "Je converse avec confiance", "es": "Converso con confianza" },
+      "range": { "fr": "Modules 17 à 24", "es": "Módulos 17 a 24" },
+      "modules": [
+        { "n": 17, "title": { "fr": "Raconter sa journée et ses souvenirs", "es": "Contar mi día y mis recuerdos" }, "sub": { "fr": "Parler de ce que j'ai vécu.", "es": "Hablar de lo que he vivido." } },
+        { "n": 18, "title": { "fr": "Parler de ses projets et de l'avenir", "es": "Hablar de sus proyectos y del futuro" }, "sub": { "fr": "Expliquer ce que je compte faire.", "es": "Explicar lo que pienso hacer." } },
+        { "n": 19, "title": { "fr": "Émotions, sentiments et besoins", "es": "Emociones, sentimientos y necesidades" }, "sub": { "fr": "Exprimer ce que je ressens.", "es": "Expresar lo que siento." } },
+        { "n": 20, "title": { "fr": "Donner son avis et discuter", "es": "Dar su opinión y conversar" }, "sub": { "fr": "Exprimer et justifier mes idées.", "es": "Expresar y justificar mis ideas." } },
+        { "n": 21, "title": { "fr": "Travail, études et projets de vie", "es": "Trabajo, estudios y proyectos de vida" }, "sub": { "fr": "Parler de mes activités et de mes ambitions.", "es": "Hablar de mis actividades y de mis ambiciones." } },
+        { "n": 22, "title": { "fr": "Relations sociales et expressions marocaines", "es": "Relaciones sociales y expresiones marroquíes" }, "sub": { "fr": "Comprendre les mots, les expressions et les codes du quotidien.", "es": "Entender las palabras, las expresiones y los códigos de la vida cotidiana." } },
+        { "n": 23, "title": { "fr": "Imprévus, problèmes et conversations spontanées", "es": "Imprevistos, problemas y conversaciones espontáneas" }, "sub": { "fr": "Savoir réagir quand tout ne se passe pas comme prévu.", "es": "Saber reaccionar cuando nada sale como estaba previsto." } },
+        { "n": 24, "title": { "fr": "Je vis et je communique en darija !", "es": "¡Vivo y me comunico en darija!" }, "sub": { "fr": "Mobiliser mes acquis dans des situations réelles.", "es": "Movilizar lo aprendido en situaciones reales." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){
+  var DATA = JSON.parse(document.getElementById('app-data').textContent);
+  // Même clé de langue pour toutes les pages du parcours DAK Darija : la préférence est mémorisée.
+  var LS_LANG = 'dak_darija_lang';
+  var lang = 'fr';
+  try { var saved = localStorage.getItem(LS_LANG); if (saved === 'fr' || saved === 'es') lang = saved; } catch (_) {}
+
+  function el(tag, cls, text){
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  function render(){
+    document.documentElement.lang = lang;
+    document.title = DATA.ui.pageTitle[lang];
+    document.getElementById('tagline').textContent = DATA.tagline[lang];
+    var priv = document.getElementById('privacy-link');
+    priv.textContent = DATA.ui.privacy[lang];
+    document.querySelectorAll('.lang-switch button').forEach(function(b){
+      b.classList.toggle('on', b.dataset.lang === lang);
+    });
+
+    var root = document.getElementById('parcours');
+    root.innerHTML = '';
+    DATA.parties.forEach(function(p){
+      var sec = el('section', 'partie');
+      var head = el('div', 'partie-head');
+      head.appendChild(el('div', 'partie-kicker', DATA.ui.partie[lang] + ' ' + p.id));
+      head.appendChild(el('h2', 'partie-title', p.title[lang]));
+      head.appendChild(el('div', 'partie-range', p.range[lang]));
+      head.appendChild(el('div', 'divider'));
+      sec.appendChild(head);
+
+      var grid = el('div', 'modules-grid');
+      p.modules.forEach(function(m){
+        // Carte cliquable (<a>) seulement quand le module est accessible ; pour l'instant aucun ne l'est.
+        var card = el(m.href ? 'a' : 'div', 'module-card');
+        if (m.href) card.href = m.href;
+
+        // Image à gauche (~38 %) : une image par module, jamais partagée
+        var media = el('div', 'mod-media');
+        var im = DATA.images && DATA.images[m.n];
+        if (im) {
+          var img = document.createElement('img');
+          img.src = im.src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+          if (im.pos) media.style.setProperty('--pos', im.pos);
+          media.appendChild(img);
+        } else {
+          media.classList.add('vide');
+          media.appendChild(el('span', null, String(m.n)));
+        }
+        card.appendChild(media);
+
+        var info = el('div', 'module-info');
+        info.appendChild(el('div', 'mod-number', DATA.ui.module[lang] + ' ' + m.n));
+        info.appendChild(el('div', 'mod-title', m.title[lang]));
+        info.appendChild(el('div', 'mod-sub', m.sub[lang]));
+        if (!m.href) info.appendChild(el('div', 'mod-status', DATA.ui.bientot[lang]));
+        card.appendChild(info);
+        grid.appendChild(card);
+      });
+      sec.appendChild(grid);
+      root.appendChild(sec);
+    });
+  }
+
+  document.querySelectorAll('.lang-switch button').forEach(function(b){
+    b.addEventListener('click', function(){
+      lang = b.dataset.lang;
+      try { localStorage.setItem(LS_LANG, lang); } catch (_) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const _cfg = {
+    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+    authDomain: "dar-al-kalimah.firebaseapp.com",
+    projectId: "dar-al-kalimah",
+    storageBucket: "dar-al-kalimah.firebasestorage.app",
+    messagingSenderId: "472629258",
+    appId: "1:472629258:web:29b755d38efe89421f1ff3"
+  };
+  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+  const _auth = getAuth(_app);
+  // Étape 3 : structure seulement. Les accès par partie (attribués par e-mail) arrivent à l'étape 4.
+  onAuthStateChanged(_auth, (user) => {
+    if (!user) { window.location.href = 'auth.html'; return; }
+    document.body.style.visibility = 'visible';
+  });
+  // Filet de securite : la page ne doit jamais rester invisible indefiniment
+  setTimeout(() => { document.body.style.visibility = 'visible'; }, 3000);
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+
+</body>
+</html>
