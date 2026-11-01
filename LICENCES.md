@@ -23,3 +23,14 @@
   - Email de demande préparé (FR + AR) pour le Ministère des Habous et des Affaires Islamiques / Institut Mohammed VI / SNRT (chaîne Assadissa, Mohammed VI du Saint Coran), signé Houda Lahrichi — à envoyer via leurs formulaires de contact (habous.gov.ma, snrt.ma), aucune adresse email directe trouvée en ligne.
   - Ne rien intégrer tant que la réponse n'est pas reçue et positive.
   - Abdel Basset Abdel Samad et « Al-Haftari » vérifiés aussi : aucune licence commerciale publique trouvée pour aucun des deux (voir échange du 01/11/2026). Le fait qu'un récitateur soit décédé ne rend pas ses enregistrements libres de droits.
+
+## ✅ RÉSOLU (02/11/2026) — MP3Quran.net a répondu, autorisation accordée
+- **Demande envoyée par Houda** le 01/11/2026 à `mp3quran.net@gmail.com`, précisant explicitement qu'il s'agit d'une app **payante** et nommant Omar Al-Qazabri (Warsh).
+- **Réponse reçue** le 01/11/2026 de `mp3quran.net@gmail.com` : « يحق لكم استخدام اي مادة في الموقع تريدونها » — « Vous avez le droit d'utiliser tout le contenu du site que vous voulez. » Accompagnée du lien vers leur documentation API/minutage des versets.
+- **Vérifié techniquement (02/11/2026)** : MP3Quran expose une API publique gratuite, sans clé (`api-staging.mp3quran.net/v4`), avec minutage verset par verset (`has_ayah_timings: true`) — exactement ce qu'il faut pour le surlignage pendant l'écoute.
+  - **Omar Al-Qazabri** (`omar-kazabri/r1`) — riwaya Warsh ʿan Nāfiʿ, murattal, couverture complète (114 sourates), minutage disponible. Fichiers audio : `https://cdn.mp3quran.net/audio/omar-kazabri/r1/{sourate}.mp3`.
+  - **Mahmoud Khalil Al-Ḥuṣarī** (`mahmoud-husary/r1` murattal, `/r2` mujawwad) — riwaya Ḥafṣ ʿan ʿĀṣim, couverture complète, minutage disponible. Récitateur historiquement connu pour sa lecture lente et claire, adaptée à l'apprentissage (correspond au besoin « muʿallim lente » du brief).
+- **Attribution** : Houda s'est engagée par écrit à créditer chaque récitateur et MP3Quran.net dans l'app, et à ne pas modifier les enregistrements — à bien faire (mention du nom + lien vers mp3quran.net dans l'écran récitateurs).
+- **Point non confirmé explicitement par leur réponse** : si un récitateur individuel revendiquait ses droits séparément de MP3Quran (question 2 de notre email), ils n'ont pas répondu sur ce point précis — risque résiduel faible mais pas nul, vu qu'ils sont le site qui héberge et distribue ces fichiers.
+- **Toujours en attente** : réponse du Ministère des Habous / SNRT (email envoyé en parallèle le 01/11/2026).
+- **Peut maintenant être intégré** dans l'app, sourcé et crédité comme ci-dessus.
