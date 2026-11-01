@@ -240,10 +240,7 @@ img{max-width:100%; display:block;}
         <button data-riwaya="warsh" class="active">Warsh</button>
         <button data-riwaya="hafs">Ḥafṣ</button>
       </div>
-      <select class="reciter-select" id="reciterSelect" disabled>
-        <option data-i18n-opt="reciter_soon1"></option>
-        <option data-i18n-opt="reciter_soon2"></option>
-      </select>
+      <select class="reciter-select" id="reciterSelect"></select>
     </div>
     <p class="center ref-note" data-i18n="reciter_note"></p>
 
@@ -272,8 +269,8 @@ img{max-width:100%; display:block;}
         </div>
         <div class="vcard-face vcard-back" id="vcardBack">
           <div class="audio-row">
-            <button id="btnPlayVerse" title="écouter" disabled>▶</button>
-            <span class="audio-label" data-i18n="audio_soon"></span>
+            <button id="btnPlayVerse" title="écouter ce verset">▶</button>
+            <span class="audio-label" id="audioLabel" data-i18n="audio_verset"></span>
           </div>
           <div class="ar-small" id="vArBack"></div>
           <button class="context-toggle" id="btnContext" data-i18n="btn_context"></button>
@@ -288,6 +285,9 @@ img{max-width:100%; display:block;}
       <button class="nav-arrow" id="btnNext">›</button>
     </div>
     <p class="flip-hint" data-i18n="flip_hint"></p>
+    <div class="center" style="margin-top:4px;">
+      <button class="btn-outline btn-sm" id="btnPlayFull">🔊 <span data-i18n="btn_play_full"></span></button>
+    </div>
 
     <div class="action-row">
       <button class="btn-outline btn-sm" id="btnPrintSourate" data-i18n="btn_print"></button>
@@ -336,11 +336,10 @@ const I18N = {
     hadith2_ref:"Ṣaḥīḥ Muslim, n° 798",
     btn_continuer:"Continuer",
     fan_subtitle:"Juz' ʿAmma",
-    reciter_soon1:"Récitateur Warsh — à venir",
-    reciter_soon2:"Récitateur Ḥafṣ — à venir",
-    reciter_note:"Aucun récitateur n'est encore intégré (en attente des fichiers audio et de leurs licences).",
+    reciter_note:"Lecture lente et claire, idéale pour l'apprentissage.",
     btn_print_cahier:"Imprimer tout le cahier",
-    audio_soon:"Audio bientôt disponible",
+    audio_verset:"Écouter ce verset",
+    btn_play_full:"Écouter toute la sourate",
     btn_context:"Pourquoi cette sourate a-t-elle été révélée ?",
     flip_hint:"Touche la carte pour l'écouter · glisse pour passer au verset suivant",
     btn_print:"Imprimer",
@@ -365,11 +364,10 @@ const I18N = {
     hadith2_ref:"Ṣaḥīḥ Muslim, n.º 798",
     btn_continuer:"Continuar",
     fan_subtitle:"Juz' ʿAmma",
-    reciter_soon1:"Recitador Warsh — próximamente",
-    reciter_soon2:"Recitador Ḥafṣ — próximamente",
-    reciter_note:"Todavía no hay ningún recitador integrado (a la espera de los audios y sus licencias).",
+    reciter_note:"Lectura lenta y clara, ideal para aprender.",
     btn_print_cahier:"Imprimir todo el cuaderno",
-    audio_soon:"Audio próximamente",
+    audio_verset:"Escuchar este versículo",
+    btn_play_full:"Escuchar toda la azora",
     btn_context:"¿Por qué fue revelada esta azora?",
     flip_hint:"Toca la carta para escuchar · desliza para pasar al siguiente versículo",
     btn_print:"Imprimir",
@@ -394,11 +392,10 @@ const I18N = {
     hadith2_ref:"صحيح مسلم، رقم 798",
     btn_continuer:"متابعة",
     fan_subtitle:"جزء عمّ",
-    reciter_soon1:"قارئ ورش — قريبا",
-    reciter_soon2:"قارئ حفص — قريبا",
-    reciter_note:"لا يوجد قارئ بعد (في انتظار الملفات الصوتية وتراخيصها).",
+    reciter_note:"قراءة بطيئة وواضحة، مناسبة للتعلم.",
     btn_print_cahier:"طباعة الكراسة كاملة",
-    audio_soon:"الصوت قريبا",
+    audio_verset:"استمع إلى هذه الآية",
+    btn_play_full:"استماع إلى السورة كاملة",
     btn_context:"لماذا نزلت هذه السورة؟",
     flip_hint:"المس البطاقة للاستماع · اسحب للانتقال إلى الآية التالية",
     btn_print:"طباعة",
@@ -525,6 +522,59 @@ const SOURATES = {
   }
 };
 
+/* ======================================================================
+   AUDIO — récitateurs licenciés (voir LICENCES.md, confirmation écrite
+   de MP3Quran.net du 01/11/2026 : usage autorisé dans l'app payante,
+   aucune mention de leur site requise).
+   Warsh → Omar Al-Qazabri ; Ḥafṣ → Mustafa Ismail (murattal + mujawwad).
+   Minutage par verset fourni par l'API MP3Quran (ayah-timings).
+   Index 0 d'un tableau "ayahs" = basmala récitée en préambule (non
+   numérotée) : on ne s'en sert pas, on ne garde que index === n° de verset.
+   ====================================================================== */
+const RECITERS = {
+  warsh:[ {code:'omar-kazabri/r1', label:'Omar Al-Qazabri'} ],
+  hafs:[
+    {code:'mustafa-ismail/r1', label:'Mustafa Ismail — Murattal'},
+    {code:'mustafa-ismail/r2', label:'Mustafa Ismail — Mujawwad'}
+  ]
+};
+
+const AUDIO_DATA = {
+  "omar-kazabri/r1":{
+    "1":{"url":"https://cdn.mp3quran.net/audio/omar-kazabri/r1/001.mp3","duration_ms":54544,
+      "ayahs":[[0,5283,11650],[1,11730,16980],[2,17280,21990],[3,22080,25377],[4,25830,31940],[5,32030,36870],[6,37390,41293],[7,41293,54038]]},
+    "112":{"url":"https://cdn.mp3quran.net/audio/omar-kazabri/r1/112.mp3","duration_ms":19696,
+      "ayahs":[[0,41,4930],[1,5300,8580],[2,8660,11710],[3,11790,15110],[4,15190,19220]]},
+    "114":{"url":"https://cdn.mp3quran.net/audio/omar-kazabri/r1/114.mp3","duration_ms":28761,
+      "ayahs":[[0,73,5460],[1,5970,9425],[2,9425,11985],[3,11985,14225],[4,14225,18586],[5,18586,23106],[6,23106,28740]]}
+  },
+  "mustafa-ismail/r1":{
+    "1":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r1/001.mp3","duration_ms":42000,
+      "ayahs":[[1,828,4022],[2,5161,9078],[3,10281,12781],[4,13990,16740],[5,17880,22298],[6,23356,26550],[7,27625,38582]]},
+    "112":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r1/112.mp3","duration_ms":26000,
+      "ayahs":[[0,873,5430],[1,6650,9380],[2,10780,13152],[3,14473,17664],[4,19017,23470]]},
+    "114":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r1/114.mp3","duration_ms":43000,
+      "ayahs":[[0,1001,5654],[1,6697,11240],[2,12350,15110],[3,16110,18810],[4,19870,25890],[5,27070,32890],[6,33961,38358]]}
+  },
+  "mustafa-ismail/r2":{
+    "1":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r2/001.mp3","duration_ms":86883,
+      "ayahs":[[1,1110,3862],[1,6345,10166],[2,12028,17026],[3,17026,20786],[4,20786,26582],[5,33850,42294],[6,49289,55926],[7,61897,80470]]},
+    "112":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r2/112.mp3","duration_ms":38740,
+      "ayahs":[[1,14140,18234],[2,18234,22276],[3,22390,27359],[4,27359,34340]]},
+    "114":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r2/114.mp3","duration_ms":78655,
+      "ayahs":[[0,988,6226],[1,6320,14268],[2,21590,25110],[3,30680,34550],[4,37740,47638],[5,51190,59196],[6,59450,66290]]}
+  }
+};
+
+/* retourne {start,end} en ms pour le verset n° "n" ; prend la 1re occurrence
+   (gère les répétitions mélodiques du mujawwad, qui dupliquent un index) */
+function getAyahTiming(code, surahId, n){
+  const surah = AUDIO_DATA[code] && AUDIO_DATA[code][surahId];
+  if(!surah) return null;
+  for(const a of surah.ayahs){ if(a[0]===n) return {start:a[1], end:a[2]}; }
+  return null;
+}
+
 /* ---------- QUIZ : 30 questions brouillon par sourate ----------
    Types : ordre / mot / sens-mot / sens-verset / contexte / compte / riwaya
    Toute explication est en français (brouillon) ; à traduire après validation. */
@@ -648,12 +698,25 @@ document.getElementById('btnGoQuiz').addEventListener('click', ()=> openQuiz(cur
    ECRAN EVENTAIL
    ====================================================================== */
 let currentRiwaya = lsGet('hizb60_riwaya','warsh');
+let currentReciterCode = null;
+function populateReciterSelect(){
+  const list = RECITERS[currentRiwaya];
+  const saved = lsGet('hizb60_reciter_'+currentRiwaya, list[0].code);
+  currentReciterCode = list.some(r=>r.code===saved) ? saved : list[0].code;
+  const sel = document.getElementById('reciterSelect');
+  sel.innerHTML = list.map(r=>`<option value="${r.code}"${r.code===currentReciterCode?' selected':''}>${r.label}</option>`).join('');
+}
+document.getElementById('reciterSelect').addEventListener('change', e=>{
+  currentReciterCode = e.target.value; lsSet('hizb60_reciter_'+currentRiwaya, currentReciterCode);
+});
 document.getElementById('riwayaToggle').addEventListener('click', e=>{
   const b = e.target.closest('button[data-riwaya]'); if(!b) return;
   currentRiwaya = b.dataset.riwaya; lsSet('hizb60_riwaya', currentRiwaya);
   document.querySelectorAll('#riwayaToggle button').forEach(x=>x.classList.toggle('active', x===b));
+  populateReciterSelect();
 });
 document.querySelectorAll('#riwayaToggle button').forEach(x=>x.classList.toggle('active', x.dataset.riwaya===currentRiwaya));
+populateReciterSelect();
 
 const FAN_ORDER = ['fatiha','nas','ikhlas']; // Al-Fātiḥa en premier puis ordre d'apprentissage
 const FAN_ICONS = {fatiha:'📖', nas:'🧒', ikhlas:'☝️'};
@@ -684,6 +747,7 @@ let currentSourateSlug = 'fatiha';
 let currentVerseIdx = 0;
 
 function openSourate(slug){
+  stopAudio();
   currentSourateSlug = slug; currentVerseIdx = 0;
   const s = SOURATES[slug];
   document.getElementById('cardNameAr').textContent = s.nameAr;
@@ -740,6 +804,7 @@ function renderVerseCard(){
   document.getElementById('deckPos').textContent = (currentVerseIdx+1)+' / '+verses.length;
 }
 document.getElementById('vcard').addEventListener('click', ()=>{
+  stopAudio();
   document.getElementById('vcard').classList.toggle('flipped');
 });
 document.getElementById('btnContext').addEventListener('click', e=>{
@@ -747,10 +812,12 @@ document.getElementById('btnContext').addEventListener('click', e=>{
   document.getElementById('contextBox').classList.toggle('open');
 });
 document.getElementById('btnPrev').addEventListener('click', ()=>{
+  stopAudio();
   const n = SOURATES[currentSourateSlug].verses[currentRiwaya].length;
   currentVerseIdx = (currentVerseIdx-1+n)%n; renderVerseCard();
 });
 document.getElementById('btnNext').addEventListener('click', ()=>{
+  stopAudio();
   const n = SOURATES[currentSourateSlug].verses[currentRiwaya].length;
   currentVerseIdx = (currentVerseIdx+1)%n; renderVerseCard();
 });
@@ -766,6 +833,86 @@ document.getElementById('vcard').addEventListener('touchend', e=>{
 
 document.getElementById('btnPrintSourate').addEventListener('click', ()=> printSourate(currentSourateSlug,false));
 document.getElementById('btnPrintColor').addEventListener('click', ()=> printSourate(currentSourateSlug,true));
+
+/* ======================================================================
+   LECTURE AUDIO — un verset isolé, ou la sourate entière en continu
+   (surlignage/changement de carte synchronisés avec la lecture)
+   ====================================================================== */
+const audioPlayer = new Audio();
+let audioStopAtMs = null;
+let audioOnRangeEnd = null;
+let fullPlaybackActive = false;
+
+function stopAudio(){
+  fullPlaybackActive = false;
+  audioStopAtMs = null; audioOnRangeEnd = null;
+  audioPlayer.pause();
+}
+audioPlayer.addEventListener('timeupdate', ()=>{
+  if(audioStopAtMs!==null && audioPlayer.currentTime*1000 >= audioStopAtMs - 30){
+    audioPlayer.pause();
+    const cb = audioOnRangeEnd;
+    audioStopAtMs = null; audioOnRangeEnd = null;
+    if(cb) cb();
+  }
+});
+function playRange(url, startMs, endMs, onEnd){
+  audioOnRangeEnd = onEnd || null;
+  audioStopAtMs = endMs;
+  const seekAndPlay = ()=>{
+    try{ audioPlayer.currentTime = startMs/1000; }catch(e){}
+    audioPlayer.play().catch(()=>{});
+  };
+  if(audioPlayer.src === url && audioPlayer.readyState >= 1){
+    seekAndPlay();
+  } else {
+    audioPlayer.src = url;
+    audioPlayer.addEventListener('loadedmetadata', seekAndPlay, {once:true});
+    audioPlayer.load();
+  }
+  audioPlayer.play().catch(()=>{}); // débloque la lecture sur iOS (appel synchrone dans le geste utilisateur)
+}
+
+function playVerse(){
+  const s = SOURATES[currentSourateSlug];
+  const v = s.verses[currentRiwaya][currentVerseIdx];
+  const data = AUDIO_DATA[currentReciterCode] && AUDIO_DATA[currentReciterCode][s.id];
+  const t = data && getAyahTiming(currentReciterCode, s.id, v.n);
+  if(!data || !t) return;
+  fullPlaybackActive = false;
+  playRange(data.url, t.start, t.end, null);
+}
+document.getElementById('btnPlayVerse').addEventListener('click', e=>{
+  e.stopPropagation();
+  playVerse();
+});
+
+function playFullStep(){
+  if(!fullPlaybackActive) return;
+  const s = SOURATES[currentSourateSlug];
+  const data = AUDIO_DATA[currentReciterCode][s.id];
+  const v = s.verses[currentRiwaya][currentVerseIdx];
+  const t = getAyahTiming(currentReciterCode, s.id, v.n);
+  if(!t){ advanceFull(); return; }
+  playRange(data.url, t.start, t.end, advanceFull);
+}
+function advanceFull(){
+  if(!fullPlaybackActive) return;
+  const n = SOURATES[currentSourateSlug].verses[currentRiwaya].length;
+  if(currentVerseIdx+1 >= n){ fullPlaybackActive = false; return; }
+  currentVerseIdx++; renderVerseCard();
+  playFullStep();
+}
+function playFull(){
+  const s = SOURATES[currentSourateSlug];
+  const data = AUDIO_DATA[currentReciterCode] && AUDIO_DATA[currentReciterCode][s.id];
+  if(!data) return;
+  fullPlaybackActive = true;
+  currentVerseIdx = 0;
+  renderVerseCard();
+  playFullStep();
+}
+document.getElementById('btnPlayFull').addEventListener('click', ()=> playFull());
 
 /* ======================================================================
    QUIZ
