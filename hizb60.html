@@ -117,7 +117,8 @@ img{max-width:100%; display:block;}
   border:1.5px solid rgba(200,164,98,.5); background:var(--white); overflow:hidden;
   box-shadow:0 10px 28px rgba(93,24,40,.14); display:flex; flex-direction:column;
 }
-.vcard-front .vimg{width:100%; height:46%; background-color:#f4ede1;}
+.vcard-front .vimg{width:100%; height:46%; background-color:#f4ede1; transition:opacity .2s;}
+.vcard-front .vimg.img-loading{opacity:.35;}
 .vcard-front .vtext{flex:1; display:flex; align-items:center; justify-content:center; padding:16px; text-align:center;}
 .vcard-front .vtext .ar{font-size:1.65rem; line-height:2.3; color:var(--burgundy);}
 .vcard-front .vnum{position:absolute; top:10px; left:10px; background:var(--gold); color:var(--burgundy); font-weight:700; font-size:.8rem; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
@@ -681,12 +682,38 @@ function openSourate(slug){
   showScreen('screen-card');
 }
 
-function imgCropStyle(s, caseIdx){
-  if(caseIdx===null || caseIdx===undefined) return `background-image:url('${s.img}'); background-size:${s.cols*100}% ${s.rows*100}%; background-position:0 0;`;
-  const col = caseIdx % s.cols, row = Math.floor(caseIdx / s.cols);
+function cropVars(s, caseIdx){
+  const col = (caseIdx===null||caseIdx===undefined) ? 0 : caseIdx % s.cols;
+  const row = (caseIdx===null||caseIdx===undefined) ? 0 : Math.floor(caseIdx / s.cols);
   const bx = s.cols>1 ? (col/(s.cols-1))*100 : 0;
   const by = s.rows>1 ? (row/(s.rows-1))*100 : 0;
-  return `background-image:url('${s.img}'); background-size:${s.cols*100}% ${s.rows*100}%; background-position:${bx}% ${by}%;`;
+  return {size:`${s.cols*100}% ${s.rows*100}%`, pos:`${bx}% ${by}%`};
+}
+/* Les petits serveurs locaux utilisés pour tester (téléphone/LAN) ne traitent souvent
+   qu'une requête à la fois : plusieurs images demandées en même temps peuvent échouer
+   ponctuellement (connexion refusée). On réessaie donc le chargement avant d'abandonner. */
+function loadImageWithRetry(url, onReady, attempt){
+  attempt = attempt||0;
+  const probe = new Image();
+  probe.onload = ()=> onReady(true);
+  probe.onerror = ()=>{
+    if(attempt < 6) setTimeout(()=> loadImageWithRetry(url, onReady, attempt+1), 250*(attempt+1));
+    else onReady(false);
+  };
+  probe.src = url;
+}
+function imgCropStyle(s, caseIdx){
+  const {size,pos} = cropVars(s, caseIdx);
+  return `background-size:${size}; background-position:${pos};`;
+}
+function setVerseImage(el, s, caseIdx){
+  const {size,pos} = cropVars(s, caseIdx);
+  el.style.backgroundImage = 'none';
+  el.classList.add('img-loading');
+  loadImageWithRetry(s.img, (ok)=>{
+    el.classList.remove('img-loading');
+    if(ok){ el.style.backgroundImage = `url('${s.img}')`; el.style.backgroundSize = size; el.style.backgroundPosition = pos; }
+  });
 }
 
 function renderVerseCard(){
@@ -695,7 +722,7 @@ function renderVerseCard(){
   const v = verses[currentVerseIdx];
   document.getElementById('vcard').classList.remove('flipped');
   document.getElementById('vNum').textContent = v.n;
-  document.getElementById('vImg').setAttribute('style', imgCropStyle(s, v.case));
+  setVerseImage(document.getElementById('vImg'), s, v.case);
   document.getElementById('vArText').textContent = v.ar + (v.basmalaAbove ? '' : '');
   document.getElementById('vArBack').innerHTML = v.ar.split(' ').map(w=>`<span class="hl">${w}</span>`).join(' ');
   document.getElementById('contextBox').textContent = s.contextFr;
