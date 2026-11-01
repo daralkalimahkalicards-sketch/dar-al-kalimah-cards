@@ -30,7 +30,9 @@
 - **Vérifié techniquement (02/11/2026)** : MP3Quran expose une API publique gratuite, sans clé (`api-staging.mp3quran.net/v4`), avec minutage verset par verset (`has_ayah_timings: true`) — exactement ce qu'il faut pour le surlignage pendant l'écoute.
   - **Omar Al-Qazabri** (`omar-kazabri/r1`) — riwaya Warsh ʿan Nāfiʿ, murattal, couverture complète (114 sourates), minutage disponible. Fichiers audio : `https://cdn.mp3quran.net/audio/omar-kazabri/r1/{sourate}.mp3`.
   - **Mahmoud Khalil Al-Ḥuṣarī** (`mahmoud-husary/r1` murattal, `/r2` mujawwad) — riwaya Ḥafṣ ʿan ʿĀṣim, couverture complète, minutage disponible. Récitateur historiquement connu pour sa lecture lente et claire, adaptée à l'apprentissage (correspond au besoin « muʿallim lente » du brief).
-- **Attribution** : Houda s'est engagée par écrit à créditer chaque récitateur et MP3Quran.net dans l'app, et à ne pas modifier les enregistrements — à bien faire (mention du nom + lien vers mp3quran.net dans l'écran récitateurs).
-- **Point non confirmé explicitement par leur réponse** : si un récitateur individuel revendiquait ses droits séparément de MP3Quran (question 2 de notre email), ils n'ont pas répondu sur ce point précis — risque résiduel faible mais pas nul, vu qu'ils sont le site qui héberge et distribue ces fichiers.
+- **Échange complet (01/11/2026, même fil)** : Houda a recontacté MP3Quran pour confirmer explicitement que l'autorisation couvre bien l'app payante Hizb 60 vendue dans la boutique Dar Al-Kalimah, et a proposé une formule de crédit. Réponse de MP3Quran : **« نعم يشمل وما يحتاج ذكر اسم موقعنا »** (« Oui, ça inclut [l'app payante], et pas besoin de mentionner le nom de notre site »). **Confirmation explicite, écrite, sans ambiguïté.**
+- **Aucune mention de MP3Quran.net n'est donc nécessaire dans l'app** — ils l'ont dit eux-mêmes.
+- **Point non confirmé explicitement** : si un récitateur individuel revendiquait ses droits séparément de MP3Quran (question 2 de notre email), ils n'ont pas répondu sur ce point précis — risque résiduel faible mais pas nul, vu qu'ils sont le site qui héberge et distribue ces fichiers.
+- **Choix des récitateurs (02/11/2026)** : **Warsh → Omar Al-Qazabri** (`omar-kazabri/r1`) ; **Ḥafṣ → Mustafa Ismail**, murattal (`mustafa-ismail/r1`) et mujawwad (`mustafa-ismail/r2`), les deux versions.
 - **Toujours en attente** : réponse du Ministère des Habous / SNRT (email envoyé en parallèle le 01/11/2026).
-- **Peut maintenant être intégré** dans l'app, sourcé et crédité comme ci-dessus.
+- **Peut maintenant être intégré** dans l'app.
