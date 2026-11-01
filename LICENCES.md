@@ -14,3 +14,8 @@
 ## Audio / récitateurs
 - **Aucun fichier audio tiers n'a encore été intégré.** Rien n'est téléchargé ni hébergé tant que la source et les conditions d'utilisation commerciale n'ont pas été vérifiées et validées par Houda, conformément à la règle du projet.
 - Les enregistrements de Houda ne sont **pas utilisés** dans Hizb 60 (décision du 31/10/2026) : seuls des récitateurs externes sont prévus.
+- **Recherche du 01/11/2026 — aucune source gratuite trouvée n'autorise clairement un usage commercial :**
+  - **EveryAyah.com** : pas de licence officielle trouvée sur le site lui-même ; la lecture la plus fiable (via un projet miroir) limite l'usage à du non-commercial (enseignement, mémorisation, apps gratuites, recherche) avec obligation de créditer le récitateur et le site.
+  - **Quran.com / Quran Foundation API** : les conditions développeur (Developer Terms) l'écrivent noir sur blanc — tout usage de l'audio au-delà du simple affichage dans l'app (stockage, lecture hors-ligne, redistribution, usage commercial) demande un **accord de licence commerciale écrit séparé** avec la Quran Foundation.
+  - **Omar Al-Qazabri (Warsh)** : aucune licence commerciale publique trouvée. Ses enregistrements circulent via des agrégateurs tiers (Assabile.com, SurahQuran.com) qui n'indiquent pas les droits de réutilisation.
+  - **Conclusion** : aucune de ces sources ne peut être intégrée telle quelle dans une application payante. Trois pistes possibles : (1) contacter Assabile.com (qui héberge le catalogue structuré d'Al-Qazabri) pour demander une licence commerciale ; (2) souscrire à un fournisseur audio coranique payant avec licence claire ; (3) faire enregistrer un récitateur consentant spécifiquement pour Dar Al-Kalimah.
