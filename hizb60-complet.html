@@ -326,9 +326,9 @@ const T = {
 function ls(k,d){try{const v=localStorage.getItem('h60_'+k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
 function ss(k,v){try{localStorage.setItem('h60_'+k,JSON.stringify(v));}catch(e){}}
 /* ---------- version publique de démonstration ----------
-   Cette copie-ci (hizb60.html, liée depuis la page boutique) n'ouvre
-   qu'Al-Fātiḥa ; la copie complète, livrée après achat, est servie à
-   une adresse secrète distincte avec DEMO_MODE=false. */
+   Cette copie-ci (hizb60-complet.html, liée depuis la page boutique)
+   n'ouvre qu'Al-Fātiḥa ; la copie complète, livrée après achat, est
+   servie à une adresse secrète distincte avec DEMO_MODE=false. */
 const DEMO_MODE = true;
 const BOUTIQUE_URL = 'hizb60-boutique.html';
 let L=ls('lang','fr'), R=ls('riw','w'), sel=ls('sel',0), curS=null, curC=0;
