@@ -619,16 +619,27 @@ function getWordTiming(code,surahId,n,wi){
 function bareAr(w){
   return w.replace(/\u0670/g,'\u0627')
           .replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06ED\u08F0-\u08FF]/g,'')
-          .replace(/[\u0625\u0623\u0622\u0671]/g,'\u0627').replace(/\u0640/g,'').trim();
+          .replace(/[\u0625\u0623\u0622\u0671]/g,'\u0627').replace(/\u0640/g,'')
+          .replace(/\u06D2/g,'\u064A').trim(); // \u06D2 (yeh barree, graphie Warsh) = \u064A
 }
 const LEX={
   fr:{"بسم":"au nom de","الله":"Allah","الرحمان":"le Tout Miséricordieux","الرحيم":"le Très Miséricordieux",
     "الحمد":"la louange","لله":"à Allah","رب":"Seigneur","العالمين":"des mondes, de toute la création",
-    "مالك":"le Maître (lecture Ḥafṣ)","ملك":"le Roi (lecture Warsh)","يوم":"le jour","الدين":"de la rétribution, du Jugement",
+    "مالك":"le Maître, le Possesseur","ملك":"le Roi, le Souverain","يوم":"le jour","الدين":"de la rétribution, du Jugement",
     "اياك":"C'est Toi (seul)","نعبد":"que nous adorons","واياك":"et c'est Toi (seul)","نستعين":"que nous implorons l'aide",
     "اهدنا":"guide-nous","الصراط":"le chemin","المستقيم":"le droit, le rectiligne","صراط":"le chemin de",
     "الذين":"ceux que","انعمت":"Tu as comblés de bienfaits","عليهم":"sur eux","غير":"non, pas (celui)",
-    "المغضوب":"qui a encouru la colère","ولا":"et ni","الضالين":"ceux qui se sont égarés"}
+    "المغضوب":"qui a encouru la colère","ولا":"et ni","الضالين":"ceux qui se sont égarés",
+    "قل":"Dis","هو":"Il","احد":"Unique, un seul","الصمد":"Celui dont tout dépend, qui ne dépend de rien",
+    "لم":"ne… pas","يلد":"il engendre","ولم":"et ne… pas","يولد":"il est engendré, il naît",
+    "يكن":"il soit, il y ait","له":"à lui","كفوا":"égal, semblable","كفؤا":"égal, semblable",
+    "اعوذ":"je cherche refuge","برب":"auprès du Seigneur de","الفلق":"l'aube naissante","من":"de, parmi",
+    "شر":"le mal de","ما":"ce que","خلق":"Il a créé","ومن":"et de, et parmi","غاسق":"la nuit obscure",
+    "اذا":"quand","وقب":"elle s'installe (l'obscurité)","النفاثات":"celles qui soufflent (sur les nœuds)",
+    "في":"dans","العقد":"les nœuds","حاسد":"un envieux","حسد":"il envie",
+    "الناس":"les hommes","الاه":"le dieu, la divinité","الوسواس":"le mauvais murmure, la tentation",
+    "الخناس":"qui se retire (le tentateur)","الذي":"celui qui","يوسوس":"il insuffle (de mauvaises pensées)",
+    "صدور":"les poitrines, les cœurs","الجنة":"les djinns","والناس":"et les hommes"}
 };
 function onWordTap(e){
   e.stopPropagation(); // tapoter le texte d'un verset ne doit jamais retourner la carte
