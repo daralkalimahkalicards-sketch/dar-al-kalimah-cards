@@ -1,0 +1,7700 @@
+{
+  "order": "row-major-left-to-right",
+  "numbering_sources": {
+    "hafs": "KFGQPC Hafs v18",
+    "warsh": "KFGQPC Warsh v10"
+  },
+  "sheets": [
+    {
+      "id": 1,
+      "slug": "fatiha",
+      "filename": "001-fatiha.png",
+      "cols": 4,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La basmala : commencer au nom d’Allah",
+          "warsh": [],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Louange au Seigneur des mondes",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Le Tout Miséricordieux, le Très Miséricordieux",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Le Maître du Jour de la rétribution",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Adorer Allah seul et Lui demander de l’aide",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Demander le droit chemin",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Le chemin des personnes comblées de bienfaits — première partie du verset 7 Hafs",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": " — partie du verset Hafs 7"
+        },
+        {
+          "case": 8,
+          "hafs": [
+            7
+          ],
+          "description": "Éviter les chemins de la colère et de l’égarement — seconde partie du verset 7 Hafs",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": " — partie du verset Hafs 7"
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 78,
+      "slug": "naba",
+      "filename": "078-naba.png",
+      "cols": 3,
+      "rows": 4,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "description": "La grande nouvelle et les questions",
+          "warsh": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            6,
+            7
+          ],
+          "description": "La terre étendue et les montagnes comme des piquets",
+          "warsh": [
+            6,
+            7
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "description": "Les paires, le repos, la nuit et le jour",
+          "warsh": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "description": "Les cieux, le soleil, la pluie et les plantes",
+          "warsh": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.25,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            17,
+            18,
+            19,
+            20
+          ],
+          "description": "Le rendez-vous du Jour de la décision",
+          "warsh": [
+            17,
+            18,
+            19,
+            20
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "description": "La mise en garde contre le châtiment",
+          "warsh": [
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            27,
+            28,
+            29,
+            30
+          ],
+          "description": "Le compte et les actes consignés",
+          "warsh": [
+            27,
+            28,
+            29,
+            30
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "description": "La récompense et ses bienfaits",
+          "warsh": [
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            37,
+            38
+          ],
+          "description": "La miséricorde et la solennité de ce Jour",
+          "warsh": [
+            37,
+            38
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            39,
+            40
+          ],
+          "description": "Le Jour véritable, les actes et l’avertissement",
+          "warsh": [
+            39,
+            40
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.75,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 79,
+      "slug": "naziat",
+      "filename": "079-naziat.png",
+      "cols": 3,
+      "rows": 4,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "description": "Les serments initiaux — anges non représentés",
+          "warsh": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "description": "Le bouleversement et les cœurs saisis",
+          "warsh": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "description": "La question du retour à la vie",
+          "warsh": [
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            15,
+            16,
+            17,
+            18,
+            19
+          ],
+          "description": "Le rappel du récit de Mûsâ et de Pharaon",
+          "warsh": [
+            15,
+            16,
+            17,
+            18,
+            19
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.25,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "description": "Le refus de Pharaon et la leçon à retenir",
+          "warsh": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "description": "Observer le ciel, la terre et leurs ressources",
+          "warsh": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            34,
+            35,
+            36
+          ],
+          "description": "Le grand événement et le rappel des actes",
+          "warsh": [
+            34,
+            35,
+            36
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            37,
+            38,
+            39
+          ],
+          "description": "Dépasser les limites et préférer cette vie",
+          "warsh": [
+            37,
+            38
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            40,
+            41
+          ],
+          "description": "Craindre son Seigneur et résister aux passions",
+          "warsh": [
+            39,
+            40
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            42,
+            43,
+            44,
+            45,
+            46
+          ],
+          "description": "La question de l’Heure et le temps très court",
+          "warsh": [
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.75,
+            0.3333333333333333,
+            0.25
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 80,
+      "slug": "abasa",
+      "filename": "080-abasa.png",
+      "cols": 4,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "description": "L’attention à celui qui vient apprendre",
+          "warsh": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "description": "L’indifférence et la recherche sincère du rappel",
+          "warsh": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "description": "Le rappel, les feuillets honorés et purs",
+          "warsh": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "description": "L’origine humaine, la vie et le retour",
+          "warsh": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            24,
+            25,
+            26
+          ],
+          "description": "L’eau et la terre qui s’ouvre",
+          "warsh": [
+            24,
+            25,
+            26
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32
+          ],
+          "description": "Les nourritures et les pâturages",
+          "warsh": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            33,
+            34,
+            35,
+            36,
+            37
+          ],
+          "description": "Le grand fracas et les liens familiaux",
+          "warsh": [
+            33,
+            34,
+            35,
+            36,
+            37
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            38,
+            39,
+            40,
+            41,
+            42
+          ],
+          "description": "Deux issues très différentes — visages non représentés",
+          "warsh": [
+            38,
+            39,
+            40,
+            41,
+            42
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 81,
+      "slug": "takwir",
+      "filename": "081-takwir.png",
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3
+          ],
+          "description": "Le soleil, les étoiles et les montagnes bouleversés",
+          "warsh": [
+            1,
+            2,
+            3
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            4,
+            5,
+            6
+          ],
+          "description": "Les biens délaissés, les animaux et les mers",
+          "warsh": [
+            4,
+            5,
+            6
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "description": "Les êtres, les registres et les actes mis au jour",
+          "warsh": [
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            15,
+            16,
+            17,
+            18
+          ],
+          "description": "Les astres, la nuit et l’aube",
+          "warsh": [
+            15,
+            16,
+            17,
+            18
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "description": "La noblesse et la fiabilité du message",
+          "warsh": [
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            26,
+            27,
+            28,
+            29
+          ],
+          "description": "Le rappel et la voie droite",
+          "warsh": [
+            26,
+            27,
+            28,
+            29
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 82,
+      "slug": "infitar",
+      "filename": "082-infitar.png",
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "description": "Les bouleversements et la connaissance de ses actes",
+          "warsh": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            6,
+            7,
+            8
+          ],
+          "description": "La générosité du Seigneur et la création humaine",
+          "warsh": [
+            6,
+            7,
+            8
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "description": "Les actes sont enregistrés — anges non représentés",
+          "warsh": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "description": "Deux issues différentes",
+          "warsh": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            17,
+            18,
+            19
+          ],
+          "description": "Le Jour de la rétribution",
+          "warsh": [
+            17,
+            18,
+            19
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        6
+      ]
+    },
+    {
+      "id": 83,
+      "slug": "mutaffifin",
+      "filename": "083-mutaffifin.png",
+      "cols": 4,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "description": "La fraude dans les mesures et le rappel du compte",
+          "warsh": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            7,
+            8,
+            9
+          ],
+          "description": "Le registre des transgresseurs",
+          "warsh": [
+            7,
+            8,
+            9
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "description": "Le démenti, les actes et la rouille du cœur",
+          "warsh": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "description": "Le registre des vertueux",
+          "warsh": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28
+          ],
+          "description": "Les bienfaits de la récompense",
+          "warsh": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "description": "Les moqueries envers les croyants",
+          "warsh": [
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            34,
+            35,
+            36
+          ],
+          "description": "Le renversement de la situation et la juste rétribution",
+          "warsh": [
+            34,
+            35,
+            36
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5,
+            0.25,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        8
+      ]
+    },
+    {
+      "id": 84,
+      "slug": "inshiqaq",
+      "filename": "084-inshiqaq.png",
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "description": "Le ciel et la terre obéissent à l’ordre reçu",
+          "warsh": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "description": "L’effort humain et le compte facile",
+          "warsh": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "description": "Le registre derrière le dos et la fausse insouciance",
+          "warsh": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "description": "Le crépuscule, la nuit, la lune et les étapes",
+          "warsh": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "description": "Le refus du rappel et les bonnes œuvres",
+          "warsh": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        6
+      ]
+    },
+    {
+      "id": 85,
+      "slug": "buruj",
+      "filename": "085-buruj.png",
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3
+          ],
+          "description": "Les constellations, le Jour promis et le témoignage",
+          "warsh": [
+            1,
+            2,
+            3
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "description": "Les gens du fossé — aucune victime représentée",
+          "warsh": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "description": "La persécution de la foi et ses conséquences",
+          "warsh": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "description": "La puissance, le pardon et la volonté d’Allah",
+          "warsh": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            17,
+            18,
+            19,
+            20
+          ],
+          "description": "Le rappel des peuples de Pharaon et de Thamûd",
+          "warsh": [
+            17,
+            18,
+            19,
+            20
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            21,
+            22
+          ],
+          "description": "Le Coran glorieux et préservé",
+          "warsh": [
+            21,
+            22
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 86,
+      "slug": "tariq",
+      "filename": "086-tariq.png",
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1,
+            2,
+            3
+          ],
+          "description": "Le ciel et l’astre perçant",
+          "warsh": [
+            1,
+            2,
+            3
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            4
+          ],
+          "description": "Chaque âme a un gardien — non représenté",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            5,
+            6,
+            7
+          ],
+          "description": "Réfléchir à l’origine humaine",
+          "warsh": [
+            5,
+            6,
+            7
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            8,
+            9,
+            10
+          ],
+          "description": "Le retour à la vie et les secrets révélés",
+          "warsh": [
+            8,
+            9,
+            10
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "description": "La pluie, la terre qui se fend et la parole décisive",
+          "warsh": [
+            11,
+            12,
+            13,
+            14
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            15,
+            16,
+            17
+          ],
+          "description": "Les manœuvres et le délai accordé",
+          "warsh": [
+            15,
+            16,
+            17
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 87,
+      "filename": "087-ala.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 5,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Glorifier",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Créer et façonner",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Mesurer et guider",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Les pâturages",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Les herbes sèches",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "La récitation",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Rien n’est caché",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "La facilité",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Le rappel utile",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Accueillir le rappel",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "S’en détourner",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "Une mise en garde",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "Une conséquence grave",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "La purification",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "Le rappel et la prière",
+          "warsh": [
+            15
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 16,
+          "hafs": [
+            16
+          ],
+          "description": "Préférer cette vie",
+          "warsh": [
+            16
+          ],
+          "row": 4,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 17,
+          "hafs": [
+            17
+          ],
+          "description": "L’au-delà dure davantage",
+          "warsh": [
+            17
+          ],
+          "row": 5,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 18,
+          "hafs": [
+            18
+          ],
+          "description": "Les anciens feuillets",
+          "warsh": [
+            18
+          ],
+          "row": 5,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 19,
+          "hafs": [
+            19
+          ],
+          "description": "Les feuillets d’Ibrâhîm et Mûsâ",
+          "warsh": [
+            19
+          ],
+          "row": 5,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        20
+      ]
+    },
+    {
+      "id": 88,
+      "filename": "088-ghashiya.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 7,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La nouvelle",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "L’humiliation",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "La fatigue",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Le feu",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Une source brûlante",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.14285714285714285,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Une nourriture pénible",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.14285714285714285,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Qui ne nourrit pas",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.14285714285714285,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "La joie",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.14285714285714285,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "L’effort récompensé",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.2857142857142857,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Le Paradis : repère abstrait",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.2857142857142857,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Pas de paroles vaines",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.2857142857142857,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "Une source",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.2857142857142857,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "Des sièges",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.42857142857142855,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "Des coupes",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.42857142857142855,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "Des coussins",
+          "warsh": [
+            15
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.42857142857142855,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 16,
+          "hafs": [
+            16
+          ],
+          "description": "Des tapis",
+          "warsh": [
+            16
+          ],
+          "row": 4,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.42857142857142855,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 17,
+          "hafs": [
+            17
+          ],
+          "description": "Observer les chameaux",
+          "warsh": [
+            17
+          ],
+          "row": 5,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5714285714285714,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 18,
+          "hafs": [
+            18
+          ],
+          "description": "Observer le ciel",
+          "warsh": [
+            18
+          ],
+          "row": 5,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5714285714285714,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 19,
+          "hafs": [
+            19
+          ],
+          "description": "Observer les montagnes",
+          "warsh": [
+            19
+          ],
+          "row": 5,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5714285714285714,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 20,
+          "hafs": [
+            20
+          ],
+          "description": "Observer la terre",
+          "warsh": [
+            20
+          ],
+          "row": 5,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.5714285714285714,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 21,
+          "hafs": [
+            21
+          ],
+          "description": "Rappeler",
+          "warsh": [
+            21
+          ],
+          "row": 6,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.7142857142857143,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 22,
+          "hafs": [
+            22
+          ],
+          "description": "Sans contraindre",
+          "warsh": [
+            22
+          ],
+          "row": 6,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.7142857142857143,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 23,
+          "hafs": [
+            23
+          ],
+          "description": "Le refus",
+          "warsh": [
+            23
+          ],
+          "row": 6,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.7142857142857143,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 24,
+          "hafs": [
+            24
+          ],
+          "description": "Une conséquence",
+          "warsh": [
+            24
+          ],
+          "row": 6,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.7142857142857143,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 25,
+          "hafs": [
+            25
+          ],
+          "description": "Le retour",
+          "warsh": [
+            25
+          ],
+          "row": 7,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.8571428571428571,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        },
+        {
+          "case": 26,
+          "hafs": [
+            26
+          ],
+          "description": "Le compte",
+          "warsh": [
+            26
+          ],
+          "row": 7,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.8571428571428571,
+            0.25,
+            0.14285714285714285
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        27,
+        28
+      ]
+    },
+    {
+      "id": 89,
+      "filename": "089-fajr.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 8,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "L’aube",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Dix nuits",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Le pair et l’impair",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La nuit s’en va",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Réfléchir",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.125,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Le peuple de ‘Âd",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.125,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Les colonnes",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.125,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Une cité incomparable",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.125,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Les rochers de Thamûd",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.25,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Les pieux de Pharaon",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.25,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Dépasser les limites",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.25,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "La corruption",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.25,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "Les conséquences",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.375,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "Rien n’échappe à Allah",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.375,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "L’épreuve dans l’aisance",
+          "warsh": [
+            15,
+            16
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.375,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 16,
+          "hafs": [
+            16
+          ],
+          "description": "L’épreuve dans la restriction",
+          "warsh": [
+            17,
+            18
+          ],
+          "row": 4,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.375,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 17,
+          "hafs": [
+            17
+          ],
+          "description": "Respecter l’orphelin",
+          "warsh": [
+            19
+          ],
+          "row": 5,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 18,
+          "hafs": [
+            18
+          ],
+          "description": "Nourrir le pauvre",
+          "warsh": [
+            20
+          ],
+          "row": 5,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 19,
+          "hafs": [
+            19
+          ],
+          "description": "L’héritage accaparé",
+          "warsh": [
+            21
+          ],
+          "row": 5,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 20,
+          "hafs": [
+            20
+          ],
+          "description": "L’amour des richesses",
+          "warsh": [
+            22
+          ],
+          "row": 5,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.5,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 21,
+          "hafs": [
+            21
+          ],
+          "description": "La terre nivelée",
+          "warsh": [
+            23
+          ],
+          "row": 6,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.625,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 22,
+          "hafs": [
+            22
+          ],
+          "description": "Le jugement : repère abstrait",
+          "warsh": [
+            24
+          ],
+          "row": 6,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.625,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 23,
+          "hafs": [
+            23
+          ],
+          "description": "Le regret",
+          "warsh": [
+            25,
+            26
+          ],
+          "row": 6,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.625,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 24,
+          "hafs": [
+            24
+          ],
+          "description": "Préparer l’avenir",
+          "warsh": [
+            27
+          ],
+          "row": 6,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.625,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 25,
+          "hafs": [
+            25
+          ],
+          "description": "Une conséquence unique",
+          "warsh": [
+            28
+          ],
+          "row": 7,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.75,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 26,
+          "hafs": [
+            26
+          ],
+          "description": "Les liens",
+          "warsh": [
+            29
+          ],
+          "row": 7,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.75,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 27,
+          "hafs": [
+            27
+          ],
+          "description": "L’âme apaisée",
+          "warsh": [
+            30
+          ],
+          "row": 7,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.75,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 28,
+          "hafs": [
+            28
+          ],
+          "description": "Le retour satisfait",
+          "warsh": [
+            31
+          ],
+          "row": 7,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.75,
+            0.25,
+            0.125
+          ],
+          "note": ""
+        },
+        {
+          "case": 29,
+          "hafs": [
+            29
+          ],
+          "description": "Rejoindre les serviteurs",
+          "warsh": [
+            32
+          ],
+          "row": 8,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.875,
+            0.25,
+            0.125
+          ],
+          "note": " — partie du verset Warsh indiqué"
+        },
+        {
+          "case": 30,
+          "hafs": [
+            30
+          ],
+          "description": "Entrer au Paradis : repère abstrait",
+          "warsh": [
+            32
+          ],
+          "row": 8,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.875,
+            0.25,
+            0.125
+          ],
+          "note": " — partie du verset Warsh indiqué"
+        }
+      ],
+      "blank_cases": [
+        31,
+        32
+      ]
+    },
+    {
+      "id": 90,
+      "filename": "090-balad.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 5,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La cité",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Dans cette cité",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Parents et enfants",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "L’effort de la vie",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Se croire tout-puissant",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "L’argent dépensé",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Se croire invisible",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Deux yeux",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "La langue et les lèvres",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Deux chemins",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Le passage difficile",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "Une question",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "Libérer",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "Nourrir pendant la faim",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "L’orphelin proche",
+          "warsh": [
+            15
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 16,
+          "hafs": [
+            16
+          ],
+          "description": "Le pauvre démuni",
+          "warsh": [
+            16
+          ],
+          "row": 4,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 17,
+          "hafs": [
+            17
+          ],
+          "description": "Foi, patience et compassion",
+          "warsh": [
+            17
+          ],
+          "row": 5,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 18,
+          "hafs": [
+            18
+          ],
+          "description": "Le côté droit",
+          "warsh": [
+            18
+          ],
+          "row": 5,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 19,
+          "hafs": [
+            19
+          ],
+          "description": "Le rejet",
+          "warsh": [
+            19
+          ],
+          "row": 5,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 20,
+          "hafs": [
+            20
+          ],
+          "description": "La fermeture",
+          "warsh": [
+            20
+          ],
+          "row": 5,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 91,
+      "filename": "091-shams.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 4,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le soleil",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "La lune",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Le jour",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La nuit",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Le ciel",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.25,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "La terre",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.25,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "L’âme",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.25,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Le bien et le mal",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.25,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Se purifier",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "La corruption",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Le rejet",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "Le plus malheureux",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.5,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "La chamelle : une mise en garde",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.75,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "Le refus et ses conséquences",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.75,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "Aucune crainte",
+          "warsh": [
+            15
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.75,
+            0.25,
+            0.25
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        16
+      ]
+    },
+    {
+      "id": 92,
+      "filename": "092-layl.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 6,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La nuit",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Le jour",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "La création en paires",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Des efforts différents",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Donner et craindre Allah",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.16666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Reconnaître le bien",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.16666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Le chemin facilité",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.16666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "L’avarice",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.16666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Rejeter le bien",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Le chemin difficile",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.3333333333333333,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "La richesse inutile",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.3333333333333333,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "La bonne direction",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.3333333333333333,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "Cette vie et l’au-delà",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "Un avertissement",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.5,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "Une conséquence grave",
+          "warsh": [
+            15
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.5,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 16,
+          "hafs": [
+            16
+          ],
+          "description": "Le rejet",
+          "warsh": [
+            16
+          ],
+          "row": 4,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.5,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 17,
+          "hafs": [
+            17
+          ],
+          "description": "Être préservé",
+          "warsh": [
+            17
+          ],
+          "row": 5,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 18,
+          "hafs": [
+            18
+          ],
+          "description": "Donner pour se purifier",
+          "warsh": [
+            18
+          ],
+          "row": 5,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 19,
+          "hafs": [
+            19
+          ],
+          "description": "Sans attendre de retour",
+          "warsh": [
+            19
+          ],
+          "row": 5,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 20,
+          "hafs": [
+            20
+          ],
+          "description": "Rechercher l’agrément",
+          "warsh": [
+            20
+          ],
+          "row": 5,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.6666666666666666,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        },
+        {
+          "case": 21,
+          "hafs": [
+            21
+          ],
+          "description": "Être satisfait",
+          "warsh": [
+            21
+          ],
+          "row": 6,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.8333333333333334,
+            0.25,
+            0.16666666666666666
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "id": 93,
+      "filename": "093-duha.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le matin lumineux",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "La nuit calme",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Ne pas être abandonné",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "L’au-delà",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Être comblé",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "L’orphelin accueilli",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Être guidé",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Les besoins comblés",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Respecter l’orphelin",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Accueillir celui qui demande",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Évoquer les bienfaits",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        12
+      ]
+    },
+    {
+      "id": 94,
+      "filename": "094-sharh.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Soulagement : porte ouverte et lanterne allumée, sans personnage",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Un poids retiré",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Le dos soulagé",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La renommée élevée",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Après la difficulté, la facilité",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Encore la facilité",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Poursuivre son effort",
+          "warsh": [
+            7
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Se tourner vers son Seigneur",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        9
+      ]
+    },
+    {
+      "id": 95,
+      "filename": "095-tin.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La figue et l’olive",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Le mont Sinaï",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "La cité sûre",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La belle création humaine",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "La chute",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Foi et bonnes œuvres",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Une question",
+          "warsh": [
+            7
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Le jugement juste",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        9
+      ]
+    },
+    {
+      "id": 96,
+      "filename": "096-alaq.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 5,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Lis",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "La création humaine",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Lis encore",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Le calame",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Apprendre",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Dépasser les limites",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Se croire indépendant",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Le retour",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.2,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Empêcher",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "La prière",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "La bonne voie",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 12,
+          "hafs": [
+            12
+          ],
+          "description": "La piété",
+          "warsh": [
+            12
+          ],
+          "row": 3,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.4,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 13,
+          "hafs": [
+            13
+          ],
+          "description": "Démentir et se détourner",
+          "warsh": [
+            13
+          ],
+          "row": 4,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 14,
+          "hafs": [
+            14
+          ],
+          "description": "Rien n’est caché",
+          "warsh": [
+            14
+          ],
+          "row": 4,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 15,
+          "hafs": [
+            15
+          ],
+          "description": "Un avertissement",
+          "warsh": [
+            15,
+            16
+          ],
+          "row": 4,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 16,
+          "hafs": [
+            16
+          ],
+          "description": "Le mensonge",
+          "warsh": [
+            17
+          ],
+          "row": 4,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.6,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 17,
+          "hafs": [
+            17
+          ],
+          "description": "Appeler son assemblée",
+          "warsh": [
+            18
+          ],
+          "row": 5,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 18,
+          "hafs": [
+            18
+          ],
+          "description": "Un avertissement",
+          "warsh": [
+            19
+          ],
+          "row": 5,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        },
+        {
+          "case": 19,
+          "hafs": [
+            19
+          ],
+          "description": "Se prosterner et se rapprocher",
+          "warsh": [
+            20
+          ],
+          "row": 5,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.8,
+            0.25,
+            0.2
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        20
+      ]
+    },
+    {
+      "id": 97,
+      "filename": "097-qadr.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La révélation",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Une question sur cette nuit",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Mieux que mille mois",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Un ordre pour cette nuit",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "La paix jusqu’à l’aube",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        6
+      ]
+    },
+    {
+      "id": 98,
+      "filename": "098-bayyina.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La preuve attendue",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Les feuillets purs",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Des écrits droits",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La division",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Adoration, prière et aumône",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Un avertissement",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Foi et bonnes œuvres",
+          "warsh": [
+            7
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "La récompense",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        9
+      ]
+    },
+    {
+      "id": 99,
+      "filename": "099-zalzala.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La terre tremble",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "La terre se vide",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Une question",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La terre témoigne",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Un ordre reçu",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Les actions montrées",
+          "warsh": [
+            6,
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Un grain de bien",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Un grain de mal",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        9
+      ]
+    },
+    {
+      "id": 100,
+      "filename": "100-adiyat.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Les chevaux",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Les étincelles",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Le matin",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La poussière",
+          "warsh": [
+            4
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Au milieu du groupe",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "L’ingratitude",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Être témoin",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "L’amour des richesses",
+          "warsh": [
+            8
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Les tombes",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Ce qui est caché",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Rien n’est ignoré",
+          "warsh": [
+            11
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        12
+      ]
+    },
+    {
+      "id": 101,
+      "filename": "101-qaria.png",
+      "existing": true,
+      "cols": 4,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le grand fracas",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": " — partie du verset Warsh indiqué"
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Une question",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": " — partie du verset Warsh indiqué"
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Une autre question",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Les papillons dispersés",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.0,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "La laine des montagnes",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "La balance lourde",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Une vie agréable",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "La balance légère",
+          "warsh": [
+            7
+          ],
+          "row": 2,
+          "col": 4,
+          "bbox_normalized": [
+            0.75,
+            0.3333333333333333,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Une mise en garde",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 10,
+          "hafs": [
+            10
+          ],
+          "description": "Une question",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.25,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 11,
+          "hafs": [
+            11
+          ],
+          "description": "Le feu",
+          "warsh": [
+            10
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.5,
+            0.6666666666666666,
+            0.25,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        12
+      ]
+    },
+    {
+      "id": 102,
+      "filename": "102-takathur.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La course au toujours plus",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Les tombes",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Vous saurez",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Encore un avertissement",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "La certitude",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Une mise en garde",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Voir avec certitude",
+          "warsh": [
+            7
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "Les bienfaits",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        9
+      ]
+    },
+    {
+      "id": 103,
+      "filename": "103-asr.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 1,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le temps",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "La perte",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Foi, bonnes œuvres, vérité et patience",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 104,
+      "filename": "104-humaza.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Les paroles blessantes",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Compter son argent",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "La richesse ne rend pas éternel",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Une mise en garde",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Une question",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Le feu",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Le cœur",
+          "warsh": [
+            7
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 8,
+          "hafs": [
+            8
+          ],
+          "description": "La fermeture",
+          "warsh": [
+            8
+          ],
+          "row": 3,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 9,
+          "hafs": [
+            9
+          ],
+          "description": "Les colonnes",
+          "warsh": [
+            9
+          ],
+          "row": 3,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 105,
+      "filename": "105-fil.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "L’éléphant",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Un projet déjoué",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Les oiseaux",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Les pierres",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "La paille",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        6
+      ]
+    },
+    {
+      "id": 106,
+      "filename": "106-quraysh.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Les liens de Quraysh",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Deux voyages",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Adorer le Seigneur de la Maison",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Nourriture et sécurité",
+          "warsh": [
+            4,
+            5
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": 107,
+      "filename": "107-maun.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 3,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le démenti",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Prendre soin de l’orphelin",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Nourrir le pauvre",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "La prière",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "L’inattention",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Se montrer",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": " — partie du verset Warsh indiqué"
+        },
+        {
+          "case": 7,
+          "hafs": [
+            7
+          ],
+          "description": "Refuser une petite aide",
+          "warsh": [
+            6
+          ],
+          "row": 3,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.6666666666666666,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "note": " — partie du verset Warsh indiqué"
+        }
+      ],
+      "blank_cases": [
+        8,
+        9
+      ]
+    },
+    {
+      "id": 108,
+      "filename": "108-kawthar.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 1,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le don abondant",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "La prière",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Une fin sans suite",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 109,
+      "filename": "109-kafirun.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Une parole claire",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Adorer Allah seul",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Des adorations différentes",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Rester fidèle",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Ne pas confondre",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "À chacun sa religion",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 110,
+      "filename": "110-nasr.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 1,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "La victoire",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Entrer en groupes",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Louer et demander pardon",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            1.0
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    },
+    {
+      "id": 111,
+      "filename": "111-masad.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Les mains",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Les richesses",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Le feu",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Le bois",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "La corde",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        6
+      ]
+    },
+    {
+      "id": 112,
+      "filename": "112-ikhlas.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Un seul",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Se tourner vers Allah",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Sans descendance",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Sans égal",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": 113,
+      "filename": "113-falaq.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Le jour se lève",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Se protéger du mal",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "La nuit",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Les nœuds",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Ne pas envier",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": [
+        6
+      ]
+    },
+    {
+      "id": 114,
+      "filename": "114-nas.png",
+      "existing": true,
+      "cols": 3,
+      "rows": 2,
+      "cases": [
+        {
+          "case": 1,
+          "hafs": [
+            1
+          ],
+          "description": "Demander refuge au Seigneur des humains",
+          "warsh": [
+            1
+          ],
+          "row": 1,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 2,
+          "hafs": [
+            2
+          ],
+          "description": "Le Souverain des humains — repère : les humains",
+          "warsh": [
+            2
+          ],
+          "row": 1,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 3,
+          "hafs": [
+            3
+          ],
+          "description": "Adorer Allah seul",
+          "warsh": [
+            3
+          ],
+          "row": 1,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 4,
+          "hafs": [
+            4
+          ],
+          "description": "Se protéger du mal du tentateur",
+          "warsh": [
+            4
+          ],
+          "row": 2,
+          "col": 1,
+          "bbox_normalized": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 5,
+          "hafs": [
+            5
+          ],
+          "description": "Les suggestions dans les poitrines",
+          "warsh": [
+            5
+          ],
+          "row": 2,
+          "col": 2,
+          "bbox_normalized": [
+            0.3333333333333333,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        },
+        {
+          "case": 6,
+          "hafs": [
+            6
+          ],
+          "description": "Djinns et humains : les djinns ne sont pas représentés",
+          "warsh": [
+            6
+          ],
+          "row": 2,
+          "col": 3,
+          "bbox_normalized": [
+            0.6666666666666666,
+            0.5,
+            0.3333333333333333,
+            0.5
+          ],
+          "note": ""
+        }
+      ],
+      "blank_cases": []
+    }
+  ]
+}
