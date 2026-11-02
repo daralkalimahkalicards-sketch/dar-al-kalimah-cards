@@ -138,6 +138,7 @@ select.rec{border:1.5px solid var(--line);border-radius:50px;padding:9px 14px;co
 .verse{font-size:clamp(2.3rem,8.6vw,3rem);line-height:1.9;color:var(--b);}
 .wtap{display:inline-block;border-radius:6px;padding:4px 3px;margin:-4px -3px;transition:background .15s;}
 .wtap.active{background:rgba(200,164,98,.35);}
+.wtap.speaking{background:var(--g);color:var(--b);}
 .wmeaning{min-height:22px;max-width:430px;margin:8px auto 0;text-align:center;font-size:.85rem;color:var(--b);background:#fbf6ec;border-radius:10px;padding:6px 12px;display:none;}
 .full-ctrl{display:flex;justify-content:space-between;gap:10px;max-width:430px;margin:0 auto 10px;}
 .full-text{max-width:430px;margin:0 auto;direction:rtl;}
@@ -439,12 +440,17 @@ function populateRecSelect(){
 $('recSel').addEventListener('change',e=>{REC[R]=e.target.value;ss('rec'+R,REC[R]);});
 
 const audioPlayer=new Audio();
-let audioStopAtMs=null,audioOnEnd=null,audioCheckTimer=null,fullPlaybackActive=false;
+let audioStopAtMs=null,audioOnEnd=null,audioCheckTimer=null,fullPlaybackActive=false,currentWordList=null;
+function setSpeakingWord(n,wi){
+  document.querySelectorAll('.wtap.speaking').forEach(x=>x.classList.remove('speaking'));
+  if(n==null)return;
+  document.querySelectorAll(`.wtap[data-n="${n}"][data-wi="${wi}"]`).forEach(x=>x.classList.add('speaking'));
+}
 function setPlayingUI(on){document.querySelectorAll('.mic,.audio button,#playFull').forEach(b=>b.classList.toggle('playing',on));}
 function stopAudio(){
   fullPlaybackActive=false;
   if(audioCheckTimer){clearInterval(audioCheckTimer);audioCheckTimer=null;}
-  audioStopAtMs=null;audioOnEnd=null;audioPlayer.pause();setPlayingUI(false);
+  audioStopAtMs=null;audioOnEnd=null;currentWordList=null;audioPlayer.pause();setPlayingUI(false);setSpeakingWord(null);
   ['wmeaning','wmeaning2'].forEach(id=>{const wm=$(id); if(wm){wm.style.display='none';wm.textContent='';}});
   document.querySelectorAll('.wtap.active,.fverse.active').forEach(x=>x.classList.remove('active'));
 }
@@ -456,7 +462,12 @@ function playRange(url,startMs,endMs,onEnd){
     audioPlayer.play().catch(()=>{});
     setPlayingUI(true);
     audioCheckTimer=setInterval(()=>{
-      if(audioStopAtMs!==null&&audioPlayer.currentTime*1000>=audioStopAtMs-20){
+      const ct=audioPlayer.currentTime*1000;
+      if(currentWordList){
+        const w=currentWordList.find(w=>ct>=w[2]&&ct<w[3]);
+        setSpeakingWord(w?w[0]:null, w?w[1]:null);
+      }
+      if(audioStopAtMs!==null&&ct>=audioStopAtMs-20){
         clearInterval(audioCheckTimer);audioCheckTimer=null;
         audioPlayer.pause();setPlayingUI(false);
         const cb=audioOnEnd;audioStopAtMs=null;audioOnEnd=null;
@@ -475,6 +486,8 @@ function playCase(){
   const code=currentReciterCode();
   const timing=caseTiming(code,s.id,ns);
   if(!timing)return;
+  const wl=WORD_DATA[code]&&WORD_DATA[code][s.id];
+  currentWordList=wl?wl.filter(w=>ns.includes(w[0])):null;
   playRange(surahAudioUrl(code,s.id),timing.start,timing.end,null);
 }
 $('micFront').addEventListener('click',e=>{e.stopPropagation();playCase();});
@@ -488,6 +501,8 @@ function playFullStep(){
   const code=currentReciterCode();
   const timing=caseTiming(code,s.id,ns);
   if(!timing){advanceFull();return;}
+  const wl=WORD_DATA[code]&&WORD_DATA[code][s.id];
+  currentWordList=wl?wl.filter(w=>ns.includes(w[0])):null;
   playRange(surahAudioUrl(code,s.id),timing.start,timing.end,advanceFull);
 }
 function advanceFull(){
@@ -597,23 +612,24 @@ function getWordTiming(code,surahId,n,wi){
   return null;
 }
 function bareAr(w){
-  return w.replace(/[ً-ٟؐ-ؚۖ-ࣰۭ-ٰࣿ]/g,'')
-          .replace(/[إأآٱ]/g,'ا').replace(/ـ/g,'').trim();
+  return w.replace(/\u0670/g,'\u0627')
+          .replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06ED\u08F0-\u08FF]/g,'')
+          .replace(/[\u0625\u0623\u0622\u0671]/g,'\u0627').replace(/\u0640/g,'').trim();
 }
 const LEX={
-  fr:{"بسم":"au nom de","الله":"Allah","الرحمن":"le Tout Miséricordieux","الرحيم":"le Très Miséricordieux",
+  fr:{"بسم":"au nom de","الله":"Allah","الرحمان":"le Tout Miséricordieux","الرحيم":"le Très Miséricordieux",
     "الحمد":"la louange","لله":"à Allah","رب":"Seigneur","العالمين":"des mondes, de toute la création",
-    "ملك":"le Maître, le Roi (selon la lecture)","يوم":"le jour","الدين":"de la rétribution, du Jugement",
-    "إياك":"C'est Toi (seul)","نعبد":"que nous adorons","وإياك":"et c'est Toi (seul)","نستعين":"que nous implorons l'aide",
+    "مالك":"le Maître (lecture Ḥafṣ)","ملك":"le Roi (lecture Warsh)","يوم":"le jour","الدين":"de la rétribution, du Jugement",
+    "اياك":"C'est Toi (seul)","نعبد":"que nous adorons","واياك":"et c'est Toi (seul)","نستعين":"que nous implorons l'aide",
     "اهدنا":"guide-nous","الصراط":"le chemin","المستقيم":"le droit, le rectiligne","صراط":"le chemin de",
-    "الذين":"ceux que","أنعمت":"Tu as comblés de bienfaits","عليهم":"sur eux","غير":"non, pas (celui)",
+    "الذين":"ceux que","انعمت":"Tu as comblés de bienfaits","عليهم":"sur eux","غير":"non, pas (celui)",
     "المغضوب":"qui a encouru la colère","ولا":"et ni","الضالين":"ceux qui se sont égarés"}
 };
 function onWordTap(e){
   e.stopPropagation(); // tapoter le texte d'un verset ne doit jamais retourner la carte
   const el=e.target.closest('.wtap'); if(!el)return;
-  const n=parseInt(el.dataset.n,10), wi=parseInt(el.dataset.wi,10);
-  const s=DATA[curS]; const code=currentReciterCode();
+  // le clic sur un mot n'affiche QUE le sens : il ne joue plus de son et
+  // n'interrompt pas une lecture en cours (le mot parlé se surligne tout seul).
   const key=bareAr(el.textContent);
   const gloss=(LEX[L]&&LEX[L][key])||(LEX.fr&&LEX.fr[key])||'';
   const wm=$(e.currentTarget.closest('#fullBox')?'wmeaning2':'wmeaning');
@@ -621,9 +637,6 @@ function onWordTap(e){
   wm.style.display='block';
   document.querySelectorAll('.wtap.active').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
-  fullPlaybackActive=false;
-  const wtm=getWordTiming(code,s.id,n,wi);
-  if(wtm) playRange(surahAudioUrl(code,s.id),wtm.start,wtm.end,null);
 }
 $('ctxt').addEventListener('click',onWordTap);
 $('btxt').addEventListener('click',onWordTap);
@@ -657,6 +670,8 @@ function playFullTextStep(){
   const code=currentReciterCode();
   const tmg=getAyahTiming(code,s.id,v.n);
   if(!tmg){ fullTextIdx++; playFullTextStep(); return; }
+  const wl=WORD_DATA[code]&&WORD_DATA[code][s.id];
+  currentWordList=wl?wl.filter(w=>w[0]===v.n):null;
   playRange(surahAudioUrl(code,s.id),tmg.start,tmg.end,advanceFullText);
 }
 function advanceFullText(){
