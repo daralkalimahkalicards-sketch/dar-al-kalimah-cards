@@ -1695,20 +1695,6 @@ body::before{
   color:#fff;
 }
 
-.btn-house{
-  width:44px; height:44px;
-  border-radius:999px;
-  background:rgba(93,24,40,0.06);
-  border:1px solid rgba(200,164,98,0.32);
-  backdrop-filter:blur(8px);
-  display:flex; align-items:center; justify-content:center;
-  color:var(--bordeaux);
-  cursor:pointer;
-  transition:transform .15s ease;
-}
-.btn-house:active{ transform:scale(0.92); }
-.btn-house i{ font-size:1.05rem; color:var(--gold); }
-
 .badge-type{
   display:none;
   align-items:center; gap:6px;
@@ -2061,7 +2047,7 @@ body::before{
   .sentence-recap{ font-size:1.25rem; }
 }
 @media print{
-  .btn-house, .btn-primary, .badge-type, .lang-toggle{ display:none !important; }
+  .btn-primary, .badge-type, .lang-toggle{ display:none !important; }
 }
 </style>
 </head>
@@ -2073,7 +2059,6 @@ body::before{
       <button type="button" data-lang="fr" id="lang-btn-fr">FR</button>
       <button type="button" data-lang="es" id="lang-btn-es">ES</button>
     </div>
-    <button class="btn-house" onclick="goHome()" id="btn-home" aria-label="Retour à l'accueil"><i class="fa-solid fa-house"></i></button>
   </div>
 
   <section id="view-intro" class="view active">
@@ -2297,7 +2282,6 @@ function refreshUITexts(){
   document.getElementById('btn-check').innerHTML = t.verify + ' <i class="fa-solid fa-check"></i>';
   document.getElementById('btn-continue').innerHTML = t.continueBtn + ' <i class="fa-solid fa-arrow-left"></i>';
   document.getElementById('btn-restart').innerHTML = t.restart + ' <i class="fa-solid fa-rotate-left"></i>';
-  document.getElementById('btn-home').setAttribute('aria-label', t.home);
   document.getElementById('instruction-ordre-text').textContent = t.instructionOrdre;
   document.getElementById('reveal-word-title').textContent = t.revealWordTitle;
   document.getElementById('reveal-sentence-title').textContent = t.revealSentenceTitle;

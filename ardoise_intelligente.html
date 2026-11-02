@@ -170,7 +170,21 @@
       flex-wrap: wrap;
     }
 
-    .btn-back-home,
+    .btn-back-home {
+      background: transparent;
+      border: none;
+      color: var(--gold);
+      padding: 4px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--tap-size);
+      transition: 0.28s ease;
+      cursor: pointer;
+      box-shadow: none;
+    }
+
     .btn-header-ghost {
       background: transparent;
       border: 1px solid rgba(200, 164, 98, 0.75);
@@ -192,7 +206,12 @@
     }
 
     .btn-back-home:hover,
-    .btn-back-home:focus-visible,
+    .btn-back-home:focus-visible {
+      color: #f7e7bf;
+      outline: none;
+      transform: scale(1.08);
+    }
+
     .btn-header-ghost:hover,
     .btn-header-ghost:focus-visible {
       background: rgba(200, 164, 98, 0.10);
@@ -1137,7 +1156,6 @@
         margin-bottom: 14px;
       }
 
-      .btn-back-home,
       .btn-header-ghost {
         padding: 8px 12px;
         font-size: 0.76rem;
@@ -1211,9 +1229,8 @@
 
     <header class="header-container">
       <div class="header-topbar">
-        <a id="btn-back-home" href="index.html" class="btn-back-home">
-          <i class="fa-solid fa-house" aria-hidden="true"></i>
-          <span>القائمة / Menu</span>
+        <a id="btn-back-home" href="index.html" class="btn-back-home" aria-label="القائمة / Menu" title="القائمة / Menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2.6 2 11h3v10h5.5v-6.5h3V21H19V11h3L12 2.6Z"/></svg>
         </a>
 
         <button id="btn-install-hint" class="btn-header-ghost" type="button" aria-label="Informations PWA">
