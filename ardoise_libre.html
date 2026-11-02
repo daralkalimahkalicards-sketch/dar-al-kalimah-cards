@@ -48,11 +48,10 @@
         }
         .btn-back-home {
             position: absolute; top: 20px; right: 20px;
-            background: transparent; border: 1px solid var(--gold); color: var(--gold);
-            padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 600;
-            cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+            background: transparent; border: none; color: var(--gold);
+            cursor: pointer; text-decoration: none; display: flex; align-items: center; transition: 0.3s;
         }
-        .btn-back-home:hover { background: rgba(200, 164, 98, 0.1); }
+        .btn-back-home:hover { transform: scale(1.1); }
         .brand-ar { font-size: 2.5rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; line-height: 1.2; }
         .brand-fr-es { font-size: 1.1rem; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 8px; }
         .app-title { font-size: 1rem; color: #d09470; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px;}
@@ -100,7 +99,7 @@
 <body>
 
     <div class="header-container">
-        <a href="index.html" class="btn-back-home"><i class="fa-solid fa-arrow-right"></i> القائمة / Menu</a>
+        <a href="index.html" class="btn-back-home" aria-label="القائمة / Menu" title="القائمة / Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2.6 2 11h3v10h5.5v-6.5h3V21H19V11h3L12 2.6Z"/></svg></a>
         <div class="brand-ar ar-text">اللوح الحر</div>
         <div class="brand-fr-es serif-text">L'Ardoise Libre | La Pizarra Libre</div>
         <div class="app-title serif-text">Dar Al-Kalimah</div>

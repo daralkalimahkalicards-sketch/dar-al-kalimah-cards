@@ -58,15 +58,6 @@
     font-weight:700; font-size:0.82rem; padding:6px 14px; border-radius:999px; cursor:pointer; transition:.2s;
   }
   .lang-toggle button.active{ background:var(--bordeaux); color:var(--gold); }
-  .btn-house{
-    width:42px; height:42px; border-radius:999px; border:1px solid rgba(200,164,98,0.5);
-    background:rgba(93,24,40,0.06); color:var(--bordeaux); display:flex; align-items:center; justify-content:center;
-    cursor:pointer; font-size:1.1rem; transition:.2s;
-  }
-  .btn-house i{ color:var(--bordeaux); }
-  .btn-house:hover{ background:var(--bordeaux); }
-  .btn-house:hover i{ color:var(--gold); }
-
   .view{ display:none; flex:1; min-height:0; flex-direction:column; align-items:center; text-align:center; }
   .view.active{ display:flex; }
   #view-intro.active, #view-end.active{ overflow-y:auto; }
@@ -178,7 +169,6 @@
       <button data-lang="fr" class="active">FR</button>
       <button data-lang="es">ES</button>
     </div>
-    <button class="btn-house" onclick="goHome()" aria-label="Retour à l'accueil"><i class="fa-solid fa-house"></i></button>
   </div>
 
   <section id="view-intro" class="view active">
