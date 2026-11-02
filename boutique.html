@@ -33,16 +33,14 @@ body {
 .ar-text { font-family: "Amiri", serif; direction: rtl; }
 .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
 
-.back-link{align-self:flex-start;max-width:900px;width:100%;margin-bottom:14px;}
-.back-link a{color:var(--burgundy);text-decoration:none;font-size:.9rem;font-weight:600;}
-.back-link a:hover{text-decoration:underline;}
-
 .header-container {
+    position: relative;
     background: var(--burgundy);
     padding: 40px 30px; border-radius: 12px;
     box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
     width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
 }
+.home-btn{position:absolute;left:18px;top:18px;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.05rem;}
 .brand-ar { font-size: 3rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
 .app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
 .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5;}
@@ -102,9 +100,8 @@ body {
 </head>
 <body>
 
-<div class="back-link"><a href="index.html">‹ دار الكلمة</a></div>
-
 <div class="header-container">
+    <a href="index.html" class="home-btn" aria-label="menu principal" title="Menu principal">🏠</a>
     <div class="brand-ar ar-text">دار الكلمة</div>
     <div class="app-title serif-text">Dar Al-Kalimah</div>
     <div class="divider"></div>
