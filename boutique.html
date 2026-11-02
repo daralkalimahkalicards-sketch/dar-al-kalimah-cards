@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#5D1828">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Boutique — Dar Al-Kalimah</title>
+<meta name="description" content="Tout ce qu'il y a à acheter chez Dar Al-Kalimah : applications, livres et cahiers pour apprendre l'arabe et le Coran en famille.">
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+    --burgundy: #5D1828;
+    --burgundy-dark: #3a0f19;
+    --gold: #C8A462;
+    --gold-light: #dfc28b;
+    --white: #FFFFFF;
+    --bg-beige: #FAF6F0;
+    --text-dark: #2C3E50;
+    --text-muted: #888888;
+    --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+    --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+    background-color: var(--bg-beige);
+    font-family: 'Montserrat', sans-serif;
+    padding: 40px 20px; color: var(--text-dark);
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+}
+.ar-text { font-family: "Amiri", serif; direction: rtl; }
+.serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+.back-link{align-self:flex-start;max-width:900px;width:100%;margin-bottom:14px;}
+.back-link a{color:var(--burgundy);text-decoration:none;font-size:.9rem;font-weight:600;}
+.back-link a:hover{text-decoration:underline;}
+
+.header-container {
+    background: var(--burgundy);
+    padding: 40px 30px; border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+    width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
+}
+.brand-ar { font-size: 3rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+.app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
+.divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5;}
+.subtitle { font-size: 1.3rem; color: var(--gold); font-weight: 700; margin-bottom: 5px; font-family:'Cinzel',serif; letter-spacing: 1px; }
+.subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
+
+.nav-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 30px; width: 100%; max-width: 850px;
+    margin-bottom: 40px;
+}
+.nav-card {
+    background: var(--white);
+    border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 40px 20px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease;
+    text-decoration: none; color: inherit;
+}
+.nav-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+.icon-wrapper {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: transparent; border: 1.5px solid var(--gold);
+    display: flex; justify-content: center; align-items: center;
+    margin-bottom: 25px; transition: all 0.3s ease;
+}
+.nav-card:hover .icon-wrapper { background: var(--bg-beige); transform: scale(1.05); }
+.visual-main { font-size: 2rem; color: var(--gold); }
+.word-ar-title { font-size: 2.2rem; font-weight: 700; color: var(--burgundy); line-height: 1.2; margin-bottom: 15px; }
+.lang-fr { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 1px;}
+.price-tag{font-size:.82rem;color:var(--gold-light);margin-bottom:20px;font-weight:600;}
+.btn-open {
+    margin-top: auto; background: var(--burgundy); color: var(--white);
+    padding: 14px 0; width: 85%; border-radius: 50px;
+    font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s ease;
+}
+.nav-card:hover .btn-open { background: var(--burgundy-dark); }
+
+.reserve-card {
+    border: 2px dashed rgba(200, 164, 98, 0.4); background: transparent; box-shadow: none; cursor: default;
+}
+.reserve-card:hover { transform: none; box-shadow: none; border-color: rgba(200, 164, 98, 0.4); }
+.reserve-card .icon-wrapper { border-color: var(--gold-light); }
+.reserve-card .visual-main { color: var(--gold-light); }
+.reserve-card .word-ar-title { color: var(--text-muted); }
+.btn-locked { background: #E5E7EB; color: #999; cursor: not-allowed; }
+.reserve-card:hover .btn-locked { background: #E5E7EB; }
+.reserve-card:hover .icon-wrapper { transform: none; background: transparent; }
+
+@media (max-width: 768px) {
+    .nav-grid { grid-template-columns: 1fr; gap: 20px; }
+    .header-container { padding: 30px 20px; }
+    .brand-ar { font-size: 2.6rem; }
+    .nav-card { padding: 35px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="back-link"><a href="index.html">‹ دار الكلمة</a></div>
+
+<div class="header-container">
+    <div class="brand-ar ar-text">دار الكلمة</div>
+    <div class="app-title serif-text">Dar Al-Kalimah</div>
+    <div class="divider"></div>
+    <p class="subtitle">🛍️ Boutique</p>
+    <p class="subtitle-es">Tout ce qu'il y a à acheter, au même endroit</p>
+</div>
+
+<div class="nav-grid">
+
+    <a href="hizb60-boutique.html" class="nav-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-mosque visual-main"></i>
+        </div>
+        <div class="word-ar-title ar-text">حزب ٦٠</div>
+        <div class="lang-fr">Hizb 60 · Juz' 'Amma</div>
+        <div class="price-tag">Essai gratuit disponible</div>
+        <button class="btn-open">Découvrir</button>
+    </a>
+
+    <div class="nav-card reserve-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-comments visual-main"></i>
+        </div>
+        <div class="word-ar-title ar-text">تعابير يومية</div>
+        <div class="lang-fr">Expressions quotidiennes</div>
+        <div class="price-tag">Bientôt disponible</div>
+        <button class="btn-open btn-locked">Bientôt</button>
+    </div>
+
+    <div class="nav-card reserve-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-pen-nib visual-main"></i>
+        </div>
+        <div class="word-ar-title ar-text">دفتر الكتابة</div>
+        <div class="lang-fr">Cahier d'écriture</div>
+        <div class="price-tag">Bientôt disponible</div>
+        <button class="btn-open btn-locked">Bientôt</button>
+    </div>
+
+    <div class="nav-card reserve-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-palette visual-main"></i>
+        </div>
+        <div class="word-ar-title ar-text">دفتر الرسم</div>
+        <div class="lang-fr">Cahier de dessin</div>
+        <div class="price-tag">Bientôt disponible</div>
+        <button class="btn-open btn-locked">Bientôt</button>
+    </div>
+
+</div>
+
+</body>
+</html>
