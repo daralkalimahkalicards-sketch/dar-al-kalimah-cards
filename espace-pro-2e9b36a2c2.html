@@ -1,0 +1,141 @@
+<!-- Page privée pour Houda uniquement : regroupe tous les liens secrets d'accès complet.
+     Jamais liée publiquement sur le site — seul ce lien direct y donne accès.
+     Ne jamais la mettre en avant dans la navigation, le sitemap ou boutique.html. -->
+<!DOCTYPE html>
+<html lang="fr" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#5D1828">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace Pro — Dar Al-Kalimah</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --burgundy: #5D1828;
+    --burgundy-dark: #3a0f19;
+    --gold: #C8A462;
+    --gold-light: #dfc28b;
+    --white: #FFFFFF;
+    --bg-beige: #FAF6F0;
+    --text-dark: #2C3E50;
+    --text-muted: #888888;
+    --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+    --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+    background-color: var(--bg-beige);
+    font-family: 'Montserrat', sans-serif;
+    padding: 40px 20px; color: var(--text-dark);
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+}
+.ar-text { font-family: "Amiri", serif; direction: rtl; }
+.serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+.header-container {
+    position: relative;
+    background: var(--burgundy);
+    padding: 40px 30px; border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+    width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
+}
+.brand-ar { font-size: 3rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+.app-title { font-size: 1.3rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
+.divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5;}
+.subtitle { font-size: 1.3rem; color: var(--gold); font-weight: 700; margin-bottom: 5px; font-family:'Cinzel',serif; letter-spacing: 1px; }
+.subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
+
+.list { width: 100%; max-width: 850px; display: flex; flex-direction: column; gap: 18px; }
+.item {
+    background: var(--white);
+    border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 22px 26px;
+    display: flex; align-items: center; gap: 18px;
+    box-shadow: var(--shadow-card);
+}
+.item .icon-wrapper {
+    width: 54px; height: 54px; border-radius: 50%; flex: none;
+    background: var(--bg-beige); border: 1.5px solid var(--gold);
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.4rem; color: var(--gold);
+}
+.item .info { flex: 1; min-width: 0; text-align: left; }
+.item .word-ar { font-size: 1.1rem; color: var(--burgundy); font-weight: 700; }
+.item .lang-fr { font-size: .78rem; color: var(--text-muted); margin-top: 2px; }
+.item .links { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.btn-open {
+    background: var(--burgundy); color: var(--white); text-decoration: none;
+    padding: 10px 18px; border-radius: 50px;
+    font-family: 'Montserrat', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .5px;
+    text-transform: uppercase; white-space: nowrap;
+}
+.btn-open.secondary { background: transparent; color: var(--burgundy); border: 1.5px solid var(--gold); }
+.item.pending { opacity: .55; }
+.item.pending .status { font-size: .78rem; color: var(--text-muted); font-style: italic; }
+
+@media (max-width: 640px) {
+    .item { flex-direction: column; align-items: flex-start; }
+    .item .info { text-align: left; }
+    .item .links { align-items: flex-start; width: 100%; }
+    .btn-open { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="header-container">
+    <div class="brand-ar ar-text">دار الكلمة</div>
+    <div class="app-title serif-text">Dar Al-Kalimah</div>
+    <div class="divider"></div>
+    <p class="subtitle">🔑 Espace Pro</p>
+    <p class="subtitle-es">Tes versions complètes — pour vérifier, corriger, tester</p>
+</div>
+
+<div class="list">
+
+    <div class="item">
+        <div class="icon-wrapper"><i class="fa-solid fa-mosque"></i></div>
+        <div class="info">
+            <div class="word-ar ar-text">حزب ٦٠</div>
+            <div class="lang-fr">Hizb 60 · Juz' 'Amma — en ligne</div>
+        </div>
+        <div class="links">
+            <a class="btn-open" href="hizb60-acces-26e2fd9fc2.html">Ma version complète</a>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="icon-wrapper"><i class="fa-solid fa-pen-nib"></i></div>
+        <div class="info">
+            <div class="word-ar ar-text">دفتر الكتابة</div>
+            <div class="lang-fr">Cahier d'écriture — en ligne</div>
+        </div>
+        <div class="links">
+            <a class="btn-open" href="cahier-ecriture-acces-3ff0d42dae.html">Appli + PDF</a>
+            <a class="btn-open secondary" href="assets/cahier-ecriture-pdf/cahier-ecriture-3f95e6ac8e.pdf">PDF seul</a>
+        </div>
+    </div>
+
+    <div class="item pending">
+        <div class="icon-wrapper"><i class="fa-solid fa-comments"></i></div>
+        <div class="info">
+            <div class="word-ar ar-text">تعابير يومية</div>
+            <div class="lang-fr">Expressions quotidiennes</div>
+        </div>
+        <div class="status">Pas encore en ligne</div>
+    </div>
+
+    <div class="item pending">
+        <div class="icon-wrapper"><i class="fa-solid fa-palette"></i></div>
+        <div class="info">
+            <div class="word-ar ar-text">دفتر الرسم</div>
+            <div class="lang-fr">Cahier de dessin</div>
+        </div>
+        <div class="status">Pas encore commencé</div>
+    </div>
+
+</div>
+
+</body>
+</html>
