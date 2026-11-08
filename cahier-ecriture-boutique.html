@@ -46,6 +46,15 @@ body{background:#fff;color:var(--ink);font-family:'Montserrat',sans-serif;-webki
 .price-box .price small{font-size:1rem;color:var(--muted);font-weight:400;}
 .price-box p{font-size:.88rem;color:var(--muted);margin:10px 0 18px;}
 
+.offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:6px;}
+.offer{background:#fbf6ec;border:1px solid var(--line);border-radius:20px;padding:28px 20px 22px;text-align:center;display:flex;flex-direction:column;position:relative;}
+.offer.pack{border:2px solid var(--g);background:#fff;}
+.offer .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--g);color:var(--b);font-size:.68rem;font-weight:700;padding:4px 16px;border-radius:50px;letter-spacing:.5px;white-space:nowrap;}
+.offer h3{font-family:'Cinzel',serif;color:var(--b);font-size:1rem;margin:4px 0 8px;}
+.offer .price{font-family:'Cinzel',serif;color:var(--b);font-size:1.9rem;font-weight:700;}
+.offer .price small{font-size:.9rem;color:var(--muted);font-weight:400;}
+.offer .includes{font-size:.82rem;color:var(--muted);margin:10px 0 18px;flex:1;line-height:1.6;}
+
 .faq{border-top:1px solid var(--line);padding:16px 0;}
 .faq b{display:block;color:var(--b);font-size:.92rem;margin-bottom:4px;}
 .faq span{font-size:.86rem;color:#555;line-height:1.6;}
@@ -89,13 +98,24 @@ footer{text-align:center;margin-top:50px;font-size:.78rem;color:var(--muted);}
 
   <div class="section" id="acheter">
     <h2>Obtenir le cahier</h2>
-    <div class="price-box">
-      <div class="price">— <small>€</small></div>
-      <p>Paiement unique et sécurisé par carte bancaire (Stripe). Accès à vie.</p>
-      <!-- À remplacer par Houda : lien de paiement Stripe (Payment Link, créé depuis le dashboard Stripe, aucun code requis) -->
-      <a class="btn btn-g" href="#">Acheter maintenant</a>
-      <div class="demo-note">📧 Après le paiement, tu reçois immédiatement par email le lien d'accès complet (PDF + appli interactive) — garde-le précieusement, c'est ta clé personnelle.</div>
+    <div class="offers">
+      <div class="offer">
+        <h3>Le cahier seul</h3>
+        <div class="price">— <small>€</small></div>
+        <div class="includes">Le PDF à imprimer (66 pages), en haute qualité, à vie.</div>
+        <!-- À remplacer par Houda : lien de paiement Stripe (Payment Link) pour le PDF seul -->
+        <a class="btn btn-o" href="#">Acheter le PDF</a>
+      </div>
+      <div class="offer pack">
+        <span class="badge">Prix réduit</span>
+        <h3>Pack complet</h3>
+        <div class="price">— <small>€</small></div>
+        <div class="includes">Le PDF à imprimer <b>+</b> l'appli interactive avec stylet numérique — moins cher que les deux séparément.</div>
+        <!-- À remplacer par Houda : lien de paiement Stripe (Payment Link) pour le pack PDF + appli -->
+        <a class="btn btn-g" href="#">Acheter le pack</a>
+      </div>
     </div>
+    <div class="demo-note">📧 Après le paiement, tu reçois immédiatement par email ton lien d'accès personnel (PDF seul, ou PDF + appli selon ton choix) — garde-le précieusement, c'est ta clé.</div>
   </div>
 
   <div class="section">
