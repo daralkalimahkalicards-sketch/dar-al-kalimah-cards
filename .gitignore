@@ -7,5 +7,10 @@ assets/hizb60/
 assets/ta3abir/
 ta3abir-complet.html
 
+# Cahier d'écriture — 3e livre payant, en vente. Même logique que Hizb 60 :
+# cahier-ecriture-complet.html est la version démo publique (comme
+# hizb60-complet.html) — elle reste donc hors de cette liste, volontairement.
+assets/cahier-ecriture/
+
 # Outils de test locaux (Claude Code)
 _claude_preview_server.ps1
