@@ -1,0 +1,11 @@
+# Hizb 60 — contenu payant : jamais dans le dépôt public (voir LICENCES.md)
+assets/hizb60/
+
+# Ta3abir Yawmiyah (L'arabe au quotidien) — 2e livre payant, pas encore en vente.
+# Même logique que Hizb 60 : dépôt GitHub public, donc rien de ce produit
+# n'est poussé tant qu'il n'est pas prêt à être vendu/sécurisé.
+assets/ta3abir/
+ta3abir-complet.html
+
+# Outils de test locaux (Claude Code)
+_claude_preview_server.ps1

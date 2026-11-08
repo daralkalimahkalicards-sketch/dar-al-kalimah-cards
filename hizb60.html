@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#5D1828">
+<title>Hizb 60 — Dar Al-Kalimah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Amiri:wght@400;700&family=Amiri+Quran&display=swap" rel="stylesheet">
+<style>
+/* ============ VARIABLES & BASE ============ */
+:root{
+  --burgundy:#5D1828; --burgundy-dark:#3f0f1b; --gold:#C8A462; --gold-dark:#98703b;
+  --white:#FFFFFF; --bg:#FAF6F0; --ink:#2a1016;
+  --radius:18px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--white); color:var(--ink); font-family:'Montserrat',sans-serif;
+  -webkit-tap-highlight-color:transparent; overflow-x:hidden;
+}
+h1,h2,h3,.title-font{font-family:'Cinzel',serif;}
+.ar{font-family:'Amiri Quran','Amiri',serif;}
+button{font-family:inherit; cursor:pointer;}
+img{max-width:100%; display:block;}
+.screen{display:none; min-height:100vh; padding-bottom:40px;}
+.screen.active{display:block;}
+[dir="rtl"] .flip-row{flex-direction:row-reverse;}
+
+/* ============ HEADER ============ */
+.app-header{
+  position:sticky; top:0; z-index:50; background:linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+  box-shadow:0 4px 16px rgba(93,24,40,.25);
+  display:flex; align-items:center; justify-content:flex-end;
+  min-height:64px; padding:10px 16px;
+}
+/* دار الكلمة (arabe) + Dar Al-Kalimah (latin, en dessous) toujours centrés au milieu
+   de l'en-tête, en position absolue : leur place ne bouge jamais, quel que soit
+   l'écran (bouton retour visible ou non) ni la largeur du sélecteur de langue. */
+.app-header .brand{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:center; gap:1px;
+  pointer-events:none; white-space:nowrap;
+}
+.app-header .brand .brand-ar{font-family:'Amiri Quran',serif; color:var(--gold); font-size:1.05rem; letter-spacing:.5px; line-height:1.2;}
+.app-header .brand .brand-en{font-family:'Cinzel',serif; color:rgba(200,164,98,.75); font-size:.45rem; letter-spacing:1.5px; line-height:1;}
+/* Bouton retour fixé à gauche, toujours à la même place (même masqué). */
+.back-btn{position:absolute; left:16px; top:50%; transform:translateY(-50%); border:none; background:transparent; color:var(--gold); font-size:1.3rem; width:34px;}
+.lang-switch{display:flex; gap:2px; background:rgba(255,255,255,.12); border-radius:50px; padding:3px;}
+.lang-switch button{
+  border:none; background:transparent; padding:5px 7px; border-radius:50px; font-size:.68rem;
+  font-weight:700; color:rgba(255,255,255,.75); letter-spacing:.3px; min-width:30px;
+}
+.lang-switch button.active{background:var(--gold); color:var(--burgundy);}
+
+/* ============ GENERIC ============ */
+.wrap{max-width:720px; margin:0 auto; padding:24px 20px;}
+.center{text-align:center;}
+.btn-gold{
+  background:var(--gold); color:var(--burgundy); border:none; padding:14px 34px; border-radius:50px;
+  font-weight:700; font-size:.95rem; letter-spacing:.5px; box-shadow:0 6px 18px rgba(200,164,98,.35);
+  min-height:44px;
+}
+.btn-outline{
+  background:transparent; border:1.5px solid var(--gold); color:var(--burgundy); padding:12px 28px;
+  border-radius:50px; font-weight:600; font-size:.88rem; min-height:44px;
+}
+.btn-burgundy{background:var(--burgundy); color:var(--white); border:none; padding:12px 26px; border-radius:50px; font-weight:700; min-height:44px;}
+.btn-sm{padding:8px 16px; font-size:.78rem; border-radius:50px;}
+.ref-note{font-size:.72rem; color:#8a7a6b; margin-top:6px; font-style:italic;}
+.card-panel{background:var(--white); border:1px solid rgba(200,164,98,.3); border-radius:var(--radius); padding:18px; box-shadow:0 4px 20px rgba(93,24,40,.05);}
+
+/* ============ SCREEN 1 : HADITH ============ */
+#screen-hadith .wrap{min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:22px;}
+.hadith-ar{font-family:'Amiri Quran',serif; font-size:1.7rem; line-height:2.5; color:var(--burgundy); text-align:center; max-width:640px;}
+.hadith-tr{font-size:1rem; color:#555; text-align:center; max-width:560px; line-height:1.7;}
+.hadith-ref{font-size:.8rem; color:var(--gold-dark); font-weight:600;}
+
+/* ============ SCREEN 2 : POURQUOI ============ */
+.why-text{font-size:1.05rem; line-height:1.9; color:var(--ink); margin-bottom:26px;}
+.why-icons{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:24px 0;}
+.why-icon{width:94px; text-align:center; font-size:.78rem; color:var(--burgundy);}
+.why-icon .ic{width:54px; height:54px; margin:0 auto 8px; border-radius:50%; background:rgba(200,164,98,.15); display:flex; align-items:center; justify-content:center; font-size:1.4rem;}
+.hadith-block-sm{margin-top:30px; padding-top:22px; border-top:1px dashed rgba(200,164,98,.4);}
+.hadith-block-sm .hadith-ar{font-size:1.25rem; line-height:2.1;}
+
+/* ============ SCREEN 3 : EVENTAIL ============ */
+.fan-top{display:flex; align-items:center; gap:18px; flex-wrap:wrap; justify-content:center; padding:10px 0 20px;}
+.boy-img{width:120px; filter:drop-shadow(0 8px 14px rgba(93,24,40,.18));}
+.fan-title h1{color:var(--burgundy); font-size:1.5rem; margin:0 0 4px;}
+.fan-title p{color:#8a7a6b; font-size:.85rem; margin:0;}
+.controls-row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:26px;}
+.riwaya-toggle{display:flex; background:rgba(93,24,40,.06); border-radius:50px; padding:4px;}
+.riwaya-toggle button{border:none; background:transparent; padding:9px 18px; border-radius:50px; font-weight:700; font-size:.82rem; color:var(--burgundy); min-height:40px;}
+.riwaya-toggle button.active{background:var(--burgundy); color:var(--white);}
+.reciter-select{border:1.5px solid rgba(200,164,98,.5); border-radius:50px; padding:9px 16px; font-size:.82rem; color:var(--burgundy); background:var(--white); min-height:40px;}
+.reciter-select option:disabled{color:#bbb;}
+
+.fan-zone{position:relative; height:280px; margin:0 auto 10px; max-width:420px;}
+.fan-blade{
+  position:absolute; left:50%; bottom:0; width:120px; height:230px; margin-left:-60px;
+  transform-origin:bottom center; background:linear-gradient(180deg,#fffdf7,#fbf2e2);
+  border:2px solid var(--gold); border-radius:60px 60px 10px 10px;
+  display:flex; flex-direction:column; align-items:center; padding-top:16px; gap:8px;
+  box-shadow:0 10px 22px rgba(93,24,40,.14); transition:transform .25s;
+  min-width:44px; min-height:44px;
+}
+.fan-blade:active{transform-origin:bottom center; filter:brightness(.96);}
+.fan-blade .blade-icon{font-size:1.6rem;}
+.fan-blade .blade-name{font-family:'Amiri',serif; font-size:1rem; color:var(--burgundy); text-align:center; padding:0 6px;}
+.fan-blade .blade-star{position:absolute; top:8px; right:10px; color:var(--gold); font-size:1rem;}
+.fan-pivot{position:absolute; left:50%; bottom:-14px; width:30px; height:30px; margin-left:-15px; background:var(--gold); border:3px solid var(--gold-dark); border-radius:50%;}
+
+/* ============ SCREEN 4 : CARTE SOURATE ============ */
+.sourate-head{text-align:center; padding:10px 0 18px;}
+.sourate-head .nameAr{font-family:'Amiri Quran',serif; font-size:2rem; color:var(--burgundy);}
+.sourate-head .nameTr{font-size:.85rem; color:#8a7a6b;}
+.deck-zone{perspective:1400px; max-width:440px; margin:0 auto; padding:0 14px;}
+.vcard{
+  position:relative; width:100%; aspect-ratio:3/4; transform-style:preserve-3d; transition:transform .5s;
+  touch-action:pan-y;
+}
+.vcard.flipped{transform:rotateY(180deg);}
+.vcard-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius);
+  border:1.5px solid rgba(200,164,98,.5); background:var(--white); overflow:hidden;
+  box-shadow:0 10px 28px rgba(93,24,40,.14); display:flex; flex-direction:column;
+}
+.vcard-front .vimg{width:100%; height:46%; background-color:#f4ede1; transition:opacity .2s;}
+.vcard-front .vimg.img-loading{opacity:.35;}
+.vcard-front .vtext{flex:1; display:flex; align-items:center; justify-content:center; padding:16px; text-align:center;}
+.vcard-front .vtext .ar{font-size:1.65rem; line-height:2.3; color:var(--burgundy);}
+.vcard-front .vnum{position:absolute; top:10px; left:10px; background:var(--gold); color:var(--burgundy); font-weight:700; font-size:.8rem; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+[dir="rtl"] .vcard-front .vnum{left:auto; right:10px;}
+.vcard-back{transform:rotateY(180deg); padding:16px; justify-content:flex-start; overflow-y:auto;}
+.audio-row{display:flex; align-items:center; gap:10px; background:rgba(200,164,98,.1); border-radius:14px; padding:10px 12px; margin-bottom:12px;}
+.audio-row button{width:40px; height:40px; border-radius:50%; border:none; background:var(--gold); color:var(--burgundy); font-size:1rem;}
+.audio-row button:disabled{background:#e3ddd2; color:#aaa;}
+.audio-label{font-size:.72rem; color:#8a7a6b; flex:1;}
+.vcard-back .ar-small{font-family:'Amiri',serif; font-size:1.2rem; line-height:2; color:var(--burgundy); text-align:center; margin-bottom:10px;}
+.hl{background:rgba(200,164,98,.35); border-radius:4px; padding:0 2px;}
+.context-toggle{font-size:.78rem; color:var(--gold-dark); text-decoration:underline; background:none; border:none; padding:0; margin-top:4px;}
+.context-box{font-size:.82rem; line-height:1.6; color:#555; margin-top:8px; display:none;}
+.context-box.open{display:block;}
+.deck-nav{display:flex; justify-content:space-between; align-items:center; max-width:440px; margin:14px auto 0; padding:0 4px;}
+.nav-arrow{width:44px; height:44px; border-radius:50%; border:1.5px solid var(--gold); background:var(--white); color:var(--burgundy); font-size:1.1rem;}
+.deck-dots{font-size:.78rem; color:#8a7a6b;}
+.flip-hint{text-align:center; font-size:.76rem; color:#aaa; margin-top:10px;}
+.action-row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:26px;}
+
+/* ============ QUIZ ============ */
+.quiz-progress{font-size:.78rem; color:#8a7a6b; text-align:center; margin-bottom:10px;}
+.quiz-q{font-size:1.05rem; color:var(--burgundy); line-height:1.6; margin-bottom:16px; text-align:center;}
+.quiz-q .ar{font-size:1.4rem;}
+.quiz-opts{display:flex; flex-direction:column; gap:10px;}
+.quiz-opt{
+  border:1.5px solid rgba(200,164,98,.5); background:var(--white); border-radius:14px; padding:13px 16px;
+  text-align:center; font-size:.92rem; color:var(--ink); min-height:44px;
+}
+.quiz-opt.correct{border-color:#2e7d46; background:rgba(46,125,70,.08); color:#2e7d46; font-weight:700;}
+.quiz-opt.wrong{border-color:var(--burgundy); background:rgba(93,24,40,.06); color:var(--burgundy);}
+.quiz-explain{font-size:.82rem; color:#555; background:rgba(200,164,98,.08); border-radius:12px; padding:12px; margin-top:14px; display:none;}
+.quiz-explain.show{display:block;}
+.quiz-score{text-align:center; padding:40px 0;}
+.quiz-score .big{font-family:'Cinzel',serif; font-size:2.4rem; color:var(--burgundy);}
+.star-big{font-size:2.6rem; color:var(--gold);}
+
+/* ============ PRINT ============ */
+@media print{
+  .app-header,.lang-switch,.controls-row,.action-row,.deck-nav,.flip-hint,.no-print{display:none !important;}
+  body{background:#fff;}
+  .print-sheet{display:block !important; page-break-after:always;}
+  .print-sheet .ar{color:#000 !important;}
+  .print-img{filter:grayscale(1); max-width:100%;}
+}
+.print-sheet{display:none;}
+
+@media (max-width:420px){
+  .fan-blade{width:100px; height:200px; margin-left:-50px;}
+  .hadith-ar{font-size:1.4rem;}
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <button class="back-btn" id="btnBack" style="visibility:hidden">←</button>
+  <div class="brand"><span class="brand-ar">دار الكلمة</span><span class="brand-en">DAR AL-KALIMAH</span></div>
+  <div class="lang-switch" id="langSwitch">
+    <button data-lang="fr" class="active">FR</button>
+    <button data-lang="ar">AR</button>
+    <button data-lang="es">ES</button>
+  </div>
+</header>
+
+<!-- ======= SCREEN 1 : HADITH D'OUVERTURE ======= -->
+<section class="screen active" id="screen-hadith">
+  <div class="wrap">
+    <div class="hadith-ar">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
+    <div class="hadith-tr" data-i18n="hadith1_tr"></div>
+    <div class="hadith-ref" data-i18n="hadith1_ref"></div>
+    <button class="btn-gold" id="btnStart" data-i18n="btn_commencer"></button>
+  </div>
+</section>
+
+<!-- ======= SCREEN 2 : POURQUOI ======= -->
+<section class="screen" id="screen-why">
+  <div class="wrap">
+    <h2 class="center" data-i18n="why_title"></h2>
+    <p class="why-text" data-i18n="why_text"></p>
+    <div class="why-icons">
+      <div class="why-icon"><div class="ic">🎧</div><span data-i18n="why_ic1"></span></div>
+      <div class="why-icon"><div class="ic">📖</div><span data-i18n="why_ic2"></span></div>
+      <div class="why-icon"><div class="ic">⭐</div><span data-i18n="why_ic3"></span></div>
+    </div>
+    <div class="hadith-block-sm">
+      <div class="hadith-ar">الْمَاهِرُ بِالْقُرْآنِ مَعَ السَّفَرَةِ الْكِرَامِ الْبَرَرَةِ، وَالَّذِي يَقْرَأُ الْقُرْآنَ وَيَتَتَعْتَعُ فِيهِ، وَهُوَ عَلَيْهِ شَاقٌّ، لَهُ أَجْرَانِ</div>
+      <p class="hadith-tr" data-i18n="hadith2_tr"></p>
+      <p class="hadith-ref" data-i18n="hadith2_ref"></p>
+    </div>
+    <div class="center" style="margin-top:24px;">
+      <button class="btn-gold" id="btnWhyNext" data-i18n="btn_continuer"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SCREEN 3 : EVENTAIL ======= -->
+<section class="screen" id="screen-fan">
+  <div class="wrap">
+    <div class="fan-top">
+      <img class="boy-img" src="assets/hizb60/chatgpt/elements-accueil/garcon-accueil.png" alt="">
+      <div class="fan-title">
+        <h1>Hizb 60</h1>
+        <p>Dar Al-Kalimah · <span data-i18n="fan_subtitle"></span></p>
+      </div>
+    </div>
+    <div class="controls-row">
+      <div class="riwaya-toggle" id="riwayaToggle">
+        <button data-riwaya="warsh" class="active">Warsh</button>
+        <button data-riwaya="hafs">Ḥafṣ</button>
+      </div>
+      <select class="reciter-select" id="reciterSelect"></select>
+    </div>
+    <p class="center ref-note" data-i18n="reciter_note"></p>
+
+    <div class="fan-zone" id="fanZone"></div>
+
+    <div class="center" style="margin-top:18px;">
+      <button class="btn-outline btn-sm" id="btnPrintAll" data-i18n="btn_print_cahier"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SCREEN 4 : CARTE SOURATE ======= -->
+<section class="screen" id="screen-card">
+  <div class="wrap">
+    <div class="sourate-head">
+      <div class="nameAr" id="cardNameAr"></div>
+      <div class="nameTr" id="cardNameTr"></div>
+    </div>
+
+    <div class="deck-zone">
+      <div class="vcard" id="vcard">
+        <div class="vcard-face vcard-front" id="vcardFront">
+          <div class="vnum" id="vNum"></div>
+          <div class="vimg" id="vImg"></div>
+          <div class="vtext"><div class="ar" id="vArText"></div></div>
+        </div>
+        <div class="vcard-face vcard-back" id="vcardBack">
+          <div class="audio-row">
+            <button id="btnPlayVerse" title="écouter ce verset">▶</button>
+            <span class="audio-label" id="audioLabel" data-i18n="audio_verset"></span>
+          </div>
+          <div class="ar-small" id="vArBack"></div>
+          <button class="context-toggle" id="btnContext" data-i18n="btn_context"></button>
+          <div class="context-box" id="contextBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="deck-nav">
+      <button class="nav-arrow" id="btnPrev">‹</button>
+      <span class="deck-dots" id="deckPos"></span>
+      <button class="nav-arrow" id="btnNext">›</button>
+    </div>
+    <p class="flip-hint" data-i18n="flip_hint"></p>
+    <div class="center" style="margin-top:4px;">
+      <button class="btn-outline btn-sm" id="btnPlayFull">🔊 <span data-i18n="btn_play_full"></span></button>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-outline btn-sm" id="btnPrintSourate" data-i18n="btn_print"></button>
+      <button class="btn-outline btn-sm" id="btnPrintColor" data-i18n="btn_print_coloriages"></button>
+      <button class="btn-burgundy btn-sm" id="btnGoQuiz" data-i18n="btn_quiz"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======= ECRAN QUIZ ======= -->
+<section class="screen" id="screen-quiz">
+  <div class="wrap">
+    <h2 class="center" id="quizTitle"></h2>
+    <div id="quizBody"></div>
+  </div>
+</section>
+
+<!-- Printable area injected dynamically -->
+<div id="printArea"></div>
+
+<script>
+/* ======================================================================
+   HIZB 60 — Dar Al-Kalimah — SQUELETTE (étape 2)
+   3 sourates de test : Al-Fātiḥa, Al-Ikhlāṣ, An-Nās — Warsh + Ḥafṣ
+   Contenu religieux = BROUILLON, à valider par Houda avant publication.
+   ====================================================================== */
+const APP_NAME = "Hizb 60";
+const PRIX = null; // à renseigner par Houda à l'étape boutique
+
+/* ---------- stockage local sûr ---------- */
+function lsGet(k,d){ try{ const v=localStorage.getItem(k); return v===null?d:JSON.parse(v);}catch(e){return d;} }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+/* ---------- i18n interface (UI uniquement — jamais le texte des sourates) ---------- */
+const I18N = {
+  fr:{
+    hadith1_tr:"« Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne. »",
+    hadith1_ref:"Ṣaḥīḥ al-Bukhārī, n° 5027",
+    btn_commencer:"Commencer",
+    why_title:"Pourquoi cette application existe ?",
+    why_text:"Salam alaykoum. Dar Al-Kalimah veut faciliter l'apprentissage du Coran à nos enfants et à nous-mêmes, mamans très occupées, de façon ludique et simple.",
+    why_ic1:"Écouter et lire",
+    why_ic2:"Comprendre l'histoire",
+    why_ic3:"Jouer au quiz",
+    hadith2_tr:"« Celui qui maîtrise la lecture du Coran sera avec les anges scribes, nobles et pieux ; et celui qui lit le Coran en butant dessus, et pour qui c'est difficile, aura deux récompenses. »",
+    hadith2_ref:"Ṣaḥīḥ Muslim, n° 798",
+    btn_continuer:"Continuer",
+    fan_subtitle:"Juz' ʿAmma",
+    reciter_note:"Lecture lente et claire, idéale pour l'apprentissage.",
+    btn_print_cahier:"Imprimer tout le cahier",
+    audio_verset:"Écouter ce verset",
+    btn_play_full:"Écouter toute la sourate",
+    btn_context:"Pourquoi cette sourate a-t-elle été révélée ?",
+    flip_hint:"Touche la carte pour l'écouter · glisse pour passer au verset suivant",
+    btn_print:"Imprimer",
+    btn_print_coloriages:"Imprimer les coloriages",
+    btn_quiz:"Quiz",
+    quiz_score_title:"Score",
+    quiz_restart:"Recommencer",
+    quiz_back:"Retour à la sourate",
+    quiz_correct:"Bonne réponse !",
+    quiz_wrong:"Pas tout à fait.",
+  },
+  es:{
+    hadith1_tr:"«El mejor de vosotros es quien aprende el Corán y lo enseña.»",
+    hadith1_ref:"Ṣaḥīḥ al-Bujari, n.º 5027",
+    btn_commencer:"Empezar",
+    why_title:"¿Por qué existe esta aplicación?",
+    why_text:"Salam alaykum. Dar Al-Kalimah quiere facilitar el aprendizaje del Corán a nuestros hijos y a nosotras mismas, mamás muy ocupadas, de forma lúdica y sencilla.",
+    why_ic1:"Escuchar y leer",
+    why_ic2:"Comprender la historia",
+    why_ic3:"Jugar al quiz",
+    hadith2_tr:"«Quien domina la recitación del Corán estará con los ángeles escribas, nobles y virtuosos; y quien lo recita con dificultad, tropezando en él, tendrá dos recompensas.»",
+    hadith2_ref:"Ṣaḥīḥ Muslim, n.º 798",
+    btn_continuer:"Continuar",
+    fan_subtitle:"Juz' ʿAmma",
+    reciter_note:"Lectura lenta y clara, ideal para aprender.",
+    btn_print_cahier:"Imprimir todo el cuaderno",
+    audio_verset:"Escuchar este versículo",
+    btn_play_full:"Escuchar toda la azora",
+    btn_context:"¿Por qué fue revelada esta azora?",
+    flip_hint:"Toca la carta para escuchar · desliza para pasar al siguiente versículo",
+    btn_print:"Imprimir",
+    btn_print_coloriages:"Imprimir los dibujos para colorear",
+    btn_quiz:"Quiz",
+    quiz_score_title:"Puntuación",
+    quiz_restart:"Reintentar",
+    quiz_back:"Volver a la azora",
+    quiz_correct:"¡Correcto!",
+    quiz_wrong:"No exactamente.",
+  },
+  ar:{
+    hadith1_tr:"«خيركم من تعلم القرآن وعلّمه.»",
+    hadith1_ref:"صحيح البخاري، رقم 5027",
+    btn_commencer:"ابدأ",
+    why_title:"لماذا هذا التطبيق؟",
+    why_text:"السلام عليكم. دار الكلمة تريد أن تُسهّل على أطفالنا وعلينا نحن الأمهات المشغولات تعلّم القرآن بطريقة بسيطة وممتعة.",
+    why_ic1:"استمع واقرأ",
+    why_ic2:"افهم القصة",
+    why_ic3:"العب الاختبار",
+    hadith2_tr:"«الماهر بالقرآن مع السفرة الكرام البررة، والذي يقرأ القرآن ويتتعتع فيه وهو عليه شاق له أجران.»",
+    hadith2_ref:"صحيح مسلم، رقم 798",
+    btn_continuer:"متابعة",
+    fan_subtitle:"جزء عمّ",
+    reciter_note:"قراءة بطيئة وواضحة، مناسبة للتعلم.",
+    btn_print_cahier:"طباعة الكراسة كاملة",
+    audio_verset:"استمع إلى هذه الآية",
+    btn_play_full:"استماع إلى السورة كاملة",
+    btn_context:"لماذا نزلت هذه السورة؟",
+    flip_hint:"المس البطاقة للاستماع · اسحب للانتقال إلى الآية التالية",
+    btn_print:"طباعة",
+    btn_print_coloriages:"طباعة صفحات التلوين",
+    btn_quiz:"اختبار",
+    quiz_score_title:"النتيجة",
+    quiz_restart:"إعادة المحاولة",
+    quiz_back:"العودة إلى السورة",
+    quiz_correct:"إجابة صحيحة!",
+    quiz_wrong:"ليست صحيحة تماما.",
+  }
+};
+let currentLang = lsGet('hizb60_lang','fr');
+
+function applyI18n(){
+  const dict = I18N[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k]!==undefined) el.textContent = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-opt]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-opt');
+    if(dict[k]!==undefined) el.textContent = dict[k];
+  });
+  document.getElementById('htmlRoot').lang = currentLang;
+  document.getElementById('htmlRoot').dir = (currentLang==='ar') ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-switch button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang===currentLang);
+  });
+  renderFan(); renderQuizIfVisible();
+}
+document.getElementById('langSwitch').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-lang]'); if(!b) return;
+  currentLang = b.dataset.lang; lsSet('hizb60_lang', currentLang); applyI18n();
+});
+
+/* ======================================================================
+   DONNÉES DES 3 SOURATES DE TEST
+   Source du texte : KFGQPC — Hafs v18 / Warsh v10 (dépôt thetruetruth/quran-data-kfgqpc)
+   Licence à vérifier et consigner dans LICENCES.md avant toute vente.
+   Contenu "contexte" et "quiz" = BROUILLON pédagogique, à valider par Houda.
+   ====================================================================== */
+const IMG_BASE = "assets/hizb60/chatgpt/";
+
+const SOURATES = {
+  fatiha:{
+    id:1, slug:'fatiha', nameAr:'الفَاتِحة', nameTr:'Al-Fātiḥa — « L’Ouverture »',
+    img: IMG_BASE+'001-fatiha.png', imgColor: IMG_BASE+'coloriage/001-fatiha-trait.png',
+    cols:4, rows:2,
+    verses:{
+      hafs:[
+        {n:1, ar:'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ', case:0},
+        {n:2, ar:'ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ', case:1},
+        {n:3, ar:'ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ', case:2},
+        {n:4, ar:'مَٰلِكِ يَوۡمِ ٱلدِّينِ', case:3},
+        {n:5, ar:'إِيَّاكَ نَعۡبُدُ وَإِيَّاكَ نَسۡتَعِينُ', case:4},
+        {n:6, ar:'ٱهۡدِنَا ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ', case:5},
+        {n:7, ar:'صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا ٱلضَّآلِّينَ', case:6}
+      ],
+      warsh:[
+        {n:1, ar:'اَ۬لْحَمْدُ لِلهِ رَبِّ اِ۬لْعَٰلَمِينَ', case:1, basmalaAbove:true},
+        {n:2, ar:'اَ۬لرَّحْمَٰنِ اِ۬لرَّحِيمِ', case:2},
+        {n:3, ar:'مَلِكِ يَوْمِ اِ۬لدِّينِ', case:3},
+        {n:4, ar:'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', case:4},
+        {n:5, ar:'اُ۪هْدِنَا اَ۬لصِّرَٰطَ اَ۬لْمُسْتَقِيمَ', case:5},
+        {n:6, ar:'صِرَٰطَ اَ۬لذِينَ أَنْعَمْتَ عَلَيْهِمْ', case:6},
+        {n:7, ar:'غَيْرِ اِ۬لْمَغْضُوبِ عَلَيْهِمْ وَلَا اَ۬لضَّآلِّينَ', case:7}
+      ]
+    },
+    basmala:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+    meccan:true,
+    contextFr:"Sourate mecquoise selon la majorité des savants (quelques-uns la disent médinoise, ou révélée deux fois). Aucun sabab an-nuzūl (occasion de révélation) précis et authentique n'est établi pour Al-Fātiḥa : c'est la sourate d'ouverture du Coran, « Umm al-Kitāb » (la Mère du Livre), récitée obligatoirement à chaque rakʿa des 5 prières. Son thème : louer Allah, proclamer qu'on ne L'adore que Lui, et Lui demander de nous guider sur le droit chemin. — Brouillon à valider.",
+    quiz: [] // rempli plus bas
+  },
+  ikhlas:{
+    id:112, slug:'ikhlas', nameAr:'الإِخْلَاص', nameTr:'Al-Ikhlāṣ — « Le Monothéisme pur »',
+    img: IMG_BASE+'112-ikhlas.png', imgColor: IMG_BASE+'coloriage/112-ikhlas-trait.png',
+    cols:3, rows:2,
+    verses:{
+      hafs:[
+        {n:1, ar:'قُلۡ هُوَ ٱللَّهُ أَحَدٌ', case:0},
+        {n:2, ar:'ٱللَّهُ ٱلصَّمَدُ', case:1},
+        {n:3, ar:'لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ', case:2},
+        {n:4, ar:'وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ', case:3}
+      ],
+      warsh:[
+        {n:1, ar:'قُلْ هُوَ اَ۬للَّهُ أَحَدٌ', case:0},
+        {n:2, ar:'اِ۬للَّهُ اُ۬لصَّمَدُ', case:1},
+        {n:3, ar:'لَمْ يَلِدْ وَلَمْ يُولَدْ', case:2},
+        {n:4, ar:'وَلَمْ يَكُن لَّهُۥ كُفُؤاً اَحَدٞ', case:3}
+      ]
+    },
+    basmala:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+    meccan:true,
+    contextFr:"Sourate mecquoise. Un sabab an-nuzūl est rapporté (des interlocuteurs auraient demandé au Prophète ﷺ de décrire la lignée/les attributs d'Allah) via Ubayy ibn Kaʿb, cité par At-Tirmidhī qui le qualifie de « ḥasan gharīb » — degré à vérifier, pas une chaîne certifiée authentique de façon unanime. Par prudence : aucun sabab n'est affiché comme certain tant que Houda n'a pas validé la source. Ce qui EST authentiquement établi (Ṣaḥīḥ al-Bukhārī n° 5013, Ṣaḥīḥ Muslim n° 811) : réciter cette sourate équivaut, par son thème, au tiers du Coran. Thème central : le tawḥīd absolu — Allah est unique, Il n'a ni parent ni enfant ni égal. — Brouillon à valider.",
+    quiz: []
+  },
+  nas:{
+    id:114, slug:'nas', nameAr:'النَّاس', nameTr:'An-Nās — « Les Hommes »',
+    img: IMG_BASE+'114-nas.png', imgColor: IMG_BASE+'coloriage/114-nas-trait.png',
+    cols:3, rows:2,
+    verses:{
+      hafs:[
+        {n:1, ar:'قُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ', case:0},
+        {n:2, ar:'مَلِكِ ٱلنَّاسِ', case:1},
+        {n:3, ar:'إِلَٰهِ ٱلنَّاسِ', case:2},
+        {n:4, ar:'مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ', case:3},
+        {n:5, ar:'ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ', case:4},
+        {n:6, ar:'مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ', case:5}
+      ],
+      warsh:[
+        {n:1, ar:'قُلَ اَعُوذُ بِرَبِّ اِ۬لنَّاسِ', case:0},
+        {n:2, ar:'مَلِكِ اِ۬لنَّاسِ', case:1},
+        {n:3, ar:'إِلَٰهِ اِ۬لنَّاسِ', case:2},
+        {n:4, ar:'مِن شَرِّ اِ۬لْوَسْوَاسِ اِ۬لْخَنَّاسِ', case:3},
+        {n:5, ar:'اِ۬لذِے يُوَسْوِسُ فِے صُدُورِ اِ۬لنَّاسِ', case:4},
+        {n:6, ar:'مِنَ اَ۬لْجِنَّةِ وَالنَّاسِ', case:5}
+      ]
+    },
+    basmala:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+    meccan:true,
+    contextFr:"Classification disputée : mecquoise selon la majorité, médinoise selon une minorité de savants. Aucun sabab an-nuzūl précis et authentique n'établit un événement de révélation particulier — l'épisode de sorcellerie de Labīd ibn al-Aʿṣam, souvent cité, concerne l'usage protecteur de la sourate, pas son occasion de révélation. Thème central : chercher refuge auprès d'Allah contre le mal insufflé (waswās) par les démons et par certains humains. An-Nās et Al-Falaq forment ensemble « Al-Muʿawwidhatān » (les deux sourates de protection). — Brouillon à valider.",
+    quiz: []
+  }
+};
+
+/* ======================================================================
+   AUDIO — récitateurs licenciés (voir LICENCES.md, confirmation écrite
+   de MP3Quran.net du 01/11/2026 : usage autorisé dans l'app payante,
+   aucune mention de leur site requise).
+   Warsh → Omar Al-Qazabri ; Ḥafṣ → Mustafa Ismail (murattal + mujawwad).
+   Minutage par verset fourni par l'API MP3Quran (ayah-timings).
+   Index 0 d'un tableau "ayahs" = basmala récitée en préambule (non
+   numérotée) : on ne s'en sert pas, on ne garde que index === n° de verset.
+   ====================================================================== */
+const RECITERS = {
+  warsh:[ {code:'omar-kazabri/r1', label:'Omar Al-Qazabri'} ],
+  hafs:[
+    {code:'mustafa-ismail/r1', label:'Mustafa Ismail — Murattal'},
+    {code:'mustafa-ismail/r2', label:'Mustafa Ismail — Mujawwad'}
+  ]
+};
+
+const AUDIO_DATA = {
+  "omar-kazabri/r1":{
+    "1":{"url":"https://cdn.mp3quran.net/audio/omar-kazabri/r1/001.mp3","duration_ms":54544,
+      "ayahs":[[0,5283,11650],[1,11730,16980],[2,17280,21990],[3,22080,25377],[4,25830,31940],[5,32030,36870],[6,37390,41293],[7,41293,54038]]},
+    "112":{"url":"https://cdn.mp3quran.net/audio/omar-kazabri/r1/112.mp3","duration_ms":19696,
+      "ayahs":[[0,41,4930],[1,5300,8580],[2,8660,11710],[3,11790,15110],[4,15190,19220]]},
+    "114":{"url":"https://cdn.mp3quran.net/audio/omar-kazabri/r1/114.mp3","duration_ms":28761,
+      "ayahs":[[0,73,5460],[1,5970,9425],[2,9425,11985],[3,11985,14225],[4,14225,18586],[5,18586,23106],[6,23106,28740]]}
+  },
+  "mustafa-ismail/r1":{
+    "1":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r1/001.mp3","duration_ms":42000,
+      "ayahs":[[1,828,4022],[2,5161,9078],[3,10281,12781],[4,13990,16740],[5,17880,22298],[6,23356,26550],[7,27625,38582]]},
+    "112":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r1/112.mp3","duration_ms":26000,
+      "ayahs":[[0,873,5430],[1,6650,9380],[2,10780,13152],[3,14473,17664],[4,19017,23470]]},
+    "114":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r1/114.mp3","duration_ms":43000,
+      "ayahs":[[0,1001,5654],[1,6697,11240],[2,12350,15110],[3,16110,18810],[4,19870,25890],[5,27070,32890],[6,33961,38358]]}
+  },
+  "mustafa-ismail/r2":{
+    "1":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r2/001.mp3","duration_ms":86883,
+      "ayahs":[[1,1110,3862],[1,6345,10166],[2,12028,17026],[3,17026,20786],[4,20786,26582],[5,33850,42294],[6,49289,55926],[7,61897,80470]]},
+    "112":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r2/112.mp3","duration_ms":38740,
+      "ayahs":[[1,14140,18234],[2,18234,22276],[3,22390,27359],[4,27359,34340]]},
+    "114":{"url":"https://cdn.mp3quran.net/audio/mustafa-ismail/r2/114.mp3","duration_ms":78655,
+      "ayahs":[[0,988,6226],[1,6320,14268],[2,21590,25110],[3,30680,34550],[4,37740,47638],[5,51190,59196],[6,59450,66290]]}
+  }
+};
+
+/* retourne {start,end} en ms pour le verset n° "n" ; prend la 1re occurrence
+   (gère les répétitions mélodiques du mujawwad, qui dupliquent un index) */
+function getAyahTiming(code, surahId, n){
+  const surah = AUDIO_DATA[code] && AUDIO_DATA[code][surahId];
+  if(!surah) return null;
+  for(const a of surah.ayahs){ if(a[0]===n) return {start:a[1], end:a[2]}; }
+  return null;
+}
+
+/* ---------- QUIZ : 30 questions brouillon par sourate ----------
+   Types : ordre / mot / sens-mot / sens-verset / contexte / compte / riwaya
+   Toute explication est en français (brouillon) ; à traduire après validation. */
+SOURATES.fatiha.quiz = [
+ {type:'ordre', q:"Quel verset vient juste après « الحمد لله رب العالمين » ?", opts:["الرحمن الرحيم","مالك يوم الدين","اهدنا الصراط المستقيم"], a:0, ex:"« الرحمن الرحيم » est le verset suivant."},
+ {type:'ordre', q:"Quel verset vient juste après « الرحمن الرحيم » ?", opts:["إياك نعبد وإياك نستعين","مالك يوم الدين","صراط الذين أنعمت عليهم"], a:1, ex:"« مالك يوم الدين » suit directement."},
+ {type:'ordre', q:"Quel verset vient juste après « مالك يوم الدين » ?", opts:["اهدنا الصراط المستقيم","إياك نعبد وإياك نستعين","غير المغضوب عليهم"], a:1, ex:"« إياك نعبد وإياك نستعين »."},
+ {type:'ordre', q:"Quel verset vient juste après « إياك نعبد وإياك نستعين » ?", opts:["اهدنا الصراط المستقيم","الرحمن الرحيم","صراط الذين أنعمت عليهم"], a:0, ex:"« اهدنا الصراط المستقيم »."},
+ {type:'ordre', q:"Quel verset vient juste après « اهدنا الصراط المستقيم » ?", opts:["مالك يوم الدين","صراط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين","الرحمن الرحيم"], a:1, ex:"C'est le dernier verset de la sourate."},
+ {type:'ordre', q:"Quel est le tout premier verset de la Fātiḥa (hors basmala) ?", opts:["الحمد لله رب العالمين","مالك يوم الدين","قل هو الله أحد"], a:0, ex:"« الحمد لله رب العالمين » ouvre la sourate."},
+ {type:'mot', q:"Complète : « الحمد لله رب ___ »", opts:["العالمين","الدين","الناس"], a:0, ex:"« رب العالمين » = le Seigneur de tous les mondes."},
+ {type:'mot', q:"Complète : « ___ الرحيم »", opts:["الرحمن","الملك","الصمد"], a:0, ex:"« الرحمن الرحيم »."},
+ {type:'mot', q:"Complète : « مالك ___ الدين »", opts:["يوم","شهر","ليل"], a:0, ex:"« يوم الدين » = le Jour de la rétribution."},
+ {type:'mot', q:"Complète : « إياك نعبد و___ نستعين »", opts:["إياك","لك","معك"], a:0, ex:"« وإياك نستعين » = et c'est Toi seul que nous implorons."},
+ {type:'mot', q:"Complète : « اهدنا ___ المستقيم »", opts:["الصراط","الطريق","السبيل"], a:0, ex:"« الصراط المستقيم » = le droit chemin."},
+ {type:'mot', q:"Complète : « صراط الذين أنعمت عليهم غير ___ عليهم ولا الضالين »", opts:["المغضوب","الظالمين","الكافرين"], a:0, ex:"« غير المغضوب عليهم »."},
+ {type:'sens-mot', q:"Que signifie « الحمد » ?", opts:["La louange","La crainte","Le pardon"], a:0, ex:"« الحمد » = la louange, remercier et glorifier."},
+ {type:'sens-mot', q:"Que signifie « العالمين » ?", opts:["Tous les mondes, toute la création","Les anges seulement","Les humains seulement"], a:0, ex:"« العالمين » englobe toute la création."},
+ {type:'sens-mot', q:"Que signifie « الرحمن » ?", opts:["Le Tout Miséricordieux, dont la miséricorde englobe tout","Le Roi","Le Juge"], a:0, ex:"« الرحمن » = miséricorde universelle, pour toute la création."},
+ {type:'sens-mot', q:"Dans ce verset, que désigne « الدين » ?", opts:["Le Jour du Jugement / de la rétribution","La religion seulement","Une dette financière"], a:0, ex:"Ici « الدين » = la rétribution des actes, le Jour du Jugement."},
+ {type:'sens-mot', q:"Que signifie « نستعين » ?", opts:["Nous demandons secours","Nous nous souvenons","Nous pardonnons"], a:0, ex:"« نستعين » = nous implorons l'aide."},
+ {type:'sens-mot', q:"Que signifie « الضالين » ?", opts:["Ceux qui se sont égarés","Ceux qui sont en colère","Ceux qui ont peur"], a:0, ex:"« الضالين » = ceux qui se sont égarés, par ignorance."},
+ {type:'sens-verset', q:"Quel est le sens de « مالك يوم الدين » ?", opts:["Allah est le Maître absolu du Jour de la rétribution","Allah a créé le temps","Le jour n'a pas de maître"], a:0, ex:"Il rappelle qu'Allah seul règne sur ce Jour."},
+ {type:'sens-verset', q:"Quel est le sens de « إياك نعبد وإياك نستعين » ?", opts:["Nous n'adorons et ne demandons de l'aide qu'à Allah seul","Nous adorons plusieurs divinités","Nous demandons de l'aide aux anges"], a:0, ex:"Déclaration de Tawḥīd dans l'adoration."},
+ {type:'sens-verset', q:"Quel est le sens de « اهدنا الصراط المستقيم » ?", opts:["Une demande de guidance sur le droit chemin","Une demande de nourriture","Une demande de pardon pour les péchés"], a:0, ex:"C'est une invocation pour être guidé."},
+ {type:'sens-verset', q:"À quoi fait référence le dernier verset de la Fātiḥa ?", opts:["Au chemin des gens comblés de bienfaits, et non à celui de la colère ou de l'égarement","À un chemin de montagne","Au chemin vers la Kaaba"], a:0, ex:"Il précise quel chemin on demande."},
+ {type:'sens-verset', q:"Quel est le thème général de « الحمد لله رب العالمين » ?", opts:["La louange envers Allah, Seigneur de toute la création","Une description du paradis","Un récit historique"], a:0, ex:"C'est une louange d'ouverture."},
+ {type:'sens-verset', q:"Que rappelle « الرحمن الرحيم » juste après la louange ?", opts:["Que la miséricorde d'Allah est immense","Que la punition est sévère","Qu'il faut jeûner"], a:0, ex:"Deux noms qui insistent sur la miséricorde."},
+ {type:'contexte', q:"Al-Fātiḥa est-elle plutôt mecquoise ou médinoise ?", opts:["Mecquoise, selon la majorité des savants","Médinoise, à l'unanimité","On ne sait pas du tout"], a:0, ex:"La majorité la classe mecquoise ; quelques avis divergent."},
+ {type:'contexte', q:"Existe-t-il un sabab an-nuzūl précis et authentique pour Al-Fātiḥa ?", opts:["Non, aucun événement précis n'est authentiquement établi","Oui, un seul événement très connu","Oui, elle a été révélée pendant un voyage"], a:0, ex:"Pas de sabab spécifique établi pour cette sourate d'ouverture."},
+ {type:'contexte', q:"Pourquoi appelle-t-on la Fātiḥa « Umm al-Kitāb » ?", opts:["Parce qu'elle ouvre et résume le Coran","Parce qu'elle est la plus longue sourate","Parce qu'elle parle des mères"], a:0, ex:"« Umm al-Kitāb » = la Mère du Livre."},
+ {type:'compte', q:"Combien de versets compte Al-Fātiḥa en lecture Ḥafṣ ?", opts:["7","6","9"], a:0, ex:"7 versets, basmala comprise."},
+ {type:'riwaya', q:"En lecture Warsh, la basmala est-elle comptée comme un verset numéroté ?", opts:["Non, elle n'est pas numérotée","Oui, c'est le verset 1","Elle n'existe pas en Warsh"], a:0, ex:"En Warsh, la numérotation commence à « الحمد لله »."},
+ {type:'riwaya', q:"Au verset « مالك/ملك يوم الدين », quel mot utilise la lecture Ḥafṣ ?", opts:["مَٰلِكِ (avec un alif, « Maître »)","مَلِكِ (sans alif, « Roi »)","Les deux lectures disent exactement le même mot"], a:0, ex:"Ḥafṣ lit مَٰلِكِ, Warsh lit مَلِكِ : même sens général, graphie différente."}
+];
+
+SOURATES.ikhlas.quiz = [
+ {type:'ordre', q:"Quel verset vient juste après « قل هو الله أحد » ?", opts:["الله الصمد","لم يلد ولم يولد","ولم يكن له كفوا أحد"], a:0, ex:"« الله الصمد » suit directement."},
+ {type:'ordre', q:"Quel verset vient juste après « الله الصمد » ?", opts:["لم يلد ولم يولد","قل هو الله أحد","ولم يكن له كفوا أحد"], a:0, ex:"« لم يلد ولم يولد »."},
+ {type:'ordre', q:"Quel verset vient juste après « لم يلد ولم يولد » ?", opts:["ولم يكن له كفوا أحد","الله الصمد","قل هو الله أحد"], a:0, ex:"C'est le dernier verset."},
+ {type:'ordre', q:"Quel est le tout premier verset de cette sourate ?", opts:["قل هو الله أحد","الله الصمد","لم يلد ولم يولد"], a:0, ex:"« قل هو الله أحد » ouvre la sourate."},
+ {type:'mot', q:"Complète : « قل هو الله ___ »", opts:["أحد","واحد","فرد"], a:0, ex:"« أحد » = Unique."},
+ {type:'mot', q:"Complète : « الله ___ »", opts:["الصمد","الكريم","العظيم"], a:0, ex:"« الصمد »."},
+ {type:'mot', q:"Complète : « لم يلد ولم ___ »", opts:["يولد","يولد له","يخلق"], a:0, ex:"« لم يلد ولم يولد » = Il n'a engendré ni n'a été engendré."},
+ {type:'mot', q:"Complète : « ولم يكن له ___ أحد »", opts:["كفوا","شبيه","مثيل"], a:0, ex:"« كفوا أحد » = un égal."},
+ {type:'sens-mot', q:"Que signifie « أحد » dans cette sourate ?", opts:["Unique, sans aucun associé","Le premier","Un chiffre"], a:0, ex:"« أحد » insiste sur l'unicité absolue d'Allah."},
+ {type:'sens-mot', q:"Que signifie « الصمد » ?", opts:["Celui dont tous ont besoin, et qui n'a besoin de rien","Celui qui dort","Celui qui voyage"], a:0, ex:"« الصمد » = Celui vers qui on se tourne, qui ne dépend de personne."},
+ {type:'sens-mot', q:"Que veut dire « يلد » ?", opts:["Engendrer, avoir un enfant","Créer le ciel","Pardonner"], a:0, ex:"« لم يلد » = Il n'a pas eu d'enfant."},
+ {type:'sens-mot', q:"Que veut dire « كفوا » ?", opts:["Un égal, un équivalent","Un ennemi","Un ami"], a:0, ex:"« كفوا أحد » = aucun être qui Lui soit égal."},
+ {type:'sens-verset', q:"Quel est le sens général de « قل هو الله أحد » ?", opts:["Déclarer qu'Allah est Un, sans associé","Décrire le paradis","Raconter la création d'Adam"], a:0, ex:"Déclaration fondamentale du tawḥīd."},
+ {type:'sens-verset', q:"Quel est le sens de « الله الصمد » ?", opts:["Allah est Celui dont toute la création a besoin, et qui n'a besoin de rien","Allah est loin de nous","Allah se repose"], a:0, ex:"Il est Autosuffisant, Source de tout."},
+ {type:'sens-verset', q:"Quel est le sens de « لم يلد ولم يولد » ?", opts:["Allah n'a ni parent ni enfant","Allah a plusieurs enfants","Allah est né un jour précis"], a:0, ex:"Négation de toute filiation pour Allah."},
+ {type:'sens-verset', q:"Quel est le sens du dernier verset « ولم يكن له كفوا أحد » ?", opts:["Rien ni personne n'est comparable à Allah","Allah a un associé égal","Allah ressemble à Ses créatures"], a:0, ex:"Négation de tout égal ou semblable."},
+ {type:'contexte', q:"Al-Ikhlāṣ est-elle mecquoise ou médinoise ?", opts:["Mecquoise","Médinoise","On ne sait pas du tout"], a:0, ex:"Sourate mecquoise."},
+ {type:'contexte', q:"Un sabab an-nuzūl est rapporté pour cette sourate : lequel ?", opts:["Des interlocuteurs auraient demandé au Prophète ﷺ de décrire Allah","Un verset révélé pendant une bataille","Un verset révélé lors d'un mariage"], a:0, ex:"Rapporté via Ubayy ibn Kaʿb (Tirmidhī, « ḥasan gharīb ») — degré à vérifier par Houda."},
+ {type:'contexte', q:"D'après un ḥadīth authentique (Bukhārī/Muslim), à quoi équivaut la récitation de cette sourate ?", opts:["Au tiers du Coran","À la moitié du Coran","Au Coran tout entier"], a:0, ex:"Car elle traite du tawḥīd, un des 3 grands thèmes du Coran."},
+ {type:'contexte', q:"Quel est le thème central d'Al-Ikhlāṣ ?", opts:["Le tawḥīd absolu : l'unicité d'Allah","Les règles du jeûne","L'histoire des prophètes"], a:0, ex:"Toute la sourate tourne autour de l'unicité d'Allah."},
+ {type:'compte', q:"Combien de versets compte Al-Ikhlāṣ ?", opts:["4","3","5"], a:0, ex:"4 versets."},
+ {type:'compte', q:"Quel est l'autre nom donné à cette sourate ?", opts:["At-Tawḥīd (le Monothéisme)","Al-Baqara","Al-Fātiḥa"], a:0, ex:"Elle est aussi appelée « At-Tawḥīd »."},
+ {type:'riwaya', q:"Au dernier verset, quel mot pour « égal » utilise la lecture Ḥafṣ ?", opts:["كُفُوًا","كُفُؤاً","الاثنان sont identiques"], a:0, ex:"Ḥafṣ : كُفُوًا — Warsh : كُفُؤاً (même sens, graphie différente)."},
+ {type:'riwaya', q:"Le nombre de versets d'Al-Ikhlāṣ change-t-il entre Ḥafṣ et Warsh ?", opts:["Non, 4 versets dans les deux lectures","Oui, 4 en Ḥafṣ et 5 en Warsh","Oui, 3 en Ḥafṣ et 4 en Warsh"], a:0, ex:"Le découpage est identique ici."},
+ {type:'ordre', q:"Quel mot termine la sourate ?", opts:["أحد","الصمد","يولد"], a:0, ex:"Elle se termine par « ...كفوا أحد »."},
+ {type:'sens-verset', q:"Pourquoi dit-on qu'Al-Ikhlāṣ résume le tawḥīd ?", opts:["Parce qu'elle affirme en 4 versets l'unicité totale d'Allah","Parce qu'elle contient toutes les lois islamiques","Parce qu'elle raconte la vie du Prophète ﷺ"], a:0, ex:"Chaque verset nie un attribut incompatible avec le tawḥīd."},
+ {type:'mot', q:"Quel verbe est utilisé deux fois dans le verset 3 ?", opts:["Engendrer (یلد / یولد)","Créer (خلق)","Guider (هدى)"], a:0, ex:"« لم يلد ولم يولد »."},
+ {type:'sens-mot', q:"« قل » au tout début de la sourate signifie :", opts:["Dis (ordre donné au Prophète ﷺ de transmettre)","Écoute","Lève-toi"], a:0, ex:"« قل » introduit une déclaration à transmettre."},
+ {type:'contexte', q:"Cette sourate est-elle plus longue ou plus courte qu'Al-Fātiḥa ?", opts:["Plus courte (4 versets contre 7)","Plus longue","De la même longueur"], a:0, ex:"Al-Ikhlāṣ est l'une des sourates les plus courtes du Coran."}
+];
+
+SOURATES.nas.quiz = [
+ {type:'ordre', q:"Quel verset vient juste après « قل أعوذ برب الناس » ?", opts:["ملك الناس","إله الناس","من شر الوسواس الخناس"], a:0, ex:"« ملك الناس » suit directement."},
+ {type:'ordre', q:"Quel verset vient juste après « ملك الناس » ?", opts:["إله الناس","من شر الوسواس الخناس","الذي يوسوس في صدور الناس"], a:0, ex:"« إله الناس »."},
+ {type:'ordre', q:"Quel verset vient juste après « إله الناس » ?", opts:["من شر الوسواس الخناس","ملك الناس","من الجنة والناس"], a:0, ex:"« من شر الوسواس الخناس »."},
+ {type:'ordre', q:"Quel verset vient juste après « من شر الوسواس الخناس » ?", opts:["الذي يوسوس في صدور الناس","قل أعوذ برب الناس","من الجنة والناس"], a:0, ex:"« الذي يوسوس في صدور الناس »."},
+ {type:'ordre', q:"Quel est le tout dernier verset de la sourate ?", opts:["من الجنة والناس","إله الناس","ملك الناس"], a:0, ex:"La sourate se termine par « من الجنة والناس »."},
+ {type:'mot', q:"Complète : « قل أعوذ ___ الناس »", opts:["برب","بملك","بإله"], a:0, ex:"« أعوذ برب الناس » = je cherche refuge auprès du Seigneur des hommes."},
+ {type:'mot', q:"Complète : « ___ الناس » (2e verset)", opts:["ملك","إله","رب"], a:0, ex:"« ملك الناس » = le Souverain des hommes."},
+ {type:'mot', q:"Complète : « ___ الناس » (3e verset)", opts:["إله","ملك","رب"], a:0, ex:"« إله الناس » = le Dieu des hommes."},
+ {type:'mot', q:"Complète : « من شر الوسواس ___ »", opts:["الخناس","الكفور","الظلوم"], a:0, ex:"« الوسواس الخناس » = le tentateur qui insuffle puis se retire."},
+ {type:'mot', q:"Complète : « الذي يوسوس في ___ الناس »", opts:["صدور","قلوب","عقول"], a:0, ex:"« صدور الناس » = les poitrines des hommes."},
+ {type:'mot', q:"Complète : « من ___ والناس »", opts:["الجنة","الشياطين","الملائكة"], a:0, ex:"« من الجنة والناس » = parmi les djinns et les hommes."},
+ {type:'sens-mot', q:"Que signifie « أعوذ » ?", opts:["Je cherche refuge","Je me réjouis","Je me souviens"], a:0, ex:"« أعوذ » = je me réfugie auprès de."},
+ {type:'sens-mot', q:"Que signifie « ملك » ici ?", opts:["Le Souverain, le Roi","Un ange","Un messager"], a:0, ex:"« ملك الناس » = le Souverain absolu des hommes."},
+ {type:'sens-mot', q:"Que signifie « إله » ?", opts:["La divinité, Celui qui est adoré","Un prophète","Un livre"], a:0, ex:"« إله الناس » = le seul digne d'adoration."},
+ {type:'sens-mot', q:"Que veut dire « الوسواس الخناس » ?", opts:["Le tentateur qui chuchote le mal puis disparaît","Un animal du désert","Un vent violent"], a:0, ex:"Désigne Satan qui insuffle puis se retire quand on se souvient d'Allah."},
+ {type:'sens-mot', q:"Que signifie « يوسوس » ?", opts:["Il insuffle de mauvaises pensées à voix basse","Il construit","Il voyage"], a:0, ex:"« يوسوس » = insuffler discrètement de mauvaises suggestions."},
+ {type:'sens-mot', q:"Que désigne « صدور » ?", opts:["Les poitrines / les cœurs","Les mains","Les routes"], a:0, ex:"« صدور » = les poitrines, siège des pensées et sentiments."},
+ {type:'sens-verset', q:"Que demande-t-on dans le premier verset ?", opts:["Se réfugier auprès d'Allah, Seigneur des hommes","Se réfugier dans une maison","Demander de la nourriture"], a:0, ex:"C'est une invocation de protection."},
+ {type:'sens-verset', q:"Pourquoi la sourate répète-t-elle « rabb », « malik », « ilāh » des hommes ?", opts:["Pour insister sur la grandeur et l'autorité d'Allah avant de demander Sa protection","Par hasard, sans raison particulière","Pour parler de trois divinités différentes"], a:0, ex:"On s'adresse d'abord à Celui qui a tout pouvoir, avant de Lui demander protection."},
+ {type:'sens-verset', q:"Contre quoi cherche-t-on refuge dans cette sourate ?", opts:["Le mal insufflé (waswās) par les démons et certains humains","Le froid de l'hiver","La faim"], a:0, ex:"C'est le thème central de la sourate."},
+ {type:'sens-verset', q:"Que signifie « من الجنة والناس » à la fin ?", opts:["Ce mal peut venir de djinns comme d'êtres humains","Il ne vient que des djinns","Il ne vient que des humains"], a:0, ex:"La tentation peut venir des deux : djinns et humains."},
+ {type:'sens-verset', q:"Quel est le thème général de toute la sourate ?", opts:["Chercher la protection d'Allah contre le mal insufflé en nous","Le récit d'un voyage","Les règles de l'aumône"], a:0, ex:"Toute la sourate est une invocation de protection."},
+ {type:'contexte', q:"An-Nās est-elle mecquoise ou médinoise ?", opts:["Classification disputée : mecquoise selon la majorité, médinoise selon une minorité","Médinoise à l'unanimité","Mecquoise à l'unanimité, sans aucun débat"], a:0, ex:"Les avis des savants divergent sur ce point."},
+ {type:'contexte', q:"Existe-t-il un sabab an-nuzūl précis et authentique pour An-Nās ?", opts:["Non, aucun événement de révélation précis n'est authentiquement établi","Oui, un seul événement très connu et incontesté","Elle a été révélée lors d'un voyage vers Médine"], a:0, ex:"L'épisode souvent cité (sorcellerie) concerne l'usage protecteur de la sourate, pas sa révélation."},
+ {type:'contexte', q:"Comment appelle-t-on ensemble An-Nās et Al-Falaq ?", opts:["Al-Muʿawwidhatān (les deux sourates de protection)","Al-Mathānī","As-Sabʿ aṭ-Ṭiwāl"], a:0, ex:"Ces deux sourates sont souvent récitées ensemble pour se protéger."},
+ {type:'compte', q:"Combien de versets compte An-Nās ?", opts:["6","5","7"], a:0, ex:"6 versets."},
+ {type:'compte', q:"An-Nās est-elle la dernière sourate du Coran ?", opts:["Oui, c'est la 114e et dernière sourate","Non, c'est la première","Non, elle est au milieu du Coran"], a:0, ex:"Le Coran se termine par An-Nās."},
+ {type:'riwaya', q:"Le nombre de versets d'An-Nās change-t-il entre Ḥafṣ et Warsh ?", opts:["Non, 6 versets dans les deux lectures","Oui, 6 en Ḥafṣ et 7 en Warsh","Oui, 5 en Ḥafṣ et 6 en Warsh"], a:0, ex:"Le découpage en versets est identique ici."},
+ {type:'riwaya', q:"La numérotation des versets d'An-Nās est-elle la même en Ḥafṣ et en Warsh ?", opts:["Oui, verset par verset elle correspond","Non, elle est totalement différente","Warsh ne compte que 3 versets"], a:0, ex:"Contrairement à la Fātiḥa, ici les deux lectures se correspondent verset à verset."},
+ {type:'ordre', q:"Quel mot est répété au tout début des 3 premiers versets ?", opts:["الناس","الجنة","العالمين"], a:0, ex:"« رب الناس / ملك الناس / إله الناس » : le mot « الناس » revient à chaque fois."}
+];
+
+/* ======================================================================
+   NAVIGATION ENTRE ECRANS
+   ====================================================================== */
+const SCREENS = ['screen-hadith','screen-why','screen-fan','screen-card','screen-quiz'];
+let screenStack = ['screen-hadith'];
+function showScreen(id, push=true){
+  SCREENS.forEach(s=> document.getElementById(s).classList.toggle('active', s===id));
+  document.getElementById('btnBack').style.visibility = (id==='screen-hadith') ? 'hidden':'visible';
+  if(push){ screenStack.push(id); }
+  window.scrollTo(0,0);
+}
+document.getElementById('btnBack').addEventListener('click', ()=>{
+  if(screenStack.length>1){ screenStack.pop(); showScreen(screenStack[screenStack.length-1], false); }
+});
+document.getElementById('btnStart').addEventListener('click', ()=> showScreen('screen-why'));
+document.getElementById('btnWhyNext').addEventListener('click', ()=> showScreen('screen-fan'));
+document.getElementById('btnGoQuiz').addEventListener('click', ()=> openQuiz(currentSourateSlug));
+
+/* ======================================================================
+   ECRAN EVENTAIL
+   ====================================================================== */
+let currentRiwaya = lsGet('hizb60_riwaya','warsh');
+let currentReciterCode = null;
+function populateReciterSelect(){
+  const list = RECITERS[currentRiwaya];
+  const saved = lsGet('hizb60_reciter_'+currentRiwaya, list[0].code);
+  currentReciterCode = list.some(r=>r.code===saved) ? saved : list[0].code;
+  const sel = document.getElementById('reciterSelect');
+  sel.innerHTML = list.map(r=>`<option value="${r.code}"${r.code===currentReciterCode?' selected':''}>${r.label}</option>`).join('');
+}
+document.getElementById('reciterSelect').addEventListener('change', e=>{
+  currentReciterCode = e.target.value; lsSet('hizb60_reciter_'+currentRiwaya, currentReciterCode);
+});
+document.getElementById('riwayaToggle').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-riwaya]'); if(!b) return;
+  currentRiwaya = b.dataset.riwaya; lsSet('hizb60_riwaya', currentRiwaya);
+  document.querySelectorAll('#riwayaToggle button').forEach(x=>x.classList.toggle('active', x===b));
+  populateReciterSelect();
+});
+document.querySelectorAll('#riwayaToggle button').forEach(x=>x.classList.toggle('active', x.dataset.riwaya===currentRiwaya));
+populateReciterSelect();
+
+const FAN_ORDER = ['fatiha','nas','ikhlas']; // Al-Fātiḥa en premier puis ordre d'apprentissage
+const FAN_ICONS = {fatiha:'📖', nas:'🧒', ikhlas:'☝️'};
+function renderFan(){
+  const zone = document.getElementById('fanZone');
+  zone.innerHTML = '';
+  const n = FAN_ORDER.length;
+  const spread = 56; // degrés totaux
+  FAN_ORDER.forEach((slug,i)=>{
+    const s = SOURATES[slug];
+    const angle = n===1 ? 0 : (-spread/2 + (spread/(n-1))*i);
+    const blade = document.createElement('button');
+    blade.className = 'fan-blade';
+    blade.style.transform = `rotate(${angle}deg)`;
+    const done = lsGet('hizb60_star_'+slug,false);
+    blade.innerHTML = `${done?'<span class="blade-star">★</span>':''}<span class="blade-icon">${FAN_ICONS[slug]}</span><span class="blade-name ar">${s.nameAr}</span>`;
+    blade.addEventListener('click', ()=> openSourate(slug));
+    zone.appendChild(blade);
+  });
+  const pivot = document.createElement('div'); pivot.className='fan-pivot'; zone.appendChild(pivot);
+}
+document.getElementById('btnPrintAll').addEventListener('click', ()=>{ printCahier(); });
+
+/* ======================================================================
+   ECRAN CARTE DE SOURATE
+   ====================================================================== */
+let currentSourateSlug = 'fatiha';
+let currentVerseIdx = 0;
+
+function openSourate(slug){
+  stopAudio();
+  currentSourateSlug = slug; currentVerseIdx = 0;
+  const s = SOURATES[slug];
+  document.getElementById('cardNameAr').textContent = s.nameAr;
+  document.getElementById('cardNameTr').textContent = s.nameTr;
+  renderVerseCard();
+  showScreen('screen-card');
+}
+
+function cropVars(s, caseIdx){
+  const col = (caseIdx===null||caseIdx===undefined) ? 0 : caseIdx % s.cols;
+  const row = (caseIdx===null||caseIdx===undefined) ? 0 : Math.floor(caseIdx / s.cols);
+  const bx = s.cols>1 ? (col/(s.cols-1))*100 : 0;
+  const by = s.rows>1 ? (row/(s.rows-1))*100 : 0;
+  return {size:`${s.cols*100}% ${s.rows*100}%`, pos:`${bx}% ${by}%`};
+}
+/* Les petits serveurs locaux utilisés pour tester (téléphone/LAN) ne traitent souvent
+   qu'une requête à la fois : plusieurs images demandées en même temps peuvent échouer
+   ponctuellement (connexion refusée). On réessaie donc le chargement avant d'abandonner. */
+function loadImageWithRetry(url, onReady, attempt){
+  attempt = attempt||0;
+  const probe = new Image();
+  probe.onload = ()=> onReady(true);
+  probe.onerror = ()=>{
+    if(attempt < 6) setTimeout(()=> loadImageWithRetry(url, onReady, attempt+1), 250*(attempt+1));
+    else onReady(false);
+  };
+  probe.src = url;
+}
+function imgCropStyle(s, caseIdx){
+  const {size,pos} = cropVars(s, caseIdx);
+  return `background-size:${size}; background-position:${pos};`;
+}
+function setVerseImage(el, s, caseIdx){
+  const {size,pos} = cropVars(s, caseIdx);
+  el.style.backgroundImage = 'none';
+  el.classList.add('img-loading');
+  loadImageWithRetry(s.img, (ok)=>{
+    el.classList.remove('img-loading');
+    if(ok){ el.style.backgroundImage = `url('${s.img}')`; el.style.backgroundSize = size; el.style.backgroundPosition = pos; }
+  });
+}
+
+function renderVerseCard(){
+  const s = SOURATES[currentSourateSlug];
+  const verses = s.verses[currentRiwaya];
+  const v = verses[currentVerseIdx];
+  document.getElementById('vcard').classList.remove('flipped');
+  document.getElementById('vNum').textContent = v.n;
+  setVerseImage(document.getElementById('vImg'), s, v.case);
+  document.getElementById('vArText').textContent = v.ar + (v.basmalaAbove ? '' : '');
+  document.getElementById('vArBack').innerHTML = v.ar.split(' ').map(w=>`<span class="hl">${w}</span>`).join(' ');
+  document.getElementById('contextBox').textContent = s.contextFr;
+  document.getElementById('contextBox').classList.remove('open');
+  document.getElementById('deckPos').textContent = (currentVerseIdx+1)+' / '+verses.length;
+}
+document.getElementById('vcard').addEventListener('click', ()=>{
+  stopAudio();
+  document.getElementById('vcard').classList.toggle('flipped');
+});
+document.getElementById('btnContext').addEventListener('click', e=>{
+  e.stopPropagation();
+  document.getElementById('contextBox').classList.toggle('open');
+});
+document.getElementById('btnPrev').addEventListener('click', ()=>{
+  stopAudio();
+  const n = SOURATES[currentSourateSlug].verses[currentRiwaya].length;
+  currentVerseIdx = (currentVerseIdx-1+n)%n; renderVerseCard();
+});
+document.getElementById('btnNext').addEventListener('click', ()=>{
+  stopAudio();
+  const n = SOURATES[currentSourateSlug].verses[currentRiwaya].length;
+  currentVerseIdx = (currentVerseIdx+1)%n; renderVerseCard();
+});
+/* glissement tactile */
+let touchX=null;
+document.getElementById('vcard').addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+document.getElementById('vcard').addEventListener('touchend', e=>{
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if(Math.abs(dx) > 40){ dx<0 ? document.getElementById('btnNext').click() : document.getElementById('btnPrev').click(); }
+  touchX = null;
+});
+
+document.getElementById('btnPrintSourate').addEventListener('click', ()=> printSourate(currentSourateSlug,false));
+document.getElementById('btnPrintColor').addEventListener('click', ()=> printSourate(currentSourateSlug,true));
+
+/* ======================================================================
+   LECTURE AUDIO — un verset isolé, ou la sourate entière en continu
+   (surlignage/changement de carte synchronisés avec la lecture)
+   ====================================================================== */
+const audioPlayer = new Audio();
+let audioStopAtMs = null;
+let audioOnRangeEnd = null;
+let fullPlaybackActive = false;
+
+function stopAudio(){
+  fullPlaybackActive = false;
+  audioStopAtMs = null; audioOnRangeEnd = null;
+  audioPlayer.pause();
+}
+audioPlayer.addEventListener('timeupdate', ()=>{
+  if(audioStopAtMs!==null && audioPlayer.currentTime*1000 >= audioStopAtMs - 30){
+    audioPlayer.pause();
+    const cb = audioOnRangeEnd;
+    audioStopAtMs = null; audioOnRangeEnd = null;
+    if(cb) cb();
+  }
+});
+function playRange(url, startMs, endMs, onEnd){
+  audioOnRangeEnd = onEnd || null;
+  audioStopAtMs = endMs;
+  const seekAndPlay = ()=>{
+    try{ audioPlayer.currentTime = startMs/1000; }catch(e){}
+    audioPlayer.play().catch(()=>{});
+  };
+  if(audioPlayer.src === url && audioPlayer.readyState >= 1){
+    seekAndPlay();
+  } else {
+    audioPlayer.src = url;
+    audioPlayer.addEventListener('loadedmetadata', seekAndPlay, {once:true});
+    audioPlayer.load();
+  }
+  audioPlayer.play().catch(()=>{}); // débloque la lecture sur iOS (appel synchrone dans le geste utilisateur)
+}
+
+function playVerse(){
+  const s = SOURATES[currentSourateSlug];
+  const v = s.verses[currentRiwaya][currentVerseIdx];
+  const data = AUDIO_DATA[currentReciterCode] && AUDIO_DATA[currentReciterCode][s.id];
+  const t = data && getAyahTiming(currentReciterCode, s.id, v.n);
+  if(!data || !t) return;
+  fullPlaybackActive = false;
+  playRange(data.url, t.start, t.end, null);
+}
+document.getElementById('btnPlayVerse').addEventListener('click', e=>{
+  e.stopPropagation();
+  playVerse();
+});
+
+function playFullStep(){
+  if(!fullPlaybackActive) return;
+  const s = SOURATES[currentSourateSlug];
+  const data = AUDIO_DATA[currentReciterCode][s.id];
+  const v = s.verses[currentRiwaya][currentVerseIdx];
+  const t = getAyahTiming(currentReciterCode, s.id, v.n);
+  if(!t){ advanceFull(); return; }
+  playRange(data.url, t.start, t.end, advanceFull);
+}
+function advanceFull(){
+  if(!fullPlaybackActive) return;
+  const n = SOURATES[currentSourateSlug].verses[currentRiwaya].length;
+  if(currentVerseIdx+1 >= n){ fullPlaybackActive = false; return; }
+  currentVerseIdx++; renderVerseCard();
+  playFullStep();
+}
+function playFull(){
+  const s = SOURATES[currentSourateSlug];
+  const data = AUDIO_DATA[currentReciterCode] && AUDIO_DATA[currentReciterCode][s.id];
+  if(!data) return;
+  fullPlaybackActive = true;
+  currentVerseIdx = 0;
+  renderVerseCard();
+  playFullStep();
+}
+document.getElementById('btnPlayFull').addEventListener('click', ()=> playFull());
+
+/* ======================================================================
+   QUIZ
+   ====================================================================== */
+let quizState = null;
+function wrapArabic(str){
+  return str.replace(/[؀-ۿ][؀-ۿ\s]*[؀-ۿ]|[؀-ۿ]/g, m=>`<span class="ar">${m}</span>`);
+}
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function openQuiz(slug){
+  const s = SOURATES[slug];
+  quizState = { slug, order: shuffle(s.quiz.map((_,i)=>i)), idx:0, score:0, answered:false };
+  document.getElementById('quizTitle').textContent = s.nameTr;
+  renderQuiz();
+  showScreen('screen-quiz');
+}
+function renderQuizIfVisible(){
+  if(document.getElementById('screen-quiz').classList.contains('active') && quizState) renderQuiz();
+}
+function renderQuiz(){
+  const s = SOURATES[quizState.slug];
+  const body = document.getElementById('quizBody');
+  if(quizState.idx >= quizState.order.length){
+    const pct = Math.round(100*quizState.score/quizState.order.length);
+    const passed = pct>=50;
+    if(passed) lsSet('hizb60_star_'+quizState.slug, true);
+    body.innerHTML = `
+      <div class="quiz-score">
+        <div class="star-big">${passed?'★':'☆'}</div>
+        <div class="big">${quizState.score} / ${quizState.order.length}</div>
+        <p>${pct}%</p>
+        <div class="action-row">
+          <button class="btn-outline btn-sm" id="qRestart">${I18N[currentLang].quiz_restart}</button>
+          <button class="btn-burgundy btn-sm" id="qBack">${I18N[currentLang].quiz_back}</button>
+        </div>
+      </div>`;
+    document.getElementById('qRestart').addEventListener('click', ()=> openQuiz(quizState.slug));
+    document.getElementById('qBack').addEventListener('click', ()=>{ renderFan(); showScreen('screen-fan'); });
+    return;
+  }
+  const q = s.quiz[quizState.order[quizState.idx]];
+  quizState.answered = false;
+  body.innerHTML = `
+    <p class="quiz-progress">${quizState.idx+1} / ${quizState.order.length}</p>
+    <p class="quiz-q">${wrapArabic(q.q)}</p>
+    <div class="quiz-opts">${q.opts.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${o}</button>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"></div>
+  `;
+  body.querySelectorAll('.quiz-opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(quizState.answered) return;
+      quizState.answered = true;
+      const i = parseInt(btn.dataset.i);
+      body.querySelectorAll('.quiz-opt').forEach((b2,i2)=>{
+        if(i2===q.a) b2.classList.add('correct');
+        else if(i2===i) b2.classList.add('wrong');
+      });
+      if(i===q.a) quizState.score++;
+      const ex = document.getElementById('quizExplain');
+      ex.textContent = (i===q.a ? I18N[currentLang].quiz_correct+' ' : I18N[currentLang].quiz_wrong+' ') + q.ex;
+      ex.classList.add('show');
+      setTimeout(()=>{ quizState.idx++; renderQuiz(); }, 1600);
+    });
+  });
+}
+
+/* ======================================================================
+   IMPRESSION
+   ====================================================================== */
+function printSourate(slug, coloringOnly){
+  const s = SOURATES[slug];
+  const area = document.getElementById('printArea');
+  const versesHafs = s.verses.hafs;
+  let html = '';
+  if(!coloringOnly){
+    html += `<div class="print-sheet"><div class="wrap">
+      <h2 class="ar" style="text-align:center;font-size:1.8rem;">${s.nameAr}</h2>
+      <p style="text-align:center;">${s.nameTr}</p>
+      ${versesHafs.map(v=>`<p class="ar" style="font-size:1.3rem;text-align:center;line-height:2.2;">${v.ar} <span style="font-size:.9rem;">﴿${v.n}﴾</span></p>`).join('')}
+      <hr>
+      <h3>${I18N['fr'].btn_context}</h3>
+      <p style="font-size:.85rem;">${s.contextFr}</p>
+      <p style="font-size:.7rem;color:#999;">— À propos de l'auteure : Houda, professeure d'arabe, fondatrice de Dar Al-Kalimah. (texte à compléter par Houda)</p>
+    </div></div>`;
+  }
+  html += versesHafs.map(v=>{
+    if(v.case===null||v.case===undefined) return '';
+    const col = v.case % s.cols, row = Math.floor(v.case/s.cols);
+    const bx = s.cols>1?(col/(s.cols-1))*100:0, by = s.rows>1?(row/(s.rows-1))*100:0;
+    return `<div class="print-sheet"><div class="wrap">
+      <p style="text-align:center;font-size:.8rem;">${s.nameTr} — verset ${v.n}</p>
+      <div class="print-img" style="width:100%;aspect-ratio:1/1;background-image:url('${s.imgColor}');background-size:${s.cols*100}% ${s.rows*100}%;background-position:${bx}% ${by}%;border:1px solid #ccc;"></div>
+    </div></div>`;
+  }).join('');
+  area.innerHTML = html;
+  setTimeout(()=> window.print(), 100);
+}
+function printCahier(){
+  const area = document.getElementById('printArea');
+  let html = `<div class="print-sheet"><div class="wrap" style="text-align:center;padding-top:30vh;">
+    <h1 class="ar" style="color:var(--gold);font-size:2rem;">دار الكلمة</h1>
+    <h1 style="font-family:'Cinzel',serif;">Hizb 60 — Juz' ʿAmma</h1>
+    <p>Cahier de coloriage et de lecture</p>
+  </div></div>`;
+  html += `<div class="print-sheet"><div class="wrap">
+    <div class="hadith-ar ar">${'الْمَاهِرُ بِالْقُرْآنِ مَعَ السَّفَرَةِ الْكِرَامِ الْبَرَرَةِ، وَالَّذِي يَقْرَأُ الْقُرْآنَ وَيَتَتَعْتَعُ فِيهِ، وَهُوَ عَلَيْهِ شَاقٌّ، لَهُ أَجْرَانِ'}</div>
+    <p style="text-align:center;">Ṣaḥīḥ Muslim, n° 798</p>
+  </div></div>`;
+  area.innerHTML = html;
+  // fiches de chaque sourate du squelette
+  FAN_ORDER.forEach(slug=>{
+    printSourateInto(area, slug);
+  });
+  html += `<div class="print-sheet"><div class="wrap" style="padding-top:30vh;text-align:center;">
+    <h3>À propos de l'auteure</h3>
+    <p style="font-size:.85rem;color:#777;">(texte fourni par Houda — emplacement réservé)</p>
+  </div></div>`;
+  setTimeout(()=> window.print(), 150);
+}
+function printSourateInto(area, slug){
+  const s = SOURATES[slug];
+  const versesHafs = s.verses.hafs;
+  const div = document.createElement('div');
+  div.innerHTML = `<div class="print-sheet"><div class="wrap">
+      <h2 class="ar" style="text-align:center;font-size:1.8rem;">${s.nameAr}</h2>
+      ${versesHafs.map(v=>`<p class="ar" style="font-size:1.2rem;text-align:center;line-height:2.1;">${v.ar} <span style="font-size:.85rem;">﴿${v.n}﴾</span></p>`).join('')}
+    </div></div>`;
+  area.appendChild(div.firstElementChild);
+}
+
+/* ======================================================================
+   INIT
+   ====================================================================== */
+applyI18n();
+renderFan();
+</script>
+</body>
+</html>

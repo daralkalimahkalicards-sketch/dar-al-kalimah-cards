@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dak-static-preview",
+      "url": "http://localhost:8000"
+    },
+    {
+      "name": "hizb60-dev",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "_claude_preview_server.ps1"],
+      "port": 8010
+    }
+  ]
+}
