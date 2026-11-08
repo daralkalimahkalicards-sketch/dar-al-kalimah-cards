@@ -202,7 +202,9 @@ select.rec{border:1.5px solid var(--line);border-radius:50px;padding:9px 14px;co
 .blade .joins-off{position:absolute;bottom:6px;right:10px;font-size:.6rem;color:var(--gd);}
 
 /* ===== écran lettre : en-tête ===== */
-.letter-head{text-align:center;margin:4px 0 10px;}
+.letter-nav{display:flex;align-items:center;justify-content:center;gap:10px;}
+.letter-nav .round:disabled{opacity:.3;}
+.letter-head{text-align:center;margin:4px 0 10px;flex:1;min-width:0;}
 .letter-head .big{font-family:'Amiri',serif;font-size:3.4rem;color:var(--b);line-height:1.2;}
 .letter-head .nm{font-family:'Cinzel',serif;color:var(--b);font-size:1.1rem;margin-top:2px;}
 .letter-head .joins-note{font-size:.76rem;color:var(--muted);margin-top:4px;font-style:italic;}
@@ -262,6 +264,7 @@ select.rec{border:1.5px solid var(--line);border-radius:50px;padding:9px 14px;co
 .blade .thumb{background-image:var(--cover,none);background-size:var(--cover-size,412% 721%);background-position:var(--x) var(--y);}
 .ghost .tgt{color:rgba(93,24,40,.5);}
 .ghost .oth{color:rgba(130,130,130,.35);}
+
 </style>
 </head>
 <body>
@@ -280,7 +283,7 @@ select.rec{border:1.5px solid var(--line);border-radius:50px;padding:9px 14px;co
     <div class="hizb" data-t="bookTitle"></div>
     <div class="juz" id="homeStats"></div>
     <button class="btn btn-g" id="go1" data-t="start" style="margin-top:22px"></button>
-    <a class="ref" id="pdfLink" href="assets/cahier-ecriture-pdf/cahier-ecriture.pdf" download data-t="pdf" style="margin-top:14px;display:inline-block;"></a>
+    <a class="btn btn-o" id="pdfLink" href="assets/cahier-ecriture-pdf/cahier-ecriture.pdf" download data-t="pdf" style="margin-top:12px;display:inline-block;"></a>
   </div>
 </section>
 
@@ -309,10 +312,14 @@ select.rec{border:1.5px solid var(--line);border-radius:50px;padding:9px 14px;co
 
 <section class="screen" id="s-letter">
   <div class="wrap">
-    <div class="letter-head">
-      <div class="big" id="lBig"></div>
-      <div class="nm" id="lName"></div>
-      <div class="joins-note" id="lJoinsNote" style="display:none"></div>
+    <div class="letter-nav">
+      <button class="round" id="letterPrev" aria-label="lettre précédente">‹</button>
+      <div class="letter-head">
+        <div class="big" id="lBig"></div>
+        <div class="nm" id="lName"></div>
+        <div class="joins-note" id="lJoinsNote" style="display:none"></div>
+      </div>
+      <button class="round" id="letterNext" aria-label="lettre suivante">›</button>
     </div>
 
     <div class="tabs-row seg" id="modeTabs">
@@ -349,6 +356,7 @@ select.rec{border:1.5px solid var(--line);border-radius:50px;padding:9px 14px;co
 </section>
 
 <div id="print-area"></div>
+
 <script src="slate-tools.js"></script>
 <script type="module">
 const LETTERS=[
@@ -2229,8 +2237,9 @@ const LETTERS=[
     ]
   }
 ]
-;const T={
- fr:{bookTitle:"J'ÉCRIS L'ARABE",start:'Ouvrir mon cahier',pdf:'Télécharger le cahier PDF ↓',next:'Continuer',
+;
+const T={
+ fr:{bookTitle:"J'ÉCRIS L'ARABE",start:'Ouvrir l’appli interactive',pdf:'Version à imprimer (PDF) ↓',next:'Continuer',
   whyT:'Pourquoi ce cahier existe ?',
   whyP:"Salam alaykoum. Avant de parler, la main apprend aussi. Ce cahier donne à chaque lettre sa forme isolée, son début, son milieu et sa fin — et un mot pour chacune, à tracer puis à recopier. Pas d'ordre de traits imposé : un geste accompagné, à ton rythme.",
   chooseT:'Quelle lettre aujourd’hui ?',chooseP:'Choisis une lettre pour commencer.',swipe:'Glisse pour tourner l’éventail',
@@ -2240,7 +2249,7 @@ const LETTERS=[
   printLetter:'Imprimer cette lettre',lettres:'lettres',mots:'mots',
   joinsOff:'Cette lettre ne se lie jamais à la lettre suivante.',
   widthFin:'Fin',widthMoyen:'Moyen',widthEpais:'Épais'},
- es:{bookTitle:'ESCRIBO EL ÁRABE',start:'Abrir mi cuaderno',pdf:'Descargar el cuaderno PDF ↓',next:'Continuar',
+ es:{bookTitle:'ESCRIBO EL ÁRABE',start:'Abrir la app interactiva',pdf:'Versión para imprimir (PDF) ↓',next:'Continuar',
   whyT:'¿Por qué existe este cuaderno?',
   whyP:'Salam alaykum. Antes de hablar, la mano también aprende. Este cuaderno da a cada letra su forma aislada, inicial, media y final — y una palabra para cada una, para trazar y luego copiar. Sin orden de trazos impuesto: un gesto acompañado, a tu ritmo.',
   chooseT:'¿Qué letra hoy?',chooseP:'Elige una letra para empezar.',swipe:'Desliza para girar el abanico',
@@ -2250,7 +2259,7 @@ const LETTERS=[
   printLetter:'Imprimir esta letra',lettres:'letras',mots:'palabras',
   joinsOff:'Esta letra nunca se une a la siguiente.',
   widthFin:'Fino',widthMoyen:'Medio',widthEpais:'Grueso'},
- ar:{bookTitle:'أكتب العربية',start:'افتح كراستي',pdf:'تحميل الكراسة ↓',next:'متابعة',
+ ar:{bookTitle:'أكتب العربية',start:'افتح التطبيق التفاعلي',pdf:'النسخة القابلة للطباعة (PDF) ↓',next:'متابعة',
   whyT:'لماذا هذه الكراسة؟',
   whyP:'السلام عليكم. قبل الكلام، تتعلم اليد أيضًا. تعطي هذه الكراسة لكل حرف شكله المنفصل والبداية والوسط والنهاية — وكلمة لكل واحدة، لتتبعها ثم تنسخها.',
   chooseT:'أي حرف اليوم؟',chooseP:'اختر حرفًا لتبدأ.',swipe:'اسحب لتدوير المروحة',
@@ -2292,7 +2301,7 @@ function show(id,push=true){
   if(push)stack.push(id);
   window.scrollTo(0,0);
 }
-$('back').onclick=()=>{if(stack.length>1){stack.pop();const id=stack[stack.length-1];show(id,false);if(id==='s-fan')renderWheel();}};
+$('back').onclick=()=>{if(stack.length>1){stack.pop();const id=stack[stack.length-1];show(id,false);if(id==='s-fan'){renderWheel();applyLang();}}};
 $('go1').onclick=()=>show('s-why');
 $('go2').onclick=()=>{show('s-fan');renderWheel();};
 
@@ -2337,11 +2346,12 @@ $('wheel').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:
 $('wheel').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>30){const k=Math.max(1,Math.round(Math.abs(dx)/60));rot((dx<0?1:-1)*(L==='ar'?-1:1)*k);}tx=null;});
 
 /* ---------- écran lettre ---------- */
-function openLetter(i){
+function openLetter(i,push=true){
   curL=i; mode='formes'; pos=0;
+  sel=i; ss('sel',sel);
   renderLetterHead();
   renderTabs();
-  show('s-letter');
+  show('s-letter',push);
   resizeCanvas();
   renderStage();
 }
@@ -2351,7 +2361,11 @@ function renderLetterHead(){
   $('lName').textContent=lt.name_ar+' · '+lt.name;
   if(!lt.joins_next){ $('lJoinsNote').textContent=t('joinsOff'); $('lJoinsNote').style.display='block'; }
   else { $('lJoinsNote').style.display='none'; }
+  $('letterPrev').disabled=curL<=0;
+  $('letterNext').disabled=curL>=LETTERS.length-1;
 }
+$('letterPrev').onclick=()=>{if(curL>0)openLetter(curL-1,false);};
+$('letterNext').onclick=()=>{if(curL<LETTERS.length-1)openLetter(curL+1,false);};
 function renderTabs(){
   document.querySelectorAll('#modeTabs button').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
   document.querySelectorAll('#posTabs button').forEach(b=>b.classList.toggle('on',+b.dataset.pos===pos));
@@ -2511,6 +2525,7 @@ $('printLetter').onclick=printLetter;
 applyLang();
 setTimeout(resizeCanvas,80);
 show('s-home',false);
+
 </script>
 </body>
 </html>
