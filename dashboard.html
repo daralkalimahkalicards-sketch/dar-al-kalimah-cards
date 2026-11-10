@@ -144,6 +144,8 @@ tr:hover td { background: rgba(200,164,98,0.05); }
     </div>
     <button onclick="profLogin()">ACCÉDER</button>
     <div class="login-error" id="login-error">❌ Email ou mot de passe incorrect</div>
+    <a href="#" onclick="profResetPwd();return false;" style="display:block;margin-top:14px;font-size:.85rem;color:#C8A462;text-align:center;">Mot de passe oublié ?</a>
+    <div class="login-error" id="reset-msg" style="color:#9fd89f;"></div>
   </div>
 </div>
 
@@ -240,7 +242,7 @@ tr:hover td { background: rgba(200,164,98,0.05); }
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, query, orderBy, limit, onSnapshot, getDocs, doc, deleteDoc, where, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getModuleLockStatus, elementsManquants, SEUIL_REUSSITE } from "./module-lock.js";
 
@@ -305,6 +307,27 @@ window.profLogin = async () => {
     ouvrirDashboard(cred.user);
   } catch(e) {
     errDiv.style.display = 'block';
+  }
+};
+
+window.profResetPwd = async () => {
+  const email = document.getElementById('prof-email').value.trim();
+  const msgDiv = document.getElementById('reset-msg');
+  if (!email) {
+    msgDiv.style.color = '#ff9999';
+    msgDiv.style.display = 'block';
+    msgDiv.textContent = '❌ Entre ton email d\'abord, puis clique sur le lien.';
+    return;
+  }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    msgDiv.style.color = '#9fd89f';
+    msgDiv.style.display = 'block';
+    msgDiv.textContent = '✅ Email envoyé — vérifie ta boîte de réception (et les spams).';
+  } catch (e) {
+    msgDiv.style.color = '#ff9999';
+    msgDiv.style.display = 'block';
+    msgDiv.textContent = '❌ Impossible d\'envoyer l\'email : ' + e.message;
   }
 };
 
