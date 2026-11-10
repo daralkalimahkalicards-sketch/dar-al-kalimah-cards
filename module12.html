@@ -13,6 +13,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="module-home.css">
+  <style>
+    body{visibility:hidden;}
+  </style>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getModuleLockStatus } from "./module-lock.js";
+    const _cfg = {
+      apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
+      authDomain: "dar-al-kalimah.firebaseapp.com",
+      projectId: "dar-al-kalimah",
+      storageBucket: "dar-al-kalimah.firebasestorage.app",
+      messagingSenderId: "472629258",
+      appId: "1:472629258:web:29b755d38efe89421f1ff3"
+    };
+    const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
+    const _auth = getAuth(_app);
+    const _db = getFirestore(_app);
+    const MODULE_NUM = 12;
+    // Verrou sequentiel Module 1-12 : reutilise module-lock.js (source unique de
+    // verite), meme pattern que le verrou Partie 2 de module13.html (body cache
+    // puis affiche/redirige). N'affecte pas le Parcours Tajwid ni la Partie 2.
+    onAuthStateChanged(_auth, async (user) => {
+      if (!user) { window.location.href = 'auth.html'; return; }
+      try {
+        const status = await getModuleLockStatus(_db, user.uid);
+        if (status.accessible[MODULE_NUM]) {
+          document.body.style.visibility = 'visible';
+        } else {
+          window.location.href = 'modules.html';
+        }
+      } catch (e) {
+        console.error('Verification acces Module ' + MODULE_NUM + ' impossible :', e);
+        window.location.href = 'modules.html';
+      }
+    });
+  </script>
 </head>
 <body ontouchstart="">
   <div class="menu-card">

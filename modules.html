@@ -125,6 +125,16 @@
         .partie2-card.locked .icon-arrow { opacity: 0.5; }
         .partie2-status { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
         .partie2-card.unlocked .partie2-status { color: var(--burgundy); font-weight: 700; }
+
+        /* =========================================
+           DEVERROUILLAGE SEQUENTIEL (Modules 2 a 12)
+           meme traitement visuel que .partie2-card, systeme independant
+           (calcule par module-lock.js, sans rapport avec partie2Debloquee).
+           ========================================= */
+        .seq-card.locked { border: 2px dashed rgba(200, 164, 98, 0.4); box-shadow: none; cursor: not-allowed; pointer-events: none; }
+        .seq-card.locked .icon-arrow { opacity: 0.5; }
+        .seq-status { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+        .seq-es { display: block; font-style: italic; opacity: 0.85; margin-top: 2px; }
     </style>
 </head>
 <body>
@@ -153,135 +163,146 @@
             </div>
         </a>
 
-        <a href="module2.html" class="module-card">
+        <a href="module2.html" class="module-card seq-card locked" id="seq-module2-card">
             <div class="module-info">
                 <div class="mod-number">Module 2 / Módulo 2</div>
                 <div class="mod-title">Les Voyelles Courtes</div>
                 <div class="mod-title-es">Las Vocales Cortas</div>
+                <div class="seq-status" id="seq-module2-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">الحركات القصيرة</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module2-icon"></i>
             </div>
         </a>
 
-        <a href="module3.html" class="module-card">
+        <a href="module3.html" class="module-card seq-card locked" id="seq-module3-card">
             <div class="module-info">
                 <div class="mod-number">Module 3 / Módulo 3</div>
                 <div class="mod-title">Les Prolongations</div>
                 <div class="mod-title-es">Las Prolongaciones</div>
+                <div class="seq-status" id="seq-module3-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">المدود</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module3-icon"></i>
             </div>
         </a>
 
-        <a href="module4.html" class="module-card">
+        <a href="module4.html" class="module-card seq-card locked" id="seq-module4-card">
             <div class="module-info">
                 <div class="mod-number">Module 4 / Módulo 4</div>
                 <div class="mod-title">Le Tanween & La Hamza</div>
                 <div class="mod-title-es">El Tanween y La Hamza</div>
+                <div class="seq-status" id="seq-module4-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">التنوين و الهمزة</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module4-icon"></i>
             </div>
         </a>
 
-        <a href="module5.html" class="module-card">
+        <a href="module5.html" class="module-card seq-card locked" id="seq-module5-card">
             <div class="module-info">
                 <div class="mod-number">Module 5 / Módulo 5</div>
                 <div class="mod-title">Al Solaire, Lunaire & Shadda</div>
                 <div class="mod-title-es">Al Solar, Lunar y Shadda</div>
+                <div class="seq-status" id="seq-module5-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">ال الشمسية ال القمرية الشدة</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module5-icon"></i>
             </div>
         </a>
 
-        <a href="module6.html" class="module-card">
+        <a href="module6.html" class="module-card seq-card locked" id="seq-module6-card">
             <div class="module-info">
                 <div class="mod-number">Module 6 / Módulo 6</div>
                 <div class="mod-title">Vocabulaire & Lecture</div>
                 <div class="mod-title-es">Vocabulario y Refuerzo</div>
+                <div class="seq-status" id="seq-module6-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">المفردات الاساسية و تعزيز القراءة</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module6-icon"></i>
             </div>
         </a>
 
-        <a href="module7.html" class="module-card">
+        <a href="module7.html" class="module-card seq-card locked" id="seq-module7-card">
             <div class="module-info">
                 <div class="mod-number">Module 7 / Módulo 7</div>
                 <div class="mod-title">Sourates Al-Kawthar & Al-Ikhlas</div>
                 <div class="mod-title-es">Suras Al-Kawthar y Al-Ikhlas</div>
+                <div class="seq-status" id="seq-module7-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">قصار السور ،الكوثر و الاخلاص.قراءة و تحليل</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module7-icon"></i>
             </div>
         </a>
 
-        <a href="module8.html" class="module-card">
+        <a href="module8.html" class="module-card seq-card locked" id="seq-module8-card">
             <div class="module-info">
                 <div class="mod-number">Module 8 / Módulo 8</div>
                 <div class="mod-title">Le Nom</div>
                 <div class="mod-title-es">El Sustantivo</div>
+                <div class="seq-status" id="seq-module8-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">الاسم</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module8-icon"></i>
             </div>
         </a>
 
-        <a href="module9.html" class="module-card">
+        <a href="module9.html" class="module-card seq-card locked" id="seq-module9-card">
             <div class="module-info">
                 <div class="mod-number">Module 9 / Módulo 9</div>
                 <div class="mod-title">La Phrase Nominale</div>
                 <div class="mod-title-es">La Frase Nominal</div>
+                <div class="seq-status" id="seq-module9-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">الجملة الاسمية</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module9-icon"></i>
             </div>
         </a>
 
-        <a href="module10.html" class="module-card">
+        <a href="module10.html" class="module-card seq-card locked" id="seq-module10-card">
             <div class="module-info">
                 <div class="mod-number">Module 10 / Módulo 10</div>
                 <div class="mod-title">Le Verbe</div>
                 <div class="mod-title-es">El Verbo</div>
+                <div class="seq-status" id="seq-module10-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">الفعل</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module10-icon"></i>
             </div>
         </a>
 
-        <a href="module11.html" class="module-card">
+        <a href="module11.html" class="module-card seq-card locked" id="seq-module11-card">
             <div class="module-info">
                 <div class="mod-number">Module 11 / Módulo 11</div>
                 <div class="mod-title">Phrase Verbale & Mu'awwidhatayn</div>
                 <div class="mod-title-es">Frase Verbal y Mu'awwidhatayn</div>
+                <div class="seq-status" id="seq-module11-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">الجملة الفعلية ، قراءة المعوذتين</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module11-icon"></i>
             </div>
         </a>
 
-        <a href="module12.html" class="module-card">
+        <a href="module12.html" class="module-card seq-card locked" id="seq-module12-card">
             <div class="module-info">
                 <div class="mod-number">Module 12 / Módulo 12</div>
                 <div class="mod-title">Lecture de la Fatihah</div>
                 <div class="mod-title-es">Lectura de la Fatihah</div>
+                <div class="seq-status" id="seq-module12-status"></div>
             </div>
             <div class="mod-right">
                 <div class="mod-ar ar-text">قراءة الفاتحة ،قراءة مهيكلة</div>
-                <i class="fa-solid fa-chevron-right icon-arrow"></i>
+                <i class="fa-solid fa-lock icon-arrow" id="seq-module12-icon"></i>
             </div>
         </a>
 
@@ -402,6 +423,7 @@
   import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getModuleLockStatus, elementsManquants } from "./module-lock.js";
 
   const _cfg = {
     apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
@@ -462,21 +484,53 @@
     PARTIE2_MODULES.forEach((m) => unlockPartie2Card(m.num, m.href));
   }
 
-  // Reutilise exactement le meme calcul de progression que progression.html
-  // (collections "lecons" et "resultats", 1 lecon + 3 quiz = module termine)
-  // applique aux 12 modules : aucun nouveau systeme de suivi cree.
+  // ==== DEVERROUILLAGE SEQUENTIEL (Modules 2 a 12) ====
+  // Systeme independant de la Partie 2 ci-dessus : calcule par module-lock.js
+  // (source unique de verite, reutilisee par module2.html a module12.html et
+  // par dashboard.html). Module 1 : toujours ouvert, jamais touche ici.
+  function unlockSeqCard(num) {
+    const card = document.getElementById('seq-module' + num + '-card');
+    const statusEl = document.getElementById('seq-module' + num + '-status');
+    const icon = document.getElementById('seq-module' + num + '-icon');
+    if (!card || !statusEl || !icon) return;
+    card.classList.remove('locked');
+    icon.className = 'fa-solid fa-chevron-right icon-arrow';
+    statusEl.innerHTML = '';
+  }
+
+  function lockSeqCardMessage(num, manque) {
+    const statusEl = document.getElementById('seq-module' + num + '-status');
+    if (!statusEl) return;
+    const detail = manque.length ? ('Il te reste : ' + manque.join(', ') + '.') : '';
+    statusEl.innerHTML = 'Termine le module ' + (num - 1) + ' pour débloquer celui-ci.'
+      + '<span class="seq-es">Completa el módulo ' + (num - 1) + ' para desbloquear este.</span>'
+      + (detail ? '<br>' + detail : '');
+  }
+
+  function applySeqLockStatus(status) {
+    for (let n = 2; n <= 12; n++) {
+      if (status.accessible[n]) {
+        unlockSeqCard(n);
+      } else {
+        lockSeqCardMessage(n, elementsManquants(n - 1, status.lecons, status.resultats));
+      }
+    }
+  }
+
   onAuthStateChanged(_auth, async (user) => {
-    if (!user) return; // pas de gate global sur cette page : la carte reste simplement verrouillee
+    if (!user) return; // pas de gate global sur cette page : les cartes restent simplement verrouillees
 
     // Statut professeur reel : reutilise la collection /profs/{uid} deja en place
     // (celle que verifie estProf() dans les regles Firestore) — aucun email en dur,
-    // aucun nouveau champ. Un prof a acces au test final en permanence, sans condition
-    // de progression ; la regle elève ci-dessous reste totalement inchangee.
+    // aucun nouveau champ. Un prof a acces au test final et aux modules 2-12 en
+    // permanence, sans condition de progression ; la regle elève ci-dessous reste
+    // totalement inchangee. La Partie 2 (modules 13-18) garde sa propre verification.
     try {
       const profSnap = await getDoc(doc(_db, 'profs', user.uid));
       if (profSnap.exists()) {
         unlockTestFinalCard(false);
         unlockAllPartie2Cards();
+        for (let n = 2; n <= 12; n++) unlockSeqCard(n);
         return;
       }
     } catch (eProf) {
@@ -485,6 +539,8 @@
 
     // Deverrouillage Partie 2 : verification INDEPENDANTE de la progression Partie 1
     // (ne depend que du champ partie2Debloquee, jamais deduite des modules 1-12).
+    // Logique totalement inchangee -- le deverrouillage sequentiel des modules 2-12
+    // ci-dessous ne la modifie ni ne la remplace.
     try {
       const eleveSnap = await getDoc(doc(_db, 'eleves', user.uid));
       if (eleveSnap.exists() && eleveSnap.data().partie2Debloquee === true) {
@@ -495,21 +551,10 @@
     }
 
     try {
-      const [leconsSnap, resultatsSnap] = await Promise.all([
-        getDocs(query(collection(_db, 'lecons'), where('eleveId', '==', user.uid))),
-        getDocs(query(collection(_db, 'resultats'), where('eleveId', '==', user.uid)))
-      ]);
-      const lecons = leconsSnap.docs.map((d) => d.data());
-      const resultats = resultatsSnap.docs.map((d) => d.data());
+      const status = await getModuleLockStatus(_db, user.uid);
+      applySeqLockStatus(status);
 
-      let parcoursTermine = true;
-      for (let i = 1; i <= 12; i++) {
-        const modKey = 'Module ' + i;
-        const nbLecons = Math.min(lecons.filter((l) => l.module === modKey).length, 1);
-        const nbQuiz = Math.min(resultats.filter((r) => r.module === modKey).length, 3);
-        if (nbLecons + nbQuiz < 4) { parcoursTermine = false; break; }
-      }
-      if (!parcoursTermine) return;
+      if (!status.parcoursComplet) return;
 
       // Lecture isolee : les regles Firestore actuelles de "testsFinaux" n'autorisent
       // que l'ecriture (addDoc), pas la lecture en liste. Si elle echoue, on deverrouille
@@ -523,8 +568,8 @@
       }
       unlockTestFinalCard(alreadyDone);
     } catch (e) {
-      console.error('Erreur verification progression (carte Test final):', e);
-      // Fail-safe : en cas d'erreur, la carte reste verrouillee (etat par defaut du HTML) - ne casse jamais la page.
+      console.error('Erreur verification progression (cartes modules et Test final):', e);
+      // Fail-safe : en cas d'erreur, les cartes restent verrouillees (etat par defaut du HTML) - ne casse jamais la page.
     }
   });
 </script>

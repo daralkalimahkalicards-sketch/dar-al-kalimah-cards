@@ -7,6 +7,7 @@
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, addDoc, collection, serverTimestamp, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getModuleLockStatus } from "./module-lock.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
@@ -73,6 +74,24 @@ window.DAK_enregistrerScore = async function({ module, quiz, score, total, erreu
   const pourcentage = Math.round((score / total) * 100);
   const dureeSecondes = Math.round((Date.now() - startTime) / 1000);
 
+  // Deverrouillage sequentiel Modules 1-12 : etat AVANT ecriture du resultat,
+  // pour detecter apres coup si CE quiz vient de faire passer le module de
+  // "en cours" a "termine" (message de felicitations). Ne concerne que les
+  // Modules 1-12 (Partie 2 et Parcours Tajwid non concernes) ; echoue en
+  // silence si le module ne matche pas "Module N" ou si la lecture echoue --
+  // n'a jamais pour effet de bloquer l'enregistrement du score.
+  const moduleMatch = /^Module (\d+)$/.exec(module || '');
+  const moduleNum = moduleMatch ? parseInt(moduleMatch[1], 10) : null;
+  let etaitTermineAvant = null;
+  if (moduleNum >= 1 && moduleNum <= 12) {
+    try {
+      const statusAvant = await getModuleLockStatus(db, currentUser.uid);
+      etaitTermineAvant = statusAvant.termines[moduleNum];
+    } catch (eLock) {
+      console.error('DAK Tracker: verification module-lock (avant) impossible :', eLock);
+    }
+  }
+
   try {
     // 1. Enregistrer dans la collection résultats
     await addDoc(collection(db, 'resultats'), {
@@ -99,6 +118,20 @@ window.DAK_enregistrerScore = async function({ module, quiz, score, total, erreu
     });
 
     console.log(`✅ DAK Tracker: ${module} — ${quiz} — ${score}/${total} (${pourcentage}%)`);
+
+    // Etat APRES ecriture : si le module vient de passer de "en cours" a
+    // "termine" grace a CE quiz, afficher le message de felicitations.
+    if (etaitTermineAvant === false) {
+      try {
+        const statusApres = await getModuleLockStatus(db, currentUser.uid);
+        if (statusApres.termines[moduleNum] === true) {
+          DAK_afficherFelicitations(moduleNum);
+        }
+      } catch (eLock2) {
+        console.error('DAK Tracker: verification module-lock (apres) impossible :', eLock2);
+      }
+    }
+
     return { success: true, pourcentage };
 
   } catch(e) {
@@ -106,6 +139,42 @@ window.DAK_enregistrerScore = async function({ module, quiz, score, total, erreu
     return { success: false };
   }
 };
+
+// ============================================
+// Message de felicitations, sobre et premium, quand un module vient d'etre
+// termine (declenche le deverrouillage sequentiel du module suivant, ou de
+// l'Evaluation finale pour le Module 12). N'utilise aucun style/couleur en
+// dehors de l'identite visuelle existante du site (bordeaux/or).
+// ============================================
+function DAK_afficherFelicitations(moduleNum) {
+  const texte = moduleNum < 12
+    ? `Module ${moduleNum} terminé — Module ${moduleNum + 1} débloqué`
+    : `Module 12 terminé — Évaluation finale débloquée`;
+  const texteEs = moduleNum < 12
+    ? `Módulo ${moduleNum} completado — Módulo ${moduleNum + 1} desbloqueado`
+    : `Módulo 12 completado — Evaluación final desbloqueada`;
+
+  const el = document.createElement('div');
+  el.setAttribute('role', 'status');
+  el.style.cssText = 'position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);'
+    + 'background:#5D1828;color:#FFFFFF;border:1px solid #C8A462;border-radius:12px;'
+    + 'padding:14px 26px;box-shadow:0 8px 25px rgba(93,24,40,0.35);z-index:99999;'
+    + 'font-family:Montserrat,sans-serif;text-align:center;max-width:90vw;'
+    + 'opacity:0;transition:opacity 0.4s ease, transform 0.4s ease;';
+  el.innerHTML = `<div style="font-family:Cinzel,Georgia,serif;font-size:0.95rem;letter-spacing:0.5px;color:#C8A462;">${texte}</div>`
+    + `<div style="font-size:0.78rem;font-style:italic;opacity:0.85;margin-top:3px;">${texteEs}</div>`;
+  document.body.appendChild(el);
+
+  requestAnimationFrame(() => {
+    el.style.opacity = '1';
+    el.style.transform = 'translateX(-50%) translateY(0)';
+  });
+  setTimeout(() => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-50%) translateY(20px)';
+    setTimeout(() => el.remove(), 500);
+  }, 4500);
+}
 
 // Exposer l'utilisateur courant
 window.DAK_getUser = () => currentUser;
