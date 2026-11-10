@@ -2,7 +2,7 @@
 // pour ne pas en avoir un deuxième. Ne change rien au fonctionnement ci-dessous.
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
-const CACHE_NAME = 'dar-al-kalimah-v7';
+const CACHE_NAME = 'dar-al-kalimah-v8';
 const RUNTIME_CACHE = 'dar-al-kalimah-runtime';
 
 // Precache uniquement le strict minimum pour un premier chargement hors-ligne.
@@ -86,7 +86,9 @@ self.addEventListener('fetch', (event) => {
   // eleve recoit systematiquement la derniere version deployee des qu'il est en
   // ligne. Le cache ne sert que de secours hors-ligne.
   event.respondWith(
-    fetch(event.request)
+    // cache: 'no-cache' -> on revalide toujours aupres du serveur : une mise a jour
+    // du site est visible tout de suite, sans attendre le cache du navigateur.
+    fetch(event.request, { cache: 'no-cache' })
       .then((response) => {
         if (response && response.status === 200) {
           const clone = response.clone();
