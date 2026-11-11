@@ -247,9 +247,7 @@ window.OneSignalDeferred = window.OneSignalDeferred || [];
 window.OneSignalDeferred.push(async function (OneSignal) {
   try {
     await OneSignal.init({
-      appId: DAK_ONESIGNAL_APP_ID,
-      serviceWorkerPath: "sw.js",
-      serviceWorkerParam: { scope: "/" }
+      appId: DAK_ONESIGNAL_APP_ID
     });
     _resolveOneSignal(OneSignal);
   } catch (e) {

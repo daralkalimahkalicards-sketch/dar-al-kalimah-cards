@@ -607,9 +607,7 @@ if ('serviceWorker' in navigator) {
   window.OneSignalDeferred.push(async function (OneSignal) {
     try {
       await OneSignal.init({
-        appId: DAK_ONESIGNAL_APP_ID,
-        serviceWorkerPath: "sw.js",
-        serviceWorkerParam: { scope: "/" }
+        appId: DAK_ONESIGNAL_APP_ID
       });
       if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
       const sub = OneSignal.User.PushSubscription;
