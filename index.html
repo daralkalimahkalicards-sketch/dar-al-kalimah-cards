@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -261,7 +261,7 @@
 <script type="module">
   import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const _cfg = {
     apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
     authDomain: "dar-al-kalimah.firebaseapp.com",
@@ -275,7 +275,17 @@
   const _db = getFirestore(_app);
   const PROF_EMAIL = "sunfertity2080@gmail.com";
   onAuthStateChanged(_auth, async (user) => {
-    if (!user) { window.location.href = 'auth.html'; return; }
+    if (!user) { window.location.href = 'espaces.html'; return; }
+    // Eleve inscrite uniquement a Darija : son compte n'ouvre pas l'espace Arabe.
+    try {
+      const acces = await getDocs(query(collection(_db, 'emails_autorises'), where('email', '==', (user.email || '').toLowerCase())));
+      if (!acces.empty && acces.docs.every((d) => d.data().espace === 'darija')) {
+        window.location.href = 'darija.html';
+        return;
+      }
+    } catch (e) {
+      console.error('Verification espace impossible (on continue) :', e);
+    }
     if (user.email !== PROF_EMAIL) {
       const profCard = document.querySelector('a[href="dashboard.html"]');
       if (profCard) profCard.style.display = 'none';

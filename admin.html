@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
@@ -149,13 +149,17 @@
     </div>
     <div class="stat">
       <div class="stat-num" id="count">—</div>
-      <div class="stat-label">emails dans la liste</div>
+      <div class="stat-label">emails dans la liste Arabe</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="count-darija">—</div>
+      <div class="stat-label">emails dans la liste Darija</div>
     </div>
   </div>
 
   <!-- Ajouter une élève -->
   <div class="card">
-    <h2>Ajouter une élève</h2>
+    <h2>Espace Arabe — ajouter une élève</h2>
     <div class="add-row">
       <div class="form-group">
         <label>Adresse email</label>
@@ -168,8 +172,28 @@
 
   <!-- Liste des élèves -->
   <div class="card">
-    <h2>Liste des élèves autorisées</h2>
+    <h2>Espace Arabe — élèves autorisées</h2>
     <div id="email-list" class="email-list">
+      <div class="empty">Chargement...</div>
+    </div>
+  </div>
+
+  <!-- DARIJA : liste independante de l'espace Arabe -->
+  <div class="card">
+    <h2>Espace Darija — ajouter une élève</h2>
+    <div class="add-row">
+      <div class="form-group">
+        <label>Adresse email</label>
+        <input type="email" id="new-email-darija" placeholder="eleve@email.com" onkeydown="if(event.key==='Enter')addEmail('darija')">
+      </div>
+      <button class="btn btn-primary" onclick="addEmail('darija')" style="margin-bottom:1px;">Ajouter</button>
+    </div>
+    <div id="add-msg-darija" class="msg"></div>
+  </div>
+
+  <div class="card">
+    <h2>Espace Darija — élèves autorisées</h2>
+    <div id="email-list-darija" class="email-list">
       <div class="empty">Chargement...</div>
     </div>
   </div>
@@ -211,30 +235,40 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+// Deux listes independantes dans la meme collection emails_autorises :
+// Arabe = entrees sans champ espace (ou espace different de 'darija') ; Darija = espace: 'darija'.
+function renderList(listId, countId, docs, espace) {
+  const list = document.getElementById(listId);
+  document.getElementById(countId).textContent = docs.length;
+  if (docs.length === 0) {
+    list.innerHTML = '<div class="empty">Aucune élève ajoutée pour l\'instant.</div>';
+    return;
+  }
+  list.innerHTML = docs.map(d => `
+    <div class="email-item">
+      <div>
+        <div class="email-text">📧 ${d.email}</div>
+        ${d.addedAt ? `<div class="email-date">Ajoutée le ${new Date(d.addedAt.toDate()).toLocaleDateString('fr-FR')}</div>` : ''}
+      </div>
+      <button class="btn btn-danger" onclick="removeEmail('${d.id}', '${d.email}', '${espace}')">Supprimer</button>
+    </div>
+  `).join('');
+}
+
 async function loadEmails() {
   const list = document.getElementById('email-list');
-  list.innerHTML = '<div class="empty">Chargement...</div>';
+  const listD = document.getElementById('email-list-darija');
+  list.innerHTML = listD.innerHTML = '<div class="empty">Chargement...</div>';
   try {
     const snap = await getDocs(collection(db, 'emails_autorises'));
     const docs = [];
     snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
-    document.getElementById('count').textContent = docs.length;
-    if (docs.length === 0) {
-      list.innerHTML = '<div class="empty">Aucune élève ajoutée pour l\'instant.</div>';
-      return;
-    }
-    list.innerHTML = docs.map(d => `
-      <div class="email-item">
-        <div>
-          <div class="email-text">📧 ${d.email}</div>
-          ${d.addedAt ? `<div class="email-date">Ajoutée le ${new Date(d.addedAt.toDate()).toLocaleDateString('fr-FR')}</div>` : ''}
-        </div>
-        <button class="btn btn-danger" onclick="removeEmail('${d.id}', '${d.email}')">Supprimer</button>
-      </div>
-    `).join('');
+    renderList('email-list', 'count', docs.filter(d => d.espace !== 'darija'), 'arabe');
+    renderList('email-list-darija', 'count-darija', docs.filter(d => d.espace === 'darija'), 'darija');
   } catch(e) {
-    list.innerHTML = `<div class="empty" style="color:#c0392b;">Erreur : ${e.message}<br><br>⚠️ Vérifie les règles Firestore (voir instructions ci-dessous).</div>`;
+    list.innerHTML = listD.innerHTML = `<div class="empty" style="color:#c0392b;">Erreur : ${e.message}<br><br>⚠️ Vérifie les règles Firestore (voir instructions ci-dessous).</div>`;
     document.getElementById('count').textContent = '!';
+    document.getElementById('count-darija').textContent = '!';
   }
 }
 
@@ -263,31 +297,38 @@ window.envoyerVerificationEmail = async () => {
   }
 };
 
-window.addEmail = async () => {
-  const email = document.getElementById('new-email').value.trim().toLowerCase();
-  if (!email || !email.includes('@')) { showMsg('add-msg', 'error', '❌ Entre un email valide.'); return; }
+window.addEmail = async (espace = 'arabe') => {
+  const estDarija = espace === 'darija';
+  const inputId = estDarija ? 'new-email-darija' : 'new-email';
+  const msgId = estDarija ? 'add-msg-darija' : 'add-msg';
+  const email = document.getElementById(inputId).value.trim().toLowerCase();
+  if (!email || !email.includes('@')) { showMsg(msgId, 'error', '❌ Entre un email valide.'); return; }
   try {
-    // Vérifie si déjà dans la liste
+    // Vérifie si déjà dans CETTE liste (un même email peut être dans les deux espaces)
     const q = query(collection(db, 'emails_autorises'), where('email', '==', email));
     const existing = await getDocs(q);
-    if (!existing.empty) { showMsg('add-msg', 'error', '⚠️ Cet email est déjà dans la liste.'); return; }
-    await addDoc(collection(db, 'emails_autorises'), { email, addedAt: serverTimestamp() });
-    document.getElementById('new-email').value = '';
-    showMsg('add-msg', 'success', `✅ ${email} ajoutée avec succès.`);
+    const dejaLa = existing.docs.some(d => (d.data().espace === 'darija') === estDarija);
+    if (dejaLa) { showMsg(msgId, 'error', '⚠️ Cet email est déjà dans la liste.'); return; }
+    const data = { email, addedAt: serverTimestamp() };
+    if (estDarija) data.espace = 'darija';
+    await addDoc(collection(db, 'emails_autorises'), data);
+    document.getElementById(inputId).value = '';
+    showMsg(msgId, 'success', `✅ ${email} ajoutée avec succès (${estDarija ? 'Darija' : 'Arabe'}).`);
     loadEmails();
   } catch(e) {
-    showMsg('add-msg', 'error', `❌ Erreur : ${e.message}`);
+    showMsg(msgId, 'error', `❌ Erreur : ${e.message}`);
   }
 };
 
-window.removeEmail = async (id, email) => {
-  if (!confirm(`Supprimer ${email} de la liste ?`)) return;
+window.removeEmail = async (id, email, espace = 'arabe') => {
+  const msgId = espace === 'darija' ? 'add-msg-darija' : 'add-msg';
+  if (!confirm(`Supprimer ${email} de la liste ${espace === 'darija' ? 'Darija' : 'Arabe'} ?`)) return;
   try {
     await deleteDoc(doc(db, 'emails_autorises', id));
-    showMsg('add-msg', 'success', `✅ ${email} supprimée.`);
+    showMsg(msgId, 'success', `✅ ${email} supprimée.`);
     loadEmails();
   } catch(e) {
-    showMsg('add-msg', 'error', `❌ Erreur : ${e.message}`);
+    showMsg(msgId, 'error', `❌ Erreur : ${e.message}`);
   }
 };
 

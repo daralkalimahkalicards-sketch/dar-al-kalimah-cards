@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="theme-color" content="#5D1828">
@@ -72,12 +72,14 @@ body {
 .lang-fr { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 1px;}
 .price-tag{font-size:.82rem;color:var(--gold-light);margin-bottom:20px;font-weight:600;}
 .btn-open {
+    display: block; text-align: center;
     margin-top: auto; background: var(--burgundy); color: var(--white);
     padding: 14px 0; width: 85%; border-radius: 50px;
     font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
     text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s ease;
 }
-.nav-card:hover .btn-open { background: var(--burgundy-dark); }
+.nav-card:hover .btn-open {
+    display: block; text-align: center; background: var(--burgundy-dark); }
 
 .reserve-card {
     border: 2px dashed rgba(200, 164, 98, 0.4); background: transparent; box-shadow: none; cursor: default;
@@ -96,63 +98,114 @@ body {
     .brand-ar { font-size: 2.6rem; }
     .nav-card { padding: 35px 20px; }
 }
+
+.lang-switch { position: absolute; top: 20px; left: 20px; display: inline-flex; gap: 6px; }
+.lang-switch button {
+    font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
+    min-width: 44px; padding: 8px 12px; border-radius: 50px; cursor: pointer;
+    background: transparent; color: var(--gold); border: 1px solid var(--gold); transition: all 0.25s ease;
+}
+.lang-switch button.on, .lang-switch button:hover { background: var(--gold); color: var(--burgundy); }
+.lang-switch button:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 2px; }
+.subtitle i { margin-right: 10px; }
+.nav-card { position: relative; }
+.soon-badge {
+    position: absolute; top: 14px; right: 14px; background: var(--white); color: var(--gold);
+    border: 1px solid var(--gold); border-radius: 50px; padding: 4px 12px;
+    font-size: 0.66rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+}
+.price-tag { color: #a8873f; }
+.soon-line {
+    width: 100%; max-width: 850px; text-align: center; margin-bottom: 30px;
+    color: var(--burgundy); font-size: 0.85rem; font-weight: 500; letter-spacing: 1px;
+}
+.soon-line i { color: var(--gold); margin: 0 10px; font-size: 0.8rem; }
+@media (max-width: 768px) { .header-container { padding-top: 64px; } }
 </style>
 <script src="dak-home.js"></script>
 </head>
 <body>
 
 <div class="header-container">
-    <a href="index.html" class="home-btn" aria-label="menu principal" title="Menu principal"><svg viewBox="0 0 24 24" width="26" height="26" fill="#C8A462" aria-hidden="true"><path d="M12 2.6 2 11h3v10h5.5v-6.5h3V21H19V11h3L12 2.6Z"/></svg></a>
+    <div class="lang-switch" role="group" aria-label="Langue / Idioma">
+        <button type="button" data-lang="fr" class="on">FR</button>
+        <button type="button" data-lang="es">ES</button>
+    </div>
+    <a href="espaces.html" class="home-btn" aria-label="Choisir un espace / Elegir un espacio" title="Espaces"><i class="fa-solid fa-house"></i></a>
     <div class="brand-ar ar-text">دار الكلمة</div>
     <div class="app-title serif-text">Dar Al-Kalimah</div>
     <div class="divider"></div>
-    <p class="subtitle">🛍️ Boutique</p>
-    <p class="subtitle-es">Tout ce qu'il y a à acheter, au même endroit</p>
+    <p class="subtitle"><i class="fa-solid fa-bag-shopping"></i><span data-fr="Boutique" data-es="Tienda">Boutique</span></p>
+    <p class="subtitle-es" data-fr="Accès libre · Tout pour apprendre l'arabe en famille" data-es="Acceso libre · Todo para aprender árabe en familia">Accès libre · Tout pour apprendre l'arabe en famille</p>
 </div>
 
 <div class="nav-grid">
+
+    <div class="nav-card reserve-card">
+        <span class="soon-badge" data-fr="Bientôt" data-es="Pronto">Bientôt</span>
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-book-open visual-main"></i>
+        </div>
+        <div class="word-ar-title ar-text">تعابير يومية</div>
+        <div class="lang-fr" data-fr="L'arabe au quotidien" data-es="El árabe en el día a día">L'arabe au quotidien</div>
+        <div class="price-tag" data-fr="Ebook" data-es="Ebook">Ebook</div>
+        <button class="btn-open btn-locked" data-fr="Bientôt" data-es="Pronto" disabled>Bientôt</button>
+    </div>
 
     <a href="hizb60-boutique.html" class="nav-card">
         <div class="icon-wrapper">
             <i class="fa-solid fa-mosque visual-main"></i>
         </div>
-        <div class="word-ar-title ar-text">حزب ٦٠</div>
+        <div class="word-ar-title ar-text">حزب 60</div>
         <div class="lang-fr">Hizb 60 · Juz' 'Amma</div>
-        <div class="price-tag">Essai gratuit disponible</div>
-        <button class="btn-open">Découvrir</button>
-    </a>
-
-    <div class="nav-card reserve-card">
-        <div class="icon-wrapper">
-            <i class="fa-solid fa-comments visual-main"></i>
-        </div>
-        <div class="word-ar-title ar-text">تعابير يومية</div>
-        <div class="lang-fr">Expressions quotidiennes</div>
-        <div class="price-tag">Bientôt disponible</div>
-        <button class="btn-open btn-locked">Bientôt</button>
-    </div>
-
-    <a href="cahier-ecriture-boutique.html" class="nav-card">
-        <div class="icon-wrapper">
-            <i class="fa-solid fa-pen-nib visual-main"></i>
-        </div>
-        <div class="word-ar-title ar-text">دفتر الكتابة</div>
-        <div class="lang-fr">Cahier d'écriture</div>
-        <div class="price-tag">PDF + appli interactive</div>
-        <button class="btn-open">Découvrir</button>
+        <div class="price-tag" data-fr="Essai gratuit disponible" data-es="Prueba gratuita disponible">Essai gratuit disponible</div>
+        <span class="btn-open" data-fr="Découvrir" data-es="Descubrir">Découvrir</span>
     </a>
 
     <a href="cahier-de-dessin-boutique.html" class="nav-card">
         <div class="icon-wrapper">
             <i class="fa-solid fa-palette visual-main"></i>
         </div>
-        <div class="word-ar-title ar-text">دفتر الرسم</div>
-        <div class="lang-fr">Cahier de dessin</div>
-        <div class="price-tag">PDF à imprimer</div>
-        <button class="btn-open">Découvrir</button>
+        <div class="word-ar-title ar-text">التلوين</div>
+        <div class="lang-fr" data-fr="Coloriage" data-es="Para colorear">Coloriage</div>
+        <div class="price-tag" data-fr="PDF à imprimer" data-es="PDF para imprimir">PDF à imprimer</div>
+        <span class="btn-open" data-fr="Découvrir" data-es="Descubrir">Découvrir</span>
+    </a>
+
+    <a href="cahier-ecriture-boutique.html" class="nav-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-pen-nib visual-main"></i>
+        </div>
+        <div class="word-ar-title ar-text">الكتابة</div>
+        <div class="lang-fr" data-fr="Écriture" data-es="Escritura">Écriture</div>
+        <div class="price-tag" data-fr="PDF + appli interactive" data-es="PDF + app interactiva">PDF + appli interactive</div>
+        <span class="btn-open" data-fr="Découvrir" data-es="Descubrir">Découvrir</span>
     </a>
 
 </div>
+
+<p class="soon-line"><i class="fa-solid fa-star"></i><span data-fr="De nouveaux produits arrivent bientôt" data-es="Pronto llegarán nuevos productos">De nouveaux produits arrivent bientôt</span><i class="fa-solid fa-star"></i></p>
+
+<script>
+(function () {
+  var KEY = 'dak_lang', lang = 'fr';
+  try { var s = localStorage.getItem(KEY); if (s === 'fr' || s === 'es') lang = s; } catch (_) {}
+  function render() {
+    document.documentElement.lang = lang;
+    document.title = (lang === 'es' ? 'Tienda' : 'Boutique') + ' — Dar Al-Kalimah';
+    document.querySelectorAll('[data-fr]').forEach(function (el) { el.textContent = el.getAttribute('data-' + lang); });
+    document.querySelectorAll('.lang-switch button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === lang); });
+  }
+  document.querySelectorAll('.lang-switch button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      lang = b.dataset.lang;
+      try { localStorage.setItem(KEY, lang); } catch (_) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
 
 </body>
 </html>

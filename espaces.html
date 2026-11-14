@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5D1828">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>Dar Al-Kalimah — Choisissez votre espace</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --burgundy:#5D1828; --burgundy-dark:#3a0f19; --gold:#C8A462; --gold-light:#dfc28b; --white:#FFFFFF; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { background:var(--white); }
+  body {
+    min-height:100vh; min-height:100dvh; font-family:'Montserrat',sans-serif; color:var(--burgundy);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:66px 16px 28px; position:relative;
+  }
+  .lang-switch { position:absolute; top:20px; right:20px; display:inline-flex; gap:6px; }
+  .lang-switch button {
+    font-family:'Montserrat',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:1px;
+    min-width:44px; padding:8px 12px; border-radius:50px; cursor:pointer;
+    background:var(--white); color:var(--burgundy); border:1px solid var(--gold); transition:all .25s ease;
+  }
+  .lang-switch button.on { background:var(--burgundy); color:var(--gold); border-color:var(--burgundy); }
+  .lang-switch button:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+
+  .brand-ar { font-family:'Amiri',serif; font-weight:700; font-size:3.2rem; line-height:1.15; color:var(--burgundy); direction:rtl; text-align:center; }
+  .brand-fr { font-family:'Cinzel',serif; font-weight:600; font-size:1rem; letter-spacing:6px; color:var(--gold); text-transform:uppercase; margin-top:6px; text-align:center; padding-left:6px; }
+  .divider { width:56px; height:1px; background:var(--gold); margin:22px auto 18px; }
+  .subtitle { font-size:.92rem; font-weight:500; letter-spacing:2.5px; text-transform:uppercase; color:var(--burgundy); text-align:center; }
+
+  .spaces { margin-top:34px; display:grid; grid-template-columns:repeat(2, auto); justify-content:center; gap:28px 26px; }
+  .space { display:flex; flex-direction:column; align-items:center; text-decoration:none; color:inherit; }
+  .space:nth-child(3) { grid-column:1 / -1; }
+  .circle {
+    width:148px; height:148px; border-radius:50%; background:var(--burgundy);
+    border:2px solid var(--gold); position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    transition:transform .3s ease;
+  }
+  .space:hover .circle, .space:focus-visible .circle { transform:translateY(-4px); }
+  .space:focus-visible { outline:none; }
+  .space:focus-visible .circle { outline:2px solid var(--gold); outline-offset:4px; }
+  .c-ar { font-family:'Amiri',serif; font-weight:700; font-size:2rem; line-height:1.25; color:var(--gold); direction:rtl; }
+  .c-lat { font-family:'Cinzel',serif; font-weight:600; font-size:.82rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--white); padding-left:2.5px; }
+  .access { margin-top:14px; font-size:.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--burgundy); }
+  .access.free { color:var(--gold); opacity:1; }
+
+  @media (min-width:720px) {
+    .brand-ar { font-size:4rem; }
+    .brand-fr { font-size:1.15rem; }
+    .spaces { grid-template-columns:repeat(3, auto); gap:56px; margin-top:56px; }
+    .space:nth-child(3) { grid-column:auto; }
+    .circle { width:190px; height:190px; }
+    .c-ar { font-size:2.5rem; }
+    .c-lat { font-size:.95rem; }
+    .access { font-size:.76rem; }
+  }
+  @media (max-width:359px) {
+    .circle { width:128px; height:128px; }
+    .c-ar { font-size:1.75rem; }
+    .spaces { gap:28px 16px; }
+  }
+  @media (prefers-reduced-motion:reduce) { .circle { transition:none; } }
+</style>
+</head>
+<body>
+
+  <div class="lang-switch" role="group" aria-label="Langue / Idioma">
+    <button type="button" data-lang="fr" class="on">FR</button>
+    <button type="button" data-lang="es">ES</button>
+  </div>
+
+  <h1 class="brand-ar">دار الكلمة</h1>
+  <div class="brand-fr">Dar Al-Kalimah</div>
+  <div class="divider"></div>
+  <p class="subtitle" data-fr="Choisissez votre espace" data-es="Elige tu espacio">Choisissez votre espace</p>
+
+  <nav class="spaces" aria-label="Espaces">
+    <a class="space" href="auth.html">
+      <span class="circle">
+        <span class="c-ar">العربية</span>
+        <span class="c-lat" data-fr="Arabe" data-es="Árabe">Arabe</span>
+      </span>
+      <span class="access" data-fr="Accès élève" data-es="Acceso alumno">Accès élève</span>
+    </a>
+    <a class="space" href="auth-darija.html">
+      <span class="circle">
+        <span class="c-ar">الدارجة</span>
+        <span class="c-lat" data-fr="Darija" data-es="Dariya">Darija</span>
+      </span>
+      <span class="access" data-fr="Accès élève" data-es="Acceso alumno">Accès élève</span>
+    </a>
+    <a class="space" href="boutique.html">
+      <span class="circle">
+        <span class="c-ar">المتجر</span>
+        <span class="c-lat" data-fr="Boutique" data-es="Tienda">Boutique</span>
+      </span>
+      <span class="access free" data-fr="Accès libre" data-es="Acceso libre">Accès libre</span>
+    </a>
+  </nav>
+
+<script>
+(function () {
+  var KEY = 'dak_lang', lang = 'fr';
+  try { var s = localStorage.getItem(KEY); if (s === 'fr' || s === 'es') lang = s; } catch (_) {}
+  function render() {
+    document.documentElement.lang = lang;
+    document.title = lang === 'es' ? 'Dar Al-Kalimah — Elige tu espacio' : 'Dar Al-Kalimah — Choisissez votre espace';
+    document.querySelectorAll('[data-fr]').forEach(function (el) { el.textContent = el.getAttribute('data-' + lang); });
+    document.querySelectorAll('.lang-switch button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === lang); });
+  }
+  document.querySelectorAll('.lang-switch button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      lang = b.dataset.lang;
+      try { localStorage.setItem(KEY, lang); localStorage.setItem('dak_darija_lang', lang); } catch (_) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(function (err) { console.error('SW registration failed:', err); });
+}
+</script>
+</body>
+</html>

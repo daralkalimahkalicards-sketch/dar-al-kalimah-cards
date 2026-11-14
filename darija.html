@@ -162,7 +162,7 @@
             <button type="button" data-lang="fr" class="on">FR</button>
             <button type="button" data-lang="es">ES</button>
         </div>
-        <a href="parcours.html" class="btn-back-home" aria-label="Choisir un parcours"><i class="fa-solid fa-house"></i></a>
+        <a href="espaces.html" class="btn-back-home" aria-label="Choisir un espace"><i class="fa-solid fa-house"></i></a>
         <div class="brand-ar ar-text">دار الكلمة</div>
         <div class="app-title serif-text">Dar Al-Kalimah</div>
         <div class="divider"></div>
@@ -348,6 +348,7 @@
 <script type="module">
   import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const _cfg = {
     apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
     authDomain: "dar-al-kalimah.firebaseapp.com",
@@ -358,13 +359,27 @@
   };
   const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
   const _auth = getAuth(_app);
-  // Étape 3 : structure seulement. Les accès par partie (attribués par e-mail) arrivent à l'étape 4.
-  onAuthStateChanged(_auth, (user) => {
-    if (!user) { window.location.href = 'auth.html'; return; }
+  const _db = getFirestore(_app);
+  const PROF_EMAIL = "sunfertity2080@gmail.com";
+  // Acces Darija : liste independante de l'espace Arabe (entrees espace: 'darija' de
+  // emails_autorises, ajoutees par Houda dans admin.html). La page reste cachee tant que
+  // l'acces n'est pas confirme ; sans acces, retour a l'ecran de connexion Darija.
+  onAuthStateChanged(_auth, async (user) => {
+    if (!user) { window.location.replace('auth-darija.html'); return; }
+    const mail = (user.email || '').toLowerCase();
+    let ok = mail === PROF_EMAIL;
+    if (!ok) {
+      try {
+        const snap = await getDocs(query(collection(_db, 'emails_autorises'), where('email', '==', mail)));
+        ok = snap.docs.some((x) => x.data().espace === 'darija');
+      } catch (e) {
+        console.error('darija — lecture des acces impossible :', e);
+        ok = false;
+      }
+    }
+    if (!ok) { window.location.replace('auth-darija.html'); return; }
     document.body.style.visibility = 'visible';
   });
-  // Filet de securite : la page ne doit jamais rester invisible indefiniment
-  setTimeout(() => { document.body.style.visibility = 'visible'; }, 3000);
 </script>
 <script>
 if ('serviceWorker' in navigator) {

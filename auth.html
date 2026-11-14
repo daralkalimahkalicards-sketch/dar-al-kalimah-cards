@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
@@ -86,6 +86,8 @@
   .msg .es { display: block; font-style: italic; opacity: 0.85; margin-top: 4px; font-size: 0.88em; }
   @media (max-width: 480px) { .auth-card { padding: 40px 24px; } .brand-ar { font-size: 2rem; } }
 
+  .espaces-home { position: fixed; top: 20px; right: 20px; color: var(--gold); font-size: 1.5rem; line-height: 1; text-decoration: none; z-index: 5; }
+
   /* Password visibility toggle */
   .pwd-wrap { position: relative; }
   .pwd-wrap input { padding-right: 48px; }
@@ -95,6 +97,7 @@
 </style>
 </head>
 <body>
+<a href="espaces.html" class="espaces-home" aria-label="Choisir un espace / Elegir un espacio" title="Espaces"><i class="fa-solid fa-house"></i></a>
 <div class="auth-card">
   <div class="brand-ar">دار الكلمة</div>
   <div class="brand-en">DAR AL-KALIMAH</div>
@@ -248,6 +251,17 @@ await setPersistence(auth, browserLocalPersistence);
 // 3) sinon l'accueil.
 // En cas d'erreur de lecture Firestore, on ne bloque jamais l'élève : index.html.
 async function redirectAfterAuth(uid) {
+  // Eleve inscrite uniquement a Darija : son compte n'ouvre pas l'espace Arabe.
+  try {
+    const mail = ((auth.currentUser && auth.currentUser.email) || '').toLowerCase();
+    const acces = await getDocs(query(collection(db, 'emails_autorises'), where('email', '==', mail)));
+    if (!acces.empty && acces.docs.every((d) => d.data().espace === 'darija')) {
+      window.location.href = 'darija.html';
+      return;
+    }
+  } catch (e) {
+    console.error('Verification espace impossible (on continue) :', e);
+  }
   try {
     const snap = await getDoc(doc(db, 'eleves', uid));
     const data = snap.exists() ? snap.data() : {};
@@ -454,9 +468,10 @@ window.register = async () => {
     // 2. Vérifier (en tant qu'utilisateur connecté) si l'email est autorisé
     let autorise = false;
     try {
-      const q = query(collection(db, 'emails_autorises'), where('email', '==', email));
+      const q = query(collection(db, 'emails_autorises'), where('email', '==', email.toLowerCase()));
       const snap = await getDocs(q);
-      autorise = !snap.empty;
+      // Les acces Darija (espace: 'darija') sont une liste a part : ils n'ouvrent pas l'espace Arabe.
+      autorise = snap.docs.some((d) => d.data().espace !== 'darija');
     } catch(e) {
       // Si erreur de lecture (règles restrictives), on bloque par sécurité
       autorise = false;
