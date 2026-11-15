@@ -258,7 +258,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-window.goToApp = () => { window.location.href = 'darija.html'; };
+window.goToApp = () => { window.location.href = 'darija-accueil.html'; };
 
 window.togglePwd = (btn) => {
   const input = btn.parentElement.querySelector('input');
@@ -305,7 +305,7 @@ window.login = async () => {
     if (await aAccesDarija(cred.user)) {
       msg.className = 'msg success';
       msg.innerHTML = '✅ Connexion réussie ! Redirection...<span class="es">¡Conexión correcta! Redirigiendo...</span>';
-      setTimeout(() => { window.location.href = 'darija.html'; }, 1000);
+      setTimeout(() => { window.location.href = 'darija-accueil.html'; }, 1000);
     } else {
       enCours = false;
       show('denied');
@@ -347,7 +347,7 @@ window.register = async () => {
     }, { merge: true });
     msg.className = 'msg success';
     msg.innerHTML = '✅ Compte créé ! Redirection...<span class="es">¡Cuenta creada! Redirigiendo...</span>';
-    setTimeout(() => { window.location.href = 'darija.html'; }, 1000);
+    setTimeout(() => { window.location.href = 'darija-accueil.html'; }, 1000);
   } catch (e) {
     enCours = false;
     msg.className = 'msg error';

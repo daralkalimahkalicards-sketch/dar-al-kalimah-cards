@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#5D1828">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DAK Darija — Dar Al-Kalimah</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           VARIABLES LUXE "DAR AL-KALIMAH"
+           ========================================= */
+        :root {
+            --burgundy: #5D1828;
+            --burgundy-dark: #3a0f19;
+            --gold: #C8A462;
+            --gold-light: #dfc28b;
+            --white: #FFFFFF;
+            --bg-beige: #FAF6F0;
+            --text-dark: #2C3E50;
+            --text-muted: #888888;
+            --shadow-card: 0 4px 15px rgba(93, 24, 40, 0.05);
+            --shadow-hover: 0 12px 30px rgba(93, 24, 40, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-beige);
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px 20px; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            visibility: hidden;
+        }
+
+        .ar-text { font-family: "Amiri", serif; direction: rtl; }
+        .serif-text { font-family: "Cinzel", "Georgia", serif; text-align: center; }
+
+        /* =========================================
+           HEADER (TITRE PRINCIPAL) - STYLE PREMIUM
+           ========================================= */
+        .header-container {
+            position: relative;
+            background: var(--burgundy); 
+            padding: 40px 30px; border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(93, 24, 40, 0.25);
+            width: 100%; max-width: 900px; margin-bottom: 50px; text-align: center;
+        }
+        
+        .brand-ar { font-size: 3.5rem; font-weight: 700; color: var(--gold); margin-bottom: 5px; line-height: 1.1; }
+        .app-title { font-size: 1.4rem; color: #d09470; letter-spacing: 5px; text-transform: uppercase; font-weight: 600;}
+        .divider { width: 60px; height: 2px; background-color: var(--gold); margin: 20px auto; border-radius: 2px; opacity: 0.5;}
+        
+        .btn-boutique { display:inline-block; margin-top:16px; background:var(--white); color:var(--burgundy); border:1.5px solid var(--gold); border-radius:50px; padding:10px 26px; font-family:'Montserrat',sans-serif; font-weight:700; font-size:.85rem; letter-spacing:1px; text-decoration:none; text-transform:uppercase; transition: background .3s ease; }
+        .btn-boutique:hover { background: var(--gold-light); }
+        .subtitle { font-size: 1.1rem; color: var(--gold); font-weight: 500; margin-bottom: 5px; }
+        .subtitle-es { font-size: 0.95rem; color: var(--gold-light); font-style: italic; opacity: 0.9; }
+
+        /* =========================================
+           GRILLE DE NAVIGATION 2 COLONNES
+           ========================================= */
+        .nav-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 30px; width: 100%; max-width: 850px;
+            margin-bottom: 40px;
+        }
+
+        .home-btn { position: absolute; right: 20px; top: 20px; color: var(--gold); font-size: 1.5rem; text-decoration: none; }
+        .lang-switch { position: absolute; left: 20px; top: 20px; display: inline-flex; gap: 6px; }
+        .lang-switch button {
+            font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
+            min-width: 44px; padding: 8px 12px; border-radius: 50px; cursor: pointer;
+            background: transparent; color: var(--gold); border: 1px solid var(--gold); transition: all 0.25s ease;
+        }
+        .lang-switch button.on { background: var(--gold); color: var(--burgundy); }
+        .lang-switch button:focus-visible, .nav-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+        /* Avancement affiche sur la carte Modules */
+        .card-note { font-size: 0.82rem; color: var(--burgundy); margin: -18px 0 22px; font-weight: 600; }
+        .card-note i { color: var(--gold); margin-right: 7px; }
+
+        .page-footer { width: 100%; text-align: center; margin-top: 10px; }
+        .page-footer a {
+            color: var(--text-muted); font-size: 0.78rem; text-decoration: none;
+            border-bottom: 1px dotted rgba(93,24,40,0.25); padding-bottom: 2px;
+        }
+        .page-footer a:hover { color: var(--burgundy); }
+        .lang-es-inline { font-style: italic; }
+
+        /* =========================================
+           CARTES D'ÉTUDE
+           ========================================= */
+        .nav-card {
+            background: var(--white);
+            border: 1px solid rgba(200, 164, 98, 0.4); border-radius: 12px; padding: 40px 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.3s ease; 
+            text-decoration: none; color: inherit;
+        }
+        .nav-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+
+        .icon-wrapper {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: transparent; border: 1.5px solid var(--gold);
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 25px; transition: all 0.3s ease;
+        }
+        .nav-card:hover .icon-wrapper { background: var(--bg-beige); transform: scale(1.05); }
+        .visual-main { font-size: 2rem; color: var(--gold); }
+
+        /* Typographie */
+        .word-ar-title { font-size: 2.8rem; font-weight: 700; color: var(--burgundy); line-height: 1.2; margin-bottom: 25px; }
+        .lang-fr { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; font-family: "Cinzel", serif; text-transform: uppercase; letter-spacing: 1px;}
+        .lang-es { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 30px; }
+        
+        /* Bouton */
+        .btn-open {
+            margin-top: auto; background: var(--burgundy); color: var(--white); 
+            padding: 14px 0; width: 85%; border-radius: 50px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s ease;
+        }
+        .nav-card:hover .btn-open { background: var(--burgundy-dark); }
+
+        /* =========================================
+           CARTE DE RÉSERVE (BIENTÔT)
+           ========================================= */
+        .reserve-card { 
+            border: 2px dashed rgba(200, 164, 98, 0.4); background: transparent; box-shadow: none; cursor: default;
+        }
+        .reserve-card:hover { transform: none; box-shadow: none; border-color: rgba(200, 164, 98, 0.4); }
+        .reserve-card .icon-wrapper { border-color: var(--gold-light); }
+        .reserve-card .visual-main { color: var(--gold-light); }
+        .reserve-card .word-ar-title { color: var(--text-muted); }
+        
+        .btn-locked { background: #E5E7EB; color: #999; cursor: not-allowed; }
+        .reserve-card:hover .btn-locked { background: #E5E7EB; }
+        .reserve-card:hover .icon-wrapper { transform: none; background: transparent; }
+
+        /* =========================================
+           RESPONSIVE MOBILE
+           ========================================= */
+
+        @media (max-width: 768px) {
+            .nav-grid { grid-template-columns: 1fr; gap: 20px; }
+            .header-container { padding: 30px 20px; }
+            .brand-ar { font-size: 3rem; }
+            .nav-card { padding: 35px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="lang-switch" role="group" aria-label="Langue / Idioma">
+            <button type="button" data-lang="fr" class="on">FR</button>
+            <button type="button" data-lang="es">ES</button>
+        </div>
+        <a href="espaces.html" class="home-btn" aria-label="Choisir un espace" title="Espaces"><i class="fa-solid fa-house"></i></a>
+        <div class="brand-ar ar-text">دار الكلمة</div>
+        <div class="app-title serif-text">Dar Al-Kalimah</div>
+        <div class="divider"></div>
+        <p class="subtitle" id="sous-titre"></p>
+        <p class="subtitle-es" id="sous-titre-2"></p>
+    </div>
+
+    <div class="nav-grid">
+
+        <a href="darija.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-layer-group visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">الوحدات</div>
+            <div class="lang-fr" data-fr="Modules" data-es="Módulos">Modules</div>
+            <div class="lang-es" data-fr="Les 24 modules de darija" data-es="Los 24 módulos de darija">Les 24 modules de darija</div>
+            <div class="card-note" id="note-modules" style="display:none"><i class="fa-solid fa-circle-check"></i><span></span></div>
+            <button class="btn-open" data-fr="Ouvrir" data-es="Abrir">Ouvrir</button>
+        </a>
+
+        <div class="nav-card reserve-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-book-bookmark visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">بنك الكلمات</div>
+            <div class="lang-fr" data-fr="Banque des mots" data-es="Banco de palabras">Banque des mots</div>
+            <div class="lang-es" data-fr="Tous les mots des modules" data-es="Todas las palabras de los módulos">Tous les mots des modules</div>
+            <button class="btn-open btn-locked" type="button" disabled data-fr="Bientôt" data-es="Pronto">Bientôt</button>
+        </div>
+
+        <a href="darija-progression.html" class="nav-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-chart-line visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">تَقَدُّمِي</div>
+            <div class="lang-fr" data-fr="Ma progression" data-es="Mi progreso">Ma progression</div>
+            <div class="lang-es" data-fr="Mes leçons, quiz et certificats" data-es="Mis lecciones, quiz y certificados">Mes leçons, quiz et certificats</div>
+            <button class="btn-open" data-fr="Voir" data-es="Ver">Voir</button>
+        </a>
+
+        <a href="darija-suivi.html" class="nav-card prof-card" id="carte-suivi" style="display:none">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-users visual-main"></i>
+            </div>
+            <div class="word-ar-title ar-text">لوحة المتابعة</div>
+            <div class="lang-fr" data-fr="Suivi pédagogique" data-es="Seguimiento pedagógico">Suivi pédagogique</div>
+            <div class="lang-es" data-fr="Mes élèves et leurs accès" data-es="Mis alumnas y sus accesos">Mes élèves et leurs accès</div>
+            <button class="btn-open" data-fr="Espace prof" data-es="Espacio profesora">Espace prof</button>
+        </a>
+
+        <div class="nav-card reserve-card">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-puzzle-piece visual-main"></i>
+            </div>
+            <div class="word-ar-title serif-text" style="direction:ltr;">KaliJeux</div>
+            <div class="lang-fr" data-fr="Apprendre en jouant" data-es="Aprender jugando">Apprendre en jouant</div>
+            <div class="lang-es" data-fr="Les jeux de darija" data-es="Los juegos de darija">Les jeux de darija</div>
+            <button class="btn-open btn-locked" type="button" disabled data-fr="Bientôt" data-es="Pronto">Bientôt</button>
+        </div>
+
+    </div>
+
+    <div class="page-footer">
+        <a href="/confidentialite.html" id="privacy-link">Politique de confidentialité</a>
+    </div>
+
+<script>
+(function () {
+  var KEY = 'dak-lang', lang = 'fr';
+  try { var v = localStorage.getItem(KEY) || localStorage.getItem('dak_lang'); if (v === 'fr' || v === 'es') lang = v; } catch (_) {}
+  var T = {
+    sous: { fr: 'DAK Darija · l’arabe parlé au Maroc', es: 'DAK Darija · el árabe hablado en Marruecos' },
+    sous2: { fr: 'Choisis ton espace de travail.', es: 'Elige tu espacio de trabajo.' },
+    privacy: { fr: 'Politique de confidentialité', es: 'Política de privacidad' },
+    titre: { fr: 'DAK Darija — Dar Al-Kalimah', es: 'DAK Darija — Dar Al-Kalimah' },
+    avance: { fr: '{n} module(s) terminé(s) sur 24', es: '{n} módulo(s) completado(s) de 24' }
+  };
+  function render() {
+    document.documentElement.lang = lang;
+    document.title = T.titre[lang];
+    document.getElementById('sous-titre').textContent = T.sous[lang];
+    document.getElementById('sous-titre-2').textContent = T.sous2[lang];
+    document.getElementById('privacy-link').textContent = T.privacy[lang];
+    document.querySelectorAll('[data-fr]').forEach(function (el) { el.textContent = el.getAttribute('data-' + lang); });
+    document.querySelectorAll('.lang-switch button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === lang); });
+    var note = document.getElementById('note-modules');
+    if (note.dataset.n) note.querySelector('span').textContent = T.avance[lang].replace('{n}', note.dataset.n);
+  }
+  document.querySelectorAll('.lang-switch button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      lang = b.dataset.lang;
+      try { ['dak-lang', 'dak_lang', 'dak_darija_lang'].forEach(function (k) { localStorage.setItem(k, lang); }); } catch (_) {}
+      render();
+    });
+  });
+  window.DAK_ACCUEIL = render;
+  render();
+})();
+</script>
+<script type="module">
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { auth, db, getStatutDarija } from "./darija-core.js";
+  // Acces Darija : liste independante de l'espace Arabe. La page reste cachee tant que l'acces
+  // n'est pas confirme. La carte "Suivi pedagogique" n'apparait que pour un compte prof.
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.replace('auth-darija.html'); return; }
+    let statut;
+    try { statut = await getStatutDarija(user); } catch (e) { console.error('accueil darija :', e); statut = { acces: false }; }
+    if (!statut.acces) { window.location.replace('auth-darija.html'); return; }
+    if (statut.prof) document.getElementById('carte-suivi').style.display = '';
+    if (statut.nbTermines > 0) {
+      const note = document.getElementById('note-modules');
+      note.dataset.n = String(statut.nbTermines);
+      note.style.display = '';
+      window.DAK_ACCUEIL();
+    }
+    document.body.style.visibility = 'visible';
+    setDoc(doc(db, 'eleves', user.uid), { dernierAccesDarija: serverTimestamp(), pageDarija: 'accueil' }, { merge: true }).catch(() => {});
+  });
+  // Filet de securite : la page ne doit jamais rester invisible indefiniment.
+  setTimeout(() => { document.body.style.visibility = 'visible'; }, 4000);
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch((err) => console.error('SW registration failed:', err));
+  let dakSwRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (dakSwRefreshing) return;
+    dakSwRefreshing = true;
+    window.location.reload();
+  });
+}
+</script>
+
+</body>
+</html>
