@@ -2,7 +2,7 @@
 // pour ne pas en avoir un deuxième. Ne change rien au fonctionnement ci-dessous.
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
-const CACHE_NAME = 'dar-al-kalimah-v9';
+const CACHE_NAME = 'dar-al-kalimah-v10';
 const RUNTIME_CACHE = 'dar-al-kalimah-runtime';
 
 // Precache uniquement le strict minimum pour un premier chargement hors-ligne.

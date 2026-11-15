@@ -125,6 +125,33 @@
             color: var(--gold); border: 1.5px dashed rgba(200, 164, 98, 0.55); border-radius: 999px; padding: 5px 13px; white-space: nowrap;
         }
 
+        /* Etats des cartes : en cours, termine, verrouille */
+        .mod-status.etat { border-style: solid; display: inline-flex; align-items: center; gap: 7px; white-space: normal; text-align: right; line-height: 1.35; }
+        .mod-status.etat i { color: var(--gold); }
+        .mod-status.fait { background: var(--burgundy); color: var(--gold); border-color: var(--burgundy); }
+        .module-card.locked { box-shadow: none; background: #FBF8F3; }
+        .module-card.locked .mod-media img { filter: grayscale(1); opacity: 0.45; }
+        .module-card.locked .mod-title, .module-card.locked .mod-sub, .module-card.locked .mod-number { opacity: 0.55; }
+        .partie-note { font-size: 0.85rem; color: var(--burgundy); margin-top: 10px; display: inline-flex; align-items: center; gap: 8px; }
+        .partie-note i { color: var(--gold); }
+
+        /* Carte d'examen de fin de partie */
+        .exam-card { border: 1.5px solid var(--gold); border-radius: 14px; background: var(--burgundy); color: var(--white); padding: 22px; text-align: center; margin-top: 4px; }
+        .exam-card.locked { background: #FBF8F3; color: var(--burgundy); border-style: dashed; }
+        .exam-kicker { font-family: "Cinzel", "Georgia", serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 9px; }
+        .exam-title { font-family: "Cinzel", "Georgia", serif; font-size: 1.15rem; font-weight: 700; margin: 8px 0 6px; }
+        .exam-sub { font-size: 0.86rem; line-height: 1.5; }
+        .exam-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+        .exam-btn { display: inline-block; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 50px; padding: 11px 20px; background: var(--gold); color: var(--burgundy); border: 1px solid var(--gold); }
+        .exam-btn.ghost { background: transparent; color: var(--gold); }
+        .exam-btn:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+
+        /* Liens de l'eleve (progression) et de la prof (suivi) sous l'en-tete */
+        .space-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; margin: -26px 0 34px; }
+        .space-links a { text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--burgundy); border: 1px solid var(--gold); border-radius: 50px; padding: 10px 18px; background: var(--white); display: inline-flex; align-items: center; gap: 8px; }
+        .space-links a i { color: var(--gold); }
+        .space-links a:hover { background: var(--bg-beige); }
+
         .page-footer { width: 100%; text-align: center; margin-top: 10px; }
         .page-footer a {
             color: var(--text-muted); font-size: 0.78rem; text-decoration: none;
@@ -170,6 +197,8 @@
         <p class="subtitle-es" id="tagline"></p>
     </div>
 
+    <div class="space-links" id="space-links"></div>
+
     <div class="parcours" id="parcours" aria-live="polite"></div>
 
     <div class="page-footer">
@@ -186,6 +215,24 @@
     "partie": { "fr": "Partie", "es": "Parte" },
     "module": { "fr": "Module", "es": "Módulo" },
     "bientot": { "fr": "Bientôt", "es": "Próximamente" },
+    "enCours": { "fr": "En cours", "es": "En curso" },
+    "termine": { "fr": "Terminé", "es": "Completado" },
+    "ferme": { "fr": "Partie fermée", "es": "Parte cerrada" },
+    "avant": { "fr": "Termine d'abord le module {n}", "es": "Termina primero el módulo {n}" },
+    "reste": { "fr": "il te reste : {x}", "es": "te falta: {x}" },
+    "noteFerme": { "fr": "Cette partie s'ouvre quand ta professeure te donne l'accès.", "es": "Esta parte se abre cuando tu profesora te da acceso." },
+    "examen": { "fr": "Examen", "es": "Examen" },
+    "examenTitre": { "fr": "Examen de la partie {b}", "es": "Examen de la parte {b}" },
+    "examenInfo": { "fr": "30 questions · 50 % pour réussir · essais illimités", "es": "30 preguntas · 50 % para aprobar · intentos ilimitados" },
+    "examenVerrou": { "fr": "Termine les 8 modules de cette partie pour ouvrir l'examen.", "es": "Termina los 8 módulos de esta parte para abrir el examen." },
+    "examenPasser": { "fr": "Passer l'examen", "es": "Hacer el examen" },
+    "examenRepasser": { "fr": "Repasser l'examen", "es": "Repetir el examen" },
+    "examenReussi": { "fr": "Examen réussi · {p} %", "es": "Examen aprobado · {p} %" },
+    "examenRate": { "fr": "Meilleure note : {p} %. Il faut 50 %.", "es": "Mejor nota: {p} %. Hace falta el 50 %." },
+    "certIvoire": { "fr": "Certificat ivoire", "es": "Certificado marfil" },
+    "certBordeaux": { "fr": "Certificat bordeaux", "es": "Certificado burdeos" },
+    "progression": { "fr": "Ma progression", "es": "Mi progreso" },
+    "suivi": { "fr": "Suivi des élèves", "es": "Seguimiento de alumnos" },
     "privacy": { "fr": "Politique de confidentialité", "es": "Política de privacidad" },
     "pageTitle": { "fr": "Dar Al-Kalimah - DAK Darija", "es": "Dar Al-Kalimah - DAK Darija" }
   },
@@ -271,7 +318,7 @@
   // Même clé de langue pour toutes les pages du parcours DAK Darija : la préférence est mémorisée.
   var LS_LANG = 'dak_darija_lang';
   var lang = 'fr';
-  try { var saved = localStorage.getItem(LS_LANG); if (saved === 'fr' || saved === 'es') lang = saved; } catch (_) {}
+  try { var saved = localStorage.getItem('dak-lang') || localStorage.getItem(LS_LANG); if (saved === 'fr' || saved === 'es') lang = saved; } catch (_) {}
 
   function el(tag, cls, text){
     var e = document.createElement(tag);
@@ -290,6 +337,18 @@
       b.classList.toggle('on', b.dataset.lang === lang);
     });
 
+    var liens = document.getElementById('space-links');
+    liens.innerHTML = '';
+    if (window.DAK_STATUT) {
+      var mk = function(href, icone, texte){
+        var a = document.createElement('a'); a.href = href;
+        var ic = document.createElement('i'); ic.className = 'fa-solid ' + icone; ic.setAttribute('aria-hidden', 'true');
+        a.appendChild(ic); a.appendChild(document.createTextNode(texte)); liens.appendChild(a);
+      };
+      mk('darija-progression.html', 'fa-chart-line', DATA.ui.progression[lang]);
+      if (window.DAK_STATUT.prof) mk('darija-suivi.html', 'fa-users', DATA.ui.suivi[lang]);
+    }
+
     var root = document.getElementById('parcours');
     root.innerHTML = '';
     DATA.parties.forEach(function(p){
@@ -301,11 +360,26 @@
       head.appendChild(el('div', 'divider'));
       sec.appendChild(head);
 
+      var ST = window.DAK_STATUT || null;
+      var T = function(k, o){ var t = DATA.ui[k][lang]; if (o) Object.keys(o).forEach(function(x){ t = t.replace('{' + x + '}', o[x]); }); return t; };
+      var etat = function(icone, texte, cls){
+        var d = el('div', 'mod-status etat' + (cls ? ' ' + cls : ''));
+        var ic = document.createElement('i'); ic.className = 'fa-solid ' + icone; ic.setAttribute('aria-hidden', 'true');
+        d.appendChild(ic); d.appendChild(el('span', null, texte)); return d;
+      };
+      if (ST && !ST.prof && !ST.blocsOuverts[p.id]) {
+        var note = el('div', 'partie-note');
+        var ni = document.createElement('i'); ni.className = 'fa-solid fa-lock'; ni.setAttribute('aria-hidden', 'true');
+        note.appendChild(ni); note.appendChild(el('span', null, T('noteFerme')));
+        head.insertBefore(note, head.lastChild);
+      }
+
       var grid = el('div', 'modules-grid');
       p.modules.forEach(function(m){
-        // Carte cliquable (<a>) seulement quand le module est accessible ; pour l'instant aucun ne l'est.
-        var card = el(m.href ? 'a' : 'div', 'module-card');
-        if (m.href) card.href = m.href;
+        // Carte cliquable (<a>) seulement quand le module est ouvert pour cette eleve.
+        var ouvert = !!(ST && ST.accessible[m.n]);
+        var card = el(ouvert ? 'a' : 'div', 'module-card' + (ouvert ? '' : ' locked'));
+        if (ouvert) card.href = 'darija-m' + m.n + '.html';
 
         // Image à gauche (~38 %) : une image par module, jamais partagée
         var media = el('div', 'mod-media');
@@ -325,10 +399,49 @@
         info.appendChild(el('div', 'mod-number', DATA.ui.module[lang] + ' ' + m.n));
         info.appendChild(el('div', 'mod-title', m.title[lang]));
         info.appendChild(el('div', 'mod-sub', m.sub[lang]));
-        if (!m.href) info.appendChild(el('div', 'mod-status', DATA.ui.bientot[lang]));
+        if (ST) {
+          if (ST.termines[m.n]) info.appendChild(etat('fa-circle-check', T('termine'), 'fait'));
+          else if (ouvert && ST.commence[m.n]) info.appendChild(etat('fa-hourglass-half', T('enCours')));
+          else if (!ouvert) {
+            if (!ST.blocsOuverts[p.id]) info.appendChild(etat('fa-lock', T('ferme')));
+            else {
+              var manque = window.DAK_MANQUE ? window.DAK_MANQUE(m.n - 1, lang) : '';
+              info.appendChild(etat('fa-lock', T('avant', { n: m.n - 1 }) + (manque ? ' — ' + T('reste', { x: manque }) : '')));
+            }
+          }
+        }
         card.appendChild(info);
         grid.appendChild(card);
       });
+
+      // Examen de fin de partie
+      if (ST) {
+        var ex = ST.examens[p.id];
+        var box = el('div', 'exam-card' + (ex.ouvert ? '' : ' locked'));
+        var kick = el('div', 'exam-kicker');
+        var ki = document.createElement('i'); ki.className = 'fa-solid ' + (ex.ouvert ? 'fa-graduation-cap' : 'fa-lock'); ki.setAttribute('aria-hidden', 'true');
+        kick.appendChild(ki); kick.appendChild(el('span', null, T('examen')));
+        box.appendChild(kick);
+        box.appendChild(el('div', 'exam-title', T('examenTitre', { b: p.id })));
+        var sub = T('examenInfo');
+        if (!ex.ouvert) sub = T('examenVerrou');
+        else if (ex.reussi) sub = T('examenReussi', { p: ex.meilleur });
+        else if (ex.meilleur !== null) sub = T('examenRate', { p: ex.meilleur });
+        box.appendChild(el('div', 'exam-sub', sub));
+        if (ex.ouvert) {
+          var act = el('div', 'exam-actions');
+          var lien = function(href, texte, ghost){ var a = el('a', 'exam-btn' + (ghost ? ' ghost' : ''), texte); a.href = href; return a; };
+          if (ex.reussi) {
+            act.appendChild(lien('darija-certificat.html?bloc=' + p.id, T('certIvoire')));
+            act.appendChild(lien('darija-certificat-bordeaux.html?bloc=' + p.id, T('certBordeaux')));
+            act.appendChild(lien('darija-examen.html?bloc=' + p.id, T('examenRepasser'), true));
+          } else {
+            act.appendChild(lien('darija-examen.html?bloc=' + p.id, ex.meilleur !== null ? T('examenRepasser') : T('examenPasser')));
+          }
+          box.appendChild(act);
+        }
+        grid.appendChild(box);
+      }
       sec.appendChild(grid);
       root.appendChild(sec);
     });
@@ -337,48 +450,31 @@
   document.querySelectorAll('.lang-switch button').forEach(function(b){
     b.addEventListener('click', function(){
       lang = b.dataset.lang;
-      try { localStorage.setItem(LS_LANG, lang); } catch (_) {}
+      try { localStorage.setItem(LS_LANG, lang); localStorage.setItem('dak-lang', lang); localStorage.setItem('dak_lang', lang); } catch (_) {}
       render();
     });
   });
+  window.DAK_RENDER = render;
   render();
 })();
 </script>
 
 <script type="module">
-  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-  const _cfg = {
-    apiKey: "AIzaSyBz5vRQUf4N7Px0YR4csyOlk72s1eOLLHQ",
-    authDomain: "dar-al-kalimah.firebaseapp.com",
-    projectId: "dar-al-kalimah",
-    storageBucket: "dar-al-kalimah.firebasestorage.app",
-    messagingSenderId: "472629258",
-    appId: "1:472629258:web:29b755d38efe89421f1ff3"
-  };
-  const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
-  const _auth = getAuth(_app);
-  const _db = getFirestore(_app);
-  const PROF_EMAIL = "sunfertity2080@gmail.com";
-  // Acces Darija : liste independante de l'espace Arabe (entrees espace: 'darija' de
-  // emails_autorises, ajoutees par Houda dans admin.html). La page reste cachee tant que
-  // l'acces n'est pas confirme ; sans acces, retour a l'ecran de connexion Darija.
-  onAuthStateChanged(_auth, async (user) => {
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { auth, db, getStatutDarija, manquePour } from "./darija-core.js";
+  // Acces Darija : liste independante de l'espace Arabe. La page reste cachee tant que l'acces
+  // n'est pas confirme ; les cartes sont ensuite dessinees selon ce qui est ouvert pour l'eleve.
+  onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.replace('auth-darija.html'); return; }
-    const mail = (user.email || '').toLowerCase();
-    let ok = mail === PROF_EMAIL;
-    if (!ok) {
-      try {
-        const snap = await getDocs(query(collection(_db, 'emails_autorises'), where('email', '==', mail)));
-        ok = snap.docs.some((x) => x.data().espace === 'darija');
-      } catch (e) {
-        console.error('darija — lecture des acces impossible :', e);
-        ok = false;
-      }
-    }
-    if (!ok) { window.location.replace('auth-darija.html'); return; }
+    let statut;
+    try { statut = await getStatutDarija(user); } catch (e) { console.error('darija — statut impossible :', e); statut = { acces: false }; }
+    if (!statut.acces) { window.location.replace('auth-darija.html'); return; }
+    window.DAK_STATUT = statut;
+    window.DAK_MANQUE = (n, l) => manquePour(statut, n, l);
+    window.DAK_RENDER();
     document.body.style.visibility = 'visible';
+    setDoc(doc(db, 'eleves', user.uid), { dernierAccesDarija: serverTimestamp(), pageDarija: 'darija' }, { merge: true }).catch(() => {});
   });
 </script>
 <script>

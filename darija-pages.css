@@ -1,0 +1,42 @@
+/* Styles communs : Ma progression (eleve) et Suivi (prof) — espace Darija */
+:root { --burgundy:#5D1828; --burgundy-dark:#3a0f19; --gold:#C8A462; --white:#FFFFFF; --bg-beige:#FAF6F0; --line:rgba(200,164,98,.35); }
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html { scrollbar-gutter:stable; }
+body { background:var(--bg-beige); font-family:'Montserrat',sans-serif; color:var(--burgundy); padding:40px 20px; display:flex; flex-direction:column; align-items:center; min-height:100vh; visibility:hidden; }
+.wrap { width:100%; max-width:980px; }
+.ar { font-family:'Amiri',serif; direction:rtl; }
+.head { position:relative; background:var(--burgundy); border-radius:12px; padding:40px 24px 30px; text-align:center; box-shadow:0 8px 25px rgba(93,24,40,.25); margin-bottom:28px; }
+.head .brand-ar { font-family:'Amiri',serif; font-size:2.8rem; font-weight:700; color:var(--gold); line-height:1.1; }
+.head .brand { font-family:'Cinzel',serif; font-size:1.05rem; letter-spacing:5px; text-transform:uppercase; color:var(--white); margin-top:6px; }
+.head .rule { width:60px; height:1px; background:var(--gold); margin:18px auto; }
+.head h1 { font-family:'Cinzel',serif; font-size:1.2rem; font-weight:700; color:var(--gold); letter-spacing:1px; }
+.head .home { position:absolute; top:20px; right:20px; color:var(--gold); font-size:1.5rem; text-decoration:none; }
+.lang { position:absolute; top:20px; left:20px; display:inline-flex; gap:6px; }
+.lang button { font-family:'Montserrat',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:1px; min-width:44px; padding:8px 12px; border-radius:50px; cursor:pointer; background:transparent; color:var(--gold); border:1px solid var(--gold); }
+.lang button.on { background:var(--gold); color:var(--burgundy); }
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:28px; }
+.tile { background:var(--white); border:1px solid var(--line); border-radius:12px; padding:18px 14px; text-align:center; }
+.tile b { display:block; font-family:'Cinzel',serif; font-size:1.7rem; color:var(--burgundy); font-variant-numeric:tabular-nums; }
+.tile span { font-size:.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); }
+.card { background:var(--white); border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:22px; }
+.card h2 { font-family:'Cinzel',serif; font-size:1.05rem; color:var(--burgundy); margin-bottom:4px; }
+.card .sub { font-size:.82rem; color:var(--burgundy); margin-bottom:14px; }
+.card .sub i, .note i { color:var(--gold); margin-right:6px; }
+.scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:.84rem; }
+th { font-size:.68rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--gold); text-align:left; padding:8px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
+td { padding:9px 8px; border-bottom:1px solid rgba(200,164,98,.18); vertical-align:middle; font-variant-numeric:tabular-nums; }
+td.c, th.c { text-align:center; }
+tr.off td { opacity:.5; }
+.ok { color:var(--gold); }
+.pill { display:inline-block; font-size:.68rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; border:1px solid var(--gold); border-radius:50px; padding:3px 10px; color:var(--burgundy); white-space:nowrap; }
+.pill.full { background:var(--burgundy); color:var(--gold); border-color:var(--burgundy); }
+.btn { font-family:'Montserrat',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; border-radius:50px; padding:8px 14px; cursor:pointer; border:1px solid var(--gold); background:var(--white); color:var(--burgundy); text-decoration:none; display:inline-block; white-space:nowrap; }
+.btn.on { background:var(--burgundy); color:var(--gold); border-color:var(--burgundy); }
+.btn:focus-visible, .lang button:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+.btn[disabled] { opacity:.5; cursor:default; }
+.small { font-size:.76rem; }
+.muted { opacity:.7; }
+.detail { background:var(--bg-beige); border-radius:10px; padding:14px; margin:6px 0 10px; }
+.msg { font-size:.85rem; padding:10px 0; }
+@media (max-width:640px) { body { padding:20px 12px; } .head { padding-top:64px; } .head .brand-ar { font-size:2.3rem; } .card { padding:14px; } }

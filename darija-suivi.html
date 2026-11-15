@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5D1828">
+<meta name="robots" content="noindex">
+<title>Suivi des élèves — DAK Darija</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="darija-pages.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <a class="home" href="darija.html" aria-label="Modules Darija"><i class="fa-solid fa-house"></i></a>
+    <div class="brand-ar">دار الكلمة</div>
+    <div class="brand">Dar Al-Kalimah</div>
+    <div class="rule"></div>
+    <h1>DAK Darija · Suivi des élèves</h1>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="card">
+    <h2>Ajouter une élève Darija</h2>
+    <p class="sub">Dès que tu ajoutes son e-mail, elle peut créer son compte et la partie 1 (modules 1 à 8) est ouverte. Les parties 2 et 3, c'est toi qui les ouvres ici.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <input type="email" id="new-email" placeholder="eleve@email.com" autocomplete="off" style="flex:1;min-width:220px;padding:11px 16px;border:1px solid var(--line);border-radius:50px;font-family:inherit;font-size:.9rem;color:var(--burgundy)">
+      <button class="btn on" id="btn-add" type="button">Ajouter</button>
+    </div>
+    <p class="msg" id="add-msg" role="status"></p>
+  </div>
+
+  <div class="card">
+    <h2>Mes élèves</h2>
+    <p class="sub">Un module est terminé quand la leçon est faite et les 3 quiz réussis à 50 %. Le module suivant s'ouvre alors tout seul.</p>
+    <div class="scroll"><table id="table-eleves"></table></div>
+    <p class="msg" id="vide" style="display:none">Aucune élève dans la liste Darija pour l'instant.</p>
+  </div>
+
+  <div class="card">
+    <h2>Activité récente</h2>
+    <p class="sub">Les 40 dernières leçons, quiz, missions et examens.</p>
+    <div class="scroll"><table id="table-activite"></table></div>
+  </div>
+</div>
+<script type="module">
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { doc, getDoc, getDocs, collection, query, where, addDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { auth, db, PROF_EMAIL, calculerStatut, modulesDuBloc, blocDe, QUIZZ, BLOCS, LECON, MISSION } from "./darija-core.js";
+
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; };
+  const icone = (c) => { const i = document.createElement('i'); i.className = 'fa-solid ' + c + ' ok'; i.setAttribute('aria-hidden', 'true'); return i; };
+  const ms = (ts) => !ts ? 0 : (ts.toDate ? ts.toDate() : new Date(ts)).getTime();
+  const quand = (ts) => { const v = ms(ts); if (!v) return '—'; return new Date(v).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); };
+  const duree = (s) => { if (!s) return '—'; if (s < 60) return '< 1 min'; const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60); return h ? h + ' h ' + String(m).padStart(2, '0') : m + ' min'; };
+  const estDarija = (x) => String(x.module || '').indexOf('Darija ') === 0;
+  let ELEVES = [], ouvert = null;
+
+  async function charger() {
+    const [acces, eleves, lecons, resultats] = await Promise.all([
+      getDocs(collection(db, 'emails_autorises')), getDocs(collection(db, 'eleves')),
+      getDocs(collection(db, 'lecons')), getDocs(collection(db, 'resultats'))
+    ]);
+    const L = lecons.docs.map((d) => d.data()).filter(estDarija);
+    const R = resultats.docs.map((d) => d.data()).filter(estDarija);
+    const comptes = {};
+    eleves.docs.forEach((d) => { const x = d.data(); if (x.email) comptes[String(x.email).toLowerCase()] = Object.assign({ uid: d.id }, x); });
+    ELEVES = acces.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((a) => a.espace === 'darija').map((a) => {
+      const c = comptes[String(a.email).toLowerCase()] || null;
+      const lec = c ? L.filter((x) => x.eleveId === c.uid) : [], res = c ? R.filter((x) => x.eleveId === c.uid) : [];
+      const blocs = Array.isArray(a.blocs) ? a.blocs : [];
+      const st = calculerStatut({ blocsManuels: blocs, lecons: lec, resultats: res });
+      const temps = lec.concat(res).reduce((t, x) => t + (x.dureeSecondes || 0), 0);
+      let enCours = null;
+      for (let n = 1; n <= 24; n++) { if (st.accessible[n] && !st.termines[n]) { enCours = n; break; } }
+      return { acces: a, compte: c, blocs, st, temps, enCours, lec, res };
+    }).sort((x, y) => ms(y.compte && y.compte.dernierAccesDarija) - ms(x.compte && x.compte.dernierAccesDarija));
+    dessiner(L, R);
+  }
+
+  function dessiner(L, R) {
+    const tiles = document.getElementById('tiles'); tiles.innerHTML = '';
+    const tuile = (v, lab) => { const d = el('div', 'tile'); d.appendChild(el('b', null, String(v))); d.appendChild(el('span', null, lab)); tiles.appendChild(d); };
+    const semaine = Date.now() - 7 * 86400000;
+    tuile(ELEVES.length, 'Élèves Darija');
+    tuile(ELEVES.filter((e) => e.compte).length, 'Comptes créés');
+    tuile(ELEVES.filter((e) => e.compte && ms(e.compte.dernierAccesDarija) > semaine).length, 'Actives cette semaine');
+    tuile(ELEVES.reduce((t, e) => t + e.st.nbTermines, 0), 'Modules terminés');
+
+    const tb = document.getElementById('table-eleves'); tb.innerHTML = '';
+    document.getElementById('vide').style.display = ELEVES.length ? 'none' : '';
+    if (ELEVES.length) {
+      const hr = el('tr');
+      [['Élève', ''], ['Dernière visite', ''], ['En cours', 'c'], ['Terminés', 'c'], ['Missions', 'c'], ['Examens', 'c'], ['Temps', 'c'], ['Partie 2', 'c'], ['Partie 3', 'c'], ['', 'c']].forEach((h) => hr.appendChild(el('th', h[1], h[0])));
+      tb.appendChild(hr);
+    }
+    ELEVES.forEach((e) => {
+      const tr = el('tr');
+      const qui = el('td'); qui.appendChild(el('b', null, (e.compte && e.compte.nom) || '—')); qui.appendChild(el('div', 'small muted', e.acces.email)); tr.appendChild(qui);
+      const vis = el('td', 'small');
+      if (!e.compte) vis.appendChild(el('span', 'pill', 'Pas encore inscrite'));
+      else { vis.appendChild(document.createTextNode(quand(e.compte.dernierAccesDarija))); if (e.compte.pageDarija) vis.appendChild(el('div', 'muted', e.compte.pageDarija.replace('darija-', ''))); }
+      tr.appendChild(vis);
+      tr.appendChild(el('td', 'c', e.enCours ? 'Module ' + e.enCours : (e.st.nbTermines ? '—' : 'Module 1')));
+      tr.appendChild(el('td', 'c', e.st.nbTermines + ' / 24'));
+      tr.appendChild(el('td', 'c', e.st.nbMissions + ' / 24'));
+      tr.appendChild(el('td', 'c small', BLOCS.map((b) => 'P' + b + ' : ' + (e.st.examens[b].meilleur === null ? '—' : e.st.examens[b].meilleur + ' %')).join(' · ')));
+      tr.appendChild(el('td', 'c', duree(e.temps)));
+      [2, 3].forEach((b) => {
+        const td = el('td', 'c'), on = e.blocs.includes(b);
+        const bt = el('button', 'btn' + (on ? ' on' : ''), on ? 'Ouverte' : 'Fermée');
+        bt.type = 'button'; bt.setAttribute('aria-pressed', on ? 'true' : 'false');
+        bt.setAttribute('aria-label', 'Partie ' + b + ' pour ' + e.acces.email + ' : ' + (on ? 'ouverte' : 'fermée'));
+        bt.addEventListener('click', async () => {
+          bt.disabled = true;
+          try { await updateDoc(doc(db, 'emails_autorises', e.acces.id), { blocs: on ? arrayRemove(b) : arrayUnion(b) }); await charger(); }
+          catch (err) { console.error(err); bt.disabled = false; alerte('Impossible de modifier l’accès : ' + err.message); }
+        });
+        td.appendChild(bt); tr.appendChild(td);
+      });
+      const act = el('td', 'c');
+      const det = el('button', 'btn', ouvert === e.acces.id ? 'Fermer' : 'Détail'); det.type = 'button';
+      det.addEventListener('click', () => { ouvert = ouvert === e.acces.id ? null : e.acces.id; dessiner(L, R); });
+      act.appendChild(det); tr.appendChild(act);
+      tb.appendChild(tr);
+      if (ouvert === e.acces.id) {
+        const tr2 = el('tr'), td = el('td'); td.colSpan = 10; td.appendChild(detail(e)); tr2.appendChild(td); tb.appendChild(tr2);
+      }
+    });
+
+    // Activite recente
+    const noms = {}; ELEVES.forEach((e) => { if (e.compte) noms[e.compte.uid] = e.compte.nom || e.acces.email; });
+    const evts = L.map((x) => ({ d: x.date, qui: x.eleveId, nom: x.eleveNom, quoi: x.module + ' — ' + x.lecon, res: x.lecon === MISSION ? (x.statut === 'faite' ? 'faite' : 'décochée') : 'terminée', t: x.dureeSecondes }))
+      .concat(R.map((x) => ({ d: x.date, qui: x.eleveId, nom: x.eleveNom, quoi: x.module.replace('Darija Bloc', 'Darija — Partie') + ' — ' + x.quiz, res: x.score + ' / ' + x.total + ' (' + x.pourcentage + ' %)', t: x.dureeSecondes })))
+      .sort((a, b) => ms(b.d) - ms(a.d)).slice(0, 40);
+    const ta = document.getElementById('table-activite'); ta.innerHTML = '';
+    if (!evts.length) { const tr = el('tr'); tr.appendChild(el('td', 'muted', 'Aucune activité pour l’instant.')); ta.appendChild(tr); return; }
+    const h = el('tr'); ['Date', 'Élève', 'Activité', 'Résultat', 'Durée'].forEach((x) => h.appendChild(el('th', null, x))); ta.appendChild(h);
+    evts.forEach((v) => { const tr = el('tr'); [quand(v.d), noms[v.qui] || v.nom || '—', v.quoi, v.res, duree(v.t)].forEach((x) => tr.appendChild(el('td', 'small', x))); ta.appendChild(tr); });
+  }
+
+  function detail(e) {
+    const box = el('div', 'detail');
+    BLOCS.forEach((b) => {
+      const ex = e.st.examens[b];
+      box.appendChild(el('p', 'small', 'Partie ' + b + (e.st.blocsOuverts[b] ? '' : ' (fermée)') + ' — examen : ' + (ex.meilleur === null ? 'pas encore passé' : ex.meilleur + ' % sur ' + ex.essais + ' essai(s)' + (ex.reussi ? ', réussi' : ''))));
+      const sc = el('div', 'scroll'), t = el('table'), hr = el('tr');
+      ['Module', 'Leçon', 'Quiz 1', 'Quiz 2', 'Quiz 3', 'Mission', 'État'].forEach((x, i) => hr.appendChild(el('th', i ? 'c' : '', x))); t.appendChild(hr);
+      modulesDuBloc(b).forEach((n) => {
+        const tr = el('tr', e.st.accessible[n] ? '' : 'off');
+        tr.appendChild(el('td', 'small', 'Module ' + n));
+        const coche = (ok) => { const td = el('td', 'c'); if (ok) td.appendChild(icone('fa-circle-check')); else td.textContent = '—'; return td; };
+        tr.appendChild(coche(e.st.leconFaite[n]));
+        QUIZZ.forEach((q) => { const v = e.st.meilleur[n][q]; const nb = e.res.filter((r) => r.module === 'Darija ' + n && r.quiz === q).length; tr.appendChild(el('td', 'c small', v === null ? '—' : v + ' % (' + nb + ')')); });
+        tr.appendChild(coche(e.st.mission[n]));
+        tr.appendChild(el('td', 'c small', e.st.termines[n] ? 'Terminé' : !e.st.accessible[n] ? 'Verrouillé' : e.st.commence[n] ? 'En cours' : 'Ouvert'));
+        t.appendChild(tr);
+      });
+      sc.appendChild(t); box.appendChild(sc);
+    });
+    const sup = el('button', 'btn', 'Retirer de la liste Darija'); sup.type = 'button'; sup.style.marginTop = '12px';
+    sup.addEventListener('click', async () => {
+      if (!window.confirm('Retirer ' + e.acces.email + ' de la liste Darija ? Elle n’aura plus accès. Ses résultats sont conservés.')) return;
+      try { await deleteDoc(doc(db, 'emails_autorises', e.acces.id)); ouvert = null; await charger(); } catch (err) { alerte('Impossible : ' + err.message); }
+    });
+    box.appendChild(sup);
+    return box;
+  }
+
+  function alerte(txt) { const m = document.getElementById('add-msg'); m.textContent = txt; m.scrollIntoView({ block: 'center' }); }
+  async function ajouter() {
+    const input = document.getElementById('new-email'), email = input.value.trim().toLowerCase();
+    if (!email || !email.includes('@')) { alerte('Entre un e-mail valide.'); return; }
+    try {
+      const deja = await getDocs(query(collection(db, 'emails_autorises'), where('email', '==', email)));
+      if (deja.docs.some((d) => d.data().espace === 'darija')) { alerte('Cet e-mail est déjà dans la liste Darija.'); return; }
+      await addDoc(collection(db, 'emails_autorises'), { email, espace: 'darija', blocs: [], addedAt: serverTimestamp() });
+      input.value = ''; alerte(email + ' ajoutée. La partie 1 est ouverte pour elle.');
+      await charger();
+    } catch (err) { alerte('Impossible d’ajouter : ' + err.message); }
+  }
+  document.getElementById('btn-add').addEventListener('click', ajouter);
+  document.getElementById('new-email').addEventListener('keydown', (e) => { if (e.key === 'Enter') ajouter(); });
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.replace('auth-darija.html'); return; }
+    let prof = (user.email || '').toLowerCase() === PROF_EMAIL;
+    if (!prof) { try { prof = (await getDoc(doc(db, 'profs', user.uid))).exists(); } catch (_) { prof = false; } }
+    if (!prof) { window.location.replace('darija.html'); return; }
+    document.body.style.visibility = 'visible';
+    try { await charger(); } catch (e) { console.error(e); alerte('Lecture impossible : ' + e.message); }
+  });
+</script>
+</body>
+</html>

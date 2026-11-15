@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5D1828">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>Ma progression — DAK Darija</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="darija-pages.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="lang" role="group" aria-label="Langue / Idioma"><button type="button" data-l="fr" class="on">FR</button><button type="button" data-l="es">ES</button></div>
+    <a class="home" href="darija.html" aria-label="Modules Darija"><i class="fa-solid fa-house"></i></a>
+    <div class="brand-ar">دار الكلمة</div>
+    <div class="brand">Dar Al-Kalimah</div>
+    <div class="rule"></div>
+    <h1 id="titre"></h1>
+  </div>
+  <div class="tiles" id="tiles"></div>
+  <div id="parties"></div>
+</div>
+<script type="module">
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { auth, getStatutDarija, modulesDuBloc, QUIZZ, BLOCS, langue, memoriserLangue } from "./darija-core.js";
+
+  const TXT = {
+    titre: { fr: "DAK Darija · Ma progression", es: "DAK Darija · Mi progreso" },
+    modules: { fr: "Modules terminés", es: "Módulos completados" },
+    missions: { fr: "Missions faites", es: "Misiones hechas" },
+    examens: { fr: "Examens réussis", es: "Exámenes aprobados" },
+    partie: { fr: "Partie", es: "Parte" },
+    ferme: { fr: "Cette partie s'ouvre quand ta professeure te donne l'accès.", es: "Esta parte se abre cuando tu profesora te da acceso." },
+    module: { fr: "Module", es: "Módulo" }, lecon: { fr: "Leçon", es: "Lección" }, mission: { fr: "Mission", es: "Misión" }, etat: { fr: "État", es: "Estado" },
+    termine: { fr: "Terminé", es: "Completado" }, encours: { fr: "En cours", es: "En curso" }, ouvert: { fr: "Ouvert", es: "Abierto" }, verrou: { fr: "Verrouillé", es: "Bloqueado" },
+    examen: { fr: "Examen de la partie", es: "Examen de la parte" },
+    exVerrou: { fr: "Il s'ouvre quand les 8 modules sont terminés.", es: "Se abre cuando los 8 módulos están completados." },
+    exPret: { fr: "Ouvert : 30 questions, 50 % pour réussir.", es: "Abierto: 30 preguntas, 50 % para aprobar." },
+    exNote: { fr: "Meilleure note", es: "Mejor nota" }, essais: { fr: "essais", es: "intentos" },
+    passer: { fr: "Passer l'examen", es: "Hacer el examen" }, certI: { fr: "Certificat ivoire", es: "Certificado marfil" }, certB: { fr: "Certificat bordeaux", es: "Certificado burdeos" }
+  };
+  let L = langue(), ST = null, TITRES = {};
+  const t = (k) => TXT[k][L];
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; };
+  const icone = (c) => { const i = document.createElement('i'); i.className = 'fa-solid ' + c; i.setAttribute('aria-hidden', 'true'); return i; };
+
+  async function chargerTitres() {
+    try {
+      const html = await (await fetch('darija.html', { cache: 'no-cache' })).text();
+      const m = /<script id="app-data" type="application\/json">([\s\S]*?)<\/script>/.exec(html);
+      const D = JSON.parse(m[1]);
+      D.parties.forEach((p) => { TITRES['p' + p.id] = p.title; p.modules.forEach((x) => { TITRES[x.n] = x.title; }); });
+    } catch (e) { console.error('titres indisponibles', e); }
+  }
+
+  function dessiner() {
+    document.documentElement.lang = L;
+    document.title = (L === 'es' ? 'Mi progreso' : 'Ma progression') + ' — DAK Darija';
+    document.getElementById('titre').textContent = t('titre');
+    document.querySelectorAll('.lang button').forEach((b) => b.classList.toggle('on', b.dataset.l === L));
+    const tiles = document.getElementById('tiles'); tiles.innerHTML = '';
+    const tuile = (v, lab) => { const d = el('div', 'tile'); d.appendChild(el('b', null, v)); d.appendChild(el('span', null, lab)); tiles.appendChild(d); };
+    tuile(ST.nbTermines + ' / 24', t('modules'));
+    tuile(ST.nbMissions + ' / 24', t('missions'));
+    tuile(BLOCS.filter((b) => ST.examens[b].reussi).length + ' / 3', t('examens'));
+
+    const root = document.getElementById('parties'); root.innerHTML = '';
+    BLOCS.forEach((b) => {
+      const card = el('div', 'card');
+      card.appendChild(el('h2', null, t('partie') + ' ' + b + (TITRES['p' + b] ? ' — ' + TITRES['p' + b][L] : '')));
+      if (!ST.prof && !ST.blocsOuverts[b]) { const n = el('p', 'sub'); n.appendChild(icone('fa-lock')); n.appendChild(document.createTextNode(t('ferme'))); card.appendChild(n); }
+      const sc = el('div', 'scroll'), tb = el('table'), hr = el('tr');
+      [[t('module'), ''], [t('lecon'), 'c'], ['Quiz 1', 'c'], ['Quiz 2', 'c'], ['Quiz 3', 'c'], [t('mission'), 'c'], [t('etat'), '']].forEach((h) => hr.appendChild(el('th', h[1], h[0])));
+      tb.appendChild(hr);
+      modulesDuBloc(b).forEach((n) => {
+        const tr = el('tr', ST.accessible[n] ? '' : 'off');
+        tr.appendChild(el('td', null, n + '. ' + (TITRES[n] ? TITRES[n][L] : t('module') + ' ' + n)));
+        const coche = (ok) => { const td = el('td', 'c'); if (ok) { const i = icone('fa-circle-check'); i.classList.add('ok'); td.appendChild(i); } else td.textContent = '—'; return td; };
+        tr.appendChild(coche(ST.leconFaite[n]));
+        QUIZZ.forEach((q) => { const v = ST.meilleur[n][q]; tr.appendChild(el('td', 'c', v === null ? '—' : v + ' %')); });
+        tr.appendChild(coche(ST.mission[n]));
+        const e = el('td');
+        const p = el('span', 'pill' + (ST.termines[n] ? ' full' : ''), ST.termines[n] ? t('termine') : !ST.accessible[n] ? t('verrou') : ST.commence[n] ? t('encours') : t('ouvert'));
+        e.appendChild(p); tr.appendChild(e);
+        tb.appendChild(tr);
+      });
+      sc.appendChild(tb); card.appendChild(sc);
+      const ex = ST.examens[b], bas = el('p', 'msg');
+      bas.appendChild(icone(ex.ouvert ? 'fa-graduation-cap' : 'fa-lock')); bas.firstChild.classList.add('ok'); bas.firstChild.style.marginRight = '8px';
+      bas.appendChild(el('b', null, t('examen') + ' ' + b + ' : '));
+      bas.appendChild(document.createTextNode(!ex.ouvert ? t('exVerrou') : ex.meilleur === null ? t('exPret') : t('exNote') + ' ' + ex.meilleur + ' % (' + ex.essais + ' ' + t('essais') + ')'));
+      card.appendChild(bas);
+      if (ex.ouvert) {
+        const act = el('div'); act.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px';
+        const lien = (href, txt, on) => { const a = el('a', 'btn' + (on ? ' on' : ''), txt); a.href = href; act.appendChild(a); };
+        if (ex.reussi) { lien('darija-certificat.html?bloc=' + b, t('certI'), true); lien('darija-certificat-bordeaux.html?bloc=' + b, t('certB'), true); }
+        lien('darija-examen.html?bloc=' + b, t('passer'), !ex.reussi);
+        card.appendChild(act);
+      }
+      root.appendChild(card);
+    });
+  }
+  document.querySelectorAll('.lang button').forEach((b) => b.addEventListener('click', () => { L = b.dataset.l; memoriserLangue(L); if (ST) dessiner(); }));
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.replace('auth-darija.html'); return; }
+    let statut;
+    try { statut = await getStatutDarija(user); } catch (e) { console.error(e); statut = { acces: false }; }
+    if (!statut.acces) { window.location.replace('auth-darija.html'); return; }
+    ST = statut;
+    await chargerTitres();
+    dessiner();
+    document.body.style.visibility = 'visible';
+  });
+</script>
+</body>
+</html>
