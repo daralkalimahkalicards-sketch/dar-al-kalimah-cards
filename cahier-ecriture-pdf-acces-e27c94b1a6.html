@@ -1,0 +1,69 @@
+<!-- Adresse secrète donnée aux clientes après paiement Stripe (cahier d'écriture PDF seul).
+     Jamais liée publiquement sur le site — ne pas la mettre dans la navigation, le sitemap ou boutique.html. -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#5D1828">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" href="/icons/icon-192.png">
+<title>Mon cahier d'écriture · Dar Al-Kalimah</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--b:#5D1828;--g:#C8A462;--gd:#98703b;--ink:#2a1016;--muted:#8a7a6b;--line:rgba(200,164,98,.4);}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{background:#fff;color:var(--ink);font-family:'Montserrat',sans-serif;}
+.bar{position:sticky;top:0;background:var(--b);display:flex;align-items:center;justify-content:space-between;padding:10px 14px;box-shadow:0 4px 16px rgba(93,24,40,.25);}
+.bar .ar{font-family:'Amiri',serif;color:var(--g);font-size:1.6rem;font-weight:700;line-height:1;}
+.langs{display:flex;gap:2px;background:rgba(255,255,255,.12);border-radius:50px;padding:3px;}
+.langs button{border:none;background:none;padding:7px 10px;border-radius:50px;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.8);cursor:pointer;font-family:inherit;}
+.langs button.on{background:var(--g);color:var(--b);}
+.home{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--g);display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.home svg{width:22px;height:22px;fill:var(--g);}
+.wrap{max-width:620px;margin:0 auto;padding:34px 18px 50px;text-align:center;}
+.ok{width:64px;height:64px;border-radius:50%;background:#fbf6ec;border:2px solid var(--g);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.ok svg{width:30px;height:30px;stroke:var(--b);fill:none;stroke-width:3;}
+h1{font-family:'Cinzel',serif;color:var(--b);font-size:clamp(1.3rem,5.5vw,1.9rem);letter-spacing:1px;margin:6px 0 8px;}
+.orn{width:70px;height:2px;background:var(--g);margin:10px auto 18px;}
+p{line-height:1.6;color:#4a3a3f;}
+.card{background:#fbf6ec;border:1px solid var(--line);border-radius:20px;padding:24px 18px;margin:22px 0;}
+.btn{display:inline-block;border-radius:50px;font-weight:700;padding:14px 28px;font-size:.95rem;text-decoration:none;margin:6px;}
+.btn-g{background:var(--g);color:var(--b);box-shadow:0 6px 18px rgba(200,164,98,.35);}
+.btn-b{background:var(--b);color:#fff;}
+.tip{font-size:.85rem;color:var(--muted);}
+.sig{font-family:'Cinzel',serif;color:var(--b);margin-top:26px;}
+[data-l="es"]{display:none;}
+body.es [data-l="fr"]{display:none;} body.es [data-l="es"]{display:inline;}
+body.es p[data-l="es"],body.es div[data-l="es"],body.es h1[data-l="es"]{display:block;}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="home" href="index.html" aria-label="Accueil"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg></a>
+  <div class="ar">دار الكلمة</div>
+  <div class="langs"><button id="bfr" class="on" onclick="setL('fr')">FR</button><button id="bes" onclick="setL('es')">ES</button></div>
+</header>
+<main class="wrap">
+  <div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+  <h1 data-l="fr">Merci pour ton achat !</h1>
+  <h1 data-l="es">¡Gracias por tu compra!</h1>
+  <div class="orn"></div>
+  <p data-l="fr">Ton cahier d'écriture est prêt. Télécharge-le et imprime-le pour t'entraîner à écrire les lettres arabes.</p>
+  <p data-l="es">Tu cuaderno de escritura está listo. Descárgalo e imprímelo para practicar la escritura de las letras árabes.</p>
+  <div class="card">
+    <a class="btn btn-g" href="assets/cahier-ecriture-pdf/cahier-ecriture-3f95e6ac8e.pdf" download><span data-l="fr">⬇ Télécharger le cahier (PDF)</span><span data-l="es">⬇ Descargar el cuaderno (PDF)</span></a>
+    <p class="tip" data-l="fr">Garde bien cette page dans tes favoris : c'est ton accès personnel.</p>
+    <p class="tip" data-l="es">Guarda bien esta página en tus favoritos: es tu acceso personal.</p>
+  </div>
+  <p data-l="fr">Une question ? Écris-moi à <a href="mailto:houda@daralkalimah.com">houda@daralkalimah.com</a>.</p>
+  <p data-l="es">¿Una pregunta? Escríbeme a <a href="mailto:houda@daralkalimah.com">houda@daralkalimah.com</a>.</p>
+  <div class="sig">Houda · Dar Al-Kalimah</div>
+</main>
+<script>
+function setL(l){document.body.classList.toggle('es',l==='es');document.getElementById('bfr').classList.toggle('on',l==='fr');document.getElementById('bes').classList.toggle('on',l==='es');document.documentElement.lang=l;try{localStorage.setItem('dak_lang',l);}catch(e){}}
+(function(){var l='fr';try{l=localStorage.getItem('dak_lang')||l;}catch(e){}if(/^es/i.test(navigator.language)&&!localStorage.getItem('dak_lang'))l='es';if(l==='es')setL('es');})();
+</script>
+</body>
+</html>
