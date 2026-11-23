@@ -2116,8 +2116,13 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
         }
       };
 
+      function dakPenWidth(){
+        var s = 'moyen'; try { s = localStorage.getItem('dak_pen_size') || 'moyen'; } catch(e) {}
+        var w = { fin: 3, moyen: 6, epais: 11 }[s] || 6;
+        return window.innerWidth <= 480 ? w * 0.75 : w;
+      }
       const slateTools = SlateTools.createController({
-        penWidth: window.innerWidth <= 480 ? 4.5 : 6,
+        penWidth: dakPenWidth(),
         eraserWidth: 22
       });
 
@@ -2148,6 +2153,26 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
             this.clear();
             Utils.setStatus(DOM.slateStatus, "warning", "تم مسح اللوح. / L’ardoise a été effacée. / La pizarra ha sido borrada.");
           });
+          (function(){
+            var bar = document.querySelector("#pen-toolbar-mount .pen-toolbar"); if (!bar) return;
+            var cur = 'moyen'; try { cur = localStorage.getItem('dak_pen_size') || 'moyen'; } catch(e) {}
+            var _L = window.L || function(fr){ return fr; };
+            var box = document.createElement("div"); box.className = "pen-size";
+            [["fin", 4, _L("Fin","Fino")], ["moyen", 8, _L("Moyen","Medio")], ["epais", 14, _L("Épais","Grueso")]].forEach(function(o){
+              var b = document.createElement("button"); b.type = "button"; b.className = "pen-size-btn" + (o[0] === cur ? " on" : "");
+              b.title = o[2]; b.setAttribute("aria-label", o[2]);
+              b.innerHTML = '<span class="dot" style="width:' + o[1] + 'px;height:' + o[1] + 'px"></span><span class="lbl">' + o[2] + '</span>';
+              b.addEventListener("click", function(){
+                try { localStorage.setItem('dak_pen_size', o[0]); } catch(e) {}
+                box.querySelectorAll(".pen-size-btn").forEach(function(x){ x.classList.toggle("on", x === b); });
+                slateTools.state.isErasing = false;
+                var er = bar.querySelector(".active-eraser"); if (er) er.classList.remove("active-eraser");
+                slateTools.setPenWidth(dakPenWidth());
+              });
+              box.appendChild(b);
+            });
+            bar.insertBefore(box, bar.querySelector(".pen-tools"));
+          })();
         },
 
         resizeCanvas() {
@@ -2156,7 +2181,7 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
           this.canvas.width = width;
           this.canvas.height = height;
 
-          slateTools.setPenWidth(window.innerWidth <= 480 ? 4.5 : 6);
+          slateTools.setPenWidth(dakPenWidth());
           slateTools.applyStyle(this.ctx);
         },
 
@@ -2681,5 +2706,14 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('DOMContentLoaded', function(){ setTimeout(align, 50); });
 })();
 </script>
+<style>
+  .pen-size{display:inline-flex;gap:6px;align-items:center;}
+  .pen-size-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:46px;height:44px;padding:4px 6px;border:1.5px solid rgba(200,164,98,.55);border-radius:12px;background:#fff;cursor:pointer;font-family:'Montserrat',sans-serif;}
+  .pen-size-btn .dot{display:block;border-radius:50%;background:#5D1828;}
+  .pen-size-btn .lbl{font-size:.62rem;font-weight:600;color:#8a6d3b;line-height:1;}
+  .pen-size-btn.on{border-color:#C8A462;background:#fbf6ec;box-shadow:0 2px 8px rgba(93,24,40,.15);}
+  .pen-size-btn.on .lbl{color:#5D1828;}
+  @media (max-width:480px){.pen-size-btn{min-width:40px;height:40px;}.pen-size-btn .lbl{font-size:.56rem;}}
+</style>
 </body>
 </html>
