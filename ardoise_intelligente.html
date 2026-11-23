@@ -20,7 +20,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="slate-tools.css" />
-  <script src="slate-tools.js"></script>
+  <script>
+window.DAK_LANG = (function(){
+  var l = null;
+  try { var p = new URLSearchParams(location.search).get('lang'); if (p === 'fr' || p === 'es') { l = p; localStorage.setItem('dak_ardoise_lang', p); } } catch(e) {}
+  if (!l) { try { l = localStorage.getItem('dak_ardoise_lang') || localStorage.getItem('dak-lang') || localStorage.getItem('dak_lang'); } catch(e) {} }
+  return (l === 'es') ? 'es' : 'fr';
+})();
+window.L = function(fr, es){ return window.DAK_LANG === 'es' ? es : fr; };
+window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / '); return p.length === 2 ? L(p[0], p[1]) : s; };
+</script>
+<script src="slate-tools.js"></script>
 
   <style>
     :root {
@@ -910,7 +920,7 @@
       z-index: 1;
       pointer-events: none;
       user-select: none;
-      transition: transform 0.3s ease, font-size 0.3s ease;
+      transition: none;
       padding: 0 10px;
       overflow: hidden;
       line-height: 1.1;
@@ -1226,6 +1236,43 @@
 <script src="dak-home.js"></script>
 </head>
 <body>
+
+<style>
+  .practice-layout.mode-bank{grid-template-columns:minmax(0,1fr) !important;}
+  .practice-layout.mode-bank .guide-column{display:none !important;}
+  .dak-logo-hdr{display:block;width:96px;height:96px;margin:0 auto 10px;border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,.25);}
+  @media (max-width:480px){.dak-logo-hdr{width:76px;height:76px;}}
+  .forms-hint{text-align:center;font-family:'Montserrat',sans-serif;font-size:.8rem;color:#8a6d3b;margin:10px 0 6px;}
+  .form-card{cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;}
+  .form-card:hover{transform:translateY(-2px);}
+  .form-card.active{border:2px solid #C8A462 !important;background:#fbf6ec !important;box-shadow:0 4px 14px rgba(93,24,40,.15) !important;}
+  .form-card.active .la-form{color:#5D1828;}
+  .dak-ico{display:inline-block;vertical-align:-0.125em;}
+  .intro-card-body small,.challenge-hint small,.sentence-type small,.mini-note,.step-fr-es,.pos-tr{unicode-bidi:plaintext;}
+  .lang-switch{display:inline-flex;border:1.5px solid #C8A462;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);}
+  .lang-switch button{border:0;background:transparent;color:#C8A462;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;padding:8px 14px;cursor:pointer;}
+  .lang-switch button.on{background:#C8A462;color:#5D1828;}
+</style>
+<script>
+(function(){
+  // textes statiques + bouton FR / ES
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('[data-fr]').forEach(function(el){ el.textContent = L(el.dataset.fr, el.dataset.es); });
+    var top = document.querySelector('.header-topbar');
+    if (top) {
+      var sw = document.createElement('div'); sw.className = 'lang-switch'; sw.setAttribute('dir', 'ltr');
+      ['fr', 'es'].forEach(function(code){
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = code.toUpperCase();
+        if (code === DAK_LANG) b.className = 'on';
+        b.onclick = function(){ if (code === DAK_LANG) return; try { localStorage.setItem('dak_ardoise_lang', code); } catch(e) {}
+          var u = new URL(location.href); u.searchParams.set('lang', code); location.href = u.toString(); };
+        sw.appendChild(b);
+      });
+      top.insertBefore(sw, top.firstChild);
+    }
+  });
+})();
+</script>
   <div class="app-shell">
 
     <header class="header-container">
@@ -1235,12 +1282,13 @@
         </a>
 
         <button id="btn-install-hint" class="btn-header-ghost" type="button" aria-label="Informations PWA">
-          <i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
+          <svg class="dak-ico" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
           <span>App Ready</span>
         </button>
       </div>
 
       <div class="header-branding">
+        <img class="dak-logo-hdr" alt="Dar Al-Kalimah" src="icons/logo-dak-creme.png">
         <div id="brand-ar" class="brand-ar ar-text">اللوح الذكي</div>
         <div id="brand-fr-es" class="brand-fr-es latin-serif">L'Ardoise Intelligente | La Pizarra Inteligente</div>
         <div id="app-title" class="app-title latin-serif">Dar Al-Kalimah</div>
@@ -1258,7 +1306,7 @@
     <section class="module-section" aria-labelledby="intro-title">
       <h2 id="intro-title" class="section-title">
         نظرة سريعة على الوحدة
-        <span class="section-title-es">Vue d’ensemble / Vista general</span>
+        <span class="section-title-es"><span data-fr="Vue d’ensemble" data-es="Vista general">Vue d’ensemble</span></span>
       </h2>
 
       <div id="intro-cards" class="intro-cards"></div>
@@ -1267,7 +1315,7 @@
     <section class="module-section" aria-labelledby="analysis-title">
       <h2 id="analysis-title" class="section-title">
         تحليل الجملة
-        <span class="section-title-es">Analyse de la phrase / Análisis de la frase</span>
+        <span class="section-title-es"><span data-fr="Analyse de la phrase" data-es="Análisis de la frase">Analyse de la phrase</span></span>
       </h2>
 
       <div class="analysis-input-group">
@@ -1283,12 +1331,12 @@
 
         <div class="action-row">
           <button id="btn-analyze" class="btn-primary" type="button">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <span>تحليل / Analyser</span>
+            <svg class="dak-ico" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <span>تحليل / <span data-fr="Analyser" data-es="Analizar">Analyser</span></span>
           </button>
           <button id="btn-fill-example" class="btn-secondary" type="button">
-            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
-            <span>مثال / Exemple</span>
+            <svg class="dak-ico" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20L16 8"/><path d="M15 4v3M13.5 5.5h3M20 9v2M19 10h2M10 3v2M9 4h2"/></svg>
+            <span>مثال / <span data-fr="Exemple" data-es="Ejemplo">Exemple</span></span>
           </button>
         </div>
       </div>
@@ -1304,13 +1352,13 @@
     <section class="module-section" aria-labelledby="practice-title">
       <h2 id="practice-title" class="section-title">
         التدريب الموجّه
-        <span class="section-title-es">Entraînement guidé / Práctica guiada</span>
+        <span class="section-title-es"><span data-fr="Entraînement guidé" data-es="Práctica guiada">Entraînement guidé</span></span>
       </h2>
 
       <div class="toolbar-row">
         <div class="mode-toggle" aria-label="Sélection du mode">
-          <button id="btn-mode-letters" class="mode-btn active" type="button">الحروف (Lettres)</button>
-          <button id="btn-mode-bank" class="mode-btn" type="button">الكلمات (Lexique)</button>
+          <button id="btn-mode-letters" class="mode-btn active" type="button">الحروف (<span data-fr="Lettres" data-es="Letras">Lettres</span>)</button>
+          <button id="btn-mode-bank" class="mode-btn" type="button">الكلمات (<span data-fr="Lexique" data-es="Léxico">Lexique</span>)</button>
         </div>
 
         <div class="quick-actions">
@@ -1324,7 +1372,7 @@
 
       <div id="bank-selector-wrap" class="bank-selector-wrap">
         <select id="bank-select" class="bank-select" aria-label="Choisir un mot du lexique">
-          <option value="">-- اختر كلمة / Choisir un mot --</option>
+          <option value="">-- اختر كلمة --</option>
         </select>
       </div>
 
@@ -1336,28 +1384,29 @@
               <div id="guide-steps" class="stroke-guide-steps"></div>
             </div>
 
+            <div class="forms-hint"><span data-fr="Clique sur une position pour l’écrire sur l’ardoise" data-es="Pulsa una posición para escribirla en la pizarra">Clique sur une position pour l’écrire sur l’ardoise</span></div>
             <div id="forms-grid" class="forms-grid"></div>
           </div>
         </div>
 
         <div class="slate-column">
           <div id="prompt-card" class="prompt-card">
-            <div class="prompt-label">Prompt pédagogique</div>
+            <div class="prompt-label"><span data-fr="Consigne" data-es="Consigna">Consigne</span></div>
             <div id="prompt-value" class="prompt-value">
               اختر حرفًا أو كلمة ثم اكتبها على اللوح.
-              <span class="mini-note">Choisis un élément puis entraîne-toi à l’écrire.</span>
+              <span class="mini-note"><span data-fr="Choisis un élément puis entraîne-toi à l’écrire." data-es="Elige un elemento y practica cómo escribirlo.">Choisis un élément puis entraîne-toi à l’écrire.</span></span>
             </div>
           </div>
 
           <div class="slate-header">
             <div class="slate-title ar-text">
               اكتب هنا
-              <span>Écrire ici / Escribir aquí</span>
+              <span><span data-fr="Écrire ici" data-es="Escribir aquí">Écrire ici</span></span>
             </div>
 
             <div class="slate-controls">
               <button id="btn-replay-arrow" class="btn-slate" type="button">
-                <i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i>
+                <svg class="dak-ico" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
                 <span>إعادة التوجيه</span>
               </button>
             </div>
@@ -1379,14 +1428,14 @@
     <section class="module-section" aria-labelledby="challenge-title">
       <h2 id="challenge-title" class="section-title">
         تحديات سريعة
-        <span class="section-title-es">Défis rapides / Desafíos rápidos</span>
+        <span class="section-title-es"><span data-fr="Défis rapides" data-es="Desafíos rápidos">Défis rapides</span></span>
       </h2>
 
       <div id="challenge-grid" class="challenge-grid"></div>
     </section>
 
     <div class="footer-note">
-      Structure prête pour données dynamiques, audio réutilisable, prompts rotatifs, logique modulaire, PWA et extension future vers quiz intelligent.
+      <span data-fr="Structure prête pour données dynamiques, audio réutilisable, prompts rotatifs, logique modulaire, PWA et extension future vers quiz intelligent." data-es="Estructura lista para datos dinámicos, audio reutilizable, consignas rotativas, lógica modular, PWA y futura extensión a cuestionarios inteligentes.">Structure prête pour données dynamiques, audio réutilisable, prompts rotatifs, logique modulaire, PWA et extension future vers quiz intelligent.</span>
     </div>
   </div>
 
@@ -1868,6 +1917,7 @@
           return words.filter(w => w.type === type).length;
         },
         setStatus(node, type, message) {
+          if (typeof message === "string") { const _p = message.split(" / "); if (_p.length === 3) message = _p[0] + " / " + L(_p[1], _p[2]); }
           node.className = "status-box";
           if (!message) {
             node.textContent = "";
@@ -2060,7 +2110,7 @@
           if (!prompt) return;
           DOM.promptValue.innerHTML = `
             ${prompt.ar}
-            <span class="mini-note">${prompt.fr} / ${prompt.es}</span>
+            <span class="mini-note">${L(prompt.fr, prompt.es)}</span>
           `;
           Utils.save(DATA.meta.storageKeys.lastPrompt, prompt);
         }
@@ -2161,11 +2211,11 @@
           document.title = DATA.meta.pageTitle;
           DOM.btnBackHome.href = DATA.meta.homeHref;
           DOM.brandAr.textContent = DATA.meta.brandAr;
-          DOM.brandFrEs.textContent = DATA.meta.brandFrEs;
+          DOM.brandFrEs.textContent = L("L'Ardoise magique", "La Pizarra mágica");
           DOM.appTitle.textContent = DATA.meta.appTitle;
           DOM.titleAr.textContent = DATA.meta.titleAr;
-          DOM.titleFr.textContent = DATA.meta.titleFr;
-          DOM.titleEs.textContent = DATA.meta.titleEs;
+          DOM.titleFr.textContent = DATA.meta.titleFr; if (DAK_LANG === "es") { DOM.titleFr.style.display = "none"; DOM.titleFr.nextElementSibling.style.display = "none"; }
+          DOM.titleEs.textContent = DATA.meta.titleEs; if (DAK_LANG === "fr") { DOM.titleEs.style.display = "none"; DOM.titleEs.previousElementSibling.style.display = "none"; }
           DOM.sentenceInput.placeholder = DATA.ui.analysisPlaceholder;
 
           AudioController.init();
@@ -2231,7 +2281,7 @@
               <h3 class="intro-card-title">${card.title}</h3>
               <div class="intro-card-body ar-text">
                 ${card.bodyAr}
-                <small>${card.bodyFrEs}</small>
+                <small>${pickFrEs(card.bodyFrEs)}</small>
               </div>
             </article>
           `).join("");
@@ -2256,7 +2306,7 @@
 
         renderBank() {
           const options = DATA.wordBank.map(word => `<option value="${word}">${word}</option>`).join("");
-          DOM.bankSelect.innerHTML = `<option value="">-- اختر كلمة / Choisir un mot --</option>${options}`;
+          DOM.bankSelect.innerHTML = `<option value="">-- اختر كلمة / ${L("Choisir un mot","Elegir una palabra")} --</option>${options}`;
           if (this.state.selectedWord) DOM.bankSelect.value = this.state.selectedWord;
         },
 
@@ -2264,15 +2314,15 @@
           const cards = DATA.challengeCards;
           DOM.challengeGrid.innerHTML = cards.map((card, index) => `
             <article class="challenge-card">
-              <div class="challenge-badge">${card.badge}</div>
+              <div class="challenge-badge">${({Trace:L("Tracé","Trazo"),Word:L("Mot","Palabra"),Analyse:L("Analyse","Análisis")})[card.badge] || card.badge}</div>
               <div class="challenge-word">${card.word}</div>
               <div class="challenge-hint ar-text">
                 ${card.ar}
-                <small>${card.fr} / ${card.es}</small>
+                <small>${L(card.fr, card.es)}</small>
               </div>
               <div class="challenge-actions">
                 <button class="btn-secondary" type="button" data-challenge-index="${index}" data-action="apply">
-                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  <svg class="dak-ico" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4L10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
                   <span>استعمل</span>
                 </button>
               </div>
@@ -2308,6 +2358,8 @@
           DOM.lettersSelector.style.display = isLetters ? "flex" : "none";
           DOM.bankSelectorWrap.style.display = isLetters ? "none" : "block";
           DOM.strokeGuideWrapper.style.display = isLetters ? "flex" : "none";
+          const _pl = document.querySelector(".practice-layout");
+          if (_pl && _pl.classList.contains("mode-bank") === isLetters) { _pl.classList.toggle("mode-bank", !isLetters); setTimeout(() => window.dispatchEvent(new Event("resize")), 30); }
 
           Utils.save(DATA.meta.storageKeys.mode, this.state.mode);
         },
@@ -2356,24 +2408,24 @@
           DOM.analysisResult.style.display = "block";
           DOM.sentenceType.innerHTML = `
             ${typeConfig.ar}
-            <small>${typeConfig.fr} / ${typeConfig.es}</small>
+            <small>${L(typeConfig.fr, typeConfig.es)}</small>
           `;
 
           DOM.analysisMeta.innerHTML = `
             <div class="meta-card">
-              <div class="meta-label">Mots</div>
+              <div class="meta-label">${L("Mots","Palabras")}</div>
               <div class="meta-value">${analysis.stats.wordsCount}</div>
             </div>
             <div class="meta-card">
-              <div class="meta-label">Noms</div>
+              <div class="meta-label">${L("Noms","Sustantivos")}</div>
               <div class="meta-value">${analysis.stats.nouns}</div>
             </div>
             <div class="meta-card">
-              <div class="meta-label">Verbes</div>
+              <div class="meta-label">${L("Verbes","Verbos")}</div>
               <div class="meta-value">${analysis.stats.verbs}</div>
             </div>
             <div class="meta-card">
-              <div class="meta-label">Particules</div>
+              <div class="meta-label">${L("Particules","Partículas")}</div>
               <div class="meta-value">${analysis.stats.particles}</div>
             </div>
           `;
@@ -2384,7 +2436,7 @@
               <div class="word-tag" style="border-top-color: var(--${pos.className});">
                 <span class="word">${item.raw}</span>
                 <span class="pos ${pos.className} ar-text">${pos.ar}</span>
-                <span class="pos-tr">${pos.fr}<br>${pos.es}</span>
+                <span class="pos-tr">${L(pos.fr, pos.es)}</span>
               </div>
             `;
           }).join("");
@@ -2440,19 +2492,32 @@
           DOM.guideSteps.innerHTML = `
             <div class="stroke-step">
               <div class="step-ar ar-text">${data.stepsAr}</div>
-              <div class="step-fr-es">${data.stepsFr}<br>${data.stepsEs}</div>
+              <div class="step-fr-es">${L(data.stepsFr, data.stepsEs)}</div>
             </div>
           `;
 
           DOM.formsGrid.innerHTML = forms.map((form, index) => `
-            <div class="form-card">
+            <div class="form-card${index === 0 ? ' active' : ''}" data-form-index="${index}" role="button" tabindex="0">
               <div class="ar-form">${form}</div>
               <div class="la-form">
-                ${DATA.ui.formLabels[index].fr}
-                <small>${DATA.ui.formLabels[index].es}</small>
+                ${L(DATA.ui.formLabels[index].fr, DATA.ui.formLabels[index].es)}
               </div>
             </div>
           `).join("");
+
+          DOM.formsGrid.querySelectorAll(".form-card").forEach(card => {
+            const choose = () => {
+              const i = Number(card.dataset.formIndex);
+              DOM.formsGrid.querySelectorAll(".form-card").forEach(c => c.classList.toggle("active", c === card));
+              this.setWatermark(forms[i], "letter");
+              SlateController.clear();
+              const lab = DATA.ui.formLabels[i];
+              Utils.setStatus(DOM.slateStatus, "warning", `اكتب ${forms[i]} على اللوح. / Écris la forme « ${lab.fr} » de la lettre ${letter}. / Escribe la forma «${lab.es}» de la letra ${letter}.`);
+              DOM.slateCanvas && DOM.slateCanvas.scrollIntoView({ behavior: "smooth", block: "center" });
+            };
+            card.addEventListener("click", choose);
+            card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(); } });
+          });
 
           DOM.strokeGuideWrapper.style.display = "flex";
           DOM.bankSelect.value = "";
@@ -2530,14 +2595,14 @@
         getResponsiveWatermarkSize(type, text = "") {
           const w = window.innerWidth;
           if (type === "letter") {
-            if (w <= 480) return "7rem";
-            if (w <= 768) return "9.5rem";
-            return "12rem";
+            if (w <= 480) return "10rem";
+            if (w <= 768) return "13rem";
+            return "16rem";
           }
 
-          if (w <= 480) return text.length >= 6 ? "3rem" : "4.2rem";
-          if (w <= 768) return text.length >= 6 ? "4.2rem" : "5.4rem";
-          return text.length >= 6 ? "5.8rem" : "7rem";
+          if (w <= 480) return text.length >= 6 ? "5.4rem" : "7rem";
+          if (w <= 768) return text.length >= 6 ? "7.6rem" : "9.6rem";
+          return text.length >= 6 ? "11rem" : "13rem";
         },
 
         setArrow(direction) {
@@ -2577,6 +2642,44 @@ if ('serviceWorker' in navigator) {
     window.location.reload();
   });
 }
+</script>
+
+<style>
+  .slate-watermark{display:block !important;text-align:center;line-height:1;white-space:nowrap;}
+  .slate-watermark .wm-mark{display:inline-block;width:0;height:0;}
+</style>
+<script>
+(function(){
+  var App = window.DarAlKalimahArdoisePremium;
+  if (!App || !App.setWatermark) return;
+  function align(){
+    var wm = document.getElementById('slate-watermark'); if (!wm) return;
+    var box = wm.parentElement, H = box.clientHeight, STEP = 48;
+    var txt = wm.textContent;
+    wm.innerHTML = '';
+    var t = document.createElement('span'); t.textContent = txt;
+    var m = document.createElement('span'); m.className = 'wm-mark';
+    t.appendChild(m); wm.appendChild(t);
+    wm.style.transform = 'none'; wm.style.paddingTop = '0px';
+    var maxW = box.clientWidth * 0.92, tw = t.getBoundingClientRect().width;
+    if (tw > maxW) wm.style.fontSize = (parseFloat(getComputedStyle(wm).fontSize) * maxW / tw) + 'px';
+    var wmTop = wm.getBoundingClientRect().top, tr = t.getBoundingClientRect();
+    var markY = m.getBoundingClientRect().top - wmTop;            // ligne de base du texte
+    var cs = getComputedStyle(wm), cx = (align._c || (align._c = document.createElement('canvas'))).getContext('2d');
+    cx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+    var mt = cx.measureText(txt), asc = mt.actualBoundingBoxAscent || parseFloat(cs.fontSize) * 0.6, desc = mt.actualBoundingBoxDescent || 0;
+    if (asc + desc > H * 0.86) { var r = H * 0.86 / (asc + desc); wm.style.fontSize = (parseFloat(cs.fontSize) * r) + 'px'; asc *= r; desc *= r; markY = m.getBoundingClientRect().top - wm.getBoundingClientRect().top; }
+    var k = Math.round((H / 2 + (asc - desc) / 2) / STEP);        // encre du mot centrée, ligne de base sur la ligne la plus proche
+    k = Math.max(1, Math.min(k, Math.floor(H / STEP)));
+    var baseY = k * STEP;
+    wm.style.paddingTop = Math.round(baseY - markY) + 'px';
+  }
+  var orig = App.setWatermark.bind(App);
+  App.setWatermark = function(text, type){ orig(text, type); align(); };
+  window.addEventListener('resize', function(){ setTimeout(align, 60); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(align, 50); });
+})();
 </script>
 </body>
 </html>
