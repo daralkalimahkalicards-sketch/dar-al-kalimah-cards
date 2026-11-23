@@ -2036,58 +2036,115 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
       };
 
       const AnalysisEngine = {
-        isParticle(word) {
-          return DATA.particles.includes(word);
+        PRON: ["أنا","انا","أنت","انت","أنتِ","أنتما","أنتم","أنتن","هو","هي","هما","هم","هن","نحن"],
+        DEM: ["هذا","هذه","ذلك","تلك","هؤلاء","أولئك","هذان","هاتان","الذي","التي","الذين","اللذان","اللتان","اللواتي","اللاتي"],
+        JARR: ["في","من","إلى","الى","على","عن","مع","حتى","منذ","عند","بين","فوق","تحت","أمام","خلف","قبل","بعد"],
+        ZARF: ["اليوم","الآن","الان","غدا","غداً","أمس","صباحا","صباحاً","مساء","مساءً","ليلا","ليلاً","هنا","هناك","دائما","دائماً","أحيانا","أحياناً","كثيرا","كثيراً","قليلا","قليلاً","جدا","جداً"],
+        PART: ["و","ف","ثم","أو","او","بل","لا","لم","لن","قد","هل","إن","ان","أن","إنّ","أنّ","لكن","لكنّ","يا","ما","كي","لعل","ليت","نعم","كلا","إذا","اذا","لو","لماذا","كيف","متى","أين","اين","ماذا"],
+        NOUN: ["أم","أب","أخ","أخت","ابن","ابنة","بنت","ولد","رجل","امرأة","امراة","اسم","يد","يوم","بيت","باب","أسرة","أهل","أرض","أكل","ألم","أمس","أنف","أذن","تمر","تفاح","نور","نار","ناس","نهر","يمين","يسار","أستاذ","أستاذة","تلميذ","تلميذة","نبي","إسلام","إيمان","أمل","أسد","أرنب","أخضر","أحمر","أزرق","أصفر","أبيض","أسود","أكبر","أصغر","أول","آخر","أحمد","يوسف","يونس","يحيى","يعقوب","إبراهيم","إسماعيل","أيوب","نوح","آدم","أنس","أمين","أمينة","ياسين","يسرى","نادية","تامر","ناصر","نبيل","نجيب","أخبار","أطفال","أولاد","أصدقاء","أيام","أشياء","أسماء","أعمال","تلفاز","ثلاث","أربع","تسع","يمن","تونس","أمريكا","أوروبا","إسبانيا","ألمانيا","إنجلترا","إيطاليا","المغرب","فرنسا","ماء","سماء","قهوة","شاي","حليب","خبز","كتاب","قلم","مدرسة","سيارة","طعام","لغة","قرآن"],
+        VERB: ["ذهب","كتب","قرأ","أكل","شرب","جلس","خرج","دخل","فتح","رجع","نام","قال","كان","سمع","رأى","عرف","فهم","لعب","درس","أحب","أراد","جاء","ركب","سافر","صلى","صام","ساعد","عمل","طبخ","غسل","حمل","وجد","بدأ","انتهى","تعلم","علم","قام","وقف","مشى","ضحك","بكى","أعطى","أخذ","وضع","سأل","أجاب","اشترى","باع","فعل","صار","أصبح","ليس"],
+        IMPER: ["كل","خذ","قل","قم","نم","قف","دع","صل","بع","ضع","رد","عد","اكتب","اقرأ","اجلس","اذهب","ادخل","اخرج","افتح","اسمع","انظر","اشرب","العب","ادرس","تعلم","تعال","ارسم"],
+        norm(w) { return Utils.stripDiacritics(w).replace(/[.,!?؟،؛:«»"()ـ]/g, ""); },
+        // enlève و / ف / سـ collés devant
+        core(w) {
+          let c = w;
+          if (c.length > 3 && /^[وف]/.test(c)) c = c.slice(1);
+          return c;
         },
-
-        isKnownVerb(word) {
-          return DATA.knownVerbs.some(v => word === v || word.startsWith(v));
+        isParticle(c) { return this.JARR.includes(c) || this.PART.includes(c) || (DATA.particles || []).includes(c); },
+        isPronoun(c) { return this.PRON.includes(c); },
+        nounish(c) {
+          if (this.NOUN.includes(c) || this.DEM.includes(c) || this.isPronoun(c)) return true;
+          if (/^(ال|بال|لل|كال|وال|فال)/.test(c)) return true;
+          if (/(ة|ات|اء|ً|ٌ|ٍ)$/.test(c)) return true;
+          // possessif : أمي، أبوك، اسمه…
+          const base = c.replace(/(ي|ك|ه|ها|نا|كم|هم)$/, "");
+          if (base !== c && (this.NOUN.includes(base) || this.NOUN.includes(base.replace(/و$/, "")))) return true;
+          return false;
         },
-
-        looksLikePresentVerb(word) {
-          return !word.startsWith("ال") && /^[يتأن]/.test(word) && word.length >= 3;
+        isVerb(c, index) {
+          if (this.nounish(c)) return false;
+          if (this.IMPER.includes(c)) return true;
+          if ((DATA.knownVerbs || []).some(v => c === v)) return true;
+          if (this.VERB.includes(c)) return true;
+          const fut = c.replace(/^س(?=[يتنأ])/, "");
+          if (/^[يتنأ]/.test(fut) && fut.length >= 3 && fut.length <= 7) return true;
+          // passé avec terminaison de sujet : كتبت، ذهبوا، أكلنا
+          const stem = c.replace(/(تما|تم|تن|نا|وا|ت|ا)$/, "");
+          if (stem !== c && this.VERB.includes(stem)) return true;
+          return false;
         },
-
-        looksLikeImperative(word) {
-          if (word.startsWith("ا") && !word.startsWith("ال") && word.length >= 4) return true;
-          return ["كل","خذ","قل","قم","نم","قف","دع","صل","بع","ضع","رد","عد"].includes(word);
-        },
-
-        isVerb(word) {
-          return this.isKnownVerb(word) || this.looksLikePresentVerb(word) || this.looksLikeImperative(word);
-        },
-
         detectWordType(rawWord) {
-          const clean = Utils.stripDiacritics(rawWord);
-
-          if (!clean) return "unknown";
-          if (this.isParticle(clean)) return "particle";
-          if (this.isVerb(clean)) return "verb";
-          if (clean.startsWith("ال") || clean.length >= 2) return "noun";
-          return "unknown";
+          const c = this.core(this.norm(rawWord));
+          if (!c) return "unknown";
+          if (this.isPronoun(c) || this.DEM.includes(c)) return "noun";
+          if (this.isParticle(c)) return "particle";
+          if (this.isVerb(c)) return "verb";
+          return "noun";
         },
-
         detectSentenceType(words) {
-          const first = words[0]?.clean || "";
-          return this.isVerb(first) ? "verbal" : "nominal";
+          const first = words.find(w => w.type !== "particle" || !["و","ف"].includes(w.clean));
+          return first && first.type === "verb" ? "verbal" : "nominal";
         },
-
+        hiddenSubject(c) { return /^س?[أنا]/.test(c) || /^س?ت/.test(c) && false; },
+        assignRoles(words, sentenceType) {
+          let afterJarr = false, mubtada = false, khabar = false, verbSeen = false, fail = false, maf = false, hidden = false;
+          words.forEach((w, i) => {
+            const c = this.core(w.clean);
+            if (w.type === "particle") {
+              w.role = this.JARR.includes(c) ? "jarr" : (["و","ف","ثم","أو","او","بل"].includes(c) ? "atf" : "harf");
+              afterJarr = w.role === "jarr";
+              if (w.role === "atf") { verbSeen = false; fail = false; maf = false; hidden = false; }
+              return;
+            }
+            if (this.isPronoun(c)) w.sub = "pron";
+            else if (this.DEM.includes(c)) w.sub = "dem";
+            if (afterJarr) { w.role = (mubtada && !khabar) ? "majrur_khabar" : "majrur"; if (mubtada && !khabar) khabar = true; afterJarr = false; return; }
+            if (w.type === "verb") {
+              w.role = (mubtada && !khabar) ? "fil_khabar" : "fil";
+              const isKh = mubtada && !khabar;
+              if (isKh) khabar = true;
+              verbSeen = true; fail = false; maf = false;
+              hidden = isKh || /^س?[أن]/.test(c) || this.IMPER.includes(c) || /(نا|وا|ت)$/.test(c) && this.VERB.includes(c.replace(/(نا|وا|ت)$/, ""));
+              return;
+            }
+            // nom
+            if (this.ZARF.includes(c)) { w.role = "zarf"; return; }
+            const pv = words[i - 1];
+            if (pv && pv.type === "noun" && !pv.sub && pv.role && pv.role !== "jarr") {
+              const def = s => /^(ال|بال|لل|كال|وال|فال)/.test(s);
+              const pc = this.core(pv.clean);
+              const okMub = !(pv.role === "mubtada" && !khabar) || (def(c) && def(pc));
+              const base = c.replace(/^(ال|بال|لل|كال|وال|فال)/, "").replace(/(ة|ات|ون|ين)$/, "");
+              const adj = !this.NOUN.includes(base) && (/^.{2}ي.$/.test(base) || /^.ا..$/.test(base) || /ي$/.test(base) || /^أ...$/.test(base) || /^م/.test(base));
+              if (okMub && adj && def(c) === def(pc)) { w.role = "naat"; return; }
+            }
+            if (verbSeen) {
+              if (!fail && !hidden) { w.role = "fail"; fail = true; return; }
+              if (!maf) { w.role = "mafool"; maf = true; return; }
+              w.role = ""; return;
+            }
+            if (!mubtada) { w.role = "mubtada"; mubtada = true; return; }
+            if (!khabar) {
+              // هذا الكتاب جميل : nom défini juste après un démonstratif = badal
+              const prev = words[i - 1];
+              if (prev && prev.sub === "dem" && /^ال/.test(c)) { w.role = "badal"; return; }
+              w.role = "khabar"; khabar = true; return;
+            }
+            w.role = "";
+          });
+        },
         analyze(text) {
           const tokens = text.trim().split(/\s+/).filter(Boolean);
           if (!tokens.length) return null;
-
           const words = tokens.map(raw => {
-            const clean = Utils.stripDiacritics(raw);
-            const type = this.detectWordType(raw);
-            return { raw, clean, type };
+            const clean = this.norm(raw);
+            return { raw, clean, type: this.detectWordType(raw) };
           });
-
           const sentenceType = this.detectSentenceType(words);
-
+          this.assignRoles(words, sentenceType);
           return {
-            text,
-            sentenceType,
-            words,
+            text, sentenceType, words,
             stats: {
               wordsCount: words.length,
               nouns: Utils.countDetected(words, "noun"),
@@ -2097,6 +2154,24 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
           };
         }
       };
+
+      const ROLE_LABELS = {
+        mubtada: ["مبتدأ", "Sujet de la phrase nominale (mubtada’)", "Sujeto de la frase nominal (mubtada’)"],
+        khabar: ["خبر", "Prédicat (khabar)", "Predicado (jabar)"],
+        fil: ["فعل", "Verbe", "Verbo"],
+        fil_khabar: ["فعل · الخبر جملة فعلية", "Verbe : le khabar est une phrase verbale", "Verbo: el jabar es una frase verbal"],
+        fail: ["فاعل", "Sujet du verbe (fâ‘il)", "Sujeto del verbo (fá‘il)"],
+        mafool: ["مفعول به", "Complément d’objet", "Complemento directo"],
+        jarr: ["حرف جر", "Préposition", "Preposición"],
+        majrur: ["اسم مجرور", "Nom après une préposition", "Nombre tras una preposición"],
+        majrur_khabar: ["اسم مجرور · الخبر شبه جملة", "Après préposition : le khabar est un groupe prépositionnel", "Tras preposición: el jabar es un grupo preposicional"],
+        atf: ["حرف عطف", "Conjonction de coordination", "Conjunción"],
+        harf: ["حرف", "Particule", "Partícula"],
+        badal: ["بدل", "Apposition (badal)", "Aposición (badal)"],
+        naat: ["نعت", "Adjectif qualificatif (na‘t)", "Adjetivo (na‘t)"],
+        zarf: ["ظرف", "Complément de temps ou de lieu (ẓarf)", "Complemento de tiempo o lugar (ẓarf)"]
+      };
+      const SUB_LABELS = { pron: ["ضمير", "Pronom", "Pronombre"], dem: ["اسم إشارة / موصول", "Démonstratif / relatif", "Demostrativo / relativo"] };
 
       const PracticePrompts = {
         currentIndex: 0,
@@ -2474,8 +2549,9 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
             return `
               <div class="word-tag" style="border-top-color: var(--${pos.className});">
                 <span class="word">${item.raw}</span>
-                <span class="pos ${pos.className} ar-text">${pos.ar}</span>
-                <span class="pos-tr">${L(pos.fr, pos.es)}</span>
+                <span class="pos ${pos.className} ar-text">${item.sub ? SUB_LABELS[item.sub][0] : pos.ar}</span>
+                <span class="pos-tr">${item.sub ? L(SUB_LABELS[item.sub][1], SUB_LABELS[item.sub][2]) : L(pos.fr, pos.es)}</span>
+                ${item.role && ROLE_LABELS[item.role] ? `<span class="role-ar ar-text">${ROLE_LABELS[item.role][0]}</span><span class="role-tr">${L(ROLE_LABELS[item.role][1], ROLE_LABELS[item.role][2])}</span>` : ""}
               </div>
             `;
           }).join("");
@@ -2808,5 +2884,9 @@ if ('serviceWorker' in navigator) {
   }
 })();
 </script>
+<style>
+  .word-tag .role-ar{display:block;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(200,164,98,.6);font-family:'Amiri',serif;font-size:1.05rem;font-weight:700;color:#5D1828;}
+  .word-tag .role-tr{display:block;font-family:'Montserrat',sans-serif;font-size:.72rem;color:#8a6d3b;line-height:1.3;}
+</style>
 </body>
 </html>
