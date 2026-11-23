@@ -1490,6 +1490,15 @@ const SlateTools = (function () {
         <span class="section-title-es"><span data-fr="Analyse de la phrase" data-es="Análisis de la frase">Analyse de la phrase</span></span>
       </h2>
 
+      <div class="dak-trad">
+        <div class="dak-trad-title">ترجمة · <span data-fr="Tu ne sais pas encore écrire en arabe ? Écris en français, je traduis." data-es="¿Aún no sabes escribir en árabe? Escribe en español y lo traduzco.">Tu ne sais pas encore écrire en arabe ? Écris en français, je traduis.</span></div>
+        <div class="dak-trad-row">
+          <input type="text" id="dak-trad-input" class="analysis-input" dir="auto" autocomplete="off" aria-label="Phrase à traduire">
+          <button id="dak-trad-btn" class="btn-primary" type="button">ترجمة / <span data-fr="Traduire" data-es="Traducir">Traduire</span></button>
+        </div>
+        <div id="dak-trad-out" class="dak-trad-out" aria-live="polite"></div>
+      </div>
+
       <div class="analysis-input-group">
         <input
           type="text"
@@ -2876,5 +2885,84 @@ const SlateTools = (function () {
   .pen-size-btn.on .lbl{color:#5D1828;}
   @media (max-width:480px){.pen-size-btn{min-width:40px;height:40px;}.pen-size-btn .lbl{font-size:.56rem;}}
 </style>
+<style>
+  .dak-trad{background:#fbf6ec;border:1px solid rgba(200,164,98,.55);border-radius:18px;padding:16px;margin:0 0 18px;}
+  .dak-trad-title{font-family:'Montserrat',sans-serif;font-size:.85rem;color:#5D1828;font-weight:600;text-align:center;margin-bottom:10px;unicode-bidi:plaintext;}
+  .dak-trad-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .dak-trad-row input{flex:1 1 220px;min-width:0;}
+  .dak-trad-out{display:none;margin-top:14px;text-align:center;}
+  .dak-trad-out.on{display:block;}
+  .dak-trad-ar{font-family:'Amiri',serif;font-size:2rem;color:#5D1828;direction:rtl;line-height:1.6;}
+  .dak-trad-tr{font-family:'Montserrat',sans-serif;font-style:italic;color:#8a6d3b;font-size:.9rem;margin:2px 0 10px;}
+  .dak-trad-acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .dak-trad-note{font-family:'Montserrat',sans-serif;font-size:.72rem;color:#8a7a6b;margin-top:10px;}
+  #tags-container .word-tag{cursor:pointer;}
+  #tags-container .word-tag:hover{box-shadow:0 4px 14px rgba(93,24,40,.18);transform:translateY(-1px);}
+  .dak-tags-hint{font-family:'Montserrat',sans-serif;font-size:.78rem;color:#8a6d3b;text-align:center;margin-top:8px;}
+</style>
+<script>
+(function(){
+  var App = window.DarAlKalimahArdoisePremium; if (!App) return;
+  var _L = window.L || function(fr){ return fr; };
+  var inp = document.getElementById('dak-trad-input'), btn = document.getElementById('dak-trad-btn'), out = document.getElementById('dak-trad-out');
+  inp.placeholder = _L('Ex : Je m’appelle Sara · Aziz · J’aime ma maman', 'Ej.: Me llamo Sara · Aziz · Quiero a mi mamá');
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function trace(text){
+    text = String(text).replace(/[.,!?؟،؛:«»"()]/g, '').trim(); if (!text) return;
+    App.setMode('bank');
+    setTimeout(function(){
+      App.setWatermark(text, 'word');
+      var st = document.getElementById('slate-status');
+      if (st) { st.className = 'status-box warning'; st.style.display = 'block'; st.textContent = 'اكتب «' + text + '» على اللوح. / ' + _L('Écris « ' + text + ' » sur l’ardoise.', 'Escribe «' + text + '» en la pizarra.'); }
+      var c = document.getElementById('slate-canvas') || document.querySelector('canvas');
+      if (c) c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  }
+  async function translate(q){
+    try {
+      var r = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ar&dt=t&dt=rm&q=' + encodeURIComponent(q));
+      var j = await r.json(), ar = '', tr = '';
+      (j[0] || []).forEach(function(seg){ if (seg[0]) ar += seg[0]; else if (seg[2]) tr += seg[2]; });
+      if (ar) return { ar: ar.trim(), tr: tr.trim() };
+    } catch(e) {}
+    var src = (window.DAK_LANG === 'es') ? 'es' : 'fr';
+    var r2 = await fetch('https://api.mymemory.translated.net/get?langpair=' + src + '|ar&q=' + encodeURIComponent(q));
+    var j2 = await r2.json();
+    return { ar: (j2.responseData && j2.responseData.translatedText || '').trim(), tr: '' };
+  }
+  async function go(){
+    var q = inp.value.trim();
+    if (!q) { inp.focus(); return; }
+    btn.disabled = true; out.className = 'dak-trad-out on'; out.innerHTML = '<div class="dak-trad-tr">' + _L('Traduction en cours…', 'Traduciendo…') + '</div>';
+    try {
+      var res = await translate(q);
+      if (!res.ar) throw new Error('vide');
+      out.innerHTML = '<div class="dak-trad-ar">' + esc(res.ar) + '</div>' +
+        (res.tr ? '<div class="dak-trad-tr">' + esc(res.tr) + '</div>' : '') +
+        '<div class="dak-trad-acts"><button type="button" class="btn-primary" id="dak-trad-trace">✍️ ' + _L('Tracer sur l’ardoise', 'Trazar en la pizarra') + '</button></div>' +
+        '<div class="dak-trad-note">' + _L('Traduction automatique, sans harakat : en cas de doute, demande à ta prof.', 'Traducción automática, sin harakat: si tienes dudas, pregunta a tu profesora.') + '</div>';
+      document.getElementById('dak-trad-trace').onclick = function(){ trace(res.ar); };
+      var si = document.getElementById('sentence-input');
+      if (si) { si.value = res.ar; App.handleAnalyze(); }
+    } catch(e) {
+      out.innerHTML = '<div class="dak-trad-tr">' + _L('La traduction n’a pas marché. Vérifie ta connexion et réessaie.', 'La traducción no ha funcionado. Revisa tu conexión e inténtalo de nuevo.') + '</div>';
+    }
+    btn.disabled = false;
+  }
+  btn.addEventListener('click', go);
+  inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); go(); } });
+  // chaque mot analysé se trace d'un clic
+  var tags = document.getElementById('tags-container');
+  if (tags) {
+    tags.addEventListener('click', function(e){
+      var t = e.target.closest('.word-tag'); if (!t) return;
+      var w = t.querySelector('.word'); if (w) trace(w.textContent);
+    });
+    var hint = document.createElement('div'); hint.className = 'dak-tags-hint';
+    hint.textContent = _L('Clique sur un mot pour le tracer sur l’ardoise', 'Pulsa una palabra para trazarla en la pizarra');
+    tags.parentNode.insertBefore(hint, tags.nextSibling);
+  }
+})();
+</script>
 </body>
 </html>
