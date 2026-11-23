@@ -1249,6 +1249,7 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
   .form-card.active .la-form{color:#5D1828;}
   .dak-ico{display:inline-block;vertical-align:-0.125em;}
   .intro-card-body small,.challenge-hint small,.sentence-type small,.mini-note,.step-fr-es,.pos-tr{unicode-bidi:plaintext;}
+  .dak-top-right{display:flex;flex-direction:column;align-items:center;gap:10px;}
   .lang-switch{display:inline-flex;border:1.5px solid #C8A462;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);}
   .lang-switch button{border:0;background:transparent;color:#C8A462;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;padding:8px 14px;cursor:pointer;}
   .lang-switch button.on{background:#C8A462;color:#5D1828;}
@@ -1268,7 +1269,11 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
           var u = new URL(location.href); u.searchParams.set('lang', code); location.href = u.toString(); };
         sw.appendChild(b);
       });
-      top.insertBefore(sw, top.firstChild);
+      var col = document.createElement('div'); col.className = 'dak-top-right';
+      var home = document.getElementById('btn-back-home');
+      if (home) col.appendChild(home);
+      col.appendChild(sw);
+      top.insertBefore(col, top.firstChild);
     }
   });
 })();
