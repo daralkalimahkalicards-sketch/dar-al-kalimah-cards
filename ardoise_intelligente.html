@@ -2377,6 +2377,7 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
 
           DOM.bankSelect.addEventListener("change", (e) => {
             this.showBankWord(e.target.value);
+            this.syncAnalysisWith(e.target.value);
           });
 
           DOM.btnRandomLetter.addEventListener("click", () => this.pickRandomLetter());
@@ -2579,6 +2580,7 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
           this.state.mode = "bank";
           this.syncModeUI();
           this.showBankWord(word);
+          this.syncAnalysisWith(word);
           this.updatePrompt("random");
         },
 
@@ -2650,6 +2652,12 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
           );
         },
 
+        syncAnalysisWith(word) {
+          if (!word || !DOM.sentenceInput) return;
+          DOM.sentenceInput.value = word;
+          this.handleAnalyze();
+        },
+
         showBankWord(word) {
           if (!word) return;
 
@@ -2679,6 +2687,7 @@ window.pickFrEs = function(s){ if (!s) return s; var p = String(s).split(' / ');
             this.state.mode = "bank";
             this.syncModeUI();
             this.showBankWord(item.word);
+            this.syncAnalysisWith(item.word);
           } else if (item.type === "analysis") {
             DOM.sentenceInput.value = item.word;
             this.handleAnalyze();
