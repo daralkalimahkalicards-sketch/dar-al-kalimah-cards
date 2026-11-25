@@ -2681,6 +2681,20 @@ const SlateTools = (function () {
             return;
           }
 
+          // Pas d'arabe dans la phrase : on la fait traduire d'abord, puis l'analyse repart toute seule.
+          if (!/[\u0600-\u06FF]/.test(value) && !window.__dakTradEnCours) {
+            const ti = document.getElementById("dak-trad-input");
+            const tb = document.getElementById("dak-trad-btn");
+            if (ti && tb) {
+              window.__dakTradEnCours = true;
+              ti.value = value;
+              Utils.setStatus(DOM.analysisStatus, "warning", "الجملة ليست بالعربية. / Ce n’est pas de l’arabe — je traduis d’abord. / No está en árabe — traduzco primero.");
+              tb.click();
+              return;
+            }
+          }
+          window.__dakTradEnCours = false;
+
           const analysis = AnalysisEngine.analyze(value);
           if (!analysis) return;
 
@@ -3052,6 +3066,21 @@ const SlateTools = (function () {
   async function go(){
     var q = inp.value.trim();
     if (!q) { inp.focus(); return; }
+
+    // Deja ecrit en arabe : inutile de traduire, on envoie directement a l'analyse.
+    if (/[\u0600-\u06FF]/.test(q)) {
+      var siAr = document.getElementById('sentence-input');
+      out.className = 'dak-trad-out on';
+      out.innerHTML = '<div class="dak-trad-ar">' + q + '</div><div class="dak-trad-tr">' + _L('C’est déjà de l’arabe — je passe directement à l’analyse.', 'Ya está en árabe — paso directamente al análisis.') + '</div>';
+      if (siAr) {
+        window.__dakTradEnCours = false;
+        siAr.value = q;
+        App.handleAnalyze();
+        var zone = document.getElementById('analysis-result');
+        if (zone) setTimeout(function(){ zone.scrollIntoView({ behavior:'smooth', block:'start' }); }, 120);
+      }
+      return;
+    }
     btn.disabled = true; out.className = 'dak-trad-out on'; out.innerHTML = '<div class="dak-trad-tr">' + _L('Traduction en cours…', 'Traduciendo…') + '</div>';
     try {
       var res = await translate(q);
